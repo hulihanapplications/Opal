@@ -18,6 +18,7 @@ vendor/rails
 !public/themes/white_square
 !public/themes/fracture
 !public/themes/vault
+public/themes/*
 
 # Remove Any User-Uploaded Images or Files
 public/images/item_images/*

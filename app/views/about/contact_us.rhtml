@@ -1,0 +1,59 @@
+<table align=center style="width:100%">
+ <tr>
+  <td align=left class="sidebar_column" valign=top>
+  	<div class="box_style_1">
+		<%= render :partial => "about/menu" %>
+	</div>
+  </td>
+  <td align=left valign=top >
+   <div class="box_style_2" align=center >
+
+	<h1 class="title">Contact Us</h1>
+	<div class="spacer"></div>
+	Feel Free to contact us about anything!<br><br>
+	<table >
+	 <tr>
+	  <td valign=top>
+	
+	   <table width="100%" cellpadding=0 cellspacing=0>
+	    <tr>
+	     <td valign=top align=left>
+	  	  <div class="box_style_1a" align=center style="padding:10px;">
+		   <% form_tag :action => "send_contact_us" do |f| %>
+			 <table>
+				 <tr>
+				 	<td align=left>Name</td>
+					<td align=left><input type="text" name="name" style="width:100%"></td>
+				 </tr>
+				 <tr>
+				 	<td align=left>Email Address</td>
+					<td align=left><input type="text" name="email" style="width:100%"></td>
+				 </tr>
+				 <tr>
+				 	<td align=left>Message</td>
+				 	<td align=left><textarea name="message" style="width:100%"></textarea></td>			 
+				 </tr>
+	  	         <tr>
+	  	         	<td align=left>Verification Code</td>
+		         	<td align=left><%= show_simple_captcha %></td>
+				</tr>
+			     <tr><td align=center colspan=2><br><%= submit_tag "Send Message" %></td></tr>
+			 </table>
+		    <% end %>
+			 </div>
+		 </td>
+		</tr>
+	   </table>
+	  	
+	  </td>
+	 </tr>
+	</table>	
+
+
+
+   </div>
+  </td> 
+ </tr>
+</table>
+
+

@@ -1,0 +1,11 @@
+<% if @items %>		
+	<%= render :partial => "main_content_top_bar" %>	
+	<div class="new_items" style="margin-bottom:5px">
+		<!-- <div align=center><h2 class="title">New to <%= @setting[:title] %></h2></div> -->
+		<%= render :partial => "items/list_items", :locals => {:items => @items } %>
+	</div>
+	<div align=center class="will_paginate">
+		<%= page_entries_info @items, :entry_name => @setting[:item_name] %>	
+		<%= will_paginate @items %>
+	</div>		
+<% end %>

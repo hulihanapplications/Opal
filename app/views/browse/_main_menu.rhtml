@@ -1,0 +1,67 @@
+          <%# Main Menu %>
+			<table cellpadding=0 cellspacing=0>
+			 <tr>
+			  <td>
+
+			       <% if params[:controller] == "browse"  && params[:action] == "index" %>
+				 		<div class="main_menu_item_selected" >
+			       <% else %>
+		  				<div class="main_menu_item" id="main_menu_item_home" onmouseover="focus_main_menu_item('main_menu_item_home')" onmouseout="blur_main_menu_item('main_menu_item_home')">
+			       <% end %>
+						   		<div><%= link_to "home", {:action => "index", :controller => "browse" } %></div>
+				   		</div>
+
+			  </td>
+			  <td><div style="width:10px"></div></td>
+			  <td>
+			       <% if (params[:controller] == "items") %>
+				 		<div class="main_menu_item_selected" >
+			       <% else %>
+		  				<div class="main_menu_item" id="main_menu_item_browse" onmouseover="focus_main_menu_item('main_menu_item_browse')" onmouseout="blur_main_menu_item('main_menu_item_browse')">
+			       <% end %>
+						   		<div><%= link_to "#{@setting[:item_name_plural]}", {:action => "index", :controller => "items" } %></div>
+				   		</div>
+			  </td>
+			  <td><div style="width:10px"></div></td>
+			  <% if Setting.get_setting_bool("section_blog") %>
+				  <td>
+	
+				       <% if params[:controller] == "blog" %>
+					 		<div class="main_menu_item_selected" >
+				       <% else %>
+			  				<div class="main_menu_item" id="main_menu_item_blog" onmouseover="focus_main_menu_item('main_menu_item_blog')" onmouseout="blur_main_menu_item('main_menu_item_blog')">
+				       <% end %>
+							   		<div><%= link_to "blog", {:action => "index", :controller => "blog" } %></div>
+					   		</div>
+	
+				  </td>
+				  <td><div style="width:10px"></div></td>			  
+			  <% end %>
+			  <% if Setting.get_setting_bool("section_about") %>			  			  
+				  <td>
+				       <% if params[:controller] == "about" %>
+					 		<div class="main_menu_item_selected" >
+				       <% else %>
+			  				<div class="main_menu_item" id="main_menu_item_about" onmouseover="focus_main_menu_item('main_menu_item_about')" onmouseout="blur_main_menu_item('main_menu_item_about')">
+				       <% end %>
+							   		<div><%= link_to "about", {:action => "index", :controller => "about" } %></div>
+					   		</div>
+	
+				  </td>
+				  <td><div style="width:10px"></div></td>
+			   <% end %>
+			  <% if Setting.get_setting_bool("section_forum") %>			  			  
+				  <td>
+				       <% if params[:controller] == "forum" %>
+					 		<div class="main_menu_item_selected" >
+				       <% else %>
+			  				<div class="main_menu_item" id="main_menu_item_forum" onmouseover="focus_main_menu_item('main_menu_item_forum')" onmouseout="blur_main_menu_item('main_menu_item_forum')">
+				       <% end %>
+							   		<div><%= link_to "forum", {:action => "index", :controller => "forum" } %></div>
+					   		</div>
+
+				  </td>
+				  <td><div style="width:10px"></div></td>
+			   <% end %>			   
+			 </tr>
+			</table>

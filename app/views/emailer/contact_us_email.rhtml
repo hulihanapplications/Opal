@@ -1,0 +1,9 @@
+<% if @display == "html" %>
+
+<% elsif @display == "plain" %>
+	From: <%= @from %> (<%= @name %>)
+	Time: <%= Time.now %>
+	Ip: <%= @ip %>
+	
+	Message: <%= @message %>
+<% end %>

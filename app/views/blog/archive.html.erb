@@ -1,0 +1,26 @@
+<div align=center>
+	 <h2 class="title"><%= @date.strftime("%B") %> <%= @date.strftime("%Y") %></h2>
+	 <div class="spacer"></div> 
+</div>
+<br>
+
+<table align=center style="width:100%">
+ <tr>
+  <td align=left class="sidebar_column" valign=top>
+  	<div class="box_style_1">
+		<%= render :partial => "menu" %>
+	</div>
+  </td>
+  <td align=left valign=top >
+   <div>
+		<%= render :partial => "blog/list_pages", :locals => {:pages => @pages} %>
+   </div>
+   <div align=center>
+ 	 		<%= page_entries_info @pages, :entry_name => "Pages" %>							
+			<br>
+			<%= will_paginate @pages %>	  	
+   </div>
+	   
+  </td> 
+ </tr>
+</table>

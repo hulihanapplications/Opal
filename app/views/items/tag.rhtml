@@ -1,0 +1,7 @@
+<%= render :partial => "browse/main_content_top_bar" %>
+
+<h1><%=h @tag %> <%= @setting[:item_name_plural] %></h1>
+
+<%= @items.size %> <%= @setting[:item_name_plural] %>
+<%= render :partial => "items/list_items", :locals => {:items => @items } %>
+<br>

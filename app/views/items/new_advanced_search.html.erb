@@ -1,0 +1,10 @@
+<div align=center>
+	<h2>Advanced <%= @setting[:item_name] %> Search</h2>
+	
+	<%= form_remote_tag  :update => "results", :url => { :controller => "items", :action => "advanced_search" }, :loading => "loading('results')" %>
+		<%= render :partial => "advanced_search_form" %>
+	</form>
+	<br>
+	<div id="results">
+	</div>
+</div>

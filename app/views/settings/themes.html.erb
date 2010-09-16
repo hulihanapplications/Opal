@@ -1,0 +1,112 @@
+<table align=center style="width:100%" cellpadding=0 cellspacing=0>
+	 <tr>
+	  <td align=left class="sidebar_column" valign=top style="padding:0px;text-align:center">
+			<%= render :partial => "/settings/menu" %>
+
+	  </td>
+	  <td style="width:5px;">
+	  	
+	  </td>
+	  <td align=left valign=top >
+					<div class="plugin_box">
+							<div class="title">
+								Themes
+							</div>
+							The visual layout for <%= @setting[:title] %>.
+					</div>	
+					<br>
+					<ul class="plugin_tabs_horizontal"> 
+						    <li><a href="#Themes">Themes</a></li> 
+						    <li><a href="#InstallTheme">Install Theme</a></li> 																																					
+					</ul>			
+					<div class="plugin_panes_horizontal"> 							
+						<div>
+							<% form_tag ({:action => "update_settings"}) do %>
+
+				
+								<table width="100%" cellpadding=0 cellspacing=0  class="setting_table row_table">	
+								 <% for theme in @themes %>
+									 <% @class = cycle("row_a", "row_b") %>
+									 <tr class="<%= @class %>">
+									  <td style="width:100px;height:100px;vertical-align:middle" align=center>
+									  	<% screenshot = "/themes/#{theme}/screenshot.png" %>
+									  	<% screenshot_thumbnail = "/themes/#{theme}/screenshot_thumbnail.png" %>
+									  	<% if File.exists?(RAILS_ROOT + "/public" + screenshot)%>
+									 			    <a href="<%= screenshot %>" rel="colorbox" title="Theme Preview">
+													    <img alt="<%= theme %>" class="thumbnail" src="<%= screenshot_thumbnail %>" />
+													</a>
+										<% else %>
+											No Screenshot Available.
+										<% end %>
+									  </td>
+									  <td align=left style="padding-left:10px;vertical-align:middle">
+									  	
+									  		<% theme_config_file  = RAILS_ROOT + "/public" + "/themes/#{theme}/theme.yml" %>
+									  		<% if File.exists?(theme_config_file)%>
+												
+												<% theme_file = YAML::load(File.open(theme_config_file)) %>
+												<%#= theme_file.inspect %>
+												<h2 class="title"><%= h theme_file["theme"]["name"] %></h2>
+												<i><%= h theme_file["theme"]["description"] %></i><br>
+												<div class="spacer"></div>							
+												by <a href="<%= h theme_file["theme"]["author_website"] %>" target="_blank"><b><%= h theme_file["theme"]["author"] %></b></a><br>
+					 							Version: <b><%= h theme_file["theme"]["version"] %></b> 
+					
+												<img src="/themes/<%= @setting[:theme] %>/images/icons/link.png" class="icon" alt="" >							
+												<a href="<%= h theme_file["theme"]["theme_website"] %>" target="_blank"><b>Theme Website</b></a>
+												<img src="/themes/<%= @setting[:theme] %>/images/icons/delete.png" class="icon" alt="" title="delete" >
+												<%= link_to "Delete", {:action => "delete_theme", :controller => "settings", :theme => theme}, :confirm => "Are you sure?" %>							
+								
+												
+									  		<% else %>
+									  			<h2 class="title"><%= theme %></h2>
+											<% end %>
+									  	
+									  </td>
+									  <td align=right style="padding-right:20px;vertical-align:middle">
+										<input type="radio" name="setting[theme]" value="<%= theme %>" <% if theme == @setting[:theme] %>CHECKED<% end %>>
+									  </td>
+									 </tr>
+								 <% end %>
+								</table>
+								<div align=center style="margin-top:5px;"><%= submit_tag "Save" %></div>																																								
+							<% end %>	
+						</div>		
+						<div>
+							<h2 class="title">Install New Theme</h2>
+							<div class="spacer"></div>
+							This will install a new theme into <%= @setting[:title] %>.<br><br>
+							<div class="box_style_2" align=center>
+								<% form_tag ({:action => "install_theme"}, :multipart => true) do %>
+								   <table>
+									   	<tr>
+									   		<td valign=top>
+									   			<div class="box_style_2a">
+										   			<table>
+										   				<tr>
+										   					<td><img src="/themes/<%= @setting[:theme] %>/images/icons/computer.png" class="icon"> From Your Computer</td>
+															<td><input name="file" id="image_file" type ="file" onfocus = "focus_input('image_file')" onblur = "blur_input('image_file')"></td>
+										   				</tr>
+										   				<tr>
+										   					<td colspan=2 align=center>or</td>
+										   				</tr>
+										   				<tr>
+										   					<td><img src="/themes/<%= @setting[:theme] %>/images/icons/web.png" class="icon"> From The Web(URL)</td>
+															<td><input name="url" id="image_url" type="text" onfocus = "focus_input('image_url')" onblur = "blur_input('image_url')"></td>
+										   				</tr>								
+										   			</table>
+												</div>
+									   		</td>
+									   	</tr>							
+									   </table>
+									   <br>
+									   <input type="submit" value="Upload Theme">					
+								<% end %>									
+							</div>
+										
+						</div>
+			</div>
+	  </td> 
+	 </tr>
+</table>
+

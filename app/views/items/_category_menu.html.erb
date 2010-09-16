@@ -1,0 +1,47 @@
+<% 
+	options ||= Hash.new
+	options[:category] ||= nil # no category by default, show all
+%>
+	<% if options[:category] %>
+		<% @category = options[:category] %>
+		<table cellpadding=0 cellspacing=0 style="width:100%">
+			<tr>
+				<td align=left  style="vertical-align:middle">
+						<h2 class="title"><%= @category.name %></h2>
+				</td>
+				<% if @logged_in_user.id != 0 %>				
+					<td align=right style="width:105px;vertical-align:middle">
+							<img src="/themes/<%= @setting[:theme] %>/images/icons/new.png" alt="New" title="New" border=0 class="icon">
+							<%= link_to "New #{@setting[:item_name]}", {:action => "new", :controller => "items", :id => @category.id}, :title => "Add a new #{@category.name} #{@setting[:item_name]}" %>
+					</td>	
+				<% end %>											
+			</tr>			
+		</table>
+		<div class="spacer"></div>
+		<% for category in @category.child_categories %>
+			<%= descend_category(category, :include_children => @setting[:include_child_category_items], :show_item_count => true, :depth => 1)  %>
+		<% end %>			
+		<%= "No Subcategories Found." if @category.child_categories.size == 0 %>
+	<% else %>
+		<table cellpadding=0 cellspacing=0 style="width:100%">
+			<tr>
+				<td align=left  style="vertical-align:middle">
+					<h2 class="title"><%= @setting[:item_name_plural] %></h2>
+				</td>
+				<% if @logged_in_user.id != 0 %>
+					<td align=right style="width:105px;vertical-align:middle">
+							<img src="/themes/<%= @setting[:theme] %>/images/icons/new.png" alt="New" title="New" border=0 class="icon">
+							<%= link_to "New #{@setting[:item_name]}", {:action => "new", :controller => "items"}, :title => "Add a new #{@setting[:item_name]}" %>						
+					</td>	
+				<% end %>												
+			</tr>			
+		</table>	
+		<div class="spacer"></div>		
+		<% for category in Category.get_parent_categories %>
+			<%= descend_category(category, :include_children => @setting[:include_child_category_items], :show_item_count => true, :depth => 1)  %>		
+		<% end %>	
+	<% end %>
+
+
+
+

@@ -1,0 +1,9 @@
+# Fracture  Theme for Opal - Hulihan Applications
+theme:
+    name: Fracture
+    description: A simple, elegant grey theme.
+    version: 0.3.5
+    author: Hulihan Applications
+    author_website: http://www.hulihanapplications.com
+    theme_website: http://www.hulihanapplications.com/projects/opal
+    

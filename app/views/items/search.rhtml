@@ -1,0 +1,10 @@
+<%= render :partial => "browse/main_content_top_bar" %>
+
+<h1>Searching for <%= h @search_for %></h1>
+
+
+<%= page_entries_info @items, :entry_name => @setting[:item_name] %>
+<%= render :partial => "items/list_items", :locals => {:items => @items } %>
+
+<%= will_paginate @items, :params => {:search_for => @search_for } %>
+<br>

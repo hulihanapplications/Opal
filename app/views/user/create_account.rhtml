@@ -1,0 +1,35 @@
+
+
+<div style="" align=center>
+
+<h1>Congrats! Your account has been created!</h1>
+<br>
+<h3>What can I do now?</h3>
+<table style="text-align:center">
+ <tr>
+  <td>
+   <%= link_to "Create a New #{@setting[:item_name]}", {:action => "new_item", :controller => "/user"},  :class => "big_link" %> <br>
+   <div>Get started by creating a new <%= @setting[:item_name] %></div>
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <%= link_to "Learn more about #{@setting[:title]}", {:action => "index", :controller => "/about"},  :class => "big_link" %> <br>
+   <div>Learn all about <%= @setting[:title] %>.</div>
+  </td>
+ </tr> 
+ <tr>
+  <td>
+	<a href="http://www.hulihanapplications.com/projects/opal_guide#user_section" onclick="window.open(&quot;http://www.hulihanapplications.com/projects/opal_guide#user_section&quot;, &quot;&quot;, &quot;resizable=yes, location=no, width=400, height=640, menubar=no, status=no, scrollbars=yes&quot;); return false;" class="big_link">
+		Opal User Guide
+	</a>
+   <div><%= @setting[:title] %> runs on <a href="http://www.hulihanapplications.com/projects/opal"><b>Opal</b></a> by <a href="http://www.hulihanapplications.com" target="_blank"><b>Hulihan Applications</b></a>.<br> Learn how to use its interface, add and edit <%= @setting[:item_name_plural] %>, and other cool stuff you can do.</div>
+  </td>
+ </tr>
+ <tr><td><%= link_to "Go To My Account", {:action => "index", :controller => "user"},  :class => "big_link" %></td></tr>
+</table>
+
+
+
+
+</div>

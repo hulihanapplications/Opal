@@ -1,0 +1,48 @@
+<table align=center style="width:100%" cellpadding=0 cellspacing=0>
+	 <tr>
+	  <td align=left class="sidebar_column" valign=top style="padding:0px;text-align:center">
+			<%= render :partial => "/tools/menu" %>
+
+	  </td>
+	  <td style="width:5px;">
+	  	 
+	  </td>
+	  <td align=left valign=top >
+			<h1 class="title">Import</h1>
+	  		<div class="spacer"></div>
+			Import Items from a file directly into <%= @setting[:title] %>. You can also select a category to import these items to.
+			<br><br>
+			<% form_tag ({:action => "do_import"}, :multipart => true) do %>
+			   <table>
+				   	<tr>
+				   		<td valign=top>
+				   			<div class="box_style_2">
+				   				<%= render :partial => "shared/upload_form" %>
+				   			</div>
+				   		</td>
+						<td class="sidebar_column">
+							<div class="box_style_1" style="margin-bottom:5px">
+								<h2>Format</h2>
+								<div class="spacer"></div>
+								<input type="radio" name="format" value="csv" CHECKED> CSV (Comma Separated)  <br>
+								<!--<input type="radio" name="format" value="excel"> Excel <br>-->									
+							</div>							
+				   			<div class="box_style_1">
+								<h2>Category</h2>
+								<div class="spacer"></div>
+								<% for category in Category.get_parent_categories  %>
+									<%= descend_category(category, :include_children => @setting[:include_child_category_items], :make_radio_button => true, :truncate_length => 35)  %>
+								<% end %>														   				
+				   			</div>						
+						</td>
+				   	</tr>							
+			   </table>
+			   <br>
+			   <div align=center>
+			   		<input type="submit" value="Upload">	
+			   </div>
+			<% end %>
+
+	  </td> 
+	 </tr>
+</table>

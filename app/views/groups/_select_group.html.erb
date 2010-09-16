@@ -1,0 +1,10 @@
+<% 
+	# Set Defaults
+	options ||= Hash.new
+	options[:id_to_select] ||= 0 
+%>
+<select name="group_id">
+	<% for group in groups %>
+		<option value="<%= group.id%>" <%= "SELECTED" if group.id == options[:id_to_select] %> ><%= truncate(group.name, :length => 20) %></option>
+	<% end %>
+</select>

@@ -1,0 +1,296 @@
+/* 
+	White Square Theme For Opal 
+*/
+
+/* Links */
+a:visited, a:link{ color:#17505F;text-decoration:none; } a:hover{text-decoration:underline; }
+a.about_link:visited, a.about_link:link { color:#358F08;text-decoration:none;font-size:10px;font-style:italic }a.about_link:hover{font-style:normal;}
+a.category_link:visited, a.category_link:link { color:white;text-decoration:none;font-size:12px }a.category_link:hover{text-decoration:underline;}
+a.user_link:visited, a.user_link:link { color:white;text-decoration:none;font-size:10px }a.user_link:hover{color:#C8FFBF }
+a.big_link:visited, a.big_link:link{font-size:22px;}
+a.big_link:hover{font-size:22px;color:#17505F}
+.main_menu a:visited, .main_menu a:link{color:#367D92;text-decoration:none;font-size:18px;} .main_menu a:hover{color:#17505F;text-decoration:none;font-size:18px;}
+.item_box_detailed div.title a:visited, .item_box div.title a:link{text-decoration:none}
+.item_box_detailed div.title a:hover{color:#36699C;text-decoration:none;}
+a.plugin_title_link:visited,a.plugin_title_link:link {color:#367D92;}
+a.plugin_title_link:hover{color:#17505F;text-decoration:none;}
+.plugin_box div.title a:hover{text-decoration:none;}/* Dave: for some reason, the area anchor <a name="Images">Images</a> are having ugly hover effects */
+
+/* Images */
+img.thumbnail, img.pinky:hover{border:1px solid #75B0C0;opacity:0.90;filter:alpha(opacity=90);-moz-opacity:0.9;-khtml-opacity: 0.9;}
+img.thumbnail:hover, img.pinky:hover{border:1px solid #75B0C0;opacity:1.00;filter:alpha(opacity=100);-moz-opacity:1.0;-khtml-opacity: 1.0}
+img.list_type{border:0px solid #17505F;opacity:0.70;padding:3px;filter:alpha(opacity=70);-moz-opacity:0.7;-khtml-opacity: 0.7;}
+img.list_type:hover, img.list_type_selected{border:1px solid #75B0C0;background:#DEF2F8;padding:2px;opacity:1.00;filter:alpha(opacity=100);-moz-opacity:1.0;-khtml-opacity: 1.0;;-moz-border-radius: 3px;-webkit-border-radius: 3px;}
+img.avatar_normal{border:1px solid #17505F}
+img.avatar_small{width:50px;height:50px;border:1px solid #17505F}
+img.avatar_tiny, img.pinky{width:20px;height:20px;border:1px solid #17505F;vertical-align:middle;}
+img.loading{margin:2px;background:#DFF7FF;padding:5px;border:1px solid #8BCBDF}
+
+/* Main HTML Tags */
+body{background:url(/themes/white_square/images/body_bg.png) repeat-x white;font-family:Trebuchet MS;margin:0px;font-size:12px;color:#17505F}
+h1, h2, h3, h4, h5, h6{margin:0px;padding:0px}
+h2{font-size:18px}
+ul#sortable_list{margin:0px;padding:0px;}
+input, select, textarea{color:#224386;border:1px solid #17505F;;background:url(/themes/white_square/images/box/solid/light_blue_to_white.png) repeat-x white;background-color:#9EACC8;;font-family:Trebuchet MS;;-moz-border-radius: 3px;-webkit-border-radius: 3px}
+select{background-color:#DEF2F8}
+input.selected, select.selected, textarea.selected{color:#224386;border:1px solid #62A0AF;background:#EFFBFF;font-family:Trebuchet MS;;-moz-border-radius: 3px;-webkit-border-radius: 3px}
+input.big{font-size:24px;}
+.setting_table input, select, textarea{}
+.setting_table input.selected, select.selected, textarea.selected{color:#224386;border:1px solid #62A0AF;background:#EFFBFF;font-family:Trebuchet MS;}
+
+textarea{overflow:auto;}
+td{vertical-align:top;}
+
+/* Style for the main table, logo, the top menu, very bottom, and very middle(main_inner_*) goes in .main_middle */
+.browse_box{margin: 0px 0px 10px 0px;}
+	.browse_box_top{background:url(/themes/white_square/images/browse_box_top.png) repeat-y;height:30px;width:785px;text-align:center;}
+		.browse_box_top h2{padding-left:22px;}
+	.browse_box_middle{background:url(/themes/white_square/images/browse_box_middle.png) repeat-y;width:785px;text-align:left}
+	.browse_box_bottom{background:url(/themes/white_square/images/browse_box_bottom.png) no-repeat;width:785px;height:30px;text-align:center;}
+.main_logo{margin-top:85px;margin-left:35px;} /* .main_logo and .main_menu are in the same table, so their positions affect eachother */
+.main_menu{margin-top:188px;margin-right:45px;}
+	.main_menu_item{background:url(/themes/white_square/images/main_menu/main_menu_item_unselected.png) repeat-x;width:93px;text-align:center;}
+	.main_menu_item_selected{background:url(/themes/white_square/images/main_menu/main_menu_item_selected.png) repeat-x;width:93px;text-align:center;}
+.main_menu_item_hover{background:url(/themes/white_square/images/main_menu/main_menu_item_hover.png) repeat-x;width:93px;text-align:center;}
+.main_table{width:900px;}
+.main_table_top{background:url(/themes/white_square/images/main_bg_top.png) no-repeat;border-bottom:0px solid #5B71A0;height:211px;} 
+.main_table_middle{background:url(/themes/white_square/images/main_bg_middle.png) repeat-y;padding-left:16px} 
+	/* Style for the inner table, content & stuff */
+	.main_inner_top{ background:url(/themes/white_square/images/main_inner_top.png) no-repeat;height:45px;}
+	.main_inner_middle{ background:url(/themes/white_square/images/main_inner_middle.png) repeat-y;padding-left:10px;padding-right:27px;} /* Contains margin & padding for main content(non-menu stuff) */
+		.main_inner_middle #main_content{}
+			.main_content_top_bar{}
+	.main_inner_bottom{ background:url(/themes/white_square/images/main_inner_bottom.png) no-repeat;height:50px;}
+.main_table_bottom{background:url(/themes/white_square/images/main_bg_bottom.png) no-repeat;border-bottom:0px solid #5B71A0;height:162px;} 
+.sidebar_column{width:230px;margin-left:5px;} /* for boxes(category, tag, about) in browse box and homepage */
+	.sidebar_column #category_menu{}
+	.sidebar_column #about_menu{}
+
+/* Item Lists */
+.item_box_simple{margin-bottom:15px;padding-bottom:15px;border-bottom:1px solid #8EC1CF;}
+		.item_box_simple td.thumbnail{width:185px;}
+			.item_box_simple div.thumbnail{margin-right:5px;}
+			.item_box_simple div.title{font-size:30px;text-align:left;margin:0px;padding:0px;}
+	.item_box_simple div.item_details{display:none}
+
+.item_box_detailed{/*width:580px;*/background:url(/themes/white_square/images/box/solid/light_blue_to_white.png) repeat-x white;border:1px solid #75B0C0;padding:5px;;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:5px;text-align:left;}
+	.item_box_detailed table{margin:0px 0px 0px 0px;padding-top:0px;width:100%}
+		.item_box_detailed td.thumbnail{width:185px;}
+			.item_box_detailed div.thumbnail{margin-right:5px;}	
+		.item_box_detailed td.details{}
+			.item_box_detailed div.title{font-size:30px;text-align:left;margin:0px;padding:0px;text-shadow:1px 1px 2px #5F8FBF;}
+			.item_box_detailed div.date{font-size:12px;text-align:right;margin-left:0px;width:100%;font-weight:bold}
+			.item_box_detailed div.description{font-size:12px;;text-align:left;}
+			.item_box_detailed div.spacer{border-bottom:1px solid #A7D0DF;margin-bottom:2px;margin-top:2px;}
+	
+.item_box_photo{margin:0px 2px 20px 2px;width:196px;text-align:center;float:left} /* Used in Photo List */
+	.item_box_photo div.title{font-size:16px;}
+	.item_box_photo .thumbnail_box{text-align:center;}
+.item_box_small{} /* Used in Small List */
+	.item_box_small .title{width:350px}
+	.item_box_small td{padding:2px;vertical-align:middle}
+
+/* Item Viewing */
+.item_header_box{text-align:left}
+.item_header_box table{width:100%}
+.item_header_box td{vertical-align:top}
+.item_header_box div.item_title_box{width:525px}
+	.item_header_box div.item_title_box .name{font-size:30px;text-shadow:1px 1px 2px #8BB5DF;}	
+	.item_header_box div.item_title_box #edit_name{font-size:30px;text-shadow:1px 1px 2px #8BB5DF;}	
+	div.item_info_box {width:230px;background:url(/themes/white_square/images/bgs/white_to_trans_white.png) repeat-x;padding:10px;text-align:center;;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-right:0px;margin-bottom:10px;}
+		.item_info_box div.item_user_box {text-align:center}
+		.item_info_box div.spacer {border-bottom:1px solid #A7D0DF;margin-bottom:2px;margin-top:2px;}
+.item_title_box table{width:100%}
+.item_title_box td{vertical-align:bottom}
+.item_title_box div.title{font-size:30px;}
+.item_title_box div.date{font-size:12px;text-align:right;margin-left:0px;width:100%;}
+.item_title_box div.description{font-size:12px;padding-left:3px;}
+
+
+.plugins{}
+.plugins table{width:100%}
+.plugins td{vertical-align:top;text-align:left;}
+.plugins .plugin_box{margin-bottom:20px;}
+	.plugin_box div.title{font-size:24px;border-bottom:1px solid #A7D0DF;;margin-bottom:5px;}
+	.plugin_box div.images{}
+		.plugin_box div.images div.image{float:left;text-align:center;margin:5px;padding:2px;}
+	.plugin_box div.descriptions{}
+		.plugin_box div.descriptions div.description{}
+			.plugin_box div.descriptions div.description .title{font-size:24px;border:0px;padding:0px;margin:0px;}
+			.plugin_box div.descriptions div.description .content{font-size:12px;margin-bottom:20px;}
+	.plugin_box div.features{padding-left:20px;}
+	.plugin_box div.reviews{}
+		.plugin_box div.reviews td{vertical-align:top;text-align:center}
+		.plugin_box div.reviews td.user_column{width:55px;;text-align:center;padding-top:18px;}		
+		.plugin_box div.reviews div.user_box{}
+		.plugin_box div.reviews div.review_box{background-position:left;min-height:107px;background:url(/themes/white_square/images/comment_bg.png) no-repeat;padding-left:5px;padding-top:10px;text-align:center;}
+				.plugin_box div.reviews div.review_box div{padding:0px 5px 0px 20px;}
+		.plugin_box img.review_icon{margin-top:6px;}
+			.plugin_box .new_review_box a:visited, .plugin_box div.new_review_box a:link{color:white}
+			.plugin_box .new_review_box a:hover{text-decoration:none;color:#D6EBF2}
+			.plugin_box .new_review_box div.score_box{color:#224386;border:1px solid #17505F;background:url(/themes/white_square/images/box/solid/light_blue_to_white.png) repeat-x white;background-color:#9EACC8;;font-family:Trebuchet MS;padding:3px;width:147px;height:60px;}
+	.plugin_box div.comments{}
+	.plugin_box div.links{padding-left:20px;}
+	.plugin_box div.tags{padding-left:20px;}
+	.plugin_box div.files{padding-left:20px;}
+	
+
+/* Comments & Posts */
+div.comments
+div.comments table{width:100%}
+div.comments td{vertical-align:top;text-align:center}
+	div.comments td.user_column{width:60px;}
+		div.comments div.user_box{padding-top:18px;}
+	div.comments td.comment_column{width:100%}		
+		div.comments div.comment_box_from_owner{background-position:left;min-height:107px;background:url(/themes/white_square/images/comment_bg_from_owner.png) no-repeat;padding-left:5px;padding-top:10px;text-align:center;}
+			div.comments div.comment_box_from_owner div{padding:0px 15px 0px 36px;}	
+		div.comments div.comment_box{background-position:left;min-height:107px;background:url(/themes/white_square/images/comment_bg.png) no-repeat;padding-left:5px;padding-top:10px;text-align:center;}
+			div.comments div.comment_box div{padding:0px 15px 0px 36px;}		
+div#new_comment_box a:visited, div.new_comment_box a:link{color:white}
+div#new_comment_box a:hover{text-decoration:none;color:#D6EBF2}
+
+
+/* Box Styles for different Box types */
+.box_style_1{background:url(/themes/white_square/images/box/solid/dark_blue_to_light_blue.png) repeat-x #6699CC;border:1px solid #336699;padding:5px;color:white;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
+	.box_style_1 a:visited, .box_style_1 a:link{color:white} 	.box_style_1 a:hover{color:#B9E3F1;text-decoration:none}
+	.box_style_1 h1.title, .box_style_1 h2.title, .box_style_1 h3.title{text-shadow:1px 1px 2px black;}
+	.box_style_1 div.spacer{border-bottom:1px solid #81A8CF}
+.box_style_2{border:1px solid #86C0D1;background:url(/themes/white_square/images/bgs/white_to_trans_white.png) repeat-x ;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;color:#17505F}
+	.box_style_2 h1.title, .box_style_2 h2.title, .box_style_2 h3.title{text-shadow:1px 1px 2px #8BB5DF;}
+
+/* Categories */ 
+.categories_top{background:url(/themes/white_square/images/categories/categories_top.png) no-repeat;height:57px;}
+.categories_middle{background:url(/themes/white_square/images/categories/categories_middle.png) repeat-y;padding:3px}
+.categories_bottom{background:url(/themes/white_square/images/categories/categories_bottom.png) no-repeat;height:46px}
+
+/* Titles */
+h1.title, h2.title, h3.title{text-shadow:1px 1px 2px #8BB5DF;}
+
+/* Other */
+.plugin_hover{border-bottom:2px dashed #F89736; background:url(/themes/white_square/images/bgs/white_to_trans_white.png) repeat-x;}
+.plugin_unselected{border-bottom:2px dashed #88C0D2}
+.search_box{font-size:12px;padding-left:20px;text-align:left}
+.login_box{font-size:12px;}
+	.login_box td{vertical-align:middle;}
+.signup_button{padding:0px 3px 0px 3px;background:#A5D9EA;border:1px solid #336699;font-weight:bold;}
+.preloaded_images{display:none}
+.dark_input{border:1px solid #224386;background:#224386;font-family:Trebuchet MS;font-size:14px;font-weight:bold;color:white}
+.row_table{border:1px solid #86C0D1;-moz-border-radius: 5px;-webkit-border-radius: 5px}
+	.row_a{background-color:#E1F3F9}
+	.row_b{background-color:#B9E3F1}
+	.row_table td{padding:2px;vertical-align:middle}
+	.row_table th{font-weight:bold;background:#86C0D1;color:#17507B;text-align:left;}
+div.spacer{border-bottom:1px solid #A7D0DF;margin-bottom:2px;margin-top:2px;}
+.top_bar{padding-top:10px;padding-right:45px;text-align:right;height:40px;}
+#new_item_box #item_name{font-size:24px;width:400px;}
+#new_item_box #item_description{width:400px;height:200px;}
+#new_item_box td{padding:2px;}
+.welcome_box{padding:10px;margin-right:0px;}
+.welcome_message{}
+#category_box{}
+div.loading{text-align:center;} /* The box containing the loading img */
+#sort_by{padding:2px 0px 2px 5px;}
+.tooltip {	display:none; /*text-align:right;background:white;padding:10px;margin:3px;border:1px solid #aaa;; box-shadow: 0px 1px 5px #666;-moz-box-shadow: 0px 1px 5px #666;  -webkit-box-shadow: 0px 1px 5px #666;-moz-border-radius: 5px;-webkit-border-radius: 5px;*/}
+
+/* Flash Messages(Success and Failure Boxes) */
+.flash_notice{padding-top:10px;} /* This is the div that contains all flash messages. */
+.flash_success{color:#106F00;border:2px solid #1C8F08;background-color:#BBFFAF;padding:5px;margin: 5px 50px 5px 50px;text-align:center;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
+.flash_failure{color:#AF0000;border:2px solid #AF0000;background-color:#F3B3B3;padding:5px;margin: 5px 50px 5px 50px;text-align:center;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
+
+/* Dropdown Menus */
+
+
+
+/* Tabs for User Section */
+ul#tabmenu {	list-style:none; 	margin:0 !important; 	padding:0;	height:25px;	margin-bottom:0px;}
+#tabmenu li  { 	float:left;	 	text-indent:0;	padding:0;	margin:0 !important;	list-style-image:none !important; }/* single tab */
+#tabmenu a, a.active {color:black;	background: url(/themes/white_square/images/bgs/user_tab_bg_unselected.png) no-repeat;;	font-size:12px;	display:block;	height: 20px;  	width: 115px;	text-align:center;		text-decoration:none;	padding:4px 0px 1px 0px;	margin:0px 3px 0px 0px;		position:relative;}/* link inside the tab. uses a background image */
+#tabmenu a.active {	border:0px;	background: url(/themes/white_square/images/bgs/user_tab_bg_selected.png) no-repeat;}
+#tabmenu a:visited, #tabmenu a:link {} #tabmenu a:hover {;border:0px;	background: url(/themes/white_square/images/bgs/user_tab_bg_selected.png) no-repeat;}
+#tabmenu a.active:hover{}/* active tab uses a class name "current". it's highlight is also done by moving the background image. */
+#tabmenu a.special_tab:visited, #tabmenu a.special_tab:link{color:#4477A7;border:0px;} #tabmenu a.special_tab:hover {color:#4477A7;;border:0px;}
+#content {	background: url(/themes/white_square/images/bgs/user_tab_pane_bg.png) repeat-x;	padding:5px;	min-height:300px;}
+
+/* Pagination */
+.pagination{margin-top:20px;margin-bottom:20px;}
+.pagination a{border:1px solid #17505F;background:#C9E9F2;padding:10px;color:#17505F;text-decoration:none;-moz-border-radius: 3px;-webkit-border-radius: 3px;}
+.pagination a:hover{border:1px solid #17505F;background:#EFFBFF;padding:10px;color:#17505F;text-decoration:none}
+.current{border:1px solid #17505F;background:#EFFBFF;color:#17505F;padding:10px;-moz-border-radius: 3px;-webkit-border-radius: 3px;}
+.disabled{border:1px solid #17505F;background:#C9E9F2;padding:10px;color:#17505F;filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity: 0.5;opacity: 0.5;-moz-border-radius: 3px;-webkit-border-radius: 3px;}
+
+/* Admin Styles */
+table.setting_table{margin:0px}
+.setting_table td{padding:3px;}
+
+/* jQuery TOOLS - Horizontal Tabs CSS */
+ul.plugin_tabs_horizontal {	list-style:none; 	margin:0 !important; 	padding:0;	height:25px;	margin-bottom:0px;}
+ul.plugin_tabs_horizontal li { 	float:left;	 	text-indent:0;	padding:0;	margin:0 !important;	list-style-image:none !important; }/* single tab */
+ul.plugin_tabs_horizontal a { 	background: url(/themes/white_square/images/bgs/plugin_tab_bg_unselected.png) no-repeat;;	font-size:11px;	display:block;	height: 20px;  	width: 85px;	text-align:center;		text-decoration:none;	padding:5px 0px 0px 0px;	margin:0px 2px 0px 0px;		position:relative;}/* link inside the tab. uses a background image */
+ul.plugin_tabs_horizontal a.current {	border:0px;	background: url(/themes/white_square/images/bgs/plugin_tab_bg_selected.png) no-repeat;-moz-border-radius: 0px;-webkit-border-radius: 0px;}
+ul.plugin_tabs_horizontal a:hover{	border:0px;	background: url(/themes/white_square/images/bgs/plugin_tab_bg_selected.png) no-repeat;}
+ul.plugin_tabs_horizontal a.current, ul.plugin_tabs_horizontal a.current:hover, ul.plugin_tabs_horizontal li.current a {	cursor:default !important; 	color:#000 !important;}/* active tab uses a class name "current". it's highlight is also done by moving the background image. */
+div.plugin_panes_horizontal {	background: url(/themes/white_square/images/bgs/plugin_tab_pane_bg.png) repeat-x;	padding:5px;	min-height:300px;}
+div.plugin_panes_horizontal div.pane {	display:none;}/* initially all panes are hidden */ 
+
+/* jQuery TOOLS - Vertical Tab CSS */
+ul.plugin_tabs_vertical { 	list-style:none; 	margin:0 !important; 	padding:0;	height:25px;	margin-bottom:0px;}
+ul.plugin_tabs_vertical li { 	float:left;	 	text-indent:0;	padding:0;	margin:0 !important;	list-style-image:none !important; }/* single tab */
+ul.plugin_tabs_vertical a { 	background: url(/themes/white_square/images/bgs/plugin_tab_pane_bg.png) repeat-x;;	font-size:11px;	display:block;	height: 20px;  	width: 85px;	text-align:center;		text-decoration:none;	padding:5px 0px 0px 0px;	margin:0px 2px 2px 0px;		border:1px solid white;	position:relative;}/* link inside the tab. uses a background image */
+ul.plugin_tabs_vertical a.current {	border:1px solid white;	background: white;-moz-border-radius: 0px;-webkit-border-radius: 0px;}
+ul.plugin_tabs_vertical a:hover{	border:1px solid white; background: url(/themes/white_square/images/bgs/overlay_bg.png) repeat;}
+div.plugin_panes_vertical {	background: url(/themes/white_square/images/bgs/plugin_tab_pane_bg.png) repeat-x;	padding:5px;	min-height:300px;	width:740px;}
+div.plugin_panes_vertical div.pane {	display:none;		}/* initially all panes are hidden */ 
+
+/* jQuery TOOLS - Accordian Tab CSS */
+#accordion {	background:url(/themes/white_square/images/bgs/plugin_tab_pane_bg.png) repeat-x;	width: 100%;	border:1px solid #A7DCED;	}/* root element for accordion. decorated with rounded borders and gradient background image */
+#accordion h2.accordion_tab {	background:url(/themes/white_square/images/bgs/accordian_tab_bg.png) repeat-x;	margin:0;	padding:5px 15px;	font-size:14px;	font-weight:bold;	border:1px solid #fff;	border-bottom:1px solid #A7DCED;	cursor:pointer;		}/* accordion header */
+#accordion h2.current {	cursor:default;	background-color:#fff;}/* currently active header */
+#accordion div.pane {	display:none;	padding:15px;	font-size:12px;}/* accordion pane */
+
+/* ColorBox Image Gallery CSS */
+#colorbox, #cboxOverlay, #cboxWrapper{position:absolute; top:0; left:0; z-index:9999; overflow:hidden;}
+#cboxOverlay{position:fixed; width:100%; height:100%;}
+#cboxMiddleLeft, #cboxBottomLeft{clear:left;}
+#cboxContent{position:relative; overflow:hidden;}
+#cboxLoadedContent{overflow:auto;}
+#cboxLoadedContent iframe{display:block; width:100%; height:100%; border:0;}
+#cboxTitle{margin:0;font-size:10px;}
+#cboxLoadingOverlay, #cboxLoadingGraphic{position:absolute; top:0; left:0; width:100%;}
+#cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow{cursor:pointer;}
+
+#cboxOverlay{background:url(/themes/white_square/images/colorbox/overlay.png) 0 0 repeat;}
+#colorbox{}
+    #cboxTopLeft{width:21px; height:21px; background:url(/themes/white_square/images/colorbox/controls.png) -100px 0 no-repeat;}
+    #cboxTopRight{width:21px; height:21px; background:url(/themes/white_square/images/colorbox/controls.png) -129px 0 no-repeat;}
+    #cboxBottomLeft{width:21px; height:21px; background:url(/themes/white_square/images/colorbox/controls.png) -100px -29px no-repeat;}
+    #cboxBottomRight{width:21px; height:21px; background:url(/themes/white_square/images/colorbox/controls.png) -129px -29px no-repeat;}
+    #cboxMiddleLeft{width:21px; background:url(/themes/white_square/images/colorbox/controls.png) left top repeat-y;}
+    #cboxMiddleRight{width:21px; background:url(/themes/white_square/images/colorbox/controls.png) right top repeat-y;}
+    #cboxTopCenter{height:21px; background:url(/themes/white_square/images/colorbox/border.png) 0 0 repeat-x;}
+    #cboxBottomCenter{height:21px; background:url(/themes/white_square/images/colorbox/border.png) 0 -29px repeat-x;}
+    #cboxContent{background:#fff;}
+        #cboxLoadedContent{margin-bottom:28px;}
+        #cboxTitle{position:absolute; bottom:3px; left:0; text-align:center; width:100%; color:#949494;}
+        #cboxCurrent{position:absolute; bottom:3px; left:58px; color:#949494;}
+        #cboxSlideshow{position:absolute; bottom:3px; right:30px; color:#0092ef;}
+        #cboxPrevious{position:absolute; bottom:0; left:0px; background:url(/themes/white_square/images/colorbox/controls.png) -75px 0px no-repeat; width:25px; height:25px; text-indent:-9999px;}
+        #cboxPrevious.hover{background-position:-75px -25px;}
+        #cboxNext{position:absolute; bottom:0; left:27px; background:url(/themes/white_square/images/colorbox/controls.png) -50px 0px no-repeat; width:25px; height:25px; text-indent:-9999px;}
+        #cboxNext.hover{background-position:-50px -25px;}
+        #cboxLoadingOverlay{background:url(/themes/white_square/images/colorbox/loading_background.png) center center no-repeat;}
+        #cboxLoadingGraphic{background:url(/themes/white_square/images/colorbox/loading.gif) center center no-repeat;}
+        #cboxClose{position:absolute; bottom:0; right:0; background:url(/themes/white_square/images/colorbox/controls.png) -25px 0px no-repeat; width:25px; height:25px; text-indent:-9999px;}
+        #cboxClose.hover{background-position:-25px -25px;}
+
+	/* ColorBox IE Transparency Fix */
+	.cboxIE #cboxTopLeft{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=/themes/white_square/images/colorbox/internet_explorer/borderTopLeft.png, sizingMethod='scale');}
+	.cboxIE #cboxTopCenter{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=/themes/white_square/images/colorbox/internet_explorer/borderTopCenter.png, sizingMethod='scale');}
+	.cboxIE #cboxTopRight{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=/themes/white_square/images/colorbox/internet_explorer/borderTopRight.png, sizingMethod='scale');}
+	.cboxIE #cboxBottomLeft{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=/themes/white_square/images/colorbox/internet_explorer/borderBottomLeft.png, sizingMethod='scale');}
+	.cboxIE #cboxBottomCenter{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=/themes/white_square/images/colorbox/internet_explorer/borderBottomCenter.png, sizingMethod='scale');}
+	.cboxIE #cboxBottomRight{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=/themes/white_square/images/colorbox/internet_explorer/borderBottomRight.png, sizingMethod='scale');}
+	.cboxIE #cboxMiddleLeft{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=/themes/white_square/images/colorbox/internet_explorer/borderMiddleLeft.png, sizingMethod='scale');}
+	.cboxIE #cboxMiddleRight{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=/themes/white_square/images/colorbox/internet_explorer/borderMiddleRight.png, sizingMethod='scale');}
+
+
+/* TinyMCE Overrides */

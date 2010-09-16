@@ -1,0 +1,185 @@
+<script type="text/javascript">
+	function extra_details()
+	{
+		feature_types = document.getElementById('feature_types'); // get selected option
+		//selected_feature_type = feature_types.options[feature_types.selectedIndex].text; // get option text
+		selected_feature_type = feature_types.options[feature_types.selectedIndex].value; // get option value
+		//alert(selected_feature_type)
+		if(selected_feature_type == "slider" || selected_feature_type == "number")
+		{
+			//alert("You selected a slider or number.")
+			show_box('minmax_box')
+		}
+		else
+		{
+			hide_box('minmax_box')
+		}
+	}
+</script>
+<div class="box_style_2a" style="margin-bottom:5px">
+	<h2 class="title">Details</h2>
+	<table style="width:100%" cellpadding=0 cellspacing=0 class="setting_table row_table">
+		<tr class="row_a">
+			<td style="vertical-align:middle" align=left >												
+				<h3>Name</h3>
+				<i>The name of this  <%= @plugin.title.downcase %>. Example: <b>Price</b>.</i>
+			</td>
+			<td style="vertical-align:middle" align=right>
+				<input name="feature[name]" type="text" id="feature_name" onfocus = "focus_input('feature_name')" onblur = "blur_input('feature_name')" value="<%= feature.name %>">
+			</td>											
+		</tr>
+		<tr class="row_b">
+			<td style="vertical-align:middle" align=left >												
+				<h3>Description(optional)</h3>
+				<i>A short message describing this  <%= @plugin.title.downcase %>. Example: <b>How much this costs</b>.</i>
+				
+			</td>
+			<td style="vertical-align:middle" align=right>
+				<input name="feature[description]" type="text" id="feature_description" onfocus = "focus_input('feature_description')" onblur = "blur_input('feature_description')" value="<%= feature.description %>"><br>																				
+			</td>											
+		</tr>
+		<tr class="row_a">
+			<td style="vertical-align:middle" align=left >												
+				<h3>					
+					<%= @plugin.title %> Type
+				</h3>
+
+				<i>This is the type of information that a <%= @plugin.title.downcase %> will contain. </i>
+				
+			</td>
+			<td style="vertical-align:middle" align=right>
+				<select name="feature[feature_type]" id="feature_types" onchange="extra_details();">
+					<option value="text" <%= "SELECTED" if feature.feature_type == "text" %>>Text</option>
+					<option value="option" <%= "SELECTED" if feature.feature_type == "option" %>>Option</option>
+					<option value="yesno" <%= "SELECTED" if feature.feature_type == "yesno" %>>Yes/No</option>
+					<option value="slider" <%= "SELECTED" if feature.feature_type == "slider" %>>Slider</option>															
+					<option value="date" <%= "SELECTED" if feature.feature_type == "date" %>>Date</option>										
+					<option value="number" <%= "SELECTED" if feature.feature_type == "number" %>>Number</option>
+				</select>
+											 
+			</td>											
+		</tr>
+		<tr class="row_b">
+			<td style="vertical-align:middle" align=left >												
+				<h3>					
+					Required?
+				</h3>
+
+				<i>If checked, every <%= @setting[:item_name] %> must have a value for this <%= @plugin.title.downcase %>. </i>				
+			</td>
+			<td style="vertical-align:middle" align=right>
+				<%= check_box "feature", "is_required" %>							 
+			</td>											
+		</tr>
+		<tr class="row_b">
+			<td style="vertical-align:middle" align=left >												
+				<h3>					
+					Listed?
+				</h3>
+
+				<i>If checked, this <%= @plugin.title.downcase %> will be shown on <b><%= @setting[:item_name] %> lists</b>. </i>				
+			</td>
+			<td style="vertical-align:middle" align=right>
+				<%= check_box "feature", "listed" %>							 
+			</td>											
+		</tr>									
+		<tr class="row_a">
+			<td style="vertical-align:middle" align=left >												
+				<h3>					
+					Icon URL(optional)
+				</h3>
+
+				<i>If you have a specific icon in mind for this <%= @plugin.title.downcase %>, enter its URL here. Not Sure? Leave this blank.</i>
+				
+			</td>
+			<td style="vertical-align:middle" align=right>
+				<input name="feature[icon_url]" type="text" id="feature_icon_url" onfocus = "focus_input('feature_icon_url')" onblur = "blur_input('feature_icon_url')" value="<%= feature.icon_url %>">
+				<br>
+				<div align=center>				
+					Current Icon:
+					<%= feature_icon feature %>
+				</div>								 
+			</td>											
+		</tr>																				
+	</table>
+</div>				
+
+<div style="height:10px"></div>
+
+<div class="box_style_2a" style="margin-bottom:5px;<%= "display:none;" if feature.feature_type != "slider" && feature.feature_type != "number" %>" id="minmax_box">
+	<h2 class="title">Extra Details</h2>
+	<table style="width:100%" cellpadding=0 cellspacing=0 class="setting_table row_table">
+		<tr class="row_a">
+			<td style="vertical-align:middle" align=left >												
+				<h3>					
+					Minimum Value(optional)
+				</h3>
+				<i>The entered value must be greater than or equal to this number.</i>
+			</td>
+			<td style="vertical-align:middle" align=right>
+				<input name="feature[min]" type="text" id="feature_min" onfocus = "focus_input('feature_min')" onblur = "blur_input('feature_min')" value="<%= feature.min %>">							 
+			</td>											
+		</tr>
+		<tr class="row_b">
+			<td style="vertical-align:middle" align=left >												
+				<h3>					
+					Maximum Value(optional)
+				</h3>
+				<i>The entered value must be less than or equal to this number.</i>				
+			</td>
+			<td style="vertical-align:middle" align=right>
+				<input name="feature[max]" type="text" id="feature_max" onfocus = "focus_input('feature_max')" onblur = "blur_input('feature_max')" value="<%= feature.max %>">								 
+			</td>											
+		</tr>		
+	</table>
+	<div style="height:10px"></div>
+</div>
+
+<div class="box_style_2a">
+	<h2 class="title">Search Type</h2>
+	<div class="spacer"></div>
+	This determines how people search for <%= @setting[:item_name_plural] %> with this <%= @plugin.title %> in <b><%= link_to "advanced search", {:action => "new_advanced_search", :controller => "items"} %></b>. Not Sure? Just select <b>Keyword</b>.
+	<table style="width:100%" cellpadding=0 cellspacing=0 class="setting_table row_table">
+		<tr class="row_a">
+			<td style="vertical-align:middle" align=left >												
+				<h3>Grouped</h3>
+				<i>A user can select between all existing values that other <%= @setting[:item_name_plural] %> might have for this <%= @plugin.title.downcase %>. <b>Example:</b> If this feature was <b>color</b>, and seven other <%= @setting[:item_name_plural] %> had the value <b>orange</b>, you could select <b>orange(7)</b>. </i>
+			</td>
+			<td style="vertical-align:middle" align=right>
+				<input name="feature[search_type]" value="Grouped" type="radio" <%= "CHECKED" if feature.search_type == "Grouped" %>>
+			</td>											
+		</tr>			
+		<tr class="row_b">
+			<td style="vertical-align:middle" align=left >												
+				<h3>Keyword</h3>
+				<i>A user can enter a phrase or keywords to match this <%= @plugin.title.downcase %>'s value. <b>Example:</b> If this feature was <b>color</b>, someone could search for <b>orange</b>.</i>
+			</td>
+			<td style="vertical-align:middle" align=right>
+				<input name="feature[search_type]" value="Keyword" type="radio" <%= "CHECKED" if feature.search_type == "Keyword" %>>
+			</td>											
+		</tr>
+		<tr class="row_a">
+			<td style="vertical-align:middle" align=left >												
+				<h3>Number</h3>
+				<i>A user can enter a number match this <%= @plugin.title.downcase %>'s value. <b>Example:</b> If this feature was <b>quantity</b>, someone could search for <b>8</b>. </i>
+			</td>
+			<td style="vertical-align:middle" align=right>
+				<input name="feature[search_type]" value="Number" type="radio" <%= "CHECKED" if feature.search_type == "Number" %>>
+			</td>											
+		</tr>	
+		<tr class="row_b">
+			<td style="vertical-align:middle" align=left >												
+				<h3>None</h3>
+				<i>This <%= @plugin.title.downcase %>  will not be searched.</i>
+			</td>
+			<td style="vertical-align:middle" align=right>
+				<input name="feature[search_type]" value="None" type="radio" <%= "CHECKED" if feature.search_type == "None" %>>
+			</td>											
+		</tr>																					
+	</table>
+
+
+</div>			
+
+			
+

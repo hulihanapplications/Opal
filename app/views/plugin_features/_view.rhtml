@@ -1,0 +1,38 @@
+<% 
+	options  ||= Hash.new 
+	options[:show_title] = true if options[:show_title].nil?
+%>
+<% 
+	features = PluginFeature.find(:all, :order => "order_number ASC") 
+	if item.is_editable_for_user?(@logged_in_user)
+		feature_values = PluginFeatureValue.find(:all, :conditions => ["item_id = ?", item.id]) # show all values  
+	else 
+		feature_values = PluginFeatureValue.find(:all, :conditions => ["item_id = ? and is_approved = '1'", item.id]) # show only approved values
+	end  
+%> 
+<div class="plugin_box">
+	<% if options[:show_title] || my_group_plugin_permissions[plugin.id].can_update? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
+	<div class="title">		
+		<table style="width:100%" cellpadding=0 cellspacing=0>
+			<tr>
+				<td align=left>
+						<a name="Features"><%= h plugin.title %>s</a>
+				</td>
+				<td align=right style="text-align:right;font-size:12px;vertical-align:middle">
+					<% if my_group_plugin_permissions[plugin.id].can_update? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
+						<img src="/themes/<%= @setting[:theme] %>/images/icons/edit.png" class="icon"  alt="Edit" title="Edit" border=0>				
+						<%= link_to "Edit #{plugin.title}s", {:action => "edit_values", :controller => "plugin_features", :id => item.id} %>
+					<% end %>					
+				</td>
+			</tr>
+		</table>
+	</div>		
+	<% end %>
+	<% if feature_values.size > 0  %>		
+			<div class="features">
+				<%= render :partial => "plugin_features/list_values", :locals => {:feature_values => feature_values, :plugin => plugin, :item => item} %>
+			</div>	
+	<% else %>
+		No <%= plugin.title %>s have been added yet.
+	<% end %>
+</div>

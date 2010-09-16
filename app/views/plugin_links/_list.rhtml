@@ -1,0 +1,7 @@
+<% if my_group_plugin_permissions[plugin.id].can_read? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
+	<% first_link = PluginLink.find(:first, :conditions => ["item_id = ? and is_approved = '1'", item.id], :order => "created_at ASC") %>
+	<% if !first_link.nil?%>
+		<img src="/themes/<%= @setting[:theme] %>/images/icons/link.png" class="icon"  title="<%= h first_link.title %>" alt="">
+		<a href="<%= h first_link.url %>" ><%= h truncate(first_link.title, :length => 21) %></a><br>
+	<% end %>
+<% end %>

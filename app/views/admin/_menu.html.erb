@@ -1,0 +1,50 @@
+	 <%# Menu for Admin %>
+	 <div style="display: block;">
+		 <ul id="tabmenu" >
+		   <li>
+		   		<a <% if params[:controller] == "admin" && params[:action] == "index" %>class="active"<% end %> href="/admin">
+					<img src="/themes/<%= @setting[:theme] %>/images/icons/admin.png" class="icon" > 				
+					admin home
+				</a>
+		   </li>
+		   <li>
+		   		<% num_of_categories = Category.count(:all, :select => "id") %>
+		   		<a <% if params[:controller] == "categories"%>class="active"<% end %> href="/categories">
+					<img src="/themes/<%= @setting[:theme] %>/images/icons/categories.png" class="icon" > 				
+					categories 
+				</a>
+			</li>
+
+		   <li>
+		   		<% num_of_users = User.count(:all, :select => "id") %>
+		   		<a <% if params[:controller] == "users" || params[:controller] == "groups" || params[:controller] == "messages" %>class="active"<% end %> href="/users">
+					<img src="/themes/<%= @setting[:theme] %>/images/icons/users.png" class="icon" > 				
+					users 
+				</a>
+		   </li>
+		   <li>
+		   		<a <% if params[:controller] == "pages"%>class="active"<% end %> href="/pages">
+					<img src="/themes/<%= @setting[:theme] %>/images/icons/pages.png" class="icon" > 				
+					pages 
+				</a>
+		   </li>
+		   	<li>
+		   		<a <% if params[:controller] == "tools" || params[:controller] == "logs" %>class="active"<% end %> href="/tools">
+					<img src="/themes/<%= @setting[:theme] %>/images/icons/tools.png" class="icon" > 				
+					tools
+				</a>
+			</li>		   					   
+		   <li>
+				<a <% if params[:controller] == "settings" || params[:controller] == "plugins" || params[:controller] == "plugin_features" %>class="active"<% end %> href="/settings">
+					<img src="/themes/<%= @setting[:theme] %>/images/icons/settings.png" class="icon" > 								
+					configure
+				</a>
+		   </li>
+		   <li>
+		   		<a class="special_tab"  href="/user">
+					<img src="/themes/<%= @setting[:theme] %>/images/icons/user.png" class="icon" > 						   			
+		   			my account
+				</a>
+		   </li>
+		 </ul>
+		 <div id="content">

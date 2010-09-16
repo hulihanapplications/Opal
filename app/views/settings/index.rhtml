@@ -1,0 +1,144 @@
+<table align=center style="width:100%" cellpadding=0 cellspacing=0>
+	 <tr>
+	  <td align=left class="sidebar_column" valign=top style="padding:0px;text-align:center">
+			<%= render :partial => "/settings/menu" %>
+
+	  </td>
+	  <td style="width:5px;">
+	  	
+	  </td>
+	  <td align=left valign=top >
+			<div class="plugin_box">
+					<div class="title">
+						<%= @setting[:title] %> Settings
+					</div>
+					This section allows you to change different settings for your site. You can change things like the the visual theme of your site(the look and feel), the name of items that you're listing(whether you're listing houses, video games, restaraunts, etc.), or even the name of your site(which shows up in search engines). There's plenty of ways you can customize your <a href="http://www.hulihanapplications.com/projects/opal"><b>Opal</b></a> website, so be sure to look through all the settings!
+			</div>
+			<br>
+			<% form_tag ({:action => "update_settings"}) do %>
+					<ul class="plugin_tabs_horizontal"> 
+						    <li><a href="#Public">Public</a></li>
+						    <li><a href="#System">System</a></li> 
+						    <li><a href="#Users">Users</a></li> 	
+						    <li><a href="#Sections">Sections</a></li> 													
+							<li><a href="#Homepage">Homepage</a></li> 
+							<li><a href="#Logo">Logo</a></li> 
+					</ul>			
+					<div class="plugin_panes_horizontal"> 					
+					    <div>	
+							 <%= render :partial => "/settings/list_settings", :locals => {:settings => public_settings = Setting.find(:all, :conditions => ["setting_type = ?", "Public"]) , :title => "Public"}%>
+						</div>			
+					    <div>	
+							 <%= render :partial => "/settings/list_settings", :locals => {:settings => Setting.find(:all, :conditions => ["setting_type = ?", "System"]), :title => "System"}%>
+						</div>
+					    <div>	
+							 <%= render :partial => "/settings/list_settings", :locals => {:settings => Setting.find(:all, :conditions => ["setting_type = ?", "User"]), :title => "User"}%>
+						</div>	
+					    <div>	
+							 <%= render :partial => "/settings/list_settings", :locals => {:settings => Setting.find(:all, :conditions => ["setting_type = ?", "Section"]), :title => "Section", :description => "These settings deal with different areas found in Opal."}%>
+						</div>		
+						<div>
+							<div class="plugin_box">
+								<div class="title">
+									Homepage Type
+								</div>
+							</div>
+							Here you can change what the homepage for <%= @setting[:title] %> looks like.
+							<% @setting[:homepage_type] = get_setting("homepage_type") %>							
+							<br>
+							<table width="100%" cellpadding=0 cellspacing=0  class="setting_table row_table">	
+							 <tr class="row_a">
+							  <!--<td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/homepage_type_new_items.png" rel="colorbox" title="New Items"><img alt="" class="thumbnail" src="/images/examples/homepage_type_new_items.png"  /></a></td>-->
+							  <td align=left style="padding-left:10px;vertical-align:middle"><h2>New <%= @setting[:item_name_plural] %></h2>Every <%= @setting[:item_name] %> in <%= @setting[:title] %> is shown on the homepage, starting with the newest first.</td>
+							  <td align=right style="padding-right:20px;vertical-align:middle"><input type="radio" name="setting[homepage_type]" value="new_items" <% if @setting[:homepage_type] == "new_items" %>CHECKED<% end %>></td>		  
+							 </tr>
+							 <tr class="row_b">
+							  <!--<td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/homepage_type_categories.png" rel="colorbox" title="Categories"><img alt="" class="thumbnail" src="/images/examples/homepage_type_categories.png"  /></a></td>-->
+							  <td align=left style="padding-left:10px;vertical-align:middle"><h2>Categories</h2>Categories for <%= @setting[:item_name_plural] %> are shown on the homepage.</td>
+							  <td align=right style="padding-right:20px;vertical-align:middle"><input type="radio" name="setting[homepage_type]" value="categories" <% if @setting[:homepage_type] == "categories" %>CHECKED<% end %>></td>		  
+							 </tr>
+							 <tr class="row_a">
+							  <!--<td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/homepage_type_none.png" rel="colorbox" title="New Items"><img alt="" class="thumbnail" src="/images/examples/homepage_type_none.png"  /></a></td>-->
+							  <td align=left style="padding-left:10px;vertical-align:middle"><h2>None</h2>Nothing special is shown on the homepage. This is a good option if you only want to show the <%= link_to "Main Home Page", {:action => "index", :controller => "pages", :type => "System"}, :class => "highlight"  %>. </td>
+							  <td align=right style="padding-right:20px;vertical-align:middle"><input type="radio" name="setting[homepage_type]" value="none" <% if @setting[:homepage_type] == "none" %>CHECKED<% end %>></td>		  
+							 </tr>
+							 							 	  											 	
+							</table>														
+						</div>
+						<div>
+							<div class="plugin_box">
+									<div class="title">
+										Main Logo
+									</div>
+									Change the main logo for your Opal Application, <%= @setting[:title] %>.									
+							</div>		
+							<br>
+							<div class="box_style_2" align=center style="margin-bottom:5px"> 
+								<h2 class="title">Current Logo</h2>
+								<div class="spacer"></div>
+								<br>	
+								<% if @logo_image_exists %>
+									<img src="/themes/<%= @setting[:theme] %>/images/logo.png" border=0 alt="<%= @setting[:title] %>" title="<%= @setting[:title] %>">														
+								<% else %>
+									Currently, no logo image has been uploaded, so the following text is displayed instead:<br>
+									<h1><%= @setting[:title] %></h1> 	
+								<% end %>																			
+								<br><br>
+							</div>	
+																				
+							<table width="100%" cellpadding=0 cellspacing=0>
+								<tr>
+									<td align=center>
+										<table align=center style="width:100%" cellpadding=0 cellspacing=0>
+			 								<tr>
+			  									<td align=left class="sidebar_column" valign=top style="padding:0px;">
+
+														<div align="center" class="box_style_1" style="margin-bottom:5px;">
+															<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" class="icon">
+															Deleting the Logo will replace the logo with the  title of your site:<br> <b><%= @setting[:title] %></b>
+															<div class="spacer"></div>
+															<% if @logo_image_exists %>
+																<img src="/themes/<%= @setting[:theme] %>/images/icons/delete.png" class="icon">
+																<%= link_to "Delete Logo", {:action => "delete_logo", :controller => "settings"}, :confirm => "Are you sure?"  %></a>
+															<% else %>
+																No Logo has been uploaded.
+															<% end %>									
+														</div>											
+												</td>
+												  <td style="width:5px;">	  	
+												  </td>
+												  <td align=left valign=top style="width:125px" >
+													<div align="center" class="box_style_1" style="margin-bottom:5px;">
+														<img src="/themes/<%= @setting[:theme] %>/images/icons/upload.png" class="icon">
+														<%= link_to "Upload New Logo", {:action => "new_change_logo", :controller => "settings"}  %></a>
+													</div>									
+											  </td> 
+											</tr>
+										</table>
+																								
+									</td>
+								</tr>
+							</table>	
+							
+							
+										
+						</div>						
+					</div>	
+				 <div align=center><%= submit_tag "Save Settings" %></div>
+			
+			<% end %>
+			<br><br>
+			
+
+
+
+
+
+
+
+
+	  	
+	  </td> 
+	 </tr>
+</table>
+

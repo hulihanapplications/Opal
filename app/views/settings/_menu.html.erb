@@ -1,0 +1,24 @@
+<div class="box_style_2" style="margin-bottom:5px;" align=center>
+	<h3 class="title" align=left>Configure</h3>
+	
+	<div class="box_style_<%= (params[:controller] == "settings" && params[:action] == "index") || params[:action] == "new_change_logo" ? "1" : "2" %>" style="margin-bottom:5px;">
+		<img src="/themes/<%= @setting[:theme] %>/images/icons/settings.png" class="icon"> 				
+		<%= link_to "Settings", {:action => "index", :controller => "settings"} %>				
+	</div>
+	
+	<div class="box_style_<%= (params[:controller] == "settings" && params[:action] == "items") ? "1" : "2" %>" style="margin-bottom:5px;">
+		<img src="/themes/<%= @setting[:theme] %>/images/icons/items.png" class="icon"> 				
+		<%= link_to "#{@setting[:item_name_plural]}", {:action => "items", :controller => "settings"} %>				
+	</div>
+
+	<div class="box_style_<%= params[:action] == "themes" ? "1" : "2" %>" style="margin-bottom:5px;">
+		<img src="/themes/<%= @setting[:theme] %>/images/icons/themes.png" class="icon"> 				
+		<%= link_to "Themes", {:action => "themes", :controller => "settings"} %>				
+	</div>
+	
+	<div class="box_style_<%= (params[:controller] == "plugins" || params[:controller] == "plugin_features") ? "1" : "2" %>" style="margin-bottom:5px;">
+		<img src="/themes/<%= @setting[:theme] %>/images/icons/plugins.png" class="icon"> 				
+		<%= link_to "Plugins", {:action => "index", :controller => "plugins"} %>				
+	</div>	
+		
+</div>

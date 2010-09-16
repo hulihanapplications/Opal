@@ -1,0 +1,45 @@
+<%= render :partial => "items/item_header", :locals => {:item => @item, :options => {:show_item_info => true, :show_item_title => true}} %>
+
+
+<table align=center style="width:100%" cellpadding=0 cellspacing=0>
+	 <tr>
+	  <td align=left class="sidebar_column" valign=top style="padding:0px;text-align:center">
+		<div align=left class="box_style_1" style="margin-bottom:5px">	  	
+			<h3 class="title">
+				<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" alt="" title="Information" class="icon">
+				<%= @plugin.title %>s
+			</h3>
+			<%= @plugin.title %>s are a great way to describe your <%= @setting[:item_name_plural] %> in detail.
+		</div>
+		<div align=left class="box_style_1" style="margin-bottom:5px">	  	
+			<h3 class="title">
+				<img src="/themes/<%= @setting[:theme] %>/images/icons/private.png" alt="" title="Information" class="icon"> 
+				Security Info
+			</h3>			
+			The following HTML elements are allowed here:
+			<%  html_whitelist = YAML::load(File.open(RAILS_ROOT + "/config/whitelist_html.yml")) # load html whitelist from file %>
+			<b><%= html_whitelist["elements"].join(", ") %>.</b>
+		</div>					
+	  </td>
+	  <td style="width:5px;">
+	  </td>
+	  <td align=left valign=top >
+		<div class="box_style_2" style="margin-bottom:5px">
+			<h2 class="title">Editing <%= h @item.name %>'s <%= h @plugin.title %> from <%= @review.user.username %> </h2>
+			<div class="spacer"></div>
+			<%= form_tag :action => 'update', :controller => "plugin_reviews", :id => @item.id  %>
+				<input name="review_id" value="<%= @review.id %>" type="hidden">
+				<%= render :partial => "form", :locals => {:review => @review} %>
+				<br>
+				<div align=center><%= submit_tag "Save" %></div>
+			</form>
+		</div>
+	  </td> 
+	 </tr>
+</table>	
+
+										
+<div align=center><img src="/themes/<%= @setting[:theme] %>/images/icons/arrow_left.png" class="icon" title="Back"> <%= link_to "Back", { :action => 'view', :controller => "items", :id => @item.id, :anchor => "#{@plugin.name}s"}  %></div>
+
+
+

@@ -1,0 +1,68 @@
+<script type="text/javascript">
+	
+</script>
+<table width="100%">
+	<tr>
+		<td style="vertical-align:middle">
+			<div class="search_box">
+				<%#= form_remote_tag :update => "content", :url => { :action => 'search'} %>				
+				<%= form_tag({:action => 'search', :controller => "items"},{:id => "search_form", :method => :get}) %>
+				<table>
+					<tr>
+						<td style="vertical-align:middle">
+							<input name="search_for" type="text" id="search_box" onfocus="focus_input('search_box')" onblur="blur_input('search_box')">							
+						</td>
+						<td style="vertical-align:middle">
+							<a href="javascript:submit('search_form')" class="button_1">Search</a>
+							<a href="/browse/rss"><img src="/themes/<%= @setting[:theme] %>/images/icons/rss.png" class="icon" title="RSS Feed - New <%= @setting[:item_name_plural] %>" ></a>
+							<a href="/items/new_advanced_search"><b>Advanced Search</b></a>							
+						</td>						
+					</tr>
+				</table>
+				</form>				
+
+			</div>
+		</td>
+		<td style="vertical-align:middle">
+			<div align=right class="login_box">
+			<% if session[:user_id] && @logged_in_user.id != 0 %>
+			 Logged in as <%= @logged_in_user.username %> 
+			 <%= icon("bullet") %>
+			 <%= link_to "My Account", {:action => "index", :controller => "user"} %>
+			 <%= icon("bullet") %>
+			 <%= link_to "Log Out", {:action => "logout", :controller => "user"} %>
+			<% elsif get_setting_bool("show_user_login") %> 
+				 <%= form_tag({:action => "login", :controller => "user"}, {:id => "login_form"})  %>
+				 <table>
+				  <tr>
+				   <td>Username</td><td > <%= text_field 'user', 'username', :style => "width:70px;", :id => "login_username", :onfocus => "focus_input('login_username')", :onblur => "blur_input('login_username')" %></td>
+				   <td>Password</td><td > <%= password_field 'user', 'password', :style => "width:70px;", :id => "login_password", :onfocus => "focus_input('login_password')", :onblur => "blur_input('login_password')" %></td>
+				   <td>
+				   		<%#= submit_tag "Log In", :style => "", :class => "button_1" %>
+						<%= submit_tag "Hidden", :style => "display:none" %>
+						<a href="javascript:submit('login_form')" class="button_1">Log In</a>
+				   </td>	
+				   <td> 
+				   		<% if get_setting_bool("allow_user_registration") %>
+					 	  	or <%= link_to "Sign Up!", {:action => "register", :controller => "user"} %>
+						<% end %>
+					</td>
+				  </tr>
+				 </table>
+  			     </form>
+  			<% else %>
+				 <table>
+				  <tr>
+				   <td> 
+				   		<% if get_setting_bool("allow_user_registration") %>
+					 	  	<%= link_to "Sign Up!", {:action => "register", :controller => "user"}, :class => "signup_button" %>
+						<% end %>
+					</td>
+				  </tr>
+				 </table>			 
+			<% end %>
+			</div>
+		</td>
+	</tr>
+</table>
+

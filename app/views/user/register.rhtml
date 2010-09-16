@@ -1,0 +1,29 @@
+<div class="box_style_1" style="width:500px">
+	
+	
+	<h2>Create An Account</h2>
+	
+	   <% form_for :user,  :url => { :action => "create_account", :controller => "user" } do |f| %>
+	 	<table style="text-align:left">
+	     <tr><td>Email Address</td><td> <%= f.text_field :email  %></td></tr>
+	     <tr><td>First Name</td><td> <%= f.text_field :first_name  %></td></tr>
+	     <tr><td>Last Name</td><td> <%= f.text_field :last_name  %></td></tr>
+	
+	     <tr><td colspan=2 style="height:33px" align=center valign=middle><div id="username_search_box"></div></td></tr>
+	     <tr><td>Username</td><td> <%= f.text_field :username %></td></tr>		
+	     <tr><td>Password</td><td> <%= f.password_field :password %></td></tr>
+	     <tr><td>Confirm Password</td><td > <%= f.password_field :password_confirmation %></td></tr>
+	     <tr><td>Verification Code</td><td align=left><%= show_simple_captcha %></td></tr>
+	     <tr><td colspan=2 align=center>By Creating an Account, you agree to the <%= page_link Page.get_system_page("Terms Of Service") %></td></tr>
+	     <tr><td colspan=2 align=center><%= submit_tag "Create New Account!" %></td></tr>
+	 	</table>
+	   <% end %>
+	<br>
+</div>
+<%= observe_field("user_username",
+  :frequency => 1,
+  :update => "username_search_box",
+  :url => {:action => "check_username"},
+  :with => "'username='+escape(value)") 
+  #:with => "'values='+escape(value) + ' ' + $F('field2')") 
+%>

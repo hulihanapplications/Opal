@@ -1,0 +1,57 @@
+<% images_plugin = Plugin.find_by_name("Image") %>
+<% features_plugin = Plugin.find_by_name("Feature") %>
+
+<%= render :partial => "items/item_header", :locals => {:item => item, :options => {:show_item_info => false, :show_item_title => false}} %>
+<div align=left class="item_page_summarized">
+	<div style="margin-bottom:10px;">		
+		<table style="width:100%" cellpadding=0 cellspacing=0>
+			<tr>
+				<% if images_plugin.is_enabled? %>
+					<td style="width:200px;">
+						<div class="box_style_2a" style="margin-bottom:0px;">
+							<%= render :partial => images_plugin.partial_path(:type => "view"), :locals => {:plugin => images_plugin, :item => item, :my_group_plugin_permissions => my_group_plugin_permissions, :options => {:show_title => false, :show_none_found => false} } %>
+							<div style="clear:both"></div>
+						</div>		
+					</td>	
+					<td style="width:10px"></td>											
+				<% end %>							
+				<td >
+					<div class="box_style_2a" style="margin-bottom:10px;">
+						<div class="title">
+							<h1><%= item.name %></h1>			
+						</div>
+						<div class="description">
+							<%= item.description%>	
+						</div>						
+						<div style="height:10px"></div>
+				
+						
+						
+
+					</div>				
+									
+				</td>			
+				<td style="width:300px">
+						<% if features_plugin.is_enabled? %>		
+							<div class="box_style_2a spacer_vert_left" style="margin-bottom:10px;">
+								<%= render :partial => features_plugin.partial_path(:type => "view"), :locals => {:plugin => features_plugin, :item => item, :my_group_plugin_permissions => my_group_plugin_permissions, :options => {:show_title => false, :show_none_found => false} } %>
+							</div>
+						<% end %>							
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="plugins">
+		<% for plugin in plugins %>
+			<% if plugin.name != "Image" && plugin.name != "Feature" %>
+				<% if my_group_plugin_permissions[plugin.id].can_read? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?  %>
+					<div style="margin-bottom:10px" class="box_style_2a">
+						<%#= render :partial => plugin.partial_path(:type => "view"), :locals => {:plugin => plugin, :item => item, :my_group_plugin_permissions => my_group_plugin_permissions  } %>					
+					</div>
+				<% end %>
+			<% end %>
+		<% end %>			
+	</div>
+	
+		
+</div>

@@ -1,0 +1,26 @@
+Thanks for downloading Opal!
+
+To install this application, please follow the following steps:
+
+1. Download it! Which I assume you've already done....
+
+2. Configure your database(s) in config/database.yml
+   * Note: Opal requires a database to store image information in.
+           Most ruby on rails applications use a database to store
+           information. By default, Opal uses Mysql, but you can 
+           use sqlite3 or any other rails-support database.
+
+3. Run 'rake db:migrate' from the command line(typically using ssh).
+   This will install the database structure of Opal. 
+
+4. That's it! Run your application on the web using apache, mongrel,
+   webrick, or nginx. The default Admin username/password is:
+			   				admin/admin 
+
+* Note: If you need any additional help, see the README section, it
+tells you everything you need to get started, or contact us,
+post in our forum, or check out the Opal Wiki at:
+	http://dev.hulihanapplications.com/wiki/opal
+
+Opal Item Management System - Copyright 2010 - Hulihan Applications
+				 www.hulihanapplications.com

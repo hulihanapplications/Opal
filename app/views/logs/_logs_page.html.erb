@@ -1,0 +1,69 @@
+<%= page_entries_info @logs, :entry_name => "log" %>
+<br><br>
+
+	<table align=center style="width:100%" cellpadding=0 cellspacing=0>
+	 <tr>
+	  <td align=left class="sidebar_column" valign=top style="padding:0px;">
+	  		<%= render :partial => "tools/menu" if (params[:controller] == "logs" && params[:action] == "index")%>
+			<div class="box_style_1" style="margin-bottom:5px;">
+				<%= render :partial => "logs/legend" %>
+			</div>
+	  		<!--
+			<div class="box_style_1" style="margin-bottom:5px;">
+				<h3 class="title">Search by Log Type</h3>
+				<table>
+					<tr><td><input type="radio" name="log_type" value="create"></td><td>Create</td></tr>
+					<tr><td><input type="radio" name="log_type" value="update"></td><td>Update</td></tr>
+					<tr><td><input type="radio" name="log_type" value="delete"></td><td>Delete</td></tr>
+					<tr><td><input type="radio" name="log_type" value="system"></td><td>System</td></tr>					
+				</table>
+			</div>
+
+			<div class="box_style_1">
+					<h3 class="title">Search by Time</h3>
+					<table>
+						<tr>
+							<td><b>Time of Creation</b></td>
+							<td>
+								<select name="created_at">
+									<option value="whenever" SELECTED>Whenever</option>						
+									<option value="today">Today</option>
+									<option value="this_week">This Week</option>
+									<option value="this_month">This Month</option>
+									<option value="this_year">This Year</option>												
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td><b>Last Updated</b></td>
+							<td>
+								<select name="updated_at">
+									<option value="whenever" SELECTED>Whenever</option>						
+									<option value="today">Today</option>
+									<option value="this_week">This Week</option>
+									<option value="this_month">This Month</option>
+									<option value="this_year">This Year</option>												
+								</select>
+							</td>
+						</tr>							
+					</table>				
+			</div>
+			-->			
+	  </td>
+	  <td style="width:5px;">
+	  	
+	  </td>
+	  <td align=left valign=top >
+	  	<div class="box_style_2">
+			<%= render :partial => "logs/list_logs", :locals => {:logs => logs} %>
+		</div>				
+	  </td> 
+	 </tr>
+	</table>	
+
+
+<br>
+<div align=center>
+	<%= will_paginate @logs %>
+</div>
+<br>

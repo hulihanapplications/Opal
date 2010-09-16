@@ -1,0 +1,21 @@
+<% if feature.plugin_feature_value_options.size > 0 %>
+	<div class="box_style_x">
+			<% for option in feature.plugin_feature_value_options %>
+				<table style="width:100%">						
+						<tr>
+							<td align=left>
+								<h3><%= option.value %></h3>
+								<%= "<i>#{option.description}</i>" if option.description && option.description != "" %>	
+							</td>
+							<td align=right>
+								<%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/delete.png\" class=\"icon\"  alt=\"Delete\" title=\"Delete\" border=0>", { :action => 'delete_option', :controller => "plugin_features", :id => option.id}, :confirm => "Are you sure?" %>										
+							</td>
+						</tr>
+		   		</table>
+				<div class="spacer"></div>								
+			<% end %>				
+					
+	</div>
+<% else %>
+	<div align=center>No options have been added for <%= feature.name %> yet.</div>
+<% end %>		

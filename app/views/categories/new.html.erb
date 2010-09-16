@@ -1,0 +1,15 @@
+<div class="box_style_2" align=center>
+   <%= form_tag  :action => 'create', :controller => "categories" %>
+    <h2>Add Category</h2>
+	<br>
+	<%= render :partial => "form", :locals => {:category => @category} %>
+	<br>
+
+	<div align=center>	<input type="submit" value="Create"></div>
+   </form>
+</div>
+
+<div align=center style="margin-top:10px;">
+	<img src="/themes/<%= @setting[:theme] %>/images/icons/arrow_left.png" class="icon" title="Back">
+	<%= link_to "Back", { :action => 'index'}  %>	
+</div>

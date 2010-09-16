@@ -1,0 +1,56 @@
+
+<h2>Log In</h2>
+
+<br>
+<div class="box_style_2" style="width:500px;margin-bottom:5px">
+ <% if session[:original_uri] %>
+
+	<div class="flash_success" style="margin:0px 0px 5px 0px">
+			<img src="/themes/<%= @setting[:theme] %>/images/icons/success.png" class="icon">
+			Your original destination has been saved. Please log in to continue.			
+	</div>
+<% end %>
+	 <%= form_tag :action => "login", :controller => "user"  %>
+		 <table>
+		  <tr>
+		   <td>Username</td><td > <%= text_field 'user', 'username', :style => "width:200px;", :id => "login_username_2", :onfocus => "focus_input('login_username_2')", :onblur => "blur_input('login_username_2')" %></td>
+		  </tr>
+		  <tr>
+		   <td>Password</td><td > <%= password_field 'user', 'password', :style => "width:200px;", :id => "login_password_2", :onfocus => "focus_input('login_password_2')", :onblur => "blur_input('login_password_2')" %></td>
+		  </tr>
+		  <tr>		   
+		   <td colspan=2 align=center><%= submit_tag "Log In", :style => "font-weight:bold;border:0px;padding:0px;margin:0px;background:none;	cursor:pointer;" %></td>	
+		  </tr>
+		 </table>
+     </form>
+	 <div class="box_style_2">
+	 	Forgot your password? No Problem!
+		<img src="/themes/<%= @setting[:theme] %>/images/icons/cycle.png" class="icon">		
+		<%= link_to_function "Recover", "toggle_box('forgot_password_box')" %>
+		<div style="display:none" id="forgot_password_box" align=center>
+			<div class="spacer"></div>
+			Please enter in your account's email address.			
+			<%= form_tag :action => "forgot_password", :controller => "user"  %>
+				<%= text_field 'user', 'email', :id => "forgot_email", :onfocus => "focus_input('forgot_email')", :onblur => "blur_input('forgot_email')" %>	   
+				<div style="height:5px"></div>
+				<%= submit_tag "Recover Password" %>				
+			</form>			
+			<div style="height:5px"></div>
+	 	    <div align="center">
+		   		<a href="javascript:toggle_box('forgot_password_box')"><img src="/themes/<%= @setting[:theme] %>/images/icons/cancel.png" alt="Cancel" title="Cancel" border=0 class="icon"></a>
+		    </div>			
+		</div>
+
+	 </div>
+</div>
+
+
+
+<% if get_setting_bool("allow_user_registration") %>
+
+	<div class="box_style_2" style="width:500px;margin-bottom:5px">
+		Don't have an account?
+	  	<%= link_to "Sign Up!", {:action => "register", :controller => "user"}, :class => "signup_button" %>
+	</div>
+<% end %>
+<br>

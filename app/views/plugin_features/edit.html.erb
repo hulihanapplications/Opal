@@ -1,0 +1,70 @@
+<table align=center style="width:100%" cellpadding=0 cellspacing=0>
+	 <tr>
+	  <td align=left class="sidebar_column" valign=top style="padding:0px;text-align:center">
+			<%= render :partial => "/settings/menu" %>
+
+	  </td>
+	  <td style="width:5px;"></td>
+	  <td align=left valign=top>
+		<div class="plugin_box">
+				<div class="title">
+					Editing <%= @plugin.title %>: <%= @feature.name %>
+				</div>
+		</div>
+		<br>
+		
+		
+		<div>
+			<div class="box_style_2" style="margin-bottom:5px">
+				<%= form_tag  :action => 'update', :controller => "plugin_features", :id => @feature.id %>
+					<%= render :partial => "plugin_features/form", :locals => {:feature => @feature} %>								 
+					<br>
+					<div align=center><input type="submit" value="Save <%= @plugin.title %>"></div>
+				</form>			
+			</div>
+			<% if @feature.feature_type == "option" %>
+				<div style="height:10px"></div>
+				<div class="box_style_2" align=left>
+				   <h2 class="title"><%= @feature.name %> Options</h2>
+			  		<div class="spacer"></div>				
+				   <i>Allows users to select a predefined value for <%= @feature.name %>.</i>
+				   	<div style="height:10px"></div>
+			
+					<table style="width:100%"> 
+						<tr>
+							<td style="width:50%" valign=top>
+								<div class="box_style_2a" style="margin-bottom:5px">													   			
+									<div class="box_style_2a">
+									   <h2 class="title">Add an Option for <%= @feature.name %></h2>	
+									   <%= form_tag  :action => 'create_option', :controller => "plugin_features", :id => @feature.id %>
+											<%= render :partial => "plugin_features/form_for_option", :locals => {:option => PluginFeatureValueOption.new(:plugin_feature_id => @feature.id)} %>
+											<br>
+											<div align=center><input type="submit" value="Add Option"></div>									   
+									   </form>										
+									</div> 		
+								</div>
+						 
+							</td>				
+							<td style="width:50%" valign=top>
+								<a name="options"></a>
+								 <h2 class="title">Options</h2>							
+								<div class="box_style_2">
+								   <div>					   	
+				   						<%= render :partial => "plugin_features/list_options", :locals => {:feature => @feature} %>		
+								   </div>
+								</div>					 
+							</td>
+			
+						</tr>
+					</table>		
+				</div>
+			</div>
+		<% end %>
+		
+		<div align=center style="margin-top:10px;">
+			<img src="/themes/<%= @setting[:theme] %>/images/icons/arrow_left.png" class="icon" title="Back">
+			<%= link_to "Back", { :action => 'index'}  %>	
+		</div>
+	  </td> 
+	 </tr>
+</table>		

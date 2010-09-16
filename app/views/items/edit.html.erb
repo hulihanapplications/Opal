@@ -1,0 +1,19 @@
+<div class="box_style_1" id="new_item_box">
+      <h2 class="title">Edit <%= @item.name  %></h2>
+	   <%#= show_page Page.get_system_page("New Item") %>
+	   
+	   <div style="margin-top:5px;">
+	   		<%= form_tag  :action => 'update', :controller => "items", :id => @item.id %>
+			<%= render :partial => "form", :locals => {:item => @item} %>
+			<br>
+				<div align=center>
+					<input type="submit" value="Save <%= @setting[:item_name] %>" >
+				</div>
+			</form>
+		</div>
+</div>
+
+<div align=center style="margin-top:10px;">
+	<img src="/themes/<%= @setting[:theme] %>/images/icons/arrow_left.png" class="icon" title="Back">
+	<%= link_to "Back", { :action => 'view', :controller => "items", :id => @item}  %>	
+</div>

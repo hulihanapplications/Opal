@@ -1,0 +1,296 @@
+/* 
+	Hulihan Applications 3rd Gen Theme For Opal 
+*/
+
+/* Links */
+a:visited, a:link{text-decoration:none;color:white} a:hover{text-decoration:none;color:#D7F64A}
+a.highlight:visited, a.highlight:link{text-decoration:none;color:#D7F64A} a.highlight:hover{text-decoration:none;color:white}
+a.about_link:visited, a.about_link:link { color:#358F08;text-decoration:none;font-size:10px;font-style:italic }a.about_link:hover{font-style:normal;}
+a.category_link:visited, a.category_link:link { color:white;text-decoration:none;font-size:12px }a.category_link:hover{text-decoration:underline;}
+a.user_link:visited, a.user_link:link { color:white;text-decoration:none;font-size:10px }a.user_link:hover{color:#C8FFBF }
+a.big_link:visited, a.big_link:link{font-size:22px;}
+a.big_link:hover{font-size:22px;color:#17505F}
+.main_menu a:visited, .main_menu a:link{color:white;text-decoration:none;font-size:20px;} .main_menu a:hover{color:#D7F64A;text-decoration:none;font-size:20px;}
+.item_box div.title a:visited, .item_box div.title a:link{text-decoration:none}
+.item_box div.title a:hover{color:#D7F64A}
+a.plugin_title_link:visited,a.plugin_title_link:link {color:#D7F64A}
+a.plugin_title_link:hover{color:white;text-decoration:none;}
+.plugin_box div.title a:hover{text-decoration:none;color:white}/* Prevent ItemObject Section Titles from hovering like regular a:hover */
+
+/* Images */
+img.thumbnail{border:1px solid black;}
+img.thumbnail:hover{border:1px solid #D7F64A}
+img.bullet, img.icon{vertical-align:middle;border:0px;}
+img.avatar_normal{}
+img.avatar_small{width:50px;height:50px;}
+img.avatar_tiny{width:20px;height:20px;}
+img.loading{border:1px solid #ccc}
+
+/* Main HTML Tags */
+body{background:url(/themes/hulihan_applications_3rd_gen/images/body_bg.png) repeat-x #8B8B8B;font-family:Trebuchet MS;margin:0px;font-size:12px;color:white}
+h1, h2, h3, h4, h5, h6{margin:0px;padding:0px}
+h2{font-size:18px}
+input, select, textarea{color:white;background:#555555;border:1px solid #CCCCCC;font-family:Trebuchet MS;font-size:12px;}
+select{background-color:#0B0B0B}
+input.selected, select.selected, textarea.selected{color:white;background:#444444;border:1px solid #D0F42A;font-family:Trebuchet MS;}
+.setting_table input, select, textarea{}
+.setting_table input.selected, select.selected, textarea.selected{color:white;background:#444444;border:1px solid #D0F42A;font-family:Trebuchet MS;}
+
+textarea{overflow:auto}
+td{vertical-align:top;}
+
+/* Style for the main table, logo, the top menu, very bottom, and very middle(main_inner_*) goes in .main_middle */
+.browse_box{background:url(/themes/hulihan_applications_3rd_gen/images/dark_dotted_bg.png) repeat-x #0B0B0B;border:1px solid #0B0B0B;margin: 0px 0px 0px 0px;}
+	.browse_box_top{background:none;border:0px solid #0B0B0B;border-bottom:0px;height:30px;width:785px;text-align:center;}
+		.browse_box_top h2{padding-left:22px;padding-top:5px;}
+	.browse_box_middle{width:785px;text-align:left}
+	.browse_box_bottom{width:785px;height:30px;text-align:center;padding-top:5px;}
+.main_logo{margin-top:85px;margin-left:5px;} /* .main_logo and .main_menu are in the same table, so their positions affect eachother */
+.main_menu{margin-top:185px;margin-right:38px;}
+.main_menu_item{background:url(/themes/hulihan_applications_3rd_gen/images/main_menu/main_menu_item_unselected.png) repeat-x;width:158px;text-align:center;}
+.main_menu_item_selected{background:url(/themes/hulihan_applications_3rd_gen/images/main_menu/main_menu_item_selected.png) repeat-x;width:158px;text-align:center;}
+.main_menu_item_hover{background:url(/themes/hulihan_applications_3rd_gen/images/main_menu/main_menu_item_hover.png) repeat-x;width:158px;text-align:center;}
+.main_table{width:1000px;}
+.main_table_top{background:url(/themes/hulihan_applications_3rd_gen/images/main_bg_top.png) no-repeat;height:211px;} 
+.main_table_middle{background:none;padding-left:0px} 
+.main_table_bottom{background:none;height:162px;} 
+/* Style for the inner table, content & stuff */
+.main_inner_top{ background:url(/themes/hulihan_applications_3rd_gen/images/main_inner_top.png) no-repeat;height:40px;}
+.main_inner_middle{ background:url(/themes/hulihan_applications_3rd_gen/images/main_inner_middle.png) repeat-y;padding-left:10px;padding-right:10px} /* Contains margin & padding for main content(non-menu stuff) */
+	.main_inner_middle #main_content{}
+.main_inner_bottom{ background:url(/themes/hulihan_applications_3rd_gen/images/main_inner_bottom.png) no-repeat;height:15px;}
+.sidebar_column{width:230px;margin-left:5px;} /* for boxes(category, tag, about) in browse box and homepage */
+
+/* Item Lists */
+.item_box{background:url(/themes/hulihan_applications_3rd_gen/images/dark_dotted_bg.png) repeat-x #0B0B0B;border:1px solid #0B0B0B;width:760px;text-align:left;}
+	.item_box table{margin:0px 10px 10px 10px;padding-top:10px;}
+	.item_box td{vertical-align:top}
+	.item_box td.item_image_column{vertical-align:bottom;padding:0px;}
+		.item_box td.item_image_column div.item_image_box{width:102px;height:102px;}
+	.item_box td.item_title_column{padding-left:5px;width:425px;vertical-align:top}
+	.item_box td.item_features_column{width:180px;vertical-align:top}
+	.item_box td.item_menu_user_column{width:40px;vertical-align:top}	
+	.item_box div.title{font-size:30px;text-align:left;margin:0px;padding:0px}
+	.item_box span.date{font-size:12px;margin-left:0px;width:100%;font-weight:bold}
+	.item_box div.description{font-size:12px;padding-left:20px;text-align:left;height:35px;width:425px;}
+	.item_box div.item_other{font-size:12px;padding-right:75px;padding-top:5px;text-align:right;background:url(/themes/hulihan_applications_3rd_gen/images/item_other_bg.png) repeat-x;border:1px solid black;height:25px;}
+	.item_box div.item_features_box{padding-left:2px;}
+.item_image_thumbnail{border:1px solid #336699}
+.item_spacer{height:10px;}
+
+.item_box_photo{padding:2px;width:190px;text-align:center;}/* Used in Photo List */
+.thumbnail_box{width:100px;height:100px;text-align:center;}/* Used in Photo List */
+.item_box_small{} /* Used in Small List */
+	.item_box_small .thumbnail_box img{width:15px;height:15px;}
+	.item_box_small .title{width:580px}
+	.item_box_small td{padding:1px;}
+
+/* Item Viewing */
+.item_header_box{text-align:left} 
+.item_header_box table{width:100%}
+.item_header_box td{vertical-align:top}
+.item_header_box div.item_title_box{width:100%}
+	.item_header_box div.item_title_box #item_name{font-size:24px;}	
+	div.item_info_box {width:295px;height:200px;background:url(/themes/hulihan_applications_3rd_gen/images/dark_dotted_bg.png) repeat-x #0B0B0B;border:1px solid #0B0B0B;padding-left:5px;padding-top:10px;text-align:center;}
+.item_info_box div.item_user_box {text-align:center}
+.item_title_box table{width:100%}
+.item_title_box td{vertical-align:bottom}
+.item_title_box div.title{font-size:30px;}
+.item_title_box div.date{font-size:12px;text-align:right;margin-left:0px;width:100%;}
+.item_title_box div.description{font-size:12px;padding-left:5px;}
+
+
+.plugins{margin-top:20px;}
+.plugins table{width:100%}
+.plugins td{valign:top;text-align:left;}
+.plugins .plugin_box{margin-bottom:20px;}
+	.plugin_box div.title{font-size:24px;background:url(/themes/hulihan_applications_3rd_gen/images/item_other_bg.png) repeat-x;border:1px solid black;padding:2px;padding-left:5px;margin-bottom:5px;}
+
+	.plugin_box div.images{}
+			/*.plugin_box div.new_image_box{background:url(/themes/hulihan_applications_3rd_gen/images/box/solid/dark_blue_to_light_blue.png) repeat-x #6699CC;border:1px solid #336699;padding:10px;color:white;margin:15px;}*/
+			/* Dave 3-16-09: I'm swapping the new_[plugin]_box css for box_style_1. I'm trying to consolidate css. */
+	.plugin_box div.descriptions{}
+		/* .plugin_box div.new_description_box{background:url(/themes/hulihan_applications_3rd_gen/images/box/solid/dark_blue_to_light_blue.png) repeat-x #6699CC;border:1px solid #336699;padding:10px;color:white;margin:15px;} */
+			.plugin_box div#new_description_box input{font-size:24px;}
+			.plugin_box div#new_description_box textarea{width:733px;height:300px;margin-top:5px;margin-bottom:5px;font-size:12px;overflow:auto;}
+		.plugin_box div.descriptions div.description_title{font-size:24px;background:url(/themes/hulihan_applications_3rd_gen/images/item_other_bg.png) repeat-x;border:1px solid black;padding:2px;padding-left:5px;margin-bottom:5px;}
+					.plugin_box div.descriptions input{font-size:24px;}
+					.plugin_box div.descriptions textarea{width:733px;height:300px;margin-top:5px;margin-bottom:5px;font-size:12px;overflow:auto;}
+		.plugin_box div.descriptions div.description_content{font-size:12px;margin-bottom:20px;}
+	.plugin_box div.features{padding-left:20px;}
+		/* .plugin_box div.new_feature_box{background:url(/themes/hulihan_applications_3rd_gen/images/box/solid/dark_blue_to_light_blue.png) repeat-x #6699CC;border:1px solid #336699;background-color:#162B56;padding:10px;color:white;margin:15px;}*/
+	.plugin_box div.reviews{}
+		.plugin_box div.reviews td{vertical-align:top;text-align:center}
+		.plugin_box div.reviews div.user_box{}
+		.plugin_box div.reviews div.review_box{width:723px;;background:url(/themes/hulihan_applications_3rd_gen/images/dark_dotted_bg.png) repeat-x #0B0B0B;border:1px solid #0B0B0B;padding-left:5px;padding-top:10px;text-align:center;}
+				.plugin_box div.reviews div.review_box div{padding:0px 5px 0px 20px;}
+		.plugin_box img.review_icon{margin-top:6px;}
+		/* .plugin_box div.new_review_box{background:url(/themes/hulihan_applications_3rd_gen/images/box/solid/dark_blue_to_light_blue.png) repeat-x #6699CC;border:1px solid #336699;background-color:#162B56;color:white;padding:10px;margin:15px;} */
+			.plugin_box .new_review_box a:visited, .plugin_box div.new_review_box a:link{color:white}
+			.plugin_box .new_review_box a:hover{text-decoration:none;color:#D6EBF2}
+			.plugin_box .new_review_box div.score_box{color:white;background:#666666;border:1px solid #999999;;padding:5px;width:160px;height:60px;}
+	.plugin_box div.comments{}
+		.plugin_box div.comments table{width:800px;}
+		.plugin_box div.comments td{vertical-align:top;text-align:center}
+		.plugin_box div.comments div.user_box{padding-top:20px}
+		.plugin_box div.comments div.comment_box_from_owner{width:723px;height:98px;background:url(/themes/hulihan_applications_3rd_gen/images/comment_bg_from_owner.png) no-repeat;padding-left:5px;padding-top:10px;text-align:center;}
+			.plugin_box div.comments div.comment_box_from_owner div{padding:0px 15px 0px 30px;}	
+		.plugin_box div.comments div.comment_box{width:723px;height:98px;background:url(/themes/hulihan_applications_3rd_gen/images/comment_bg.png) no-repeat;padding-left:5px;padding-top:10px;text-align:center;}
+			.plugin_box div.comments div.comment_box div{padding:0px 15px 0px 30px;}		
+		/* .plugin_box div.new_comment_box{background:url(/themes/hulihan_applications_3rd_gen/images/box/solid/dark_blue_to_light_blue.png) repeat-x #6699CC;border:1px solid #336699;color:white;padding:10px;margin:15px;} */
+			.plugin_box div#new_comment_box a:visited, .plugin_box div.new_comment_box a:link{color:white}
+			.plugin_box div#new_comment_box a:hover{text-decoration:none;color:#D6EBF2}
+	.plugin_box div.links{padding-left:20px;}
+			/* .plugin_box div.new_link_box{background:url(/themes/hulihan_applications_3rd_gen/images/box/solid/dark_blue_to_light_blue.png) repeat-x #6699CC;border:1px solid #336699;padding:10px;color:white;margin:15px;} */
+	.plugin_box div.tags{padding-left:20px;}
+			/*.plugin_box div.new_tag_box{background:url(/themes/hulihan_applications_3rd_gen/images/box/solid/dark_blue_to_light_blue.png) repeat-x #6699CC;border:1px solid #336699;padding:10px;color:white;margin:15px;}	*/
+	.plugin_box div.files{padding-left:20px;}
+			/*.plugin_box div.new_file_box{background:url(/themes/hulihan_applications_3rd_gen/images/box/solid/dark_blue_to_light_blue.png) repeat-x #6699CC;border:1px solid #336699;padding:10px;color:white;margin:15px;}*/
+.plugins_images img.item_image_thumbnail{border:1px solid #336699}
+
+
+
+/* Box Styles for different Box types */
+.box_style_1{background:url(/themes/hulihan_applications_3rd_gen/images/dark_dotted_bg.png) repeat-x #0B0B0B;border:1px solid #0B0B0B;padding:5px;color:white}
+	.box_style_1 a:visited, .box_style_1 a:link{color:white} 	.box_style_1 a:hover{color:#D7F64A;text-decoration:none}
+.box_style_2{background:url(/themes/hulihan_applications_3rd_gen/images/dark_dotted_bg.png) repeat-x #0B0B0B;border:1px solid #0B0B0B;padding:5px;color:white}
+
+/* Categories */ 
+.categories_top{background:url(/themes/hulihan_applications_3rd_gen/images/categories/categories_top.png) no-repeat;height:57px;}
+.categories_middle{background:url(/themes/hulihan_applications_3rd_gen/images/categories/categories_middle.png) repeat-y;padding:3px}
+.categories_bottom{background:url(/themes/hulihan_applications_3rd_gen/images/categories/categories_bottom.png) no-repeat;height:46px}
+
+/* Other */
+.plugin_hover{border-bottom:2px dashed #D7F64A; background:black}
+.plugin_unselected{border-bottom:2px dashed white}
+.search_box{font-size:12px;padding-left:20px;text-align:left}
+.login_box{font-size:12px;}
+	.login_box td{vertical-align:middle;}
+.signup_button{padding:0px;background:#65900E;border:1px solid #D0F42A;font-weight:bold;}
+table.messages_table{}
+	table.messages_table td{padding:3px}
+.message_spacer{border-bottom:2px dashed #88C0D2}
+.preloaded_images{display:none}
+.dark_input{border:1px solid #224386;background:#224386;font-family:Trebuchet MS;font-size:14px;font-weight:bold;color:white}
+.row_a{background-color:}
+.row_b{background-color:#444444}
+.spacer{width:552px;height:16px;background:url(/themes/hulihan_applications_3rd_gen/images/spacer.png) no-repeat;background-align:center;background-position:center center;width:100%;margin-left:25px}
+.top_bar{padding-top:10px;padding-right:45px;text-align:right;height:40px;}
+#new_item_box #item_name{font-size:24px;width:400px;}
+#new_item_box #item_description{width:400px;height:200px;}
+#new_item_box td{padding:2px;}
+.reply_box{border:1px solid white;background:url(/themes/hulihan_applications_3rd_gen/images/box/solid/light_blue_to_white.png) repeat-x white;padding:2px;}
+.welcome_box{padding:10px;margin-right:0px;}
+.welcome_message{}
+.category_indent{padding-left:7px;}
+	.category_indent td{padding:2px}
+div.loading{text-align:center;} /* The box containing the loading img */
+	
+/* Flash Messages(Success and Failure Boxes) */
+.flash_notice{} /* This is the div that contains all flash messages. */
+.flash_success{background:#65900E;border:2px solid #D0F42A;color:white;padding:5px;margin: 0px 50px 0px 50px;text-align:center;}
+.flash_failure{border:2px solid #F3B3B3;background-color:#AF0000;color:white;padding:5px;margin: 0px 50px 0px 50px;text-align:center;}
+
+/* Dropdown Menus */
+
+
+
+/* Tabs for User Section */
+pre {text-indent: 30px;}
+#tabmenu {color: #000;	margin: 0px;	padding: 0px;	z-index: 1;	padding-left: 0px;padding-right:17px;text-align:center;	}
+#tabmenu li {display: inline;	overflow: hidden;	list-style-type: none;}
+#tabmenu a, a.active {background:#555555;border:1px solid #CCCCCC; font-size:20px ;border-bottom:1px solid #CCCCCC;padding:5px;	padding-top:0px;	padding-bottom:0px;	margin: 0px;text-decoration: none;	cursor:hand;text-align:none;margin-right:5px;}
+#tabmenu a.active {border:1px solid #CCCCCC;background:#333333;border-bottom:1px solid #333333; }
+#tabmenu a:hover {;border:1px solid #CCCCCC;background:#333333;border-bottom:1px solid #333333;}
+#tabmenu a:visited, #tabmenu a:link {color:white}
+#tabmenu a.active:hover {color:#D7F64A}
+#tabmenu a.special_tab:visited, #tabmenu a.special_tab:link{color:white;background:#65900E;border:1px solid #D0F42A;border-bottom:1px solid #CCCCCC}#tabmenu a.special_tab:hover {color:white;background:#65900E;border:1px solid white;border-bottom:1px solid #CCCCCC}
+#content {border:1px solid #CCCCCC;background:#333333;padding:10px;}
+
+/* Pagination */
+.pagination{margin-top:10px}
+.pagination a{color:white;background:#555555;border:1px solid #CCCCCC;padding:10px;;text-decoration:none}
+.pagination a:hover{color:white;background:#444444;border:1px solid #D0F42A;padding:10px;text-decoration:none}
+.current{color:white;background:#444444;border:1px solid #D0F42A;padding:10px;text-decoration:none}
+.disabled{color:white;background:#555555;border:1px solid #CCCCCC;padding:10px;text-decoration:nonefilter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity: 0.5;opacity: 0.5;}
+
+/* Admin Styles */
+a.admin_link:visited, a.admin_link:link { color:white;text-decoration:none; }a.admin_link:hover{text-decoration:none;color:#67FF5F }
+.admin_menu{background:url(/images/box/solid/blue_to_dark.png) repeat-x;border:0px solid #162B56;background-color:#162B56;padding:3px;margin:20px}
+.admin_menu_header{color:white;font-size:14px;border-bottom:1px dotted white}
+.condition_name{color:white;font-weight:bold}
+.condition_value{color:red;font-weight:bold}
+table.setting_table{margin:3px}
+	.setting_table td{padding:3px;}
+	
+/* jQuery TOOLS - Horizontal Tabs CSS */
+ul.plugin_tabs_horizontal {	list-style:none; 	margin:0 !important; 	padding:0;	height:25px;	margin-bottom:0px;}
+ul.plugin_tabs_horizontal li { 	float:left;	 	text-indent:0;	padding:0;	margin:0 !important;	list-style-image:none !important; }/* single tab */
+ul.plugin_tabs_horizontal a { color:#ccc;	background: url(/themes/hulihan_applications_3rd_gen/images/bgs/plugin_tab_bg_unselected.png) no-repeat;;	font-size:11px;	display:block;	height: 20px;  	width: 85px;	text-align:center;		text-decoration:none;	padding:5px 0px 0px 0px;	margin:0px 2px 0px 0px;		position:relative;}/* link inside the tab. uses a background image */
+ul.plugin_tabs_horizontal a.current {	border:0px;	background: url(/themes/hulihan_applications_3rd_gen/images/bgs/plugin_tab_bg_selected.png) no-repeat;}
+ul.plugin_tabs_horizontal a:hover{	color:#fff;border:0px;	background: url(/themes/hulihan_applications_3rd_gen/images/bgs/plugin_tab_bg_selected.png) no-repeat;}
+ul.plugin_tabs_horizontal a.current, ul.plugin_tabs_horizontal a.current:hover, ul.plugin_tabs_horizontal li.current a {	cursor:default !important; 	color:#fff !important;}/* active tab uses a class name "current". it's highlight is also done by moving the background image. */
+div.plugin_panes_horizontal {	background: url(/themes/hulihan_applications_3rd_gen/images/bgs/plugin_tab_pane_bg.png) repeat-x;	padding:5px;	min-height:300px;}
+div.plugin_panes_horizontal div.pane {	display:none;}/* initially all panes are hidden */ 
+
+/* jQuery TOOLS - Vertical Tab CSS */
+ul.plugin_tabs_vertical { width:90px;	list-style:none; 	margin:0 !important; 	padding:0;	height:25px;	margin-bottom:0px;}
+ul.plugin_tabs_vertical li { 	float:left;	 	text-indent:0;	padding:0;	margin:0 !important;	list-style-image:none !important; }/* single tab */
+ul.plugin_tabs_vertical a {	border:1px solid #0B0B0B;; background:url(/themes/hulihan_applications_3rd_gen/images/dark_dotted_bg.png) repeat-x #0B0B0B;;	font-size:11px;	display:block;	height: 20px;  	width: 85px;	text-align:center;		text-decoration:none;	padding:5px 0px 0px 0px;	margin:0px 2px 2px 0px;		position:relative;}/* link inside the tab. uses a background image */
+ul.plugin_tabs_vertical a.current {	border:1px solid #aaa;;background:url(/themes/hulihan_applications_3rd_gen/images/dark_dotted_bg.png) repeat-x #0B0B0B;}
+ul.plugin_tabs_vertical a:hover{	border:1px solid #aaa;	background:url(/themes/hulihan_applications_3rd_gen/images/dark_dotted_bg.png) repeat-x #0B0B0B;}
+div.plugin_panes_vertical {background: url(/themes/hulihan_applications_3rd_gen/images/bgs/plugin_tab_pane_bg.png) repeat-x;	padding:5px;	min-height:300px;}
+div.plugin_panes_vertical div.pane {display:none;		}/* initially all panes are hidden */ 
+
+/* jQuery TOOLS - Accordian Tab CSS */
+#accordion {	background:url(/themes/hulihan_applications_3rd_gen/images/bgs/plugin_tab_pane_bg.png) repeat-x;	width: 100%;	border:1px solid black;	}/* root element for accordion. decorated with rounded borders and gradient background image */
+#accordion h2.accordion_tab {		background:url(/themes/hulihan_applications_3rd_gen/images/item_other_bg.png) repeat-x;	margin:0;	padding:5px 15px;	font-size:14px;	font-weight:bold;	border:0px solid #0b0b0b;	border-bottom:1px solid black;border-top:1px solid #ccc;	cursor:pointer;		}/* accordion header */
+#accordion h2.current {	cursor:default;	background-color:#333;}/* currently active header */
+#accordion div.pane {	display:none;	padding:15px;	font-size:12px;}/* accordion pane */
+
+/* ColorBox Image Gallery CSS */
+#colorbox, #cboxOverlay, #cboxWrapper{position:absolute; top:0; left:0; z-index:9999; overflow:hidden;}
+#cboxOverlay{position:fixed; width:100%; height:100%;}
+#cboxMiddleLeft, #cboxBottomLeft{clear:left;}
+#cboxContent{position:relative; overflow:hidden;}
+#cboxLoadedContent{overflow:auto;}
+#cboxLoadedContent iframe{display:block; width:100%; height:100%; border:0;}
+#cboxTitle{margin:0;}
+#cboxLoadingOverlay, #cboxLoadingGraphic{position:absolute; top:0; left:0; width:100%;}
+#cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow{cursor:pointer;}
+
+#cboxOverlay{background:url(/themes/hulihan_applications_3rd_gen/images/colorbox/overlay.png) 0 0 repeat;}
+#colorbox{}
+    #cboxTopLeft{width:21px; height:21px; background:url(/themes/hulihan_applications_3rd_gen/images/colorbox/controls.png) -100px 0 no-repeat;}
+    #cboxTopRight{width:21px; height:21px; background:url(/themes/hulihan_applications_3rd_gen/images/colorbox/controls.png) -129px 0 no-repeat;}
+    #cboxBottomLeft{width:21px; height:21px; background:url(/themes/hulihan_applications_3rd_gen/images/colorbox/controls.png) -100px -29px no-repeat;}
+    #cboxBottomRight{width:21px; height:21px; background:url(/themes/hulihan_applications_3rd_gen/images/colorbox/controls.png) -129px -29px no-repeat;}
+    #cboxMiddleLeft{width:21px; background:url(/themes/hulihan_applications_3rd_gen/images/colorbox/controls.png) left top repeat-y;}
+    #cboxMiddleRight{width:21px; background:url(/themes/hulihan_applications_3rd_gen/images/colorbox/controls.png) right top repeat-y;}
+    #cboxTopCenter{height:21px; background:url(/themes/hulihan_applications_3rd_gen/images/colorbox/border.png) 0 0 repeat-x;}
+    #cboxBottomCenter{height:21px; background:url(/themes/hulihan_applications_3rd_gen/images/colorbox/border.png) 0 -29px repeat-x;}
+    #cboxContent{background:#fff;}
+        #cboxLoadedContent{margin-bottom:28px;}
+        #cboxTitle{position:absolute; bottom:3px; left:0; text-align:center; width:100%; color:#949494;}
+        #cboxCurrent{position:absolute; bottom:3px; left:58px; color:#949494;}
+        #cboxSlideshow{position:absolute; bottom:3px; right:30px; color:#0092ef;}
+        #cboxPrevious{position:absolute; bottom:0; left:0px; background:url(/themes/hulihan_applications_3rd_gen/images/colorbox/controls.png) -75px 0px no-repeat; width:25px; height:25px; text-indent:-9999px;}
+        #cboxPrevious.hover{background-position:-75px -25px;}
+        #cboxNext{position:absolute; bottom:0; left:27px; background:url(/themes/hulihan_applications_3rd_gen/images/colorbox/controls.png) -50px 0px no-repeat; width:25px; height:25px; text-indent:-9999px;}
+        #cboxNext.hover{background-position:-50px -25px;}
+        #cboxLoadingOverlay{background:url(/themes/hulihan_applications_3rd_gen/images/colorbox/loading_background.png) center center no-repeat;}
+        #cboxLoadingGraphic{background:url(/themes/hulihan_applications_3rd_gen/images/colorbox/loading.gif) center center no-repeat;}
+        #cboxClose{position:absolute; bottom:0; right:0; background:url(/themes/hulihan_applications_3rd_gen/images/colorbox/controls.png) -25px 0px no-repeat; width:25px; height:25px; text-indent:-9999px;}
+        #cboxClose.hover{background-position:-25px -25px;}
+
+	/* ColorBox IE Transparency Fix */
+	.cboxIE #cboxTopLeft{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=/themes/hulihan_applications_3rd_gen/images/colorbox/internet_explorer/borderTopLeft.png, sizingMethod='scale');}
+	.cboxIE #cboxTopCenter{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=/themes/hulihan_applications_3rd_gen/images/colorbox/internet_explorer/borderTopCenter.png, sizingMethod='scale');}
+	.cboxIE #cboxTopRight{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=/themes/hulihan_applications_3rd_gen/images/colorbox/internet_explorer/borderTopRight.png, sizingMethod='scale');}
+	.cboxIE #cboxBottomLeft{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=/themes/hulihan_applications_3rd_gen/images/colorbox/internet_explorer/borderBottomLeft.png, sizingMethod='scale');}
+	.cboxIE #cboxBottomCenter{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=/themes/hulihan_applications_3rd_gen/images/colorbox/internet_explorer/borderBottomCenter.png, sizingMethod='scale');}
+	.cboxIE #cboxBottomRight{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=/themes/hulihan_applications_3rd_gen/images/colorbox/internet_explorer/borderBottomRight.png, sizingMethod='scale');}
+	.cboxIE #cboxMiddleLeft{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=/themes/hulihan_applications_3rd_gen/images/colorbox/internet_explorer/borderMiddleLeft.png, sizingMethod='scale');}
+	.cboxIE #cboxMiddleRight{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=/themes/hulihan_applications_3rd_gen/images/colorbox/internet_explorer/borderMiddleRight.png, sizingMethod='scale');}
+
+

@@ -1,0 +1,22 @@
+<% 
+	plugins = Plugin.find(:all, :conditions => ["is_enabled = '1'"], :order => "order_number ASC") 
+	my_group_plugin_permissions = GroupPluginPermission.all_plugin_permissions_for_group(@logged_in_user.group) 
+%>
+
+<% @setting[:item_page_type] = get_setting("item_page_type")%>
+
+<% if @setting[:item_page_type] == "tabs_horizontal" %>
+	<%= render :partial => "items/view_tabs_horizontal", :locals => {:item => @item, :plugins => plugins, :my_group_plugin_permissions => my_group_plugin_permissions} %>
+<% elsif @setting[:item_page_type] == "tabs_vertical" %>
+	<%= render :partial => "items/view_tabs_vertical", :locals => {:item => @item, :plugins => plugins, :my_group_plugin_permissions => my_group_plugin_permissions} %>
+<% elsif @setting[:item_page_type] == "accordian" %>
+	<%= render :partial => "items/view_accordian", :locals => {:item => @item, :plugins => plugins, :my_group_plugin_permissions => my_group_plugin_permissions} %>
+<% elsif @setting[:item_page_type] == "summarized" %>				
+	<%= render :partial => "items/view_summarized", :locals => {:item => @item, :plugins => plugins, :my_group_plugin_permissions => my_group_plugin_permissions} %>
+<% else %>
+	<%= render :partial => "items/view_expanded", :locals => {:item => @item, :plugins => plugins, :my_group_plugin_permissions => my_group_plugin_permissions} %>
+<% end %>
+
+
+
+

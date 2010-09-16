@@ -1,0 +1,187 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<%= render :partial => "shared/head" %>
+</head>
+
+<body>
+
+<table class="main_table" cellspacing=0 cellpadding=0 align=center width="100%">   
+ <tr>
+  <td align=center class="top">
+	    <div class="top_bar">
+	     	<%#= render :partial => "browse/top_bar" %>
+	    </div>
+		
+		<table class="logo_table">
+			<tr>
+				<td align=left>
+					<a href="http://www.hulihanapplications.com">
+						<img src="http://www.hulihanapplications.com/images/logos/logo.png" title="" alt="Hulihan Applications" border=0>
+					</a>
+				</td> 
+			</tr>
+		</table>
+  </td>
+ </tr>
+ <tr>
+  <td class="middle" align=center>
+  	<table class="content_table" cellpadding=0 cellspacing=0>
+  		<tr>
+  			<td align=left>
+			    <div class="top" align=center> 
+					<%# Main Buttons %>
+						<div class="top_menu">
+							<table align=right>
+							 <tr>
+							  <td>
+							       
+							        <a href="http://www.hulihanapplications.com/browse/about" onMouseOut="out(0)" onMouseOver="over(0)"><img alt="about" border="0" name="about" src="/themes/<%= @setting[:theme] %>/images/top_menu/about_unselected.png" /></a> 
+							       
+							  </td>
+							  <td>
+							       
+							        <a href="http://www.hulihanapplications.com/projects" onMouseOut="out(1)" onMouseOver="over(1)"><img alt="projects" border="0" name="projects" src="/themes/<%= @setting[:theme] %>/images/top_menu/projects_unselected.png" /></a> 
+						
+							       
+							  </td>
+						
+							  <td>
+							       
+						   			<a href="http://portfolio.hulihanapplications.com"><img src="/themes/<%= @setting[:theme] %>/images/top_menu/portfolio_selected.png" name="portfolio"></a>
+							         
+							       
+							  </td>
+							  <td>
+							       
+							        <a href="http://www.hulihanapplications.com/services" onMouseOut="out(3)" onMouseOver="over(3)"><img alt="services" border="0" name="services" src="/themes/<%= @setting[:theme] %>/images/top_menu/services_unselected.png" /></a> 
+							       
+							  </td>
+							  <td>
+							       
+							        <a href="http://www.hulihanapplications.com/browse/contact_us" onMouseOut="out(4)" onMouseOver="over(4)"><img alt="contact_us" border="0" name="contact_us" src="/themes/<%= @setting[:theme] %>/images/top_menu/contact_us_unselected.png" /></a> 
+							       
+							  </td>
+							 </tr>
+						
+							</table>
+						</div>
+
+
+
+
+
+			    </div> 
+			    <div class="middle">
+			     <table width="100%" cellpadding=0 cellspacing=0>
+			     	<tr>
+			     		<td colspan=2>
+				   			<% if flash[:notice] %><div class="flash_notice"><%= flash[:notice] %></div><br><% end %>  	
+			     		</td>
+			     	</tr>
+			     	<tr>
+				        <td colspan=2>
+						    <div class="top_bar" style="margin-bottom:10px;"> <%= render :partial => "browse/top_bar" %></div>
+							
+							<div class="preloaded_images">
+								<img src="/themes/<%= @setting[:theme] %>/images/main_menu/main_menu_item_hover.png"><!-- preload image -->
+							</div>
+							
+							<table class="opal_main_table" cellspacing=0 cellpadding=0 align=center>   
+							 <tr>
+							  <td align=center>
+							   <div class="opal_main_table_top">
+							    <table align=center width="100%" cellpadding=0 cellspacing=0>
+							     <tr>
+							      <td align=left>
+							      	<div class="main_logo">
+							      		<% if File.exists?(RAILS_ROOT + "/public/themes/#{@setting[:theme]}/images/logo.png") %>
+								      		<a href="/"><img src="/themes/<%= @setting[:theme] %>/images/logo.png" border=0 alt="<%= @setting[:title] %>" title="<%= @setting[:title] %>"></a>
+										<% else %>
+								      		<a href="/"><h1><%= @setting[:title] %></h1></a>
+										<% end %>
+							      	</div>
+								  </td>
+							      <td align=right valign=bottom>
+								   <div class="main_menu">
+								      <%= render :partial => "browse/main_menu" %>	   
+								   </div>
+							      </td>
+							     </tr>
+							    </table>
+							   </div>
+							  </td>
+							 </tr>
+							
+							 <tr>
+							  <td valign=top align=center>
+							   <div class="opal_main_table_middle" align=center>
+							
+							    <div class="main_inner_top"> 
+
+							    </div> 
+							
+							    <div class="main_inner_middle">
+							     <div id="main_content">
+							 		 <%= render :partial => "/browse/browse_box" %>
+									 <%= render :partial => "/browse/banner_top" %>		 
+									 <%= render :partial => "/user/menu" if @show_user_menu %>
+									 <%= render :partial => "/admin/menu" if @show_admin_menu %>		 
+								     <%= yield %>			
+							 		 <% if @show_user_menu || @show_admin_menu %>
+									  <%# Close Tab Div in Menu Partial %>
+									  	</div>
+									  </div>
+									 <% end %>
+							 		 <%= render :partial => "/browse/banner_bottom" %>
+							     </div>
+							    </div>
+							    <div class="main_inner_bottom">
+							    </div>
+							
+							   </div>
+							  </td>
+							 </tr>
+							
+							 <tr>
+							  <td align=center>
+							   <!-- top -->
+							   <div class="opal_main_table_bottom">
+							     	Powered by <a href="http://www.hulihanapplications.com/projects/opal"><b>Opal</b></a> &copy; 2010 - <a href="http://www.hulihanapplications.com">Hulihan Applications</a>
+									<div align=center>
+									<a href="http://www.hulihanapplications.com/projects/opal"><img src="/images/opal_powered_small.png" border=0 alt="" title="This site is powered by Opal &copy; 2010 Hulihan Applications"></a>
+									</div>
+							   </div>
+							  </td>
+							 </tr>
+							</table>				        	
+				        </td>
+			     	</tr>
+			     </table>
+			    </div>
+				
+			    <div class="bottom">
+			    </div>
+				
+				
+  			</td>
+  		</tr>
+  	</table>
+	<br><br>
+
+  </td>
+ </tr>
+
+ <tr>
+  <td align=center class="bottom">
+  	Hulihan Applications &copy; 2007-2010<br>
+	<font color=#CCCCCC>No portion of this site may be copied, altered, duplicated or otherwise used without the express written approval of Hulihan Applications.</font>
+  </td>
+ </tr>
+
+</table>
+
+</body>
+
+
+</html>

@@ -1,0 +1,42 @@
+<%= render :partial => "items/item_header", :locals => {:item => @item, :options => {:show_item_info => true, :show_item_title => true}} %>
+
+
+<table align=center style="width:100%" cellpadding=0 cellspacing=0>
+	 <tr>
+	  <td align=left class="sidebar_column" valign=top style="padding:0px;text-align:center">
+		<div align=left class="box_style_1" style="margin-bottom:5px">	  	
+			<h3 class="title">
+				<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" alt="" title="Information" class="icon">
+				Did you know?
+			</h3>
+			You can add images, videos, flash, and more to your <%= @plugin.title %>s by using the <a href="http://tinymce.moxiecode.com/" target="_blank">TinyMCE Wysiwyg Editor</a>(to your right)! 
+		</div>	
+		<div align=left class="box_style_1" style="margin-bottom:5px">	  	
+			<h3 class="title">
+				<img src="/themes/<%= @setting[:theme] %>/images/icons/private.png" alt="" title="Information" class="icon"> 
+				Security Info
+			</h3>			
+			The following HTML elements are allowed here:
+			<%  html_whitelist = YAML::load(File.open(RAILS_ROOT + "/config/whitelist_html.yml")) # load html whitelist from file %>
+			<b><%= html_whitelist["elements"].join(", ") %>.</b>
+		</div>					
+	  </td>
+	  <td style="width:5px;">
+	  </td>
+	  <td align=left valign=top >
+		<div class="box_style_2" style="margin-bottom:5px">
+			<h2 class="title">Editing <%= h @plugin.title %>: <%= h @description.title %></h2>
+			<div class="spacer"></div>
+			<%= form_tag :action => 'update', :controller => "plugin_descriptions", :id => @item.id  %>
+				<input name="description_id" value="<%= @description.id %>" type="hidden">
+				<%= render :partial => "form", :locals => {:description => @description} %>
+				<br>
+				<div align=center><%= submit_tag "Save" %></div>
+			</form>
+		</div>
+	  </td> 
+	 </tr>
+</table>	
+
+<div align=center><img src="/themes/<%= @setting[:theme] %>/images/icons/arrow_left.png" class="icon" title="Back"> <%= link_to "Back", { :action => 'view', :controller => "items", :id => @item.id, :anchor => "#{@plugin.name}s"}  %></div>
+

@@ -1,0 +1,34 @@
+<%= render :partial => "/browse/main_content_top_bar" %>
+
+<h2 class="title">My <%= @setting[:item_name_plural] %></h2>
+<div class="spacer"></div>
+<br>
+<table align=center style="width:100%" cellpadding=0 cellspacing=0>
+ <tr>
+  <td align=left class="sidebar_column" valign=top style="padding:0px;">
+
+		<%= render :partial => "items/unapproved_plugin_items", :locals => {:items => @items, :plugins => @plugins} %>
+		<% if Setting.get_setting_bool("let_users_create_items") || @logged_in_user.is_admin? %>
+			<%= render :partial => "items/items_remaining" %>
+		<% end %>
+  </td>
+  <td style="width:5px;">
+  	
+  </td>
+  <td align=left valign=top >
+	<%= render :partial => "/items/list_items", :locals => {:items => @items} %>
+	<br>
+
+
+
+  </td> 
+ </tr>
+</table>
+
+<div align="center" class="will_paginate">
+	<br>	
+	<%= page_entries_info @items, :entry_name => @setting[:item_name] %>	
+	<%= will_paginate @items %>
+	<br>
+</div>
+

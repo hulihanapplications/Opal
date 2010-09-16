@@ -1,0 +1,81 @@
+<% 	features = PluginFeature.find(:all, :order => "order_number ASC") %>
+<table cellpadding=1 cellspacing=1>						   						  
+   <% for feature in features %>
+   		<tr>
+   			<td style="vertical-align:middle" align=left>
+				<%= feature_icon feature %>
+				<%= feature.name %>
+				<% if feature.is_required %>
+					<img src="/themes/<%= @setting[:theme] %>/images/icons/required.png" class="icon"  alt="" title="This is required.">
+				<% end %>					
+				<input name="features[<%= feature.id %>][plugin_feature_id]" value="<%= feature.id %>" type="hidden">														   				
+   			</td>								
+   			<td align=right >
+   				<% existing_value_for_item = PluginFeatureValue.find(:first, :conditions => ["plugin_feature_id = ? and item_id = ?", feature.id, item.id]) %>
+				<% 
+					if existing_value_for_item
+						value =  existing_value_for_item.value
+					else 
+						value = nil
+					end
+				%>
+				   				
+				<% if feature.feature_type == "option" %>
+					<select name="features[<%= feature.id %>][value]">
+						<option value="" SELECTED></option>
+		   				<% for option in feature.plugin_feature_value_options %>											
+							<option value="<%=  option.value %>" <%= "SELECTED" if value == option.value %>><%= truncate(option.value, :length => 35) %></option>
+						<% end %>												
+					</select>
+				<% elsif feature.feature_type == "date" %>
+					<input name="features[<%= feature.id %>][value]" type="date" id="feature_input_<%= feature.id %>" value="<%= h value %>" />					
+					<script type="text/javascript">
+						$(document).ready(function() {
+							$("#feature_input_<%= feature.id %>").dateinput();
+						});
+					</script>						
+				<% elsif feature.feature_type == "slider" %>
+					<% feature.min ||= 0  %>
+					<% feature.min ||= 100  %>						
+					<input name="features[<%= feature.id %>][value]" type="range" id="feature_input_<%= feature.id %>" value="<%= h value %>" min="<%= feature.min %>" max="<%= feature.max %>" />					
+					<script type="text/javascript">
+						$(document).ready(function() {
+							$("#feature_input_<%= feature.id %>").rangeinput();
+						});
+					</script>					
+				<% elsif feature.feature_type == "yesno" %>
+	   				<input name="features[<%= feature.id %>][value]" type="radio" id="feature_input_<%= feature.id %>"  value="Yes" <%= "CHECKED" if value == "Yes"  %> > Yes
+	   				<input name="features[<%= feature.id %>][value]" type="radio" id="feature_input_<%= feature.id %>"  value="No" <%= "CHECKED" if value == "No" %>> No
+	   				<input name="features[<%= feature.id %>][value]" type="radio" id="feature_input_<%= feature.id %>"  value="" <%= "CHECKED" if (value == "" || value == nil) %>> Leave Blank																																															
+				<% else %>
+	   				<input name="features[<%= feature.id %>][value]" type="text" id="feature_input_<%= feature.id %>" onfocus = "focus_input('feature_input_<%= feature.id %>')" onblur = "blur_input('feature_input_<%= feature.id %>')" value="<%= h value %>">								
+				<% end %>			
+   			</td>
+			<td style="" align=left>
+				<a href="javascript:toggle_box('feature_value_link_box_<%= feature.id %>')" class="transparent">
+					<img src="/themes/<%= @setting[:theme] %>/images/icons/link.png" class="icon"  title="Make this value a hyperlink.">					
+				</a>
+				<% if feature.description && feature.description != "" %>			
+					<img src="/themes/<%= @setting[:theme] %>/images/icons/help.png" class="help icon"  alt="" title="<%= feature.description %>" >	
+				<% end %>
+				<% if (feature.feature_type == "slider" || feature.feature_type == "number")  %>			
+					<% if feature.min %>
+						<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" class="help icon"  alt="" title="This must be greater than or equal to <%= feature.min %>" >
+					<% end %>	
+					<% if feature.max %>
+						<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" class="help icon"  alt="" title="This must be less than or equal to <%= feature.max %>" >
+					<% end %>						
+				<% end %>									
+			</td>																																
+		</tr>
+		<tr>
+			<td colspan=3 style="">
+				<div id="feature_value_link_box_<%= feature.id %>" style="display:none">					
+					<input style="width:100%" name="features[<%= feature.id %>][url]" type="text" id="feature_url_<%= feature.id %>" onfocus = "focus_input('feature_url_<%= feature.id %>')" onblur = "blur_input('feature_url_<%= feature.id %>')">								
+				</div>
+			</td>
+		</tr>		
+
+		
+   <% end %>	
+</table>	

@@ -1,0 +1,123 @@
+<% features = PluginFeature.find(:all, :conditions => ["search_type != ?" , "Hidden"]) %>
+<script type="text/javascript">
+
+	
+	function toggle_feature(id) // toggle a feature box
+	{
+		element = document.getElementById(id);		
+	} 
+	//add_feature_input('features_section'); // add first field
+</script>
+	<table cellpadding=0 cellspacing=0 style="width:100%;">
+		<tr> 
+			<td valign=top >
+				<div class="box_style_2" align=center>
+					<h3>Keywords in Title or Description</h3>
+					<input name="[search]keywords" type="text">
+					<br><br>
+
+					<% @plugin = Plugin.find_by_name("Feature") %>
+					<% if @plugin.is_enabled? %>
+						<% counter = 0 %>
+						<div id="features_section">
+							<h3><%= @plugin.title %>s</h3>					
+					    	<table cellpadding=0 cellspacing=0 style="width:100%">
+						        <tr>
+									<% for feature in features %>
+										<% if feature.search_type != "None" %>		
+		            						<%= "</tr><tr>" if counter % 2 == 0 %>																
+											<td style="width:50%">
+												<div class="box_style_2" id="<%= feature.id %>" style=";margin:5px 5px 5px 5px">
+													<table style="width:100%">
+														<tr>
+															<td align=left style="vertical-align:middle">
+																<h3>
+																	<input style="vertical-align:middle" type="checkbox" name="feature[<%= feature.id %>][search]" value="1" onclick="javascript:toggle_feature('<%= feature.id %>')">
+																	<%= feature_icon feature %> 
+																	<%= feature.name %>
+																</h3>
+															</td>																						
+															<td align=right >
+																<input type="hidden" name="feature[<%= feature.id %>][type]" value="<%= feature.search_type %>">															
+																<% if feature.search_type == "Keyword" %>
+																	<input type="text" name="feature[<%= feature.id %>][value]">
+																<% elsif feature.search_type == "Number" %>
+																	<input type="text" name="feature[<%= feature.id %>][value]">										
+																<% elsif feature.search_type == "Grouped" %>															
+																	<% grouped_feature_values = PluginFeatureValue.find(:all, :select => "value, count(value)", :conditions => ["plugin_feature_id = ?", feature.id], :group => "value") %>
+																	<% if grouped_feature_values.size > 0 %>
+																		<select name="feature[<%= feature.id %>][value]">
+																			<% for feature_value in grouped_feature_values %>
+																				<option value="<%= feature_value.value %>"><%= h truncate(feature_value.value, :length => 20)  %> (<%= feature_value["count(value)"] %>)</option>
+																			<% end %>
+																		</select>
+																	<% else %>
+																		No Matches Found.
+																	<% end %>
+																<% else %>
+																<% end %>												
+															</td>
+														</tr>
+													</table>
+												</div>
+											</td>						
+			            					<% counter += 1 %>	
+										<% end %>							
+									<% end %>
+						        </tr>
+						    </table>								
+						</div> 
+					<% end %>
+													
+				</div>					
+			</td>
+			<td style="width:10px;">
+			</td>
+			<td valign=top align=left class="sidebar_column">
+				<div class="box_style_1">					
+					<h3>Category</h3>
+					<div class="indent">
+						<table cellpadding=0 cellspacing=0 style="width:100%"><tr><td style="width:100%;"><b>All</b></a></td><td align=right><input type="radio" name="item[category_id]" value="all" CHECKED></td></tr></table>
+					</div>
+					<div class="spacer"></div>
+					<% for category in Category.get_parent_categories  %>
+						<%= descend_category(category, :include_children => @setting[:include_child_category_items], :make_radio_button => true, :truncate_length => 35, :depth => 1)  %>
+					<% end %>
+				</div>
+				<br>
+				<div class="box_style_1">					
+					<h3>Dates &amp; Times</h3>
+					<table style="width:100%">
+						<tr>
+							<td><b>Date Added</b></td>
+							<td align=right>
+								<select name="created_at">
+									<option value="whenever" SELECTED>Whenever</option>						
+									<option value="today">Today</option>
+									<option value="this_week">This Week</option>
+									<option value="this_month">This Month</option>
+									<option value="this_year">This Year</option>												
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td><b>Last Updated</b></td>
+							<td align=right>
+								<select name="updated_at">
+									<option value="whenever" SELECTED>Whenever</option>						
+									<option value="today">Today</option>
+									<option value="this_week">This Week</option>
+									<option value="this_month">This Month</option>
+									<option value="this_year">This Year</option>												
+								</select>
+							</td>
+						</tr>							
+					</table>
+
+					
+				</div>				
+			</td>
+		</tr>
+	</table>
+	<br>
+	<input type="submit" value="Search">

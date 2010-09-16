@@ -1,0 +1,13 @@
+# Email Config File
+development:
+  :address: smtp.server.com
+  :port: 25
+  :authentication: plain
+  :user_name: user
+  :password: pass
+production:
+  :address: smtp.server.com
+  :port: 25
+  :authentication: plain
+  :user_name: user
+  :password: pass

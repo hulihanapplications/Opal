@@ -1,0 +1,43 @@
+<%# Menu for Regular User %>
+<div style="display: block;">
+ <ul id="tabmenu">
+   <li>				   	
+   		<a <% if params[:action] == "index"%>class="active"<% end %> href="/user">
+		<img src="/themes/<%= @setting[:theme] %>/images/icons/home.png" class="icon" >
+		account home
+		</a>
+   </li>
+   <% if Setting.get_setting_bool("let_users_create_items") || @logged_in_user.is_admin? %>
+   <li>
+   		<a <% if params[:action] == "new" && params[:controller] == "items" %>class="active"<% end %> href="/items/new">
+			<img src="/themes/<%= @setting[:theme] %>/images/icons/new.png" class="icon">		   			   	
+			new <%= @setting[:item_name] %>
+		</a>
+   </li>
+   <li>
+   		<a <% if params[:action] == "items" || params[:action] == "edit"  %>class="active"<% end %> href="/user/items" >
+		<img src="/themes/<%= @setting[:theme] %>/images/icons/items.png" class="icon" >				
+		my <%= @setting[:item_name_plural] %>
+		</a>
+   </li>
+   <% end %>   
+   <li>
+		<% params[:action] == "for_me" ? css_class = "active" : css_class = "" %>
+		<%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/mail.png\" class=\"icon\">	messages", {:action => "for_me", :controller => "messages"}, :class => css_class %>
+	</li>
+   <li>
+   		<a <% if params[:action] == "settings" %>class="active"<% end %> href="/user/settings">
+		<img src="/themes/<%= @setting[:theme] %>/images/icons/settings.png" class="icon" >								
+		my settings
+		</a>
+   </li>
+   <% if @logged_in_user.is_admin? %>
+		    <li>
+		   	<a class="special_tab" href="/admin">
+		   		<img src="/themes/<%= @setting[:theme] %>/images/icons/admin.png" class="icon" > 				
+		   		admin
+			</a>
+			</li>
+   <% end %>
+ </ul>
+ <div id="content">

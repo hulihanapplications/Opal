@@ -1,0 +1,77 @@
+# This files contains all of the html tags that are allowed from user input.
+# http://github.com/rgrove/sanitize/#readme - See for more Options
+
+# HTML Elements Allowed
+elements:
+  - img
+  - a
+  - table
+  - tr
+  - td
+  - th
+  - br
+  - b
+  - u
+  - i
+  - strong
+  - p 
+  - span
+  - embed
+  - object
+  - param
+  - ul
+  - ol
+  - li
+  - blockquote
+  - pre
+  - div
+  - sub
+  - sup
+  - h1
+  - h2 
+  - h3 
+  - h4
+  - h5
+  - h6
+  
+# Element Attributes Allowed  
+attributes:
+  a:
+    - href
+    - title
+    - style
+  img:
+    - src
+    - style
+  span:
+    - style
+  embed:
+    - allowfullscreen
+    - allowscriptaccess
+    - height
+    - width
+    - src
+    - type
+  object:
+    - height
+    - width
+    - data
+    - type
+  param: 
+    - name
+    - value
+  div:
+    - style 
+  p:
+    - style
+    
+# Protocols Allowed for Attributes
+#protocols: 
+#  a:
+#    - http
+#    - https 
+#    - mailto
+#    - ftp
+
+	
+	

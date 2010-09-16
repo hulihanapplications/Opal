@@ -1,0 +1,38 @@
+
+
+	<table align=center style="width:100%" cellpadding=0 cellspacing=0>
+	 <tr>
+	  <td align=left class="sidebar_column" valign=top style="padding:0px;">
+	  		<%= render :partial => "tools/menu" if (params[:controller] == "logs" && params[:action] == "index")%>
+			<div class="box_style_1" style="margin-bottom:5px;">
+				<%= render :partial => "logs/legend" %>
+			</div>	
+	  </td>
+	  <td style="width:5px;">
+	  	
+	  </td>
+	  <td align=left valign=top >
+	  		<h1 class="title">	System Activity		</h1>
+			<div class="spacer"></div>
+			You are viewing <b>all</b> activity for <%= @setting[:title] %>.
+			<br><br> 
+	  	<div class="box_style_2" align=left>
+			<%= render :partial => "list_logs", :locals => {:logs => @logs} %>
+		</div>
+		<br>
+		<div align=center >
+			<%= page_entries_info @logs, :entry_name => "log" %>
+		
+			<%= will_paginate @logs %>
+		</div>						
+	  </td> 
+	 </tr>
+	</table>	
+
+
+
+<br>
+
+
+
+

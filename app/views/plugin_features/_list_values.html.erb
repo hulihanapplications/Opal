@@ -1,0 +1,41 @@
+<% 
+	options ||= Hash.new
+	options[:show_controls] = true if options[:show_controls].nil? 
+	options[:truncate_length] = 255 if options[:truncate_length].nil? 
+	options[:only_listed] = false if options[:only_listed].nil? # show only listed features 
+%>
+<table  cellpadding=0 cellspacing=0>
+	<% for feature_value in feature_values %>
+			<% feature = PluginFeature.find(feature_value.plugin_feature_id) %>
+			<% if !feature.nil? %>
+				<% if (options[:only_listed] && feature.listed) || !options[:only_listed] %>
+					<tr>
+						<td style="text-align:left;padding:0px;">
+								<% if item.is_editable_for_user?(@logged_in_user) && options[:show_controls]  %>
+									<span class="" >									
+							 			<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/approved.png\" title=\"This #{plugin.title} is approved.\" class=\"icon\">" if feature_value.is_approved? %> 										
+							 			<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/unapproved.png\" title=\"This #{plugin.title} is not approved.\" class=\"icon\">" if !feature_value.is_approved? %> 																							
+										<%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/cycle.png\" class=\"icon\">", {:action => "change_approval", :id => item.id, :feature_value_id => feature_value.id, :controller => "plugin_features"}, :confirm => "Are you sure want to change the approval for this #{plugin.title}?", :title => "Change Approval", :class => "transparent" %>
+									</span>												
+								<% end %>
+								<%= feature_icon feature %>
+								<%= feature.name %>:
+						</td>
+						<td style="width:10px"></td>
+						<td style="text-align:left;padding:0px;">
+								<span id="feature_value_<%= feature_value.id %>">
+									<b>
+										<% if !feature_value.url.nil? && feature_value.url != "" %>
+											<a href="<%= h feature_value.url %>" target="_blank"><%= h truncate(feature_value.value, :length => options[:truncate_length]) %></a>
+										<% else %>
+											<%= h truncate(feature_value.value, :length => options[:truncate_length]) %>
+										<% end %>
+									</b>
+								</span>																																
+						</td>										
+					</tr>
+				<% end %>
+			<% end %>
+	<% end %>
+</table>
+

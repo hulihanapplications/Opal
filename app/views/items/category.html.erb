@@ -1,0 +1,41 @@
+<%= render :partial => "browse/main_content_top_bar" %>
+
+<h1 class="title">
+	<%= @category.name %> <%#= @setting[:item_name_plural] %>
+	<% if @logged_in_user.id != 0 %>
+	<a href="/items/new/<%= @category.id %>" class="plugin_title_link">
+			<img src="/themes/<%= @setting[:theme] %>/images/icons/new.png" alt="New" title="New" border=0 class="icon">
+			Add New <%= @setting[:item_name] %>
+	</a>
+	<% end %>
+</h1>
+<h3><%= @category.description %></h3><br>
+
+
+
+<table align=center style="width:100%" cellpadding=0 cellspacing=0>
+ <tr>
+  <td align=left class="sidebar_column" valign=top style="padding:0px;">
+  	<div class="box_style_1" id="category_menu">
+   		<%= render :partial => "items/category_menu", :locals => {:options => {:category => @category}} %>
+	</div>
+	<%= show_page Page.get_system_page("Category Column") %>
+  </td>
+  <td style="width:5px;">
+  	
+  </td>
+  <td align=left valign=top >
+		<%= render :partial => "/items/list_items", :locals => {:items => @items } %>
+		<div align="center" class="will_paginate">
+			<br>
+			<%= page_entries_info @items, :entry_name => @setting[:item_name] %>	
+			<%= will_paginate @items %>
+			<br>
+		</div>		
+  </td> 
+ </tr>
+</table>
+
+
+
+

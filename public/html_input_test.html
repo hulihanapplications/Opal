@@ -1,0 +1,24 @@
+<!-- This file provides example html used to test HTML Sanitization Functions. --> 
+
+<FORM ACTION="http://www.cs.tut.fi/cgi-bin/run/~jkorpela/echo.cgi"
+METHOD="POST">
+<P>
+	Type something:<BR>
+	<TEXTAREA ROWS=5 COLS=72 NAME=Comments>
+	This is
+	some text
+	in several lines.
+	</TEXTAREA>
+	<p>
+	<INPUT TYPE="checkbox" NAME="box" VALUE="yes">Check me!
+	<P>
+	<INPUT TYPE="HIDDEN" NAME="hidden field" VALUE="something">
+	<INPUT TYPE="SUBMIT" VALUE="Send">
+</FORM>
+<script>
+	//some comment
+	function somefunctions()
+	{
+		alert("I GOT THROUGH!");
+	}
+</script>

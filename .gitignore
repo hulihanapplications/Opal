@@ -1,0 +1,29 @@
+# Rails
+.bundle
+db/*.sqlite3
+*.log
+tmp/**/*
+
+# Config Files
+config/database.yml
+config/email.yml
+
+# Don't Include Rails
+vendor/rails
+
+# Master Graphics
+*_master.png
+
+# Only Include Public Themes
+!public/themes/white_square
+!public/themes/fracture
+!public/themes/vault
+
+# Remove Any User-Uploaded Images or Files
+public/images/item_images/*
+public/images/uploaded_images/*
+public/images/avatars/*
+files/item_files/*
+
+# Remove any Opal Plugins
+vendor/plugins/opal_*

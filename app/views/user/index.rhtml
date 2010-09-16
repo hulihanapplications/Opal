@@ -1,0 +1,44 @@
+<table style="width:100%" cellpadding=0 cellspacing=0>
+	<tr>
+		<td>
+
+				<div class="box_style_2" align=left style="margin-bottom:5px;">
+				    <h1 class='title'>Welcome to Your Account!</h1> 
+						Here you can add new <%= @setting[:item_name_plural] %>, check your messages, and much more!
+				</div>
+  
+
+				<div class="box_style_2" align=left style="margin-bottom:5px;">
+						<h2 class='title'>
+							My Latest Activity
+							<img src="/themes/<%= @setting[:theme] %>/images/icons/logs.png" class="icon">
+							<%= link_to "View All of My Activity", {:controller => "logs", :action => "for_me"}%>
+						</h2>
+						<%= render :partial => "logs/list_logs", :locals => {:logs => @latest_logs} %>								
+				</div>	
+							
+				<% if session[:user] && session[:user][:id] != 0 && get_setting_bool("display_help_sections") %>
+				   <div class="box_style_2" align=left style="margin-bottom:5px;" >
+					    <h1>Need help using the User Section?</h1> 
+					   <div class="welcome_message">
+					   		If you need any help with this section, check out the 
+							<a href="http://www.hulihanapplications.com/projects/opal_guide#user_section" onclick="window.open(&quot;http://www.hulihanapplications.com/projects/opal_guide#user_section&quot;, &quot;&quot;, &quot;resizable=yes, location=no, width=400, height=640, menubar=no, status=no, scrollbars=yes&quot;); return false;">
+								<b>Opal User Guide</b>
+							</a>
+							or if you need any other help using Opal, check out the <a href="http://www.hulihanapplications.com/projects/opal#3"><b>help and faqs</b></a> section for Opal.
+					   </div>
+				   </div>   
+				<% end %>
+		</td>
+   	    <td style="width:5px;">  </td>
+		<td class="sidebar_column">
+			<div class="box_style_1" style="margin-bottom:5px" align=center>
+				<% num_of_new_messages = UserMessage.count(:all, :select => "id", :conditions => ["user_id = ? and is_read = '0' and to_user_id = ?", @logged_in_user.id, @logged_in_user.id]) %>
+				<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/mail.png\" class=\"icon\">" %>
+				<%= link_to "You have <b>#{num_of_new_messages}</b> new messages", {:action => "for_me", :controller => "messages"} %>				
+			</div>
+			<%= render :partial => "items/unapproved_plugin_items", :locals => {:items => @items, :plugins => @plugins} %>
+		</td>
+	</tr>
+</table>
+<br>							

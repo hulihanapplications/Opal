@@ -1,0 +1,49 @@
+<table style="width:100%;" cellpadding=0 cellspacing=0>
+	<tr>
+		<td align=left>
+			<div align=left style="margin-bottom:5px">
+				<% if page.is_system_page? %>
+				<% else %>
+					<%= text_field 'page', 'title', :id => "form_title_box_#{page.id}", :onfocus => "focus_input('form_title_box_#{page.id}')", :onblur => "blur_input('form_title_box_#{page.id}')"  %>
+					Title
+				<% end %>
+			</div>
+			
+				
+			<div align=left style="margin-bottom:5px">
+				<% if page.is_system_page? %>
+					<i><%= page.description %></i>
+				<% else %>
+					<%= text_field 'page', 'description', :id => "form_description_box_#{page.id}", :onfocus => "focus_input('form_description_box_#{page.id}')", :onblur => "blur_input('form_description_box_#{page.id}')"  %>
+					Description		
+				<% end %>
+			</div>			
+		</td>
+		<td align=right>
+			<% if !page.is_system_page? %>
+				<table style="width:100%;" cellpadding=1 cellspacing=0>
+					<tr>
+						<td class="icon_column"><%= check_box "page", "published" %></td>
+						<td class="icon_column"><img src="/themes/<%= @setting[:theme] %>/images/icons/public.png" class="icon"  alt="" title="" ></td>					
+						<td><b>Published</b></td>
+						<td class="icon_column"><img src="/themes/<%= @setting[:theme] %>/images/icons/help.png" class="help icon"  alt="" title="If checked, this can be seen by others." ></td>							
+					</tr>
+				</table>
+			<% end %>
+		</td>
+	</tr>
+</table>
+<div style="height:10px"></div>
+
+
+				
+<div align=right>
+	<a href="javascript:toggleEditor('<%= "form_content_box_#{page.id}" %>');">Turn Editor On/Off</a>
+</div> 
+
+
+<b><%= text_area 'page', 'content', :style => "width:100%;height:500px", :class => "mceEditor", :id => "form_content_box_#{page.id}",  :onfocus => "focus_input('form_content_box_#{page.id}')", :onblur => "blur_input('form_content_box_#{page.id}')" %></b>
+
+
+<br>
+													

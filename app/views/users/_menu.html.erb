@@ -1,0 +1,18 @@
+<div class="box_style_2" style="margin-bottom:5px;" align=center>
+	<h3 class="title" align=left>Users</h3>
+	
+	<div class="box_style_<%= params[:controller] == "users" ? "1" : "2" %>" style="margin-bottom:5px;">
+		<img src="/themes/<%= @setting[:theme] %>/images/icons/users.png" class="icon"> 				
+		<%= link_to "Users", {:action => "index", :controller => "users"} %></a>				
+	</div>
+	
+	<div class="box_style_<%= params[:controller] == "groups" ? "1" : "2" %>" style="margin-bottom:5px;">
+		<img src="/themes/<%= @setting[:theme] %>/images/icons/groups.png" class="icon"> 				
+		<%= link_to "Groups", {:action => "index", :controller => "groups"} %></a>				
+	</div>	
+	
+	<div class="box_style_<%= params[:controller] == "messages" ? "1" : "2" %>" style="margin-bottom:5px;">
+		<img src="/themes/<%= @setting[:theme] %>/images/icons/mail.png" class="icon"> 				
+		<%= link_to "Messages", {:action => "index", :controller => "messages"} %></a>				
+	</div>		
+</div>

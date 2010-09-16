@@ -1,0 +1,16 @@
+<div class="plugin_box box_style_2"> 
+	<div class="title">
+		<% categories_size = Category.count(:all, :select => "id") %>
+		<a name="Categories"><%= categories_size %> Categories</a>
+			<a href="/categories/new" class="plugin_title_link">
+				<img src="/themes/<%= @setting[:theme] %>/images/icons/new.png" class="icon"  alt="New" title="New">
+				Add New Category
+			</a> 
+	</div>
+	<% @category = nil %>
+	<div class="categories" align=left>
+		<% for category in Category.get_parent_categories %>
+			<%= descend_category(category, :include_children => @setting[:include_child_category_items], :admin_controls => true , :theme => @setting[:theme], :item_name_plural => @setting[:item_name_plural], :truncate_length => 60, :show_spacer => true, :style => "font-size:16px")  %>		
+		<% end %>
+	</div>
+</div>

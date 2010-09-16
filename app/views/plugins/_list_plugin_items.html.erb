@@ -1,0 +1,41 @@
+<%# plugin items are passed in via a hash called plugin_items, indexed by plugin id, ie: plugin_items[plugin.id] %>
+<% if plugin_items == 0 %>
+	There is nothing new right now.
+<% else %>
+	<% for plugin in plugins_to_look_for %>
+		<% if plugin.name != "Feature" && plugin.name != "FeatureValue" %> 			
+			<% if plugin_items[plugin.id].size > 0 %>
+				<h3><b><%= h plugin.title.pluralize %></b></h3>		
+				<div class="indent">
+					<% for plugin_item in plugin_items[plugin.id] %>
+						<table cellpadding=0 cellspacing=0 style="width:100%">
+							<tr>
+								<td style="width:20px;">
+									<% if plugin_item.user %>
+										<% user = plugin_item.user %>
+										<a href="/browse/user/<%= user.id %>" title="Added By <%= h user.username %>"><%= user_avatar(user, :size => "tiny") %></a>														
+									<% else %>
+										<img src="/themes/<%= @setting[:theme] %>/images/default_avatar.png" class="avatar_tiny" title="Anonymous User">
+									<% end %>								
+								</td>
+								<td align=left style="padding:2px;">
+									<a href="/items/view/<%= "#{plugin_item.item_id}##{plugin.name.pluralize}" %>"><b><%= "#{h plugin.title}" %></b></a> 
+									for
+									<a href="/items/view/<%= "#{plugin_item.item_id}" %>"><b><%= h "#{plugin_item.item.name}" %></b></a>
+									<div class="indent">
+										<i>
+											<% if plugin_item.user %>
+												by <b><%= link_to user.username, {:action => "user", :controller => "browse", :id => user.id} %></b> -
+											<% end %> 										
+											<%= friendly_date plugin_item.created_at %>
+										</i>
+									</div>
+								</td>
+							</tr>
+						</table>
+					<% end %>						
+				</div>
+			<% end %>
+		<% end %>					
+	<% end %>	
+<% end %>	

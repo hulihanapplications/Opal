@@ -1,0 +1,60 @@
+Hi! Welcome to the Readme for Opal!
+
+Opal is a powerful Item Management Application built in Ruby on Rails. It allows 
+you to list any kind of item, from houses to video games to hotdog vendors. When you 
+install Opal, you tell it the name of the items you're going to be listing
+(example: houses), and that's it! After that, you can create any number of items and 
+show them off using different Item Objects. 
+
+Features
+	 List Any Type of Item(Products, Video Games, Locations, Events, Classifieds, etc.)
+	 Infinite-Depth Category & Subcategory Organization
+	 Customizable Themes with easy Uploader & Installer
+	 Multiple-User Login System with Secure Admin Section
+	 Create advanced custom fields for your items with input checking
+	 Built-In RSS feed generator
+	 HTML5 & CSS3 Powered Interface
+	 Integrated Blog
+	 CMS-style page editing & Infinite-Depth Subpages
+	 Easily integrate ads & custom code
+	 Advanced System & User Activity Logging
+	 Approve Items & Plugins other people create
+	 Built-In, Easy-To-Use TinyMCE HTML Editor with customizable HTML filtering
+	 User-to-User Messaging & Automated Email Notifications
+	 Customizable User Groups
+	 Enable/Disable Plugins(Images, Comments, Reviews, Files, Discussions, etc.)
+	 Import & Export Items
+	 jQuery TOOLS powered interfaces and tabs
+	 Easily Install 3rd Party Plugins(Events, Flash, Testimonials, etc.)
+	 Anti-Spam CAPTCHA Security
+	 Tons of Other Customizable Settings!
+
+Installing
+  - Read the file INSTALL for more details. It's pretty easy!
+
+Requirements
+  - This app does require the Rmagick(1.15.12 or better) gem to function. Some
+    photo effects(watermarking, polaroid) only work well with version 2+
+  - Like most Ruby on Rails applicatoins, Opal also requires some type of
+    database(mysql, sqlite, etc.).
+
+How to use Opal
+  - After you install Opal, you can run your application on the web using your 
+    favorite webserver: apache, mongrel, webrick, or nginx. To log in to Opal for 
+    the first time, the default Admin username and password is: admin.   
+     - Username: admin
+     - Password: admin
+    
+    From there on, start adding your new items, change your setting and have fun! 
+
+Opal User Guide
+   - If you'd like to learn more about Opal and how to use everything in it, check out
+   	 the Opal Wiki at: http://dev.hulihanapplications.com/wiki/opal
+
+Enjoy Opal! Visit our site: http://www.hulihanapplications.com to let us know
+about anything you're curious about or if you see any bugs/problems! We're constantly
+trying to update Opal to make it better. We can't do that if we don't know what everyone 
+wants, so if you see a feature you'd like, let us know, that's what we're here for!
+
+Opal Item Management System - Copyright 2007-2010 - Hulihan Applications
+				 www.hulihanapplications.com

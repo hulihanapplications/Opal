@@ -1,0 +1,72 @@
+<% 
+	options ||= Hash.new
+	options[:size] ||= "normal" # display type
+%>
+<div class="discussion_posts">
+	<% if options[:size] == "small" %>
+		<table style="width:100%">
+			<% for post in posts %>
+				<tr>
+					<td align=left style="width:20px;vertical-align:middle">
+						<% if post.user_id %>																		
+							<%= link_to  user_avatar(post.user, :size => "tiny"), {:action => "user", :controller => "browse", :id => post.user_id}, :title => "#{post.user.username}"  %>
+						<% end %>					
+					</td>
+					<td align=left style="vertical-align:middle">
+						<%= link_to "#{h truncate( post.post, :length => 50)}", { :action => 'view', :controller => "plugin_discussions", :id => item.id, :discussion_id => post.plugin_discussion_id, :anchor => post.id}, :title => "Jump to this post." %>		
+					</td>
+					<td align=right style="vertical-align:middle;text-align:right">
+						<%= friendly_date post.created_at %>
+					</td>
+				</tr>
+			<% end %>
+			</table>
+	<% else %>
+		<div class="comments">
+		<% for post in posts %>
+			<a name="<%= post.id %>"></a>
+			<table>
+				<tr> 
+					<td align=left class="user_column">
+						<div class="user_box">
+						 <% if !post.user_id.nil? && post.user_id != 0  %>
+							 <% post_user = User.find(post.user_id) %>
+							 <%= user_avatar(post_user, :size => "small") %>
+							 <br>
+							 <%= link_to post_user.username, {:action => "user", :id => post_user.id, :controller => "browse" }, :style => "font-weight:bold"   %>
+							 <br>
+						   <% else %><%# an anonymous post %>
+						   	 <% if !post.anonymous_email.nil? %>
+									 <%= gravatar_image(post.anonymous_email, :size => "small") %>
+							 <% else %>
+					 	         <img src="/images/default_avatar.png" class="avatar_small">
+							 <% end %>
+							 <br>
+							 <%= h post.anonymous_name %>
+							 <br>							   
+						   <% end %>
+						</div>
+					</td>
+					<td align=left class="comment_column">
+						<% if post.user_id == item.user_id  %>
+						<div class="comment_box_from_owner">
+						<% else %>
+						<div class="comment_box">
+						<% end %>
+							<div align=left>
+								<b><%= friendly_date post.created_at %></b>
+									<% if item.is_editable_for_user?(@logged_in_user) %>
+								    	<%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/delete.png\" alt=\"Delete\" title=\"Delete\" border=0 class=\"icon\">", { :action => 'delete_post', :controller => "plugin_discussions", :id => item.id, :post_id => post.id}, :confirm => "Are you sure you want to delete this post?" %>						
+									<% end %>
+								<br>
+								<%= h post.post %>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>	
+		<% end %>	
+		</div>	
+	<% end %>
+</div>
+

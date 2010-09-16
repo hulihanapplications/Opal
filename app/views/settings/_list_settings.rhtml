@@ -1,0 +1,40 @@
+<%= "<div class=\"plugin_box\"><div class=\"title\">#{title} Settings</div></div>"  if defined?(title) %>
+<%= "<i>#{description}</i>" if defined?(description) %>
+<table width="100%" cellpadding=0 cellspacing=0 class="setting_table row_table">
+    <% for setting in settings %>
+    <% @class = cycle("row_a", "row_b") %>
+    <tr class="<%= @class %>">
+        <td align=left>
+            <h2><%= setting.title %></h2>
+        </td>
+        <td align=right valign=middle>
+        	<div align=right>
+	             <% if setting.item_type == "string" %>
+	            	<input type=text name="setting[<%= setting.name %>]" value="<%= setting.value %>" class="setting_item_string" id="setting_<%= setting.id %>" onfocus ="focus_input('setting_<%= setting.id %>')" onblur ="blur_input('setting_<%= setting.id %>')">
+				<% elsif setting.item_type == "bool" %>
+	           		On
+					<input type="radio" value="1" name="setting[<%= setting.name %>]"<% if setting.value == "1" %>CHECKED<% end %>>
+	            	Off
+	            	<input type="radio" value="0" name="setting[<%= setting.name %>]"<% if setting.value == "0" %>CHECKED<% end %>>
+				<% elsif setting.item_type == "option" %>
+					<select name="setting[<%= setting.name %>]">
+						<% for option in setting.options.split(",") %>
+							<% option = option.gsub(/ /,'') %>
+							<option value="<%= option %>" <%= "SELECTED" if option == setting.value %>><%= option %></option>
+						<% end %> 
+					</select>				
+				<% else %>
+	            	<%= "Unknown setting type: #{setting.item_type}" %>
+	            <% end %>       		
+        	</div>
+        </td>
+    </tr>
+    <tr class="<%= @class %>">
+        <td colspan=2 align=left>
+            <div class="setting_description">
+                <%= setting.description %>
+            </div>
+        </td>
+    </tr>
+    <% end %>
+</table>

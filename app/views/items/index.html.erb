@@ -1,0 +1,38 @@
+<%= render :partial => "browse/main_content_top_bar" %>
+
+<table align=center style="width:100%" cellpadding=0 cellspacing=0>
+ <tr>
+  <td align=left class="sidebar_column" valign=top style="padding:0px;">
+  	<% if @setting[:homepage_type] != "categories" %>
+		<div class="box_style_1" id="category_menu">
+	   		<%= render :partial => "items/category_menu", :locals => {:options => {:category => @category}} %>
+		</div>   
+		<%= show_page Page.get_system_page("Category Column") %>
+		<div style="height:5px"></div>
+	<% end %>
+   	<% if Setting.get_setting_bool("display_popular_items") %>
+		<div class="box_style_1" align=left style="margin-bottom:5px">
+			<%= render :partial => "items/popular_items" %>
+		</div>
+	<% end %>
+   	<% if Setting.get_setting_bool("display_featured_items") %>
+		<div class="box_style_1" align=left style="margin-bottom:5px">
+			<%= render :partial => "items/featured_items" %>
+		</div>
+	<% end %>  		  	
+  </td>
+  <td style="width:5px;">
+  	
+  </td>
+  <td align=left valign=top >
+		<%= render :partial => "/items/list_items", :locals => {:items => @items } %>
+		<div align="center" class="will_paginate">
+			<br>
+			<%= page_entries_info @items, :entry_name => @setting[:item_name] %>	
+			<%= will_paginate @items %>
+			<br>
+		</div>			
+  </td> 
+ </tr>
+</table>
+

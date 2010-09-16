@@ -1,0 +1,9 @@
+ <table style="width:100%;margin-bottom:5px;" align=left cellpadding=0 cellspacing=0>
+ 	<% if @setting[:allow_anonymous_comments]  && @logged_in_user.id == 0 %>
+	 <tr><td>Name</td><td colspan= align=right><input name="comment[anonymous_name]" id="comment_anonymous_name"  onfocus = "focus_input('comment_anonymous_name')" onblur = "blur_input('comment_anonymous_name')" ></td>			 </tr>
+	 <tr><td>Email</td><td colspan= align=right><input name="comment[anonymous_email]" id="comment_anonymous_email"  onfocus = "focus_input('comment_anonymous_email')" onblur = "blur_input('comment_anonymous_email')" ></td>			 </tr>
+	<% end %>
+	 <tr><td colspan=2 align=center><textarea name="comment[comment]" style="width:100%" onfocus = "focus_input('comment_text')" onblur = "blur_input('comment_text')" id="comment_text"></textarea></td>			 </tr>
+      <tr><td colspan=2 align=left>Anti-Spam Code</td></tr>
+	 <tr><td colspan=2 align=left><%= show_simple_captcha %></td></tr>
+ </table>

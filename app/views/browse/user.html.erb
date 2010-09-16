@@ -1,0 +1,98 @@
+
+<table width="100%" cellpadding=0 cellspacing=0>
+	<tr>
+		<td class="sidebar_column">
+			<div class="item_info_box" style="margin-bottom:5px" align=center>
+				<h1 class="title"><%= h @user.username %></h1>
+			   <div class="user_avatar" align=center>
+				 <%= user_avatar(@user) %>
+			   </div>		
+			   Joined <%= friendly_date @user.created_at %>	<br>
+			   <div class="spacer"></div>
+			   <div id="message_box">
+			   		<img src="/themes/<%= @setting[:theme] %>/images/icons/mail.png" alt="Cancel" title="Cancel" class="icon" >
+			   		<a href="javascript:toggle_box('message_form')">
+						Send <%= @user.username %> a Message
+					</a>	
+			   </div>
+	
+		 	</div>
+		    <% if @logged_in_user.is_admin? %>
+			   	<div class="item_info_box" align=left style="text-align:center">
+			   		<h2 class="title" align=left>Administration</h2>
+			   		<div class="spacer"></div>
+					
+			   		<img src="/themes/<%= @setting[:theme] %>/images/icons/edit.png" class="icon">
+					<%= link_to "Edit #{h @user.username}'s Account", {:controller => "users", :action => "edit", :id => @user.id}%>		   
+			   		<div class="spacer"></div>					
+			   		<img src="/themes/<%= @setting[:theme] %>/images/icons/logs.png" class="icon">
+					<%= link_to "View #{h @user.username}'s Activity", {:controller => "logs", :action => "for_user", :id => @user.id, :anchor => "activity"}%>
+			   		<div class="spacer"></div>
+			   		<img src="/themes/<%= @setting[:theme] %>/images/icons/mail.png" class="icon">
+					<%= link_to "View #{h @user.username}'s Messages", {:controller => "messages", :action => "for_user", :id => @user.id}%>
+			   		<div class="spacer"></div>
+			   		<img src="/themes/<%= @setting[:theme] %>/images/icons/delete.png" class="icon">
+					<%= link_to "Delete #{h @user.username}", {:controller => "users", :action => "delete", :id => @user.id}, :confirm => "Are you sure about this? Anything #{h @user.username} ever created(#{@setting[:item_name]}, messages, etc.) will be deleted too!" %>		   
+					
+				</div>								
+		    <% end %>
+		</td>
+
+		<td align=left style="width:100%;padding-left:5px;" valign=top>
+				   <div id="message_form" style="display:none" align=center>
+				   		<% if @logged_in_user.id != 0 %>
+				 			<div class="box_style_2" align=left>
+				 				<div id="send_message_notice"></div>
+				 				<h2 class="title">Send <%= @user.username %> a message</h2>								   	
+					   			<%= form_remote_tag :update => "send_message_notice", :url => { :action => 'send_message', :controller => "messages", :id => @user.id} %>
+									<table style="width:100%">
+										<tr>
+											<td align=center><textarea  style="width:400px;" name="message" id="message" onfocus = "focus_input('message')" onblur = "blur_input('message')"></textarea></td>
+										</tr>
+										<tr>
+											<td align=center><input type="submit" value="Send Message to <%= @user.username %>" ></td>
+										</tr>
+									</table>	
+								</form>
+							</div>
+						<% else %>
+							<div class="flash_failure">Sorry, you must be logged in to send a message to a user.</div>
+						<% end %>
+						
+				   		<a href="javascript:toggle_box('message_form')">
+							<img src="/themes/<%= @setting[:theme] %>/images/icons/cancel.png" alt="Cancel" title="Cancel" border=0 class="icon" >
+						</a>	
+						<br><br>						
+				   </div>		
+			<div class="box_style_1" align=left>	
+				<h2 class="title">Location</h2>
+				<%= h @user.user_info.location if @user.user_info.location  %>	
+				<div class="spacer"></div>
+				<h2 class="title">Description</h2>
+				<%= h @user.user_info.description %>
+				<div class="spacer"></div>
+				<h2 class="title">Interests</h2>
+				<%= h @user.user_info.interests %>
+				<div class="spacer"></div>
+				<h2 class="title">Group</h2>
+				<%= h @user.group.name %>				
+			</div>
+			<br>
+			<%= render :partial => "main_content_top_bar" %>
+			<br>
+
+			
+			<div align=center>
+				
+				<h1 class="title"><%= @user.username %>'s <%= @setting[:item_name_plural] %></h1>
+				<%= page_entries_info @items, :entry_name => @setting[:item_name] %>				
+			</div>
+			<%= render :partial => "items/list_items", :locals => {:items => @items } %>
+			<div align=center>			<%= will_paginate @items %>			</div>
+		</td>
+		
+	</tr>
+</table>
+
+
+<br>

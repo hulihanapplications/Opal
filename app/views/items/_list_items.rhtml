@@ -1,0 +1,18 @@
+<% 
+	my_group_plugin_permissions = GroupPluginPermission.all_plugin_permissions_for_group(@logged_in_user.group) 
+%>
+
+<% @setting[:list_type] = get_setting("list_type") if !@setting[:list_type]  %><%# get default list type if not set. %>
+<% if @setting[:list_type] == "simple" %>
+  <%= render :partial => "/items/list_items_simple" ,:locals => {:items => items, :my_group_plugin_permissions => my_group_plugin_permissions} %>
+<% elsif @setting[:list_type] == "detailed" %>
+  <%= render :partial => "/items/list_items_detailed" ,:locals => {:items => items, :my_group_plugin_permissions => my_group_plugin_permissions} %>
+<% elsif @setting[:list_type] == "photo" %>
+  <%= render :partial => "/items/list_items_photo" ,:locals => {:items => items, :my_group_plugin_permissions => my_group_plugin_permissions} %>  
+<% elsif @setting[:list_type] == "small" %>
+  <%= render :partial => "/items/list_items_small" ,:locals => {:items => items, :my_group_plugin_permissions => my_group_plugin_permissions} %>    
+<% else %>
+  <div class="flash_failure">
+	  You have an invalid list type set in your browser session!  	
+  </div>
+<% end %>

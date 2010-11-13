@@ -8,17 +8,9 @@ class PluginReviewsController < ApplicationController
  
  uses_tiny_mce :only => [:new, :edit]  # which actions to load tiny_mce, TinyMCE Config is done in Layout.
 
- 
- def find_plugin # find the plugin that is being used 
-   @plugin = Plugin.find(:first, :conditions => ["name = ?", "Review"])
-   if @plugin.is_enabled? # check to see if the plugin is enabled
-     # Proceed
-   else # Item Object Not enabled
-      flash[:notice] = "<div class=\"flash_failure\">Sorry, #{@plugin.title}s aren't enabled.</div>"
-      redirect_to :action => "view", :controller => "items", :id => @item.id         
-   end
- end
- 
+ include ActionView::Helpers::TextHelper # for truncate, etc.
+
+
  def get_plugin_settings # get settings just for this plugin
    @setting[:review_type] = @plugin.get_setting("review_type")
    @setting[:score_min] = @plugin.get_setting("score_min").to_i     
@@ -26,6 +18,7 @@ class PluginReviewsController < ApplicationController
  end 
  
  def create
+   
    if @my_group_plugin_permissions.can_create? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # check permissions                   
       @item = Item.find(params[:id])
       if @item.is_viewable_for_user?(@logged_in_user) && ((@plugin.get_setting_bool("only_creator_can_review") && @logged_in_user.id == @item.user_id) || !@plugin.get_setting_bool("only_creator_can_review") || @logged_in_user.is_admin?)
@@ -39,25 +32,30 @@ class PluginReviewsController < ApplicationController
            @review.is_approved = "1" if !@my_group_plugin_permissions.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin       
            if @review.review_score >=  @setting[:score_min] && @review.review_score <= @setting[:score_max] 
              if @review.save
-              Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => "Added a #{@plugin.title}.")                                       
-              flash[:notice] = "<div class=\"flash_success\">New #{@plugin.title} added. Thanks for your input!</div>"
-              flash[:notice] += "<div class=\"flash_success\">This #{@plugin.title} needs to be approved before it will be displayed.</div>" if !@review.is_approved?                 
+              Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.object_create", :object => @plugin.human_name,  :name => truncate(@review.review, :length => 10)))                                       
+              flash[:success] = t("notice.object_create_sucess", :object => @plugin.human_name)
+              flash[:success] += t("notice.user_thanks", :name => @review.user.first_name)
+              redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.human_name.pluralize 
              else # fail saved 
-              flash[:notice] = "<div class=\"flash_failure\">This #{@plugin.title} could not be added! Here's why:<br>#{print_errors(@review)}</div>"
+              flash[:failure] = t("notice.object_create_failure", :object => @plugin.human_name)
+              render :action => "edit"
              end
             else # score out of range
-              flash[:notice] = "<div class=\"flash_failure\">#{@plugin.title} score must be between #{@setting[:score_min]} and #{@setting[:score_max]}</div>"
+              render :action => "edit"
+              #flash[:failure] = "#{@plugin.title} score must be between #{@setting[:score_min]} and #{@setting[:score_max]}"
             end          
          else # they've already added a review.
-            flash[:notice] = "<div class=\"flash_failure\">Sorry, You've already left a review for this #{@setting[:item_name]}.</div>"
+            render :action => "edit"
+            #flash[:failure] = "Sorry, You've already left a review for this #{@setting[:item_name]}."
          end    
       else # they're not allowed to add the review
-        flash[:notice] = "<div class=\"flash_failure\">Sorry, you're not allowed to add reviews to this #{@setting[:item_name]}.</div>"
+        flash[:failure] = t("notice.invalid_permissions")
+        redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.human_name.pluralize 
       end
    else # Improper Permissions  
-        flash[:notice] = "<div class=\"flash_failure\">Sorry, you cannot create #{@plugin.title}s.</div>"        
+        flash[:failure] = t("notice.invalid_permissions")
+        redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.human_name.pluralize 
    end       
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => "#{@plugin.name}s" 
  end
  
  def delete
@@ -65,65 +63,65 @@ class PluginReviewsController < ApplicationController
      @review = PluginReview.find(params[:review_id])
      @review_user = User.find(@review.user_id)
      if @review.destroy
-       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => "Deleted #{@plugin.title} from #{@review_user.username}(#{@review.id}).")                                       
-       flash[:notice] = "<div class=\"flash_success\">#{@plugin.title} deleted!</div>"     
+       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => t("log.object_delete", :object => @plugin.human_name,  :name => truncate(@review.review, :length => 10)))                                       
+       flash[:success] =  t("notice.object_delete_success", :object => @plugin.human_name)    
      else # fail saved 
-       flash[:notice] = "<div class=\"flash_failure\">#{@plugin.title} could not be deleted!</div>"     
+       flash[:failure] =  t("notice.object_delete_failure", :object => @plugin.human_name)     
      end
    else # Improper Permissions  
-        flash[:notice] = "<div class=\"flash_failure\">Sorry, you cannot delete #{@plugin.title}s.</div>"        
+        flash[:failure] = t("notice.invalid_permissions")            
    end  
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => "#{@plugin.name}s" 
+   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.human_name.pluralize 
  end
 
- def update
-   if @my_group_plugin_permissions.can_update? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # check permissions               
-     @review = PluginReview.find(params[:review_id])
-     @review_user = User.find(@review.user_id)
-     @review.review_score = params[:review][:review_score]
-     @review.review = sanitize(params[:review][:review])     
-     if @review.review_score >=  @setting[:score_min] && @review.review_score <= @setting[:score_max]      
-       if @review.save
-         Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => "Updated #{@plugin.title} from #{@review_user.username}(#{@review.id}).")                                       
-         flash[:notice] = "<div class=\"flash_success\">#{@plugin.title} updated!</div>"     
-       else # fail saved 
-         flash[:notice] = "<div class=\"flash_failure\">#{@plugin.title} could not be updated!</div>"     
-       end
+def update
+  if @my_group_plugin_permissions.can_update? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # check permissions               
+    @review = PluginReview.find(params[:review_id])
+    @review_user = User.find(@review.user_id)
+    @review.review_score = params[:review][:review_score]
+    @review.review = sanitize(params[:review][:review])     
+    if @review.review_score >=  @setting[:score_min] && @review.review_score <= @setting[:score_max]      
+      if @review.save
+        Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => t("log.object_save", :object => @plugin.human_name,  :name => truncate(@review.review, :length => 10)))                                       
+        flash[:success] =  t("notice.object_save_success", :object => @plugin.human_name)     
+      else # fail saved 
+        flash[:failure] =  t("notice.object_save_failure", :object => @plugin.human_name)     
+      end       
     else # score out of range
-      flash[:notice] = "<div class=\"flash_failure\">#{@plugin.title} score must be between #{@setting[:score_min]} and #{@setting[:score_max]}</div>"
-      redirect_to :action => "edit"
-    end    
-   else # Improper Permissions  
-        flash[:notice] = "<div class=\"flash_failure\">Sorry, you cannot update #{@plugin.title}s.</div>"        
-   end  
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => "#{@plugin.name}s" 
- end
+      flash[:failure] = "#{@plugin.title} score must be between #{@setting[:score_min]} and #{@setting[:score_max]}"
+    end 
+    render :action => "edit"
+  else # Improper Permissions  
+    flash[:failure] = t("notice.invalid_permissions")
+    redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.human_name.pluralize 
+  end  
+end
  
  
  def change_approval
     @review = PluginReview.find(params[:review_id])    
     if  @review.is_approved?
       approval = "0" # set to unapproved if approved already    
-      log_msg = "Unapproved #{@plugin.title} from #{@review.user.username}."
+      log_msg = t("log.object_unapprove", :object => @plugin.human_name,  :name => "#{@review.user.username} - " + truncate(@review.review, :length => 10))
     else
       approval = "1" # set to approved if unapproved already    
-      log_msg = "Approved #{@plugin.title} from #{@review.user.username}."
+      log_msg = t("log.object_approve", :object => @plugin.human_name,  :name => "#{@review.user.username} - " + truncate(@review.review, :length =>  10))
     end
     
     if @review.update_attribute(:is_approved, approval)
       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => log_msg)      
-      flash[:notice] = "<div class=\"flash_success\">This <b>#{@plugin.title}</b>'s approval has been changed!</div>"
+      flash[:success] = t("notice.object_approve_success", :object => @plugin.human_name) 
     else
-      flash[:notice] = "<div class=\"flash_failure\">This <b>#{@plugin.title}</b>'s approval could not be changed for some reason!</div>"
+      flash[:failure] =  t("notice.object_save_failure", :object => @plugin.human_name)
     end
-    redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => "#{@plugin.name}s" 
+    redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.human_name.pluralize 
   end 
   
   def new 
    if @my_group_plugin_permissions.can_create? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # check permissions
       @review = PluginReview.new     
    else # Improper Permissions  
-        flash[:notice] = "<div class=\"flash_failure\">Sorry, you cannot create #{@plugin.title}s.</div>"
+        flash[:failure] = t("notice.invalid_permissions")    
         redirect_to :action => "view", :controller => "items", :id => @item.id     
    end    
   end
@@ -133,7 +131,7 @@ class PluginReviewsController < ApplicationController
        @review = PluginReview.find(params[:review_id])
       
      else # Improper Permissions  
-          flash[:notice] = "<div class=\"flash_failure\">Sorry, you cannot update #{@plugin.title}s.</div>"
+          flash[:failure] =  t("notice.invalid_permissions")
           redirect_to :action => "view", :controller => "items", :id => @item.id                 
      end    
  end 
@@ -144,20 +142,20 @@ class PluginReviewsController < ApplicationController
       @vote = PluginReviewVote.new(:plugin_review_id => @review.id, :user_id => @logged_in_user.id)
       if params[:direction] == "up"
         @vote.score = 1 # vote score 
-        Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => "Voted for #{@review.user.username}'s #{@plugin.title}")              
+        Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => t("log.object_voted_for", :object => @plugin.human_name, :name => "#{@review.user.username} - " + truncate(@review.review, :length =>  10)))              
       elsif params[:direction] == "down"
         @vote.score = -1 # vote score 
-        Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => "Voted against #{@review.user.username}'s #{@plugin.title}")      
+        Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => t("log.object_voted_against", :object => @plugin.human_name, :name => "#{@review.user.username} - " + truncate(@review.review, :length => 10)))      
       end
       if @vote.save && @review.update_attribute(:vote_score, @review.vote_score + @vote.score)  # save record of vote and increment/decrement review's score
-        flash[:notice] = "<div class=\"flash_success\">Thanks for voting for this #{@plugin.title}!</div>"             
+        flash[:success] = t("notice.user_thanks_for_voting", :name => @vote.user.first_name)             
       else # save failed 
-        flash[:notice] = "<div class=\"flash_failure\">Your vote could not be added! Here's why:<br>#{print_errors(@vote)}</div>"
+        flash[:failure] = t("notice.object_save_failure", :object => PluginReviewVote.human_name)
       end
    else # Improper Permissions  
-      flash[:notice] = "<div class=\"flash_failure\">Sorry, you cannot vote for #{@plugin.title}s.</div>"     
+      flash[:failure] = t("notice.invalid_permissions")         
   end
-  redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => "#{@plugin.name}s"               
+  redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.human_name.pluralize               
  end                    
 
 end

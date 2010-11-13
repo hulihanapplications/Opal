@@ -10,17 +10,17 @@
 			<div class="box_style_2a">
 			  <div class="plugin_box">	
 				<div class="title">
-					Add A New <%= @plugin.title %>
+					Add A New <%= @plugin.human_name %>
 				</div>
 			  </div>
-			  This will add a new shared <%= @plugin.title.downcase %> attribute for every item. For Example, if you wanted users to add a <b>Price</b> value to a <%= @setting[:item_name] %>, you could add <b>"Price"</b> here(without the quotes).
+			  This will add a new shared <%= @plugin.human_name.downcase %> attribute for every item. For Example, if you wanted users to add a <b>Price</b> value to a <%= @setting[:item_name] %>, you could add <b>"Price"</b> here(without the quotes).
 			  <br><br>			  
 
 			   <div>
 						<%= form_tag  :action => 'create', :controller => "plugin_features" %>
 							<%= render :partial => "plugin_features/form", :locals => {:feature => @feature} %>
 							 
-							<br><div align=center><input type="submit" value="Add <%= @plugin.title %>"></div>
+							<br><div align=center><input type="submit" value="Add <%= @plugin.human_name %>"></div>
 						</form>
 				 </div>
 			</div>	

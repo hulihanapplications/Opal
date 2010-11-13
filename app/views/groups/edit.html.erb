@@ -2,116 +2,125 @@
 	<tr>
 		<td>
 			<div id="edit_group_box_<%= @group.id %>" class="box_style_2" style="margin-bottom:5px;" align=center>
-				<h2 class="title">Editing Group: <b><%= h @group.name %></b></h2>
-
-					<%= form_tag  :action => 'update', :controller => "/groups", :id => @group.id  %>
-						<p><label >Name</label><br/>
-						<input id="form_name_box" name="group[name]" onblur="blur_input('form_name_box')" onfocus="focus_input('form_name_box')" size="30" type="text" / value="<%= @group.name %>"></p>
-
-						<p><label >Description</label><br/>
-						<input id="form_description_box" name="group[description]" onblur="blur_input('form_description_box')" onfocus="focus_input('form_description_box')" size="50" type="text" value="<%= @group.description %>" /></p>
-		
-						<input type="submit" value="Update">
-					</form>
-			</div>
-			<div class="box_style_2" style="margin-bottom:5px;" align=center>
-				<h2 class="title">
-					<img src="/themes/<%= @setting[:theme] %>/images/icons/plugins.png" class="icon">
-					Plugin Permissions for <b><%= h @group.name %></b>
-					<a href="javascript:toggle_expanding_box('plugin_permissions_box','plugin_permissions_expand_link')" id="plugin_permissions_expand_link">
-						<img src="/themes/<%= @setting[:theme] %>/images/icons/open.png" class="icon" title="Expand">
-					</a>
-				</h2>
-				<div id="plugin_permissions_box" style="display:none">
-					<div class="box_style_1" align=center style="margin-bottom:5px;">
-							<img src="/themes/<%= @setting[:theme] %>/images/icons/warning.png" class="icon">
-							These permissions affect <u>every <%= @setting[:item_name] %></u> in <%= @setting[:title] %>.
-					</div>					
-					<div class="box_style_1" align=center style="margin-bottom:5px;">
-							<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" class="icon">
-							These permissions will only affect users besides the <%= @setting[:item_name] %> owner and Admins, since <%= @setting[:item_name] %> owners always have full permissions for their own <%= @setting[:item_name] %>'s plugins.  
+    			<h2 class="title"><%= t("label.object_edit", :object => Group.human_name) %></h2><br>
+				<br>
+			    <% form_for(@group, :url => { :action => 'update', :controller => "groups", :id => @group.id }, :method => "post") do |f| %>
+					<%= render :partial => "form", :locals => {:group => @group, :f => f } %>
+					<br>
+					<div align=center>	
+						<input type="submit" value="<%= t("single.save") %>" class="button_1">
 					</div>
-					<%= form_tag ( {:action => 'update_plugin_permissions', :controller => "/groups", :id => @group.id } , :id => "plugin_permissions_form") %>
-					 	<% if !@group.is_admin_group? %>						
-							<div align=right style="margin:5px 7px 0px 0px" class="plugin_unselected" > Check All <input type='checkbox' name='checkall' onclick="toggle_all_checkboxes('plugin_permissions_form');"> </div>
-						<% end %>							
-
-
-						<% for plugin in @plugins %>
-					   		<div id="plugin_<%= plugin.id %>" class="plugin_unselected" style="padding:5px;"  onmouseover = "change_class('plugin_<%= plugin.id %>','plugin_hover')" onmouseout="change_class('plugin_<%= plugin.id %>','plugin_unselected')"  align=left>
-								<table cellpadding=0 cellspacing=0 style="width:100%;">
-							  		<tr> 
-							  			<td align=left >
-							  				<h2><%= plugin.title %>s </h2>
-										</td>
-										<td align=right style="padding:2px;width:300px">
-											<h3>
-												Read
-												<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_read]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :read) %> <%= "DISABLED" if @group.is_admin_group? %>>												
-											</h3>
-											<i><%= @group.name %> can view <%= plugin.title %>s for any <%= @setting[:item_name] %>.</i>
-											<div class="spacer"></div>
+			   <% end %>
+			</div>
+			<% if params[:action] == "edit" %>
+				<div class="box_style_2" style="margin-bottom:5px;" align=center>
+					<h2 class="title">
+						<img src="/themes/<%= @setting[:theme] %>/images/icons/plugins.png" class="icon">
+						<%= GroupPluginPermission.human_name.pluralize %></b>
+						<a href="javascript:toggle_expanding_box('plugin_permissions_box','plugin_permissions_expand_link')" id="plugin_permissions_expand_link">
+							<%= icon("open") %>
+						</a>
+					</h2>
+					<div id="plugin_permissions_box" style="display:none">
+						<!--
+						<div class="box_style_1" align=center style="margin-bottom:5px;">
+								<img src="/themes/<%= @setting[:theme] %>/images/icons/warning.png" class="icon">
+								These permissions affect <u>every <%= @setting[:item_name] %></u> in <%= @setting[:title] %>.
+						</div>					
+						<div class="box_style_1" align=center style="margin-bottom:5px;">
+								<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" class="icon">
+								These permissions will only affect users besides the <%= @setting[:item_name] %> owner and Admins, since <%= @setting[:item_name] %> owners always have full permissions for their own <%= @setting[:item_name] %>'s plugins.  
+						</div>
+						-->
+						<%= form_tag ( {:action => 'update_plugin_permissions', :controller => "/groups", :id => @group.id } , :id => "plugin_permissions_form") %>
+						 	<% if !@group.is_admin_group? %>						
+								<div align=right style="margin:5px 7px 0px 0px" class="plugin_unselected" > <%= t("label.check_all") %> <input type='checkbox' name='checkall' onclick="toggle_all_checkboxes('plugin_permissions_form');"> </div>
+							<% end %>							
+	
+	
+							<% for plugin in @plugins %>
+						   		<div id="plugin_<%= plugin.id %>" class="plugin_unselected" style="padding:5px;"  onmouseover = "change_class('plugin_<%= plugin.id %>','plugin_hover')" onmouseout="change_class('plugin_<%= plugin.id %>','plugin_unselected')"  align=left>
+									<table cellpadding=0 cellspacing=0 style="width:100%;">
+								  		<tr> 
+								  			<td align=left >
+								  				<h2><%= plugin.human_name.pluralize %></h2>
+											</td>
+											<td align=right ">
+												<h3>
+													<%= GroupPluginPermission.human_attribute_name(:can_read) %>
+													<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_read]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :read) %> <%= "DISABLED" if @group.is_admin_group? %>>												
+												</h3>
+												<!--<i><%= @group.name %> can view <%= plugin.human_name.pluralize %> for any <%= @setting[:item_name] %>.</i>-->
+												<div class="spacer"></div>
+												
+												<h3>
+													<%= GroupPluginPermission.human_attribute_name(:can_create) %>
+													<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_create]" value="1" <%= "CHECKED" if @group.has_plugin_permission?(:plugin => plugin, :permission_type => :create) %> <%= "DISABLED" if @group.is_admin_group? %>> 
+												</h3>
+												<!--<i><%= @group.name %> can create <%= plugin.human_name.pluralize %> for any <%= @setting[:item_name] %>.</i>-->
+												<div class="spacer"></div>
+												
+												<h3>	
+													<%= GroupPluginPermission.human_attribute_name(:can_update) %>
+													<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_update]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :update) %> <%= "DISABLED" if @group.is_admin_group? %>> 
+												</h3>
+												<!--<i><%= @group.name %> can edit <%= plugin.human_name.pluralize %> for any <%= @setting[:item_name] %>.</i>-->
+												<div class="spacer"></div>
+												
+												<h3>
+													<%= GroupPluginPermission.human_attribute_name(:can_delete) %>
+													<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_delete]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :delete) %> <%= "DISABLED" if @group.is_admin_group? %>>
+												</h3>
+												<!--<i><%= @group.name %> can delete <%= plugin.human_name.pluralize %> from any <%= @setting[:item_name] %>.</i>-->
+												<div class="spacer"></div>
+												
+												<h3>
+													<%= GroupPluginPermission.human_attribute_name(:requires_approval) %>
+													<input type="checkbox" name="plugin_permission[<%= plugin.id %>][requires_approval]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :requires_approval) %> <%= "DISABLED" if @group.is_admin_group? %>> 
+												</h3>
+												<!--<i>New <%= plugin.human_name.pluralize %> created by <%= @group.name %> must be approved by the <%= @setting[:item_name] %> owner.</i>-->
 											
-											<h3>
-												Create
-												<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_create]" value="1" <%= "CHECKED" if @group.has_plugin_permission?(:plugin => plugin, :permission_type => :create) %> <%= "DISABLED" if @group.is_admin_group? %>> 
-											</h3>
-											<i><%= @group.name %> can create <%= plugin.title %>s for any <%= @setting[:item_name] %>.</i>
-											<div class="spacer"></div>
-											
-											<h3>
-												Require Approval?
-												<input type="checkbox" name="plugin_permission[<%= plugin.id %>][requires_approval]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :requires_approval) %> <%= "DISABLED" if @group.is_admin_group? %>> 
-											</h3>
-											<i>New <%= plugin.title %>s created by <%= @group.name %> must be approved by the <%= @setting[:item_name] %> owner.</i>
-											<div class="spacer"></div>
-											
-											<h3>	
-												Update
-												<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_update]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :update) %> <%= "DISABLED" if @group.is_admin_group? %>> 
-											</h3>
-											<i><%= @group.name %> can edit <%= plugin.title %>s for any <%= @setting[:item_name] %>.</i>
-											<div class="spacer"></div>
-											
-											<h3>
-												Delete
-												<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_delete]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :delete) %> <%= "DISABLED" if @group.is_admin_group? %>>
-											</h3>
-											<i><%= @group.name %> can delete <%= plugin.title %>s from any <%= @setting[:item_name] %>.</i>
-											<div class="spacer"></div>
-											
-																						 											 
-										</td>														
-									</tr>
-								</table>
-							</div>	  				
-						<% end %>
-
+																							 											 
+											</td>														
+										</tr>
+									</table>
+								</div>	  				
+							<% end %>
+	
+							
+	
+							<br>
+							
+							<%= f.submit t("label.object_save", :object => Group.human_name), :class => "button_1" %>
+						</form>
 						
-
-						<br>
-						
-						<input type="submit" value="Save">
-					</form>
-					
-				</div>
-			</div>			
+					</div>
+				</div>	
+			<% end %>		
 		</td>
    	    <td style="width:5px;">  </td>
 		<td class="sidebar_column">
 			<div>
 								
 				<div class="box_style_1" align=left style="margin-bottom:5px;">
-					<h2 class="title">Group Info</h2>
-					Last Update: <b><%= friendly_date @group.updated_at %></b>		<br>					
-					Creation Date: <b><%= friendly_date @group.created_at %></b>		<br>
+					<h2 class="title"><%= t("label.additional_info") %></h2>
+					<%= Group.human_attribute_name(:updated_at) %>: <b><%= friendly_date @group.updated_at %></b>		<br>					
+					<%= Group.human_attribute_name(:created_at) %>: <b><%= friendly_date @group.created_at %></b>		<br>
 				</div>	
-				<% if !@group.is_deletable? %>
-					<div class="box_style_1" align=center style="margin-bottom:5px;">
-							<img src="/themes/<%= @setting[:theme] %>/images/icons/failure.png" class="icon">
-							You cannot delete this group.  
+				
+					<div class="box_style_1" align=left style="margin-bottom:5px;">
+						<h3><%= t("single.delete", :object => Group.human_name) %></h3>
+						<div align=center>
+							<% if !@group.is_deletable? %>							
+								<img src="/themes/<%= @setting[:theme] %>/images/icons/failure.png" class="icon">
+								<%= t("notice.invalid_permissions") %>	
+							<% else %>
+								<%= link_to icon("delete") + " " + t("label.object_delete",  :object => Group.human_name), { :action => 'delete', :controller => "groups", :id => @group.id, :group_id => @group.id}, :confirm => t("confirm.delete") if @group.is_deletable? %>
+							<% end %>													
+						</div>
+ 
 					</div>
-				<% end %>										
+										
 			</div>
 		</td>
 	</tr>
@@ -119,6 +128,8 @@
 <br>
 
 
+<br>
+<%= link_to icon("arrow_left") + " " + t("single.back"), :back %>
 
 
 

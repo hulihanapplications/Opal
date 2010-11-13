@@ -12,36 +12,38 @@
 		<% for item in items %>
 		 <% if item.is_viewable_for_user?(@logged_in_user) %>
 			 <div class="item_box_small">
-				<div class="<%= cycle('row_a', 'row_b') %>">	
-					<table style="width:100%" cellspacing=0 cellpadding=0>
-						<tr>
-							<td class="icon_column">		
-								<%= link_to (item_thumbnail item, :class => "pinky" ), {:action => "view", :controller => "items", :id => item , :anchor => "Images"}, :title => "#{h item.name}" %>																						
-							</td>
-							<td align=left>
-								<div class="title">
+			 	<div class="item">
+					<div class="<%= cycle('row_a', 'row_b') %>">	
+						<table style="width:100%" cellspacing=0 cellpadding=0>
+							<tr>
+								<td class="icon_column">		
+									<%= link_to (item_thumbnail item, :class => "pinky" ), {:action => "view", :controller => "items", :id => item }, :title => "#{h item.name}" %>																						
+								</td>
+								<td align=left>
+									<span class="name">
 										<%= link_to "<b>#{h truncate(item.name,  :length => 20)}</b>", {:action => "view", :controller => "/items", :id => item }, :title => "#{h item.name}" %>
-										<% if get_setting_bool("enable_item_description") && item.description && item.description != "" %>
-											-
-											<span class="description">
-												 <%= h truncate(item.description,  :length => 42) %>
-											</span>
-										<% end %>						
-								</div>
-							</td>
-
-							<td align=right > 
-								<% if review_plugin.is_enabled? %>
-									<%= render :partial => review_plugin.partial_path(:type => "list"), :locals => {:plugin => review_plugin, :item => item, :my_group_plugin_permissions => my_group_plugin_permissions  } %>
-								<% end %>	
-															
-								<% if comment_plugin.is_enabled? %>
-									<%= render :partial => comment_plugin.partial_path(:type => "list"), :locals => {:plugin => comment_plugin, :item => item, :my_group_plugin_permissions => my_group_plugin_permissions  } %>
-								<% end %>	
-							</td>			
-						</tr>
-					</table>
-				</div>
+									</span>
+									<% if get_setting_bool("enable_item_description") && item.description && item.description != "" %>
+										-
+										<span class="description">
+											 <%= h truncate(item.description,  :length => 42) %>
+										</span>
+									<% end %>						
+								</td>
+	
+								<td align=right > 
+									<% if review_plugin.is_enabled? %>
+										<%= render :partial => review_plugin.partial_path(:type => "list"), :locals => {:plugin => review_plugin, :item => item, :my_group_plugin_permissions => my_group_plugin_permissions  } %>
+									<% end %>	
+																
+									<% if comment_plugin.is_enabled? %>
+										<%= render :partial => comment_plugin.partial_path(:type => "list"), :locals => {:plugin => comment_plugin, :item => item, :my_group_plugin_permissions => my_group_plugin_permissions  } %>
+									<% end %>	
+								</td>			
+							</tr>
+						</table>
+					</div>			 		
+			 	</div>
 			 </div>
 		 <% end %>
 		<% end %>

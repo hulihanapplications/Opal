@@ -1,5 +1,5 @@
 <div align=center>
-	 <h2 class="title"><%= @date.strftime("%B") %> <%= @date.strftime("%Y") %></h2>
+	 <h2 class="title"><%= l(@date, :format => :month_year)  %></h2>
 	 <div class="spacer"></div> 
 </div>
 <br>
@@ -7,9 +7,7 @@
 <table align=center style="width:100%">
  <tr>
   <td align=left class="sidebar_column" valign=top>
-  	<div class="box_style_1">
 		<%= render :partial => "menu" %>
-	</div>
   </td>
   <td align=left valign=top >
    <div>

@@ -11,13 +11,13 @@ class User < ActiveRecord::Base
   belongs_to :group
   
   #-------------validations-----------------------
-  validates_uniqueness_of :username,  :message => "This username is already taken!" #this will comb through the database and make sure email is unique
-  validates_uniqueness_of :email,  :message => "This email address is already taken!" #this will comb through the database and make sure email is unique
-  validates_presence_of :first_name, :last_name, :email, :message => "This field is required!"
-  validates_confirmation_of :password, :message => ": Passwords Do Not Match!" #this will confirm the password, but you have to have an html input called password_confirmation
-  validates_length_of :username, :maximum => 255, :message => "Your username is too LONG!"
+  validates_uniqueness_of :username #this will comb through the database and make sure email is unique
+  validates_uniqueness_of :email #this will comb through the database and make sure email is unique
+  validates_presence_of :username, :first_name, :last_name, :email
+  validates_confirmation_of :password #this will confirm the password, but you have to have an html input called password_confirmation
+  validates_length_of :username, :maximum => 255
   #validates_numericality_of :zip
-  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "Your email is not valid!"
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
   
   
   #-----------------------------------------------
@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
 
   def to_param # make custom parameter generator for seo urls, to use: pass actual object(not id) into id ie: :id => object
     # this is also backwards compatible with id lookups, since .to_i gets only contiguous numbers, ie: "4-some-string-here".to_i # => 4    
-    "#{id}-#{username.gsub(/[^a-z0-9]+/i, '-')}" 
+    "#{id}-#{username.parameterize}" 
   end
   
   def is_admin? 
@@ -163,7 +163,10 @@ class User < ActiveRecord::Base
   def self.admins # get all admins
     return User.find(:all, :conditions => ["is_verified = '1' and is_disabled = '0' and is_admin = '1'"])
   end
-  def self.path
-    return File.expand_path(__FILE__)
+  
+  def anonymous? # is the user an anonymous user?
+    (self.id == 0 || self.id.nil?)   
   end
+  
+  
 end

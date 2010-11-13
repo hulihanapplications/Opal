@@ -8,7 +8,7 @@ class PluginFeatureValue < ActiveRecord::Base
   belongs_to :user
   
   validates_presence_of :value
-  validates_uniqueness_of  :item_id, :scope => :plugin_feature_id, :message => "There is already a value for this."
+  validates_uniqueness_of  :item_id, :scope => :plugin_feature_id
   attr_protected :item_id
 
   def is_approved?
@@ -17,5 +17,24 @@ class PluginFeatureValue < ActiveRecord::Base
      else # not approved
        return false
      end
-  end
+ end
+=begin 
+ def validate # run validations for value
+   if self.feature.feature_type == "number" || self.feature.feature_type == "slider" 
+     if entered_value !~ /^\s*[+-]?((\d+_?)*\d+(\.(\d+_?)*\d+)?|\.(\d+_?)*\d+)(\s*|([eE][+-]?(\d+_?)*\d+)\s*)$/ # is this a float?
+       
+       errors[feature.name] = "is not a number!"
+     else # this is a number
+       # Check if within range
+       if feature.min # check if below min
+          errors[feature.name] = "must be greater than #{feature.min}" if entered_value.to_f < feature.min  # add requirement error            
+       end 
+       
+       if feature.max # check if above max
+           errors[feature.name] = "must be less than #{feature.max}" if entered_value.to_f > feature.max  # add requirement error            
+       end         
+     end       
+   end
+ end
+=end 
 end

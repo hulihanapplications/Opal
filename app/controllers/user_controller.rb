@@ -31,34 +31,33 @@ class UserController < ApplicationController
         
         flash[:notice] = ""
         if @user.save # creation successful
-         Log.create(:user_id => @user.id, :log_type => "new", :log => "#{@user.username}'s account created.")
-         Emailer.deliver_new_user_notification(@user, url_for(:action => "user", :controller => "browse", :id => @user.id)) if Setting.get_setting_bool("new_user_notification")         
-         flash[:notice] <<  "<div class=\"flash_success\">Your account was successfully created!"
+         Log.create(:user_id => @user.id, :log_type => "new", :log =>  t("log.user_account_create", :title => @setting[:title]))
+         Emailer.deliver_new_user_notification(@user, url_for(:action => "user", :controller => "browse", :id => @user)) if Setting.get_setting_bool("new_user_notification")         
+         flash[:success] =  t("notice.user_account_create_success")
 
          if @user.is_verified? # check verification
            # Automatically log in user
            session[:user_id] = @user.id 
            @logged_in_user = @user               
-           flash[:notice] <<  "<br>You have been automatically logged in."
+           flash[:success] +=  " " + t("notice.user_login_success")
          else # they need to verify their account.
            verification = UserVerification.create(:user_id => @user.id, :code => UserVerification.generate_code)
            url = url_for(:action => "verify", :controller => "user", :id => verification.id, :code =>  verification.code, :only_path => false)
            Emailer.deliver_verification_email(@user.email, verification, url) # send verification email
-           flash[:notice] <<  "<br><b>Your account needs to be verified before you can log in.</b><br>Please check your email for a verification link."         
+           flash[:info] =  t("notice.user_account_needs_verification")         
          end 
-         flash[:notice] << "</div>"
          redirect_to :action => "index", :controller => "/browse"        
         else  #save failed
-         flash[:notice] << "<div class=\"flash_failure\">There was a problem creating your account! Here's why:<br>#{print_errors(@user)}</div>"
+         flash[:failure] = t("notice.user_account_create_failure")
          redirect_to :action => "register", :controller => "user"
         end
      else # captcha failed
-        flash[:notice] = "<div class=\"flash_failure\">You entered the wrong verification code!</div>" #print out any errors!
+        flash[:failure] =  t("notice.invalid_captcha")  #print out any errors!
         redirect_to :action => "register", :controller => "user"
      end
    end
   else # users can't register.
-    flash[:notice] = "<div class=\"flash_failure\">Sorry, Users aren't allowed to register right now.</div>" 
+    flash[:failure] =  t("notice.invalid_permissions")  
     redirect_to :action => "index", :controller => "/browse"
   end 
  end
@@ -72,7 +71,7 @@ class UserController < ApplicationController
        if session[:user_id] # if login successful
          @logged_in_user = User.find(session[:user_id]) # retrieve the fresh user from DB, so we can update login stats
          @logged_in_user.user_info.update_attribute(:forgot_password_code, nil) # clear password recovery code
-         flash[:notice] = "<div class=\"flash_success\">#{@logged_in_user.username} logged in successfully!</div>"
+         flash[:success] = t("notice.user_login_success")
          @logged_in_user.update_attribute(:last_login, Time.now.strftime("%Y-%m-%d %H:%M:%S")) # update last login time
          @logged_in_user.update_attribute(:last_login_ip, Time.now.strftime(request.env["REMOTE_ADDR"])) # update last login ip
 
@@ -83,7 +82,7 @@ class UserController < ApplicationController
            redirect_to :action => "index", :controller => "user"
          end         
        else # authentication failed!
-         flash[:notice] = "<div class=\"flash_failure\">Login failed!</div>"
+         flash[:failure] = t("notice.user_login_failure")
          redirect_to :action => "login", :controller => "browse"     
        end
     end
@@ -93,7 +92,7 @@ class UserController < ApplicationController
     session[:user_id] = nil
     @logged_in_user = nil
     reset_session
-    flash[:notice] = "<div class=\"flash_success\">You have been logged out! Have a nice day.</div>"
+    flash[:success] = t("notice.user_logout_success")
     redirect_to  :action => "index", :controller => "/browse"
   end
  
@@ -108,13 +107,13 @@ class UserController < ApplicationController
         @user = User.find(@user_verification.user_id)
         @user_verification.update_attributes(:referrer => request.env['HTTP_REFERER'], :ip => request.env['REMOTE_ADDR'], :verification_date => Time.now, :is_verified => "1")
         @user.update_attribute(:is_verified, "1") # make user verified
-        Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => "Account verified.")                                              
-        flash[:notice] = "<div class=\"flash_success\">Your account has been verified!<br>You can now log in.</div>"       
+        Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.user_account_verify"))                                              
+        flash[:success] = t("notice.user_account_verify_success")       
       else # they already verified
-        flash[:notice] = "<div class=\"flash_failure\">This code has already been verified!</div>"
+        flash[:failure] = t("notice.user_account_verify_failure") 
       end       
     else # code doesn't match
-      flash[:notice] = "<div class=\"flash_failure\">This code does not match the verification record!</div>"
+      flash[:failure] = t("notice.user_account_verify_failure") 
     end        
     redirect_to  :action => "index", :controller => "/browse"    
   end
@@ -122,9 +121,9 @@ class UserController < ApplicationController
   def check_username
    username_found = User.find(:first, :conditions => ["username = ?", params[:username]], :select => :username)
    if username_found # username taken
-    render :text => "<div class=\"flash_failure\">This username is taken!</div>"
+    render :text => "<div class=\"flash_failure\">#{t("label.username_taken")}</div>"
    else # username not taken
-    render :text => "<div class=\"flash_success\">This username is available!</div>"
+    render :text => "<div class=\"flash_success\">#{t("label.username_available")}</div>"
    end
    #render :layout => false
   end
@@ -132,66 +131,63 @@ class UserController < ApplicationController
 
 
 
- def change_password
+def change_password
   if request.post?
-   @user = @logged_in_user
-   if params[:user][:password].blank? # password is empty
-     flash[:notice] = "<div class=\"flash_failure\">You didn't fill in a password box. Try Again!</div>"
-   else #password is filled
-    if params[:user][:password] != params[:user][:password_confirmation] # password doesn't match!
-     flash[:notice] = "<div class=\"flash_failure\">Your passwords do not match!</div>"
-    else#passwords match
-     @user.password = params[:user][:password] 
-     if @user.save
-      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => "Changed Password")
-      flash[:notice] = "<div class=\"flash_success\">Password Changed Successfully!</div>"
-     end
-    end
-   end
-   redirect_to :action => "settings"
+    @user = @logged_in_user    
+    if @user.update_attributes(:password => params[:user][:password], :password_confirmation => params[:user][:password_confirmation])
+      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log =>  t("log.user_account_object_save", :object => User.human_attribute_name(:password)))
+      flash[:success] = t("notice.save_success")
+      redirect_to :action => "settings"
+    else # save failed
+      flash[:failure] = t("notice.save_failure")
+      render :action => "settings"
+    end    
   end
- end
+end
 
  def change_avatar
    @user = @logged_in_user   
    if !@user.use_gravatar? && params[:use_gravatar] == "1" # They are enabling gravatar
      @user.user_info.update_attribute(:use_gravatar, params[:use_gravatar])
-     flash[:notice] = "<div class=\"flash_success\">Gravatar enabled!</div>"     
+     flash[:success] = t("notice.save_success")     
    elsif @user.use_gravatar? && params[:use_gravatar] == "0" # They are diabling gravatar
      @user.user_info.update_attribute(:use_gravatar, params[:use_gravatar])
-     flash[:notice] = "<div class=\"flash_success\">Gravatar disabled!</div>"     
+     flash[:success] = t("notice.save_success")     
    else # they are uploading a new photo
      if params[:file] != ""   #from their computer
       filename = params[:file].original_filename
       file_dir = "#{RAILS_ROOT}/public/images/avatars" 
-      if check_filename(filename) #the filename is valid
+      acceptable_file_extensions = ".png, .jpg, .jpeg, .gif, .bmp, .tiff, .PNG, .JPG, .JPEG, .GIF, .BMP, .TIFF"
+      if Uploader.check_file_extension(:filename => filename, :extensions => acceptable_file_extensions)
        image = Magick::Image.from_blob(params[:file].read).first    # read in image binary
        image.crop_resized!( 100, 100 ) # Resize image
        image.write("#{file_dir}/#{@user.id.to_s}.png") # write the file
-        Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => "Uploaded a new avatar.")                                                   
-       flash[:notice] = "<div class=\"flash_success\">Your new image has been uploaded. Thanks!</div> "     
+        Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log =>  t("log.user_account_object_save", :object => t("single.avatar")))                                                   
+       flash[:success] = t("notice.save_success")     
       else
-       flash[:notice] = "<div class=\"flash_failure\">#{params[:file].original_filename} upload failed! Please make sure that this is an image file, and that it ends in .png .jpg .jpeg .bmp or .gif </div> "
+       flash[:failure] = t("notice.invalid_file_extensions", :object => Image.human_name, :acceptable_file_extensions => acceptable_file_extensions)      
       end
      else # they didn't select an image
-       flash[:notice] = "<div class=\"flash_failure\">You did not select an image!</div> "     
+       flash[:failure] = t("notice.object_forgot_to_select", :object => Image.human_name)      
      end
    end
 
    redirect_to :action => "settings"
 
  end
-
- def update_user_info
-  if request.post?
+ 
+ def update_account
    @user = @logged_in_user
    #@user_info = @user.user_info
-     if @user.user_info.update_attributes(params[:user_info])
-     Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => "User Info updated.")                                              
-     flash[:notice] = "<div class=\"flash_success\">Info Changed Successfully!</div>"
+     params[:user][:username] = @user.username # make username unchangeable
+     params[:user][:email] = @user.email # make email unchangeable
+     if @user.user_info.update_attributes(params[:user_info]) && @user.update_attributes(params[:user])       
+       Log.create(:user_id => @logged_in_user.id, :log_type => "update",  :log =>  t("log.user_account_object_save", :object => UserInfo.human_name))                                              
+       flash[:success] = t("notice.save_success")
+       redirect_to :action => "settings"  
+     else 
+       render :action => "settings"
      end
-    redirect_to :action => "settings"
-  end
  end
 
   def items
@@ -211,10 +207,10 @@ class UserController < ApplicationController
       forgot_password_code = UserInfo.generate_forgot_password_code
       if @user.user_info.update_attribute(:forgot_password_code, forgot_password_code)
         Emailer.deliver_password_recovery_email(@user, url_for(:action => "recover_password", :controller => "user", :id => @user.id, :code => forgot_password_code, :only_path => false))
-        flash[:notice] = "<div class=\"flash_success\">Instructions to recover your password have been sent to your email account.</div>"
+        flash[:success] = t("notice.user_account_recover_password_instructions")
       end
-    else 
-      flash[:notice] = "<div class=\"flash_failure\">Sorry, no account was found with the email address: #{params[:user][:email]}.</div>"
+    else  # user not found
+      flash[:failure] = t("notice.object_not_found", :object => User.human_name)
     end
     redirect_to :action => "login", :controller => "browse"
   end
@@ -223,24 +219,15 @@ class UserController < ApplicationController
     @user = User.find(params[:id])
     if params[:code] == @user.user_info.forgot_password_code
        @user.user_info.update_attribute(:forgot_password_code, nil) # reset password recovery code
-       new_password = "changeme"
+       new_password = UserInfo.generate_password
        if @user.update_attribute(:password, new_password) # reset password
-         Log.create(:user_id => @user.id, :log_type => "system", :log => "Password recovered.")
-         flash[:notice] = "<div class=\"flash_success\">Your password has been changed to <b>#{new_password}</b>.<br>To change your password to something else, log into your account and click on the <b>My Settings</b> tab.</div>"
+         Log.create(:user_id => @user.id, :log_type => "system", :log =>  t("log.object_recover", :object => User.human_attribute_name(:password)))
+         flash[:success] =  t("notice.user_account_recover_password_success", :new_password => new_password)
        end
     else
-      flash[:notice] = "<div class=\"flash_failure\">Sorry, your password recovery code is incorrect.</div>"      
+      flash[:failure] = t("notice.object_invalid", :object => UserInfo.human_attribute_name(:forgot_password_code))     
     end
     redirect_to :action => "login", :controller => "browse"    
   end
   
-private
- def check_filename(filename)
-  extensions = /.png|.jpg|.jpeg|.gif|.bmp|.tiff|.PNG|.JPG|.JPEG|.GIF|.BMP|.TIFF$/ #define the accepted regexs
-  return extensions.match(filename)   # return false or true if matched
- end
-
-
-
-
 end

@@ -5,7 +5,7 @@
 	<% for plugin in plugins_to_look_for %>
 		<% if plugin.name != "Feature" && plugin.name != "FeatureValue" %> 			
 			<% if plugin_items[plugin.id].size > 0 %>
-				<h3><b><%= h plugin.title.pluralize %></b></h3>		
+				<h3><b><%= plugin.human_name.pluralize %></b></h3>		
 				<div class="indent">
 					<% for plugin_item in plugin_items[plugin.id] %>
 						<table cellpadding=0 cellspacing=0 style="width:100%">
@@ -19,7 +19,7 @@
 									<% end %>								
 								</td>
 								<td align=left style="padding:2px;">
-									<a href="/items/view/<%= "#{plugin_item.item_id}##{plugin.name.pluralize}" %>"><b><%= "#{h plugin.title}" %></b></a> 
+									<a href="/items/view/<%= "#{plugin_item.item_id}##{plugin.name.pluralize}" %>"><b><%= "#{plugin.human_name}" %></b></a> 
 									for
 									<a href="/items/view/<%= "#{plugin_item.item_id}" %>"><b><%= h "#{plugin_item.item.name}" %></b></a>
 									<div class="indent">

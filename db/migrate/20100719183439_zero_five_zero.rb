@@ -3,7 +3,7 @@ class ZeroFiveZero < ActiveRecord::Migration
     Setting.find_by_name("opal_version").update_attribute(:value, "0.5.0") # Update Version
     
     # Make pages publishable
-      add_column :pages, :published, :bool, :default => true
+     add_column :pages, :published, :bool, :default => true
 
     # Add Min & Max values for features
     add_column :plugin_features, :min, :float, :default => nil

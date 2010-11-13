@@ -1,41 +1,39 @@
-<table style="width:100%" cellpadding=0 cellspacing=0>
-	<tr>
-		<td align=left>
-			<h2 class="title">Blog Archive</h2>
-		</td>
-		<td align=right>
-			<% if @logged_in_user.is_admin? %>
-				<img src="/themes/<%= @setting[:theme] %>/images/icons/new.png" alt="New" title="New" border=0 class="icon">
-				<%= link_to "New Page", {:action => "new", :controller => "pages", :type => "Blog"} %>
-			<% end %>
-		</td>
-	</tr>
-</table>
-<div class="spacer"></div>
-<!--
-<b><%= link_to "Home", :action => "index", :controller => "blog" %></b>
-<div class="spacer"></div>
--->
-<%# Dynamically Get number of months to search back in time for %>
-<% oldest_post = Page.find(:first, :conditions => ["page_type = ?", "blog"], :order => "created_at ASC") %>
-<% months_to_search =  (Time.now.month - oldest_post.created_at.month) + 12 * (Time.now.year - oldest_post.created_at.year) %>
 
-<% for i in (0..months_to_search) %> 
-	<%
-	  start_time = Time.now.months_ago(i).beginning_of_month
-	  end_time = Time.now.months_ago(i).end_of_month
-	  archive_posts = Page.count(:all, :conditions => ["created_at > ? and created_at < ? and page_type = ? and published = true", start_time, end_time, "blog"])
-	%>
-	<% if archive_posts != 0 %>
+<%= auto_discovery_link_tag(:rss, {:action => "rss", :controller => "blog"}, {:title => "#{t("label.rss_feed")} - #{t("section.title.blog").capitalize}"}) %>
+<div class="box_style_1" style="margin-bottom:10px"> 
+	<table style="width:100%" cellpadding=0 cellspacing=0>
+		<tr>
+			<td align=left>
+				<h2 class="title"><%= t("single.archive") %></h2>
+			</td>
+			<td align=right>				
+				<%= link_to "#{icon("new")} #{t("label.object_new", :object => t("activerecord.models.blog_page"))}", {:action => "new", :controller => "pages", :type => "Blog"} if @logged_in_user.is_admin?  %>				
+			</td>
+		</tr>
+	</table>
+	<div class="spacer"></div>
+	<!--
+	<b><%= link_to "Home", :action => "index", :controller => "blog" %></b>
+	<div class="spacer"></div>
+	-->
+	<%# Get Post archive by using group_by %>
+	<% @post_archives = Page.find(:all, :order => "created_at DESC", :conditions => ["page_type = ? and published = ?", "blog", true]).group_by{|post| post.created_at.beginning_of_month } %>
+	
+	
+	<% @post_archives.each do |date, posts|  %> 
 		<div>
 			<table style="width:100%" cellpadding=0 cellspacing=0>
 				<tr>
 					<td align=left>
-						<b><%= link_to "#{start_time.strftime("%B %Y")} ", {:controller => "blog", :action => "archive", :year => start_time.strftime("%Y"), :month => start_time.strftime("%m")} %></b>
+						<b><%= link_to "#{date.strftime("%B %Y")} ", {:controller => "blog", :action => "archive", :year => date.strftime("%Y"), :month => date.strftime("%m")} %></b>
 					</td>
-					<td align=right><%= archive_posts %></td>					
+					<td align=right><%= posts.size %></td>					
 				</tr>
 			</table>
 		</div>
-	<% end %> 
-<% end %> 
+	<% end %>
+</div> 
+
+<div class="box_style_2" align=center>
+	<%= link_to icon("rss")  + " " + t("label.rss_feed"), {:action => "rss", :controller => "blog"} %>
+</div>

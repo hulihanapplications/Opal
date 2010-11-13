@@ -114,8 +114,8 @@ class CreateSampleData < ActiveRecord::Migration
     @plugin.save   
   
      # Create Global Settings
-     Setting.create(:name => "item_name", :title => "Item Name", :value => "item", :setting_type => "Item", :description => "This is the <b>singular</b> name of the items on your site, so if you want to show people homes, this would be <b>home</b>.", :item_type => "string")
-     Setting.create(:name => "item_name_plural", :title => "Plural Item Name",  :value => "items", :setting_type => "Item", :description => "This is the <b>plural</b> name of the items on your site, so if you want to show people homes, this would be <b>homes</b>.", :item_type => "string")
+     Setting.create(:name => "item_name", :title => "Item Name", :value => "Item", :setting_type => "Item", :description => "This is the <b>singular</b> name of the items on your site, so if you want to show people homes, this would be <b>home</b>.", :item_type => "string")
+     Setting.create(:name => "item_name_plural", :title => "Plural Item Name",  :value => "Items", :setting_type => "Item", :description => "This is the <b>plural</b> name of the items on your site, so if you want to show people homes, this would be <b>homes</b>.", :item_type => "string")
      Setting.create(:name => "site_title", :title => "Title of Your Site",  :value => "My Opal Website", :setting_type => "Public", :description => "The Title of your Site. You would see this at the very top of your browser window.", :item_type => "string")
      Setting.create(:name => "site_keywords", :title => "Site Keywords",  :value => "Opal", :setting_type => "Public", :description => "The Keywords Metatag for your site. Used for search engine submission. Seperated by commas.", :item_type => "string")
      Setting.create(:name => "site_description", :title => "Site Description",  :value => "The Free, Open Source, Item Listing Application. List Anything!", :setting_type => "Public", :description => "The description for your site. Used in the title of your page(at the top of your browswer) and for search engine submission.", :item_type => "string")

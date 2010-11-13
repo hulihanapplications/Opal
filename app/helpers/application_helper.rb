@@ -3,15 +3,15 @@ module ApplicationHelper
   
  def friendly_date(date)
   if date > Time.now.beginning_of_day and date < Time.now.end_of_day # sometime today
-   return "Today at "+ date.strftime("%I:%M %p")
+   return distance_of_time_in_words_to_now(date).capitalize + " " + I18n.t("single.ago").downcase
   elsif (date < Time.now.beginning_of_day) and (date > Time.now.yesterday.beginning_of_day) # yesterday
-   return "Yesterday at "+ date.strftime("%I:%M %p")
+   return I18n.l(date, :format => :yesterday) 
   elsif (date < Time.now.yesterday.beginning_of_day) and (date > Time.now.beginning_of_week) # This week, :shows => Monday
-   return  "" + date.strftime("%A") + " at " +  date.strftime("%I:%M %p")
+   return  I18n.l(date, :format => :weekday) 
   elsif (date > Time.now.beginning_of_year) # Anytime this Year
-   return  "" + date.strftime("%b %d") + " at " +  date.strftime("%I:%M %p")
+   return I18n.l(date, :format => :short)
   else # Any Other Time
-   return "" + date.strftime("%b %d %Y") + " at " + date.strftime("%I:%M %p")
+   return I18n.l(date, :format => :long)
   end
  end
   
@@ -41,15 +41,15 @@ module ApplicationHelper
     end
   end
   
-  def page_link(page) # prints out the link for a page.
-     return link_to("<b>#{page.title}</b>", {:action => "page", :controller => "pages", :id => page}, :title => page.description)
-     #return "<a href=\"/about/page/#{page.id}\" title=\"#{page.description}\"><b>#{page.title}</b></a><br>"
+  def link_to_page(page, options = {})
+    options[:truncate_length] = 256 if options[:truncate].nil?    
+    link_to(truncate(t("page.title.#{page.title.delete(' ').underscore}", :default => page.title), :length => options[:truncate_length]), {:action => "page",  :controller => "pages", :id => page}, :class => "page_link", :title => t("page.description.#{page.title.delete(' ').underscore}", :default => page.description))   
   end
- 
-  def user_avatar(user, options = {:size => "normal"})
+
+   def user_avatar(user, options = {:size => "normal"})
     if !user.nil? # user exists    
       if user.use_gravatar? 
-        gravatar_image(user.email, :size => options[:size])
+        gravatar_image(user, :size => options[:size])
       else # don't use gravatar, check local avatars 
         if File.exists?(RAILS_ROOT + "/public/images/avatars/" + user.id.to_s + ".png") 
            return "<img src=\"/images/avatars/#{user.id.to_s}.png\" class=\"avatar_#{options[:size]}\" title=\"#{user.username}\">"
@@ -58,13 +58,13 @@ module ApplicationHelper
         end
       end
     else # user doesn't exist
-      return "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\" title=\"User cannot be found.\">"      
+      return "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\" title=\"#{t("notice.object_not_found", :object => User.human_name)}\">"      
     end     
   end 
 
 
-  def gravatar_image(email, options = {:size => "normal"})
-    return "<img src='http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5.hexdigest(email.downcase)}' class=\"avatar_#{options[:size]}\">"
+  def gravatar_image(user, options = {:size => "normal"})
+    return "<img src='http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5.hexdigest(user.email.downcase)}?d=#{URI.escape(@setting[:url] + @setting[:theme_url] + "/images/default_avatar.png")}' class=\"avatar_#{options[:size]}\" title=\"#{user.username}\">"
   end
   
   def nav_link_category(category) # prints out a nav link for an category, ie: Home > General > Test Item
@@ -102,9 +102,9 @@ module ApplicationHelper
       #root_page = Page.get_system_page("About Home")
       # navlinks <<  (link_to root_page.title, {:action => "page", :controller => "pages", :id => root_page}) +  " &raquo; " + message # home
     if page.page_id != 0 # only do this to child pages 
-      navlinks <<  link_to("#{h page.page.page.title}", {:action => "page", :controller => "pages", :id => page.page.page}, :title => page.page.page.description) if  page.page &&  page.page.page # add grandparent page
-      navlinks <<  link_to("#{h page.page.title}", {:action => "page", :controller => "pages", :id => page.page}, :title => page.page.description) if page.page # add parent page
-      navlinks <<  link_to("#{h page.title}", {:action => "page", :controller => "pages", :id => page}, :title => page.title)
+      navlinks <<  link_to_page(page.page.page) if  page.page &&  page.page.page # add grandparent page
+      navlinks <<  link_to_page(page.page) if page.page # add parent page
+      navlinks <<  link_to_page(page)
     end 
     
     if navlinks.size > 0 # if there are any navlinks...
@@ -193,7 +193,7 @@ module ApplicationHelper
           if options[:admin_controls] # show admin controls      
             html += "<td align=right class=\"icon_column\"><img src=\"/themes/#{@setting[:theme]}/images/icons/private.png\" class=\"icon help\" title=\"This is not published and cannot be seen by others.\"></td>" if !page.published                        
             html += "<td align=right class=\"icon_column\"><img src=\"/themes/#{@setting[:theme]}/images/icons/help.png\" class=\"icon help\" title=\"#{page.description}\"></td>" if page.description && page.description != ""            
-            html += "<td align=right class=\"icon_column\">" + link_to("<img src=\"/themes/#{@setting[:theme]}/images/icons/new.png\" class=\"icon\" title=\"Add new child page to #{page.title}\">", {:action => "new", :controller => "pages", :id => page}, :class => "transparent") + "</td>" if page.is_public_page?              
+            html += "<td align=right class=\"icon_column\">" + link_to("<img src=\"/themes/#{@setting[:theme]}/images/icons/new.png\" class=\"icon\" title=\"#{t("label.object_new_child", :object => Page.human_name)}\">", {:action => "new", :controller => "pages", :id => page}, :class => "transparent") + "</td>" if page.is_public_page?              
             html += "<td align=right class=\"icon_column\">" + link_to("<img src=\"/themes/#{@setting[:theme]}/images/icons/edit.png\" class=\"icon\" title=\"Edit\">", {:action => "edit", :controller => "pages", :id => page}, :class => "transparent") + "</td>"
             html += "<td align=right class=\"icon_column\">" + link_to("<img src=\"/themes/#{@setting[:theme]}/images/icons/delete.png\" class=\"icon\" title=\"Delete\">", {:action => "delete", :controller => "pages", :id => page}, :confirm => "Are you sure you want to delete this?", :class => "transparent") + "</td>" if !page.is_system_page? 
           end  
@@ -247,7 +247,7 @@ module ApplicationHelper
           
           if options[:admin_controls] # show admin controls      
             html += "<td align=right class=\"icon_column\"><img src=\"/themes/#{@setting[:theme]}/images/icons/help.png\" class=\"icon help\" title=\"#{category.description}\"></td>" if category.description && category.description != ""            
-            html += "<td align=right class=\"icon_column\">" + link_to("<img src=\"/themes/#{@setting[:theme]}/images/icons/new.png\" class=\"icon\" title=\"Add new child category to #{category.name}\">", {:action => "new", :controller => "categories", :id => category}, :class => "transparent") + "</td>"              
+            html += "<td align=right class=\"icon_column\">" + link_to("<img src=\"/themes/#{@setting[:theme]}/images/icons/new.png\" class=\"icon\" title=\"#{t("label.object_new_child", :object => Page.human_name)}\">", {:action => "new", :controller => "categories", :id => category}, :class => "transparent") + "</td>"              
             html += "<td align=right class=\"icon_column\">" + link_to("<img src=\"/themes/#{@setting[:theme]}/images/icons/edit.png\" class=\"icon\" title=\"Edit\">", {:action => "edit", :controller => "categories", :id => category}, :class => "transparent") + "</td>"
             html += "<td align=right class=\"icon_column\">" + link_to("<img src=\"/themes/#{@setting[:theme]}/images/icons/delete.png\" class=\"icon\" title=\"Delete\">", {:action => "delete", :controller => "categories", :id => category}, :confirm => "Are you sure you want to delete this category? All #{@setting[:item_name_plural]} in this category will be also be deleted.", :class => "transparent") + "</td>"
           end   
@@ -271,6 +271,7 @@ module ApplicationHelper
   end 
 
  def icon(name, title = "", css_class = "") # show icon
+   #title = name.capitalize if title == "" # set default title
    return "<img src=\"/themes/#{@setting[:theme]}/images/icons/#{name}.png\" class=\"icon #{css_class}\" title=\"#{title}\">"
  end
  
@@ -295,5 +296,17 @@ module ApplicationHelper
    return html 
  end
  
- 
+  def print_errors(some_object_or_hash) # print out errors in a pretty format, takes a Object or plain Hash
+    msg = ""
+    if some_object_or_hash.class == Hash # load in errors from hash
+      errors = some_object_or_hash
+    else # load in errors from object
+      errors = some_object_or_hash.errors
+    end
+    errors.each do |key,value|
+      msg << "<b>#{key}</b>...#{value}<br>" #print out any errors!
+    end
+    return "<div class=\"flash_failure\">#{msg}</div>"
+  end
+  
 end

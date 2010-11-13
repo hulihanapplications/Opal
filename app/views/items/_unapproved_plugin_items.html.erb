@@ -10,7 +10,7 @@
 	<% plugin_items = Plugin.find_plugin_items(:all, :conditions => ["is_approved = '0' and item_id IN (?)", item_ids.join(",")] ) %>
 	<% if plugin_items != 0 %>	
 		<div class="box_style_1" style="margin-bottom:5px">
-			<h3 class=title>Waiting on Your Approval</h3>
+			<h3 class=title><%= t("label.approval_required") %></h3>
 			<%= render :partial => "plugins/list_plugin_items", :locals => {:plugin_items => plugin_items, :plugins_to_look_for => plugins} %>
 		</div>
 	<% else %>

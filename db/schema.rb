@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100719183439) do
+ActiveRecord::Schema.define(:version => 20100913052029) do
 
   create_table "affiliate_codes", :force => true do |t|
     t.datetime "created_at"
@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(:version => 20100719183439) do
     t.string   "thumb_url",                :default => ""
     t.string   "width",                    :default => "0"
     t.string   "height",                   :default => "0"
-    t.string   "description",              :default => "No Description."
+    t.string   "description",              :default => ""
     t.string   "is_approved", :limit => 1, :default => "0"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(:version => 20100719183439) do
     t.boolean  "featured",                  :default => false
     t.integer  "recent_views",              :default => 0
     t.integer  "views",                     :default => 0
+    t.boolean  "locked",                    :default => false
   end
 
   create_table "logs", :force => true do |t|
@@ -234,7 +235,7 @@ ActiveRecord::Schema.define(:version => 20100719183439) do
     t.string   "thumb_url",                :default => ""
     t.string   "width",                    :default => "0"
     t.string   "height",                   :default => "0"
-    t.string   "description",              :default => "No Description."
+    t.string   "description",              :default => ""
     t.string   "is_approved", :limit => 1, :default => "0"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -295,7 +296,6 @@ ActiveRecord::Schema.define(:version => 20100719183439) do
 
   create_table "plugins", :force => true do |t|
     t.string   "name"
-    t.string   "title",                     :default => ""
     t.string   "description",               :default => ""
     t.integer  "order_number",              :default => 0
     t.datetime "created_at"
@@ -339,11 +339,11 @@ ActiveRecord::Schema.define(:version => 20100719183439) do
     t.string   "zip",                                 :default => ""
     t.string   "country",                             :default => ""
     t.text     "description"
-    t.string   "interests",                           :default => "No Interests added yet..."
+    t.string   "interests",                           :default => ""
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "use_gravatar",           :limit => 1, :default => "0"
-    t.string   "location",                            :default => "No Location added yet..."
+    t.string   "location",                            :default => ""
     t.boolean  "notify_of_new_messages",              :default => true
     t.string   "forgot_password_code"
   end
@@ -386,6 +386,7 @@ ActiveRecord::Schema.define(:version => 20100719183439) do
     t.string   "registered_ip",              :default => "0.0.0.0"
     t.string   "last_login_ip",              :default => "0.0.0.0"
     t.integer  "group_id",                   :default => 2
+    t.string   "locale"
   end
 
 end

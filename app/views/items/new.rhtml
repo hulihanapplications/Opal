@@ -1,14 +1,17 @@
 <div class="box_style_1" id="new_item_box">
-      <h2 class="title">Create a New <%= @setting[:item_name] %></h2>
+      <h2 class="title"><%= t("label.object_new", :object => @setting[:item_name]) %></h2>
 	   <%= show_page Page.get_system_page("New Item") %>
 	   
 	   <div style="margin-top:5px;">
-	   		<%= form_tag  :action => 'create', :controller => "items" %>
-			<%= render :partial => "form", :locals => {:item => @item} %>
+	        <% form_for(@item, :url => { :action => 'create', :controller => "items"}, :method => "post") do |f| %>
+			<%= render :partial => "form", :locals => {:item => @item, :f => f} %>
 			<br>
 				<div align=center>
-					<input type="submit" value="Create <%= @setting[:item_name] %>" >
+					<%= f.submit t("label.object_create", :object => @setting[:item_name]), :class => "button_1" %>
 				</div>
-			</form>	
+			<% end %>
 		</div>
 </div>
+
+<br>
+<%= link_to icon("arrow_left") + " " + t("single.back"), :back %>

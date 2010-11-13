@@ -1,5 +1,2 @@
-In order to log in to your account at <%= @setting[:title] %>, you must first verify
-your account by clicking on this verification link:
-
-<%= @url %>
+<%= t("email.message.verification", :title => @setting[:title], :url => @url, :name => @user_verification.user.username) %>
 

@@ -1,43 +1,59 @@
 <% images_plugin = Plugin.find_by_name("Image") %>
 <% features_plugin = Plugin.find_by_name("Feature") %>
 
-<%= render :partial => "items/item_header", :locals => {:item => item, :options => {:show_item_info => false, :show_item_title => false}} %>
 <div align=left class="item_page_summarized">
-	<div style="margin-bottom:10px;">		
-		<table style="width:100%" cellpadding=0 cellspacing=0>
-			<tr>
+	<%= render :partial => "items/item_header", :locals => {:item => item, :options => {:show_item_info => false, :show_item_title => false}} %>
+	
+	<div style="margin-bottom:10px;" class="item_header_box">		
 				<% if images_plugin.is_enabled? %>
-					<td style="width:200px;">
-						<div class="box_style_2a" style="margin-bottom:0px;">
-							<%= render :partial => images_plugin.partial_path(:type => "view"), :locals => {:plugin => images_plugin, :item => item, :my_group_plugin_permissions => my_group_plugin_permissions, :options => {:show_title => false, :show_none_found => false} } %>
-							<div style="clear:both"></div>
-						</div>		
-					</td>	
-					<td style="width:10px"></td>											
-				<% end %>							
-				<td >
-					<div class="box_style_2a" style="margin-bottom:10px;">
-						<div class="title">
-							<h1><%= item.name %></h1>			
+					<div class="plugin_box">
+						<div class="images">
+							<div class="image">
+								<%= (item_thumbnail item,  :preview => true) %>
+							</div>
 						</div>
-						<div class="description">
-							<%= item.description%>	
-						</div>						
-						<div style="height:10px"></div>
-				
-						
-						
-
 					</div>				
-									
-				</td>			
-				<td style="width:300px">
-						<% if features_plugin.is_enabled? %>		
-							<div class="box_style_2a spacer_vert_left" style="margin-bottom:10px;">
-								<%= render :partial => features_plugin.partial_path(:type => "view"), :locals => {:plugin => features_plugin, :item => item, :my_group_plugin_permissions => my_group_plugin_permissions, :options => {:show_title => false, :show_none_found => false} } %>
+				<% end %>							
+
+				<div >
+					<table cellpadding=0 cellspacing=0>
+						<tr>
+							<td align=left>
+								<div class="name">
+									<%= h item.name %>		
+								</div>								
+							</td>
+							<td align=right>
+								<% if item.user %>
+									<%= link_to user_avatar(item.user, :size => "tiny"), {:action => "user", :controller => "browse", :id => item.user}, :title => h(item.user.username) %>
+									<%= Item.human_attribute_name(:user) %><%= link_to item.user.username, {:action => "user", :controller => "browse", :id => item.user} %>		
+								<% end %>								
+							</td>
+						</tr>
+					</table>
+
+					
+					<div class="description">
+						<%= h item.description%>	
+					</div>											
+					<div style="width:300px;float:right">
+						<% if features_plugin.is_enabled? %>
+							<% 
+								features = PluginFeature.find(:all, :order => "order_number ASC") 
+								if item.is_editable_for_user?(@logged_in_user)
+									feature_values = PluginFeatureValue.find(:all, :conditions => ["item_id = ?", item.id]) # show all values  
+								else 
+									feature_values = PluginFeatureValue.find(:all, :conditions => ["item_id = ? and is_approved = '1'", item.id]) # show only approved values
+								end  
+							%> 		
+							<div class="box_style_2a spacer_vert_left">
+								<div class="features">
+									<%= render :partial => "plugin_features/list_values", :locals => {:feature_values => feature_values, :plugin => features_plugin, :item => @item} %>
+								</div>	
 							</div>
 						<% end %>							
-				</td>
+					</div>								
+				</div>				
 			</tr>
 		</table>
 	</div>

@@ -31,17 +31,15 @@ class Emailer < ActionMailer::Base
   end
   
   def verification_email(recipients, user_verification = UserVerification.new, url = "http://localhost/")
-      @setting = Hash.new
-      @setting[:admin_email] = Setting.get_setting("admin_email")
-      @setting[:title] = Setting.get_setting("site_title")  
+      @setting = Setting.global_settings
+      @setting[:admin_email] = Setting.get_setting("admin_email")        
       @url = url
-      @body[:user_verification] = user_verification
-      
-      @subject = "Verify your new account at #{@setting[:title]}"
+      @user_verification = user_verification      
       @recipients = recipients
       @from = "#{@setting[:title]}<noreply@none.com>"
       @sent_on = Time.now
       @headers = {}
+      @subject = I18n.t("email.subject.verification", :name => @user_verification.user.username, :title => @setting[:title])       
   end  
 
   # Send an email with a modified from header 
@@ -56,52 +54,47 @@ class Emailer < ActionMailer::Base
   end
   
   # Notify a User that a message was sent to them
-  def new_message_notification(message, url = "http://localhost/")
-    @setting = Hash.new
+  def new_message_notification(message, url = "http://localhost/")     
+    @setting = Setting.global_settings
     @recipients = message.user.email
     @sent_on = Time.now    
     @message = message
     @url = url
-    @setting[:title] = Setting.get_setting("site_title")      
     @from = "#{@setting[:title]}<noreply@none.com>"
-    @subject = "#{@setting[:title]}: New message from #{message.user_from.username}"
+    @subject = I18n.t("email.subject.object_new_from_user", :object => UserMessage.human_name, :from => @message.user_from.username, :name => "#{@message.user_from.first_name} #{@message.user_from.last_name}", :title => @setting[:title]) 
   end
   
   # Send User a password recovery email
   def password_recovery_email(user, url = "http://localhost/")
-    @setting = Hash.new
+    @setting = Setting.global_settings     
     @recipients = user.email
     @sent_on = Time.now    
     @user = user
-    @url = url
-    @setting[:title] = Setting.get_setting("site_title")      
+    @url = url          
     @from = "#{@setting[:title]}<noreply@none.com>"
-    @subject = "#{@setting[:title]}: Recover Password"
+    @subject = I18n.t("email.subject.object_new", :object => UserInfo.human_attribute_name(:forgot_password_code), :name => @user.username, :title => @setting[:title]) 
   end
 
   # Send New User Notification Email
   def new_user_notification(user, url = "http://localhost/")
-    @setting = Hash.new
+    @setting = Setting.global_settings
     @recipients = Emailer.admin_emails
     @sent_on = Time.now    
     @user = user
-    @url = url
-    @setting[:title] = Setting.get_setting("site_title")      
+    @url = url        
     @from = "#{@setting[:title]}<noreply@none.com>"
-    @subject = "#{@setting[:title]}: New User - #{@user.username}"
+    @subject = I18n.t("email.subject.object_new", :object => User.human_name, :name => @user.username + " (#{@user.first_name} #{@user.last_name})", :title => @setting[:title])
   end
   
   # Send New Item Notification Email 
   def new_item_notification(item, url = "http://localhost/")
-    @setting = Hash.new
+    @setting = Setting.global_settings
     @recipients = Emailer.admin_emails
     @sent_on = Time.now    
     @item = item
-    @url = url
-    @setting[:title] = Setting.get_setting("site_title")
-    @setting[:item_name] = Setting.get_setting("item_name")          
+    @url = url           
     @from = "#{@setting[:title]}<noreply@none.com>"
-    @subject = "#{@setting[:title]}: New #{@setting[:item_name]} - #{@item.name}"
+    @subject = I18n.t("email.subject.object_new_from_user", :object => @setting[:item_name], :name => @item.name, :title => @setting[:title], :from => @item.user.username) 
   end
   
   private 

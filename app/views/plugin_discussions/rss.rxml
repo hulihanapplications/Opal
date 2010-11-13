@@ -2,17 +2,17 @@ xml.instruct! :xml, :version=>"1.0"
 xml.rss(:version=>"2.0"){
   xml.channel  {
     xml.title("#{@discussion.title} about #{@item.name} - #{@setting[:title]}")
-    xml.link("http://" + @site_url)
+    xml.link(url_for(:action => "view", :controller => "plugin_discussions", :id => @discussion.id, :only_path => false))
     xml.description("Newest Posts to Discussion: #{@discussion.title} about #{@item.name} - #{@setting[:title]}" + " - " + @setting[:meta_description])
-    xml.language("English")
+    xml.language("#{I18n.locale}")
     for post in @posts
       xml.item do
         xml.title("#{post.user.username}: " + "#{h truncate(post.post, :length => 50)}")
         xml.description("#{h post.post}")
         # rfc822
         xml.pubDate(post.created_at.rfc2822)
-      xml.link("http://" + @site_url + "/plugin_discussions/view/#{@discussion.id}")
-      xml.link("http://" + @site_url + "/plugin_discussions/view/#{@discussion.id}")
+      xml.link(url_for(:action => "view", :controller => "plugin_discussions", :id => @item.id, :discussion_id => @discussion.id, :only_path => false))
+      xml.guid(url_for(:action => "view", :controller => "plugin_discussions", :id => @item.id, :discussion_id => @discussion.id, :only_path => false))
       end
     end
   }

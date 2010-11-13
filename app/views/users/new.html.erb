@@ -1,0 +1,9 @@
+<div class="box_style_2">
+<h2 class="title"><%= t("label.object_new", :object => User.human_name) %></h2><br>
+<% form_for(@user, :url => { :action => 'create' }, :method => "post") do |f| %>
+	<%= render :partial => "form", :locals => {:f => f} %>
+	<%= f.submit t("single.create").capitalize, :class => "button_1" %>
+<% end %>
+</div>
+<br>
+<%= link_to icon("arrow_left") + " " + t("single.back"), :back %>

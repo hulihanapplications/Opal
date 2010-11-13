@@ -1,7 +1,16 @@
-<h2><%= @items.size %> <%= @setting[:item_name_plural] %> Found</h2>
+<h2><%= t("label.objects_found", :count => @items.size, :objects => @setting[:item_name_plural]) %></h2>
 
-
-<%= render :partial => "items/list_items", :locals => {:items => @items } %>
+<table cellpadding=0 cellspacing=0 style="width:100%;">
+    <tr>
+        <td style="text-align:center;">
+			<%= render :partial => "items/list_items", :locals => {:items => @items } %>
+        </td>
+        <td style="width:10px;">
+        </td>
+        <td valign=top align=left class="sidebar_column">
+        </td>
+    </tr>
+</table>
 
 <%# For Debugging %>
 <%#= "#{@options.inspect}<br><br>#{params.inspect} " %>

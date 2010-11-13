@@ -1,10 +1,14 @@
 <div align=center>
-	<h2>Advanced <%= @setting[:item_name] %> Search</h2>
-	
+	<h2><%= t("label.advanced_search")%></h2>
 	<%= form_remote_tag  :update => "results", :url => { :controller => "items", :action => "advanced_search" }, :loading => "loading('results')" %>
 		<%= render :partial => "advanced_search_form" %>
+		<br>
+		<input type="submit" value="Search">			
 	</form>
 	<br>
 	<div id="results">
 	</div>
+	
+
+
 </div>

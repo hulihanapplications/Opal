@@ -31,6 +31,10 @@ td.icon_column{width:20px;vertical-align:middle;text-align:center}
 .navlinks{margin-bottom:10px;}
 .tooltip {display:none;z-index:999}
 
+/* Flash Notifications */
+.flash{padding-top:10px;} /* This is the div that contains all flash messages. */
+
+
 /* Simple Captcha */
 input#captcha{font-size:24px;width:110px;}
 div.simple_captcha_image{}

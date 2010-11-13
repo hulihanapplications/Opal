@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
   before_filter :enable_admin_menu
   
   def index 
-    @setting[:meta_title] = "Categories - Admin - "+ @setting[:meta_title]
+    @setting[:meta_title] = @setting[:meta_title] = Category.human_name.pluralize + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title]
     @categories = Category.find(:all, :conditions =>["category_id = 0"], :order => "name ASC")
   end
   
@@ -24,14 +24,13 @@ class CategoriesController < ApplicationController
     category = Category.find(params[:id])    
     if params[:category][:category_id].to_i != category.id # trying to select self as parent category 
       if category.update_attributes(params[:category])
-        Log.create(:user_id => @logged_in_user.id,  :log_type => "system", :log => "Updated the Category: #{category.name}(#{category.id}).")
-        flash[:notice] = "<div class=\"flash_success\">Category: <b>#{category.name}</b> updated!</div>"
-        logger.info("Category Updated: (#{category.name})(#{category.id}) by #{@logged_in_user.username}")                  
+        Log.create(:user_id => @logged_in_user.id,  :log_type => "system", :log => t("log.object_save", :object => Category.human_name, :name => category.name))
+        flash[:success] = t("notice.save_success")
       else
-        flash[:notice] = "<div class=\"flash_failure\">Category: <b>#{category.name}</b> update failed!</div>"
+        flash[:failure] = t("notice.save_failure")
       end
     else
-      flash[:notice] = "<div class=\"flash_failure\">A category can't be a subcategory of itself!</div>"
+      flash[:failure] = t("notice.association_loop_failure", :object => Category.human_name)
     end      
     redirect_to :action => "index"
   end
@@ -41,14 +40,14 @@ class CategoriesController < ApplicationController
     category = Category.new(params[:category])
     
     if category.save
-      Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => "Created the Category: #{category.name}.")
-      flash[:notice] = "<div class=\"flash_success\">New Category: <b>#{category.name}</b>  created!</div>"
+      Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.object_create", :object => Category.human_name, :name => category.name))
+      flash[:success] = t("notice.object_create_success", :object => Category.human_name)
      else
-      flash[:notice] = "<div class=\"flash_failure\">New Category creation failed! Here's why:<br><br>"
+      flash[:failure] = t("notice.object_create_failure", :object => Category.human_name)
        category.errors.each do |key,value|
         flash[:notice] << "<b>#{key}</b>...#{value}</font><br>" #print out any errors!
        end
-      flash[:notice] << "</div>"
+      flash[:notice] << ""
       
       
     end
@@ -58,11 +57,10 @@ class CategoriesController < ApplicationController
   def delete # deletes feature 
     category = Category.find(params[:id])    
     if category.destroy
-      Log.create(:user_id => @logged_in_user.id,  :log_type => "system", :log => "Deleted the Category: #{category.name}(#{category.id}).")
-      flash[:notice] = "<div class=\"flash_success\">Category: <b>#{category.name}</b> deleted!</div>"
-      logger.info("Category Deleted: (#{category.name})(#{category.id}) by #{@logged_in_user.username}")                  
+      Log.create(:user_id => @logged_in_user.id,  :log_type => "system", :log =>  t("log.object_delete", :object => Category.human_name, :name => category.name))
+      flash[:success] = t("notice.object_delete_success", :object => Category.human_name)
      else
-      flash[:notice] = "<div class=\"flash_failure\">Category: <b>#{category.name}</b> deletion failed!</div>"
+      flash[:failure] = t("notice.object_delete_failure", :object => Category.human_name)
     end
     redirect_to :action => "index"
   end

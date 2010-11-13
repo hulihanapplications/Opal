@@ -1,9 +1,9 @@
 <% if @display == "html" %>
 
 <% elsif @display == "plain" %>
-	From: <%= @from %> (<%= @name %>)
-	Time: <%= Time.now %>
-	Ip: <%= @ip %>
+	<%= t("single.from")%>: <%= h @from %> (<%= h @name %>)
+	<%= t("single.time")%>: <%= l Time.now %>
+	<%= t("single.ip_address")%>: <%= @ip %>
 	
-	Message: <%= @message %>
+	<%= h @message %>
 <% end %>

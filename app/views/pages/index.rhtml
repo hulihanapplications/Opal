@@ -2,7 +2,7 @@
 	 <tr>
 	  <td align=left class="sidebar_column" valign=top style="padding:0px;text-align:center">
 			<%= render :partial => "pages/menu" %>
-				
+			<!--	
 			<div align=center class="box_style_1">
 				<% if params[:type] == "System" %>
 					<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" alt="" title="Information" class="icon">
@@ -16,27 +16,41 @@
 				<% else %>				
 					You have specified an invalid page type.						
 				<% end %>
-			</div>				  
+			</div>	
+			-->			  
 	  </td>
 	  <td style="width:5px;">
 	  </td>
 	  <td align=left valign=top >
+	  	<div class="section">
+			<div class="header">					
+				<table style="width:100%;" >
+					<tr>
+						<td align=left>
+							<h2 class="title">
+								<% type_human_name = t("activerecord.models.#{(params[:type] + "Page").underscore}") %>
+								<a name="pages"><%= type_human_name.pluralize  %></a>
+							</h2>
+						</td>
+						<td align=right >
+							<% if params[:type] != "System" %>											
+								<%= link_to icon("new") + " " + t("label.object_new", :object => type_human_name), {:action => "new", :type => params[:type]}, :class=> "plugin_title_link" %>
+							<% end %>										
+						</td>
+					</tr>
+				</table>
+			</div>
+
 			<div class="plugin_box box_style_2" style="margin-bottom:5px">
-				<div class="title">
-					<a name="pages"><%= params[:type] %> Pages</a>
-					<% if params[:type] != "System" %>			
-						<img src="/themes/<%= @setting[:theme] %>/images/icons/new.png" class="icon"  alt="New" title="New" border=0>			
-						<%= link_to "Add New Page", {:action => "new", :type => params[:type]}, :class=> "plugin_title_link" %>
-					<% end %>
-				</div>
+
 				<div align=center>
 					<%= render :partial => "list_pages", :locals => {:pages => @pages} %>
-			 		<%= page_entries_info @pages, :entry_name => "Pages" %>							
+			 		<%= page_entries_info @pages, :entry_name => type_human_name.pluralize  %>							
 					<br>
 					<%= will_paginate @pages %>					
 				</div>
 			</div>	
-			
+		</div>				
 			
 	  </td> 
 	 </tr>

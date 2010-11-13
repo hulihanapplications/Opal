@@ -13,6 +13,6 @@
   <%= render :partial => "/items/list_items_small" ,:locals => {:items => items, :my_group_plugin_permissions => my_group_plugin_permissions} %>    
 <% else %>
   <div class="flash_failure">
-	  You have an invalid list type set in your browser session!  	
+  	 <%= t("notice.object_invalid", :object => Setting.find_by_name("list_type").title) %>
   </div>
 <% end %>

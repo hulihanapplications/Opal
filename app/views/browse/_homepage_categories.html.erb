@@ -3,11 +3,11 @@
 		<tr>
 			<td align=left>
 				<h2 class="title">
-					Categories
+					<%= Category.human_name.pluralize %>
 				</h2>	
 			</td>
 			<td align=right style="vertical-align:middle">
-				<%= link_to "Add/Edit Categories", {:action => "index", :controller => "categories"} if @logged_in_user.is_admin?  %>
+				<%= link_to icon("edit") + " " + t("label.object_edit",  :object => Category.human_name.pluralize), {:action => "index", :controller => "categories"} if @logged_in_user.is_admin?  %>
 			</td>
 		</tr>
 	</table>

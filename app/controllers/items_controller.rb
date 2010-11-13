@@ -1,25 +1,15 @@
 class ItemsController < ApplicationController
- before_filter :authenticate_user, :except => [:index, :category, :view, :search, :tag, :new_advanced_search, :advanced_search] # check if user is logged in
- before_filter :enable_user_menu, :only =>  [:new, :edit] # show admin menu 
+ before_filter :authenticate_user, :except => [:index, :rss, :category, :view, :search, :tag, :new_advanced_search, :advanced_search] # check if user is logged in
+ before_filter :enable_user_menu, :only =>  [:new, :edit, :create, :update] # show user menu 
  
  before_filter :authenticate_admin, :only =>  [:all_items] # check if user is admin 
  before_filter :enable_admin_menu, :only =>  [:all_items] # show admin menu 
  
- before_filter :find_item, :except => [:index, :category, :all_items, :tag, :create, :new, :search, :new_advanced_search, :advanced_search] # look up item 
- before_filter :check_item_edit_permissions, :except => [:index, :category, :all_items, :tag, :create, :view, :new, :search, :new_advanced_search, :advanced_search] # check if item is editable by user 
+ before_filter :find_item, :except => [:index, :rss, :category, :all_items, :tag, :create, :new, :search, :new_advanced_search, :advanced_search] # look up item 
+ before_filter :check_item_edit_permissions, :except => [:index, :rss, :category, :all_items, :tag, :create, :view, :new, :search, :new_advanced_search, :advanced_search] # check if item is editable by user 
  before_filter :enable_sorting, :only => [:index, :category, :all_items, :search] # prepare sort variables & defaults for sorting
  
-  # Filter Methods
 
-  def find_plugin(plugin_name) # find @plugin and check to see if @plugin is activated
-    @plugin = Plugin.find(:first, :conditions => ["name = ?", plugin_name])
-    if @plugin.is_enabled?
-        # proceed
-    else # not enabled
-      flash[:notice] = "<div class=\"flash_failure\">Sorry, #{@plugin.title}s aren't enabled.</div><br>"
-      redirect_to :action => "index", :controller => "user"
-    end 
-  end  
  
   def index # show all items to user
    @setting[:homepage_type] = Setting.get_setting("homepage_type")    
@@ -66,12 +56,12 @@ class ItemsController < ApplicationController
       @setting[:meta_description] = @item.name + " - " + @item.description + " - "+ @item.category.name + " " + @setting[:item_name_plural] + " - " + @setting[:meta_description]
       @item.update_attribute(:views, @item.views += 1) # update total views
       @item.update_attribute(:recent_views, @item.recent_views += 1) # update recent views  
-    else # the user can't see this item for some reason.
-        flash[:notice] = "<div class=\"flash_failure\">Sorry, you're not allowed to see this item.</div><br>"
+    else # the user can't see this item
+        flash[:failure] = t("notice.not_visible")
         redirect_to :action => "index", :controller => "browse"
     end
     rescue ActiveRecord::RecordNotFound # the item doesn't exist
-        flash[:notice] = "<div class=\"flash_failure\">Sorry, no #{@setting[:item_name]} found with the id: <b>#{params[:id]}</b>.</div><br>"
+        flash[:failure] = t("notice.object_not_found", :object => @setting[:item_name] + " #{(@item.id)}")
         redirect_to :action => "index", :controller => "browse"
   end
  
@@ -81,7 +71,7 @@ class ItemsController < ApplicationController
     @item.category_id = params[:id] if params[:id]
     @item.is_approved = "1" if @logged_in_user.is_admin? # check the is_approved checkbox 
     if !get_setting_bool("let_users_create_items") && !@logged_in_user.is_admin? # users can't create items and they user isn't an admin
-      flash[:notice] = "<div class=\"flash_failure\">Sorry, you're not allowed to add any more #{@setting[:item_name_plural]}.</div>"      
+      flash[:failure] = t("notice.objects_cannot_add_any_more", :objects => @setting[:item_name_plural])      
       redirect_to :action => "index"
     end
   end  
@@ -93,9 +83,9 @@ class ItemsController < ApplicationController
     params[:item][:is_public]     ||= "0" 
     params[:item][:featured]      ||= false
         
-    feature_errors = PluginFeature.check(:features => params[:features], :item => @item) # check if required features are present
+    @feature_errors = PluginFeature.check(:features => params[:features], :item => @item) # check if required features are present
         
-    if feature_errors.size == 0 # make sure there's not required feature errors
+    if @feature_errors.size == 0 # make sure there's not required feature errors
       if @item.update_attributes(params[:item])      
         # Update Protected Attributes 
         if @logged_in_user.is_admin? 
@@ -105,20 +95,21 @@ class ItemsController < ApplicationController
         
         # Update Features
         num_of_features_updated = PluginFeature.create_values_for_item(:item => @item, :features => params[:features], :user => @logged_in_user, :delete_existing => true, :approve => true)  
-        Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => "Updated #{@item.name}.")                    
-        flash[:notice] = "<div class=\"flash_success\">This #{@setting[:item_name]} has been saved.</div>"                
+        Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log =>  t("log.object_save", :object => @setting[:item_name], :name => @item.name))                    
+        flash[:success] = t("notice.object_save_success", :object => @setting[:item_name])
+        redirect_to :action => "edit" , :id => @item        
       else #
-        flash[:notice] = "<div class=\"flash_failure\">This #{@setting[:item_name]} could not be saved! Here's why: <br>#{print_errors(@item)}</div>"          
+        flash[:failure] = t("notice.object_save_failure", :object => @setting[:item_name])
+        render :action => "edit"
       end
     else # failed adding required features
-      flash[:notice] = "<div class=\"flash_failure\">This #{@setting[:item_name]} could not be saved! Here's why: <br>#{print_errors(feature_errors)}</div>"          
+      flash[:failure] = t("notice.object_save_failure", :object => @setting[:item_name])
+      render :action => "edit"
     end    
-    redirect_to :action => "edit" , :id => @item
     
   end
 
   def create
-    flash[:notice] = "" 
     proceed = false # set default flag to false
     max_items = get_setting("max_items_per_user").to_i # get the amount
     if (max_items.to_i == 0 && get_setting_bool("let_users_create_items")) || @logged_in_user.is_admin? # users can add unlimited items or user is an admin
@@ -130,7 +121,7 @@ class ItemsController < ApplicationController
         if users_items < max_items # they can add more
           # do nothing, proceed 
         else # they can't add any more items
-          flash[:notice] += "<div class=\"flash_failure\">You've already created the maximum number of #{@setting[:item_name_plural]}!</div>"
+          flash[:failure] = t("notice.objects_cannot_add_any_more", :objects => @setting[:item_name_plural]) 
           proceed = false
         end
       end
@@ -143,57 +134,62 @@ class ItemsController < ApplicationController
     if (@logged_in_user.is_admin? && params[:item][:is_approved]) || (!@logged_in_user.is_admin? && !get_setting_bool("item_approval_required"))   
       @item.is_approved = "1" # make approved if admin or if item approval isn't required
     else # this item is unapproved
-       flash[:notice] += "<div class=\"flash_success\">Your #{@setting[:item_name]} will need to be approved before it can be seen by others.</div>"    
+       flash[:notice] = t("notice.object_needs_approval", :object => @setting[:item_name])    
     end 
 
    params[:item][:category_id] ||= Category.find(:first).id # assign the first category's id if not selected.
+   @feature_errors = PluginFeature.check(:features => params[:features], :item => @item) # check if required features are present        
 
-   if proceed  
-    feature_errors = PluginFeature.check(:features => params[:features], :item => @item) # check if required features are present        
-    if feature_errors.size == 0 # make sure there's not required feature errors
-       if @item.save
-         Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => "Created #{@item.name}.")
+   if proceed 
+    if @feature_errors.size == 0 # make sure there's not required feature errors
+      # make sure there's no feature errors
+       if @item.save # item creation failed
+         Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.object_create", :object => @setting[:item_name], :name => @item.name))
   
          # Create Features
          num_of_features_updated = PluginFeature.create_values_for_item(:item => @item, :features => params[:features], :user => @logged_in_user, :delete_existing => true, :approve => true)
    
-         Emailer.deliver_new_item_notification(@item, url_for(:action => "view", :controller => "items", :id => @item.id)) if Setting.get_setting_bool("new_item_notification")
-         flash[:notice] += "<div class=\"flash_success\">Your #{@setting[:item_name]}, <b>#{@item.name}</b>, has been created! The next step is to add stuff to it! </div>"
+         Emailer.deliver_new_item_notification(@item, url_for(:action => "view", :controller => "items", :id => @item)) if Setting.get_setting_bool("new_item_notification")
+         flash[:success] = t("notice.object_create_success", :object => @setting[:item_name])
          redirect_to :action => "view", :controller => "items", :id => @item
        else
-          flash[:notice] += "<div class=\"flash_failure\">Your #{@setting[:item_name]} couldn't be created!<br>Here's why:<br>#{print_errors(@item)}</div>"
-          redirect_to :action => "new", :controller => "items", :id => @item.category_id 
-       end
+          flash[:failure] = t("notice.object_create_failure", :object => @setting[:item_name])
+          render :action => "new"
+      end
     else # failed adding required features
-      flash[:notice] = "<div class=\"flash_failure\">This #{@setting[:item_name]} could not be saved! Here's why: <br>#{print_errors(feature_errors)}</div>"
-      redirect_to :action => "new", :controller => "items", :id => @item.category_id      
-    end       
-   else # they aren't allowed to add this
-      flash[:notice] += "<div class=\"flash_failure\">Sorry, you're not allowed to add any more #{@setting[:item_name_plural]}.</div>"
-      redirect_to :action => "new", :controller => "items", :id => @item.category_id
+      flash[:failure] = t("notice.object_create_failure", :object => @setting[:item_name])
+      render :action => "new"
+    end      
+   else # they aren't allowed to add item
+      flash[:failure] = t("notice.invalid_permissions")
+      render :action => "new"
    end 
   end
   
   def delete
    @item = Item.find(params[:id])
    if @item.is_deletable_for_user?(@logged_in_user)
-     Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => "Deleted #{@item.name}(#{@item.id}).")      
+     Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => t("log.object_delete", :object => @setting[:item_name], :name => @item.name))     
      @item.destroy
-     flash[:notice] = "<div class=\"flash_success\">#{@setting[:item_name]} deleted!</div>"
+     flash[:success] = t("notice.object_delete_success", :object => @setting[:item_name])
    else # The user can't delete this item
-     flash[:notice] = "<div class=\"flash_failure\">You're not allowed to delete this #{@setting[:item_name]}!</div>"
+     flash[:failure] = t("notice.invalid_permissions")
    end 
    redirect_to :action => "items", :controller => "/user"
   end
 
+ def rss
+   @latest_items = Item.find(:all, :conditions => ["is_approved = '1' and is_public = '1'"], :limit => 10, :order => "created_at DESC")
+   render :layout => false
+ end
 
  def search
    if !params[:search_for] == "" || !params[:search_for].nil?
     @search_for = params[:search_for] # what to search for
-    @setting[:meta_title] = "Search results for #{@search_for} - " + @setting[:meta_title] 
+    @setting[:meta_title] = t("label.search_results_for", :query => @search_for) + " - " + @setting[:meta_title] 
     @items = Item.paginate :page => params[:page], :per_page => @setting[:items_per_page], :order => Item.sort_order(params[:sort]), :conditions => ["name like ? or description like ? and is_approved = '1' and is_public = '1'", "%#{@search_for}%", "%#{@search_for}%" ]
    else # No Input
-     flash[:notice] = "<div class=\"flash_failure\">I don't know what to search for!<br>"
+     flash[:failure] = t("notice.search_results_left_blank")
      redirect_to :action => "index"
    end
  end
@@ -207,24 +203,23 @@ class ItemsController < ApplicationController
    @options[:item_ids] = Array.new # Array to hold item ids to search
    
    # Prepare Features
-     if params[:feature] # if there are any feature fields submitted
-       # We need to sanitize all values entering the ActiveRecord's conditions. They will be passed in via the array[string, hash] format: ActiveRecord::Base.find(:all, :conditions => ["x = :x_value", {:x_value => "someValue"}])
-       conditions_array = Array.new # hash to contain strings of certain conditions, ie: ["x = :x_value", "y LIKE :y_value"], which we will then join with the appropriate conjunction, ie: conditions.join(" AND ")  to create the required string
-       values_hash = Hash.new # hash to contain values, ie: {:x_value => "someValue", :y_value => "%someValue%"}   
-       num_of_features_to_search = 0 # number of features to search       
-       matching_feature_values = Hash.new # hash to hold arrays of ids of items that match each feature value
-       
-       params[:feature].each do |feature_id, feature_hash|# loop through for every feature value, create a conditions
-          #logger.info "#{feature_id} - #{feature_hash.inspect}"
-
-         if feature_hash["search"] == "1" # was this feature's checkbox checked?
-           num_of_features_to_search += 1 # increment number of features to search  
+   if params[:feature] # if there are any feature fields submitted
+     # We need to sanitize all values entering the ActiveRecord's conditions. They will be passed in via the array[string, hash] format: ActiveRecord::Base.find(:all, :conditions => ["x = :x_value", {:x_value => "someValue"}])
+     conditions_array = Array.new # hash to contain strings of certain conditions, ie: ["x = :x_value", "y LIKE :y_value"], which we will then join with the appropriate conjunction, ie: conditions.join(" AND ")  to create the required string
+     values_hash = Hash.new # hash to contain values, ie: {:x_value => "someValue", :y_value => "%someValue%"}   
+     num_of_features_to_search = 0 # number of features to search       
+     matching_feature_values = Hash.new # hash to hold arrays of ids of items that match each feature value
+     
+     params[:feature].each do |feature_id, feature_hash|# loop through for every feature value, create a conditions
+        #logger.info "#{feature_id} - #{feature_hash.inspect}"
+       if feature_hash["search"] == "1" # was this feature's checkbox checked?
+          num_of_features_to_search += 1 # increment number of features to search  
            
            # Determine Mysql Where Opertor by Feature Search Type
            matching_feature_values[feature_id] = Array.new # create array to hold matching item ids          
-           if feature_hash["type"] == "Keyword" # if searching by Keyword
+          if feature_hash["type"] == "Keyword" # if searching by Keyword
              matching_values = PluginFeatureValue.find(:all, :group => "item_id", :select => "item_id", :conditions => ["value like ?", "%#{feature_hash["value"]}%"]) # get items matching this feature                  
-           else # some other search type
+          else # some other search type
             matching_values = PluginFeatureValue.find(:all, :group => "item_id", :select => "item_id", :conditions => ["value = ?", "#{feature_hash["value"]}"]) # get items matching this feature                              
           end
           
@@ -232,16 +227,17 @@ class ItemsController < ApplicationController
           for value in matching_values 
             matching_feature_values[feature_id] << value.item_id 
           end
-        end         
-       end
-     end    
-       
-     if num_of_features_to_search > 0 # were any features selected?
-       #logger.info "Matching Items: #{matching_feature_values.inspect}"
-       @options[:item_ids] =  get_common_elements_for_hash_of_arrays(matching_feature_values) # get common elements from hash using & operator
-     else # no features selected, search all items
-       Item.find(:all, :select => "id").each{|item|  @options[:item_ids] << item.id } # load all item ids into array
-     end 
+       end 
+     end     
+      
+    @options[:item_ids] =  get_common_elements_for_hash_of_arrays(matching_feature_values) if num_of_features_to_search > 0 # get common elements from hash using & operator
+    #logger.info "Matching Items: #{matching_feature_values.inspect}"
+  else # no features selected
+    Item.find(:all, :select => "id").each{|item|  @options[:item_ids] << item.id } # load all item ids into array  
+            
+  end 
+         
+
 
    # Prepare Category
      @options[:category_ids] = Array.new # Array to hold category ids to search 
@@ -280,6 +276,8 @@ class ItemsController < ApplicationController
      @items << temp_item # Throw item into array     
    end
  end
+ 
+
  
 private 
 

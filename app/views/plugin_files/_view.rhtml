@@ -6,25 +6,25 @@
 
 	<div class="plugin_box">
 		<div class="title">
-			<a name="<%= plugin.title %>s"><%= files.size %> <%= plugin.title %>s</a>
+			<a name="<%= plugin.human_name.pluralize %>"><%= files.size %> <%= plugin.human_name.pluralize %></a>
 			<% if my_group_plugin_permissions[plugin.id].can_create? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
 				<a href="javascript:toggle_box('new_file_box')" class="plugin_title_link">
 					<img src="/themes/<%= @setting[:theme] %>/images/icons/new.png" class="icon"  alt="New" title="New" border=0>
-					Add New <%= h plugin.title %>
+					Add New <%= plugin.human_name %>
 				</a>
 			<% end %>
 		</div>
 		<% if my_group_plugin_permissions[plugin.id].can_create? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
 			<div style="display:none" id="new_file_box" class="box_style_1">
-			      <h2>Add A New <%= h plugin.title %> to <%= h item.name %></h2>
+			      <h2>Add A New <%= plugin.human_name %> to <%= h item.name %></h2>
 				   <div>
    					   <%= form_tag ({:action => 'create', :controller => "plugin_files", :id => item.id} , :multipart => true) %>
 						<img src="/themes/<%= @setting[:theme] %>/images/icons/file.png" class="icon"  title="" alt="">					   
 						Title
 						<input name="file_title" type="text" id="new_file_title" onfocus = "focus_input('new_file_title')" onblur = "blur_input('new_file_title')">
 						File <input name="file" type="file">
-						<input name="plugin.title" value="<%= h plugin.title %>" type="hidden">
-						&nbsp;<input type="submit" value="Upload <%= h plugin.title %>">&nbsp;
+						<input name="plugin.title" value="<%= plugin.human_name %>" type="hidden">
+						&nbsp;<input type="submit" value="Upload <%= plugin.human_name %>">&nbsp;
 						</form>
 					 </div> 
 					 <br>
@@ -51,13 +51,13 @@
 		
 							</span>
 							<% if my_group_plugin_permissions[plugin.id].can_delete? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>									
-								<%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/delete.png\" class=\"icon\" alt=\"Delete\" title=\"Delete\" border=0>", { :action => 'delete', :controller => "plugin_files", :id => item.id, :file_id => file.id}, :confirm => "Are you sure you want to delete this #{h plugin.title}?" %>
+								<%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/delete.png\" class=\"icon\" alt=\"Delete\" title=\"Delete\" border=0>", { :action => 'delete', :controller => "plugin_files", :id => item.id, :file_id => file.id}, :confirm => "Are you sure you want to delete this #{plugin.human_name}?" %>
 							<% end %>
 							<% if @item.is_editable_for_user?(@logged_in_user)  %>
 								<span class="box_style_2" style="padding:2px;">									
-						 			<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/approved.png\" title=\"This #{plugin.title} is approved.\" class=\"icon\">" if file.is_approved? %> 										
-						 			<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/unapproved.png\" title=\"This #{plugin.title} is not approved.\" class=\"icon\">" if !file.is_approved? %> 																							
-									<%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/cycle.png\" class=\"icon\">", {:action => "change_approval", :id => item.id, :file_id => file.id, :controller => "plugin_files"}, :confirm => "Are you sure want to change the approval for this #{plugin.title}?", :title => "Change Approval", :class => "transparent" %>
+						 			<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/approved.png\" title=\"This #{plugin.human_name} is approved.\" class=\"icon\">" if file.is_approved? %> 										
+						 			<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/unapproved.png\" title=\"This #{plugin.human_name} is not approved.\" class=\"icon\">" if !file.is_approved? %> 																							
+									<%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/cycle.png\" class=\"icon\">", {:action => "change_approval", :id => item.id, :file_id => file.id, :controller => "plugin_files"}, :confirm => "Are you sure want to change the approval for this #{plugin.human_name}?", :title => "Change Approval", :class => "transparent" %>
 								</span>												
 							<% end %>						
 						</div>
@@ -65,6 +65,6 @@
 				</div>
 
 		<% else	%>
-			No <%= plugin.title %>s have been added yet.	
+			No <%= plugin.human_name.pluralize %> have been added yet.	
 		<% end %>
 	</div>

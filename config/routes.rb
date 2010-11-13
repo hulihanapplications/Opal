@@ -33,7 +33,7 @@ ActionController::Routing::Routes.draw do |map|
   map.simple_captcha '/simple_captcha/:action', :controller => 'simple_captcha'
  
   # Set up default
-  map.connect '/', :controller => "browse"
+  map.root :controller => "browse"
   map.connect '/browse', :controller => "browse"
 
   map.connect '/tag/:tag', :controller => "items", :action => "tag"
@@ -63,6 +63,7 @@ ActionController::Routing::Routes.draw do |map|
   #  map.from_plugin plugin.name.to_sym
   #end
   # Load Plugin Routes
+  
   Dir["#{RAILS_ROOT}/vendor/plugins/*"].each do |plugin| 
     if File.exists?("#{plugin}/routes.rb") 
       File.open("#{plugin}/routes.rb").each do |line|

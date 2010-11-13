@@ -95,14 +95,13 @@
 											  <td align=left style="padding-left:10px;vertical-align:middle"><h2>Accordion</h2>Plugins are seperated into vertical, accordion-style sections.</td>
 											  <td align=right style="padding-right:20px;vertical-align:middle"><input type="radio" name="setting[item_page_type]" value="accordian" <% if @setting[:item_page_type] == "accordian" %>CHECKED<% end %>></td>		  
 											 </tr>
-											 <!--
+											 
 											 <tr class="row_a">
 											  <td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/item_page_type_summarized.png" rel="colorbox" title="Summarized"><img alt="" class="thumbnail" src="/images/examples/thumbnail_item_page_type_summarized.png"  /></a></td>
-											  <td align=left style="padding-left:10px;vertical-align:middle"><h2>Summarized</h2>Emphasis is shown on the <%= @setting[:item_name]%>'s <%= plugin_image.title %>s and <%= plugin_feature.title %>s.</td>
+											  <td align=left style="padding-left:10px;vertical-align:middle"><h2>Summarized</h2>Emphasis is shown on the <%= @setting[:item_name]%>'s <%= plugin_image.human_name.pluralize %> and <%= plugin_feature.human_name.pluralize %>.</td>
 											  <td align=right style="padding-right:20px;vertical-align:middle"><input type="radio" name="setting[item_page_type]" value="summarized" <% if @setting[:item_page_type] == "summarized" %>CHECKED<% end %>></td>		  
 											 </tr>
-  											 -->
-											 
+  											 											 
 											</table>
 										 </div>					
 									</td>

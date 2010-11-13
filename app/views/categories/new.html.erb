@@ -1,15 +1,13 @@
 <div class="box_style_2" align=center>
-   <%= form_tag  :action => 'create', :controller => "categories" %>
-    <h2>Add Category</h2>
-	<br>
-	<%= render :partial => "form", :locals => {:category => @category} %>
-	<br>
-
-	<div align=center>	<input type="submit" value="Create"></div>
-   </form>
+    <h2><%= t("label.object_new", :object => Category.human_name) %></h2><br>
+    <% form_for(@category, :url => { :action => 'create', :controller => "categories"}, :method => "post") do |f| %>
+		<%= render :partial => "form", :locals => {:category => @category, :f => f } %>
+		<br>
+		<div align=center>	
+			<%= f.submit t("label.object_create", :object => Category.human_name), :class => "button_1" %>
+		</div>
+   <% end %>
+   <br>
 </div>
-
-<div align=center style="margin-top:10px;">
-	<img src="/themes/<%= @setting[:theme] %>/images/icons/arrow_left.png" class="icon" title="Back">
-	<%= link_to "Back", { :action => 'index'}  %>	
-</div>
+<br>
+<%= link_to icon("arrow_left") + " " + t("single.back"), :back %>

@@ -1,9 +1,9 @@
 <%= render :partial => "browse/main_content_top_bar", :locals => {:options => {:show_list_type_selector => false}}  %>
 
 <h2 class="title">
-	 Activity for <%= @item.name %>
+	 <%= @setting[:item_name].capitalize %> <%= Log.human_name.pluralize %> -  <%= @item.name %>
 </h2>
 
 <%= render :partial => "logs_page", :locals => {:logs => @logs} %>
 
-<div align=center><img src="/themes/<%= @setting[:theme] %>/images/icons/arrow_left.png" class="icon" title="Back"> <%= link_to "Back", { :action => 'view', :controller => "items", :id => @item}  %></div>
+<%= link_to icon("arrow_left") + " " + t("single.back"), :back %>

@@ -1,0 +1,39 @@
+	
+
+	<%= f.error_messages %>
+	<input type="hidden" name="id" value="<%= @user.id %>">
+	<p>
+	    <%= f.label :username %><br>
+	    <%= f.text_field :username, :id => "form_username_box_#{@user.id}", :onfocus => "focus_input('form_username_box_#{@user.id}')", :onblur => "blur_input('form_username_box_#{@user.id}')" %>
+	</p>
+	<p>
+	    <%= f.label :first_name %><br>
+	    <%= f.text_field :first_name, :id => "form_firstname_box_#{@user.id}", :onfocus => "focus_input('form_firstname_box_#{@user.id}')", :onblur => "blur_input('form_firstname_box_#{@user.id}')" %>
+	</p>
+	<p>
+	    <%= f.label :last_name %><br>
+	    <%= f.text_field  'last_name', :id => "form_lastname_box_#{@user.id}", :onfocus => "focus_input('form_lastname_box_#{@user.id}')", :onblur => "blur_input('form_lastname_box_#{@user.id}')" %>
+	</p>
+	<p>
+	    <%= f.label :email %><br>
+	    <%= f.text_field  'email', :id => "form_email_box_#{@user.id}", :onfocus => "focus_input('form_email_box_#{@user.id}')", :onblur => "blur_input('form_email_box_#{@user.id}')" %>
+	</p>
+	<% if params[:action] == "new" || params[:action] == "create" %>
+		<p>
+			<%= f.label :password %><br>
+			<%= f.text_field :password %>
+		</p>
+		<p>
+			<%= f.label :password_confirmation %><br>
+			<%= f.text_field :password_confirmation %>
+		</p>	
+	<% end %>
+	<p>
+	    <%= f.label :created_at %><br>
+	    <%= f.datetime_select 'created_at' %>
+	</p>
+	<%= f.label :is_admin %> <input type="checkbox" name="is_admin" value="1"<% if @user.is_admin? %>CHECKED<% end %>>
+
+	
+
+	<br>

@@ -43,7 +43,8 @@ class ToolsController < ApplicationController
 
     elsif params[:format] == "excel" # Export to Excel
     else # No Format Selected
-      flash[:notice] = "<div class=\"flash_failure\">I don't know what format to export to!<br>"
+      flash[:failure] = t("notice.object_forgot_to_select", :object => t("single.format"))                 
+      #flash[:failure] = "I don't know what format to export to!<br>"
       redirect_to :action => "export"
     end
   end 
@@ -72,11 +73,11 @@ class ToolsController < ApplicationController
         end
       end
       
-      flash[:notice] = "<div class=\"flash_success\">#{item_counter} #{@setting[:item_name_plural]} were successfully imported!<br>"
-      Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => "Imported #{item_counter} #{@setting[:item_name_plural]} to #{@category.name}.") # log it
+      flash[:success] = t("notice.objects_import_success", :object => @setting[:item_name_pural], :count => item_counter)                 
+      Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("notice.objects_import", :object => @setting[:item_name_pural], :count => item_counter)) # log it
       redirect_to :action => "category", :controller => "browse", :id => @category      
     else # No Format Selected
-      flash[:notice] = "<div class=\"flash_failure\">I don't know what file format to import these items from!<br>"
+      flash[:failure] = t("notice.object_forgot_to_select", :object => t("single.format"))                 
       redirect_to :action => "import"
     end
   ensure

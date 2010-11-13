@@ -6,27 +6,27 @@
 
 	<div class="plugin_box">
 		<div class="title">
-			<a name="Links"><%= links.size %> <%= h plugin.title %>s</a>
+			<a name="Links"><%= links.size %> <%= plugin.human_name.pluralize %></a>
 			<% if my_group_plugin_permissions[plugin.id].can_create? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
 				<a href="javascript:toggle_box('new_link_box')" class="plugin_title_link">
 					<img src="/themes/<%= @setting[:theme] %>/images/icons/new.png" class="icon"  alt="New" title="New" >
-					Add New <%= h plugin.title %>
+					Add New <%= plugin.human_name %>
 				</a>
 			<% end%>
 		</div>
 		<% if my_group_plugin_permissions[plugin.id].can_create? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
 			<div style="display:none" id="new_link_box" class="box_style_1">
-			      <h2>Add A New <%= h plugin.title %> to <%= h item.name %></h2>
+			      <h2>Add A New <%= plugin.human_name %> to <%= h item.name %></h2>
 				   <div>
-   					   <%= form_tag  :action => 'create', :controller => "plugin_#{plugin.title}s", :id => item.id %>
+   					   <%= form_tag  :action => 'create', :controller => "plugin_#{plugin.human_name.pluralize}", :id => item.id %>
 						<img src="/themes/<%= @setting[:theme] %>/images/icons/link.png" class="icon"  title="Add a New Link" alt="">
 						Link Title
 						<input name="link_title" type="text" id="new_link_title_input" onfocus = "focus_input('new_link_title_input')" onblur = "blur_input('new_link_title_input')">
-						<input name="plugin.title" value="<%= h plugin.title %>" type="hidden">
+						<input name="plugin.title" value="<%= plugin.human_name %>" type="hidden">
 						&nbsp;
 						URL
 						<input name="link_url" type="text" id="new_link_url_input" onfocus="focus_input('new_link_url_input')" onblur="blur_input('new_link_url_input')">
-						&nbsp;<input type="submit" value="Create <%= h plugin.title %>">&nbsp;
+						&nbsp;<input type="submit" value="Create <%= plugin.human_name %>">&nbsp;
 					   </form>
 					 </div>
 					 <br>
@@ -49,23 +49,23 @@
 								</a>
 							<% end %>
 							<% if my_group_plugin_permissions[plugin.id].can_delete? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
-								<%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/delete.png\" class=\"icon\"  alt=\"Delete\" title=\"Delete\">", { :action => 'delete', :controller => "plugin_#{plugin.title}s", :id => item.id, :link_id => link.id}, :confirm => "Are you sure you want to delete this #{h plugin.title}?" %>					
+								<%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/delete.png\" class=\"icon\"  alt=\"Delete\" title=\"Delete\">", { :action => 'delete', :controller => "plugin_#{plugin.human_name.pluralize}", :id => item.id, :link_id => link.id}, :confirm => "Are you sure you want to delete this #{plugin.human_name}?" %>					
 							<% end %>	
 							<% if @item.is_editable_for_user?(@logged_in_user)  %>
 								<span class="box_style_2" style="padding:2px;">									
-						 			<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/approved.png\" title=\"This #{plugin.title} is approved.\" class=\"icon\">" if link.is_approved? %> 										
-						 			<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/unapproved.png\" title=\"This #{plugin.title} is not approved.\" class=\"icon\">" if !link.is_approved? %> 																							
-									<%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/cycle.png\" class=\"icon\">", {:action => "change_approval", :id => item.id, :link_id => link.id, :controller => "plugin_links"}, :confirm => "Are you sure want to change the approval for this #{plugin.title}?", :title => "Change Approval", :class => "transparent" %>
+						 			<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/approved.png\" title=\"This #{plugin.human_name} is approved.\" class=\"icon\">" if link.is_approved? %> 										
+						 			<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/unapproved.png\" title=\"This #{plugin.human_name} is not approved.\" class=\"icon\">" if !link.is_approved? %> 																							
+									<%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/cycle.png\" class=\"icon\">", {:action => "change_approval", :id => item.id, :link_id => link.id, :controller => "plugin_links"}, :confirm => "Are you sure want to change the approval for this #{plugin.human_name}?", :title => "Change Approval", :class => "transparent" %>
 								</span>												
 							<% end %>								
 												
 							
 						</div>
 						<div id="edit_link_box_<%= link.id %>" style="display:none">
-							<%= form_tag :action => 'update', :controller => "plugin_#{plugin.title}s", :id => item.id  %>
+							<%= form_tag :action => 'update', :controller => "plugin_#{plugin.human_name.pluralize}", :id => item.id  %>
 								<img src="/themes/<%= @setting[:theme] %>/images/icons/link.png" class="icon"  title="<%= h link.title %>" alt="">
 								<input name="link_id" value="<%= link.id %>" type="hidden">
-								<%= h plugin.title %> Title
+								<%= plugin.human_name %> Title
 								<input name="link_title" value="<%= h link.title %>" id="link_title_input_<%= link.id %>" onfocus = "focus_input('link_title_input_<%= link.id %>')" onblur = "blur_input('link_title_input_<%= link.id %>')">
 								&nbsp;
 								URL
@@ -80,6 +80,6 @@
 				</div>
 		
 		<% else %>
-			No <%= plugin.title %>s have been added yet.	
+			No <%= plugin.human_name.pluralize %> have been added yet.	
 		<% end %>
 	</div>

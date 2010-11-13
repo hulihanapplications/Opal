@@ -2,170 +2,187 @@
 # Likewise, all the methods added will be available for all controllers.
 class ApplicationController < ActionController::Base
   include SimpleCaptcha::ControllerHelpers
-
+  
   helper "application" # include main application helper
-
+  
   before_filter :load_settings, :set_user # load global settings and set logged in user
-
-  # Load Layout
-    if ActiveRecord::Base.connection.tables.include?('settings') # check if settings table exists
-     theme = Setting.get_setting("theme") # get the theme name 
-     layout_location = File.join(RAILS_ROOT, "public", "themes", theme, "layouts", "application.html.erb")
-     if !File.exists?(layout_location) # if the layout file isn't present, use default layout. File.exists? requires absolute path.
-       layout_location = File.join("layouts", "application.html.erb") # Use the default layout, keep the global theme as it is.
-     end
-    else # if theme isn't set, use default theme
-     layout_location = File.join("layouts", "application.html.erb") # Use the default layout, keep the global theme as it is.
-    end 
- 
-    layout layout_location # Load the theme erb layout
+  before_filter :set_locale
+  layout :layout_location # using a symbol defers layout choice until after a request is processed 
   
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery  #:secret => '271565d54852d3da3a489c27f69a31b1'
   
-  def print_errors(some_object_or_hash) # print out errors in a pretty format, takes a Object or plain Hash
-     msg = ""
-     if some_object_or_hash.class == Hash # load in errors from hash
-       errors = some_object_or_hash
-     else # load in errors from object
-       errors = some_object_or_hash.errors
-     end
-     errors.each do |key,value|
-       msg << "<b>#{key}</b>...#{value}<br>" #print out any errors!
-     end
-     return msg
+  def layout_location
+    # Load Theme & Layout
+    if ActiveRecord::Base.connection.tables.include?('settings') # check if settings table exists
+      #theme = Setting.get_setting("theme") # get the theme name 
+      theme = @setting[:theme]
+      layout_location = File.join(RAILS_ROOT, "public", "themes", theme, "layouts", "application.html.erb") # set path to theme layout
+      logger.info(layout_location)
+      if !File.exists?(layout_location) # if the theme's layout file isn't present, use default layout. File.exists? requires absolute path.
+        logger.info(layout_location)
+        layout_location = File.join("layouts", "application.html.erb") # Use the default layout, keep the global theme as it is.
+      end
+    else # if theme isn't set, use default theme
+      layout_location = File.join("layouts", "application.html.erb") # Use the default layout, keep the global theme as it is.
+    end 
+    
+    return layout_location # Load the theme erb layout
+  end  
+
+  def set_locale # set language, local time, etc.
+   if params[:locale] # set in url 
+    I18n.locale = params[:locale]
+   else # not set in url
+    I18n.locale = @logged_in_user.locale # set to logged in user's locale
+   end 
   end
-
-
+    
   def load_settings
     @setting = Setting.global_settings 
+    @setting[:theme] = params[:theme] if params[:theme] # preview theme if theme is specified in url
+    @setting[:url] = "http://" + request.env["HTTP_HOST"] + "" # root url for host/port, taken from request
   end
   
   # Authentication Functions
-    def set_user # If user isn't logged in, log them in as Guest. Otherwise, check their account for any problems
-     if session[:user_id] && session[:user_id] != 0 # if a session is already created, reset the logged in user.
-       @logged_in_user = User.find(session[:user_id]) # retrieve the fresh user from DB, in case any changes are made on the db side that are different from visitor's session.
-       
-       # Check if User Account is Okay.
-         if @logged_in_user.is_enabled? 
-          if @logged_in_user.is_verified?
-            # Everything Ok, proceed.
-          else # not verified!
-            flash[:notice] = "<div class=\"flash_failure\">Sorry, Your account has not been verified yet!</div>"
-            session[:user_id] = nil # log out user
-            redirect_to :action => "index", :controller => "browse"
-          end
-         else # not verified!
-           flash[:notice] = "<div class=\"flash_failure\">Your account has been disabled.</div>"
-           session[:user_id] = nil # log out user
-           redirect_to :action => "index", :controller => "browse"         
-         end 
-     else # user is not logged in, make them a guests
-       @logged_in_user = User.new(:username => "Guest", :first_name => "No", :last_name => "Name")
-       @logged_in_user.id = 0       
-       @logged_in_user.group_id = 1 # set for public group
-       
-       if !Setting.get_setting_bool("allow_public_access") && (params[:action] != "login") # if public is not allowed to view the site
-          authenticate_user("<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\"> You must be logged in to view this site.") # send them to login
-       end
-     end
-    end
-    
-    def authenticate_user(msg = "You are not logged in!")
-      if session[:user_id].nil? || @logged_in_user.id == 0 # There's definitely no user logged in
-       flash[:notice] = "<div class=\"flash_failure\">#{msg}</div>"
-       session[:original_uri] = request.env["REQUEST_URI"] # store original request of where they wanted to go.
-       redirect_to :action => "login", :controller => "browse"
-      else #there's a user logged in, but what type is he?
-        # proceed 
+  def set_user # If user isn't logged in, log them in as Guest. Otherwise, check their account for any problems
+    if session[:user_id] && session[:user_id] != 0 # if a session is already created, reset the logged in user.
+      @logged_in_user = User.find(session[:user_id]) # retrieve the fresh user from DB, in case any changes are made on the db side that are different from visitor's session.
+      
+      # Check if User Account is Okay.
+      if @logged_in_user.is_enabled? 
+        if @logged_in_user.is_verified?
+          # Everything Ok, proceed.
+        else # not verified!
+          flash[:failure] = t("notice.account_not_verified")
+          session[:user_id] = nil # log out user
+          redirect_to :action => "index", :controller => "browse"
+        end
+      else # not verified!
+        flash[:failure] = t("notice.account_disabled")
+        session[:user_id] = nil # log out user
+        redirect_to :action => "index", :controller => "browse"         
+      end 
+    else # user is not logged in, make them a guests
+      @logged_in_user = User.new(:username => "Guest", :first_name => "No", :last_name => "Name")
+      @logged_in_user.id = 0       
+      @logged_in_user.group_id = 1 # set for public group
+      @logged_in_user.locale = Setting.get_setting("locale") # set system default locale
+      if !Setting.get_setting_bool("allow_public_access") && (params[:action] != "login") # if public is not allowed to view the site
+        authenticate_user#("<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\"> You must be logged in to view this site.") # send them to login
       end
     end
-    
-   def authenticate_admin
-    if session[:user_id].nil? || @logged_in_user.id == 0 #There's definitely no user logged in(id 0 is public user)
-     flash[:notice] = "<div class=\"flash_failure\">You're not logged in or an admin! Violation logged!</div>"
-     session[:original_uri] = request.env["REQUEST_URI"] # store original request of where they wanted to go.
-     Log.create(:log_type => "warning", :log => "Someone at #{request.env["REMOTE_ADDR"]} attempted to access the Admin Area. Controller: #{params[:controller]} - Action: #{params[:action]}")     
-     redirect_to :action => "login", :controller => "/browse"
+  end
+  
+  def authenticate_user(msg = t("notice.user_not_logged_in"))
+    if session[:user_id].nil? || @logged_in_user.anonymous? # There's definitely no user logged in
+      flash[:failure] = "#{msg}"
+      session[:original_uri] = request.env["REQUEST_URI"] # store original request of where they wanted to go.
+      redirect_to :action => "login", :controller => "browse"
     else #there's a user logged in, but what type is he?
-     if(@logged_in_user.is_admin?) # make sure user is an admin
-      # Proceed, but log and render controller
-       logger.info "Admin action: user(#{@logged_in_user.username}) -- id:(#{@logged_in_user.id}) -- action:(#{params[:action]}) -- controller:(#{params[:controller]})" 
-     else # a non-admin is trying to do someting
-      flash[:notice] = "<div class=\"flash_failure\">You are not logged in as a admin! Attempt logged and admin notified!</div>"
-      Log.create(:log_type => "warning", :log => "#{@logged_in_user.username}(#{@logged_in_user.id}) attempted to access the Admin Area. Controller: #{params[:controller]} - Action: #{params[:action]}")
-      #logger.info "Regular User attempting to access admin section! action: #{params[:action]} -- user: #{@logged_in_user.username} -- id: #{@logged_in_user.id} -- action: #{params[:action]}) -- controller: #{params[:controller]}"
-      
-      redirect_to :action => "index", :controller => "/browse"
-     end
+      # proceed 
     end
-   end
-
+  end
+  
+  def authenticate_admin
+    if session[:user_id].nil? || @logged_in_user.anonymous? #There's definitely no user logged in(id 0 is public user)
+      flash[:failure] = t(:notice_failed_admin_access_attempt)
+      session[:original_uri] = request.env["REQUEST_URI"] # store original request of where they wanted to go.
+      Log.create(:log_type => "warning", :log => t("log.failed_admin_access_attempt_visitor", :ip => request.env["REMOTE_ADDR"], :controller => params[:controller], :action => params[:action]))     
+      redirect_to :action => "login", :controller => "browse"
+    else #there's a user logged in, but what type is he?
+      if(@logged_in_user.is_admin?) # make sure user is an admin
+        # Proceedr
+      else # a non-admin is trying to do someting
+        flash[:failure] = t(:notice_failed_admin_access_attempt)
+        Log.create(:log_type => "warning", :log => t("log.failed_admin_access_attempt_user", :username => @logged_in_user.username, :id => @logged_in_user.id, :controller => params[:controller], :action => params[:action]))        
+        redirect_to :action => "index", :controller => "browse"
+      end
+    end
+  end
+  
   def get_setting(name) # get a setting from the database
-   setting = Setting.find(:first, :conditions => ["name = ?", name], :limit => 1 )
-   return setting.value
-   rescue # ActiveRecord not found
-     return false   
+    setting = Setting.find(:first, :conditions => ["name = ?", name], :limit => 1 )
+    return setting.value
+  rescue # ActiveRecord not found
+    return false   
   end
- 
+  
   def get_setting_bool(name) # get a setting from the database return true or false depending on "1" or "0"
-   setting = Setting.find(:first, :conditions => ["name = ?", name], :limit => 1 )
-   if setting.value == "1"
-     return true
-   else # not true
-     return false
-   end
-   rescue # ActiveRecord not found
-     return false   
+    setting = Setting.find(:first, :conditions => ["name = ?", name], :limit => 1 )
+    if setting.value == "1"
+      return true
+    else # not true
+      return false
+    end
+  rescue # ActiveRecord not found
+    return false   
   end
-
-   def enable_admin_menu # render admin menu on a particular action
-     @show_admin_menu = true 
-   end
-   
-   def enable_user_menu # render user menu on a particular action
-     @show_user_menu = true 
-   end
-
-
+  
+  def enable_admin_menu # render admin menu on a particular action
+    @show_admin_menu = true 
+  end
+    
+  def enable_user_menu # render user menu on a particular action
+    @show_user_menu = true 
+  end
+  
+  
   def find_item # look up an item
-   if params[:id] # is an item id set?    
-     @item = Item.find(params[:id])
-   else # no item id passed in
-     flash[:notice] = "<div class=\"flash_failure\">I don't know what item to look for!</div>"
-     redirect_to :action => "index", :controller => "user"
-   end    
-   
+    if params[:id] # is an item id set?    
+      @item = Item.find(params[:id])
+    else # no item id passed in
+      flash[:failure] = t("notice.object_not_found", :object => @setting[:item_name])
+      redirect_to :action => "index", :controller => "user"
+    end        
   rescue # catch any errors
-     flash[:notice] = "<div class=\"flash_failure\">Item Not Found!</div>"
-     redirect_to :action => "index", :controller => "user"   
+    flash[:failure] = t("notice.object_not_found", :object => @setting[:item_name])
+    redirect_to :action => "index", :controller => "user"   
+  end
+  
+  def find_plugin(options = {}) # look up a plugin 
+    # Look up plugin based on controller name, ie: PluginCommentsController
+    plugin_name = self.controller_name.split("_") # "PluginComments" -> "plugin_comments" -> ["plugin", "comments"]
+    plugin_name = plugin_name[1].capitalize.singularize # get the second part of the controller name
+    @plugin = Plugin.find_by_name(plugin_name)
+    if @plugin.is_enabled? # check to see if the plugin is enabled
+     # Proceed
+    else # Plugin Disabled 
+     flash[:failure] = t("notice.objects_disabled", :objects => @plugin.human_name.pluralize)
+     if defined?(@item) # has an item already been looked up?
+      redirect_to :action => "view", :controller => "items", :id => @item.id # redirect to item page
+     else
+      redirect_to :back
+     end  
+    end
+  rescue Exception => e  
+    flash[:failure] = t("notice.object_not_found", :object => @plugin.human_name.pluralize)
   end
   
   def check_item_edit_permissions # check to see if the logged in user has permission to edit item
-     if @item.is_editable_for_user?(@logged_in_user)
-       @item.update_attribute(:updated_at, Time.now) # refresh item's last update time 
-       #proceed
-     else # they don't have rights to the item
-       flash[:notice] = "<div class=\"flash_failure\">You do not have access to edit this item!</div>"
-       logger.info("Failed Edit Attempt for Item: #{@item.id} -- action: #{params[:action]} -- user: #{@logged_in_user.id}")
-       redirect_to :action => "index", :controller => "user"
-     end
+    if @item.is_editable_for_user?(@logged_in_user)
+      @item.update_attribute(:updated_at, Time.now) # refresh item's last update time 
+      #proceed
+    else # they don't have rights to the item
+      flash[:failure] = t("notice.invalid_permissions")
+      redirect_to :action => "index", :controller => "user"
+    end
   end 
-
+  
   def get_my_group_plugin_permissions # initialize group plugin permissions for the plugin that is already looked up
-     @my_group_plugin_permissions = @plugin.permissions_for_group(@logged_in_user.group) 
+    @my_group_plugin_permissions = @plugin.permissions_for_group(@logged_in_user.group) 
   end    
-
+  
   def sanitize(data) # sanitize data
     html_whitelist = YAML::load(File.open(RAILS_ROOT + "/config/whitelist_html.yml")) # load html whitelist from file
     #return Sanitize.clean(data, Sanitize::Config::RELAXED)
     return Sanitize.clean(data, :elements => html_whitelist["elements"], :attributes => html_whitelist["attributes"])    
   end
-
+  
   def enable_sorting # convert sort url GET variables into nice hashes for use in model sort functions(which also sanitize). This is a prefilter method.
     # Set default sort variables
-    params[:sort_by] ||= "Date Added"
+    params[:sort_by] ||= Item.human_attribute_name(:created_at)
     params[:sort_direction] ||= "desc"
     # Create Hash 
     params[:sort] = Hash.new 

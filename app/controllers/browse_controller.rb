@@ -14,18 +14,14 @@ class BrowseController < ApplicationController
  
  def user
   @user = User.find(params[:id]) 
-  @setting[:meta_title] = "#{@user.username}" + " - User Info " + " - "+ @setting[:meta_title]
+  @setting[:meta_title] = "#{@user.username}" + " - " + @setting[:meta_title]
   @items = Item.paginate :page => params[:page], :per_page => @setting[:items_per_page], :order => Item.sort_order(params[:sort]), :conditions => ["user_id = ? and is_approved = '1' and is_public = '1'", @user.id ]
  end
 
 
 
  
- def rss
-   @site_url = request.env["HTTP_HOST"]
-   @latest_items = Item.find(:all, :conditions => ["is_approved = '1' and is_public = '1'"], :limit => 10, :order => "created_at DESC")
-   render :layout => false
- end
+
  
  def login
  end
@@ -34,9 +30,9 @@ class BrowseController < ApplicationController
    original_uri = CGI::unescape(params[:original_uri]) # store original request
    if get_setting_bool("allow_item_list_type_changes")   
      session[:list_type] = params[:list_type] # save the list type in the visitor's browser sessions
-     #flash[:notice] = "<div class=\"flash_success\">List Type changed!</div>"
-   else # no approval necessary
-     flash[:notice] = "<div class=\"flash_failure\">Sorry, you're not allowed to change the list type!</div>"
+     #flash[:success] = "List Type changed!"
+   else # not allowed to change list type
+     flash[:failure] = t("notice.invalid_permissions")
    end 
    redirect_to original_uri  # send them back to original request 
  end

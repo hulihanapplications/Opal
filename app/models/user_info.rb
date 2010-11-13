@@ -15,4 +15,10 @@ class UserInfo < ActiveRecord::Base
    o = [('a'..'z'),('A'..'Z'),(0..9)].map{|i| i.to_a}.flatten;  
    return (0..50).map{ o[rand(o.length)]  }.join;
  end 
+ 
+ def self.generate_password # generate a random password
+   o = [('a'..'z'),('A'..'Z'),(0..9)].map{|i| i.to_a}.flatten;  
+   return (0..7).map{ o[rand(o.length)]  }.join;   
+ end
+ 
 end

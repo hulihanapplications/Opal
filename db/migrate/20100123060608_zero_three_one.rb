@@ -23,7 +23,7 @@ class ZeroThreeOne < ActiveRecord::Migration
     Log.create(:log => "Opal 0.3.1 installed!", :log_type => "system")
     
     # Create New User Info Atttribute
-    add_column(:user_infos, :location, :string, :default => "No Location added yet...") # add location attribute
+    add_column(:user_infos, :location, :string, :default => "") # add location attribute
 
 
        

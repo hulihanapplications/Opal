@@ -10,7 +10,7 @@ class LogsController < ApplicationController
   
   
   def index 
-    @setting[:meta_title] = "Logs - Admin - "+ @setting[:meta_title]    
+    @setting[:meta_title] = Log.human_name + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title]
     @logs = Log.paginate :page => params[:page], :per_page => 25
   end
   
@@ -44,10 +44,10 @@ class LogsController < ApplicationController
   def update
     log = Log.find(params[:id])    
     if log.update_attributes(params[:log])
-      flash[:notice] = "<div class=\"flash_success\">Log: <b>#{log.name}</b> updated!</div><br>"
-      logger.info("Log Updated: (#{log.name})(#{log.id}) by #{@logged_in_user.username}")                  
+      flash[:success] = t("notice.object_save_success", :object => Log.human_name)
+      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log =>  t("log.object_save", :object => Log.human_name, :name => log.id))
      else
-      flash[:notice] = "<div class=\"flash_failure\">Log: <b>#{log.name}</b> update failed!</div><br>"
+      flash[:failure] = t("notice.object_save_failure", :object => Log.human_name)
     end
     redirect_to :action => "index"
   end
@@ -62,16 +62,10 @@ class LogsController < ApplicationController
     end
     
     if log.save
-      flash[:notice] = "<div class=\"flash_success\">New Log: <b>#{log.name}</b>  created!</div><br>"
-      logger.info("Log Created: (#{log.name})(#{log.id}) by #{@logged_in_user.username}")            
+      flash[:success] = t("notice.object_create_success", :object => Log.human_name)
+      Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log =>  t("log.object_create", :object => Log.human_name, :name => log.id))        
      else
-      flash[:notice] = "<div class=\"flash_failure\">New Log creation failed! Here's why:<br><br>"
-       log.errors.each do |key,value|
-        flash[:notice] << "<b>#{key}</b>...#{value}</font><br>" #print out any errors!
-       end
-      flash[:notice] << "</div>"
-      
-      
+      flash[:failure] = t("notice.object_create_failure", :object => Log.human_name)           
     end
     redirect_to :action => "index"
   end
@@ -79,10 +73,10 @@ class LogsController < ApplicationController
   def delete # deletes feature 
     log = Log.find(params[:id])    
     if log.destroy
-      flash[:notice] = "<div class=\"flash_success\">Log: <b>#{log.name}</b> deleted!</div><br>"
-      logger.info("Log Deleted: (#{log.name})(#{log.id}) by #{@logged_in_user.username}")                  
-     else
-      flash[:notice] = "<div class=\"flash_failure\">Log: <b>#{log.name}</b> deletion failed!</div><br>"
+      flash[:success] = t("notice.object_delete_success", :object => Log.human_name)
+      Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log =>  t("log.object_delete", :object => Log.human_name, :name => log.id))                    
+    else
+      flash[:failure] = t("notice.object_delete_failure", :object => Log.human_name)    
     end
     redirect_to :action => "index"
   end

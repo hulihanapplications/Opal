@@ -17,18 +17,6 @@
 						<%= render :partial => "logs/list_logs", :locals => {:logs => @latest_logs} %>								
 				</div>	
 							
-				<% if session[:user] && session[:user][:id] != 0 && get_setting_bool("display_help_sections") %>
-				   <div class="box_style_2" align=left style="margin-bottom:5px;" >
-					    <h1>Need help using the User Section?</h1> 
-					   <div class="welcome_message">
-					   		If you need any help with this section, check out the 
-							<a href="http://www.hulihanapplications.com/projects/opal_guide#user_section" onclick="window.open(&quot;http://www.hulihanapplications.com/projects/opal_guide#user_section&quot;, &quot;&quot;, &quot;resizable=yes, location=no, width=400, height=640, menubar=no, status=no, scrollbars=yes&quot;); return false;">
-								<b>Opal User Guide</b>
-							</a>
-							or if you need any other help using Opal, check out the <a href="http://www.hulihanapplications.com/projects/opal#3"><b>help and faqs</b></a> section for Opal.
-					   </div>
-				   </div>   
-				<% end %>
 		</td>
    	    <td style="width:5px;">  </td>
 		<td class="sidebar_column">

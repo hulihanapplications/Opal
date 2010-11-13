@@ -12,6 +12,7 @@ class MessagesController < ApplicationController
   before_filter :enable_admin_menu, :only => [:index, :for_user] # show admin menu
  
   def index
+    @setting[:meta_title] = UserMessage.human_name.pluralize + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title]
     @messages = UserMessage.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i
   end
 
@@ -42,9 +43,9 @@ class MessagesController < ApplicationController
     @message = UserMessage.find(params[:id])
     if @message.destroy
       #render :nothing => true # show nothing
-      flash[:notice] =  "<div class=\"flash_success\">Message from <b>#{@message.user_from.username}</b> deleted!</div>" 
+      flash[:success] =  t("notice.object_delete_success", :object => UserMessage.human_name)
     else 
-      flash[:notice] =  "<div class=\"flash_failure\">Deletion Failed!</div>" 
+      flash[:success] =  t("notice.object_delete_failure", :object => UserMessage.human_name) 
     end 
     
     if @logged_in_user.is_admin? # did an admin do this?
@@ -58,9 +59,9 @@ class MessagesController < ApplicationController
     @message = UserMessage.find(params[:id])
     if @message.update_attribute(:is_read, "1")
       #render :nothing => true # show nothing
-      flash[:notice] = "<div class=\"flash_success\">Message from <b>#{@message.user_from.username}</b> marked as read!</div>" 
+      flash[:success] =  t("notice.object_save_success", :object => UserMessage.human_name)
     else 
-      flash[:notice] =  "<div class=\"flash_failure\">Mark as Read Failed!</div>" 
+      flash[:success] =  t("notice.object_save_failure", :object => UserMessage.human_name) 
     end  
     
     if @logged_in_user.is_admin? # did an admin do this?
@@ -72,9 +73,9 @@ class MessagesController < ApplicationController
   
   def unread_message # mark message as unread
     if @message.update_attribute(:is_read, "0")
-      flash[:notice] = "<div class=\"flash_success\">Message from <b>#{@message.user_from.username}</b> marked as unread!</div>" 
+       flash[:success] =  t("notice.object_save_success", :object => UserMessage.human_name) 
     else 
-      flash[:notice] = "<div class=\"flash_failure\">Mark as Unread Failed!</div>" 
+      flash[:success] =  t("notice.object_save_failure", :object => UserMessage.human_name) 
     end 
 
     if @logged_in_user.is_admin? # did an admin do this?
@@ -105,10 +106,10 @@ class MessagesController < ApplicationController
       @sent_message.user_id = @logged_in_user.id # the sending user gets to own this message.
       @sent_message.save      
       
-      Emailer.deliver_new_message_notification(@message, url_for(:action => "messages", :controller => "user", :only_path => false)) if @message.user.user_info.notify_of_new_messages? # send notification email      
-      flash[:notice] = "<div class=\"flash_success\">Message sent to <b>#{@user_to.username}</b>!</div>" 
+      Emailer.deliver_new_message_notification(@message, url_for(:action => "for_me", :controller => "messages", :only_path => false)) if @message.user.user_info.notify_of_new_messages? # send notification email      
+      flash[:success] = t("notice.message_send_success", :object => UserMessage.human_name, :to => @user_to.username)  
     else 
-      flash[:notice] = "<div class=\"flash_failure\">Message send failed!</div>" 
+      flash[:failure] = t("notice.message_send_failure", :object => UserMessage.human_name, :to => @user_to.username)  
     end 
     
     redirect_to :action => "for_me", :type => params[:type]        
@@ -123,7 +124,7 @@ private
     if @message.user_id == @logged_in_user.id || @logged_in_user.is_admin? # does the logged in user own this message? 
       # proceed
     else 
-      flash[:notice] = "<div class=\"flash_failure\">Sorry, you don't own this message!</div>"      
+      flash[:failure] = t("notice.invalid_permissions")    
       redirect_to :action => "for_me"
     end
  end

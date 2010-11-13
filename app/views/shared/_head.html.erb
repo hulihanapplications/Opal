@@ -1,5 +1,4 @@
-<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/browse/rss" />
-
+<%= auto_discovery_link_tag(:rss, {:action => "rss", :controller => "items"}, {:title => "#{t("label.rss_feed")} - #{t("single.new").capitalize} #{@setting[:item_name_plural]}"}) %> 
 
 <!-- Load Core Files -->
 	<% if @setting[:load_prototype] %>

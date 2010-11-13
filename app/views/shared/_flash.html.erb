@@ -1,0 +1,5 @@
+<% if flash[:notice]  && flash[:notice] != "" %><div class="flash"><div class="flash_notice"><%= flash[:notice] %></div></div><% end %> 
+<% if flash[:success] && flash[:success] != "" %><div class="flash"><div class="flash_success"><%= flash[:success] %></div></div><% end %> 
+<% if flash[:warning] && flash[:warning] != "" %><div class="flash"><div class="flash_warning"><%= flash[:warning] %></div></div><% end %> 
+<% if flash[:failure] && flash[:failure] != "" %><div class="flash"><div class="flash_failure"><%= flash[:failure] %></div></div><% end %> 
+<% if flash[:info] && flash[:info] != "" %><div class="flash"><div class="flash_info"><%= flash[:info] %></div></div><% end %> 

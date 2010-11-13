@@ -10,7 +10,7 @@ class Category < ActiveRecord::Base
  validates_presence_of :name, :message => "This field is required!"
 
  def to_param # make custom parameter generator for seo urls
-    "#{id}-#{name.gsub(/[^a-z0-9]+/i, '-')}"
+    "#{id}-#{name.parameterize}"
  end
   
  def self.get_parent_categories # Category.get_parent_categories

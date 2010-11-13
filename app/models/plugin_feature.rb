@@ -21,6 +21,7 @@ class PluginFeature < ActiveRecord::Base
     return self.is_approved == "1"
   end
  
+ 
  def self.check(options = {}) # checks hash for presence of required features and feature value appropriateness
    options[:item]       ||= nil # item needed to add errors
    options[:features]   ||= Hash.new
@@ -33,6 +34,7 @@ class PluginFeature < ActiveRecord::Base
      if entered_value && entered_value != "" # they entered a value for this feature
        if feature.feature_type == "number" || feature.feature_type == "slider"  # make sure they entered a number 
          if entered_value !~ /^\s*[+-]?((\d+_?)*\d+(\.(\d+_?)*\d+)?|\.(\d+_?)*\d+)(\s*|([eE][+-]?(\d+_?)*\d+)\s*)$/ # is this a float?
+           
            errors[feature.name] = "is not a number!"
          else # this is a number
            # Check if within range

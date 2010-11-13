@@ -1,21 +1,25 @@
-<div class="box_style_1" style="width:500px">
-	
-	
-	<h2>Create An Account</h2>
-	
+<div class="box_style_1" style="width:500px">	
+	<h2><%= t("label.create_account") %> </h2>
+	<div style="height:5px"></div>	
 	   <% form_for :user,  :url => { :action => "create_account", :controller => "user" } do |f| %>
 	 	<table style="text-align:left">
-	     <tr><td>Email Address</td><td> <%= f.text_field :email  %></td></tr>
-	     <tr><td>First Name</td><td> <%= f.text_field :first_name  %></td></tr>
-	     <tr><td>Last Name</td><td> <%= f.text_field :last_name  %></td></tr>
+	     <tr><td><%= f.label :email %></td><td> <%= f.text_field :email  %></td></tr>
+	     <tr><td><%= f.label :first_name %></td><td> <%= f.text_field :first_name  %></td></tr>
+	     <tr><td><%= f.label :last_name %></td><td> <%= f.text_field :last_name  %></td></tr>
 	
 	     <tr><td colspan=2 style="height:33px" align=center valign=middle><div id="username_search_box"></div></td></tr>
-	     <tr><td>Username</td><td> <%= f.text_field :username %></td></tr>		
-	     <tr><td>Password</td><td> <%= f.password_field :password %></td></tr>
-	     <tr><td>Confirm Password</td><td > <%= f.password_field :password_confirmation %></td></tr>
-	     <tr><td>Verification Code</td><td align=left><%= show_simple_captcha %></td></tr>
-	     <tr><td colspan=2 align=center>By Creating an Account, you agree to the <%= page_link Page.get_system_page("Terms Of Service") %></td></tr>
-	     <tr><td colspan=2 align=center><%= submit_tag "Create New Account!" %></td></tr>
+	     <tr><td><%= f.label :username %></td><td> <%= f.text_field :username %></td></tr>		
+	     <tr><td><%= f.label :password %></td><td> <%= f.password_field :password %></td></tr>
+	     <tr><td><%= f.label :password_confirmation %></td><td > <%= f.password_field :password_confirmation %></td></tr>
+	     <tr><td><%= f.label :locale %></td><td > <%= render :partial => "shared/select_locale", :locals => {:options => {:input_name => "user[locale]"}}  %></td></tr>
+	     <tr><td><%= t("label.captcha") %></td><td align=left><%= show_simple_captcha %></td></tr>
+		 <% page = Page.get_system_page("Terms Of Service") %>
+	     <tr><td colspan=2 align=center>
+	     	<div style="height:20px"></div>	
+				<%= t("label.agree_to_tos") %> <%= link_to(t("page.title.terms_of_service", :default => page.title), {:action => "page",  :controller => "pages", :id => page}, :class => "page_link", :title => page.description) %>
+			
+			</td></tr>
+	     <tr><td colspan=2 align=center><%= submit_tag t("label.create_account"), :class => "button_1" %></td></tr>
 	 	</table>
 	   <% end %>
 	<br>

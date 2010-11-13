@@ -7,7 +7,7 @@ class CreatePluginImages < ActiveRecord::Migration
       t.column :thumb_url, :string, :default => ""
       t.column :width, :string, :default => "0"
       t.column :height, :string, :default => "0" 
-      t.column :description, :string, :default => "No Description."
+      t.column :description, :string, :default => ""
       t.string :is_approved, :limit => 1, :default => "0" #has this review been approved by admins?
       t.column :created_at, :datetime#this will get populated automatically
       t.column :updated_at, :datetime#this will get populated automatically

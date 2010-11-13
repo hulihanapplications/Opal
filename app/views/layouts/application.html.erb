@@ -27,9 +27,7 @@
 	      	</div>
 		  </td>
 	      <td align=right valign=bottom>
-		   <div class="main_menu">
-		      <%= render :partial => "browse/main_menu" %>	   
-		   </div>
+		      <%= render :partial => "browse/main_menu" %>
 	      </td>
 	     </tr>
 	    </table>
@@ -47,7 +45,7 @@
 	
 	    <div class="main_inner_middle">
 	     <div id="main_content">
-	     	 <% if flash[:notice] %><div class="flash_notice"><%= flash[:notice] %></div><% end %> 
+			 <%= render :partial => "shared/flash", :locals => {:flash => flash} %>
 			 <%= render :partial => "/browse/banner_top" %>		 		 
 			 <%= render :partial => "/user/menu" if @show_user_menu %>
 			 <%= render :partial => "/admin/menu" if @show_admin_menu %>		 
@@ -70,10 +68,7 @@
 	 <tr>
 	  <td align=center>
 	   <div class="main_table_bottom">
-	     	Powered by <a href="http://www.hulihanapplications.com/projects/opal"><b>Opal</b></a> &copy; <%= Time.now.strftime("%Y")%> - <a href="http://www.hulihanapplications.com">Hulihan Applications</a>
-			<div align=center>
-			<a href="http://www.hulihanapplications.com/projects/opal" class="transparent"><img src="/images/opal_powered_small.png" border=0 alt="" title="This site is powered by Opal &copy; 2009 Hulihan Applications"></a>
-			</div>
+			<%= render :partial => "shared/footer" %>
 	   </div>
 	  </td>
 	 </tr>

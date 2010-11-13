@@ -2,21 +2,19 @@
 <% for plugin in plugins %>
 			<%= render :partial => plugin.partial_path(:type => "home"), :locals => {:plugin => plugin } rescue nil %>
 <% end %>
-
 <table align=center style="width:100%" cellpadding=0 cellspacing=0>
  <tr>
   <td align=left class="sidebar_column" valign=top style="padding:0px;">
   	<% if @setting[:homepage_type] != "categories" %>
-		<div class="box_style_1" id="category_menu">
+		<div class="box_style_1" id="category_menu" style="margin-bottom:5px">
 	   		<%= render :partial => "items/category_menu", :locals => {:options => {:category => @category}} %>
 		</div>   
 		<%= show_page Page.get_system_page("Category Column") %>
-		<div style="height:5px"></div>
 	<% end %>
    	<% if Setting.get_setting_bool("display_popular_items") %>
-		<div class="box_style_1" align=left style="margin-bottom:5px">
+		<div class="box_style_1" align=left style="margin-bottom:5px"> 
 			<%= render :partial => "items/popular_items" %>
-		</div>
+		</div> 
 	<% end %>
    	<% if Setting.get_setting_bool("display_featured_items") %>
 		<div class="box_style_1" align=left style="margin-bottom:5px">
@@ -26,7 +24,6 @@
 	<%= show_page Page.get_system_page("Home Page Sidebar") %>
   </td>
   <td style="width:5px;">
-  	
   </td>
   <td align=left valign=top class="main_content_column" >
 	<%= show_page Page.get_system_page("Main Home Page") if !params[:page]  %>

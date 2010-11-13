@@ -5,7 +5,7 @@ class PagesController < ApplicationController
  uses_tiny_mce :only => [:new, :edit]  # which actions to load tiny_mce, TinyMCE Config is done in Layout. 
  
  def index
-   @setting[:meta_title] = "Pages - Admin - "+ @setting[:meta_title]
+   @setting[:meta_title] = Page.human_name.pluralize + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title]
    params[:type] ||= "System" # set default
    if params[:type] == "Blog" # if blog pages
      order = "created_at DESC" # set order
@@ -20,12 +20,13 @@ class PagesController < ApplicationController
     @page = Page.new(params[:page])
     @page.user_id = @logged_in_user.id
     if @page.save
-      Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => "Created the #{@page.title} page.")             
-      flash[:notice] = "<div class=\"flash_success\">Page was successfully created.</div>"
+      Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("log.object_create", :object => Page.human_name, :name => @page.title))             
+      flash[:success] = t("notice.object_create_success", :object => Page.human_name)
+      redirect_to :action => 'index', :type => @page.page_type.capitalize   
     else
-        flash[:notice] = "<div class=\"flash_failure\">Page could not be created!  Here's why:<br>#{print_errors(@page)}</div>"
+      flash[:failure] = t("notice.object_create_failure", :object => Page.human_name)
+      render :action => "new"
     end
-    redirect_to :action => 'index', :type => @page.page_type.capitalize   
  end
  
  def update
@@ -33,24 +34,26 @@ class PagesController < ApplicationController
    if params[:page][:page_id].to_i != @page.id # trying to select self as parent category    
      params[:page][:content] = params[:page][:content] # clean user input      
       if @page.update_attributes(params[:page]) 
-        flash[:notice] = "<div class=\"flash_success\">Page was successfully updated.</div>"
-        Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => "Updated the #{@page.title} page(#{@page.id}).")                   
+        flash[:success] = t("notice.object_save_success", :object => Page.human_name)
+        Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.object_save", :object => Page.human_name, :name => @page.title))
+        redirect_to :action => 'edit', :id => @page.id, :type => @page.page_type.capitalize  
       else
-        flash[:notice] = "<div class=\"flash_failure\">Page could not be updated!  Here's why:<br>#{print_errors(@page)}</div>"
+        flash[:failure] = t("notice.object_save_failure", :object => Page.human_name)
+        render :action => "edit"
       end
     else
-      flash[:notice] = "<div class=\"flash_failure\">A page can't be a subpage of itself!</div>"
+      flash[:failure] = t("notice.association_loop_failure", :object => Page.human_name)
+      render :action => "edit"
     end 
-    redirect_to :action => 'edit', :id => @page.id, :type => @page.page_type.capitalize  
  end
  
  def delete
    @page = Page.find(params[:id])   
    if @page.is_system_page? # Can't delete system pages
-     flash[:notice] = "<div class=\"flash_failure\">Sorry, You can't delete system pages.</div>"
+     flash[:failure] = t("notice.invalid_permissions")
    else 
-     Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => "Deleted the #{@page.title} page(#{@page.id}).")                        
-     flash[:notice] = "<div class=\"flash_success\">Page deleted!</div>"
+     Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.object_delete", :object => Page.human_name, :name => @page.title))                        
+     flash[:success] = t("notice.object_delete_success", :object => Page.human_name)
      @page.destroy
    end
    redirect_to :action => 'index', :type => @page.page_type.capitalize     
@@ -60,29 +63,29 @@ class PagesController < ApplicationController
    @page = Page.find(params[:id])
    if simple_captcha_valid?
      if !@page.is_system_page? # only public pages can have comments
-       if (@logged_in_user.id != 0  && Setting.get_setting_bool("allow_page_comments")) || @logged_in_user.is_admin? # make sure the user is logged in and can leave page comments 
+       if (!@logged_in_user.anonymous?  && Setting.get_setting_bool("allow_page_comments")) || @logged_in_user.is_admin? # make sure the user is logged in and can leave page comments 
              @comment = PageComment.new(params[:comment])
              @comment.page_id = @page.id
              @comment.is_approved = "1" # force approval
-             if @logged_in_user.id != 0 # if the user is not anonymous
+             if !@logged_in_user.anonymous? # if the user is not anonymous
                @comment.user_id = @logged_in_user.id # set comment user id
              end 
              if @comment.save
-              Log.create(:user_id => @logged_in_user.id,  :log_type => "new", :log => "Left a comment on the #{@page.title} page.") if @logged_in_user.id != 0
-              Log.create(:item_id => @item.id,  :log_type => "new", :log => "A visitor at #{request.env["REMOTE_ADDR"]} left a comment on the #{@page.title} page.") if @logged_in_user.id == 0
+              Log.create(:user_id => @logged_in_user.id,  :log_type => "new", :log => t("log.object_create", :object => PageComment.human_name, :name => @page.title)) if !@logged_in_user.anonymous?
+              Log.create(:log_type => "new", :log => t("log.object_create", :object => PageComment.human_name, :name => @page.title + " (#{t("single.visior")}: #{request.env["REMOTE_ADDR"]})")) if @logged_in_user.anonymous?
               
-              flash[:notice] = "<div class=\"flash_success\">New Comment added. Thanks for your input!</div><br>"
+              flash[:success] = t("notice.object_create_success", :object => PageComment.human_name)
              else # fail saved 
-              flash[:notice] = "<div class=\"flash_failure\">This Comment could not be added! Here's why:<br>#{print_errors(@comment)}<</div>>"
+              flash[:failure] = t("notice.object_create_failure", :object => PageComment.human_name)
              end 
        else # Attempted Securtiy Bypass: User is trying to add a comment to an item that's not viewable. They shouldn't be able to get to the add comment form, but this stops them server-side.
-            flash[:notice] = "<div class=\"flash_failure\">Sorry, you're not allowed to leave a comment.</div>"        
+            flash[:failure] = t("notice.invalid_permissions")        
        end
      else # they are trying to leave a comment on a non-public page
-       flash[:notice] = "<div class=\"flash_failure\">Sorry, system pages can't have comments.</div>"        
+       flash[:failure] = t("notice.invalid_permissions")        
      end 
    else # captcha failed'
-        flash[:notice] = "<div class=\"flash_failure\">Sorry, you entered in the wrong Anti-Spam code.</div>"
+        flash[:failure] = t("notice.invalid_captcha")
    end
    
    redirect_to :action => "page", :id => @page.id # go to page
@@ -90,8 +93,8 @@ class PagesController < ApplicationController
 
  def delete_page_comment
    @page_comment = PageComment.find(params[:id])   
-   Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => "Delete comment from the #{@page_comment.page.title} page.")                        
-   flash[:notice] = "<div class=\"flash_success\">Comment deleted!</div>"
+   Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.object_delete", :object => PageComment.human_name, :name => @page_comment.page.title))                        
+   flash[:success] = t("notice.object_delete_success", :object => PageComment.human_name)
    @page_comment.destroy
    redirect_to :action => "page", :id => @page_comment.page_id # go to page
  end  
@@ -120,7 +123,7 @@ class PagesController < ApplicationController
         redirect_to :action => "page", :controller => "about", :id => page     
       end
     else
-      flash[:notice] = "<div class=\"flash_failure\">Sorry, you're not allowed to see this.</div>"      
+      flash[:failure] = t("notice.not_visible")      
       redirect_to :action => "index", :controller => "browse"
     end 
   end
@@ -167,28 +170,27 @@ class PagesController < ApplicationController
               :thumbnail_height => @plugin.get_setting("item_thumbnail_height").to_i
             ) 
           
-            Log.create(:user_id => @logged_in_user.id,  :log_type => "new", :log => "Added #{@plugin.title}: #{filename}.")                 
-            flash[:notice] = "<div class=\"flash_success\">#{@plugin.title} added successfully!</div>"
+            Log.create(:user_id => @logged_in_user.id,  :log_type => "new", :log => t("log.object_create", :object => Image.human_name , :name => filename))                 
+            flash[:success] = t("notice.object_create_success", :object => PluginImage.human_name) 
           else 
-            flash[:notice] = "<div class=\"flash_failure\">Your #{@plugin.title} couldn't be saved!<br>Here's why:<br>#{print_errors(@image)}</div>"            
+            flash[:failure] = t("notice.object_create_failure", :object => PluginImage.human_name)           
           end 
         else # save failed
-          flash[:notice] = "<div class=\"flash_failure\">Your #{@plugin.title} could not obtain an ID from the database!<br>Here's why:<br>#{print_errors(@image)}</div>"
+          flash[:failure] = t("notice.object_create_failure", :object => PluginImage.human_name) 
         end
       else
-        flash[:notice] = "<div class=\"flash_failure\">#{params[:file].original_filename} upload failed! Please make sure that this is an image file, and that it ends in #{acceptable_file_extensions}</div> "     
+        flash[:failure] = t("notice.invalid_file_extensions", :object => PluginImage.human_name, :acceptable_extensions => acceptable_file_extensions)    
     end
     redirect_to :action => "tinymce_images"
   end
 
   def delete_image
      @image = Image.find(params[:id])
-      @plugin = Plugin.find_by_name("Image") # use Images Plugin for title and thumbnail settings     
      if @image.destroy
-       Log.create(:user_id => @logged_in_user.id,  :log_type => "delete", :log => "Deleted #{@plugin.title}: #{File.basename(@image.url)}.")                        
-       flash[:notice] = "<div class=\"flash_success\">#{@plugin.title} deleted!</div>"     
+       Log.create(:user_id => @logged_in_user.id,  :log_type => "delete",  :log => t("log.object_delete", :object => Image.human_name, :name => File.basename(@image.url)))                        
+       flash[:success] = t("notice.object_delete_success", :object => Image.human_name)    
      else # fail saved 
-       flash[:notice] = "<div class=\"flash_failure\">#{@plugin.title} could not be deleted!</div>"     
+       flash[:failure] = t("notice.object_delete_failure", :object => Image.human_name)     
      end
     redirect_to :action => "tinymce_images"
   end  

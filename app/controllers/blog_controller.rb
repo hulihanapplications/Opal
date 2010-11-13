@@ -1,6 +1,11 @@
 class BlogController < ApplicationController
   def index
-    @pages = Page.paginate  :page => params[:page], :per_page => 5, :conditions => ["page_type = ? and published = true", 'blog'], :order => "created_at DESC"
+    @pages = Page.paginate :page => params[:page], :per_page => 5, :conditions => ["page_type = ? and published = true", 'blog'], :order => "created_at DESC"
+  end
+
+  def rss 
+    @pages = Page.paginate :page => params[:page], :per_page => 10, :conditions => ["page_type = ? and published = true", 'blog'], :order => "created_at DESC"
+    render :layout => false
   end
 
   def page
@@ -9,7 +14,7 @@ class BlogController < ApplicationController
     if @page.published || @logged_in_user.is_admin? # make sure this is a published page they're going to
       # proceed
     else
-      flash[:notice] = "<div class=\"flash_failure\">Sorry, you're not allowed to see this.</div>"      
+      flash[:error] = t("notice.not_visible")      
       redirect_to :action => "index", :controller => "browse"
     end       
   end

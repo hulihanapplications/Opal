@@ -10,7 +10,7 @@
 		<table style="width:100%" cellpadding=0 cellspacing=0>
 			<tr>
 				<td align=left>
-					<h3><%= features_plugin.title %>s</h3>	
+					<h3><%= features_plugin.human_name.pluralize %></h3>	
 				</td>
 				<td align=right>
 					<%= link_to "Add/Edit Features", {:action => "index", :controller => "plugin_features"} if @logged_in_user.is_admin?  %>

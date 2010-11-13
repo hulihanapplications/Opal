@@ -43,6 +43,8 @@ attributes:
   img:
     - src
     - style
+    - width
+    - height
   span:
     - style
   embed:
@@ -62,6 +64,7 @@ attributes:
     - value
   div:
     - style 
+    - align
   p:
     - style
     

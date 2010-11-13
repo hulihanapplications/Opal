@@ -25,6 +25,11 @@ class PluginImage < ActiveRecord::Base
     end
  end
 
+
+ def filename # get filename from url 
+   return File.basename(self.url)
+ end
+ 
   def is_approved?
      if self.is_approved == "1"
        return true

@@ -8,7 +8,7 @@
 	  <td align=left valign=top>
 		<div class="plugin_box">
 				<div class="title">
-					Editing <%= @plugin.title %>: <%= @feature.name %>
+					Editing <%= @plugin.human_name %>: <%= @feature.name %>
 				</div>
 		</div>
 		<br>
@@ -19,7 +19,7 @@
 				<%= form_tag  :action => 'update', :controller => "plugin_features", :id => @feature.id %>
 					<%= render :partial => "plugin_features/form", :locals => {:feature => @feature} %>								 
 					<br>
-					<div align=center><input type="submit" value="Save <%= @plugin.title %>"></div>
+					<div align=center><input type="submit" value="Save <%= @plugin.human_name %>"></div>
 				</form>			
 			</div>
 			<% if @feature.feature_type == "option" %>

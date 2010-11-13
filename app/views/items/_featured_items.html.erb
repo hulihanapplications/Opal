@@ -1,6 +1,6 @@
 <% featured_items = Item.featured_items %>
 <% featured_item = featured_items[rand(featured_items.size)]%>
-<h2 class="title">Featured <%= @setting[:item_name] %></h2>
+<h2 class="title"><%= t("label.object_featured", :object => @setting[:item_name_plural]) %></h2>
 <div class="spacer"></div>
 
 <div align=center style="padding-top:2px;">
@@ -11,7 +11,7 @@
 		</h3>
 		<% if featured_items.size > 1 %>
 			<div class="spacer"></div>
-			<a href="javascript:toggle_box('more_featured_items')">More Featured <%= @setting[:item_name_plural] %></a>	
+			<a href="javascript:toggle_box('more_featured_items')"><%= t("label.objects_more", :objects => t("label.object_featured", :object => @setting[:item_name_plural])) %></a>	
 			<div id="more_featured_items" style="display:none">
 				<table style="width:100%" cellpadding=0 cellspacing=1>		
 					<% for item in featured_items %>
@@ -30,7 +30,8 @@
 			</div>
 		<% end %>
 	<% else %>
-		There are currently no featured <%= @setting[:item_name_plural] %>.
+		<%= t("notice.objects_not_found", :objects => t("label.object_featured", :object => @setting[:item_name_plural])) %>
+		<!-- There are currently no featured <%= @setting[:item_name_plural] %>.-->
 	<% end %>
 	
 </div>

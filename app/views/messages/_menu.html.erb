@@ -1,15 +1,15 @@
 <div class="box_style_2" style="margin-bottom:5px;" align=center>
-	<h3 class="title" align=left>Messages Menu</h3>
+	<h3 class="title" align=left><%= UserMessage.human_name.pluralize %></h3>
 	
 	<div class="box_style_<%= params[:type] == "unread" ? "1" : "2" %>" style="margin-bottom:5px;">
-		<%= link_to "Unread (#{@messages[:unread].total_entries})", {:action => params[:action], :controller => "messages", :type => "unread"} %></a>				
+		<%= link_to "#{UserMessage.human_attribute_name(:unread)} (#{@messages[:unread].total_entries})", {:action => params[:action], :controller => "messages", :type => "unread"} %></a>				
 	</div>
 	
 	<div class="box_style_<%= params[:type] == "read" ? "1" : "2" %>" style="margin-bottom:5px;">
-		<%= link_to "Read (#{@messages[:read].total_entries})", {:action => params[:action], :controller => "messages", :type => "read"} %></a>				
+		<%= link_to "#{UserMessage.human_attribute_name(:read)} (#{@messages[:read].total_entries})", {:action => params[:action], :controller => "messages", :type => "read"} %></a>				
 	</div>
 
 	<div class="box_style_<%= params[:type] == "sent" ? "1" : "2" %>" style="margin-bottom:5px;">
-		<%= link_to "Sent (#{@messages[:sent].total_entries})", {:action => params[:action], :controller => "messages", :type => "sent"} %></a>				
+		<%= link_to "#{t("single.sent")} (#{@messages[:sent].total_entries})", {:action => params[:action], :controller => "messages", :type => "sent"} %></a>				
 	</div>		
 </div>

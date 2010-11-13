@@ -1,7 +1,7 @@
 <%= render :partial => "/browse/main_content_top_bar" %>
 
 <h1 class="title">
-	Viewing all <b class="highlight"><%= h params[:type]%></b> <%= @setting[:item_name_plural] %>
+	<b class="highlight"><%= h params[:type].capitalize %></b> <%= @setting[:item_name_plural] %>
 </h1>
 
 

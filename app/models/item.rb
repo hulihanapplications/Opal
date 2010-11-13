@@ -21,12 +21,13 @@ class Item < ActiveRecord::Base
   
   attr_protected :user_id, :is_approved, :featured
   
+  # Create Virtual Attributes
+  
+  
   def to_param # make custom parameter generator for seo urls, to use: pass actual object(not id) into id ie: :id => object
     # this is also backwards compatible with regular integer id lookups, since .to_i gets only contiguous numbers, ie: "4-some-string-here".to_i # => 4    
-    "#{id}-#{name.gsub(/[^a-z0-9]+/i, '-')}" 
+    "#{id}-#{name.parameterize}" 
   end
-
-
   
   def create_everything
     # Create Item Statistic Record
@@ -143,19 +144,18 @@ class Item < ActiveRecord::Base
   end
   
   def is_editable_for_user?(user) # can the user edit this item?
-     if (self.is_user_owner?(user)  || user.is_admin == "1") && user.id != 0 # Yes, the item belongs to the user
+     if ((self.is_user_owner?(user) && !self.locked) || user.is_admin?)  # Yes, the item belongs to the user
        return true
      else # The item does not belong to the user.
        return false
      end
   end
   
-  def is_deletable_for_user?(user) # Can the current user see this item?
-    if user.is_admin == "1" # User is an admin
+  def is_deletable_for_user?(user) # can the user delete this item?
+    if user.is_admin? # User is an admin
       return true
-    else # not an admin
-      setting = Setting.find(:first, :conditions => ["name = ?", "users_can_delete_items"], :limit => 1 ) # get setting for users to delete items
-      if setting.value == "1" && self.user_id == user.id # check if user that owns this item and users are allowed to delete items
+    else # not an admin    
+      if (Setting.get_setting_bool("users_can_delete_items") && self.is_user_owner?(user) && !self.locked) # check if user that owns this item and users are allowed to delete items
         return true
       else # either not owner or users can't delete items
         return false
@@ -204,15 +204,15 @@ class Item < ActiveRecord::Base
   end
 
   def self.sort_order(options = {}) # get sanitized sort order for use in find
-    options[:by] ||= "Date Added"
+    options[:by] ||= Item.human_attribute_name(:created_at)
     options[:direction] ||= "desc"     
     
     # translate to protect against injection 
     translation = Hash.new # create a hash that indexes items by possible user input, but the value of the item is the actual value we'll use.    
     translation[:by] = Hash.new 
-    translation[:by]["Date Added"] = "created_at"
-    translation[:by]["Name"] = "name"
-    translation[:by]["Popularity"] = "views"
+    translation[:by][Item.human_attribute_name(:created_at)] = "created_at"
+    translation[:by][Item.human_attribute_name(:name)] = "name"
+    translation[:by][Item.human_attribute_name(:views)] = "views"
     
     translation[:direction] = Hash.new
     translation[:direction]["asc"] = "ASC"
@@ -220,4 +220,32 @@ class Item < ActiveRecord::Base
     
     return translation[:by][options[:by]] + " " + translation[:direction][options[:direction]] 
   end
+  
+  def main_image # get the main image for this item
+   return PluginImage.find(:first, :conditions => ["item_id = ?", self.id])
+ end
+
+
+
+=begin
+  # Create Dynamic Attributes from Features
+  for feature in PluginFeature.find(:all)
+     # Create Setter
+     #self.class.class_eval do # remember, class_eval makes instance methods: def method {} end 
+      define_method("#{feature.name}=".to_sym) do |value|
+        instance_variable_set( "@" + feature.name, val) # instance_variable_set adds def [var] @var end
+      end
+      
+      # Create Getter
+      define_method(feature.name.to_sym) do 
+        instance_variable_get( "@" + feature.name) # instance_variable_set adds def [var] @var end
+      end      
+     #end    
+    
+  end
+  
+  def method_missing(method_id, *arguments_you_tried_to_pass_in) # handle unknown method
+    puts "No Method Found.\nYou tried to run: #{method_id}\nWith the arguments: #{arguments_you_tried_to_pass_in.inspect}" 
+  end
+=end
 end

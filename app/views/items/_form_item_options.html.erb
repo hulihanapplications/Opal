@@ -3,14 +3,20 @@
 		<tr>
 			<td class="icon_column" align=right><input type="checkbox" name="item[is_approved]" value="1"  id="item_is_approved" <%= "CHECKED" if item.is_approved? %>></td>			
 			<td class="icon_column"><img src="/themes/<%= @setting[:theme] %>/images/icons/approved.png" class="icon"  alt="" title="" ></td>
-			<td><b>Approved</b></td>
-			<td class="icon_column"><img src="/themes/<%= @setting[:theme] %>/images/icons/help.png" class="help icon"  alt="" title="Only approved <%= @setting[:item_name_plural] %> are can be seen on <%= @setting[:title] %>." ></td>						
+			<td><b><%= f.label :is_approved %></b></td>
+			<td class="icon_column"><img src="/themes/<%= @setting[:theme] %>/images/icons/help.png" class="help icon"  alt="" title="<%= Item.human_attribute_name(:is_approved_description) %>" ></td>						
 		</tr>	
 		<tr>
-			<td class="icon_column" align=right><input type="checkbox" name="item[featured]" value="1"  id="item_is_featured" <%= "CHECKED" if item.featured %>></td>			
+			<td class="icon_column" align=right><%= f.check_box  :locked %></td>			
+			<td class="icon_column"><img src="/themes/<%= @setting[:theme] %>/images/icons/locked.png" class="icon"  alt="" title="" ></td>
+			<td><b><%= f.label :locked %></b></td>
+			<td class="icon_column"><img src="/themes/<%= @setting[:theme] %>/images/icons/help.png" class="help icon"  alt="" title="<%= Item.human_attribute_name(:locked_description) %>" ></td>						
+		</tr>
+		<tr>
+			<td class="icon_column" align=right><%= f.check_box  :featured %></td>			
 			<td class="icon_column"><img src="/themes/<%= @setting[:theme] %>/images/icons/featured.png" class="icon"  alt="" title="" ></td>
-			<td><b>Featured</b></td>
-			<td class="icon_column"><img src="/themes/<%= @setting[:theme] %>/images/icons/help.png" class="help icon"  alt="" title="Featured <%= @setting[:item_name_plural] %> are given special attention and are shown on the homepage." ></td>						
+			<td><b><%= f.label :featured %></b></td>
+			<td class="icon_column"><img src="/themes/<%= @setting[:theme] %>/images/icons/help.png" class="help icon"  alt="" title="<%= Item.human_attribute_name(:featured_description) %>" ></td>						
 		</tr>
 		<tr><td colspan=4><div class="spacer"></div></td></tr>													
 	<% end %>
@@ -18,8 +24,8 @@
 		<tr>
 			<td class="icon_column" align=right><input type="checkbox" name="item[is_public]" value="1" id="item_is_private" <%= "CHECKED" if item.is_public? %>></td>			
 			<td class="icon_column"><img src="/themes/<%= @setting[:theme] %>/images/icons/public.png" class="icon"  alt="" title="" ></td>
-			<td><b>Public <%= @setting[:item_name] %></b></td>
-			<td class="icon_column"><img src="/themes/<%= @setting[:theme] %>/images/icons/help.png" class="help icon"  alt="" title="Public <%= @setting[:item_name_plural] %> can only be seen by others. If left unchecked, only you will be able to see this <%= @setting[:item_name] %>." ></td>						
+			<td><b><%= Item.human_attribute_name(:is_public) %> <%= @setting[:item_name] %></b></td>
+			<td class="icon_column"><img src="/themes/<%= @setting[:theme] %>/images/icons/help.png" class="help icon"  alt="" title="<%= Item.human_attribute_name(:is_public_description) %>" ></td>						
 		</tr>										
 	<% end %>
 

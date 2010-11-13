@@ -2,7 +2,7 @@
 	<div class="box_style_2 blog_page" style="margin-bottom:5px;">
 		<%= render :partial => "blog/list_page", :locals => {:page => page} %>
 		<div class="spacer"></div>
-			<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/comments.png\" title=\"\" class=\"icon\">" %> 										
-			<%= link_to "#{page.page_comments.size} Comments", {:action => "page", :controller => "pages", :id => page, :anchor => "comments"}%>
+			<%= icon("comments") %> 										
+			<%= link_to "#{page.page_comments.size} #{PageComment.human_name.pluralize}", {:action => "page", :controller => "pages", :id => page, :anchor => "comments"} %>
 	</div>
 <% end %>

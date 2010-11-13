@@ -1,10 +1,10 @@
 <h3 class="title">Legend</h3>
 <table>
-	<tr><td><img src="/themes/<%= @setting[:theme]%>/images/icons/new.png" class="icon"></td><td>Created</td></tr>
-	<tr><td><img src="/themes/<%= @setting[:theme]%>/images/icons/edit.png" class="icon"></td><td>Updated</td></tr>
-	<tr><td><img src="/themes/<%= @setting[:theme]%>/images/icons/delete.png" class="icon"></td><td>Deleted</td></tr>
-	<tr><td><img src="/themes/<%= @setting[:theme]%>/images/icons/file.png" class="icon"></td><td>File Downloaded</td></tr>					
-	<tr><td><img src="/themes/<%= @setting[:theme]%>/images/icons/warning.png" class="icon"></td><td>Warning</td></tr>										
-	<tr><td><img src="/themes/<%= @setting[:theme]%>/images/icons/success.png" class="icon"></td><td>System Activity</td></tr>
-	<tr><td><img src="/themes/<%= @setting[:theme]%>/images/icons/failure.png" class="icon"></td><td>Not Found</td></tr>	
+	<tr><td><%= icon("new") %></td><td><%= t("single.created") %></td></tr>
+	<tr><td><%= icon("edit") %></td><td><%= t("single.updated") %></td></tr>
+	<tr><td><%= icon("delete") %></td><td><%= t("single.deleted") %></td></tr>
+	<tr><td><%= icon("file") %></td><td><%= t("single.downloaded") %></td></tr>					
+	<tr><td><%= icon("warning") %></td><td><%= t("single.warning") %></td></tr>										
+	<tr><td><%= icon("success") %></td><td><%= t("label.system_activity") %></td></tr>
+	<tr><td><%= icon("failure") %></td><td><%= t("label.not_found") %></td></tr>	
 </table>

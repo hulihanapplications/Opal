@@ -1,10 +1,20 @@
 <%= render :partial => "browse/main_content_top_bar" %>
 
-<h1>Searching for <%= h @search_for %></h1>
+<h1><%= t("label.search_results_for", :query => h(@search_for)) %></h1>
 
 
 <%= page_entries_info @items, :entry_name => @setting[:item_name] %>
-<%= render :partial => "items/list_items", :locals => {:items => @items } %>
+<table cellpadding=0 cellspacing=0 style="width:100%;">
+    <tr>
+        <td style="text-align:center;">
+			<%= render :partial => "items/list_items", :locals => {:items => @items } %>
+        </td>
+        <td style="width:10px;">
+        </td>
+        <td valign=top align=left class="sidebar_column">
+        </td>
+    </tr>
+</table>
 
 <%= will_paginate @items, :params => {:search_for => @search_for } %>
 <br>

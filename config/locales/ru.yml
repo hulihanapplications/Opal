@@ -1,0 +1,112 @@
+ru:
+  greeting: Hello %{name}! # call with t(:greeting, :name => "John")
+  # Sections 
+  section_home: Главная 
+  section_about: о
+  section_items: #{items}
+  section_blog: блог
+  section_forum: Форум
+  # Single Words 
+  by: by
+  submit: submit
+  search: search
+  cancel: cancel
+  delete: delete
+  edit: edit
+  new: new
+  create: create
+  sort: sort
+  view: view
+  help: help
+  created: created
+  updated: updated
+  added: added
+  password: password 
+  locale: локали 
+  user: user
+  page: page
+  activity: activity  
+  # Form Fields
+  field_email: Email Address
+  field_group: Group
+  field_user_location: My Location
+  field_user_interests: My Interests
+  field_user_description: About Me
+  field_first_name: Имя 
+  field_last_name: фамилия 
+  field_username: Имя пользователя
+  field_password: пароль
+  field_confirm_password: подтвердить пароль 
+  field_locale: локали
+  field_captcha: Код подтверждения
+  # Links
+  link_log_out: Log Out
+  link_my_account: My Account
+  link_administration: Admin 
+  link_search: Search
+  link_advanced_search: Advanced Search
+  link_sign_up: Sign Up!
+  # Buttons
+  button_create_new_account: Create New Account!
+  button_log_in: Log In
+  # Flash Messages
+  flash_save_success: Your changes have been successfully saved!
+  flash_save_failure: Your changes could not be saved!
+  flash_object_save_success: %{name} saved!
+  flash_object_save_failure: %{name} could not be saved!
+  flash_object_save_success: %{name} saved successfully!
+  flash_object_save_failure: %{name} could not be saved!
+  flash_login_success: You logged in successfully!
+  flash_login_failure: Login Failed!
+  flash_logout_success: You have been logged out. Have a nice day.
+  flash_not_visible: Sorry, you're not allowed to see this.
+  # Confirmations
+  confirm_item_deletion: Are you sure you want to delete this %{item}? Everything that belongs to it will be deleted also.
+  confirm_category_deletion: Are you sure you want to delete this category? All of its subcategories and %{items} that be deleted also!
+  confirm_page_deletion: Are you sure you want to delete this page? All comments will be deleted also.
+  # Labels & Sentences
+  label_additional_info: Additional Info
+  label_user_account_info: Accout Info
+  label_notifications: Notifications
+  label_create_account: Create an Account
+  label_password_mismatch: Your passwords don't match!
+  label_username_available: This username is available!
+  label_username_taken: This username is taken! 
+  label_agree_to_tos: By Creating an Account, you agree to the 
+  label_logged_in_as: Logged in as %{username}  
+  label_create_object: Create new %{name}
+  label_edit_object: Edit %{name}
+  label_delete_object: Delete %{name}
+  
+  # Other Stuff
+  item_list_description_simple: View %{items} in a simple format.
+  item_list_description_details: View %{items} in a simple format.
+  item_list_description_photo: View %{items} as thumbnails.
+  item_list_description_small: View %{items} in a table.
+  # Pages
+  page_title_terms_of_service: Terms of Service
+  page_title_contact_us: Contact Us 
+  # Date & Times 
+  date:
+    formats:
+      # Use the strftime parameters for formats.
+      # When no format has been given, it uses default.
+      # You can provide other formats here if you like!
+      default: "%d-%m-%Y"
+      short: "%b %d"
+      long: "%B %d, %Y"      
+    day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
+    abbr_day_names: [Sun, Mon, Tue, Wed, Thu, Fri, Sat]
+      
+    # Don't forget the nil at the beginning; there's no such thing as a 0th month
+    month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
+    abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+    # Used in date_select and datime_select.
+    order: [ :year, :month, :day ]     
+  time:
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"   
+      short: "%b %d at %H:%M" 
+      long: "%B %d, %Y %H:%M"
+    am: "am"
+    pm: "pm"     

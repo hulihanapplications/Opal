@@ -22,7 +22,7 @@
 		<tr class="row_a">
 			<td style="vertical-align:middle" align=left >												
 				<h3>Name</h3>
-				<i>The name of this  <%= @plugin.title.downcase %>. Example: <b>Price</b>.</i>
+				<i>The name of this  <%= @plugin.human_name.downcase %>. Example: <b>Price</b>.</i>
 			</td>
 			<td style="vertical-align:middle" align=right>
 				<input name="feature[name]" type="text" id="feature_name" onfocus = "focus_input('feature_name')" onblur = "blur_input('feature_name')" value="<%= feature.name %>">
@@ -31,7 +31,7 @@
 		<tr class="row_b">
 			<td style="vertical-align:middle" align=left >												
 				<h3>Description(optional)</h3>
-				<i>A short message describing this  <%= @plugin.title.downcase %>. Example: <b>How much this costs</b>.</i>
+				<i>A short message describing this  <%= @plugin.human_name.downcase %>. Example: <b>How much this costs</b>.</i>
 				
 			</td>
 			<td style="vertical-align:middle" align=right>
@@ -41,10 +41,10 @@
 		<tr class="row_a">
 			<td style="vertical-align:middle" align=left >												
 				<h3>					
-					<%= @plugin.title %> Type
+					<%= @plugin.human_name %> Type
 				</h3>
 
-				<i>This is the type of information that a <%= @plugin.title.downcase %> will contain. </i>
+				<i>This is the type of information that a <%= @plugin.human_name.downcase %> will contain. </i>
 				
 			</td>
 			<td style="vertical-align:middle" align=right>
@@ -65,7 +65,7 @@
 					Required?
 				</h3>
 
-				<i>If checked, every <%= @setting[:item_name] %> must have a value for this <%= @plugin.title.downcase %>. </i>				
+				<i>If checked, every <%= @setting[:item_name] %> must have a value for this <%= @plugin.human_name.downcase %>. </i>				
 			</td>
 			<td style="vertical-align:middle" align=right>
 				<%= check_box "feature", "is_required" %>							 
@@ -77,7 +77,7 @@
 					Listed?
 				</h3>
 
-				<i>If checked, this <%= @plugin.title.downcase %> will be shown on <b><%= @setting[:item_name] %> lists</b>. </i>				
+				<i>If checked, this <%= @plugin.human_name.downcase %> will be shown on <b><%= @setting[:item_name] %> lists</b>. </i>				
 			</td>
 			<td style="vertical-align:middle" align=right>
 				<%= check_box "feature", "listed" %>							 
@@ -89,7 +89,7 @@
 					Icon URL(optional)
 				</h3>
 
-				<i>If you have a specific icon in mind for this <%= @plugin.title.downcase %>, enter its URL here. Not Sure? Leave this blank.</i>
+				<i>If you have a specific icon in mind for this <%= @plugin.human_name.downcase %>, enter its URL here. Not Sure? Leave this blank.</i>
 				
 			</td>
 			<td style="vertical-align:middle" align=right>
@@ -138,12 +138,12 @@
 <div class="box_style_2a">
 	<h2 class="title">Search Type</h2>
 	<div class="spacer"></div>
-	This determines how people search for <%= @setting[:item_name_plural] %> with this <%= @plugin.title %> in <b><%= link_to "advanced search", {:action => "new_advanced_search", :controller => "items"} %></b>. Not Sure? Just select <b>Keyword</b>.
+	This determines how people search for <%= @setting[:item_name_plural] %> with this <%= @plugin.human_name %> in <b><%= link_to "advanced search", {:action => "new_advanced_search", :controller => "items"} %></b>. Not Sure? Just select <b>Keyword</b>.
 	<table style="width:100%" cellpadding=0 cellspacing=0 class="setting_table row_table">
 		<tr class="row_a">
 			<td style="vertical-align:middle" align=left >												
 				<h3>Grouped</h3>
-				<i>A user can select between all existing values that other <%= @setting[:item_name_plural] %> might have for this <%= @plugin.title.downcase %>. <b>Example:</b> If this feature was <b>color</b>, and seven other <%= @setting[:item_name_plural] %> had the value <b>orange</b>, you could select <b>orange(7)</b>. </i>
+				<i>A user can select between all existing values that other <%= @setting[:item_name_plural] %> might have for this <%= @plugin.human_name.downcase %>. <b>Example:</b> If this feature was <b>color</b>, and seven other <%= @setting[:item_name_plural] %> had the value <b>orange</b>, you could select <b>orange(7)</b>. </i>
 			</td>
 			<td style="vertical-align:middle" align=right>
 				<input name="feature[search_type]" value="Grouped" type="radio" <%= "CHECKED" if feature.search_type == "Grouped" %>>
@@ -152,7 +152,7 @@
 		<tr class="row_b">
 			<td style="vertical-align:middle" align=left >												
 				<h3>Keyword</h3>
-				<i>A user can enter a phrase or keywords to match this <%= @plugin.title.downcase %>'s value. <b>Example:</b> If this feature was <b>color</b>, someone could search for <b>orange</b>.</i>
+				<i>A user can enter a phrase or keywords to match this <%= @plugin.human_name.downcase %>'s value. <b>Example:</b> If this feature was <b>color</b>, someone could search for <b>orange</b>.</i>
 			</td>
 			<td style="vertical-align:middle" align=right>
 				<input name="feature[search_type]" value="Keyword" type="radio" <%= "CHECKED" if feature.search_type == "Keyword" %>>
@@ -161,7 +161,7 @@
 		<tr class="row_a">
 			<td style="vertical-align:middle" align=left >												
 				<h3>Number</h3>
-				<i>A user can enter a number match this <%= @plugin.title.downcase %>'s value. <b>Example:</b> If this feature was <b>quantity</b>, someone could search for <b>8</b>. </i>
+				<i>A user can enter a number match this <%= @plugin.human_name.downcase %>'s value. <b>Example:</b> If this feature was <b>quantity</b>, someone could search for <b>8</b>. </i>
 			</td>
 			<td style="vertical-align:middle" align=right>
 				<input name="feature[search_type]" value="Number" type="radio" <%= "CHECKED" if feature.search_type == "Number" %>>
@@ -170,7 +170,7 @@
 		<tr class="row_b">
 			<td style="vertical-align:middle" align=left >												
 				<h3>None</h3>
-				<i>This <%= @plugin.title.downcase %>  will not be searched.</i>
+				<i>This <%= @plugin.human_name.downcase %>  will not be searched.</i>
 			</td>
 			<td style="vertical-align:middle" align=right>
 				<input name="feature[search_type]" value="None" type="radio" <%= "CHECKED" if feature.search_type == "None" %>>

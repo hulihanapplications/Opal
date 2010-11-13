@@ -13,7 +13,7 @@ class AboutController < ApplicationController
            @setting[:meta_description] = @page.title + " - " + @page.description + " - " + @setting[:meta_title]
            @page_comments = PageComment.paginate :page => params[:page], :per_page => 25, :conditions => ["page_id = ? and is_approved = ?", @page.id, "1"]                  
        else
-          flash[:notice] = "<div class=\"flash_failure\">Sorry, you're not allowed to see this.</div>"      
+          flash[:failure] = "#{t("notice.not_visible")}"      
           redirect_to :action => "index", :controller => "browse"
        end    
      else 
@@ -30,18 +30,18 @@ class AboutController < ApplicationController
      if simple_captcha_valid?  
        email_regexp = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
        if !email_regexp.match(params[:email])# validate email
-         flash[:notice] = "<div class=\"flash_failure\">Sorry, <b>#{params[:email]}</b> isn't a valid email address.</div><br>" #print out any errors!
+         flash[:failure] = "#{t("notice.invalid_email")}" #print out any errors!
        else # email okay
         #  def contact_us_email(recipient, from = "noemailset@none.com", name = "No Name Set", subject = "No Subject Set", message = "No Message Set", ip = "", display = "plain") 
         # Send Email
-        Emailer.deliver_contact_us_email(params[:email], params[:name], "#{@setting[:title]} Contact Us Message: #{params[:name]}", params[:message], request.env['REMOTE_ADDR'])
-        flash[:notice] = "<div class=\"flash_success\">Thanks for contacting us, #{params[:name]}. we'll try to get back to you shortly!</div><br>" #print out any errors!
+        Emailer.deliver_contact_us_email(params[:email], params[:name], t("email.subject.contact_us", :site_title => @setting[:title], :from => params[:name]), params[:message], request.env['REMOTE_ADDR'])
+        flash[:success] = "#{t("notice.contact_thanks", :name => params[:name])}" #print out any errors!
        end
      else # captcha failed
-       flash[:notice] = "<div class=\"flash_failure\">You entered the wrong verification code!</div>" #print out any errors!
+       flash[:failure] = t("notice.invalid_captcha") #print out any errors!
      end 
    else 
-     flash[:notice] = "<div class=\"flash_failure\">Sorry, This feature is disabled</div>" 
+     flash[:failure] = t("notice.disabled") 
    end 
    redirect_to :action => "contact_us"
   end

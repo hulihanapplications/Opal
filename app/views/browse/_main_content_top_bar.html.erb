@@ -24,10 +24,10 @@
 			<% if !@item %>			
 				<% if @setting[:allow_list_type_changes]  && (params[:action] != "view") %>																
 					<% @original_uri = request.env["REQUEST_URI"]  %> 
-					<%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/list_type_simple.png\" class=\"icon list_type#{"_selected" if @setting[:list_type] == "simple"}\">", { :action => 'set_list_type', :controller => "browse", :list_type => "simple", :original_uri => CGI::escape(@original_uri)}, :title => "View #{@setting[:item_name_plural]} in a simple format." %>						
-					<%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/list_type_detailed.png\" class=\"icon list_type#{"_selected" if @setting[:list_type] == "detailed"}\"> ", { :action => 'set_list_type', :controller => "browse", :list_type => "detailed", :original_uri => CGI::escape(@original_uri)}, :title => "View #{@setting[:item_name_plural]} in a detailed format." %>
-					<%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/list_type_photo.png\" class=\"icon list_type#{"_selected" if @setting[:list_type] == "photo"}\"> ", { :action => 'set_list_type', :controller => "browse", :list_type => "photo", :original_uri => CGI::escape(@original_uri)}, :title => "View #{@setting[:item_name_plural]} as thumbnails."  %>
-					<%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/list_type_small.png\" class=\"icon list_type#{"_selected" if @setting[:list_type] == "small"}\"> ", { :action => 'set_list_type', :controller => "browse", :list_type => "small", :original_uri => CGI::escape(@original_uri)}, :title => "View #{@setting[:item_name_plural]} in a table."  %>													
+					<%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/list_type_simple.png\" class=\"icon list_type#{"_selected" if @setting[:list_type] == "simple"}\">", { :action => 'set_list_type', :controller => "browse", :list_type => "simple", :original_uri => CGI::escape(@original_uri)}, :title => t("label.list_type_simple", :objects => @setting[:item_name_plural] ) %>						
+					<%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/list_type_detailed.png\" class=\"icon list_type#{"_selected" if @setting[:list_type] == "detailed"}\"> ", { :action => 'set_list_type', :controller => "browse", :list_type => "detailed", :original_uri => CGI::escape(@original_uri)}, :title => t("label.list_type_detailed", :objects => @setting[:item_name_plural])  %>
+					<%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/list_type_photo.png\" class=\"icon list_type#{"_selected" if @setting[:list_type] == "photo"}\"> ", { :action => 'set_list_type', :controller => "browse", :list_type => "photo", :original_uri => CGI::escape(@original_uri)}, :title => t("label.list_type_photo", :objects => @setting[:item_name_plural])   %>
+					<%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/list_type_small.png\" class=\"icon list_type#{"_selected" if @setting[:list_type] == "small"}\"> ", { :action => 'set_list_type', :controller => "browse", :list_type => "small", :original_uri => CGI::escape(@original_uri)}, :title => t("label.list_type_small", :objects => @setting[:item_name_plural])   %>													
 				<% end %>
 				<% if params[:sort] %>		
 					<% 
@@ -57,10 +57,10 @@
 							<% if params[:sort][:direction] %>
 								<% if params[:sort][:direction] == "asc" %>
 									<% url[:sort_direction] = "desc" %>
-									<%= link_to icon("asc", "Currently sorted in ascending order. Click to reverse."), url, :title => "Reverse Direction"  %>
+									<%= link_to icon("asc", t("label.sort_asc")), url  %>
 								<% elsif params[:sort][:direction] == "desc" %>
 									<% url[:sort_direction] = "asc" %>								
-									<%= link_to icon("desc", "Currently sorted in descending order. Click to reverse."), url, :title => "Reverse Direction" %>
+									<%= link_to icon("desc", t("label.sort_desc")), url %>
 								<% end %>						
 							<% end %>						
 						</span>																								
@@ -68,15 +68,15 @@
 					<div id="sort_tooltip" class="tooltip">
 						<div class="box_style_1" style="font-weight:bold">							
 							<%# Override url_for vars for particular sort cases %> 
-							<% url[:sort_by] = "Name" %>
+							<% url[:sort_by] = Item.human_attribute_name(:name)  %>
 							<% url[:sort_direction] = "asc" %>							
 							<%= link_to url[:sort_by], url %><br>	
 																																			
-							<% url[:sort_by] = "Popularity" %>
+							<% url[:sort_by] = Item.human_attribute_name(:views) %>
 							<% url[:sort_direction] = "desc" %>								
 							<%= link_to url[:sort_by], url %><br>
 																																				
-							<% url[:sort_by] = "Date Added" %>
+							<% url[:sort_by] = Item.human_attribute_name(:created_at) %>
 							<% url[:sort_direction] = "desc" %>								
 							<%= link_to url[:sort_by], url %><br>																												
 						</div>

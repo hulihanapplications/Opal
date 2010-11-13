@@ -5,7 +5,7 @@ class Page < ActiveRecord::Base
   after_destroy :destroy_everything
   belongs_to :user
   
-  validates_uniqueness_of :title, :scope => "page_id", :message => "There's already a page with this title."
+  validates_uniqueness_of :title, :scope => "page_id"
   validates_presence_of :title 
   
   attr_protected :user_id 
@@ -22,7 +22,11 @@ class Page < ActiveRecord::Base
 
   def to_param # make custom parameter generator for seo urls, to use: pass actual object(not id) into id ie: :id => object
     # this is also backwards compatible with regular integer id lookups, since .to_i gets only contiguous numbers, ie: "4-some-string-here".to_i # => 4    
-    "#{id}-#{title.gsub(/[^a-z0-9]+/i, '-')}" 
+    "#{id}-#{title.parameterize}" 
+  end
+  
+  def human_name # return human name of instance
+    I18n.t("activerecord.models.#{(self.page_type.capitalize + "Page").underscore}") 
   end
   
   def self.public_pages
@@ -45,6 +49,7 @@ class Page < ActiveRecord::Base
     return Page.find(:first, :conditions => ["page_type = ? and title = ?", "public", page_title])
   end
    
+
   
   def is_system_page?
     if self.page_type == "system"

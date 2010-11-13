@@ -1,0 +1,17 @@
+<%# Dynamically find which locales are stored in config/locales and present them as a selection %>
+<% locales_dir = File.join(RAILS_ROOT, "config", "locales") %>
+
+<%
+ # Set Defaults
+ options ||= Hash.new
+ options[:input_name] 	||= "locale"
+ options[:select] 		||= Setting.get_setting("locale")  # the locale to select
+%>
+<select name="<%= options[:input_name] %>">
+<% Dir.new(locales_dir).entries.each do |file| %>
+	<% if (file.to_s != ".") && (file != "..") %>
+	 <% locale = File.basename(file, ".yml") %>
+     <option value="<%= locale %>" <%= "SELECTED" if locale == options[:select] %>><%= t("locales.#{locale}", :default => locale) %></option>
+	<% end %>
+<% end %>	
+</select>

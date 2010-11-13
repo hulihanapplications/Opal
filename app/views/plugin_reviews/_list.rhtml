@@ -2,6 +2,6 @@
 	<% review_score = PluginReview.average(:review_score, :conditions => ["item_id = ? and is_approved = '1'", item.id]) %>
 	<% review_score ||= 0 %>
 	<% if review_score > 0 || @setting[:review_type] == "Stars" %>
-		<%= score(:type => @setting[:review_type], :max => @setting[:score_max].to_i, :value => review_score) %>
+		<span title="This is the average score for this <%= @setting[:item_name] %>."><%= score(:type => @setting[:review_type], :max => @setting[:score_max].to_i, :value => review_score) %></span>
 	<% end %>
 <% end %>

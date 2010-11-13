@@ -46,21 +46,21 @@
 				  		<tr> 
 				  			<td align=left width="90%">
 				  				<div id="plugin_title_<%= plugin.id %>">
-				  			  		<h2><%= plugin.title %>s 
+				  			  		<h2><%= plugin.human_name.pluralize %> 
 									<font size=1>
 				  			  			<a href="javascript:replace_box_s('plugin_title_<%= plugin.id %>','edit_plugin_title_<%= plugin.id %>')">(Edit Name)</a>
 				  			  			<a href="javascript:toggle_box_s('plugin_settings_<%= plugin.id %>')">(Settings)</a>						
 										<% if plugin.name == "Feature" %>
-					  			  			<%= link_to "(Add/Delete A #{plugin.title})", {:action => "index", :controller => "plugin_features"} %>
+					  			  			<%= link_to "(Add/Delete A #{plugin.human_name})", {:action => "index", :controller => "plugin_features"} %>
 										<% end %>	
-										<%= link_to "(Uninstall)", {:action => "uninstall", :controller => "plugins", :id => plugin.id}, :confirm => "Are you sure? Every #{plugin.title} for every #{@setting[:item_name]} in #{@setting[:title]} will also be deleted!"  if !plugin.is_builtin? %>					
+										<%= link_to "(Uninstall)", {:action => "uninstall", :controller => "plugins", :id => plugin.id}, :confirm => "Are you sure? Every #{plugin.human_name} for every #{@setting[:item_name]} in #{@setting[:title]} will also be deleted!"  if !plugin.is_builtin? %>					
 									</font>
 										
 									</h2>
 				  				</div>
 								<div id="edit_plugin_title_<%= plugin.id %>" style="display:none">
 									<%= form_remote_tag :update => "plugin_title_#{plugin.id}", :url => { :action => 'update_plugin_title', :controller => "plugins", :id => plugin.id } %>
-										<input name="plugin_title" value="<%= plugin.title %>" id="plugin_title_input_<%= plugin.id %>" onfocus = "focus_input('plugin_title_input_<%= plugin.id %>')" onblur = "blur_input('plugin_title_input_<%= plugin.id %>')">s
+										<input name="plugin_title" value="<%= plugin.human_name %>" id="plugin_title_input_<%= plugin.id %>" onfocus = "focus_input('plugin_title_input_<%= plugin.id %>')" onblur = "blur_input('plugin_title_input_<%= plugin.id %>')">s
 										&nbsp;<input type="submit" value="Update" onclick="javascript:replace_box_s('edit_plugin_title_<%= plugin.id %>','plugin_title_<%= plugin.id %>')">&nbsp;
 										<a href="javascript:replace_box_s('edit_plugin_title_<%= plugin.id %>','plugin_title_<%= plugin.id %>')">
 											<img src="/themes/<%= @setting[:theme] %>/images/icons/cancel.png" alt="Cancel" title="Cancel" border=0 class="icon">
@@ -91,7 +91,7 @@
 										</div>
 									<% end %>
 								<% else %> 
-									<div align=center>There are currently no settings for <%= h plugin.title %>s.</div>
+									<div align=center>There are currently no settings for <%= plugin.human_name.pluralize %>.</div>
 								<% end %>
 								</div>					
 							</td>			

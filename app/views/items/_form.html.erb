@@ -1,73 +1,81 @@
-<table cellpadding=0 cellspacing=0>
-	<tr>
-		<td valign=top>
-							
-			<table cellpadding=0 cellspacing=0>
-				<tr>
-					<td>
-						Name
-					</td>
-					<td><input name="item[name]" type="text" id="item_name" onfocus = "focus_input('item_name')" onblur = "blur_input('item_name')" maxlength="255" value="<%= item.name if item.name %>"></td>
-				</tr>
-				<tr>
-					<td>Description</td>
-					<td><textarea name="item[description]" id="item_description" onfocus = "focus_input('item_description')" onblur = "blur_input('item_description')"><%= item.description if item.description %></textarea></td>
-				</tr>
-				<tr>
-					<td colspan=2>
-						<div style="height:10px"></div>
-						<% features_plugin = Plugin.find_by_name("Feature") %>
-						<% 	features = PluginFeature.find(:all, :order => "order_number ASC") %>
-						<% if features_plugin.is_enabled? && (features.size > 0|| @logged_in_user.is_admin?)  %>
-							<a name="Features"></a>
-							<table style="width:100%" cellpadding=0 cellspacing=0>
-								<tr>
-									<td align=left>
-										<h3><%= features_plugin.title %>s</h3>	
-									</td>
-									<td align=right>
-										<%= link_to "Add/Edit Features", {:action => "index", :controller => "plugin_features"} if @logged_in_user.is_admin?  %>
-									</td>
-								</tr>
-							</table>
-							<div class="spacer"></div>
-							<% if features.size > 0 %>															
-								<%= render :partial => "plugin_features/form_for_item", :locals => {:item => item} %>	
-							<% else %>
-								No <%= features_plugin.title %>s have been created yet.
-							<% end %>								
-						<% end %>
-						<div style="height:10px"></div>	
-					</td>
-				</tr>
-			</table>	
-		</td>
-		<td style="width:10px;">
-		</td>
-		<td valign=top align=left class="sidebar_column">
-			<div class="box_style_0" style="margin-bottom:5px">
-				<h2 class="title">
-					<img src="/themes/<%= @setting[:theme] %>/images/icons/options.png" class="icon" > 				
-					Options
-				</h2>
-				<div class="spacer"></div>
-				<div style="padding-left:5px;">
-					<%= render :partial => "items/form_item_options", :locals => {:item => item} %>						
+<%= f.error_messages %>
+<% if defined?(@feature_errors) %>
+	<%= print_errors(@feature_errors) if @feature_errors.size > 0  %>
+<% end %>
+
+<div class="item">
+	<table cellpadding=0 cellspacing=0>
+		<tr>
+			<td valign=top>
+								
+				<table cellpadding=0 cellspacing=0>
+					<tr>
+						<td>
+							<%= f.label :name %>
+						</td>
+						<td><%= f.text_field :name, :class => "name", :id => "name" %></td>
+					</tr>
+					<tr>
+						<td><%= f.label :description %></td>
+						<td><%= f.text_area :description, :class => "description", :id => "description" %></td>
+					</tr>
+					<tr>
+						<td colspan=2>
+							<div style="height:10px"></div>
+							<% features_plugin = Plugin.find_by_name("Feature") %>
+							<% 	features = PluginFeature.find(:all, :order => "order_number ASC") %>
+							<% if features_plugin.is_enabled? && (features.size > 0|| @logged_in_user.is_admin?)  %>
+								<a name="Features"></a>
+								<table style="width:100%" cellpadding=0 cellspacing=0>
+									<tr>
+										<td align=left>
+											<h3><%= features_plugin.human_name.pluralize %></h3>	
+										</td>
+										<td align=right>
+											<%= link_to "#{t("label.object_change", :object => features_plugin.human_name.pluralize)}", {:action => "index", :controller => "plugin_features"} if @logged_in_user.is_admin?  %>
+										</td>
+									</tr>
+								</table>
+								<div class="spacer"></div>
+								<% if features.size > 0 %>															
+									<%= render :partial => "plugin_features/form_for_item", :locals => {:item => item} %>	
+								<% else %>
+									<%= t("notice.objects_not_found", :objects => features_plugin.human_name.pluralize) %>
+									<!--No <%= features_plugin.human_name.pluralize %> have been created yet.-->
+								<% end %>								
+							<% end %>
+							<div style="height:10px"></div>	
+						</td>
+					</tr>
+				</table>	
+			</td>
+			<td style="width:10px;">
+			</td>
+			<td valign=top align=left class="sidebar_column">
+				<div class="box_style_0" style="margin-bottom:5px">
+					<h2 class="title">
+						<img src="/themes/<%= @setting[:theme] %>/images/icons/options.png" class="icon" > 				
+						<%= t("single.options") %>
+					</h2>
+					<div class="spacer"></div>
+					<div style="padding-left:5px;">
+						<%= render :partial => "items/form_item_options", :locals => {:item => item, :f => f} %>						
+					</div>
+				
+				</div>		
+				<div style="height:10px"></div>				
+				<div class="box_style_0">
+					<h2 class="title">
+						<img src="/themes/<%= @setting[:theme] %>/images/icons/categories.png" class="icon" > 				
+						<%= Category.human_name %>
+					</h2>
+					<div class="spacer"></div>
+					<% for category in Category.get_parent_categories  %>
+						<%= descend_category(category, :include_children => @setting[:include_child_category_items], :make_radio_button => true, :id_to_check => item.category_id, :truncate_length => 35)  %>
+					<% end %>								
 				</div>
-			
-			</div>		
-			<div style="height:10px"></div>				
-			<div class="box_style_0">
-				<h2 class="title">
-					<img src="/themes/<%= @setting[:theme] %>/images/icons/categories.png" class="icon" > 				
-					Category
-				</h2>
-				<div class="spacer"></div>
-				<% for category in Category.get_parent_categories  %>
-					<%= descend_category(category, :include_children => @setting[:include_child_category_items], :make_radio_button => true, :id_to_check => item.category_id, :truncate_length => 35)  %>
-				<% end %>								
-			</div>
-	
-		</td>
-	</tr>
-</table>
+		
+			</td>
+		</tr>
+	</table>	
+</div>

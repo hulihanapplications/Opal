@@ -1,2 +1,14 @@
-<h1>Groups#_form</h1>
-<p>Find me in app/views/groups/_form.html.erb</p>
+<%= error_messages_for :group  %>
+		
+<table cellpadding=1 cellspacing=1>
+			<tr>
+				<td><b><%= f.label :name %></b></td>
+				<td><%= f.text_field :name %></td>
+			</tr>
+			<tr>
+				<td><b><%= f.label :description %></b></td>
+				<td><%= f.text_field :description %></td>
+			</tr>
+</table>
+
+		

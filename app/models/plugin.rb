@@ -1,6 +1,8 @@
 class Plugin < ActiveRecord::Base
+  # The Plugin Model is a unique one. Every Plugin object record belongs to an associated Model with the same name as the plugin object, so if the record's name is "Image", it's associated model is PluginImage. This allows Opal to organize Models of a particular type(so you can change order, etc.).
+  
   validates_presence_of :name, :title
-  validates_uniqueness_of :name, :message => "There is already a Plugin with this name."
+  validates_uniqueness_of :name
   has_many :plugin_settings
   has_many :group_plugin_permissions
   
@@ -10,12 +12,18 @@ class Plugin < ActiveRecord::Base
   default_scope :order => "order_number ASC" # override default find
   named_scope :enabled, :conditions => {:is_enabled => '1'} # Get all enabled Item Objects with Plugin.enabled
   
+  def actual_model # returns the Class of plugin that this plugin object points to. Example: Plugin.find_by_name("Image").actual_model => PluginImage 
+    return "Plugin#{self.name}".camelize.constantize
+  end
   
   def create_everything
-    # auto assign order number
+    # auto assign order numbers
     self.update_attribute(:order_number, Plugin.next_order_number) # assign next order number
   end
   
+  def human_name # get human/translated name of plugin child 
+    return self.actual_model.human_name # get human name of actual model 
+  end
   
   def destroy_everything
     for item in self.plugin_settings # Delete plugin_settings
@@ -27,10 +35,9 @@ class Plugin < ActiveRecord::Base
     end
     
     # Delete Plugin Objects for Items
-    for item in self.child_find(:all)
+    for item in self.actual_model.find(:all)
       item.destroy
     end
-        
   end 
   
   # The Plugin is not a child of an Object, instead it is a type of view that will be displayed for all items. 
@@ -67,11 +74,6 @@ class Plugin < ActiveRecord::Base
      return false
   end
 
-  def child_find(*args) # accesses associated Plugin Child(ie: PluginImages)
-    child_name = "plugin_" + self.name # create child name, ie: plugin_images
-    child_name.camelize.constantize.find(*args)
-  end
-  
   def partial_path(options = {}) # returns the file location for the partial of a particular type
     options[:type] ||= "list" # set default
     return "/plugin_#{self.name.downcase}s/#{options[:type]}"    
@@ -79,15 +81,20 @@ class Plugin < ActiveRecord::Base
 
   def permissions_for_group(group) # retrieve ONE plugin's permissions for a certain group    
     group_plugin_permissions = GroupPluginPermission.find(:first, :conditions => ["plugin_id = ? and group_id = ?", self.id, group.id])
-    group_plugin_permissions ||= GroupPluginPermission.new(:plugin_id => self.id, :group_id => group.id) # initialize default permissions if no records are found.
- 
+    group_plugin_permissions ||= GroupPluginPermission.new(:plugin_id => self.id, :group_id => group.id) # initialize default permissions if no records are found. 
     return group_plugin_permissions    
   end
-  
+
+  # Deprecated as of Opal 0.6.0
+  def child_find(*args) # accesses associated Plugin Child(ie: PluginImages)
+    child_name = "plugin_" + self.name # create child name, ie: plugin_images
+    child_name.camelize.constantize.find(*args)
+  end
+    
+  # Deprecated as of Opal 0.6.0
   def self.find_plugin_items(*args) # retrieve plugin items(psuedo-children) for every plugin. Returns a hash of arrays indexed by plugin id.
     # Rules: you can only search by common attributes shared by all plugin items, otherwise you'll be looking for a unique attribute that won't be shared by all plugins. 
-    # Here are the currently shared attributes: item_id, user_id, is_approved, created_at, updated_at 
-   
+    # Here are the currently shared attributes: item_id, user_id, is_approved, created_at, updated_at    
     plugin_item_count = 0 # set count
     plugin_items = Hash.new # hash to store arrays
     for plugin in Plugin.enabled

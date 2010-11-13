@@ -10,21 +10,7 @@
    <%= render :partial => "pages/header", :locals => {:page => @page} %> 
    <div>
 		<%= show_page @page  %>
-   </div>
-   
-    <% if @logged_in_user.id != 0 && Setting.get_setting_bool("display_help_sections")  %>
-	   <br>
-	   <div class="welcome_box" align=left>
-  	       <h1>Need help using Opal?</h1> 
-		   <div class="welcome_message">
-		   		If you need any help with Opal, check out the 
-				<a href="http://www.hulihanapplications.com/projects/opal_guide" onclick="window.open(&quot;http://www.hulihanapplications.com/projects/opal_guide&quot;, &quot;&quot;, &quot;resizable=yes, location=no, width=400, height=640, menubar=no, status=no, scrollbars=yes&quot;); return false;">
-					<b>Opal User Guide</b>
-				</a>
-				or if you need any other help using Opal, check out the <a href="http://www.hulihanapplications.com/projects/opal#3"><b>help and faqs</b></a> section for Opal.
-		   </div>
-	   </div>        
-	<% end %>
+   </div>   
   </td> 
  </tr>
 </table>

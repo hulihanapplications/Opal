@@ -2,33 +2,31 @@
 <table align=center style="width:100%">
  <tr>
   <td align=left class="sidebar_column" valign=top>
-  	<div class="box_style_1">
 		<%= render :partial => "menu" %>
-	</div>
   </td>
-  <td align=left valign=top >
-	<div class="box_style_2 blog_page" style="margin-bottom:5px">
+  <td align=left valign=top>
+	<div class="box_style_2 blog_page" style="margin-bottom:10px">
 		<%= render :partial => "blog/list_page", :locals => {:page => @page} %>
    </div>
    
-   <div class="" align=left style="margin-bottom:5px" id="comments_section">
+   <div class="" align=left style="margin-bottom:10px" id="comments_section">
    		<% if @page_comments.size > 0 || Setting.get_setting_bool("allow_page_comments") %>
-			<div class="box_style_2" style="margin-bottom:5px">
-				<h2 class="title"><%= @page_comments.size %> Comments</h2>					
-				<%= page_entries_info @page_comments, :entry_name => "comment" %>
+			<div class="box_style_2" style="margin-bottom:10px">
+				<h2 class="title"><%= pluralize(@page_comments.size, PageComment.human_name) %></h2>					
+				<%= page_entries_info @page_comments, :entry_name => PageComment.human_name %>
 	   			<%= render :partial =>  "pages/list_page_comments", :locals => {:comments => @page_comments} %>
 				<div align=center><%= will_paginate @page_comments %></div>																   			
 	   		</div>
 		<% end %>
 		<% if Setting.get_setting_bool("allow_page_comments")   %>   
 		   <div class="box_style_2" align=left id="comment_form">			
-				<h3 class="title">Leave A Comment</h3>
-			 	<% if !@setting[:allow_anonymous_comments] && @logged_in_user.id == 0 %>
-					You must be logged in to leave a comment. 
+				<h3 class="title"><%= t("label.object_new", :object => PageComment.human_name) %></h3>
+			 	<% if !@setting[:allow_anonymous_comments] && @logged_in_user.anonymous? %>
+					<%= t("notice.user_not_logged_in") %>
 				<% else %>	
 					<%= form_tag  :action => 'create_page_comment', :controller => "pages", :id => @page.id  %>
 					   	<%= render :partial =>  "pages/page_comment_form" %>
-						<input type="submit" value="Leave Comment">
+						<input type="submit" value="<%= t("label.object_create", :object => PageComment.human_name) %>" class="button_1">
 					</form>				
 				<% end %>	
 		   </div>

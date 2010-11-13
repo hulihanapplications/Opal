@@ -2,11 +2,8 @@
 
 <h1 class="title">
 	<%= @category.name %> <%#= @setting[:item_name_plural] %>
-	<% if @logged_in_user.id != 0 %>
-	<a href="/items/new/<%= @category.id %>" class="plugin_title_link">
-			<img src="/themes/<%= @setting[:theme] %>/images/icons/new.png" alt="New" title="New" border=0 class="icon">
-			Add New <%= @setting[:item_name] %>
-	</a>
+	<% if !@logged_in_user.anonymous? %>
+		<%= link_to "#{icon("new")} #{t("label.object_new", :object => @setting[:item_name])}", {:action => "new", :controller => "items", :id => @category} %>
 	<% end %>
 </h1>
 <h3><%= @category.description %></h3><br>

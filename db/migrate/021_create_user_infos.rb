@@ -9,7 +9,7 @@ class CreateUserInfos < ActiveRecord::Migration
       t.column :zip, :string, :default => ""
       t.column :country, :string, :default => ""
       t.column :description, :text
-      t.column :interests, :string, :default => "No Interests added yet..."
+      t.column :interests, :string, :default => ""
       t.column :created_at, :datetime#this will get populated automatically  
       t.column :updated_at, :datetime#this will get populated automatically 
      end

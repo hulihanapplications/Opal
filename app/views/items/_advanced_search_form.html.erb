@@ -12,15 +12,17 @@
 		<tr> 
 			<td valign=top >
 				<div class="box_style_2" align=center>
-					<h3>Keywords in Title or Description</h3>
-					<input name="[search]keywords" type="text">
-					<br><br>
+
+						<h3>Keywords in Title or Description</h3>
+						<input name="[search]keywords" type="text">
+					<br>
 
 					<% @plugin = Plugin.find_by_name("Feature") %>
-					<% if @plugin.is_enabled? %>
+					<% if @plugin.is_enabled? && features.size > 0 %>
+						<br>
 						<% counter = 0 %>
 						<div id="features_section">
-							<h3><%= @plugin.title %>s</h3>					
+							<h3><%= @plugin.human_name.pluralize %></h3>					
 					    	<table cellpadding=0 cellspacing=0 style="width:100%">
 						        <tr>
 									<% for feature in features %>
@@ -52,7 +54,7 @@
 																			<% end %>
 																		</select>
 																	<% else %>
-																		No Matches Found.
+																		<%= t("notice.objects_not_found", :objects => @setting[:item_name_plural] %>
 																	<% end %>
 																<% else %>
 																<% end %>												
@@ -77,7 +79,7 @@
 				<div class="box_style_1">					
 					<h3>Category</h3>
 					<div class="indent">
-						<table cellpadding=0 cellspacing=0 style="width:100%"><tr><td style="width:100%;"><b>All</b></a></td><td align=right><input type="radio" name="item[category_id]" value="all" CHECKED></td></tr></table>
+						<table cellpadding=0 cellspacing=0 style="width:100%"><tr><td style="width:100%;"><b><%= t("single.all") %></b></a></td><td align=right><input type="radio" name="item[category_id]" value="all" CHECKED></td></tr></table>
 					</div>
 					<div class="spacer"></div>
 					<% for category in Category.get_parent_categories  %>
@@ -85,30 +87,29 @@
 					<% end %>
 				</div>
 				<br>
-				<div class="box_style_1">					
-					<h3>Dates &amp; Times</h3>
+				<div class="box_style_1">										
 					<table style="width:100%">
 						<tr>
-							<td><b>Date Added</b></td>
+							<td><b><%= Item.human_attribute_name(:created_at) %></b></td>
 							<td align=right>
 								<select name="created_at">
-									<option value="whenever" SELECTED>Whenever</option>						
-									<option value="today">Today</option>
-									<option value="this_week">This Week</option>
-									<option value="this_month">This Month</option>
-									<option value="this_year">This Year</option>												
+									<option value="whenever" SELECTED><%= t("label.time_any") %></option>						
+									<option value="today"><%= t("label.time_today") %></option>
+									<option value="this_week"><%= t("label.time_this_week") %></option>
+									<option value="this_month"><%= t("label.time_this_month") %></option>
+									<option value="this_year"><%= t("label.time_year") %></option>												
 								</select>
 							</td>
 						</tr>
 						<tr>
-							<td><b>Last Updated</b></td>
+							<td><b><%= Item.human_attribute_name(:created_at) %></b></td>
 							<td align=right>
 								<select name="updated_at">
-									<option value="whenever" SELECTED>Whenever</option>						
-									<option value="today">Today</option>
-									<option value="this_week">This Week</option>
-									<option value="this_month">This Month</option>
-									<option value="this_year">This Year</option>												
+									<option value="whenever" SELECTED><%= t("label.time_any") %></option>						
+									<option value="today"><%= t("label.time_today") %></option>
+									<option value="this_week"><%= t("label.time_this_week") %></option>
+									<option value="this_month"><%= t("label.time_this_month") %></option>
+									<option value="this_year"><%= t("label.time_year") %></option>												
 								</select>
 							</td>
 						</tr>							
@@ -119,5 +120,4 @@
 			</td>
 		</tr>
 	</table>
-	<br>
-	<input type="submit" value="Search">
+

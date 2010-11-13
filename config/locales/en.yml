@@ -1,0 +1,518 @@
+# Schema: group by category(log, notice, etc.), use interpolation(ie: %{object}), anything from user perspective(ie: "My Account") should be labeled: user_account, all verbs must not use any tense(created_account = bad, create_account = good). 
+en:
+  greeting: Hello %{name}! # call with t(:greeting, :name => "John")
+  # Sections
+  section:
+    title: 
+      home: Home
+      about: About
+      items: #{items}
+      blog: Blog
+      forum: Forum
+      admin: Administration
+      tools: Tools 
+      configure: Configure    
+      my_account: My Account    
+      my_settings: My Settings   
+  # Single Words 
+  single:
+    ago: Ago
+    by: By
+    admin: Administration
+    save: Save
+    submit: Submit
+    search: Search
+    cancel: Cancel
+    delete: Delete
+    edit: Edit
+    new: New
+    create: Create
+    sort: Sort
+    view: View
+    help: Help
+    deleted: Deleted
+    created: Created
+    updated: Updated
+    downloaded: Downloaded
+    download: Download
+    upload: Upload
+    warning: Warning    
+    added: Added
+    language: Language
+    locale: Locale
+    anonymous: Anonymous
+    visitor: Visitor
+    ip_address: IP Address
+    main_image: Main Image
+    theme: Theme
+    format: Format
+    avatar: Avatar
+    name: Name 
+    archive: Archive  
+    send: Send
+    none: None
+    all: All
+    back: Back
+    time: Time 
+    not: Not
+    private: Private
+    options: Options
+    popular: Popular
+    all: All
+    close: Close
+    open: Open
+    from: From
+    to: To
+    reply: Reply
+    sent: Sent
+    details: Details
+    yes: Yes
+    no: No
+    notification: Notification
+  # Flash Messages & Notices
+  notice:
+    save_success: Your changes have been successfully saved!
+    save_failure: Your changes could not be saved!
+    object_save_success: This %{object} has been saved!
+    object_save_failure: This %{object} could not be saved.
+    object_create_success: %{object} created!
+    object_create_failure: %{object} could not be created.    
+    object_delete_success: %{object} deleted!
+    object_delete_failure: %{object} could not be deleted.
+    object_install_success: %{object} installed!
+    object_install_failure: This %{object} could not be installed. 
+    object_uninstall_success: %{object} uninstalled!
+    object_uninstall_failure: This %{object} could not be uninstalled.
+    object_approve_success: This %{object} has been approved. Thanks!
+    object_unapprove_success: This %{object} has been marked as unapproved.
+    object_import_success: %{count} %{objects} imported successfully.
+    object_forgot_to_select: You forgot to select the %{object}.
+    object_not_found: %{object} not found.
+    object_needs_approval: This %{object} still needs to be approved.
+    objects_disabled: Sorry, %{objects} are not enabled.
+    objects_cannot_add_any_more: You can't add any more %{objects}.
+    objects_not_found: No %{objects} found.
+    object_invalid: Sorry, this %{object} is invalid.
+    file_not_found: "File not found: %{file}"
+    not_visible: Sorry, you're not allowed to see this.
+    invalid_email: Sorry, you entered an invalid email address.
+    invalid_permissions: Sorry, you're not allowed to do this.
+    user_account_create_success: Your account has been created!    
+    user_account_create_failure: Your account could not be created.
+    user_account_needs_verification: Your account needs to be verified before you can log in. A verification email has been sent to you.
+    user_account_verify_success: Your account has been verified!<br>You can now log in. 
+    user_account_verify_failure: Your account could not be verified. 
+    user_account_recover_password_instructions:  Instructions to recover your password have been sent to your email account.                     
+    user_account_recover_password_success: Your password has been changed to %{new_password}. You should change your password immediately, as this is a temporary password.
+    user_account_recover_password_failure: Your password could not be recovered.
+    user_login_success: You have logged in successfully. Welcome! 
+    user_login_failure: Login failed, Sorry.    
+    user_logout_success: You have been logged out! Have a nice day.     
+    user_thanks: Thanks %{name}!   
+    user_thanks_for_voting: Thanks for voting, %{name}!
+    user_not_logged_in: You must be logged in to do this.
+    contact_thanks: Thanks for contacting us, #{name}. we'll try to get back to you shortly!
+    invalid_captcha: You entered the wrong verification code!
+    disabled: Sorry, this is disabled.
+    account_not_verified: Sorry, Your account has not been verified yet!
+    account_disabled: Your account has been disabled.
+    failed_admin_access_attempt: You are not an admin! Your attempt to access this area has been logged.
+    association_loop_failure: A %{object} cannot belong to itself. That's crazy!
+    delete_own_group_failure: Sorry, you can't delete your own group.
+    search_results_left_blank: I don't know what to search for!
+    message_send_success: Your %{object} has been sent to %{to}. 
+    message_send_failure: Your %{object} %{to} could not be sent! 
+    invalid_file_extensions: "This %{object} could not be saved because the filename does not end in one of these: %{acceptable_file_extensions}"
+  # Logs 
+  log: # call with t(:failed_admin_access_attempt_user, :scope => [:log]) or t("log.failed_admin_access_attempt_user") 
+    object_create: "Created %{object}: %{name}"
+    object_save: "Made changes to %{object}: %{name}"
+    object_delete: "Deleted %{object}: %{name}"
+    object_install: "Installed %{object}: %{name}"
+    object_uninstall: "Uninstalled %{object}: %{name}"
+    object_enable: "Enabled %{object}: %{name}"
+    object_disable: "Disabled %{object}: %{name}"    
+    object_approve: "Approved %{object}: %{name}"
+    object_verify: "Verified %{object}: %{name}"
+    object_unapprove: "Unapproved %{object}: %{name}"
+    object_downloaded_by_user: "Downloaded %{object}: %{name}"
+    object_downloaded_by_visitor: "A visitor at %{ip} downloaded %{object}: %{name}"
+    object_voted_for: "Voted for %{object}: %{name}"
+    object_voted_against: "Voted against %{object}: %{name}"
+    object_recovered: Recovered %{object}.
+    object_email_sent: %{object} email sent to %{name}.    
+    user_account_object_save: Changed my %{object}.    
+    user_account_create: "Joined %{title}."
+    user_account_verify: "Verified my account."
+    objects_imported: "%{count} %{objects} imported."
+    failed_admin_access_attempt_visitor: Someone at %{ip} attempted to access the Admin Area. %{controller} - %{action}
+    failed_admin_access_attempt_user: %{username}(%{id}) attempted to access the Admin Area. %{controller} - %{action}
+  # Email
+  email:
+    subject:
+      contact_us: "%{site_title}: Contact Us Message from %{from}"
+      object_new: "%{title}: New %{object} - %{name}"
+      object_new_from_user: "%{title}: New %{object} from %{from} - %{name}"
+      verification: "%{title}: Verification Required - %{name}"
+    message:
+      object_new: "At %{title}, there's a new %{object} in town: %{name}. Check it out their profile here: \n\n%{url}\n\n"    
+      object_new_from_user: "At %{title}, %{from} has created a new %{object}: %{name}. Check it out here:\n\n%{url}\n\n"   
+      new_message_from_user: "At %{title}, you've received a new message from %{from}:\n\n%{message}\n\nYou can reply to this message or read your other messages here:\n\n%{url}\n\n"
+      password_recovery: "At %{title}, A password recovery request has been made for your account: %{name}.\n\nTo recover your password, go to the following address:\n\n%{url}\n\nIf you didn't make this request, please disregard this email. Feel free to contact %{title} if you have any questions or concerns."  
+      verification: "In order to log in to your account(%{name}) at %{title}, you must first verify your account by clicking on this verification link:\n\n%{url}"    
+  # Labels & Sentences
+  label:
+    create_account: Create New Account
+    password_mismatch: Your passwords don't match!
+    username_available: This username is available!
+    username_taken: This username is taken! 
+    agree_to_tos: By Creating an Account, you agree to the 
+    logged_in_as: Logged in as %{username}  
+    object_create: Create %{object}
+    object_edit: Edit %{object}
+    object_save: Save %{object}
+    object_delete: Delete %{object}
+    object_new: New %{object}
+    object_my: My %{object}
+    object_new_child: New Child %{object}
+    object_send_to: Send %{object} to %{name}
+    object_change: Change %{object}
+    object_featured: Featured %{object}
+    object_view_objects: View this %{object}'s %{objects}.
+    object_recently_added: This %{object} was added within the last 3 days.
+    object_mark_as: Mark %{object} as %{name}    
+    objects_from: %{name}'s %{objects}
+    objects_for: %{objects} for %{name}
+    objects_more: More %{objects}
+    objects_remaining: %{objects} remaining
+    objects_found: %{count} %{objects} found.
+    objects_latest: Latest %{objects}    
+    user_greeting: Hello, %{name}.
+    user_by: by %{name}
+    user_welcome_to_admin: Welcome to the Administration section, all powerful %{name}.
+    user_logged_in_as: Logged in as
+    search_results_for: Search Results for %{query}    
+    apology: Whoops!
+    captcha: Verification Code
+    rss_feed: RSS Feed
+    search: Search
+    advanced_search: Advanced Search
+    register: Sign Up!
+    register_message: Don't have an account? 
+    list_type_simple: View %{objects} in a simple format.
+    list_type_details: View %{objects} in a simple format.
+    list_type_photo: View %{objects} as thumbnails.
+    list_type_small: View %{objects} in a table.
+    sort_asc: Currently sorted in ascending order.
+    sort_desc: Currently sorted in descending order. 
+    log_in: Log In
+    log_out: Log Out
+    log_in_forgot_password: Forgot your password? No Problem!
+    log_in_forgot_password_message: Please enter your account's email address.
+    log_in_recover_password: Recover Password
+    log_in_redirect_message: Your original destination has been saved. Please log in to continue.			
+    check_all: Check All
+    additional_info: Additional Info
+    time_today: Today
+    time_this_week: This Week    
+    time_this_month: This Month
+    time_this_year: This Year
+    time_any: Any Time
+    recently_added: Recently Added
+    approval_required: Approval Required
+    system_activity: System Activity
+    not_found: Not Found
+    zoom_in: View Full Size
+  # Confirmations
+  confirm:
+    general: Are you sure you want to do this?
+    delete: Are you sure you want to delete this?
+    delete_user: Are you sure you want to delete this user? Everything this user has ever created will be deleted also! If you don't want this to happen, you could disable their account instead.
+    object_delete: Are you sure you want to delete this %{object}? 
+  # Settings
+  setting:
+    title:
+      site_title: Title of Your Site   
+      site_description: Site Description
+      site_keywords: Site Keywords      
+      locale: Language
+      display_item_views: Display Number of Item Views
+      caching: Page Caching
+      new_item_notification: Notify Admins of New Items
+      section_blog: Blog
+      allow_item_list_type_changes: Allow Item List Type Changes from the Public
+      include_child_category_items: Include Child Category Items
+      max_items_per_user: Maximum Items per User
+      email_verification_required: Email Verification Required for New Users
+      enable_item_description: Enable Item Description
+      display_featured_items: Display Featured Items
+      enable_navlinks: Enable NavLinks
+      item_approval_required: Approval Required
+      section_about: About
+      allow_page_comments: Allow Page Comments
+      enable_item_date: Enable Item Date
+      homepage_type: Homepage Type
+      allow_private_items: Allow Private Items
+      allow_user_registration: User Registration
+      item_name_plural: Plural Item Name
+      allow_public_access: Allow Public Access
+      enable_contact_us: Enable Contact Us Form
+      item_page_type: Item Page Type
+      let_users_create_items: Let Users Create Items
+      show_user_login: Display User Login
+      opal_version: Current Opal Version
+      display_help_sections: Display Help Sections
+      theme: Theme
+      setup_completed: "translation missing: en, setting, title, setup_completed"
+      display_popular_items: Display Most Popular Items
+      users_can_delete_items: Let Users Delete Their Items
+      item_name: Item Name
+      new_user_notification: Notify Admins of New Users
+      list_type: List Type
+      items_per_page: Items Per Page
+    description:
+      site_title: The Title of your Site. You would see this at the very top of your browser window.
+      site_description: The description for your site. Used in the title of your page(at the top of your browswer) and for search engine submission.
+      site_keywords: The Keywords Metatag for your site. Used for search engine submission. Seperated by commas.      
+      locale: The default language and time zone used by Opal. Users can also set their own unique locale.
+      display_item_views: Display the number of times an item has been viewed(visible on an item's page).
+      caching: This allows item pages to be cached to speed up performance. A flat file is stored on the server that visitors will see, instead of having the server generate a dynamic page every time.
+      new_item_notification: If enabled, all admins will be sent an email when a new item is created.
+      section_blog: Opal's Integrated Blog. If enabled, a blog link will show up in the main menu.
+      allow_item_list_type_changes: If enabled, this setting allows anyone(even the public) to change the Item list type that they see when visiting your Opal application. This only affects the visitor's browser.
+      include_child_category_items: If enabled, all Child Category Items will be included in lists and number counts for the Parent Category. Enabling this creates a small performance drop.
+      max_items_per_user: This specifies the maximum number of items a user can create. Set to 0 for unlimited.
+      email_verification_required: If enabled, new users must click on an verification link that is sent to their email account before they can log in.
+      enable_item_description: Enable/Disable Item Description from item details and lists of items.
+      display_featured_items: Display featured items on the homepage.
+      enable_navlinks: NavLinks are simple navigation links shown at the top of item and item list pages. They show information about which category an item or category is in, and more.
+      item_approval_required: Enable this if you want to approve items created by users before they can be seen by the public. All unapproved items can viewed in the admin section. If disabled, all items will become approved upon creation.
+      section_about: Opal's About Section. This section is designed to help people learn about your site. It displays public pages(you create), terms of service, and contact tools. If enabled, an <b>about</b> link will show up in the main menu.
+      allow_page_comments: If enabled, people can leave comments for pages.
+      enable_item_date: Enable/Disable Item Date from item details and lists of items. This shows the date that the item was created.
+      homepage_type: This is what is shown in main section of Opal's homepage.
+      allow_private_items: If enabled, users can create private items that aren't visible to the public or other users. Only the owner of the item and admins can see private items. If disabled, all items will become public upon creation.
+      allow_user_registration: This specifies if users can register for a new account.
+      item_name_plural: This is the <b>plural</b> name of the items on your site, so if you want to show people homes, this would be <b>homes</b>.
+      allow_public_access: If disabled, users must log in to access the site or any items. If enabled, anyone can view the site and items normally.
+      enable_contact_us: Enable/Disable The Contact Us Form in the About section.
+      item_page_type: This is the layout of each item's page.
+      let_users_create_items: If disabled, regular users cannot create items...only admins can.
+      show_user_login: This specifies if the user login box is visible on the top menu bar. If disabled, users can login at site.example.com/browse/login
+      opal_version: This is the current version you're running.
+      display_help_sections: Shows Help Sections in various parts of your site to help users and admins with Opal.
+      theme: This is the visual theme for the entire system
+      setup_completed: "translation missing: en, setting, description, setup_completed"
+      display_popular_items: Display the most popular items on the homepage.
+      users_can_delete_items: This allows users to delete items that they've created. If disabled, only admins can delete items.
+      item_name: This is the <b>singular</b> name of the items on your site, so if you want to show people homes, this would be <b>home</b>.
+      new_user_notification: If enabled, all admins will be sent an email when a new user registers.
+      list_type: The display format of your items.
+      items_per_page: This is the number of items to show per page.
+
+  # Other Stuff
+
+  # Pages
+  page:
+    title:
+      terms_of_service: Terms of Service 
+      contact_us: Contact Us
+    description:
+      terms_of_service: Terms of service.
+      contact_us: Get in touch with us.
+  # ActiveRecord Models & Validations
+  activerecord:
+    models:
+      user: User
+      user_info: Account Info
+      user_message: Message
+      user_verification: Verification Request
+      group: Group
+      category: Category
+      group_plugin_permission: Group Plugin Permission
+      image: System Image
+      log: Activity
+      page: Page
+      public_page: Public Page # psuedo model
+      system_page: System Page # psuedo model
+      blog_page: Blog Post # psuedo model
+      page_comment: Comment
+      plugin: Plugin  
+      plugin_comment: Comment
+      plugin_discussion: Discussion     
+      plugin_description: Description
+      plugin_feature: Feature
+      plugin_file: File
+      plugin_image: Image
+      plugin_link: Link
+      plugin_review: Review
+      plugin_tag: Tag
+      plugin_setting: Plugin Setting
+      setting: Setting            
+    attributes:
+      user:
+        username: Username
+        password: Password
+        password_confirmation: Confirm Password
+        first_name: First Name
+        last_name: Last Name
+        email: Email Address
+        created_at: Joined
+        is_admin: Admin?
+        locale: Language
+        last_login: Latest Login
+        last_login_ip: Latest Login IP Address
+        registered_ip: Registered IP Address
+        is_verified: Verified
+        is_enabled: Enabled
+      user_info:
+        location: My Location
+        description: More about Me
+        interests: My Interests
+        notify_of_new_messages: Email me when someone sends me a message
+        forgot_password_code: Password Recovery Code
+      user_message:
+        read: Read
+        unread: Unread      
+      group:
+        name: Name
+        description: Description
+        created_at: Created
+        updated_at: Last Updated
+      group_plugin_permission:
+        can_read: Read
+        can_create: Create
+        can_update: Update
+        can_delete: Delete
+        requires_approval: These actions require approval from owner 
+      category:
+        name: Name
+        description: Description
+        category_id: Parent Category
+        created_at: Created
+        categories: Subcategories
+      plugin:
+        title: Title
+        name: Name
+        description: Description
+        order_number: Order
+        is_enabled: Enabled?
+        is_builtin: Built In?
+        created_at: Creation Date
+        updated_at: Last Updated
+      item:
+        name: Name
+        description: Description
+        views: Views
+        created_at: Date Added
+        updated_at: Last Updated
+        user_id: Added by
+        featured: Featured
+        featured_description: If featured, this will be given special attention and shown on the homepage.        
+        locked: Locked
+        locked_description: If locked, no changes can be made to this.
+        is_public: Public
+        is_public_description: If this is public, it can be seen by others.
+        is_approved: Approved
+        is_approved_description: This must be approved to be seen by others.        
+      page: 
+        title: Title
+        description: Description
+        published: Published
+        page_id: Parent Page
+        created_at: Date Added
+        updated_at: Last Updated
+        user_id: Added by        
+        published_description: If this is published, it will be visible by others.
+      page_comment:
+        anonymous_name: Name
+        anonymous_email: Email
+        comment: Comment
+    errors: # you can find the list of validation error keys here: http://guides.rubyonrails.org/i18n.html 
+      template: 
+        header: 
+          one: "There's 1 thing wrong here." 
+          other: "Whoa, there's %{count} things wrong here." 
+        body: "There were problems with the following things:" 
+      models:
+        user:
+          blank: can't be blank!     
+      messages:
+        blank: can't be blank!     
+        confirmation: does not match confirmation!    
+        taken: is taken!
+        invalid: is in an invalid format!
+        too_short: is too short!
+        not_a_number: is not a number!
+        out_of_range: is out of range!
+        too_long: is too long!              
+  # Locales
+  locales:
+    en: English
+    ru: Russian (русский)
+  # Date & Times 
+  date:
+    formats:
+      # Use the strftime parameters for formats.
+      # When no format has been given, it uses default.
+      # You can provide other formats here if you like!
+      default: "%d-%m-%Y"
+      short: "%b %d"
+      long: "%B %d, %Y"  
+    day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
+    abbr_day_names: [Sun, Mon, Tue, Wed, Thu, Fri, Sat]
+      
+    # Don't forget the nil at the beginning; there's no such thing as a 0th month
+    month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
+    abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+    # Used in date_select and datime_select.
+    order: [ :year, :month, :day ]     
+  time:
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"   
+      short: "%b %d at %H:%M %p" 
+      long: "%b %d, %Y at %I:%M %p"
+      yesterday: "Yesterday at %I:%M %p"
+      weekday: "%a at %I:%M %p"
+      month_year: "%B %Y"    
+    am: "am"
+    pm: "pm" 
+  datetime:
+    distance_in_words:
+      half_a_minute: "half a minute"
+      less_than_x_seconds:
+        one: "less than 1 second"
+        other: "less than %{count} seconds"
+      x_seconds:
+        one: "1 second"
+        other: "%{count} seconds"
+      less_than_x_minutes:
+        one: "less than a minute"
+        other: "less than %{count} minutes"
+      x_minutes:
+        one: "1 minute"
+        other: "%{count} minutes"
+      about_x_hours:
+        one: "about 1 hour"
+        other: "about %{count} hours"
+      x_days:
+        one: "1 day"
+        other: "%{count} days"
+      about_x_months:
+        one: "about 1 month"
+        other: "about %{count} months"
+      x_months:
+        one: "1 month"
+        other: "%{count} months"
+      about_x_years:
+        one: "about 1 year"
+        other: "about %{count} years"
+      over_x_years:
+        one: "over 1 year"
+        other: "over %{count} years"
+      almost_x_years:
+        one: "almost 1 year"
+        other: "almost %{count} years"        
+        
+        
+

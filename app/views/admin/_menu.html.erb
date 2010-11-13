@@ -2,49 +2,27 @@
 	 <div style="display: block;">
 		 <ul id="tabmenu" >
 		   <li>
-		   		<a <% if params[:controller] == "admin" && params[:action] == "index" %>class="active"<% end %> href="/admin">
-					<img src="/themes/<%= @setting[:theme] %>/images/icons/admin.png" class="icon" > 				
-					admin home
-				</a>
+		   		<%= link_to icon("admin") + " " + t("section.title.admin").capitalize, {:action => "index", :controller => "admin"} , :class => (params[:controller] == "admin" || params[:action] == "all_items" ? "active" : "") %>		
 		   </li>
 		   <li>
-		   		<% num_of_categories = Category.count(:all, :select => "id") %>
-		   		<a <% if params[:controller] == "categories"%>class="active"<% end %> href="/categories">
-					<img src="/themes/<%= @setting[:theme] %>/images/icons/categories.png" class="icon" > 				
-					categories 
-				</a>
+		   		<%= link_to icon("categories") + " " + Category.human_name.pluralize, {:action => "index", :controller => "categories"} , :class => (params[:controller] == "categories" ? "active" : "") %>		
 			</li>
 
 		   <li>
-		   		<% num_of_users = User.count(:all, :select => "id") %>
-		   		<a <% if params[:controller] == "users" || params[:controller] == "groups" || params[:controller] == "messages" %>class="active"<% end %> href="/users">
-					<img src="/themes/<%= @setting[:theme] %>/images/icons/users.png" class="icon" > 				
-					users 
-				</a>
+		   		<%= link_to icon("users") + " " + User.human_name.pluralize, {:action => "index", :controller => "users"} , :class => (params[:controller] == "users" || params[:controller] == "groups" || params[:controller] == "messages" ? "active" : "") %>		
+
 		   </li>
 		   <li>
-		   		<a <% if params[:controller] == "pages"%>class="active"<% end %> href="/pages">
-					<img src="/themes/<%= @setting[:theme] %>/images/icons/pages.png" class="icon" > 				
-					pages 
-				</a>
+		   		<%= link_to icon("pages") + " " + Page.human_name.pluralize, {:action => "index", :controller => "pages"} , :class => (params[:controller] == "pages" ? "active" : "") %>		
 		   </li>
 		   	<li>
-		   		<a <% if params[:controller] == "tools" || params[:controller] == "logs" %>class="active"<% end %> href="/tools">
-					<img src="/themes/<%= @setting[:theme] %>/images/icons/tools.png" class="icon" > 				
-					tools
-				</a>
+		   		<%= link_to icon("tools") + " " + t("section.title.tools").capitalize, {:action => "index", :controller => "tools"} , :class => (params[:controller] == "tools" || params[:controller] == "logs" ? "active" : "") %>		
 			</li>		   					   
 		   <li>
-				<a <% if params[:controller] == "settings" || params[:controller] == "plugins" || params[:controller] == "plugin_features" %>class="active"<% end %> href="/settings">
-					<img src="/themes/<%= @setting[:theme] %>/images/icons/settings.png" class="icon" > 								
-					configure
-				</a>
+		   		<%= link_to icon("settings") + " " + t("section.title.configure").capitalize, {:action => "index", :controller => "settings"} , :class => (params[:controller] == "settings" || params[:controller] == "plugins" || params[:controller] == "plugin_features" ? "active" : "") %>		
 		   </li>
 		   <li>
-		   		<a class="special_tab"  href="/user">
-					<img src="/themes/<%= @setting[:theme] %>/images/icons/user.png" class="icon" > 						   			
-		   			my account
-				</a>
+				<%= link_to icon("home") + " " + t("section.title.my_account"), {:action => "index", :controller => "user"}  %>		
 		   </li>
 		 </ul>
 		 <div id="content">

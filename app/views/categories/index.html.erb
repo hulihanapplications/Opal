@@ -1,12 +1,21 @@
-<div class="plugin_box box_style_2"> 
-	<div class="title">
-		<% categories_size = Category.count(:all, :select => "id") %>
-		<a name="Categories"><%= categories_size %> Categories</a>
-			<a href="/categories/new" class="plugin_title_link">
-				<img src="/themes/<%= @setting[:theme] %>/images/icons/new.png" class="icon"  alt="New" title="New">
-				Add New Category
-			</a> 
+<div class="section">
+	<div class="header">					
+		<table style="width:100%;" >
+			<tr>
+				<td align=left>
+					<h2 class="title">
+						<a name="groups"><%= @categories.size %> <%= Category.human_name.pluralize %></a>
+					</h2>						
+				</td>
+				<td align=right >
+						<%= link_to icon("new") + " " + t("label.object_new", :object => Category.human_name), {:action => "new"} %>						
+				</td>
+			</tr>
+		</table>
 	</div>
+</div>	
+<div class="box_style_2"> 
+	<% @categories = Category.find(:all) %>
 	<% @category = nil %>
 	<div class="categories" align=left>
 		<% for category in Category.get_parent_categories %>

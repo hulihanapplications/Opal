@@ -1,5 +1,5 @@
 <h2 class="title">
-	 Activity for <%= @user.username %>
+	<%= t("label.objects_from", :objects => Log.human_name.pluralize, :name => @user.username) %>
 </h2>
 
 <%= render :partial => "logs/logs_page", :locals => {:logs => @logs} %>

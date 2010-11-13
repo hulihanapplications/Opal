@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
 
    def index
         @groups = Group.paginate :page => params[:page], :per_page => 25, :order => "name ASC"
-        @setting[:meta_title] = "Groups - Admin - "+ @setting[:meta_title]
+        @setting[:meta_title] = Group.human_name + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title]
    end
    
     def create
@@ -13,17 +13,13 @@ class GroupsController < ApplicationController
         @group.is_admin = "1" # Make group an admin 
       end
       if @group.save # save successful
-        flash[:notice] = "<div class=\"flash_success\">Group was successfully created.</div>"
-        
-        Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log => "Created the #{@group.name} group.")
+        flash[:success] = t("notice.object_create_success", :object => Group.human_name)        
+        Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log =>  t("log.object_create", :object => Group.human_name, :name => @group.name))
+        redirect_to :action => 'index'
       else
-        flash[:notice] = "<div class=\"flash_failure\">Group could not be created! Here's why.<br>"
-         @group.errors.each do |key,value|
-          flash[:notice] << "<b>#{key}</b>...#{value}</font><br>" #print out any errors!
-         end
-        flash[:notice] << "</div>"
+        flash[:failure] = t("notice.object_create_failure", :object => Group.human_name)
+        render :action => 'new'
       end
-      redirect_to :action => 'index'
     end
   
    
@@ -31,16 +27,13 @@ class GroupsController < ApplicationController
       @group = Group.find(params[:id])
       flash[:notice] = ""
       if @group.update_attributes(params[:group])
-        Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => "Updated the #{@group.name} group.")
-        flash[:notice] = "<div class=\"flash_success\">Group was successfully updated.</div>"
+        Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.object_save", :object => Group.human_name, :name => @group.name))
+        flash[:success] = t("notice.object_save_success", :object => Group.human_name)
+        redirect_to :action => "edit", :id => @group.id
       else
-        flash[:notice] = "<div class=\"flash_failure\">Group could not be updated!  Here's why.<br>"
-         @group.errors.each do |key,value|
-          flash[:notice] << "<b>#{key}</b>...#{value}</font><br>" #print out any errors!
-         end
-        flash[:notice] << "</div>"
+        flash[:failure] = t("notice.object_save_failure", :object => Group.human_name)
+        render :action => "edit"
       end
-      redirect_to :action => "edit", :id => @group.id
    end
 
    def update_plugin_permissions
@@ -65,24 +58,23 @@ class GroupsController < ApplicationController
             permissions_hash[:plugin_id] = key # set the plugin id      
             GroupPluginPermission.create(permissions_hash) # create the record
         end
-        Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log => "Changed the #{@group.name} group's plugin permissions.")
-        flash[:notice] = "<div class=\"flash_success\">Plugin Permissions updated!</div>"      
+        Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log => t("log.object_save", :object => GroupPluginPermission.human_name, :name => @group.name))
       end
-      
+      flash[:success] = t("notice.object_save_success", :object => GroupPluginPermission.human_name.pluralize)            
       redirect_to :action => "edit", :id => @group.id
    end  
   
    def delete 
      if params[:id].to_i == @logged_in_user.group_id.to_i
-       flash[:notice] = "<div class=\"flash_failure\">Sorry, You can't delete the your own group.</div>"
+       flash[:failure] = t("notice.delete_own_group_failure")
      else
        @group = Group.find(params[:id])
        if @group.is_deletable?
-         Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => "Deleted the #{@group.name}(#{@group.id}) group.")
-         flash[:notice] = "<div class=\"flash_success\">Group deleted!</div>"
+         Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.object_delete", :object => Group.human_name, :name => @group.name))
+         flash[:success] = t("notice.object_delete_success", :object => Group.human_name) 
          @group.destroy
        else
-         flash[:notice] = "<div class=\"flash_failure\">Sorry, This group cannot be deleted.</div>"         
+         flash[:failure] = t("notice.object_delete_failure", :object => Group.human_name)         
        end 
      end
      redirect_to :action => 'index'
@@ -95,6 +87,7 @@ class GroupsController < ApplicationController
   end
 
   def new
+    @group = Group.new
   end
 
 

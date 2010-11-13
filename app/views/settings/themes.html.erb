@@ -54,6 +54,9 @@
 					
 												<img src="/themes/<%= @setting[:theme] %>/images/icons/link.png" class="icon" alt="" >							
 												<a href="<%= h theme_file["theme"]["theme_website"] %>" target="_blank"><b>Theme Website</b></a>
+												<%= icon("public") %>
+												<%= link_to "Preview", {:action => params[:action], :theme => theme}, :target => "_blank"  %>
+												
 												<img src="/themes/<%= @setting[:theme] %>/images/icons/delete.png" class="icon" alt="" title="delete" >
 												<%= link_to "Delete", {:action => "delete_theme", :controller => "settings", :theme => theme}, :confirm => "Are you sure?" %>							
 								

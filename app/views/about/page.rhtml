@@ -7,7 +7,7 @@
   </td>
   <td align=left valign=top >
    <%= render :partial => "pages/header", :locals => {:page => @page} %>
-   <div>
+   <div class="page">
 		<%= show_page(@page) %>
    </div>
    <br><br>
@@ -24,7 +24,7 @@
 				<% if Setting.get_setting_bool("allow_page_comments")   %>   
 				   <div class="box_style_2" align=left id="comment_form">			
 						<h3 class="title">Leave A Comment</h3>
-					 	<% if !@setting[:allow_anonymous_comments] && @logged_in_user.id == 0 %>
+					 	<% if !@setting[:allow_anonymous_comments] && @logged_in_user.anonymous? %>
 							You must be logged in to leave a comment. 
 						<% else %>	
 							<%= form_tag  :action => 'create_page_comment', :controller => "pages", :id => @page.id  %>

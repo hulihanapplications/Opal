@@ -1,0 +1,9 @@
+<div align=left class="box_style_1" style="margin-bottom:5px">	  	
+	<h3 class="title">
+		<img src="/themes/<%= @setting[:theme] %>/images/icons/private.png" alt="" title="Information" class="icon"> 
+		Security Info
+	</h3>			
+	The following HTML elements are allowed here:
+	<%  html_whitelist = YAML::load(File.open(RAILS_ROOT + "/config/whitelist_html.yml")) # load html whitelist from file %>
+	<b><%= html_whitelist["elements"].join(", ") %>.</b>
+</div>	

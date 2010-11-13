@@ -1,4 +1,4 @@
-<h2 class="title">Popular <%= @setting[:item_name_plural] %></h2>
+<h2 class="title"><%= t("single.popular") %> <%= @setting[:item_name_plural] %></h2>
 <div class="spacer"></div>
 <% counter = 1 %>
 <table style="width:100%" cellpadding=0 cellspacing=1>		
@@ -7,12 +7,12 @@
 			<td align=left>
 				<h4>
 					<%= link_to item_thumbnail(item, :class => "pinky"), {:action => "view", :controller => "items", :id => item }, :title =>  h(item.name) %>
-					<%= counter%>. <b><%= link_to "#{h truncate(item.name, :length => 15)}", {:action => "view", :controller => "items", :id => item}, :title =>  h(item.name) %></b>
+					<%= counter%>. <b><%= link_to "#{h truncate(item.name, :length => 14)}", {:action => "view", :controller => "items", :id => item}, :title =>  h(item.name) %></b>
 				</h4>					
 			</td>
 			<td align=right style="width:80px;">
 				<div class="indent">
-					<i><%= item.views %> Views</i>
+					<i><%= item.views %> <%= Item.human_attribute_name(:views) %></i>
 				</div>					
 			</td>
 		</tr>

@@ -2,17 +2,17 @@
 	<h3 class="title" align=left>Pages</h3>
 	<div class="box_style_<%= params[:type] == "System" ? "1" : "2" %>" style="margin-bottom:5px;">
 		<img src="/themes/<%= @setting[:theme] %>/images/icons/pages.png" class="icon"> 				
-		<%= link_to "System Pages (#{Page.system_pages.size})", {:action => "index", :controller => "pages", :type => "System"} %>			
+		<%= link_to "#{t("activerecord.models.system_page").pluralize} (#{Page.system_pages.size})", {:action => "index", :controller => "pages", :type => "System"} %>			
 	</div>
 	
 	<div class="box_style_<%= params[:type] == "Public" ? "1" : "2" %>" style="margin-bottom:5px;">
 		<img src="/themes/<%= @setting[:theme] %>/images/icons/pages.png" class="icon"> 				
-		<%= link_to "Public Pages (#{Page.public_pages.size})", {:action => "index", :controller => "pages", :type => "Public"} %>				
+		<%= link_to "#{t("activerecord.models.public_page").pluralize} (#{Page.public_pages.size})", {:action => "index", :controller => "pages", :type => "Public"} %>				
 	</div>	
 
 	<div class="box_style_<%= params[:type] == "Blog" ? "1" : "2" %>" style="margin-bottom:5px;">
 		<img src="/themes/<%= @setting[:theme] %>/images/icons/pages.png" class="icon"> 				
-		<%= link_to "Blog Pages (#{Page.blog_pages.size})", {:action => "index", :controller => "pages", :type => "Blog"} %>				
+		<%= link_to "#{t("activerecord.models.blog_page").pluralize} (#{Page.blog_pages.size})", {:action => "index", :controller => "pages", :type => "Blog"} %>				
 	</div>	
 		
 </div>

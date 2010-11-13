@@ -5,7 +5,7 @@
     <% @class = cycle("row_a", "row_b") %>
     <tr class="<%= @class %>">
         <td align=left>
-            <h2><%= setting.title %></h2>
+            <h2><%= t("setting.title.#{setting.name}", :default => setting.title) %></h2>
         </td>
         <td align=right valign=middle>
         	<div align=right>
@@ -22,7 +22,12 @@
 							<% option = option.gsub(/ /,'') %>
 							<option value="<%= option %>" <%= "SELECTED" if option == setting.value %>><%= option %></option>
 						<% end %> 
-					</select>				
+					</select>
+			   <% elsif setting.item_type == "special" %>				
+					<%# Handle Special Settings %>
+					<% if setting.name == "locale" %>
+						<%= render :partial => "shared/select_locale", :locals => {:options => {:input_name => "setting[#{setting.name}]"}} %>
+					<% end%>									
 				<% else %>
 	            	<%= "Unknown setting type: #{setting.item_type}" %>
 	            <% end %>       		
@@ -32,7 +37,7 @@
     <tr class="<%= @class %>">
         <td colspan=2 align=left>
             <div class="setting_description">
-                <%= setting.description %>
+                <%= t("setting.description.#{setting.name}", :default => setting.description) %>
             </div>
         </td>
     </tr>

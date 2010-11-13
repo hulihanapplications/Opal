@@ -20,7 +20,7 @@ class ZeroThreeOne < ActiveRecord::Migration
     discussion_post = PluginDiscussionPost.create(:item_id => 1, :user_id => 1, :plugin_discussion_id => discussion.id, :post => "This is a test post.")
     
     # Create a new Log
-    Log.create(:log => "Opal 0.3.1 installed!", :log_type => "system")
+    Log.create(:log => "Opal installed!", :log_type => "system")
     
     # Create New User Info Atttribute
     add_column(:user_infos, :location, :string, :default => "") # add location attribute

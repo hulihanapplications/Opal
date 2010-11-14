@@ -11,36 +11,11 @@
 
 ActiveRecord::Schema.define(:version => 20100913052029) do
 
-  create_table "affiliate_codes", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "affiliate_signups", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "categories", :force => true do |t|
     t.string   "name"
     t.integer  "category_id", :default => 0
     t.string   "image_url"
     t.string   "description", :default => ""
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "forum_discussion_posts", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "forum_discussions", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "forums", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end

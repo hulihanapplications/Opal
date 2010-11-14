@@ -1,15 +1,7 @@
 class ZeroThreeTwo < ActiveRecord::Migration
   def self.up
-    # New Pages
-    Page.create(:title => "Website Top", :description => "Shown at the very very top of the website.", :page_type => "system", :content => "")
-    Page.create(:title => "Website Bottom", :description => "Shown at the very very bottom of the website.", :page_type => "system", :content => "")
-    Page.create(:title => "Category Column", :description => "This page appears below the category menu.", :page_type => "system", :content => "")
-    
     # Group IDs for users
-    add_column(:users, :group_id, :integer, :default => 2) 
-    
-
-
+    add_column(:users, :group_id, :integer, :default => 2)     
     
     # Create Groups
     public_group = Group.new(:name => "The Public", :description => "People visiting your site that aren't logged in.")

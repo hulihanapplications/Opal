@@ -25,10 +25,7 @@ class ZeroFiveZero < ActiveRecord::Migration
     
     # Make Features Listable(That show up in Item Lists)
      add_column :plugin_features, :listed, :bool, :default => true
-
-    # Create Email Footer Page
-    Page.create(:title => "Email Footer", :description => "This appears at the bottom of any automated email.", :page_type => "system", :content => "This is an automated email sent to you by #{Setting.get_setting("site_title")}. Please do not reply.")
-    
+   
     # Create New Option Type Setting, delimited by comma,
     add_column :settings, :options, :string, :default => nil
     Setting.reset_column_information
@@ -47,5 +44,16 @@ class ZeroFiveZero < ActiveRecord::Migration
   end
 
   def self.down
+    remove_column :plugin_features, :min
+    remove_column :plugin_features, :max
+    PluginFeature.reset_column_information
+    remove_column :items, :recent_views
+    Item.reset_column_information
+    remove_column :plugin_reviews, :vote_score
+    PluginReview.reset_column_information
+    remove_column :plugin_settings, :options
+    PluginSetting.reset_column_information
+    remove_column :settings, :options
+    Setting.reset_column_information
   end
 end

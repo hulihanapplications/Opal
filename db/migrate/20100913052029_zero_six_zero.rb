@@ -20,5 +20,7 @@ class ZeroSixZero < ActiveRecord::Migration
   end
 
   def self.down
+    remove_column :items, :locked
+    remove_column :users, :locale
   end
 end

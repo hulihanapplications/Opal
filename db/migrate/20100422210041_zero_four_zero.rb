@@ -28,9 +28,6 @@ class ZeroFourZero < ActiveRecord::Migration
    # Fix DB Typo for UserMessage.is_deletable
    remove_column(:user_messages, :is_deletables)
    add_column(:user_messages, :is_deletable, :bool, :default => true)   
-   
-   # Feature An Example Item
-   Item.find(:first).update_attribute(:featured, true)
   end
 
   def self.down

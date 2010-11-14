@@ -26,11 +26,7 @@ class ZeroTwoOneNewFeatures < ActiveRecord::Migration
     # Add a column for user's last login ip
     add_column :users, :last_login_ip, :string, :default => "0.0.0.0"        
     # Add a setting that enables/disables user verification emails
-    Setting.create(:name => "email_verification_required", :title => "Email Verification Required for New Users",  :value => "0", :setting_type => "User", :description => "If enabled, new users must click on an verification link that is sent to their email account before they can log in.", :item_type => "bool")
-     # Add a new page that will show when a user is creating a new item.
-    Page.create(:title => "New Item", :description => "This page appears when a User is creating a new item.", :page_type => "system", :content => "")
-
-    
+    Setting.create(:name => "email_verification_required", :title => "Email Verification Required for New Users",  :value => "0", :setting_type => "User", :description => "If enabled, new users must click on an verification link that is sent to their email account before they can log in.", :item_type => "bool")    
   end
 
   def self.down

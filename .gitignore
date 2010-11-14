@@ -9,10 +9,11 @@ config/database.yml
 config/email.yml
 
 # Don't Include Rails
-vendor/rails
+#vendor/rails
 
 # Master Graphics
 *_master.png
+*.ai
 
 # Only Include Public Themes
 !public/themes/white_square

@@ -67,7 +67,7 @@
 								   	<% if image.id == images[0].id %>									
 										<%#= "<img src=\"/themes/#{@setting[:theme]}/images/icons/success.png\" class=\"icon\"> " %> <b>Main Image</b>
 									<% else %>
-								   		<%= link_to "Set as Main #{plugin.title}", { :action => 'change_main_image', :controller => "plugin_#{plugin.title}s", :id => item.id, :image_id => image.id} %>									
+								   		<%= link_to "Set as Main #{plugin.title}", { :action => 'change_main_image', :controller => "plugin_images", :id => item.id, :image_id => image.id} %>									
 									<% end %>
 									</div>								
 								<% end %>															

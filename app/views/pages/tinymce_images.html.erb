@@ -21,7 +21,7 @@
 							<% for image in @images %>
 								<div class="image">
 								   <!--<a href="<%= h image.url %>"  title="<%= h image.description %>" rel="colorbox">-->
-								   <a href="javascript:ImageDialog.insertOpalImage('<%= image.url %>', '<%= image.description %>')" title="Insert this image">
+								   <a href="javascript:ImageDialog.insertOpalImage('<%= image.url %>', '<%= image.description %>')" title="<%= t("label.object_select", :object => Image.human_name) %>">
 											<img src="<%= h image.thumb_url %>" class="thumbnail"/>
 								   </a>
 								   <div class="box_style_2" style="margin-top:3px">

@@ -3,7 +3,7 @@
 		<% images_count = PluginImage.count(:all, :conditions => ["item_id = ? and is_approved = '1'", item.id], :order => "created_at ASC", :limit => 100) %>
 		<% if images_count > 0  %>
 			<img src="/themes/<%= @setting[:theme] %>/images/icons/image.png" class="icon"   title="" alt="">
-			<%= link_to "#{images_count} #{plugin.human_name.pluralize}", 		{:action => "view", :controller => "items", :id => item , :anchor => "#{plugin.human_name.pluralize}"}, :title => "This #{@setting[:item_name]} has #{images_count} #{plugin.human_name}." %>																								
+			<%= link_to "#{images_count} #{plugin.human_name.pluralize}", 		{:action => "view", :controller => "items", :id => item , :anchor => "#{plugin.human_name.pluralize}"}, :title => "" %>																								
 		<% end %>
 	</div>
 <% end %>

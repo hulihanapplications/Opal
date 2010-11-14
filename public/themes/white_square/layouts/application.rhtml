@@ -46,7 +46,7 @@
 
     <div class="main_inner_middle">
      <div id="main_content">
-     	 <% if flash[:notice] %><div class="flash_notice"><%= flash[:notice] %></div><% end %> 
+		 <%= render :partial => "shared/flash" %>
 		 <%= render :partial => "/browse/banner_top" %>
 		 <%= render :partial => "/user/menu" if @show_user_menu %>
 		 <%= render :partial => "/admin/menu" if @show_admin_menu %>		 

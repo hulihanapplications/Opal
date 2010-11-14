@@ -69,6 +69,7 @@ en:
     yes: Yes
     no: No
     notification: Notification
+    approved: Approved
   # Flash Messages & Notices
   notice:
     save_success: Your changes have been successfully saved!
@@ -174,6 +175,7 @@ en:
     object_delete: Delete %{object}
     object_new: New %{object}
     object_my: My %{object}
+    object_select: Select %{object}
     object_new_child: New Child %{object}
     object_send_to: Send %{object} to %{name}
     object_change: Change %{object}
@@ -187,6 +189,7 @@ en:
     objects_remaining: %{objects} remaining
     objects_found: %{count} %{objects} found.
     objects_latest: Latest %{objects}    
+    objects_none_added: No %{objects} have been added yet. 
     user_greeting: Hello, %{name}.
     user_by: by %{name}
     user_welcome_to_admin: Welcome to the Administration section, all powerful %{name}.
@@ -223,6 +226,7 @@ en:
     system_activity: System Activity
     not_found: Not Found
     zoom_in: View Full Size
+    toggle_editor: Turn Editor On/Off
   # Confirmations
   confirm:
     general: Are you sure you want to do this?
@@ -428,6 +432,9 @@ en:
         anonymous_name: Name
         anonymous_email: Email
         comment: Comment
+      plugin_review:
+        score: Score
+        average: Average
     errors: # you can find the list of validation error keys here: http://guides.rubyonrails.org/i18n.html 
       template: 
         header: 

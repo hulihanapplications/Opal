@@ -1,9 +1,9 @@
 xml.instruct! :xml, :version=>"1.0" 
 xml.rss(:version=>"2.0"){
   xml.channel  {
-    xml.title("#{@discussion.title} about #{@item.name} - #{@setting[:title]}")
+    xml.title("#{@item.name} #{PluginDiscussion.human_name}: #{@discussion.title} - #{t("label.objects_latest", :objects => PluginDiscussionPost.human_name.pluralize)} - #{@setting[:title]}")
     xml.link(url_for(:action => "view", :controller => "plugin_discussions", :id => @discussion.id, :only_path => false))
-    xml.description("Newest Posts to Discussion: #{@discussion.title} about #{@item.name} - #{@setting[:title]}" + " - " + @setting[:meta_description])
+    xml.description("#{@item.name}: #{@discussion.title} - #{@setting[:title]}" + " - " + @setting[:meta_description])
     xml.language("#{I18n.locale}")
     for post in @posts
       xml.item do

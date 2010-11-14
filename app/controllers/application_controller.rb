@@ -87,7 +87,7 @@ class ApplicationController < ActionController::Base
   
   def authenticate_admin
     if session[:user_id].nil? || @logged_in_user.anonymous? #There's definitely no user logged in(id 0 is public user)
-      flash[:failure] = t(:notice_failed_admin_access_attempt)
+      flash[:failure] = t("notice.failed_admin_access_attempt")
       session[:original_uri] = request.env["REQUEST_URI"] # store original request of where they wanted to go.
       Log.create(:log_type => "warning", :log => t("log.failed_admin_access_attempt_visitor", :ip => request.env["REMOTE_ADDR"], :controller => params[:controller], :action => params[:action]))     
       redirect_to :action => "login", :controller => "browse"
@@ -95,7 +95,7 @@ class ApplicationController < ActionController::Base
       if(@logged_in_user.is_admin?) # make sure user is an admin
         # Proceedr
       else # a non-admin is trying to do someting
-        flash[:failure] = t(:notice_failed_admin_access_attempt)
+        flash[:failure] = t("notice.failed_admin_access_attempt")
         Log.create(:log_type => "warning", :log => t("log.failed_admin_access_attempt_user", :username => @logged_in_user.username, :id => @logged_in_user.id, :controller => params[:controller], :action => params[:action]))        
         redirect_to :action => "index", :controller => "browse"
       end

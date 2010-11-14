@@ -1,12 +1,11 @@
 
 
 <p>
-<%= text_field 'description', 'title', :id => "form_title_box_#{description.id}", :onfocus => "focus_input('form_title_box_#{description.id}')", :onblur => "blur_input('form_title_box_#{description.id}')"%>
-Title		
+<%= text_field 'description', 'title', :id => "form_title_box_#{description.id}", :onfocus => "focus_input('form_title_box_#{description.id}')", :onblur => "blur_input('form_title_box_#{description.id}')"%>	
 </p>
 
 <div align=right>
-	<a href="javascript:toggleEditor('<%= "form_content_box_#{description.id}" %>');">Turn Editor On/Off</a>
+	<a href="javascript:toggleEditor('<%= "form_content_box_#{description.id}" %>');"><%= t("label.toggle_editor") %></a>
 </div> 
 <b><%= text_area 'description', 'content', :style => "width:100%;height:500px", :class => "mceEditor", :id => "form_content_box_#{description.id}",  :onfocus => "focus_input('form_content_box_#{description.id}')", :onblur => "blur_input('form_content_box_#{description.id}')" %></b></p>
 

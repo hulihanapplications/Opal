@@ -45,7 +45,7 @@
 			</div>
 			<div id="Upload">								   
 			  <% if @item %>
-	   			<%= form_tag ({:action => 'create', :controller => "plugin_#{@plugin.title}s", :id => @item.id, :tinymce => "true"} , :multipart => true) %>			 
+	   			<%= form_tag ({:action => 'create', :controller => "plugin_items", :id => @item.id, :tinymce => "true"} , :multipart => true) %>			 
 			  <% else %>			
 				<%= form_tag ({:action => 'upload_image', :controller => "pages"} , :multipart => true) %>
 			  <% end %>				

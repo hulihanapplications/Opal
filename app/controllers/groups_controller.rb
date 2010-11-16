@@ -13,11 +13,11 @@ class GroupsController < ApplicationController
         @group.is_admin = "1" # Make group an admin 
       end
       if @group.save # save successful
-        flash[:success] = t("notice.object_create_success", :object => Group.human_name)        
-        Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log =>  t("log.object_create", :object => Group.human_name, :name => @group.name))
+        flash[:success] = t("notice.item_create_success", :item => Group.human_name)        
+        Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log =>  t("log.item_create", :item => Group.human_name, :name => @group.name))
         redirect_to :action => 'index'
       else
-        flash[:failure] = t("notice.object_create_failure", :object => Group.human_name)
+        flash[:failure] = t("notice.item_create_failure", :item => Group.human_name)
         render :action => 'new'
       end
     end
@@ -27,11 +27,11 @@ class GroupsController < ApplicationController
       @group = Group.find(params[:id])
       flash[:notice] = ""
       if @group.update_attributes(params[:group])
-        Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.object_save", :object => Group.human_name, :name => @group.name))
-        flash[:success] = t("notice.object_save_success", :object => Group.human_name)
+        Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => Group.human_name, :name => @group.name))
+        flash[:success] = t("notice.item_save_success", :item => Group.human_name)
         redirect_to :action => "edit", :id => @group.id
       else
-        flash[:failure] = t("notice.object_save_failure", :object => Group.human_name)
+        flash[:failure] = t("notice.item_save_failure", :item => Group.human_name)
         render :action => "edit"
       end
    end
@@ -58,9 +58,9 @@ class GroupsController < ApplicationController
             permissions_hash[:plugin_id] = key # set the plugin id      
             GroupPluginPermission.create(permissions_hash) # create the record
         end
-        Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log => t("log.object_save", :object => GroupPluginPermission.human_name, :name => @group.name))
+        Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log => t("log.item_save", :item => GroupPluginPermission.human_name, :name => @group.name))
       end
-      flash[:success] = t("notice.object_save_success", :object => GroupPluginPermission.human_name.pluralize)            
+      flash[:success] = t("notice.item_save_success", :item => GroupPluginPermission.human_name.pluralize)            
       redirect_to :action => "edit", :id => @group.id
    end  
   
@@ -70,11 +70,11 @@ class GroupsController < ApplicationController
      else
        @group = Group.find(params[:id])
        if @group.is_deletable?
-         Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.object_delete", :object => Group.human_name, :name => @group.name))
-         flash[:success] = t("notice.object_delete_success", :object => Group.human_name) 
+         Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.item_delete", :item => Group.human_name, :name => @group.name))
+         flash[:success] = t("notice.item_delete_success", :item => Group.human_name) 
          @group.destroy
        else
-         flash[:failure] = t("notice.object_delete_failure", :object => Group.human_name)         
+         flash[:failure] = t("notice.item_delete_failure", :item => Group.human_name)         
        end 
      end
      redirect_to :action => 'index'

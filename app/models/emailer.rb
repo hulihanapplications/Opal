@@ -61,7 +61,7 @@ class Emailer < ActionMailer::Base
     @message = message
     @url = url
     @from = "#{@setting[:title]}<noreply@none.com>"
-    @subject = I18n.t("email.subject.object_new_from_user", :object => UserMessage.human_name, :from => @message.user_from.username, :name => "#{@message.user_from.first_name} #{@message.user_from.last_name}", :title => @setting[:title]) 
+    @subject = I18n.t("email.subject.item_new_from_user", :item => UserMessage.human_name, :from => @message.user_from.username, :name => "#{@message.user_from.first_name} #{@message.user_from.last_name}", :title => @setting[:title]) 
   end
   
   # Send User a password recovery email
@@ -72,7 +72,7 @@ class Emailer < ActionMailer::Base
     @user = user
     @url = url          
     @from = "#{@setting[:title]}<noreply@none.com>"
-    @subject = I18n.t("email.subject.object_new", :object => UserInfo.human_attribute_name(:forgot_password_code), :name => @user.username, :title => @setting[:title]) 
+    @subject = I18n.t("email.subject.item_new", :item => UserInfo.human_attribute_name(:forgot_password_code), :name => @user.username, :title => @setting[:title]) 
   end
 
   # Send New User Notification Email
@@ -83,7 +83,7 @@ class Emailer < ActionMailer::Base
     @user = user
     @url = url        
     @from = "#{@setting[:title]}<noreply@none.com>"
-    @subject = I18n.t("email.subject.object_new", :object => User.human_name, :name => @user.username + " (#{@user.first_name} #{@user.last_name})", :title => @setting[:title])
+    @subject = I18n.t("email.subject.item_new", :item => User.human_name, :name => @user.username + " (#{@user.first_name} #{@user.last_name})", :title => @setting[:title])
   end
   
   # Send New Item Notification Email 
@@ -94,7 +94,7 @@ class Emailer < ActionMailer::Base
     @item = item
     @url = url           
     @from = "#{@setting[:title]}<noreply@none.com>"
-    @subject = I18n.t("email.subject.object_new_from_user", :object => @setting[:item_name], :name => @item.name, :title => @setting[:title], :from => @item.user.username) 
+    @subject = I18n.t("email.subject.item_new_from_user", :item => @setting[:item_name], :name => @item.name, :title => @setting[:title], :from => @item.user.username) 
   end
   
   private 

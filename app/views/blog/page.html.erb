@@ -20,13 +20,13 @@
 		<% end %>
 		<% if Setting.get_setting_bool("allow_page_comments")   %>   
 		   <div class="box_style_2" align=left id="comment_form">			
-				<h3 class="title"><%= t("label.object_new", :object => PageComment.human_name) %></h3>
+				<h3 class="title"><%= t("label.item_new", :item => PageComment.human_name) %></h3>
 			 	<% if !@setting[:allow_anonymous_comments] && @logged_in_user.anonymous? %>
 					<%= t("notice.user_not_logged_in") %>
 				<% else %>	
 					<%= form_tag  :action => 'create_page_comment', :controller => "pages", :id => @page.id  %>
 					   	<%= render :partial =>  "pages/page_comment_form" %>
-						<input type="submit" value="<%= t("label.object_create", :object => PageComment.human_name) %>" class="button_1">
+						<input type="submit" value="<%= t("label.item_create", :item => PageComment.human_name) %>" class="button_1">
 					</form>				
 				<% end %>	
 		   </div>

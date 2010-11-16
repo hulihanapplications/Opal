@@ -18,11 +18,11 @@ class PluginDiscussionsController < ApplicationController
            
      @discussion.item_id = @item.id
      if @discussion.save
-      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.object_create", :object => @plugin.human_name, :name => "#{@disccussion.title}"))            
-      flash[:success] = t("notice.object_create_success", :object => @plugin.human_name)
-      flash[:success] += t("notice.object_needs_approval", :object => @plugin.human_name) if !@discussion.is_approved?
+      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => @plugin.human_name, :name => "#{@disccussion.title}"))            
+      flash[:success] = t("notice.item_create_success", :item => @plugin.human_name)
+      flash[:success] += t("notice.item_needs_approval", :item => @plugin.human_name) if !@discussion.is_approved?
      else # fail saved 
-      flash[:failure] = t("notice.object_create_failure", :object => @plugin.human_name)
+      flash[:failure] = t("notice.item_create_failure", :item => @plugin.human_name)
      end
    else # Improper Permissions  
         flash[:failure] = t("notice.invalid_permissions")            
@@ -34,10 +34,10 @@ class PluginDiscussionsController < ApplicationController
    if @my_group_plugin_permissions.can_delete? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?   
      @discussion = PluginDiscussion.find(params[:discussion_id])
      if @discussion.destroy
-       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => t("log.object_delete", :object => @plugin.human_name, :name => "#{@disccussion.title}")) 
-       flash[:success] = t("notice.object_delete_success", :object => @plugin.human_name)   
+       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => t("log.item_delete", :item => @plugin.human_name, :name => "#{@disccussion.title}")) 
+       flash[:success] = t("notice.item_delete_success", :item => @plugin.human_name)   
      else # fail saved 
-       flash[:failure] = t("notice.object_failure_success", :object => @plugin.human_name)    
+       flash[:failure] = t("notice.item_failure_success", :item => @plugin.human_name)    
      end
    else # Improper Permissions  
         flash[:failure] = t("notice.invalid_permissions")       
@@ -71,10 +71,10 @@ class PluginDiscussionsController < ApplicationController
        @post.item_id = @item.id 
        
        if @post.save
-         Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.object_create", :object => PluginDiscussionPost.human_name,  :name =>  "#{@post.plugin_disccussion.title} - " + truncate(@post.post, :length => 10)))                   
-         flash[:success] = t("notice.object_create_success", :object => PluginDiscussionPost.human_name) 
+         Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => PluginDiscussionPost.human_name,  :name =>  "#{@post.plugin_disccussion.title} - " + truncate(@post.post, :length => 10)))                   
+         flash[:success] = t("notice.item_create_success", :item => PluginDiscussionPost.human_name) 
        else # fail saved 
-        flash[:failure] = t("notice.object_create_failure", :object => PluginDiscussionPost.human_name)      
+        flash[:failure] = t("notice.item_create_failure", :item => PluginDiscussionPost.human_name)      
        end
        redirect_to :action => "view", :controller => "plugin_discussions", :id => @item, :discussion_id => @discussion.id, :anchor => @post.id
      else # Improper Permissions  
@@ -91,10 +91,10 @@ class PluginDiscussionsController < ApplicationController
     @post = PluginDiscussionPost.find(params[:post_id])
     @discussion = @post.plugin_discussion
     if @post.destroy
-       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => t("log.object_delete", :object => PluginDiscussionPost.human_name, :name => "#{@post.plugin_disccussion.title} - " + truncate(@post.post,:length =>  10)))                      
-       flash[:success] = t("notice.object_delete_success", :object => PluginDiscussionPost.human_name) 
+       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => t("log.item_delete", :item => PluginDiscussionPost.human_name, :name => "#{@post.plugin_disccussion.title} - " + truncate(@post.post,:length =>  10)))                      
+       flash[:success] = t("notice.item_delete_success", :item => PluginDiscussionPost.human_name) 
     else # delete failed 
-      flash[:failure] = t("notice.object_delete_failure", :object => PluginDiscussionPost.human_name)      
+      flash[:failure] = t("notice.item_delete_failure", :item => PluginDiscussionPost.human_name)      
     end
      redirect_to :action => "view", :controller => "plugin_discussions", :id => @item, :discussion_id => @discussion.id
    else # Improper Permissions  
@@ -122,17 +122,17 @@ class PluginDiscussionsController < ApplicationController
     @discussion = PluginDiscussion.find(params[:discussion_id])    
     if  @discussion.is_approved?
       approval = "0" # set to unapproved if approved already    
-      log_msg = t("log.object_unapprove", :object => @plugin.human_name, :name => @discussion.title)  
+      log_msg = t("log.item_unapprove", :item => @plugin.human_name, :name => @discussion.title)  
     else
       approval = "1" # set to approved if unapproved already    
-      log_msg = t("log.object_approve", :object => @plugin.human_name, :name => @discussion.title) 
+      log_msg = t("log.item_approve", :item => @plugin.human_name, :name => @discussion.title) 
     end
     
     if @discussion.update_attribute(:is_approved, approval)
       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => log_msg)      
-      flash[:success] = t("notice.object_approve_success", :object => @plugin.human_name) 
+      flash[:success] = t("notice.item_approve_success", :item => @plugin.human_name) 
     else
-      flash[:failure] = t("notice.object_save_failure", :object => @plugin.human_name) 
+      flash[:failure] = t("notice.item_save_failure", :item => @plugin.human_name) 
     end
     redirect_to :action => "view", :controller => "items", :id => @item
   end

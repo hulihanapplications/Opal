@@ -11,7 +11,7 @@
 				</td>
 				<% if !@logged_in_user.anonymous? %>				
 					<td align=right style="width:105px;vertical-align:middle">
-							<%= link_to icon("new") + " #{t("label.object_new", :object => @setting[:item_name])}", {:action => "new", :controller => "items"} %>						
+							<%= link_to icon("new") + " #{t("label.item_new", :item => @setting[:item_name])}", {:action => "new", :controller => "items"} %>						
 					</td>	
 				<% end %>											
 			</tr>			
@@ -20,7 +20,7 @@
 		<% for category in @category.child_categories %>
 			<%= descend_category(category, :include_children => @setting[:include_child_category_items], :show_item_count => true, :depth => 0)  %>
 		<% end %>			
-		<%=  t("notice.objects_not_found", :objects => Category.human_attribute_name(:categories)) if @category.child_categories.size == 0 %>
+		<%=  t("notice.items_not_found", :items => Category.human_attribute_name(:categories)) if @category.child_categories.size == 0 %>
 	<% else %>
 		<table cellpadding=0 cellspacing=0 style="width:100%">
 			<tr>
@@ -29,7 +29,7 @@
 				</td>
 				<% if !@logged_in_user.anonymous? %>
 					<td align=right style="width:105px;vertical-align:middle">							
-							<%= link_to icon("new") + " #{t("label.object_new", :object => @setting[:item_name])}", {:action => "new", :controller => "items"} %>						
+							<%= link_to icon("new") + " #{t("label.item_new", :item => @setting[:item_name])}", {:action => "new", :controller => "items"} %>						
 					</td>	
 				<% end %>												
 			</tr>			

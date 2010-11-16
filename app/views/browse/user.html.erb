@@ -11,7 +11,7 @@
 			   <hr>
 			   <div id="message_box">
 			   		<a href="javascript:toggle_box('message_form')">
-						<%= icon("mail") %> <%= t("label.object_send_to", :object =>  UserMessage.human_name, :name => h(@user.username)) %>
+						<%= icon("mail") %> <%= t("label.item_send_to", :item =>  UserMessage.human_name, :name => h(@user.username)) %>
 					</a>	
 			   </div>
 	
@@ -21,13 +21,13 @@
 			   		<h2 class="title" align=left><%= t("single.admin") %></h2>
 			   		<hr>
 					
-					<%= link_to icon("edit") + " " + t("label.object_edit", :object => User.human_name), {:controller => "users", :action => "edit", :id => @user}%>		   
+					<%= link_to icon("edit") + " " + t("label.item_edit", :item => User.human_name), {:controller => "users", :action => "edit", :id => @user}%>		   
 			   		<hr>					
 					<%= link_to icon("logs") + " " + Log.human_name.pluralize, {:controller => "logs", :action => "for_user", :id => @user, :anchor => "activity"}%>
 			   		<hr>
 					<%= link_to icon("mail") + " " + UserMessage.human_name.pluralize, {:controller => "messages", :action => "for_user", :id => @user}%>
 			   		<hr>
-					<%= link_to icon("delete") + " " + t("label.object_delete", :object => User.human_name), {:controller => "users", :action => "delete", :id => @user}, :confirm => t("confirm.delete_user")%>		   					
+					<%= link_to icon("delete") + " " + t("label.item_delete", :item => User.human_name), {:controller => "users", :action => "delete", :id => @user}, :confirm => t("confirm.delete_user")%>		   					
 				</div>								
 		    <% end %>
 		</td>
@@ -37,14 +37,14 @@
 				   		<% if !@logged_in_user.anonymous? %>
 				 			<div class="box_style_2" align=left>
 				 				<div id="send_message_notice"></div>
-				 				<h2 class="title"><%= t("label.object_send_to", :object =>  UserMessage.human_name, :name => h(@user.username)) %></h2>								   	
+				 				<h2 class="title"><%= t("label.item_send_to", :item =>  UserMessage.human_name, :name => h(@user.username)) %></h2>								   	
 					   			<%= form_remote_tag :update => "send_message_notice", :url => { :action => 'send_message', :controller => "messages", :id => @user.id} %>
 									<table style="width:100%">
 										<tr>
 											<td align=center><textarea  style="width:400px;" name="message" id="message" onfocus = "focus_input('message')" onblur = "blur_input('message')"></textarea></td>
 										</tr>
 										<tr>
-											<td align=center><input type="submit" value="<%= t("label.object_send_to", :object =>  UserMessage.human_name, :name => h(@user.username)) %>" class="button_2"></td>
+											<td align=center><input type="submit" value="<%= t("label.item_send_to", :item =>  UserMessage.human_name, :name => h(@user.username)) %>" class="button_2"></td>
 										</tr>
 									</table>	
 								</form>
@@ -77,7 +77,7 @@
 
 			
 			<div align=center>				
-				<h1 class="title"><%= t("label.objects_from", :objects =>  @setting[:item_name_plural], :name => h(@user.username)) %></h1>
+				<h1 class="title"><%= t("label.items_from", :items =>  @setting[:item_name_plural], :name => h(@user.username)) %></h1>
 				<%= page_entries_info @items, :entry_name => @setting[:item_name] %>				
 			</div>
 			<br>

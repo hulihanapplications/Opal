@@ -58,7 +58,7 @@ module ApplicationHelper
         end
       end
     else # user doesn't exist
-      return "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\" title=\"#{t("notice.object_not_found", :object => User.human_name)}\">"      
+      return "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\" title=\"#{t("notice.item_not_found", :item => User.human_name)}\">"      
     end     
   end 
 
@@ -193,7 +193,7 @@ module ApplicationHelper
           if options[:admin_controls] # show admin controls      
             html += "<td align=right class=\"icon_column\"><img src=\"/themes/#{@setting[:theme]}/images/icons/private.png\" class=\"icon help\" title=\"This is not published and cannot be seen by others.\"></td>" if !page.published                        
             html += "<td align=right class=\"icon_column\"><img src=\"/themes/#{@setting[:theme]}/images/icons/help.png\" class=\"icon help\" title=\"#{page.description}\"></td>" if page.description && page.description != ""            
-            html += "<td align=right class=\"icon_column\">" + link_to("<img src=\"/themes/#{@setting[:theme]}/images/icons/new.png\" class=\"icon\" title=\"#{t("label.object_new_child", :object => Page.human_name)}\">", {:action => "new", :controller => "pages", :id => page}, :class => "transparent") + "</td>" if page.is_public_page?              
+            html += "<td align=right class=\"icon_column\">" + link_to("<img src=\"/themes/#{@setting[:theme]}/images/icons/new.png\" class=\"icon\" title=\"#{t("label.item_new_child", :item => Page.human_name)}\">", {:action => "new", :controller => "pages", :id => page}, :class => "transparent") + "</td>" if page.is_public_page?              
             html += "<td align=right class=\"icon_column\">" + link_to("<img src=\"/themes/#{@setting[:theme]}/images/icons/edit.png\" class=\"icon\" title=\"Edit\">", {:action => "edit", :controller => "pages", :id => page}, :class => "transparent") + "</td>"
             html += "<td align=right class=\"icon_column\">" + link_to("<img src=\"/themes/#{@setting[:theme]}/images/icons/delete.png\" class=\"icon\" title=\"Delete\">", {:action => "delete", :controller => "pages", :id => page}, :confirm => "Are you sure you want to delete this?", :class => "transparent") + "</td>" if !page.is_system_page? 
           end  
@@ -247,7 +247,7 @@ module ApplicationHelper
           
           if options[:admin_controls] # show admin controls      
             html += "<td align=right class=\"icon_column\"><img src=\"/themes/#{@setting[:theme]}/images/icons/help.png\" class=\"icon help\" title=\"#{category.description}\"></td>" if category.description && category.description != ""            
-            html += "<td align=right class=\"icon_column\">" + link_to("<img src=\"/themes/#{@setting[:theme]}/images/icons/new.png\" class=\"icon\" title=\"#{t("label.object_new_child", :object => Page.human_name)}\">", {:action => "new", :controller => "categories", :id => category}, :class => "transparent") + "</td>"              
+            html += "<td align=right class=\"icon_column\">" + link_to("<img src=\"/themes/#{@setting[:theme]}/images/icons/new.png\" class=\"icon\" title=\"#{t("label.item_new_child", :item => Page.human_name)}\">", {:action => "new", :controller => "categories", :id => category}, :class => "transparent") + "</td>"              
             html += "<td align=right class=\"icon_column\">" + link_to("<img src=\"/themes/#{@setting[:theme]}/images/icons/edit.png\" class=\"icon\" title=\"Edit\">", {:action => "edit", :controller => "categories", :id => category}, :class => "transparent") + "</td>"
             html += "<td align=right class=\"icon_column\">" + link_to("<img src=\"/themes/#{@setting[:theme]}/images/icons/delete.png\" class=\"icon\" title=\"Delete\">", {:action => "delete", :controller => "categories", :id => category}, :confirm => "Are you sure you want to delete this category? All #{@setting[:item_name_plural]} in this category will be also be deleted.", :class => "transparent") + "</td>"
           end   
@@ -296,12 +296,12 @@ module ApplicationHelper
    return html 
  end
  
-  def print_errors(some_object_or_hash) # print out errors in a pretty format, takes a Object or plain Hash
+  def print_errors(some_item_or_hash) # print out errors in a pretty format, takes a Object or plain Hash
     msg = ""
-    if some_object_or_hash.class == Hash # load in errors from hash
-      errors = some_object_or_hash
+    if some_item_or_hash.class == Hash # load in errors from hash
+      errors = some_item_or_hash
     else # load in errors from object
-      errors = some_object_or_hash.errors
+      errors = some_item_or_hash.errors
     end
     errors.each do |key,value|
       msg << "<b>#{key}</b>...#{value}<br>" #print out any errors!

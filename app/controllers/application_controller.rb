@@ -133,11 +133,11 @@ class ApplicationController < ActionController::Base
     if params[:id] # is an item id set?    
       @item = Item.find(params[:id])
     else # no item id passed in
-      flash[:failure] = t("notice.object_not_found", :object => @setting[:item_name])
+      flash[:failure] = t("notice.item_not_found", :item => @setting[:item_name])
       redirect_to :action => "index", :controller => "user"
     end        
   rescue # catch any errors
-    flash[:failure] = t("notice.object_not_found", :object => @setting[:item_name])
+    flash[:failure] = t("notice.item_not_found", :item => @setting[:item_name])
     redirect_to :action => "index", :controller => "user"   
   end
   
@@ -149,7 +149,7 @@ class ApplicationController < ActionController::Base
     if @plugin.is_enabled? # check to see if the plugin is enabled
      # Proceed
     else # Plugin Disabled 
-     flash[:failure] = t("notice.objects_disabled", :objects => @plugin.human_name.pluralize)
+     flash[:failure] = t("notice.items_disabled", :items => @plugin.human_name.pluralize)
      if defined?(@item) # has an item already been looked up?
       redirect_to :action => "view", :controller => "items", :id => @item.id # redirect to item page
      else
@@ -157,7 +157,7 @@ class ApplicationController < ActionController::Base
      end  
     end
   rescue Exception => e  
-    flash[:failure] = t("notice.object_not_found", :object => @plugin.human_name.pluralize)
+    flash[:failure] = t("notice.item_not_found", :item => @plugin.human_name.pluralize)
   end
   
   def check_item_edit_permissions # check to see if the logged in user has permission to edit item

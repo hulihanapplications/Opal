@@ -11,12 +11,12 @@
 	  </td>
 	  <td align=left valign=top >
 		<div class="box_style_2" style="margin-bottom:5px">
-			<h2 class="title"><%= t("object_edit", :object => @plugin.human_name %></h2>
+			<h2 class="title"><%= t("item_edit", :item => @plugin.human_name %></h2>
 			<div class="spacer"></div>		
 			<%= form_tag  :action => 'create', :controller => "plugin_descriptions", :id => @item.id %>
 				<%= render :partial => "form", :locals => {:description => @description, :plugin => @plugin} %>
 				<br>
-				<div align=center><%= submit_tag t("single.create_object", :object => @plugin.human_name), :class => "button_1" %></div>
+				<div align=center><%= submit_tag t("single.create_item", :item => @plugin.human_name), :class => "button_1" %></div>
 			</form>
 			
 		</div>

@@ -21,15 +21,15 @@
 							<% for image in @images %>
 								<div class="image">
 								   <!--<a href="<%= h image.url %>"  title="<%= h image.description %>" rel="colorbox">-->
-								   <a href="javascript:ImageDialog.insertOpalImage('<%= image.url %>', '<%= image.description %>')" title="<%= t("label.object_select", :object => Image.human_name) %>">
+								   <a href="javascript:ImageDialog.insertOpalImage('<%= image.url %>', '<%= image.description %>')" title="<%= t("label.item_select", :item => Image.human_name) %>">
 											<img src="<%= h image.thumb_url %>" class="thumbnail"/>
 								   </a>
 								   <div class="box_style_2" style="margin-top:3px">
 										<%= link_to icon("zoom"), image.url, :target => "_blank", :title => t("label.zoom_in"), :class => "transparent" %>
 										<% if @item %>	
-											<%= link_to icon("delete"), { :action => 'delete', :controller => "plugin_images", :id => @item.id, :image_id => image.id, :tinymce => "true"}, :confirm => t("confirm.object_delete", :object => @plugin.human_name), :class => "transparent" %>																											   	
+											<%= link_to icon("delete"), { :action => 'delete', :controller => "plugin_images", :id => @item.id, :image_id => image.id, :tinymce => "true"}, :confirm => t("confirm.item_delete", :item => @plugin.human_name), :class => "transparent" %>																											   	
 										<% else %>
-											<%= link_to icon("delete"), { :action => 'delete_image', :controller => "pages", :id => image.id}, :confirm => t("confirm.object_delete", :object => @plugin.human_name), :class => "transparent" %>										
+											<%= link_to icon("delete"), { :action => 'delete_image', :controller => "pages", :id => image.id}, :confirm => t("confirm.item_delete", :item => @plugin.human_name), :class => "transparent" %>										
 										<% end %>										
 								   </div>									   							
 								</div>							
@@ -37,7 +37,7 @@
 							<div style="clear:both"></div>
 						<% else %>	
 							<div style="padding:5px;" align=center>												
-								<%= t("notice.objects_not_found", :objects => @plugin.human_name.pluralize) %>
+								<%= t("notice.items_not_found", :items => @plugin.human_name.pluralize) %>
 							</div>
 						<% end %>
 					</div>

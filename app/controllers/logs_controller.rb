@@ -44,10 +44,10 @@ class LogsController < ApplicationController
   def update
     log = Log.find(params[:id])    
     if log.update_attributes(params[:log])
-      flash[:success] = t("notice.object_save_success", :object => Log.human_name)
-      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log =>  t("log.object_save", :object => Log.human_name, :name => log.id))
+      flash[:success] = t("notice.item_save_success", :item => Log.human_name)
+      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log =>  t("log.item_save", :item => Log.human_name, :name => log.id))
      else
-      flash[:failure] = t("notice.object_save_failure", :object => Log.human_name)
+      flash[:failure] = t("notice.item_save_failure", :item => Log.human_name)
     end
     redirect_to :action => "index"
   end
@@ -62,10 +62,10 @@ class LogsController < ApplicationController
     end
     
     if log.save
-      flash[:success] = t("notice.object_create_success", :object => Log.human_name)
-      Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log =>  t("log.object_create", :object => Log.human_name, :name => log.id))        
+      flash[:success] = t("notice.item_create_success", :item => Log.human_name)
+      Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log =>  t("log.item_create", :item => Log.human_name, :name => log.id))        
      else
-      flash[:failure] = t("notice.object_create_failure", :object => Log.human_name)           
+      flash[:failure] = t("notice.item_create_failure", :item => Log.human_name)           
     end
     redirect_to :action => "index"
   end
@@ -73,10 +73,10 @@ class LogsController < ApplicationController
   def delete # deletes feature 
     log = Log.find(params[:id])    
     if log.destroy
-      flash[:success] = t("notice.object_delete_success", :object => Log.human_name)
-      Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log =>  t("log.object_delete", :object => Log.human_name, :name => log.id))                    
+      flash[:success] = t("notice.item_delete_success", :item => Log.human_name)
+      Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log =>  t("log.item_delete", :item => Log.human_name, :name => log.id))                    
     else
-      flash[:failure] = t("notice.object_delete_failure", :object => Log.human_name)    
+      flash[:failure] = t("notice.item_delete_failure", :item => Log.human_name)    
     end
     redirect_to :action => "index"
   end

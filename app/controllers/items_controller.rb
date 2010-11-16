@@ -61,7 +61,7 @@ class ItemsController < ApplicationController
         redirect_to :action => "index", :controller => "browse"
     end
     rescue ActiveRecord::RecordNotFound # the item doesn't exist
-        flash[:failure] = t("notice.object_not_found", :object => @setting[:item_name] + " #{(@item.id)}")
+        flash[:failure] = t("notice.item_not_found", :item => @setting[:item_name] + " #{(@item.id)}")
         redirect_to :action => "index", :controller => "browse"
   end
  
@@ -71,7 +71,7 @@ class ItemsController < ApplicationController
     @item.category_id = params[:id] if params[:id]
     @item.is_approved = "1" if @logged_in_user.is_admin? # check the is_approved checkbox 
     if !get_setting_bool("let_users_create_items") && !@logged_in_user.is_admin? # users can't create items and they user isn't an admin
-      flash[:failure] = t("notice.objects_cannot_add_any_more", :objects => @setting[:item_name_plural])      
+      flash[:failure] = t("notice.items_cannot_add_any_more", :items => @setting[:item_name_plural])      
       redirect_to :action => "index"
     end
   end  
@@ -95,15 +95,15 @@ class ItemsController < ApplicationController
         
         # Update Features
         num_of_features_updated = PluginFeature.create_values_for_item(:item => @item, :features => params[:features], :user => @logged_in_user, :delete_existing => true, :approve => true)  
-        Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log =>  t("log.object_save", :object => @setting[:item_name], :name => @item.name))                    
-        flash[:success] = t("notice.object_save_success", :object => @setting[:item_name])
+        Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log =>  t("log.item_save", :item => @setting[:item_name], :name => @item.name))                    
+        flash[:success] = t("notice.item_save_success", :item => @setting[:item_name])
         redirect_to :action => "edit" , :id => @item        
       else #
-        flash[:failure] = t("notice.object_save_failure", :object => @setting[:item_name])
+        flash[:failure] = t("notice.item_save_failure", :item => @setting[:item_name])
         render :action => "edit"
       end
     else # failed adding required features
-      flash[:failure] = t("notice.object_save_failure", :object => @setting[:item_name])
+      flash[:failure] = t("notice.item_save_failure", :item => @setting[:item_name])
       render :action => "edit"
     end    
     
@@ -121,7 +121,7 @@ class ItemsController < ApplicationController
         if users_items < max_items # they can add more
           # do nothing, proceed 
         else # they can't add any more items
-          flash[:failure] = t("notice.objects_cannot_add_any_more", :objects => @setting[:item_name_plural]) 
+          flash[:failure] = t("notice.items_cannot_add_any_more", :items => @setting[:item_name_plural]) 
           proceed = false
         end
       end
@@ -134,7 +134,7 @@ class ItemsController < ApplicationController
     if (@logged_in_user.is_admin? && params[:item][:is_approved]) || (!@logged_in_user.is_admin? && !get_setting_bool("item_approval_required"))   
       @item.is_approved = "1" # make approved if admin or if item approval isn't required
     else # this item is unapproved
-       flash[:notice] = t("notice.object_needs_approval", :object => @setting[:item_name])    
+       flash[:notice] = t("notice.item_needs_approval", :item => @setting[:item_name])    
     end 
 
    params[:item][:category_id] ||= Category.find(:first).id # assign the first category's id if not selected.
@@ -144,20 +144,20 @@ class ItemsController < ApplicationController
     if @feature_errors.size == 0 # make sure there's not required feature errors
       # make sure there's no feature errors
        if @item.save # item creation failed
-         Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.object_create", :object => @setting[:item_name], :name => @item.name))
+         Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => @setting[:item_name], :name => @item.name))
   
          # Create Features
          num_of_features_updated = PluginFeature.create_values_for_item(:item => @item, :features => params[:features], :user => @logged_in_user, :delete_existing => true, :approve => true)
    
          Emailer.deliver_new_item_notification(@item, url_for(:action => "view", :controller => "items", :id => @item)) if Setting.get_setting_bool("new_item_notification")
-         flash[:success] = t("notice.object_create_success", :object => @setting[:item_name])
+         flash[:success] = t("notice.item_create_success", :item => @setting[:item_name])
          redirect_to :action => "view", :controller => "items", :id => @item
        else
-          flash[:failure] = t("notice.object_create_failure", :object => @setting[:item_name])
+          flash[:failure] = t("notice.item_create_failure", :item => @setting[:item_name])
           render :action => "new"
       end
     else # failed adding required features
-      flash[:failure] = t("notice.object_create_failure", :object => @setting[:item_name])
+      flash[:failure] = t("notice.item_create_failure", :item => @setting[:item_name])
       render :action => "new"
     end      
    else # they aren't allowed to add item
@@ -169,9 +169,9 @@ class ItemsController < ApplicationController
   def delete
    @item = Item.find(params[:id])
    if @item.is_deletable_for_user?(@logged_in_user)
-     Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => t("log.object_delete", :object => @setting[:item_name], :name => @item.name))     
+     Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => t("log.item_delete", :item => @setting[:item_name], :name => @item.name))     
      @item.destroy
-     flash[:success] = t("notice.object_delete_success", :object => @setting[:item_name])
+     flash[:success] = t("notice.item_delete_success", :item => @setting[:item_name])
    else # The user can't delete this item
      flash[:failure] = t("notice.invalid_permissions")
    end 

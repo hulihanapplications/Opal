@@ -7,7 +7,7 @@
 				<td align=right>
 					<% if @logged_in_user.is_admin? %>
 						<img src="/themes/<%= @setting[:theme] %>/images/icons/new.png" alt="New" title="New" border=0 class="icon">
-						<%= link_to t("label.object_new", :object => Page.human_name), {:action => "new", :controller => "pages", :type => "Public"} %>
+						<%= link_to t("label.item_new", :item => Page.human_name), {:action => "new", :controller => "pages", :type => "Public"} %>
 					<% end %>
 				</td>
 			</tr>

@@ -16,7 +16,7 @@ class PluginsController < ApplicationController
     params[:sortable_list].each_with_index do |id, position|
       plugin = Plugin.update(id, :order_number => position)
     end
-     Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.object_save", :object => Plugin.human_name, :name => Plugin.human_attribute_name(:order_number)))                                                 
+     Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_save", :item => Plugin.human_name, :name => Plugin.human_attribute_name(:order_number)))                                                 
      render :text => "<div class=\"flash_success\">#{t("notice.save_success")}</div>"
    end 
    
@@ -25,10 +25,10 @@ class PluginsController < ApplicationController
       plugin = Plugin.find(params[:id])
       if plugin.is_enabled == "1"
         plugin.is_enabled = "0"
-        msg = t("log.object_disable", :object => plugin.human_name.pluralize, :name => plugin.human_name) 
+        msg = t("log.item_disable", :item => plugin.human_name.pluralize, :name => plugin.human_name) 
       elsif plugin.is_enabled == "0"
         plugin.is_enabled = "1"
-        msg = t("log.object_enable", :object => plugin.human_name.pluralize, :name => plugin.human_name) 
+        msg = t("log.item_enable", :item => plugin.human_name.pluralize, :name => plugin.human_name) 
       end
       plugin.save
       Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => msg)                                              
@@ -41,10 +41,10 @@ class PluginsController < ApplicationController
       @setting = PluginSetting.find(:first, :conditions => ["name = ?", name]) 
       if @setting.value != value # the value of the setting has changed
        if @setting.update_attribute("value", value) # update the setting
-        flash[:success] << t("notice.object_save_success", :object => PluginSetting.human_name + ": #{@setting.title}")
-        Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.object_save", :object => PluginSetting.human_name, :name => @setting.title))                                                 
+        flash[:success] << t("notice.item_save_success", :item => PluginSetting.human_name + ": #{@setting.title}")
+        Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_save", :item => PluginSetting.human_name, :name => @setting.title))                                                 
        else # the setting failed saving 
-        flash[:failure] << t("notice.object_save_failure", :object => PluginSetting.human_name + ": #{@setting.title}")
+        flash[:failure] << t("notice.item_save_failure", :item => PluginSetting.human_name + ": #{@setting.title}")
        end
       else # show that the setting hasn't changed
        #flash[:notice] << "<font color=grey>The Setting(#{name}) has not changed.<br></font>"
@@ -59,7 +59,7 @@ class PluginsController < ApplicationController
       log_msg = "Plugin Title changed from #{item.title} to #{params[:plugin_title]}"
       item.update_attribute(:title, params[:plugin_title])
       Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => log_msg)                                                   
-      render :text => "<h2>#{item.human_name.pluralize} <font size=1><a href=\"javascript:replace_box('plugin_title_#{item.id}','edit_plugin_title_#{item.id}')\">(#{t("label.object_edit", :object => Plugin.human_attribute_name(:title))})</a></font></h2>"
+      render :text => "<h2>#{item.human_name.pluralize} <font size=1><a href=\"javascript:replace_box('plugin_title_#{item.id}','edit_plugin_title_#{item.id}')\">(#{t("label.item_edit", :item => Plugin.human_attribute_name(:title))})</a></font></h2>"
       #render :text => "#{item.title}"
     end
     
@@ -85,16 +85,16 @@ class PluginsController < ApplicationController
               FileUtils.mkdir_p(File.dirname(File.join(RAILS_ROOT, file))) if !File.exists?(File.dirname(File.join(RAILS_ROOT, file))) # create directory if it doesn't exist
               FileUtils.cp_r(File.join(unzipped_plugin_dir, file), File.join(RAILS_ROOT, file)) # install file
             end
-            flash[:success] = t("notice.object_install_success", :object => Plugin.human_name) 
-            Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("notice.object_install", :object => Plugin.human_name, :name => plugin.human_name) # log it
+            flash[:success] = t("notice.item_install_success", :item => Plugin.human_name) 
+            Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("notice.item_install", :item => Plugin.human_name, :name => plugin.human_name) # log it
           else 
-            flash[:failure] = t("notice.object_install_failure", :object => Plugin.human_name)                             
+            flash[:failure] = t("notice.item_install_failure", :item => Plugin.human_name)                             
           end        
         else # no plugin model .rb file found 
           flash[:failure] = t("notice.file_not_found", :file => plugin_model_path) 
         end
       else # bad file extension
-        flash[:failure] = t("notice.object_install_failure", :object => Plugin.human_name) #"#{File.basename(zipfile.path)} upload failed! Please make sure that this is a zip file, and that it ends in .zip or .ZIP "           
+        flash[:failure] = t("notice.item_install_failure", :item => Plugin.human_name) #"#{File.basename(zipfile.path)} upload failed! Please make sure that this is a zip file, and that it ends in .zip or .ZIP "           
       end 
       redirect_to :action => "index"   
     ensure
@@ -110,10 +110,10 @@ class PluginsController < ApplicationController
           for file in plugin.files # uninstall files 
             FileUtils.rm_rf(File.join(RAILS_ROOT, file)) if File.exists?(File.join(RAILS_ROOT, file)) # uninstall file
           end         
-          flash[:success] = t("notice.object_uninstall_success", :object => Plugin.human_name)
-          Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("notice.object_uninstall", :object => Plugin.human_name, :name => plugin.human_name) # log it
+          flash[:success] = t("notice.item_uninstall_success", :item => Plugin.human_name)
+          Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("notice.item_uninstall", :item => Plugin.human_name, :name => plugin.human_name) # log it
         else 
-          flash[:success] = t("notice.object_uninstall_failure", :object => Plugin.human_name)
+          flash[:success] = t("notice.item_uninstall_failure", :item => Plugin.human_name)
         end
       else # trying to unistall builtin plugin
         flash[:failure] = t("notice.invalid_permissions")                  

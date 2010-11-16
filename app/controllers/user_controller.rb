@@ -135,7 +135,7 @@ def change_password
   if request.post?
     @user = @logged_in_user    
     if @user.update_attributes(:password => params[:user][:password], :password_confirmation => params[:user][:password_confirmation])
-      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log =>  t("log.user_account_object_save", :object => User.human_attribute_name(:password)))
+      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log =>  t("log.user_account_item_save", :item => User.human_attribute_name(:password)))
       flash[:success] = t("notice.save_success")
       redirect_to :action => "settings"
     else # save failed
@@ -162,13 +162,13 @@ end
        image = Magick::Image.from_blob(params[:file].read).first    # read in image binary
        image.crop_resized!( 100, 100 ) # Resize image
        image.write("#{file_dir}/#{@user.id.to_s}.png") # write the file
-        Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log =>  t("log.user_account_object_save", :object => t("single.avatar")))                                                   
+        Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log =>  t("log.user_account_item_save", :item => t("single.avatar")))                                                   
        flash[:success] = t("notice.save_success")     
       else
-       flash[:failure] = t("notice.invalid_file_extensions", :object => Image.human_name, :acceptable_file_extensions => acceptable_file_extensions)      
+       flash[:failure] = t("notice.invalid_file_extensions", :item => Image.human_name, :acceptable_file_extensions => acceptable_file_extensions)      
       end
      else # they didn't select an image
-       flash[:failure] = t("notice.object_forgot_to_select", :object => Image.human_name)      
+       flash[:failure] = t("notice.item_forgot_to_select", :item => Image.human_name)      
      end
    end
 
@@ -182,7 +182,7 @@ end
      params[:user][:username] = @user.username # make username unchangeable
      params[:user][:email] = @user.email # make email unchangeable
      if @user.user_info.update_attributes(params[:user_info]) && @user.update_attributes(params[:user])       
-       Log.create(:user_id => @logged_in_user.id, :log_type => "update",  :log =>  t("log.user_account_object_save", :object => UserInfo.human_name))                                              
+       Log.create(:user_id => @logged_in_user.id, :log_type => "update",  :log =>  t("log.user_account_item_save", :item => UserInfo.human_name))                                              
        flash[:success] = t("notice.save_success")
        redirect_to :action => "settings"  
      else 
@@ -210,7 +210,7 @@ end
         flash[:success] = t("notice.user_account_recover_password_instructions")
       end
     else  # user not found
-      flash[:failure] = t("notice.object_not_found", :object => User.human_name)
+      flash[:failure] = t("notice.item_not_found", :item => User.human_name)
     end
     redirect_to :action => "login", :controller => "browse"
   end
@@ -221,11 +221,11 @@ end
        @user.user_info.update_attribute(:forgot_password_code, nil) # reset password recovery code
        new_password = UserInfo.generate_password
        if @user.update_attribute(:password, new_password) # reset password
-         Log.create(:user_id => @user.id, :log_type => "system", :log =>  t("log.object_recover", :object => User.human_attribute_name(:password)))
+         Log.create(:user_id => @user.id, :log_type => "system", :log =>  t("log.item_recover", :item => User.human_attribute_name(:password)))
          flash[:success] =  t("notice.user_account_recover_password_success", :new_password => new_password)
        end
     else
-      flash[:failure] = t("notice.object_invalid", :object => UserInfo.human_attribute_name(:forgot_password_code))     
+      flash[:failure] = t("notice.item_invalid", :item => UserInfo.human_attribute_name(:forgot_password_code))     
     end
     redirect_to :action => "login", :controller => "browse"    
   end

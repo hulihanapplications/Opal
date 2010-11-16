@@ -61,10 +61,9 @@
 			</div>
 		<% end %>
 		
-		<div align=center style="margin-top:10px;">
-			<img src="/themes/<%= @setting[:theme] %>/images/icons/arrow_left.png" class="icon" title="Back">
-			<%= link_to t("single.back"), { :action => 'index'}  %>	 
-		</div>
+			<div align=center style="margin-top:10px;">
+				<%= link_to icon("arrow_left") + " " + t("single.back"), :back %>
+			</div>
 	  </td> 
 	 </tr>
 </table>		

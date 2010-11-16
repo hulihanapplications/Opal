@@ -1,10 +1,10 @@
 <div class="box_style_2" align=center>
-    <h2 class="title"><%= t("label.object_edit", :object => Category.human_name) %></h2><br>
+    <h2 class="title"><%= t("label.item_edit", :item => Category.human_name) %></h2><br>
     <% form_for(@category, :url => { :action => 'update', :controller => "categories", :id => @category.id }, :method => "post") do |f| %>
 		<%= render :partial => "form", :locals => {:category => @category, :f => f } %>
 		<br>
 		<div align=center>	
-			<%= f.submit t("label.object_save", :object => Category.human_name), :class => "button_1" %>
+			<%= f.submit t("label.item_save", :item => Category.human_name), :class => "button_1" %>
 		</div>
    <% end %>
 </div>

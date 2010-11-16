@@ -15,10 +15,10 @@
 								</div>
 								<div>
 									<% if item.is_editable_for_user?(@logged_in_user) %>
-										<%= link_to icon("edit"), {:action => "edit", :controller => "items", :id => item}, :title => t("label.object_edit", :object => @setting[:item_name]) %>
+										<%= link_to icon("edit"), {:action => "edit", :controller => "items", :id => item}, :title => t("label.item_edit", :item => @setting[:item_name]) %>
 									<% end %>
 									<% if item.is_deletable_for_user?(@logged_in_user) %>
-										<%= link_to icon("delete"), {:action => "delete", :controller => "items", :id => item}, :title => t("label.object_delete", :object => @setting[:item_name]), :confirm => t("confirm.object_delete", :object => @setting[:item_name]) %>
+										<%= link_to icon("delete"), {:action => "delete", :controller => "items", :id => item}, :title => t("label.item_delete", :item => @setting[:item_name]), :confirm => t("confirm.item_delete", :item => @setting[:item_name]) %>
 									<% end %>									
 								</div>
 								

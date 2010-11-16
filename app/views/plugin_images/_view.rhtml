@@ -29,19 +29,19 @@
 				<% if my_group_plugin_permissions[plugin.id].can_create? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
 					<a href="javascript:toggle_box('new_image_box')" class="plugin_title_link">
 						<%= icon("new") %>
-						<%=  t("label.object_new", :object => plugin.human_name) %>
+						<%=  t("label.item_new", :item => plugin.human_name) %>
 					</a>
 				<% end %>
 			</div>
 			<% if my_group_plugin_permissions[plugin.id].can_create? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
 				<div style="display:none" id="new_image_box" class="box_style_1">
-				      <h2><%=  t("label.object_new", :object => plugin.human_name) %></h2>
+				      <h2><%=  t("label.item_new", :item => plugin.human_name) %></h2>
 					   <div>
 	   					   <%= form_tag ({:action => 'create', :controller => "plugin_#{plugin.human_name.pluralize}", :id => item.id} , :multipart => true) %>
 							   <%= render :partial => "shared/image_upload_form" %>
 							   <br>
 							   <div align=center>
-							   		<%= submit_tag  t("label.object_create", :object => plugin.human_name, :class => "button_1") %>
+							   		<%= submit_tag  t("label.item_create", :item => plugin.human_name, :class => "button_1") %>
 							   </div>
 						   </form>
 						 </div>
@@ -75,12 +75,12 @@
 								<% end %>															
 								<% if my_group_plugin_permissions[plugin.id].can_delete? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
 								   <div class="box_style_2" style="margin-bottom:5px">
-										<%= link_to icon("delete"), { :action => 'delete', :controller => "plugin_images", :id => item.id, :image_id => image.id}, :confirm => t("confirm.object_delete", :object => plugin.human_name) %>
+										<%= link_to icon("delete"), { :action => 'delete', :controller => "plugin_images", :id => item.id, :image_id => image.id}, :confirm => t("confirm.item_delete", :item => plugin.human_name) %>
 										<% if @item.is_editable_for_user?(@logged_in_user)  %>
 											<span class="box_style_2" style="padding:2px;">									
 									 			<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/approved.png\" title=\"#{t("single.approved")}\" class=\"icon\">" if image.is_approved? %> 										
 									 			<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/unapproved.png\" title=\"#{t("single.not")} #{t("single.approved")}.\" class=\"icon\">" if !image.is_approved? %> 																							
-												<%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/cycle.png\" class=\"icon\">", {:action => "change_approval", :id => item.id, :image_id => image.id, :controller => "plugin_images"}, :confirm => t("confirm.general"), :title => "#{t("label.object_change", :object => "")}", :class => "transparent" %>
+												<%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/cycle.png\" class=\"icon\">", {:action => "change_approval", :id => item.id, :image_id => image.id, :controller => "plugin_images"}, :confirm => t("confirm.general"), :title => "#{t("label.item_change", :item => "")}", :class => "transparent" %>
 											</span>												
 										<% end %>																							   
 								   </div>									   							
@@ -92,7 +92,7 @@
 	
 		<% else %>
 			<% if options[:show_none_found] %>
-					<%= t("notice.objects_none_added", :objects => plugin.human_name.pluralize) %>
+					<%= t("notice.items_none_added", :items => plugin.human_name.pluralize) %>
 			<% end %>
 		<% end %>
 </div>

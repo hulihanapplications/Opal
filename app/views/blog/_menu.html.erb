@@ -7,7 +7,7 @@
 				<h2 class="title"><%= t("single.archive") %></h2>
 			</td>
 			<td align=right>				
-				<%= link_to "#{icon("new")} #{t("label.object_new", :object => t("activerecord.models.blog_page"))}", {:action => "new", :controller => "pages", :type => "Blog"} if @logged_in_user.is_admin?  %>				
+				<%= link_to "#{icon("new")} #{t("label.item_new", :item => t("activerecord.models.blog_page"))}", {:action => "new", :controller => "pages", :type => "Blog"} if @logged_in_user.is_admin?  %>				
 			</td>
 		</tr>
 	</table>

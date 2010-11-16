@@ -1,4 +1,4 @@
-# Schema: group by category(log, notice, etc.), use interpolation(ie: %{object}), anything from user perspective(ie: "My Account") should be labeled: user_account, all verbs must not use any tense(created_account = bad, create_account = good). 
+# Schema: group by category(log, notice, etc.), use interpolation(ie: %{item}), anything from user perspective(ie: "My Account") should be labeled: user_account, all verbs must not use any tense(created_account = bad, create_account = good). 
 en:
   greeting: Hello %{name}! # call with t(:greeting, :name => "John")
   # Sections
@@ -74,26 +74,26 @@ en:
   notice:
     save_success: Your changes have been successfully saved!
     save_failure: Your changes could not be saved!
-    object_save_success: This %{object} has been saved!
-    object_save_failure: This %{object} could not be saved.
-    object_create_success: %{object} created!
-    object_create_failure: %{object} could not be created.    
-    object_delete_success: %{object} deleted!
-    object_delete_failure: %{object} could not be deleted.
-    object_install_success: %{object} installed!
-    object_install_failure: This %{object} could not be installed. 
-    object_uninstall_success: %{object} uninstalled!
-    object_uninstall_failure: This %{object} could not be uninstalled.
-    object_approve_success: This %{object} has been approved. Thanks!
-    object_unapprove_success: This %{object} has been marked as unapproved.
-    object_import_success: %{count} %{objects} imported successfully.
-    object_forgot_to_select: You forgot to select the %{object}.
-    object_not_found: %{object} not found.
-    object_needs_approval: This %{object} still needs to be approved.
-    objects_disabled: Sorry, %{objects} are not enabled.
-    objects_cannot_add_any_more: You can't add any more %{objects}.
-    objects_not_found: No %{objects} found.
-    object_invalid: Sorry, this %{object} is invalid.
+    item_save_success: This %{item} has been saved!
+    item_save_failure: This %{item} could not be saved.
+    item_create_success: %{item} created!
+    item_create_failure: %{item} could not be created.    
+    item_delete_success: %{item} deleted!
+    item_delete_failure: %{item} could not be deleted.
+    item_install_success: %{item} installed!
+    item_install_failure: This %{item} could not be installed. 
+    item_uninstall_success: %{item} uninstalled!
+    item_uninstall_failure: This %{item} could not be uninstalled.
+    item_approve_success: This %{item} has been approved. Thanks!
+    item_unapprove_success: This %{item} has been marked as unapproved.
+    item_import_success: %{count} %{items} imported successfully.
+    item_forgot_to_select: You forgot to select the %{item}.
+    item_not_found: %{item} not found.
+    item_needs_approval: This %{item} still needs to be approved.
+    items_disabled: Sorry, %{items} are not enabled.
+    items_cannot_add_any_more: You can't add any more %{items}.
+    items_not_found: No %{items} found.
+    item_invalid: Sorry, this %{item} is invalid.
     file_not_found: "File not found: %{file}"
     not_visible: Sorry, you're not allowed to see this.
     invalid_email: Sorry, you entered an invalid email address.
@@ -118,46 +118,46 @@ en:
     account_not_verified: Sorry, Your account has not been verified yet!
     account_disabled: Your account has been disabled.
     failed_admin_access_attempt: You are not an admin! Your attempt to access this area has been logged.
-    association_loop_failure: A %{object} cannot belong to itself. That's crazy!
+    association_loop_failure: A %{item} cannot belong to itself. That's crazy!
     delete_own_group_failure: Sorry, you can't delete your own group.
     search_results_left_blank: I don't know what to search for!
-    message_send_success: Your %{object} has been sent to %{to}. 
-    message_send_failure: Your %{object} %{to} could not be sent! 
-    invalid_file_extensions: "This %{object} could not be saved because the filename does not end in one of these: %{acceptable_file_extensions}"
+    message_send_success: Your %{item} has been sent to %{to}. 
+    message_send_failure: Your %{item} %{to} could not be sent! 
+    invalid_file_extensions: "This %{item} could not be saved because the filename does not end in one of these: %{acceptable_file_extensions}"
   # Logs 
   log: # call with t(:failed_admin_access_attempt_user, :scope => [:log]) or t("log.failed_admin_access_attempt_user") 
-    object_create: "Created %{object}: %{name}"
-    object_save: "Made changes to %{object}: %{name}"
-    object_delete: "Deleted %{object}: %{name}"
-    object_install: "Installed %{object}: %{name}"
-    object_uninstall: "Uninstalled %{object}: %{name}"
-    object_enable: "Enabled %{object}: %{name}"
-    object_disable: "Disabled %{object}: %{name}"    
-    object_approve: "Approved %{object}: %{name}"
-    object_verify: "Verified %{object}: %{name}"
-    object_unapprove: "Unapproved %{object}: %{name}"
-    object_downloaded_by_user: "Downloaded %{object}: %{name}"
-    object_downloaded_by_visitor: "A visitor at %{ip} downloaded %{object}: %{name}"
-    object_voted_for: "Voted for %{object}: %{name}"
-    object_voted_against: "Voted against %{object}: %{name}"
-    object_recovered: Recovered %{object}.
-    object_email_sent: %{object} email sent to %{name}.    
-    user_account_object_save: Changed my %{object}.    
+    item_create: "Created %{item}: %{name}"
+    item_save: "Made changes to %{item}: %{name}"
+    item_delete: "Deleted %{item}: %{name}"
+    item_install: "Installed %{item}: %{name}"
+    item_uninstall: "Uninstalled %{item}: %{name}"
+    item_enable: "Enabled %{item}: %{name}"
+    item_disable: "Disabled %{item}: %{name}"    
+    item_approve: "Approved %{item}: %{name}"
+    item_verify: "Verified %{item}: %{name}"
+    item_unapprove: "Unapproved %{item}: %{name}"
+    item_downloaded_by_user: "Downloaded %{item}: %{name}"
+    item_downloaded_by_visitor: "A visitor at %{ip} downloaded %{item}: %{name}"
+    item_voted_for: "Voted for %{item}: %{name}"
+    item_voted_against: "Voted against %{item}: %{name}"
+    item_recovered: Recovered %{item}.
+    item_email_sent: %{item} email sent to %{name}.    
+    user_account_item_save: Changed my %{item}.    
     user_account_create: "Joined %{title}."
     user_account_verify: "Verified my account."
-    objects_imported: "%{count} %{objects} imported."
+    items_imported: "%{count} %{items} imported."
     failed_admin_access_attempt_visitor: Someone at %{ip} attempted to access the Admin Area. %{controller} - %{action}
     failed_admin_access_attempt_user: %{username}(%{id}) attempted to access the Admin Area. %{controller} - %{action}
   # Email
   email:
     subject:
       contact_us: "%{site_title}: Contact Us Message from %{from}"
-      object_new: "%{title}: New %{object} - %{name}"
-      object_new_from_user: "%{title}: New %{object} from %{from} - %{name}"
+      item_new: "%{title}: New %{item} - %{name}"
+      item_new_from_user: "%{title}: New %{item} from %{from} - %{name}"
       verification: "%{title}: Verification Required - %{name}"
     message:
-      object_new: "At %{title}, there's a new %{object} in town: %{name}. Check it out their profile here: \n\n%{url}\n\n"    
-      object_new_from_user: "At %{title}, %{from} has created a new %{object}: %{name}. Check it out here:\n\n%{url}\n\n"   
+      item_new: "At %{title}, there's a new %{item} in town: %{name}. Check it out their profile here: \n\n%{url}\n\n"    
+      item_new_from_user: "At %{title}, %{from} has created a new %{item}: %{name}. Check it out here:\n\n%{url}\n\n"   
       new_message_from_user: "At %{title}, you've received a new message from %{from}:\n\n%{message}\n\nYou can reply to this message or read your other messages here:\n\n%{url}\n\n"
       password_recovery: "At %{title}, A password recovery request has been made for your account: %{name}.\n\nTo recover your password, go to the following address:\n\n%{url}\n\nIf you didn't make this request, please disregard this email. Feel free to contact %{title} if you have any questions or concerns."  
       verification: "In order to log in to your account(%{name}) at %{title}, you must first verify your account by clicking on this verification link:\n\n%{url}"    
@@ -169,27 +169,27 @@ en:
     username_taken: This username is taken! 
     agree_to_tos: By Creating an Account, you agree to the 
     logged_in_as: Logged in as %{username}  
-    object_create: Create %{object}
-    object_edit: Edit %{object}
-    object_save: Save %{object}
-    object_delete: Delete %{object}
-    object_new: New %{object}
-    object_my: My %{object}
-    object_select: Select %{object}
-    object_new_child: New Child %{object}
-    object_send_to: Send %{object} to %{name}
-    object_change: Change %{object}
-    object_featured: Featured %{object}
-    object_view_objects: View this %{object}'s %{objects}.
-    object_recently_added: This %{object} was added within the last 3 days.
-    object_mark_as: Mark %{object} as %{name}    
-    objects_from: %{name}'s %{objects}
-    objects_for: %{objects} for %{name}
-    objects_more: More %{objects}
-    objects_remaining: %{objects} remaining
-    objects_found: %{count} %{objects} found.
-    objects_latest: Latest %{objects}    
-    objects_none_added: No %{objects} have been added yet. 
+    item_create: Create %{item}
+    item_edit: Edit %{item}
+    item_save: Save %{item}
+    item_delete: Delete %{item}
+    item_new: New %{item}
+    item_my: My %{item}
+    item_select: Select %{item}
+    item_new_child: New Child %{item}
+    item_send_to: Send %{item} to %{name}
+    item_change: Change %{item}
+    item_featured: Featured %{item}
+    item_view_items: View this %{item}'s %{items}.
+    item_recently_added: This %{item} was added within the last 3 days.
+    item_mark_as: Mark %{item} as %{name}    
+    items_from: %{name}'s %{items}
+    items_for: %{items} for %{name}
+    items_more: More %{items}
+    items_remaining: %{items} remaining
+    items_found: %{count} %{items} found.
+    items_latest: Latest %{items}    
+    items_none_added: No %{items} have been added yet. 
     user_greeting: Hello, %{name}.
     user_by: by %{name}
     user_welcome_to_admin: Welcome to the Administration section, all powerful %{name}.
@@ -202,10 +202,10 @@ en:
     advanced_search: Advanced Search
     register: Sign Up!
     register_message: Don't have an account? 
-    list_type_simple: View %{objects} in a simple format.
-    list_type_details: View %{objects} in a simple format.
-    list_type_photo: View %{objects} as thumbnails.
-    list_type_small: View %{objects} in a table.
+    list_type_simple: View %{items} in a simple format.
+    list_type_details: View %{items} in a simple format.
+    list_type_photo: View %{items} as thumbnails.
+    list_type_small: View %{items} in a table.
     sort_asc: Currently sorted in ascending order.
     sort_desc: Currently sorted in descending order. 
     log_in: Log In
@@ -232,7 +232,7 @@ en:
     general: Are you sure you want to do this?
     delete: Are you sure you want to delete this?
     delete_user: Are you sure you want to delete this user? Everything this user has ever created will be deleted also! If you don't want this to happen, you could disable their account instead.
-    object_delete: Are you sure you want to delete this %{object}? 
+    item_delete: Are you sure you want to delete this %{item}? 
   # Settings
   setting:
     title:
@@ -404,6 +404,14 @@ en:
         is_builtin: Built In?
         created_at: Creation Date
         updated_at: Last Updated
+      plugin_feature:
+        required: Required(optional)
+        listed: Listed(optional)
+        feature_type: Type
+        icon_url: Icon URL
+        min: Minimum Value(optional)
+        max: Maximum Value(optional)
+        search_type: Search Type
       item:
         name: Name
         description: Description

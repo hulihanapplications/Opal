@@ -7,7 +7,7 @@
 				</h2>	
 			</td>
 			<td align=right style="vertical-align:middle">
-				<%= link_to icon("edit") + " " + t("label.object_edit",  :object => Category.human_name.pluralize), {:action => "index", :controller => "categories"} if @logged_in_user.is_admin?  %>
+				<%= link_to icon("edit") + " " + t("label.item_edit",  :item => Category.human_name.pluralize), {:action => "index", :controller => "categories"} if @logged_in_user.is_admin?  %>
 			</td>
 		</tr>
 	</table>

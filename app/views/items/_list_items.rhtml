@@ -13,6 +13,6 @@
   <%= render :partial => "/items/list_items_small" ,:locals => {:items => items, :my_group_plugin_permissions => my_group_plugin_permissions} %>    
 <% else %>
   <div class="flash_failure">
-  	 <%= t("notice.object_invalid", :object => Setting.find_by_name("list_type").title) %>
+  	 <%= t("notice.item_invalid", :item => Setting.find_by_name("list_type").title) %>
   </div>
 <% end %>

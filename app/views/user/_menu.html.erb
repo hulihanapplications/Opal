@@ -6,10 +6,10 @@
    </li>
    <% if Setting.get_setting_bool("let_users_create_items") || @logged_in_user.is_admin? %>
    <li>			
-		<%= link_to icon("new") + " " + t("label.object_new", :object => @setting[:item_name]), {:action => "new", :controller => "items"}, :class => (params[:action] == "new" || params[:action] == "create" ? "active" : "") %>
+		<%= link_to icon("new") + " " + t("label.item_new", :item => @setting[:item_name]), {:action => "new", :controller => "items"}, :class => (params[:action] == "new" || params[:action] == "create" ? "active" : "") %>
    </li>
    <li>
-		<%= link_to icon("items") + " " + t("label.object_my", :object => @setting[:item_name_plural]), {:action => "items", :controller => "user"}, :class => (params[:action] == "items" || params[:action] == "edit" || params[:action] == "update" ? "active" : "") %>
+		<%= link_to icon("items") + " " + t("label.item_my", :item => @setting[:item_name_plural]), {:action => "items", :controller => "user"}, :class => (params[:action] == "items" || params[:action] == "edit" || params[:action] == "update" ? "active" : "") %>
    </li>
    <% end %>   
    <li>

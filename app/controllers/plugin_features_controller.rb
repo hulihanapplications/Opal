@@ -25,11 +25,11 @@ class PluginFeaturesController < ApplicationController
          feature_value.is_approved = "1" if !@my_group_plugin_permissions.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin 
                
          if feature_value.save
-            Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.object_create", :object => PluginFeatureValue.human_name, :name => "#{feature_value.plugin_feature.name}: #{feature_value.value}")) 
-            flash[:success] = t("notice.object_create_success", :object => PluginFeatureValue.human_name + "(#{feature_value.plugin_feature.name})") + "<br>"
-            flash[:success] +=  t("notice.object_needs_approval", :object => @plugin.human_name) + "<br>"  if !feature_value.is_approved?             
+            Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => PluginFeatureValue.human_name, :name => "#{feature_value.plugin_feature.name}: #{feature_value.value}")) 
+            flash[:success] = t("notice.item_create_success", :item => PluginFeatureValue.human_name + "(#{feature_value.plugin_feature.name})") + "<br>"
+            flash[:success] +=  t("notice.item_needs_approval", :item => @plugin.human_name) + "<br>"  if !feature_value.is_approved?             
          else # fail saved 
-            flash_msg += t("notice.object_create_failure", :object => @plugin.human_name)
+            flash_msg += t("notice.item_create_failure", :item => @plugin.human_name)
          end 
        end 
      end
@@ -45,12 +45,12 @@ class PluginFeaturesController < ApplicationController
    if @my_group_plugin_permissions.can_update? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?    
      @feature_value = PluginFeatureValue.find(params[:feature_value_id])
      @feature = PluginFeature.find(@feature_value.plugin_feature_id)
-     log_msg = t("log.object_save", :object => PluginFeatureValue.human_name, :name => "#{@feature_value.plugin_feature.name}: #{@feature_value.value}")
+     log_msg = t("log.item_save", :item => PluginFeatureValue.human_name, :name => "#{@feature_value.plugin_feature.name}: #{@feature_value.value}")
      if @feature_value.update_attributes(:value => params[:feature_value][:value], :url => params[:feature_value][:url])
       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => log_msg)        
-      flash[:success] = t("notice.object_save_success", :object => @plugin.human_name)
+      flash[:success] = t("notice.item_save_success", :item => @plugin.human_name)
      else # fail saved 
-      flash[:failure] = t("notice.object_save_failure", :object => @plugin.human_name)
+      flash[:failure] = t("notice.item_save_failure", :item => @plugin.human_name)
      end
    else # Improper Permissions  
         flash[:failure] = t("notice.invalid_permissions")       
@@ -62,10 +62,10 @@ class PluginFeaturesController < ApplicationController
    if @my_group_plugin_permissions.can_delete? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?       
      @feature_value = PluginFeatureValue.find(params[:feature_value_id])
      if @feature_value.destroy
-      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log_type => "new", :log => t("log.object_delete", :object => PluginFeatureValue.human_name, :name => "#{@feature_value.plugin_feature.name}: #{@feature_value.value}")) 
-      flash[:success] = t("notice.object_delete_success", :object => @plugin.human_name)
+      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log_type => "new", :log => t("log.item_delete", :item => PluginFeatureValue.human_name, :name => "#{@feature_value.plugin_feature.name}: #{@feature_value.value}")) 
+      flash[:success] = t("notice.item_delete_success", :item => @plugin.human_name)
      else # fail saved 
-         flash[:failure] = t("notice.object_delete_failure", :object => @plugin.human_name)
+         flash[:failure] = t("notice.item_delete_failure", :item => @plugin.human_name)
      end
    else # Improper Permissions  
         flash[:failure] = t("notice.invalid_permissions")        
@@ -77,17 +77,17 @@ class PluginFeaturesController < ApplicationController
     @feature_value = PluginFeatureValue.find(params[:feature_value_id])    
     if  @feature_value.is_approved?
       approval = "0" # set to unapproved if approved already    
-      log_msg =  t("log.object_unapprove", :object => PluginFeatureValue.human_name,  :name => "#{@feature_value.plugin_feature.name}: #{@feature_value.value}") 
+      log_msg =  t("log.item_unapprove", :item => PluginFeatureValue.human_name,  :name => "#{@feature_value.plugin_feature.name}: #{@feature_value.value}") 
     else
       approval = "1" # set to approved if unapproved already    
-      log_msg = t("log.object_approve", :object => PluginFeatureValue.human_name, :name => "#{@feature_value.plugin_feature.name}: #{@feature_value.value}") 
+      log_msg = t("log.item_approve", :item => PluginFeatureValue.human_name, :name => "#{@feature_value.plugin_feature.name}: #{@feature_value.value}") 
     end
     
     if @feature_value.update_attribute(:is_approved, approval)
       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => log_msg)      
-      flash[:success] = t("notice.object_approve_success", :object => @plugin.human_name) 
+      flash[:success] = t("notice.item_approve_success", :item => @plugin.human_name) 
     else
-      flash[:failure] = t("notice.object_save_failure", :object => @plugin.human_name) 
+      flash[:failure] = t("notice.item_save_failure", :item => @plugin.human_name) 
     end
    redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.human_name.pluralize 
   end 
@@ -100,10 +100,10 @@ class PluginFeaturesController < ApplicationController
     end
     
     if @feature.save
-      Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("log.object_create", :object => PluginFeatureValue.human_name, :name => "#{@feature.name}")) 
-      flash[:success] = t("notice.object_create_success", :object => @plugin.human_name)
+      Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("log.item_create", :item => PluginFeatureValue.human_name, :name => "#{@feature.name}")) 
+      flash[:success] = t("notice.item_create_success", :item => @plugin.human_name)
      else
-      flash[:failure] = t("notice.object_create_failure", :object => @plugin.human_name)
+      flash[:failure] = t("notice.item_create_failure", :item => @plugin.human_name)
     end
     
     redirect_to :action => "index", :controller => "plugin_features"  
@@ -112,10 +112,10 @@ class PluginFeaturesController < ApplicationController
   def delete # deletes feature 
     @feature = PluginFeature.find(params[:id])
     if @feature.destroy
-      Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.object_delete", :object => PluginFeatureValue.human_name, :name => "#{@feature.name}"))       
-      flash[:success] = t("notice.object_delete_success", :object => @plugin.human_name)
+      Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.item_delete", :item => PluginFeatureValue.human_name, :name => "#{@feature.name}"))       
+      flash[:success] = t("notice.item_delete_success", :item => @plugin.human_name)
      else
-      flash[:failure] = t("notice.object_delete_failure", :object => @plugin.human_name)
+      flash[:failure] = t("notice.item_delete_failure", :item => @plugin.human_name)
     end
     
     redirect_to :action => "index", :controller => "plugin_features"  
@@ -128,10 +128,10 @@ class PluginFeaturesController < ApplicationController
  def update
     @feature = PluginFeature.find(params[:id])
     if @feature.update_attributes(params[:feature])
-      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.object_save", :object => PluginFeatureValue.human_name, :name => "#{@feature.name}"))       
-      flash[:success] = t("notice.object_save_success", :object => @plugin.human_name)
+      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => PluginFeatureValue.human_name, :name => "#{@feature.name}"))       
+      flash[:success] = t("notice.item_save_success", :item => @plugin.human_name)
      else
-      flash[:failure] = t("notice.object_save_failure", :object => @plugin.human_name)
+      flash[:failure] = t("notice.item_save_failure", :item => @plugin.human_name)
   end
   
   redirect_to :action => "edit", :controller => "plugin_features", :id => @feature.id
@@ -142,10 +142,10 @@ class PluginFeaturesController < ApplicationController
     @option.plugin_feature_id = params[:id]
     
     if @option.save
-      Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("log.object_create", :object => PluginFeatureOption.human_name, :name => "#{@option.value}")) 
-      flash[:success] = t("notice.object_create_success", :object => @plugin.human_name)
+      Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("log.item_create", :item => PluginFeatureOption.human_name, :name => "#{@option.value}")) 
+      flash[:success] = t("notice.item_create_success", :item => @plugin.human_name)
      else
-      flash[:failure] = t("notice.object_create_failure", :object => @plugin.human_name)
+      flash[:failure] = t("notice.item_create_failure", :item => @plugin.human_name)
     end
     
     redirect_to :action => "edit", :controller => "plugin_features", :id => @option.plugin_feature_id
@@ -154,10 +154,10 @@ class PluginFeaturesController < ApplicationController
   def delete_option # deletes feature value option 
     @option = PluginFeatureValueOption.find(params[:id])
     if @option.destroy
-      Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.object_delete", :object => PluginFeatureOption.human_name, :name => "#{@option.value}")) 
-      flash[:success] = t("notice.object_delete_success", :object => @plugin.human_name)
+      Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.item_delete", :item => PluginFeatureOption.human_name, :name => "#{@option.value}")) 
+      flash[:success] = t("notice.item_delete_success", :item => @plugin.human_name)
      else
-      flash[:failure] = t("notice.object_delete_failure", :object => @plugin.human_name)
+      flash[:failure] = t("notice.item_delete_failure", :item => @plugin.human_name)
     end
     
     redirect_to :action => "edit", :controller => "plugin_features", :id => @option.plugin_feature_id
@@ -170,14 +170,14 @@ class PluginFeaturesController < ApplicationController
       # Update Feature Valuess
       approve = (!@my_group_plugin_permissions.requires_approval?  || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?) # check if these new values will be auto-approved 
       num_of_features_updated = PluginFeature.create_values_for_item(:item => @item, :features => params[:features], :user => @logged_in_user, :delete_existing => true, :approve => approve)  
-      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => t("log.object_save", :object => @plugin.human_name, :name => "#{pluralize(num_of_features_updated, @plugin.human_name)}" ))                    
+      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => t("log.item_save", :item => @plugin.human_name, :name => "#{pluralize(num_of_features_updated, @plugin.human_name)}" ))                    
       if approve
-        flash[:success] = t("notice.object_save_success", :object => @plugin.human_name)
+        flash[:success] = t("notice.item_save_success", :item => @plugin.human_name)
       else 
-        flash[:success] = t("notice.object_needs_approval", :object => @plugin.human_name)        
+        flash[:success] = t("notice.item_needs_approval", :item => @plugin.human_name)        
       end 
     else # failed adding required features
-      flash[:failure] = t("notice.object_save_failure", :object => @plugin.human_name)          
+      flash[:failure] = t("notice.item_save_failure", :item => @plugin.human_name)          
     end  
     redirect_to :action => "edit_values" , :id => @item    
    else # Improper Permissions  

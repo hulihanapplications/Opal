@@ -56,7 +56,7 @@
 				<% end %>
 			</div>
 			<div class="box_style_2"  align=left style="margin-bottom:10px">
-				<h3 class="title"><%= t("label.object_change", :object => User.human_attribute_name(:password)) %></h3>
+				<h3 class="title"><%= t("label.item_change", :item => User.human_attribute_name(:password)) %></h3>
 				<% form_tag :action => 'change_password' do %>
 					<table class="input_table">
 						<tr>
@@ -69,7 +69,7 @@
 						</tr>
 					</table>
 				  <div style="height:5px"></div>
-				  <div align=center><%= submit_tag t("label.object_change", :object => User.human_attribute_name(:password)), :class => "button_1" %></div>
+				  <div align=center><%= submit_tag t("label.item_change", :item => User.human_attribute_name(:password)), :class => "button_1" %></div>
 				<% end %>
 			</div>
 		</td>

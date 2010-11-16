@@ -16,35 +16,37 @@
 		}
 	}
 </script>
+<%= f.error_messages %>
+
 <div class="box_style_2a" style="margin-bottom:5px">
 	<h2 class="title">Details</h2>
 	<table style="width:100%" cellpadding=0 cellspacing=0 class="setting_table row_table">
 		<tr class="row_a">
 			<td style="vertical-align:middle" align=left >												
-				<h3>Name</h3>
-				<i>The name of this  <%= @plugin.human_name.downcase %>. Example: <b>Price</b>.</i>
+				<h3><%= f.label :name, t("single.name") %></h3>
+				<!--<i>The name of this  <%= @plugin.human_name.downcase %>. Example: <b>Price</b>.</i>-->
 			</td>
 			<td style="vertical-align:middle" align=right>
+				<%= f.text_field :name %>
 				<input name="feature[name]" type="text" id="feature_name" onfocus = "focus_input('feature_name')" onblur = "blur_input('feature_name')" value="<%= feature.name %>">
 			</td>											
 		</tr>
 		<tr class="row_b">
 			<td style="vertical-align:middle" align=left >												
-				<h3>Description(optional)</h3>
-				<i>A short message describing this  <%= @plugin.human_name.downcase %>. Example: <b>How much this costs</b>.</i>
+				<h3><%= f.label :description, t("single.name") %></h3>
+				<!--<i>A short message describing this  <%= @plugin.human_name.downcase %>. Example: <b>How much this costs</b>.</i>-->
 				
 			</td>
 			<td style="vertical-align:middle" align=right>
+				<%= f.text_field :description %>
 				<input name="feature[description]" type="text" id="feature_description" onfocus = "focus_input('feature_description')" onblur = "blur_input('feature_description')" value="<%= feature.description %>"><br>																				
 			</td>											
 		</tr>
 		<tr class="row_a">
 			<td style="vertical-align:middle" align=left >												
-				<h3>					
-					<%= @plugin.human_name %> Type
-				</h3>
+				<h3><%= f.label :feature_type %></h3>
 
-				<i>This is the type of information that a <%= @plugin.human_name.downcase %> will contain. </i>
+				<!--<i>This is the type of information that a <%= @plugin.human_name.downcase %> will contain. </i>-->
 				
 			</td>
 			<td style="vertical-align:middle" align=right>
@@ -61,11 +63,9 @@
 		</tr>
 		<tr class="row_b">
 			<td style="vertical-align:middle" align=left >												
-				<h3>					
-					Required?
-				</h3>
+				<h3><%= f.label :required %></h3>
 
-				<i>If checked, every <%= @setting[:item_name] %> must have a value for this <%= @plugin.human_name.downcase %>. </i>				
+				<!--<i>If checked, every <%= @setting[:item_name] %> must have a value for this <%= @plugin.human_name.downcase %>. </i>-->				
 			</td>
 			<td style="vertical-align:middle" align=right>
 				<%= check_box "feature", "is_required" %>							 
@@ -73,11 +73,9 @@
 		</tr>
 		<tr class="row_b">
 			<td style="vertical-align:middle" align=left >												
-				<h3>					
-					Listed?
-				</h3>
+				<h3><%= f.label :listed %></h3>
 
-				<i>If checked, this <%= @plugin.human_name.downcase %> will be shown on <b><%= @setting[:item_name] %> lists</b>. </i>				
+				<!--<i>If checked, this <%= @plugin.human_name.downcase %> will be shown on <b><%= @setting[:item_name] %> lists</b>. </i>-->				
 			</td>
 			<td style="vertical-align:middle" align=right>
 				<%= check_box "feature", "listed" %>							 
@@ -85,18 +83,15 @@
 		</tr>									
 		<tr class="row_a">
 			<td style="vertical-align:middle" align=left >												
-				<h3>					
-					Icon URL(optional)
-				</h3>
+				<h3><%= f.label :icon_url %></h3>
 
-				<i>If you have a specific icon in mind for this <%= @plugin.human_name.downcase %>, enter its URL here. Not Sure? Leave this blank.</i>
+				<!--<i>If you have a specific icon in mind for this <%= @plugin.human_name.downcase %>, enter its URL here. Not Sure? Leave this blank.</i> --> 
 				
 			</td>
 			<td style="vertical-align:middle" align=right>
 				<input name="feature[icon_url]" type="text" id="feature_icon_url" onfocus = "focus_input('feature_icon_url')" onblur = "blur_input('feature_icon_url')" value="<%= feature.icon_url %>">
 				<br>
-				<div align=center>				
-					Current Icon:
+				<div align=center>									
 					<%= feature_icon feature %>
 				</div>								 
 			</td>											
@@ -107,12 +102,13 @@
 <div style="height:10px"></div>
 
 <div class="box_style_2a" style="margin-bottom:5px;<%= "display:none;" if feature.feature_type != "slider" && feature.feature_type != "number" %>" id="minmax_box">
-	<h2 class="title">Extra Details</h2>
+	<h2 class="title"><%= t("label.additional_info") %></h2>
 	<table style="width:100%" cellpadding=0 cellspacing=0 class="setting_table row_table">
 		<tr class="row_a">
 			<td style="vertical-align:middle" align=left >												
-				<h3>					
-					Minimum Value(optional)
+				<h3>			
+					<h3><%= f.label :min %></h3>		
+					
 				</h3>
 				<i>The entered value must be greater than or equal to this number.</i>
 			</td>
@@ -122,8 +118,8 @@
 		</tr>
 		<tr class="row_b">
 			<td style="vertical-align:middle" align=left >												
-				<h3>					
-					Maximum Value(optional)
+				<h3>	
+					<h3><%= f.label :max %></h3>									
 				</h3>
 				<i>The entered value must be less than or equal to this number.</i>				
 			</td>

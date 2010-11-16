@@ -24,13 +24,13 @@ class PluginCommentsController < ApplicationController
          
          @comment.item_id = @item.id
          if @comment.save
-          Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.object_create", :object => @plugin.human_name, :name => truncate(@comment.comment, :length => 10)))  if !@logged_in_user.anonymous?
-          Log.create(:item_id => @item.id,  :log_type => "new", :log => t("log.object_create", :object => @plugin.human_name, :name => "#{request.env["REMOTE_ADDR"]}: " + truncate(@comment.comment, :length => 10))) if @logged_in_user.anonymous?
+          Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => @plugin.human_name, :name => truncate(@comment.comment, :length => 10)))  if !@logged_in_user.anonymous?
+          Log.create(:item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => @plugin.human_name, :name => "#{request.env["REMOTE_ADDR"]}: " + truncate(@comment.comment, :length => 10))) if @logged_in_user.anonymous?
           
-          flash[:success] = t("notice.object_create_success", :object => @plugin.human_name)
-          flash[:success] += t("notice.object_needs_approval", :object => @plugin.human_name) if !@comment.is_approved?
+          flash[:success] = t("notice.item_create_success", :item => @plugin.human_name)
+          flash[:success] += t("notice.item_needs_approval", :item => @plugin.human_name) if !@comment.is_approved?
          else # fail saved 
-          flash[:failure] = t("notice.object_create_failure", :object => @plugin.human_name)
+          flash[:failure] = t("notice.item_create_failure", :item => @plugin.human_name)
          end
        else # Improper Permissions  
             flash[:failure] = t("notice.invalid_permissions")        
@@ -48,10 +48,10 @@ class PluginCommentsController < ApplicationController
    if @my_group_plugin_permissions.can_delete? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?   
      @comment = PluginComment.find(params[:comment_id])
      if @comment.destroy
-       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => t("log.object_delete", :object => @plugin.human_name, :name => truncate(@comment.comment, :length => 10)) ) 
-       flash[:success] = t("notice.object_delete_success", :object => @plugin.human_name)     
+       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => t("log.item_delete", :item => @plugin.human_name, :name => truncate(@comment.comment, :length => 10)) ) 
+       flash[:success] = t("notice.item_delete_success", :item => @plugin.human_name)     
      else # fail saved 
-       flash[:failure] = t("notice.object_delete_failure", :object => @plugin.human_name)        
+       flash[:failure] = t("notice.item_delete_failure", :item => @plugin.human_name)        
      end
    else # Improper Permissions  
         flash[:failure] = t("notice.invalid_permissions")      
@@ -63,19 +63,19 @@ class PluginCommentsController < ApplicationController
     @comment = PluginComment.find(params[:comment_id])    
     if @comment.is_approved?
       approval = "0" # set to unapproved if approved already    
-      log_msg = t("log.object_unapprove", :object => @plugin.human_name, :name => "#{@comment.user.username} - " + truncate(@comment.comment, :length => 10)) if @comment.user_id
-      log_msg = t("log.object_unapprove", :object => @plugin.human_name, :name => "#{@comment.anonymous_name} - " + truncate(@comment.comment, :length => 10))  if @comment.anonymous_name       
+      log_msg = t("log.item_unapprove", :item => @plugin.human_name, :name => "#{@comment.user.username} - " + truncate(@comment.comment, :length => 10)) if @comment.user_id
+      log_msg = t("log.item_unapprove", :item => @plugin.human_name, :name => "#{@comment.anonymous_name} - " + truncate(@comment.comment, :length => 10))  if @comment.anonymous_name       
     else
       approval = "1" # set to approved if unapproved already    
-      log_msg = t("log.object_approve", :object => @plugin.human_name, :name => "#{@comment.user.username} - " + truncate(@comment.comment, :length => 10)) if @comment.user_id
-      log_msg = t("log.object_approve", :object => @plugin.human_name, :name => "#{@comment.anonymous_name} - " + truncate(@comment.comment, :length => 10))  if @comment.anonymous_name             
+      log_msg = t("log.item_approve", :item => @plugin.human_name, :name => "#{@comment.user.username} - " + truncate(@comment.comment, :length => 10)) if @comment.user_id
+      log_msg = t("log.item_approve", :item => @plugin.human_name, :name => "#{@comment.anonymous_name} - " + truncate(@comment.comment, :length => 10))  if @comment.anonymous_name             
     end
     
     if @comment.update_attribute(:is_approved, approval)
       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => log_msg)      
-      flash[:success] = t("notice.object_approve_success", :object => @plugin.human_name)  
+      flash[:success] = t("notice.item_approve_success", :item => @plugin.human_name)  
     else
-      flash[:failure] = t("notice.object_save_failure", :object => @plugin.human_name)
+      flash[:failure] = t("notice.item_save_failure", :item => @plugin.human_name)
     end
    redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.human_name.pluralize 
   end

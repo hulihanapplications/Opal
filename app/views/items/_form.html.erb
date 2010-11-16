@@ -32,7 +32,7 @@
 											<h3><%= features_plugin.human_name.pluralize %></h3>	
 										</td>
 										<td align=right>
-											<%= link_to "#{t("label.object_change", :object => features_plugin.human_name.pluralize)}", {:action => "index", :controller => "plugin_features"} if @logged_in_user.is_admin?  %>
+											<%= link_to "#{t("label.item_change", :item => features_plugin.human_name.pluralize)}", {:action => "index", :controller => "plugin_features"} if @logged_in_user.is_admin?  %>
 										</td>
 									</tr>
 								</table>
@@ -40,7 +40,7 @@
 								<% if features.size > 0 %>															
 									<%= render :partial => "plugin_features/form_for_item", :locals => {:item => item} %>	
 								<% else %>
-									<%= t("notice.objects_not_found", :objects => features_plugin.human_name.pluralize) %>
+									<%= t("notice.items_not_found", :items => features_plugin.human_name.pluralize) %>
 									<!--No <%= features_plugin.human_name.pluralize %> have been created yet.-->
 								<% end %>								
 							<% end %>

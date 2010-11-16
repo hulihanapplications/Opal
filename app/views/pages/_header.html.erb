@@ -7,11 +7,11 @@
 				</td>
 				<td align=right>
 						<% if page.is_public_page? %>						
-							<%= link_to icon("new") + " " + t("label.object_new_child", :object => Page.human_name), {:action => "new", :controller => "pages", :id => page} %>
+							<%= link_to icon("new") + " " + t("label.item_new_child", :item => Page.human_name), {:action => "new", :controller => "pages", :id => page} %>
 						<% end %>								
 						<%= link_to icon("edit") + " " + t("single.edit"), {:action => "edit", :controller => "pages", :id => page} %>
 						<% if page.is_public_page? %>						
-							<%= link_to icon("delete") + " " + t("single.delete"), {:action => "delete", :controller => "pages", :id => page}, :confirm => t("confirm.object_delete", :object => Page.human_name) %>
+							<%= link_to icon("delete") + " " + t("single.delete"), {:action => "delete", :controller => "pages", :id => page}, :confirm => t("confirm.item_delete", :item => Page.human_name) %>
 						<% end %>						
 				</td>
 			</tr>

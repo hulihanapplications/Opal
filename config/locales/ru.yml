@@ -52,10 +52,10 @@ ru:
   # Flash Messages
   flash_save_success: Your changes have been successfully saved!
   flash_save_failure: Your changes could not be saved!
-  flash_object_save_success: %{name} saved!
-  flash_object_save_failure: %{name} could not be saved!
-  flash_object_save_success: %{name} saved successfully!
-  flash_object_save_failure: %{name} could not be saved!
+  flash_item_save_success: %{name} saved!
+  flash_item_save_failure: %{name} could not be saved!
+  flash_item_save_success: %{name} saved successfully!
+  flash_item_save_failure: %{name} could not be saved!
   flash_login_success: You logged in successfully!
   flash_login_failure: Login Failed!
   flash_logout_success: You have been logged out. Have a nice day.
@@ -74,9 +74,9 @@ ru:
   label_username_taken: This username is taken! 
   label_agree_to_tos: By Creating an Account, you agree to the 
   label_logged_in_as: Logged in as %{username}  
-  label_create_object: Create new %{name}
-  label_edit_object: Edit %{name}
-  label_delete_object: Delete %{name}
+  label_create_item: Create new %{name}
+  label_edit_item: Edit %{name}
+  label_delete_item: Delete %{name}
   
   # Other Stuff
   item_list_description_simple: View %{items} in a simple format.

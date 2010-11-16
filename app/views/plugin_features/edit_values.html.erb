@@ -26,6 +26,6 @@
 	<% end %>
 	<div style="height:10px"></div>
 </div>
-<br>
-<div align=center><img src="/themes/<%= @setting[:theme] %>/images/icons/arrow_left.png" class="icon" title="Back"> <%= link_to "Back", { :action => 'view', :controller => "items", :id => @item, :anchor => "#{@plugin.name}s"}  %></div>
-	
+<div align=center style="margin-top:10px;">
+	<%= link_to icon("arrow_left") + " " + t("single.back"), :back %>
+</div>

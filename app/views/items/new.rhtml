@@ -1,5 +1,5 @@
 <div class="box_style_1" id="new_item_box">
-      <h2 class="title"><%= t("label.object_new", :object => @setting[:item_name]) %></h2>
+      <h2 class="title"><%= t("label.item_new", :item => @setting[:item_name]) %></h2>
 	   <%= show_page Page.get_system_page("New Item") %>
 	   
 	   <div style="margin-top:5px;">
@@ -7,7 +7,7 @@
 			<%= render :partial => "form", :locals => {:item => @item, :f => f} %>
 			<br>
 				<div align=center>
-					<%= f.submit t("label.object_create", :object => @setting[:item_name]), :class => "button_1" %>
+					<%= f.submit t("label.item_create", :item => @setting[:item_name]), :class => "button_1" %>
 				</div>
 			<% end %>
 		</div>

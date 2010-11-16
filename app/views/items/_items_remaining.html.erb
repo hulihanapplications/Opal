@@ -1,7 +1,7 @@
 <div class="box_style_1" style="margin-bottom:5px">
 	<h3 class="title">
 		<img src="/themes/<%= @setting[:theme] %>/images/icons/items.png"  class="icon" >
-		<%= t("label.objects_remaining", :objects => @setting[:item_name_plural]) %> remaining
+		<%= t("label.items_remaining", :items => @setting[:item_name_plural]) %> remaining
 	</h3>
 	
 	<% max_items = Setting.get_setting("max_items_per_user") %>
@@ -15,7 +15,7 @@
 	<% if ((items_remaining > 0 || max_items.to_i == 0) && params[:action] != "new") || @logged_in_user.is_admin? %>
 		<div align=center>
 			<div class="spacer"></div>
-			<%= link_to icon("new") + " " + t("label.object_new", :object => @setting[:item_name]), :action => "new", :controller => "items" %>
+			<%= link_to icon("new") + " " + t("label.item_new", :item => @setting[:item_name]), :action => "new", :controller => "items" %>
 		</div>
 	<% end %>	
 </div>

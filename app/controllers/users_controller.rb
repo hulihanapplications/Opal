@@ -20,8 +20,8 @@ class UsersController < ApplicationController
       @user.is_verified = "1"
       
       if @user.save # save successful
-        flash[:success] = t("notice.object_create_success", :object => User.human_name)      
-        Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log => t("log.object_create", :object => User.human_name, :name => @user.username))
+        flash[:success] = t("notice.item_create_success", :item => User.human_name)      
+        Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log => t("log.item_create", :item => User.human_name, :name => @user.username))
         redirect_to :action => 'index'        
       else # creation failed
         render :action => "new"
@@ -36,8 +36,8 @@ class UsersController < ApplicationController
       end
       
       if @user.update_attributes(params[:user])
-        Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.object_save", :object => User.human_name, :name => @user.username))
-        flash[:success] = t("notice.object_save_success", :object => User.human_name) 
+        Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => User.human_name, :name => @user.username))
+        flash[:success] = t("notice.item_save_success", :item => User.human_name) 
         redirect_to :action => "edit", :id => @user.id
       else
         render :action => "edit"      end
@@ -48,8 +48,8 @@ class UsersController < ApplicationController
        flash[:failure] = t("notice.invalid_permissions")
      else
        @user = User.find(params[:id])
-       Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.object_delete", :object => User.human_name, :name => @user.username))
-       flash[:success] = t("notice.object_delete_success", :object => User.human_name) 
+       Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.item_delete", :item => User.human_name, :name => @user.username))
+       flash[:success] = t("notice.item_delete_success", :item => User.human_name) 
        @user.destroy
      end
      redirect_to :action => 'index'
@@ -58,7 +58,7 @@ class UsersController < ApplicationController
   def change_password
     @user = User.find(params[:id]) 
     if @user.update_attributes(:password => params[:user][:password], :password_confirmation => params[:user][:password_confirmation])
-      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.object_save", :object => User.human_name, :name => @user.username + "(#{User.human_attribute_name(:password)}: #{params[:user][:password]})"))
+      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => User.human_name, :name => @user.username + "(#{User.human_attribute_name(:password)}: #{params[:user][:password]})"))
       flash[:success] = t("notice.save_success") 
     else
       flash[:failure] = t("notice.save_failure") 
@@ -78,13 +78,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.is_enabled?
       flag = "1"   # make disabled
-      log_msg = t("log.object_disable", :object => User.human_name, :name => @user.username) 
+      log_msg = t("log.item_disable", :item => User.human_name, :name => @user.username) 
     else # if user was disabled
       flag = "0"  # make enabled
-      log_msg = t("log.object_enable", :object => User.human_name, :name => @user.username) 
+      log_msg = t("log.item_enable", :item => User.human_name, :name => @user.username) 
     end  
     if @user.update_attribute(:is_disabled, flag)
-      flash[:success] = t("notice.object_save_success", :object => User.human_name)
+      flash[:success] = t("notice.item_save_success", :item => User.human_name)
       Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => log_msg)
     end
     redirect_to :action => "edit", :id => @user.id    
@@ -98,8 +98,8 @@ class UsersController < ApplicationController
       flag = "1"  # make verified
     end  
     if @user.update_attribute(:is_verified, flag)
-      Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log => t("log.object_verify", :object => User.human_name, :name => @user.username))
-      flash[:success] = t("notice.object_save_success", :object => User.human_name)
+      Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log => t("log.item_verify", :item => User.human_name, :name => @user.username))
+      flash[:success] = t("notice.item_save_success", :item => User.human_name)
     end
     redirect_to :action => "edit", :id => @user.id    
   end  
@@ -110,8 +110,8 @@ class UsersController < ApplicationController
     url = url_for(:action => "verify", :controller => "user", :id => verification.id, :code =>  verification.code, :only_path => false)
     verification = UserVerification.create(:user_id => @user.id, :code => UserVerification.generate_code) if !verification # if none found, create new verification email 
     Emailer.deliver_verification_email(@user.email, verification, url)
-    Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.object_email_sent", :object => UserVerification.human_name, :name => @user.username))                                                  
-    flash[:success] =  t("log.object_email_sent", :object => UserVerification.human_name, :name => @user.username)
+    Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_email_sent", :item => UserVerification.human_name, :name => @user.username))                                                  
+    flash[:success] =  t("log.item_email_sent", :item => UserVerification.human_name, :name => @user.username)
     redirect_to :action => "edit", :controller => "users", :id => @user.id
   end
 
@@ -120,8 +120,8 @@ def update_user_info
     @user = User.find(params[:id])
     #@user_info = @user.user_info
     if @user.user_info.update_attributes(params[:user_info])
-      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("notice.object_save_success", :object => UserInfo.human_name))                                              
-      flash[:success] = t("notice.object_save_success", :object => UserInfo.human_name)
+      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("notice.item_save_success", :item => UserInfo.human_name))                                              
+      flash[:success] = t("notice.item_save_success", :item => UserInfo.human_name)
       redirect_to :action => "edit", :controller => "users", :id => @user.id
     else 
       render :action => "edit"
@@ -134,8 +134,8 @@ def change_group
   @group = Group.find(params[:group_id])
   @user.group_id = @group.id
   if @user.save
-    Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log =>  t("log.object_save", :object => User.human_name, :name => @user.username + "(#{User.human_attribute_name(:group_id)}: #{@group.name})"))                                              
-    flash[:success] = t("notice.object_save_success", :object => User.human_name)
+    Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log =>  t("log.item_save", :item => User.human_name, :name => @user.username + "(#{User.human_attribute_name(:group_id)}: #{@group.name})"))                                              
+    flash[:success] = t("notice.item_save_success", :item => User.human_name)
   end
   redirect_to :action => "edit", :controller => "users", :id => @user.id
 end

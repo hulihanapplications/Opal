@@ -2,7 +2,7 @@
 	<tr>
 		<td>
 			<div id="edit_group_box_<%= @group.id %>" class="box_style_2" style="margin-bottom:5px;" align=center>
-    			<h2 class="title"><%= t("label.object_edit", :object => Group.human_name) %></h2><br>
+    			<h2 class="title"><%= t("label.item_edit", :item => Group.human_name) %></h2><br>
 				<br>
 			    <% form_for(@group, :url => { :action => 'update', :controller => "groups", :id => @group.id }, :method => "post") do |f| %>
 					<%= render :partial => "form", :locals => {:group => @group, :f => f } %>
@@ -91,7 +91,7 @@
 	
 							<br>
 							
-							<%= f.submit t("label.object_save", :object => Group.human_name), :class => "button_1" %>
+							<%= f.submit t("label.item_save", :item => Group.human_name), :class => "button_1" %>
 						</form>
 						
 					</div>
@@ -109,13 +109,13 @@
 				</div>	
 				
 					<div class="box_style_1" align=left style="margin-bottom:5px;">
-						<h3><%= t("single.delete", :object => Group.human_name) %></h3>
+						<h3><%= t("single.delete", :item => Group.human_name) %></h3>
 						<div align=center>
 							<% if !@group.is_deletable? %>							
 								<img src="/themes/<%= @setting[:theme] %>/images/icons/failure.png" class="icon">
 								<%= t("notice.invalid_permissions") %>	
 							<% else %>
-								<%= link_to icon("delete") + " " + t("label.object_delete",  :object => Group.human_name), { :action => 'delete', :controller => "groups", :id => @group.id, :group_id => @group.id}, :confirm => t("confirm.delete") if @group.is_deletable? %>
+								<%= link_to icon("delete") + " " + t("label.item_delete",  :item => Group.human_name), { :action => 'delete', :controller => "groups", :id => @group.id, :group_id => @group.id}, :confirm => t("confirm.delete") if @group.is_deletable? %>
 							<% end %>													
 						</div>
  

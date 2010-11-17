@@ -70,6 +70,9 @@ en:
     no: No
     notification: Notification
     approved: Approved
+    system: System
+    import: Import
+    export: Export
   # Flash Messages & Notices
   notice:
     save_success: Your changes have been successfully saved!
@@ -223,10 +226,10 @@ en:
     time_any: Any Time
     recently_added: Recently Added
     approval_required: Approval Required
-    system_activity: System Activity
     not_found: Not Found
     zoom_in: View Full Size
     toggle_editor: Turn Editor On/Off
+    csv: CSV (Comma Separated)
   # Confirmations
   confirm:
     general: Are you sure you want to do this?
@@ -414,6 +417,7 @@ en:
         max: Maximum Value(optional)
         search_type: Search Type
       item:
+        id: ID
         name: Name
         description: Description
         views: Views

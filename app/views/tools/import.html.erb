@@ -8,10 +8,23 @@
 	  	 
 	  </td>
 	  <td align=left valign=top >
-			<h1 class="title">Import</h1>
-	  		<div class="spacer"></div>
-			Import Items from a file directly into <%= @setting[:title] %>. You can also select a category to import these items to.
-			<br><br>
+			<div class="section">
+				<div class="header">					
+					<table style="width:100%;" >
+						<tr>
+							<td align=left>
+								<h2 class="title">
+									<%= t("single.import") %> <%= @setting[:item_name_plural] %>
+								</h2>						
+							</td>
+							<td align=right >
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>	
+			<!--Import Items from a file directly into <%= @setting[:title] %>. You can also select a category to import these items to.-->
+			
 			<% form_tag ({:action => "do_import"}, :multipart => true) do %>
 			   <table>
 				   	<tr>
@@ -22,13 +35,13 @@
 				   		</td>
 						<td class="sidebar_column">
 							<div class="box_style_1" style="margin-bottom:5px">
-								<h2>Format</h2>
+								<h2><%= t("single.format") %></h2>
 								<div class="spacer"></div>
-								<input type="radio" name="format" value="csv" CHECKED> CSV (Comma Separated)  <br>
+								<input type="radio" name="format" value="csv" CHECKED> <%= t("label.csv") %> <br>
 								<!--<input type="radio" name="format" value="excel"> Excel <br>-->									
 							</div>							
 				   			<div class="box_style_1">
-								<h2>Category</h2>
+								<h2><%= Category.human_name.pluralize %></h2>
 								<div class="spacer"></div>
 								<% for category in Category.get_parent_categories  %>
 									<%= descend_category(category, :include_children => @setting[:include_child_category_items], :make_radio_button => true, :truncate_length => 35)  %>
@@ -39,7 +52,7 @@
 			   </table>
 			   <br>
 			   <div align=center>
-			   		<input type="submit" value="Upload">	
+			   		<input type="submit" value="<%= t("single.import") %> <%= @setting[:item_name_plural] %>" class="button_1">	
 			   </div>
 			<% end %>
 

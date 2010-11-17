@@ -5,6 +5,6 @@
 	<tr><td><%= icon("delete") %></td><td><%= t("single.deleted") %></td></tr>
 	<tr><td><%= icon("file") %></td><td><%= t("single.downloaded") %></td></tr>					
 	<tr><td><%= icon("warning") %></td><td><%= t("single.warning") %></td></tr>										
-	<tr><td><%= icon("success") %></td><td><%= t("label.system_activity") %></td></tr>
+	<tr><td><%= icon("success") %></td><td><%= t("single.system") + " " + Log.human_name.pluralize %></td></tr>
 	<tr><td><%= icon("failure") %></td><td><%= t("label.not_found") %></td></tr>	
 </table>

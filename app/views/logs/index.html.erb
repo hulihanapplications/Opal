@@ -9,7 +9,7 @@
         <td style="width:5px;">
         </td>
         <td align=left valign=top>
-            <h2 class="title"><%= t("label.system_activity") %></h2>
+            <h2 class="title"><%= t("single.system") + " " + Log.human_name.pluralize %></h2>
             <div class="box_style_2" align=left>
                 <%= render :partial => "list_logs", :locals => {:logs => @logs} %>
             </div>

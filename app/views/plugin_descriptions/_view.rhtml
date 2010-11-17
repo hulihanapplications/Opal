@@ -23,12 +23,13 @@
 										<div class="title"><%= h description.title %></div>																
 									</td>
 									<td align=right style="text-align:right;vertical-align:bottom">
-																					
-										
-											<%= friendly_date description.created_at %>
-											<b><%= link_to  "#{h description.user.username}", {:action => "user", :controller => "browse", :id => description.user_id}, :title => "#{description.user.username}"  %></b>
-											<%= user_avatar(description.user, :size => "tiny") %>										
-										
+																				
+									
+										<%= friendly_date description.created_at %>
+										<%= "#{t("single.by").downcase}" %>
+										<b><%= link_to  "#{h description.user.username}", {:action => "user", :controller => "browse", :id => description.user_id}, :title => "#{description.user.username}"  %></b>
+										<%= user_avatar(description.user, :size => "tiny") %>										
+									
 
 										<% if my_group_plugin_permissions[plugin.id].can_update? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>											
 											<%= link_to icon("edit"), {:action => "edit", :controller => "plugin_descriptions", :id => item.id, :description_id => description.id} %>
@@ -57,6 +58,6 @@
 				</div>
 		
 		<% else %>
-			<%= t("notice.items_none_added", :items => plugin.human_name.pluralize) %>
+			<%= t("label.items_none_added", :items => plugin.human_name.pluralize) %>
 		<% end %>
 	</div>

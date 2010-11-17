@@ -22,7 +22,6 @@
 						<%= icon("link") %>
 						<%= PluginLink.human_attribute_name(:title) %>
 						<input name="link_title" type="text" id="new_link_title_input" onfocus = "focus_input('new_link_title_input')" onblur = "blur_input('new_link_title_input')">
-						<input name="plugin.title" value="<%= plugin.human_name %>" type="hidden">
 						&nbsp;
 						<%= PluginLink.human_attribute_name(:url) %>
 						<input name="link_url" type="text" id="new_link_url_input" onfocus="focus_input('new_link_url_input')" onblur="blur_input('new_link_url_input')">
@@ -82,6 +81,6 @@
 				</div>
 		
 		<% else %>
-			<%= t("notice.items_none_added", :items => plugin.human_name.pluralize) %>
+			<%= t("label.items_none_added", :items => plugin.human_name.pluralize) %>
 		<% end %>
 	</div>

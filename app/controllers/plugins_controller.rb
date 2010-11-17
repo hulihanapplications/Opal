@@ -86,7 +86,7 @@ class PluginsController < ApplicationController
               FileUtils.cp_r(File.join(unzipped_plugin_dir, file), File.join(RAILS_ROOT, file)) # install file
             end
             flash[:success] = t("notice.item_install_success", :item => Plugin.human_name) 
-            Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("notice.item_install", :item => Plugin.human_name, :name => plugin.human_name) # log it
+            Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("notice.item_install", :item => Plugin.human_name, :name => plugin.human_name)) # log it
           else 
             flash[:failure] = t("notice.item_install_failure", :item => Plugin.human_name)                             
           end        
@@ -111,7 +111,7 @@ class PluginsController < ApplicationController
             FileUtils.rm_rf(File.join(RAILS_ROOT, file)) if File.exists?(File.join(RAILS_ROOT, file)) # uninstall file
           end         
           flash[:success] = t("notice.item_uninstall_success", :item => Plugin.human_name)
-          Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("notice.item_uninstall", :item => Plugin.human_name, :name => plugin.human_name) # log it
+          Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("notice.item_uninstall", :item => Plugin.human_name, :name => plugin.human_name)) # log it
         else 
           flash[:success] = t("notice.item_uninstall_failure", :item => Plugin.human_name)
         end

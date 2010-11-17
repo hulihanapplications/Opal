@@ -3,16 +3,7 @@ class ZeroThreeTwo < ActiveRecord::Migration
     # Group IDs for users
     add_column(:users, :group_id, :integer, :default => 2)     
     
-    # Create Groups
-    public_group = Group.new(:name => "The Public", :description => "People visiting your site that aren't logged in.")
-    public_group.is_deletable = "0"
-    public_group.save     
-    users_group = Group.new(:name => "Regular Users", :description => "Regular Users that have signed up at your site.")
-    users_group.is_deletable = "0"
-    users_group.save   
-    admin_group = Group.new(:name => "Admins", :description => "Supreme Masters. They can access and do anything.")
-    admin_group.is_deletable = "0"
-    admin_group.save     
+
     
     # Reset Columns so we can use the new columns we've added
     User.reset_column_information

@@ -23,7 +23,6 @@
 						<%= PluginFile.human_attribute_name(:title) %>
 						<input name="file_title" type="text" id="new_file_title" onfocus = "focus_input('new_file_title')" onblur = "blur_input('new_file_title')">
 						<%= PluginFile.human_attribute_name(:file) %> <input name="file" type="file">
-						<input name="plugin.title" value="<%= plugin.human_name %>" type="hidden">
 						<%= submit_tag  t("label.item_create", :item => plugin.human_name, :class => "button_1") %>
 						</form>
 					 </div> 
@@ -65,6 +64,6 @@
 				</div>
 
 		<% else	%>
-			<%= t("notice.items_none_added", :items => plugin.human_name.pluralize) %>
+			<%= t("label.items_none_added", :items => plugin.human_name.pluralize) %>
 		<% end %>
 	</div>

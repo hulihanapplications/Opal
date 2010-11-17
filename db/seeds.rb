@@ -58,6 +58,25 @@ Page.create(:title => "Website Top", :description => "Shown at the very very top
 Page.create(:title => "Website Bottom", :description => "Shown at the very very bottom of the website.", :page_type => "system", :content => "")
 Page.create(:title => "Category Column", :description => "This page appears below the category menu.", :page_type => "system", :content => "")
 
+
+# Create Groups
+public_group = Group.new(:name => "The Public", :description => "People visiting your site that aren't logged in.")
+public_group.is_deletable = "0"
+public_group.save     
+users_group = Group.new(:name => "Regular Users", :description => "Regular Users that have signed up at your site.")
+users_group.is_deletable = "0"
+users_group.save   
+admin_group = Group.new(:name => "Admins", :description => "Supreme Masters. They can access and do anything.")
+admin_group.is_deletable = "0"
+admin_group.save  
+
+# Create Default Group Plugin Permissions
+GroupPluginPermission.find(:first, :conditions => ["group_id = ? and plugin_id = ?", public_group.id, Plugin.find_by_name("Comment").id]).update_attribute(:can_create, "1")  
+GroupPluginPermission.find(:first, :conditions => ["group_id = ? and plugin_id = ?", users_group.id, Plugin.find_by_name("Comment").id]).update_attribute(:can_create, "1")  
+GroupPluginPermission.find(:first, :conditions => ["group_id = ? and plugin_id = ?", users_group.id, Plugin.find_by_name("Review").id]).update_attribute(:can_create, "1")  
+
+
+  
  
  
 puts "Done."

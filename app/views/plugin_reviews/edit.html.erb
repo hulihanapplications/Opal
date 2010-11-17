@@ -18,13 +18,13 @@
 	  </td>
 	  <td align=left valign=top >
 		<div class="box_style_2" style="margin-bottom:5px">
-			<h2 class="title"><%= t("item_edit", :item => @plugin.human_name %> <%= t("single.from") %> <%= @review.user.username %> </h2>
+			<h2 class="title"><%= t("label.item_edit", :item => @plugin.human_name) %> <%= t("single.from") %> <%= @review.user.username %> </h2>
 			<div class="spacer"></div>
 			<%= form_tag :action => 'update', :controller => "plugin_reviews", :id => @item.id  %>
 				<input name="review_id" value="<%= @review.id %>" type="hidden">
 				<%= render :partial => "form", :locals => {:review => @review} %>
 				<br>
-				<div align=center><%= submit_tag t("single.save_item", :item => @plugin.human_name), :class => "button_1" %></div>
+				<div align=center><%= submit_tag t("label.item_save", :item => @plugin.human_name), :class => "button_1" %></div>
 			</form>
 		</div>
 	  </td> 

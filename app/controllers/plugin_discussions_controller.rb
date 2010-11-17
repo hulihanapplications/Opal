@@ -6,6 +6,7 @@ class PluginDiscussionsController < ApplicationController
  before_filter :check_item_edit_permissions, :only => [:change_approval] # list of actions that don't require that the item is editable by the user
  
  include ActionView::Helpers::TextHelper # for truncate, etc.
+ uses_tiny_mce :only => [:new, :edit, :create, :update]  # which actions to load tiny_mce, TinyMCE Config is done in Layout.
 
 
 
@@ -50,7 +51,7 @@ class PluginDiscussionsController < ApplicationController
      if @my_group_plugin_permissions.can_read? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
 
        @discussion = PluginDiscussion.find(params[:discussion_id])
-       @posts = PluginDiscussionPost.paginate :page => params[:page], :per_page => 10, :conditions => ["plugin_discussion_id = ?", @discussion.id]
+       @posts = PluginDiscussionPost.paginate :page => params[:page], :per_page => 10, :conditions => ["plugin_discussion_id = ?", @discussion.id], :order => "created_at ASC"
        @setting[:show_item_nav_links] = true # show nav links
      else # Improper Permissions  
           flash[:failure] = t("notice.invalid_permissions")       
@@ -71,7 +72,7 @@ class PluginDiscussionsController < ApplicationController
        @post.item_id = @item.id 
        
        if @post.save
-         Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => PluginDiscussionPost.human_name,  :name =>  "#{@post.plugin_disccussion.title} - " + truncate(@post.post, :length => 10)))                   
+         Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => PluginDiscussionPost.human_name,  :name =>  "#{@post.plugin_discussion.title} - " + truncate(@post.post, :length => 10)))                   
          flash[:success] = t("notice.item_create_success", :item => PluginDiscussionPost.human_name) 
        else # fail saved 
         flash[:failure] = t("notice.item_create_failure", :item => PluginDiscussionPost.human_name)      
@@ -91,7 +92,7 @@ class PluginDiscussionsController < ApplicationController
     @post = PluginDiscussionPost.find(params[:post_id])
     @discussion = @post.plugin_discussion
     if @post.destroy
-       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => t("log.item_delete", :item => PluginDiscussionPost.human_name, :name => "#{@post.plugin_disccussion.title} - " + truncate(@post.post,:length =>  10)))                      
+       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => t("log.item_delete", :item => PluginDiscussionPost.human_name, :name => "#{@post.plugin_discussion.title} - " + truncate(@post.post,:length =>  10)))                      
        flash[:success] = t("notice.item_delete_success", :item => PluginDiscussionPost.human_name) 
     else # delete failed 
       flash[:failure] = t("notice.item_delete_failure", :item => PluginDiscussionPost.human_name)      

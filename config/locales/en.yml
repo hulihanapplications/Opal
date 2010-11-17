@@ -344,6 +344,7 @@ en:
       plugin: Plugin  
       plugin_comment: Comment
       plugin_discussion: Discussion     
+      plugin_discussion_post: Post
       plugin_description: Description
       plugin_feature: Feature
       plugin_file: File

@@ -48,6 +48,7 @@ en:
     format: Format
     avatar: Avatar
     name: Name 
+    description: Description
     archive: Archive  
     send: Send
     none: None
@@ -66,13 +67,21 @@ en:
     reply: Reply
     sent: Sent
     details: Details
-    yes: Yes
-    no: No
+    affirmative: "Yes"
+    negative: "No"
     notification: Notification
     approved: Approved
     system: System
     import: Import
     export: Export
+    text: Text
+    number: Number
+    slider: Slider 
+    date: Date     
+    stars: Stars
+    grouped: Grouped
+    keyword: Keyword
+    required: Required
   # Flash Messages & Notices
   notice:
     save_success: Your changes have been successfully saved!
@@ -230,6 +239,7 @@ en:
     zoom_in: View Full Size
     toggle_editor: Turn Editor On/Off
     csv: CSV (Comma Separated)
+    make_link: Make this a link.
   # Confirmations
   confirm:
     general: Are you sure you want to do this?
@@ -350,6 +360,8 @@ en:
       plugin_discussion_post: Post
       plugin_description: Description
       plugin_feature: Feature
+      plugin_feature_value: Value
+      plugin_feature_value_option: Option
       plugin_file: File
       plugin_image: Image
       plugin_link: Link
@@ -409,8 +421,7 @@ en:
         created_at: Creation Date
         updated_at: Last Updated
       plugin_feature:
-        required: Required(optional)
-        listed: Listed(optional)
+        listed: Listed
         feature_type: Type
         icon_url: Icon URL
         min: Minimum Value(optional)

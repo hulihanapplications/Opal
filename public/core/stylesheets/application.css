@@ -47,6 +47,8 @@ div.simple_captcha_image{}
 #accordion div.pane {	display:none;}/* accordion pane */
 
 
+/* Forms, Fields & Inputs */
+.form_box input, .form_box select, .form_box textarea{margin-bottom:12px;} 
 
 
 /* Other Stuff */

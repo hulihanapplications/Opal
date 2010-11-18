@@ -43,10 +43,10 @@ class PluginFeaturesController < ApplicationController
 
   def update_feature_value
    if @my_group_plugin_permissions.can_update? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?    
-     @feature_value = PluginFeatureValue.find(params[:feature_value_id])
-     @feature = PluginFeature.find(@feature_value.plugin_feature_id)
-     log_msg = t("log.item_save", :item => PluginFeatureValue.human_name, :name => "#{@feature_value.plugin_feature.name}: #{@feature_value.value}")
-     if @feature_value.update_attributes(:value => params[:feature_value][:value], :url => params[:feature_value][:url])
+     @plugin_feature_value = PluginFeatureValue.find(params[:feature_value_id])
+     @plugin_feature = PluginFeature.find(@plugin_feature_value.plugin_feature_id)
+     log_msg = t("log.item_save", :item => PluginFeatureValue.human_name, :name => "#{@plugin_feature_value.plugin_feature.name}: #{@plugin_feature_value.value}")
+     if @plugin_feature_value.update_attributes(:value => params[:feature_value][:value], :url => params[:feature_value][:url])
       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => log_msg)        
       flash[:success] = t("notice.item_save_success", :item => @plugin.human_name)
      else # fail saved 
@@ -60,9 +60,9 @@ class PluginFeaturesController < ApplicationController
  
   def delete_feature_value
    if @my_group_plugin_permissions.can_delete? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?       
-     @feature_value = PluginFeatureValue.find(params[:feature_value_id])
-     if @feature_value.destroy
-      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log_type => "new", :log => t("log.item_delete", :item => PluginFeatureValue.human_name, :name => "#{@feature_value.plugin_feature.name}: #{@feature_value.value}")) 
+     @plugin_feature_value = PluginFeatureValue.find(params[:feature_value_id])
+     if @plugin_feature_value.destroy
+      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log_type => "new", :log => t("log.item_delete", :item => PluginFeatureValue.human_name, :name => "#{@plugin_feature_value.plugin_feature.name}: #{@plugin_feature_value.value}")) 
       flash[:success] = t("notice.item_delete_success", :item => @plugin.human_name)
      else # fail saved 
          flash[:failure] = t("notice.item_delete_failure", :item => @plugin.human_name)
@@ -74,16 +74,16 @@ class PluginFeaturesController < ApplicationController
   end
 
  def change_approval
-    @feature_value = PluginFeatureValue.find(params[:feature_value_id])    
-    if  @feature_value.is_approved?
+    @plugin_feature_value = PluginFeatureValue.find(params[:feature_value_id])    
+    if  @plugin_feature_value.is_approved?
       approval = "0" # set to unapproved if approved already    
-      log_msg =  t("log.item_unapprove", :item => PluginFeatureValue.human_name,  :name => "#{@feature_value.plugin_feature.name}: #{@feature_value.value}") 
+      log_msg =  t("log.item_unapprove", :item => PluginFeatureValue.human_name,  :name => "#{@plugin_feature_value.plugin_feature.name}: #{@plugin_feature_value.value}") 
     else
       approval = "1" # set to approved if unapproved already    
-      log_msg = t("log.item_approve", :item => PluginFeatureValue.human_name, :name => "#{@feature_value.plugin_feature.name}: #{@feature_value.value}") 
+      log_msg = t("log.item_approve", :item => PluginFeatureValue.human_name, :name => "#{@plugin_feature_value.plugin_feature.name}: #{@plugin_feature_value.value}") 
     end
     
-    if @feature_value.update_attribute(:is_approved, approval)
+    if @plugin_feature_value.update_attribute(:is_approved, approval)
       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => log_msg)      
       flash[:success] = t("notice.item_approve_success", :item => @plugin.human_name) 
     else
@@ -92,27 +92,31 @@ class PluginFeaturesController < ApplicationController
    redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.human_name.pluralize 
   end 
  
+  def new
+       @plugin_feature = PluginFeature.new    
+  end
   # Admin Only Methods 
   def create # creates a new Feature, not a Feature Value
-    @feature = PluginFeature.new(params[:feature])    
-    if !params[:feature][:icon_url].nil?  && params[:feature][:icon_url] != ""
-      @feature.icon_url = params[:feature][:icon_url]
+    @plugin_feature = PluginFeature.new(params[:plugin_feature])    
+    if !params[:plugin_feature][:icon_url].nil?  && params[:plugin_feature][:icon_url] != ""
+      @plugin_feature.icon_url = params[:plugin_feature][:icon_url]
     end
     
-    if @feature.save
-      Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("log.item_create", :item => PluginFeatureValue.human_name, :name => "#{@feature.name}")) 
+    if @plugin_feature.save
+      Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("log.item_create", :item => PluginFeatureValue.human_name, :name => "#{@plugin_feature.name}")) 
       flash[:success] = t("notice.item_create_success", :item => @plugin.human_name)
+      redirect_to :action => "index", :controller => "plugin_features"  
      else
       flash[:failure] = t("notice.item_create_failure", :item => @plugin.human_name)
+      render :action => "new"
     end
     
-    redirect_to :action => "index", :controller => "plugin_features"  
   end
  
   def delete # deletes feature 
-    @feature = PluginFeature.find(params[:id])
-    if @feature.destroy
-      Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.item_delete", :item => PluginFeatureValue.human_name, :name => "#{@feature.name}"))       
+    @plugin_feature = PluginFeature.find(params[:id])
+    if @plugin_feature.destroy
+      Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.item_delete", :item => PluginFeatureValue.human_name, :name => "#{@plugin_feature.name}"))       
       flash[:success] = t("notice.item_delete_success", :item => @plugin.human_name)
      else
       flash[:failure] = t("notice.item_delete_failure", :item => @plugin.human_name)
@@ -122,45 +126,49 @@ class PluginFeaturesController < ApplicationController
   end 
 
  def edit
-   @feature = PluginFeature.find(params[:id])
+   @plugin_feature = PluginFeature.find(params[:id])
+   @plugin_feature_value_option = PluginFeatureValueOption.new(:plugin_feature_id => @plugin_feature.id)
  end
  
  def update
-    @feature = PluginFeature.find(params[:id])
-    if @feature.update_attributes(params[:feature])
-      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => PluginFeatureValue.human_name, :name => "#{@feature.name}"))       
+    @plugin_feature = PluginFeature.find(params[:id])
+    if @plugin_feature.update_attributes(params[:plugin_feature])
+      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => PluginFeatureValue.human_name, :name => "#{@plugin_feature.name}"))       
       flash[:success] = t("notice.item_save_success", :item => @plugin.human_name)
+      redirect_to :action => "edit", :controller => "plugin_features", :id => @plugin_feature.id
      else
       flash[:failure] = t("notice.item_save_failure", :item => @plugin.human_name)
-  end
+      render :action => "edit"
+   end
   
-  redirect_to :action => "edit", :controller => "plugin_features", :id => @feature.id
  end
  
   def create_option # creates a new Feature value option
-    @option = PluginFeatureValueOption.new(params[:option])
-    @option.plugin_feature_id = params[:id]
+    @plugin_feature = PluginFeature.find(params[:id])
+    @plugin_feature_value_option = PluginFeatureValueOption.new(params[:plugin_feature_value_option])
+    @plugin_feature_value_option.plugin_feature_id = @plugin_feature.id
     
-    if @option.save
-      Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("log.item_create", :item => PluginFeatureOption.human_name, :name => "#{@option.value}")) 
-      flash[:success] = t("notice.item_create_success", :item => @plugin.human_name)
+    if @plugin_feature_value_option.save
+      Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("log.item_create", :item => PluginFeatureValueOption.human_name, :name => "#{@plugin_feature_value_option.value}")) 
+      flash[:success] = t("notice.item_create_success", :item =>  PluginFeatureValueOption.human_name)
+      redirect_to :action => "edit", :controller => "plugin_features", :id => @plugin_feature_value_option.plugin_feature_id
      else
-      flash[:failure] = t("notice.item_create_failure", :item => @plugin.human_name)
+      flash[:failure] = t("notice.item_create_failure", :item =>  PluginFeatureValueOption.human_name)
+      render :action => "edit"
     end
     
-    redirect_to :action => "edit", :controller => "plugin_features", :id => @option.plugin_feature_id
   end
  
   def delete_option # deletes feature value option 
-    @option = PluginFeatureValueOption.find(params[:id])
-    if @option.destroy
-      Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.item_delete", :item => PluginFeatureOption.human_name, :name => "#{@option.value}")) 
-      flash[:success] = t("notice.item_delete_success", :item => @plugin.human_name)
+    @plugin_feature_value_option = PluginFeatureValueOption.find(params[:id])
+    if @plugin_feature_value_option.destroy
+      Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.item_delete", :item => PluginFeatureValueOption.human_name, :name => "#{@plugin_feature_value_option.value}")) 
+      flash[:success] = t("notice.item_delete_success", :item =>  PluginFeatureValueOption.human_name)
      else
-      flash[:failure] = t("notice.item_delete_failure", :item => @plugin.human_name)
+      flash[:failure] = t("notice.item_delete_failure", :item =>  PluginFeatureValueOption.human_name)
     end
     
-    redirect_to :action => "edit", :controller => "plugin_features", :id => @option.plugin_feature_id
+    redirect_to :action => "edit", :controller => "plugin_features", :id => @plugin_feature_value_option.plugin_feature_id
   end 
  
   def update_values

@@ -1,4 +1,3 @@
-<% @feature = PluginFeature.new %>
 <table align=center style="width:100%" cellpadding=0 cellspacing=0>
 	 <tr>
 	  <td align=left class="sidebar_column" valign=top style="padding:0px;text-align:center">
@@ -7,31 +6,43 @@
 	  </td>
 	  <td style="width:5px;"></td>
 	  <td align=left valign=top>
-			<div class="box_style_2a">
-			  <div class="plugin_box">	
+		<div class="plugin_box">
 				<div class="title">
-					Add A New <%= @plugin.human_name %>
+					<%= t("label.item_new", :item => PluginFeature.human_name) %>
 				</div>
-			  </div>
-			  This will add a new shared <%= @plugin.human_name.downcase %> attribute for every item. For Example, if you wanted users to add a <b>Price</b> value to a <%= @setting[:item_name] %>, you could add <b>"Price"</b> here(without the quotes).
-			  <br><br>			  
+		</div>
+		
+		
+		
+		<div>
+			<div class="box_style_2a" style="margin-bottom:5px">
+				<table style="width:100%" cellpadding=0 cellspacing=0 class="">
+					<tr>
+						<td style="width:50%;padding-right:5px;" align=left>
+							<h2 class="title"><%= t("single.details") %></h2>	
+					    	<% form_for(@plugin_feature, :url => { :action => 'create',  :controller => "plugin_features",:id => @plugin_feature.id  }, :method => "post") do |f| %>
+								<div class="box_style_2" style="margin-bottom:5px">
 
-			   <div>
-			   	    <% form_for(@plugin_feature, :url => { :action => 'create', :controller => "plugin_features"}, :method => "post") do |f| %>
+									<%= render :partial => "plugin_features/form", :locals => {:feature => @plugin_feature, :f => f} %>								 
+									
+									<div align=center>
+										<%= f.submit t("label.item_create", :item => PluginFeature.human_name), :class => "button_1" %>
+									</div>
+								</div>
+							<% end %>								
+						</td>
+						<td style="width:50%;padding-left:5px;" align=left>
 
-							<%= render :partial => "plugin_features/form", :locals => {:feature => @plugin_feature, :f => f} %>
-							 
-							<br>
-							<div align=center>
-								<%= f.submit t("label.item_create", :item => PluginFeature.human_name), :class => "button_1" %>
-							</div>
-					<% end %>
-				 </div>
-			</div>	
-			
+										 
+						</td>		
+					</tr>
+				</table>		
+			</div>
+
+		
 			<div align=center style="margin-top:10px;">
-				<%= link_to icon("arrow_left") + " " + t("single.back"), :back %>
+				<%= link_to icon("arrow_left") + " " + t("single.back"), {:action => "index"}  %>
 			</div>
 	  </td> 
 	 </tr>
-</table>			
+</table>		

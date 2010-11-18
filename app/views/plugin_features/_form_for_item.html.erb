@@ -6,7 +6,7 @@
 				<%= feature_icon feature %>
 				<%= feature.name %>
 				<% if feature.is_required %>
-					<img src="/themes/<%= @setting[:theme] %>/images/icons/required.png" class="icon"  alt="" title="This is required.">
+					<img src="/themes/<%= @setting[:theme] %>/images/icons/required.png" class="icon"  alt="" title="<%= t("single.required") %>">
 				<% end %>					
 				<input name="features[<%= feature.id %>][plugin_feature_id]" value="<%= feature.id %>" type="hidden">														   				
    			</td>								
@@ -44,26 +44,26 @@
 						});
 					</script>					
 				<% elsif feature.feature_type == "yesno" %>
-	   				<input name="features[<%= feature.id %>][value]" type="radio" id="feature_input_<%= feature.id %>"  value="Yes" <%= "CHECKED" if value == "Yes"  %> > Yes
-	   				<input name="features[<%= feature.id %>][value]" type="radio" id="feature_input_<%= feature.id %>"  value="No" <%= "CHECKED" if value == "No" %>> No
-	   				<input name="features[<%= feature.id %>][value]" type="radio" id="feature_input_<%= feature.id %>"  value="" <%= "CHECKED" if (value == "" || value == nil) %>> Leave Blank																																															
+	   				<input name="features[<%= feature.id %>][value]" type="radio" id="feature_input_<%= feature.id %>"  value="<%= t("single.affirmative") %>" <%= "CHECKED" if value ==  t("single.affirmative")  %>> <%= t("single.affirmative") %>
+	   				<input name="features[<%= feature.id %>][value]" type="radio" id="feature_input_<%= feature.id %>"  value="<%= t("single.negative") %>" <%= "CHECKED" if value == t("single.negative") %>> <%= t("single.negative") %>
+	   				<input name="features[<%= feature.id %>][value]" type="radio" id="feature_input_<%= feature.id %>"  value="" <%= "CHECKED" if (value == "" || value == nil) %>> <%= t("single.none") %>																																														
 				<% else %>
 	   				<input name="features[<%= feature.id %>][value]" type="text" id="feature_input_<%= feature.id %>" onfocus = "focus_input('feature_input_<%= feature.id %>')" onblur = "blur_input('feature_input_<%= feature.id %>')" value="<%= h value %>">								
 				<% end %>			
    			</td>
 			<td style="" align=left>
 				<a href="javascript:toggle_box('feature_value_link_box_<%= feature.id %>')" class="transparent">
-					<img src="/themes/<%= @setting[:theme] %>/images/icons/link.png" class="icon"  title="Make this value a hyperlink.">					
+					<img src="/themes/<%= @setting[:theme] %>/images/icons/link.png" class="icon"  title="<%= t("label.make_link") %>">					
 				</a>
 				<% if feature.description && feature.description != "" %>			
 					<img src="/themes/<%= @setting[:theme] %>/images/icons/help.png" class="help icon"  alt="" title="<%= feature.description %>" >	
 				<% end %>
 				<% if (feature.feature_type == "slider" || feature.feature_type == "number")  %>			
 					<% if feature.min %>
-						<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" class="help icon"  alt="" title="This must be greater than or equal to <%= feature.min %>" >
+						<!--<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" class="help icon"  alt="" title="This must be greater than or equal to <%= feature.min %>" >-->
 					<% end %>	
 					<% if feature.max %>
-						<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" class="help icon"  alt="" title="This must be less than or equal to <%= feature.max %>" >
+						<!--<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" class="help icon"  alt="" title="This must be less than or equal to <%= feature.max %>" >-->
 					<% end %>						
 				<% end %>									
 			</td>																																

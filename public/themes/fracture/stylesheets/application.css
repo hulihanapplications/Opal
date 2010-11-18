@@ -108,6 +108,7 @@ ul.main_menu{list-style:none;margin-top:102px;margin-right:0px;}
 		.header .details{width:525px}	
 			.header .details table{width:100%}			
 			.header .details td{vertical-align:bottom}
+		.header .info{width:250px;}
 
 	
 	/* Item Page Types */		
@@ -133,6 +134,7 @@ ul.main_menu{list-style:none;margin-top:102px;margin-right:0px;}
 		.plugin_box div.descriptions div.description{}
 			.plugin_box div.descriptions div.description .title{font-size:24px;border:0px;padding:0px;margin:0px;}		
 			.plugin_box div.descriptions div.description .content{font-size:12px;margin-bottom:20px;}
+			.plugin_box div.descriptions div.description .author{font-size:12px;}
 	.plugin_box div.features{padding-left:20px;}
 	.plugin_box div.reviews{}
 		.plugin_box div.reviews td{vertical-align:top;text-align:center}

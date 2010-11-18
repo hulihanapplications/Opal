@@ -1,21 +1,12 @@
-<table style="width:100%" cellpadding=0 cellspacing=0 class="setting_table row_table">
-	<tr class="row_a">
-		<td style="vertical-align:middle" align=left >												
-			<h3>Value</h3>
-			<i>What a user will select for <%= option.plugin_feature.name %>.</i>
-		</td>
-		<td style="vertical-align:middle" align=right>
-			<input name="option[value]" type="text" id="option_value" onfocus = "focus_input('option_value')" onblur = "blur_input('option_value')" value="<%= option.value %>">
-		</td>											
-	</tr>
-	<tr class="row_b">
-		<td style="vertical-align:middle" align=left >												
-			<h3>Description(optional)</h3>
-			<i>A short message describing this option.</i>
-			
-		</td>
-		<td style="vertical-align:middle" align=right>
-			<input name="option[description]" type="text" id="option_description" onfocus = "focus_input('option_description')" onblur = "blur_input('option_description')" value="<%= option.description %>"><br>																				
-		</td>											
-	</tr>																															
-</table>	
+<div class="form_box">
+	<%= f.error_messages %>
+	<h3><%= f.label :value %></h3>
+	<!--<i>What a user will select for <%= option.plugin_feature.name %>.</i>-->
+	<%= f.text_field :value, :style => "width:100%" %>
+	
+	<h3><%= f.label :description , t("single.description") %></h3>
+	<!--<i>A short message describing this option.</i>-->
+	<%= f.text_field :description, :style => "width:100%" %>	
+</div>							
+
+

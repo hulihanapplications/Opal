@@ -1,7 +1,7 @@
 class PluginTagsController < ApplicationController
  # before_filter :authenticate_user # check if user is logged in and not a public user  
  before_filter :find_item # look up item 
- before_filter :find_plugin {|controller| controller.find_plugin(:name => "Tag", :item => @item) } # look up item  
+ before_filter :find_plugin # find plugin
  before_filter :get_my_group_plugin_permissions # get permissions for this plugin  
  before_filter :check_item_edit_permissions, :only => [:change_approval] # list of actions that don't require that the item is editable by the user
  

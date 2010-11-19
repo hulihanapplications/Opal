@@ -196,7 +196,8 @@ en:
     item_featured: Featured %{item}
     item_view_items: View this %{item}'s %{items}.
     item_recently_added: This %{item} was added within the last 3 days.
-    item_mark_as: Mark %{item} as %{name}    
+    item_mark_as: Mark %{item} as %{name}
+    item_unknown: "Unknown %{item}: %{name}"    
     items_from: %{name}'s %{items}
     items_for: %{items} for %{name}
     items_more: More %{items}
@@ -243,6 +244,7 @@ en:
     csv: CSV (Comma Separated)
     make_link: Make this a link.
     out_of: out of
+    
   # Confirmations
   confirm:
     general: Are you sure you want to do this?

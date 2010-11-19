@@ -44,7 +44,7 @@
 							<input name="review[review_score]" type="text" id="review_score" value="<%= review.review_score.to_i %>" style="width:50px;text-align:center" />
 							<span><%= t("label.out_of") %> <b><%= @setting[:score_max] %></b></span>
 						 <% else %>
-						 	Unknown Review type: <b><%= @setting[:review_type] %></b>										 
+						 	Unknown Review type: <b><%= t("label.item_unknown", :item => t("plugin_settings.review_type"), :name => @setting[:review_type]) %></b>										 
 						 <% end %>				     		
 			     	</td>					
 				</tr>

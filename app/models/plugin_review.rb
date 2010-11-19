@@ -1,5 +1,8 @@
 class PluginReview < ActiveRecord::Base
-  belongs_to :plugin
+  extend PluginSupport::ClassMethods # get shared plugin support methods
+  include PluginSupport::InstanceMethods # get shared plugin support methods
+
+  #belongs_to :plugin
   belongs_to :item
   belongs_to :user
   has_many :plugin_review_votes
@@ -15,8 +18,20 @@ class PluginReview < ActiveRecord::Base
     end
   end
 
+  
   def validate # custom validations
-    # errors.add ""
+    @setting = Hash.new
+    @setting[:review_type] = self.plugin.get_setting("review_type")
+    @setting[:score_min] = self.plugin.get_setting("score_min").to_i     
+    @setting[:score_max] = self.plugin.get_setting("score_max").to_i   
+           
+    errors.add(:review_score, I18n.t("activerecord.errors.messages.range", :min => @setting[:score_min], :max => @setting[:score_max])) if !(self.review_score >=  @setting[:score_min] && self.review_score <= @setting[:score_max]) 
+  end
+  
+  
+  def validate_on_create
+     errors.add(:base, I18n.t("activerecord.errors.messages.items_cannot_add_more", :items => self.class.human_name.pluralize)) if PluginReview.find(:all, :conditions => ["user_id = ? and item_id = ?", self.user_id, self.item_id]).size > 0
+     errors.add(:base, I18n.t("activerecord.errors.messages.item_must_be_owner", :item => self.class.human_name)) if Setting.get_setting_bool("only_creator_can_review") && self.user_id != self.item.user_id    
   end
   
   def can_user_vote?(user) # check if user voted or not
@@ -34,5 +49,7 @@ class PluginReview < ActiveRecord::Base
      else # not approved
        return false
      end
-  end   
+  end
+ 
+
 end

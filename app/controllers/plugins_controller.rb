@@ -50,7 +50,6 @@ class PluginsController < ApplicationController
        #flash[:notice] << "<font color=grey>The Setting(#{name}) has not changed.<br></font>"
       end
      end
-     flash[:notice] << ""
      redirect_to :action => "index"
     end
     

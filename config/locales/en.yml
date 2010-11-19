@@ -82,6 +82,8 @@ en:
     grouped: Grouped
     keyword: Keyword
     required: Required
+    title: Title
+    url: URL
   # Flash Messages & Notices
   notice:
     save_success: Your changes have been successfully saved!
@@ -240,6 +242,7 @@ en:
     toggle_editor: Turn Editor On/Off
     csv: CSV (Comma Separated)
     make_link: Make this a link.
+    out_of: out of
   # Confirmations
   confirm:
     general: Are you sure you want to do this?
@@ -457,7 +460,7 @@ en:
         anonymous_email: Email
         comment: Comment
       plugin_review:
-        score: Score
+        review_score: Score
         average: Average
     errors: # you can find the list of validation error keys here: http://guides.rubyonrails.org/i18n.html 
       template: 
@@ -476,7 +479,10 @@ en:
         too_short: is too short!
         not_a_number: is not a number!
         out_of_range: is out of range!
-        too_long: is too long!              
+        too_long: is too long!     
+        range: must be between %{min} and %{max}
+        items_cannot_add_more: You can't add any more %{items}.    
+        item_must_be_owner: You must be the owner of this %{item} to do this.
   # Locales
   locales:
     en: English

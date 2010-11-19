@@ -16,7 +16,7 @@
 		<%= link_to "Themes", {:action => "themes", :controller => "settings"} %>				
 	</div>
 	
-	<div class="box_style_<%= (params[:controller] == "plugins" || params[:controller] == "plugin_features") ? "1" : "2" %>" style="margin-bottom:5px;">
+	<div class="box_style_<%= (params[:controller] == "plugins" || params[:controller] == "plugin_features") ? "1" : "2" %>" style="margin-bottom:0px;">
 		<img src="/themes/<%= @setting[:theme] %>/images/icons/plugins.png" class="icon"> 				
 		<%= link_to "Plugins", {:action => "index", :controller => "plugins"} %>				
 	</div>	

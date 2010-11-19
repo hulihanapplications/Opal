@@ -24,4 +24,4 @@
 	 </tr>
 </table>			
 
-<div align=center><img src="/themes/<%= @setting[:theme] %>/images/icons/arrow_left.png" class="icon" title="Back"> <%= link_to t("single.back"), { :action => 'view', :controller => "items", :id => @item.id, :anchor => "#{@plugin.name}s"}  %></div>
+<div align=center><img src="/themes/<%= @setting[:theme] %>/images/icons/arrow_left.png" class="icon" title="Back"> <%= link_to t("single.back"), { :action => 'view', :controller => "items", :id => @item.id, :anchor => "#{@plugin.human_name.pluralize}"}  %></div>

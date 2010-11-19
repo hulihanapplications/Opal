@@ -5,7 +5,7 @@ class PluginFilesController < ApplicationController
  before_filter :get_my_group_plugin_permissions # get permissions for this plugin  
  before_filter :check_item_edit_permissions, :only => [:change_approval] # list of actions that don't require that the item is editable by the user
  
- require "Uploader"
+ require "uploader"
 
 
  

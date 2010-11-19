@@ -23,7 +23,7 @@
 						<%= PluginFile.human_attribute_name(:title) %>
 						<input name="file_title" type="text" id="new_file_title" onfocus = "focus_input('new_file_title')" onblur = "blur_input('new_file_title')">
 						<%= PluginFile.human_attribute_name(:file) %> <input name="file" type="file">
-						<%= submit_tag  t("label.item_create", :item => plugin.human_name, :class => "button_1") %>
+						<%= submit_tag  t("label.item_create", :item => plugin.human_name), :class => "button_1" %>
 						</form>
 					 </div> 
 					 <br>
@@ -37,7 +37,6 @@
 				<div class="files" align=left>
 					<% for file in files %>
 						<div id="file_box_<%= file.id %>">
-							<img src="/themes/<%= @setting[:theme] %>/images/icons/file.png" class="icon"  title="<%= h file.title %>" alt="">
 							<span id="file_<%= file.id %>">							
 									<b>
 											<%= link_to (h File.basename(file.get_title) ), {:action => "download", :controller => "plugin_files", :id => file } %>
@@ -46,7 +45,8 @@
 								(<%= file.size %>)
 								 <%= icon("bullet") %>
 								<%= friendly_date file.created_at %>
-								- <i>Downloaded <b><%= file.downloads %></b> Times </i>
+								<img src="/themes/<%= @setting[:theme] %>/images/icons/file.png" class="icon"  title="<%= h file.title %>" alt="">
+								<i><b><%= file.downloads %> <%= t("single.download").pluralize %></b></i>
 		
 							</span>
 							<% if my_group_plugin_permissions[plugin.id].can_delete? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>									

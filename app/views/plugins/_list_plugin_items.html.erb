@@ -1,6 +1,6 @@
 <%# plugin items are passed in via a hash called plugin_items, indexed by plugin id, ie: plugin_items[plugin.id] %>
 <% if plugin_items == 0 %>
-	There is nothing new right now.
+	<%= t("label.items_none_added", :items => Plugin.human_name.pluralize) %>
 <% else %>
 	<% for plugin in plugins_to_look_for %>
 		<% if plugin.name != "Feature" && plugin.name != "FeatureValue" %> 			
@@ -13,19 +13,19 @@
 								<td style="width:20px;">
 									<% if plugin_item.user %>
 										<% user = plugin_item.user %>
-										<a href="/browse/user/<%= user.id %>" title="Added By <%= h user.username %>"><%= user_avatar(user, :size => "tiny") %></a>														
+										<%= link_to user_avatar(user, :size => "tiny"), {:action => "user", :controller => "browse", :user_id => user}  %></a>														
 									<% else %>
-										<img src="/themes/<%= @setting[:theme] %>/images/default_avatar.png" class="avatar_tiny" title="Anonymous User">
+										<img src="/themes/<%= @setting[:theme] %>/images/default_avatar.png" class="avatar_tiny" title="<%= t("single.anonymous") %>">
 									<% end %>								
 								</td>
 								<td align=left style="padding:2px;">
 									<a href="/items/view/<%= "#{plugin_item.item_id}##{plugin.name.pluralize}" %>"><b><%= "#{plugin.human_name}" %></b></a> 
-									for
-									<a href="/items/view/<%= "#{plugin_item.item_id}" %>"><b><%= h "#{plugin_item.item.name}" %></b></a>
+									<%= t("single.for") %>
+									<%= link_to h "#{plugin_item.item.name}", {:action => "view", :controller => "items", :id => plugin_item.id}  %></b></a>
 									<div class="indent">
 										<i>
 											<% if plugin_item.user %>
-												by <b><%= link_to user.username, {:action => "user", :controller => "browse", :id => user.id} %></b> -
+												<%= t("single.by") %> <b><%= link_to user.username, {:action => "user", :controller => "browse", :id => user} %></b> -
 											<% end %> 										
 											<%= friendly_date plugin_item.created_at %>
 										</i>

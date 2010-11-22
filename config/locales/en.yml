@@ -84,6 +84,7 @@ en:
     required: Required
     title: Title
     url: URL
+    enabled: Enabled
   # Flash Messages & Notices
   notice:
     save_success: Your changes have been successfully saved!
@@ -190,6 +191,8 @@ en:
     item_new: New %{item}
     item_my: My %{item}
     item_select: Select %{item}
+    item_install: Install %{item}
+    item_uninstall: Uninstall %{item}
     item_new_child: New Child %{item}
     item_send_to: Send %{item} to %{name}
     item_change: Change %{item}
@@ -204,7 +207,7 @@ en:
     items_remaining: %{items} remaining
     items_found: %{count} %{items} found.
     items_latest: Latest %{items}    
-    items_none_added: No %{items} have been added yet. 
+    items_none_added: No %{items} have been added. 
     user_greeting: Hello, %{name}.
     user_by: by %{name}
     user_welcome_to_admin: Welcome to the Administration section, all powerful %{name}.
@@ -389,7 +392,6 @@ en:
         last_login_ip: Latest Login IP Address
         registered_ip: Registered IP Address
         is_verified: Verified
-        is_enabled: Enabled
       user_info:
         location: My Location
         description: More about Me
@@ -421,7 +423,6 @@ en:
         name: Name
         description: Description
         order_number: Order
-        is_enabled: Enabled?
         is_builtin: Built In?
         created_at: Creation Date
         updated_at: Last Updated

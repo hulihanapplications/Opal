@@ -53,14 +53,7 @@ class PluginsController < ApplicationController
      redirect_to :action => "index"
     end
     
-    def update_plugin_title
-      item = Plugin.find(params[:id])    
-      log_msg = "Plugin Title changed from #{item.title} to #{params[:plugin_title]}"
-      item.update_attribute(:title, params[:plugin_title])
-      Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => log_msg)                                                   
-      render :text => "<h2>#{item.human_name.pluralize} <font size=1><a href=\"javascript:replace_box('plugin_title_#{item.id}','edit_plugin_title_#{item.id}')\">(#{t("label.item_edit", :item => Plugin.human_attribute_name(:title))})</a></font></h2>"
-      #render :text => "#{item.title}"
-    end
+
     
     def new_install
       @setting[:load_prototype] = true # load prototype js in layout, this action doesn't use prototype, but it disables jquery tabs, which we want.    

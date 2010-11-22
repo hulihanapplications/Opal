@@ -8,52 +8,49 @@
 	  	
 	  </td>
 	  <td align=left valign=top >
-		<div class="plugin_box">
-				<div class="title">
-					Plugins
-				</div>
-				Plugins extend the functionality for <%= @setting[:item_name_plural] %>. 
-				<br><br>
+		<div class="section">
+			<div class="header">					
+				<table style="width:100%;" >
+					<tr>
+						<td align=left>
+							<h2 class="title">
+								<%= Plugin.human_name.pluralize %>
+							</h2>						
+						</td>
+						<td align=right >
+						</td>
+					</tr>
+				</table>
+			</div>
 		</div>
+		
 		<ul class="plugin_tabs_horizontal"> 
 			    <li>
-			    	<%= link_to "Plugins", {:action => "index", :controller => "plugins"} %>
+			    	<%= link_to Plugin.human_name.pluralize, {:action => "index", :controller => "plugins"}%>
 				</li> 
-			    <li class="" >
-			    	<%= link_to "Install Plugin", {:action => "new_install", :controller => "plugins"}, :class => "current" %>
+			    <li>
+			    	<%= link_to t("label.item_install", :item => Plugin.human_name), {:action => "new_install", :controller => "plugins"}, :class => "current"  %>
 				</li> 																																					
 		</ul>			
 		<div class="plugin_panes_horizontal"> 	
 			<div></div>	  			
 			<div>
-				<h2 class="title">Install New Plugin</h2>
+				<h2 class="title"><%= t("label.item_install", :item => Plugin.human_name)%></h2>
 				<div class="spacer"></div>
-				This will install a new plugin into <%= @setting[:title] %>.<br><br>
+				<!--This will install a new plugin into <%= @setting[:title] %>.<br><br>-->
 				<div class="box_style_2" align=center>
 					<% form_tag ({:action => "install", :controller => "plugins"}, :multipart => true) do %>
 					   <table>
 						   	<tr>
 						   		<td valign=top>
 						   			<div class="box_style_2a">
-							   			<table>
-							   				<tr>
-							   					<td><img src="/themes/<%= @setting[:theme] %>/images/icons/computer.png" class="icon"> From Your Computer</td>
-												<td><input name="file" id="image_file" type ="file" onfocus = "focus_input('image_file')" onblur = "blur_input('image_file')"></td>
-							   				</tr>
-							   				<tr>
-							   					<td colspan=2 align=center>or</td>
-							   				</tr>
-							   				<tr>
-							   					<td><img src="/themes/<%= @setting[:theme] %>/images/icons/web.png" class="icon"> From The Web(URL)</td>
-												<td><input name="url" id="image_url" type="text" onfocus = "focus_input('image_url')" onblur = "blur_input('image_url')"></td>
-							   				</tr>								
-							   			</table>
+										<%= render :partial => "shared/upload_form" %>
 									</div>
 						   		</td>
 						   	</tr>							
 						   </table>
 						   <br>
-						   <input type="submit" value="Upload Plugin">					
+						   <input type="submit" value="<%= t("label.item_install", :item => "") %>" class="button_1">					
 					<% end %>									
 				</div>
 			</div>

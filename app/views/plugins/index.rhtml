@@ -8,31 +8,40 @@
 	  	
 	  </td>
 	  <td align=left valign=top >
-		<div class="plugin_box">
-				<div class="title">
-					Plugins
-				</div>
-				Plugins extend the functionality for <%= @setting[:item_name_plural] %>. 
-				<br><br>
-		</div>
+		<div class="section">
+			<div class="header">					
+				<table style="width:100%;" >
+					<tr>
+						<td align=left>
+							<h2 class="title">
+								<%= Plugin.human_name.pluralize %>
+							</h2>						
+						</td>
+						<td align=right >
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>	
+
 
 		<ul class="plugin_tabs_horizontal"> 
 			    <li>
-			    	<%= link_to "Plugins", {:action => "index", :controller => "plugins"}, :class => "current" %>
+			    	<%= link_to Plugin.human_name.pluralize, {:action => "index", :controller => "plugins"}, :class => "current" %>
 				</li> 
 			    <li>
-			    	<%= link_to "Install Plugin", {:action => "new_install", :controller => "plugins"} %>
+			    	<%= link_to t("label.item_install", :item => Plugin.human_name), {:action => "new_install", :controller => "plugins"} %>
 				</li> 																																					
 		</ul>			
 		<div class="plugin_panes_horizontal"> 	
 	  		<div>
-
+				<!--
 				<h2 class="title">Plugin Order &amp; Settings</h2>
 				<div class="spacer"></div>
 				Here you can turn plugins off and on, change plugin settings, or change the order of how plugins are seen on each <%= @setting[:item_name] %>'s page.  To change the order, just drag each item object around and rearrange them as you please.
-
+				-->
 				
-				<div id="event_box" style="height:30px;margin:5px 0px 5px 0px">
+				<div id="event_box" style=";margin:5px 0px 5px 0px">
 				</div> 
 				
 				
@@ -48,31 +57,21 @@
 				  				<div id="plugin_title_<%= plugin.id %>">
 				  			  		<h2><%= plugin.human_name.pluralize %> 
 									<font size=1>
-				  			  			<a href="javascript:replace_box_s('plugin_title_<%= plugin.id %>','edit_plugin_title_<%= plugin.id %>')">(Edit Name)</a>
-				  			  			<a href="javascript:toggle_box_s('plugin_settings_<%= plugin.id %>')">(Settings)</a>						
+				  			  			<a href="javascript:toggle_box_s('plugin_settings_<%= plugin.id %>')">(<%= PluginSetting.human_name.pluralize %>)</a>						
 										<% if plugin.name == "Feature" %>
-					  			  			<%= link_to "(Add/Delete A #{plugin.human_name})", {:action => "index", :controller => "plugin_features"} %>
+					  			  			<%= link_to "(#{t("label.item_edit", :item => plugin.human_name.pluralize)})", {:action => "index", :controller => "plugin_features"} %>
 										<% end %>	
-										<%= link_to "(Uninstall)", {:action => "uninstall", :controller => "plugins", :id => plugin.id}, :confirm => "Are you sure? Every #{plugin.human_name} for every #{@setting[:item_name]} in #{@setting[:title]} will also be deleted!"  if !plugin.is_builtin? %>					
+										<%= link_to "(#{t("label.item_uninstall", :item => "")})", {:action => "uninstall", :controller => "plugins", :id => plugin.id}, :confirm => "Are you sure? Every #{plugin.human_name} for every #{@setting[:item_name]} in #{@setting[:title]} will also be deleted!"  if !plugin.is_builtin? %>					
 									</font>
 										
 									</h2>
-				  				</div>
-								<div id="edit_plugin_title_<%= plugin.id %>" style="display:none">
-									<%= form_remote_tag :update => "plugin_title_#{plugin.id}", :url => { :action => 'update_plugin_title', :controller => "plugins", :id => plugin.id } %>
-										<input name="plugin_title" value="<%= plugin.human_name %>" id="plugin_title_input_<%= plugin.id %>" onfocus = "focus_input('plugin_title_input_<%= plugin.id %>')" onblur = "blur_input('plugin_title_input_<%= plugin.id %>')">s
-										&nbsp;<input type="submit" value="Update" onclick="javascript:replace_box_s('edit_plugin_title_<%= plugin.id %>','plugin_title_<%= plugin.id %>')">&nbsp;
-										<a href="javascript:replace_box_s('edit_plugin_title_<%= plugin.id %>','plugin_title_<%= plugin.id %>')">
-											<img src="/themes/<%= @setting[:theme] %>/images/icons/cancel.png" alt="Cancel" title="Cancel" border=0 class="icon">
-										</a>
-									</form>
 				  				</div>
 								<div style="">
 									<%= plugin.description %>
 								</div>				
 				  			</td>
 							<td valign=middle width="10%" align=center style="text-align:center">
-								 Enabled?<br><input type="checkbox" name="enable_<%= plugin.human_name %>" value="1" <% if plugin.is_enabled? %>CHECKED<% end %> onchange="javascript:loading('event_box');new Ajax.Updater('event_box', '/plugins/enable_disable_plugin/<%= plugin.id %>', {asynchronous:true, evalScripts:true}); return false;">
+								 <%= t("single.enabled") %><br><input type="checkbox" name="enable_<%= plugin.human_name %>" value="1" <% if plugin.is_enabled? %>CHECKED<% end %> onchange="javascript:loading('event_box');new Ajax.Updater('event_box', '/plugins/enable_disable_plugin/<%= plugin.id %>', {asynchronous:true, evalScripts:true}); return false;">
 								 <br>
 							</td>
 						</tr>
@@ -85,13 +84,13 @@
 										<%= render :partial => "/settings/list_settings", :locals => {:settings => plugin.plugin_settings}%>
 				  					 	<br>
 										<div align=center>
-											<%= submit_tag "Save Settings" %>
+											<%= submit_tag t("single.save")  %>
 											<br><br>
-											<a href="javascript:toggle_box_s('plugin_settings_<%= plugin.id %>')"><img src="/themes/<%= @setting[:theme] %>/images/icons/cancel.png" alt="Cancel" title="Cancel" border=0 class="icon">						</a>							
+											<a href="javascript:toggle_box_s('plugin_settings_<%= plugin.id %>')"><img src="/themes/<%= @setting[:theme] %>/images/icons/cancel.png" alt="" title="" border=0 class="icon">						</a>							
 										</div>
 									<% end %>
 								<% else %> 
-									<div align=center>There are currently no settings for <%= plugin.human_name.pluralize %>.</div>
+									<div align=center><%= t("notice.items_not_found", :items => PluginSetting.human_name.pluralize) %></div>
 								<% end %>
 								</div>					
 							</td>			
@@ -102,12 +101,14 @@
 				<% end %>
 				</ul>
 				</div>
+				<!--
 				<br>
 				<div class="box_style_1" align=center style="margin-bottom:5px;">
 						<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" class="icon">
 						Do you want only certain people to be able to see/edit/create/delete certain plugins? You can do this in the
 						<%= link_to "groups section", {:action => "index", :controller => "groups" } %>.
 				</div>
+				-->
 			</div>
 		
 		</div>

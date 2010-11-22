@@ -79,7 +79,7 @@
                     <%= User.human_attribute_name(:is_verified) %>: <b><%= @user.is_verified? ? t("single.yes") : t("single.no") %></b>
                     <%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/cycle.png\" class=\"icon\"  title=\"#{t("label.item_change", :item => "")}\"> #{t("label.item_change", :item => "")}", { :action => 'toggle_user_verified', :controller => "users", :id => @user.id}, :confirm => t("confirm.general") %>
                     <br>
-                    <%= User.human_attribute_name(:is_enabled) %>: <b><%= @user.is_enabled? ? t("single.yes") : t("single.no") %></b>
+                    <%= t("single.enabled") %>: <b><%= @user.is_enabled? ? t("single.affirmative") : t("single.negative") %></b>
                     <%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/cycle.png\" class=\"icon\"  title=\"#{t("label.item_change", :item => "")}\"> #{t("label.item_change", :item => "")}", { :action => 'toggle_user_disabled', :controller => "users", :id => @user.id}, :confirm => t("confirm.general") %>
                 </div>
             </div>

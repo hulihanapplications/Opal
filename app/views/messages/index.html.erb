@@ -1,44 +1,43 @@
-
-<table align=center style="width:100%" cellpadding=0 cellspacing=0>
- <tr>
-  <td align=left class="sidebar_column" valign=top style="padding:0px;">
-			<%= render :partial => "/users/menu" %>
-			<!--
-			<div class="box_style_1">
-				<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" class="icon"> 				
-				You are viewing every message for every user in <%= @setting[:title] %>.
+<div class="section">	
+	<table align=center style="width:100%" cellpadding=0 cellspacing=0>
+	 <tr>
+	  <td align=left class="sidebar_column" valign=top style="padding:0px;">
+				<%= render :partial => "/users/menu" %>
+				<!--
+				<div class="box_style_1">
+					<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" class="icon"> 				
+					You are viewing every message for every user in <%= @setting[:title] %>.
+				</div>
+				-->
+	  </td>
+	  <td style="width:5px;">
+	  	
+	  </td>
+	  <td align=left valign=top >
+		 <div id="status_box" ><%# This is where the ajax output goes %>
+		 </div>  	
+			<div class="header">					
+				<table style="width:100%;" >
+					<tr>
+						<td align=left>
+							<h2 class="title">
+								<h2 class="title"><%= t("single.all") %> <%= UserMessage.human_name.pluralize %></h2>
+							</h2>						
+						</td>
+						<td align=right >
+						</td>
+					</tr>
+				</table>
 			</div>
-			-->
-  </td>
-  <td style="width:5px;">
-  	
-  </td>
-  <td align=left valign=top >
-	 <div id="status_box" ><%# This is where the ajax output goes %>
-	 </div>  	
-	<div class="section">
-		<div class="header">					
-			<table style="width:100%;" >
-				<tr>
-					<td align=left>
-						<h2 class="title">
-							<h2 class="title"><%= t("single.all") %> <%= UserMessage.human_name.pluralize %></h2>
-						</h2>						
-					</td>
-					<td align=right >
-					</td>
-				</tr>
-			</table>
+		<div class="box_style_2">
+			<%= render :partial => "messages/list_messages", :locals => {:messages => @messages}%>
+			<div align=center><%= page_entries_info @messages, :entry_name => "Messages" %></div>										
 		</div>
-	</div>		 
-	<div class="box_style_2">
-		<%= render :partial => "messages/list_messages", :locals => {:messages => @messages}%>
-		<div align=center><%= page_entries_info @messages, :entry_name => "Messages" %></div>										
-	</div>
-	<br>	
-	<div align=center>
-		<%= will_paginate @messages %>	
-	</div>	
-  </td> 
- </tr>
-</table>
+		<br>	
+		<div align=center>
+			<%= will_paginate @messages %>	
+		</div>	
+	  </td> 
+	 </tr>
+	</table>
+</div>		 

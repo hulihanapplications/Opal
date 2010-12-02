@@ -1,25 +1,26 @@
 <div class="section">
-	<div class="header">					
-		<table style="width:100%;" >
-			<tr>
-				<td align=left>
-					<h2 class="title">
-						<a name="groups"><%= @categories.size %> <%= Category.human_name.pluralize %></a>
-					</h2>						
-				</td>
-				<td align=right >
-						<%= link_to icon("new") + " " + t("label.item_new", :item => Category.human_name), {:action => "new"} %>						
-				</td>
-			</tr>
-		</table>
-	</div>
-</div>	
-<div class="box_style_2"> 
-	<% @categories = Category.find(:all) %>
-	<% @category = nil %>
-	<div class="categories" align=left>
-		<% for category in Category.get_parent_categories %>
-			<%= descend_category(category, :include_children => @setting[:include_child_category_items], :admin_controls => true , :theme => @setting[:theme], :item_name_plural => @setting[:item_name_plural], :truncate_length => 60, :show_spacer => true, :style => "font-size:16px")  %>		
-		<% end %>
+		<div class="header">					
+			<table style="width:100%;" cellpadding=0 cellspacing=0>
+				<tr>
+					<td align=left>
+						<h2 class="title">
+							<a name="groups"><%= @categories.size %> <%= Category.human_name.pluralize %></a>
+						</h2>						
+					</td>
+					<td align=right >
+							<%= link_to icon("new") + " " + t("label.item_new", :item => Category.human_name), {:action => "new"} %>						
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+	<div class="box_style_2"> 
+		<% @categories = Category.find(:all) %>
+		<% @category = nil %>
+		<div class="categories" align=left>
+			<% for category in Category.get_parent_categories %>
+				<%= descend_category(category, :include_children => @setting[:include_child_category_items], :admin_controls => true , :theme => @setting[:theme], :item_name_plural => @setting[:item_name_plural], :truncate_length => 60, :show_spacer => true, :style => "font-size:16px")  %>		
+			<% end %>
+		</div>
 	</div>
 </div>

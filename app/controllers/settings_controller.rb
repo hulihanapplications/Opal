@@ -10,6 +10,7 @@ class SettingsController < ApplicationController
  def update_settings
    flash[:success] = "" 
    flash[:failure] = "" 
+   counter = 0
    params[:setting].each do |name, value| 
     # Dave: here were are querying the db once for EVERY setting in the table, just to get the setting name.
     # This is a little costly, the alternative being a find(:all) that is indexed with a integer-style counter
@@ -24,10 +25,12 @@ class SettingsController < ApplicationController
      else # the setting failed saving 
       flash[:failure] << t("notice.item_save_failure", :item => Setting.human_name + ": #{@setting.title}") 
      end
+     counter += 1 
     else # show that the setting hasn't changed
      #flash[:notice] << "<font color=grey>The Setting(#{name}) has not changed.<br></font>"
     end
    end
+   #flash[:failure] << t("notice.items_forgot_to_select", :items => Setting.human_name.pluralize) if counter == 0 # no items changed
    redirect_to :action => "index"
   end
  
@@ -51,8 +54,8 @@ class SettingsController < ApplicationController
      acceptable_file_extensions = ".png, .jpg, .jpeg, .gif, .bmp, .tiff, .PNG, .JPG, .JPEG, .GIF, .BMP, .TIFF"
      uploaded_file = Uploader.file_from_url_or_local(:local => params[:file], :url => params[:url])
      filename = File.basename(uploaded_file.path)
-     original_image = Magick::Image.from_blob(File.open(main_image_path).read).first # open original logo and create image object
      main_image_path = File.join(@setting[:theme_dir], "images", "logo.png") # location of main logo
+     
 
      if params[:keep_dimensions] # keep original logo dimensions
         original_image = Magick::Image.from_blob(File.open(main_image_path).read).first # open original logo and create image object        
@@ -61,15 +64,17 @@ class SettingsController < ApplicationController
      end      
          
      if Uploader.check_file_extension(:filename => filename, :extensions => acceptable_file_extensions)
+        image = Magick::Image.from_blob(File.open(uploaded_file.path).read)[0] # read in image binary, from_blob returns an array of images, grab first item
         Uploader.generate_image(
           :image => image,
           :path => main_image_path,          
           :resize_image => params[:keep_dimensions],
           :resized_image_width => width,
-          :resized_image_height => height
+          :resized_image_height => height,
+          :generate_thumbnail => false
         )           
-        flash[:success] = t("notice.item_create_success", :item => t("single.main_image"))
-        Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_create", :item => t("single.main_image"), :name => filename))  # log it
+        flash[:success] = t("notice.item_create_success", :item => t("single.logo"))
+        Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_create", :item => t("single.logo"), :name => filename))  # log it
      else
         flash[:failure] = t("notice.invalid_file_extensions", :item => Image.human_name, :acceptable_file_extensions => acceptable_file_extensions)      
      end     
@@ -78,72 +83,15 @@ class SettingsController < ApplicationController
    redirect_to :action => "index", :controller => "settings"
   end
 
-  def change_logo_old # change the main logo
-     require "RMagick"
-     require "net/http"
-     require "open-uri" 
-      
-     proceed = false    
-     if params[:file] != ""  && params[:url] == ""  #from their computer
-      filename = params[:file].original_filename
-      if check_image_format(filename) #the filename isn't valid
-       image = Magick::Image.from_blob(params[:file].read).first    # read in image binary
-       proceed = true
-      else
-       flash[:failure] = "#{params[:file].original_filename} upload failed! Please make sure that this is an image file, and that it ends in .png .jpg .jpeg .bmp or .gif  "     
-      end 
-     elsif params[:url] && !params[:file]  #from the web
-      filename = File.basename(params[:url]) #.downcase # get the filename only
-      if check_image_format(filename) #the filename is valid
-       @url_file = open(params[:url]) # Open the image from net
-       tmp_path = "#{RAILS_ROOT}/tmp" #location of the tmp folder
-       FileUtils.mkdir_p(tmp_path) if !File.exist?(tmp_path) # create the tmp folder if it doesn't exist
-       @file = open(tmp_path + "/" + filename, "wb") # open up the new file, binary style
-       @file.write(@url_file.read) # copy the image
-       if @file # temp file got copied successfully.
-        @file.close # close tmp
-        @file = open(tmp_path + "/" + filename, "rb") # reopen the temp file
-        image = Magick::Image.from_blob(@file.read).first # read in image binary
-        # Remove temp image
-        FileUtils.rm(tmp_path + "/" + filename)
-        proceed = true
-       end
-      else # filename isn't valid!
-       flash[:failure] = "#{filename} upload failed! Please make sure that this is an image file, and that it ends in .png .jpg .jpeg .bmp or .gif  "     
-      end
-     elsif !params[:url].nil? && !params[:file].nil? #they accidentally did both
-       flash[:failure] = "Please select <b>one</b> #{@plugin.name}, either from your computer or the web, <b>not both.</b> "     
-        proceed = false
-     else #random
-       flash[:failure] = "Error Code: 1 Occurred!<br>#{params[:file].inspect} "     
-       proceed = false
-     end 
-  
-     if proceed # name okay, image object created
-      main_image_path  = "#{RAILS_ROOT}/public/themes/#{@setting[:theme]}/images/logo.png" # location of main logo
-      
-      if params[:keep_dimensions] # keep original logo dimensions
-        original_image = Magick::Image.from_blob(File.open(main_image_path).read).first # open original logo and create image object        
-        image.crop_resized!( original_image.columns, original_image.rows) # resize
-      end 
-      
-      FileUtils.rm(main_image_path) if File.exists?(main_image_path)# erase original
-      image.write(main_image_path) # write new logo file 
-      Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => "New Logo Updated.") # log it
-      flash[:success] = "New Logo Added successfully!"     
-     end
- 
-   redirect_to :action => "index", :controller => "settings"
-  end
 
 
 
   def delete_logo # delete the main logo, so opal will display text instead
     main_image_path = File.join(@setting[:theme_dir], "images", "logo.png") # location of main logo
     if File.exists?(main_image_path) # check if logo exists
-      FileUtils.rm(logo_path)
-      flash[:success] = t("notice.item_delete_success", :item => t("single.main_image"))
-      Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_delete", :item => t("single.main_image"), :name => File.basename(main_image_path)))  # log it      
+      FileUtils.rm(main_image_path)
+      flash[:success] = t("notice.item_delete_success", :item => t("single.logo"))
+      Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_delete", :item => t("single.logo"), :name => File.basename(main_image_path)))  # log it      
     else # no logo exists
       flash[:success] = t("notice.file_not_found", :file => main_image_path) 
     end

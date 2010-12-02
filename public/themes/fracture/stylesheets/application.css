@@ -223,7 +223,12 @@ div.spacer_vert{border-right:1px solid #ccc;margin-left:2px;margin-right:3px;}
 .top_bar{padding-top:10px;padding-right:25px;text-align:right;height:40px;}
 div.loading{text-align:center;} /* The box containing the loading img */
 
-
+/* Sections */
+/* Sections */
+.section{}
+	.section .header{}
+	.section .header td{}
+	.section .header .description{border-top:1px solid #aaa}
 
 /* Tabs for User Section */
 ul#tabmenu {	list-style:none; 	margin:0 !important; 	padding:0;	height:25px;	margin-bottom:0px;}

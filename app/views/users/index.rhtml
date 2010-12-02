@@ -1,104 +1,105 @@
-<table align=center style="width:100%" cellpadding=0 cellspacing=0>
-	 <tr>
-	  <td align=left class="sidebar_column" valign=top style="padding:0px;text-align:center">
-			<%= render :partial => "/users/menu" %>
-
-
+<div class="section">
+	<table align=center style="width:100%" cellpadding=0 cellspacing=0>
+		 <tr>
+		  <td align=left class="sidebar_column" valign=top style="padding:0px;text-align:center">
+				<%= render :partial => "/users/menu" %>
 	
-			<div class="box_style_1" style="margin-bottom:5px;" align=left>
-				<h3 class="title"><%= User.human_attribute_name(:latest_login).pluralize %></h3>
-				<% for user in @latest_logins %>
-					<% if user.last_login %>
-						<table cellpadding=0 cellspacing=0 style="width:100%">
-							<tr>
-								<td style="width:20px;" align=left>
-									<%= user_avatar(user, :size => "tiny") %>								
-								</td>
-								<td align=left style="padding-left:2px">
-									<h3><b><%= link_to user.username, {:action => "user", :controller => "browse", :id => user.id} %></b></h3>
-									<i><%= friendly_date user.last_login if  user.last_login %></i>
-								</td>
-							</tr>
-						</table>
-					<% end %>					
-				<% end %>			
-			</div>			
-	  </td>
-	  <td style="width:5px;">
-	  	
-	  </td>
-	  <td align=left valign=top >
-		<div class="section">
-			<div class="header">					
-				<table style="width:100%;" >
-					<tr>
-						<td align=left>
-							<h2 class="title">
-								<a name="groups"><%= @users.total_entries %> <%= User.human_name.pluralize %></a>
-							</h2>						
-						</td>
-						<td align=right >
-								<%= link_to icon("new") + " " + t("label.item_new", :item => User.human_name), {:action => "new"} %>						
-						</td>
-					</tr>
-				</table>
-			</div>
-		</div>	
-	  	<div class="box_style_2">
-
-				<div class="users">
-					<table width="100%" cellpadding=0 cellspacing=0 class="row_table">
-					<tr>
-						<th style="width:20px;"></th>
-						<th><b><%= User.human_attribute_name(:username) %></b></th>
-						<th><b><%= t("single.name") %></b></th>
-						<th><b><%= User.human_attribute_name(:created_at) %></b></th>
-						<th><b><%= User.human_attribute_name(:latest_login) %></b></th>
-						<th style="width:20px;"></th>
-						<th style="width:20px;"></th>
-					</tr>
-					<% for user in @users%>			
-						<tr class="<%= cycle("row_a", "row_b") %>">
-							<td>	
-							<%= link_to  user_avatar(user, :size => "tiny"), {:action => "user", :controller => "browse", :id => user.id}, :title => "#{h user.username}"  %>
+	
+		
+				<div class="box_style_1" style="margin-bottom:5px;" align=left>
+					<h3 class="title"><%= User.human_attribute_name(:latest_login).pluralize %></h3>
+					<% for user in @latest_logins %>
+						<% if user.last_login %>
+							<table cellpadding=0 cellspacing=0 style="width:100%">
+								<tr>
+									<td style="width:20px;" align=left>
+										<%= user_avatar(user, :size => "tiny") %>								
+									</td>
+									<td align=left style="padding-left:2px">
+										<h3><b><%= link_to user.username, {:action => "user", :controller => "browse", :id => user.id} %></b></h3>
+										<i><%= friendly_date user.last_login if  user.last_login %></i>
+									</td>
+								</tr>
+							</table>
+						<% end %>					
+					<% end %>			
+				</div>			
+		  </td>
+		  <td style="width:5px;">
+		  	
+		  </td>
+		  <td align=left valign=top >
+			
+				<div class="header">					
+					<table style="width:100%;" cellpadding=0 cellspacing=0>
+						<tr>
+							<td align=left>
+								<h2 class="title">
+									<a name="groups"><%= @users.total_entries %> <%= User.human_name.pluralize %></a>
+								</h2>						
 							</td>
-							<td>
-								<%= icon("admin") if user.is_admin? %>									
-								<b><%= link_to "#{h user.username}", {:action => "user", :controller => "browse", :id => user.id} %></b>
+							<td align=right >
+									<%= link_to icon("new") + " " + t("label.item_new", :item => User.human_name), {:action => "new"} %>						
 							</td>
-							<td><i><%= h user.first_name %> <%= h user.last_name %></i></td>
-							<td>
-								<%= friendly_date user.created_at %>
-							</td>
-							<td>
-								<% if user.last_login%>
-									<%= friendly_date user.last_login %>
-								<% else %>
-									<%= t("single.none") %>
-								<% end %>
-							</td>
-							<td>
-								<%= link_to icon("edit"), { :action => 'edit', :controller => "users", :id => user.id, :user_id => user.id} %>
-							</td>
-							<td>
-								<%= link_to icon("delete"), { :action => 'delete', :controller => "users", :id => user.id, :user_id => user.id}, :confirm => t("confirm.delete_user") %>
-							</td>
-						</tr> 
-					<% end %>
+						</tr>
 					</table>
 				</div>
-			</div>
-
-			<br>
-			<div align=center>
-				<%= will_paginate @users %>
-			</div>
-			<br>	
-
-		</div>				
-	  </td> 
-	 </tr>
-</table>
+			
+		  	<div class="box_style_2">
+	
+					<div class="users">
+						<table width="100%" cellpadding=0 cellspacing=0 class="row_table">
+						<tr>
+							<th style="width:20px;"></th>
+							<th><b><%= User.human_attribute_name(:username) %></b></th>
+							<th><b><%= t("single.name") %></b></th>
+							<th><b><%= User.human_attribute_name(:created_at) %></b></th>
+							<th><b><%= User.human_attribute_name(:latest_login) %></b></th>
+							<th style="width:20px;"></th>
+							<th style="width:20px;"></th>
+						</tr>
+						<% for user in @users%>			
+							<tr class="<%= cycle("row_a", "row_b") %>">
+								<td>	
+								<%= link_to  user_avatar(user, :size => "tiny"), {:action => "user", :controller => "browse", :id => user.id}, :title => "#{h user.username}"  %>
+								</td>
+								<td>
+									<%= icon("admin") if user.is_admin? %>									
+									<b><%= link_to "#{h user.username}", {:action => "user", :controller => "browse", :id => user.id} %></b>
+								</td>
+								<td><i><%= h user.first_name %> <%= h user.last_name %></i></td>
+								<td>
+									<%= friendly_date user.created_at %>
+								</td>
+								<td>
+									<% if user.last_login%>
+										<%= friendly_date user.last_login %>
+									<% else %>
+										<%= t("single.none") %>
+									<% end %>
+								</td>
+								<td>
+									<%= link_to icon("edit"), { :action => 'edit', :controller => "users", :id => user.id, :user_id => user.id} %>
+								</td>
+								<td>
+									<%= link_to icon("delete"), { :action => 'delete', :controller => "users", :id => user.id, :user_id => user.id}, :confirm => t("confirm.delete_user") %>
+								</td>
+							</tr> 
+						<% end %>
+						</table>
+					</div>
+				</div>
+	
+				<br>
+				<div align=center>
+					<%= will_paginate @users %>
+				</div>
+				<br>	
+	
+			</div>				
+		  </td> 
+		 </tr>
+	</table>
 	
 
-
+</div>	

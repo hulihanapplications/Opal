@@ -1,85 +1,87 @@
-<% features = PluginFeature.find(:all, :order => "order_number ASC") %>
-<table align=center style="width:100%" cellpadding=0 cellspacing=0>
-	 <tr>
-	  <td align=left class="sidebar_column" valign=top style="padding:0px;text-align:center">
-			<%= render :partial => "/settings/menu" %>
-
-	  </td>
-	  <td align=left valign=top style="padding-left:5px">
-			<div class="section">
-				<div class="header">					
-					<table style="width:100%;" >
+<div class="section">
+	<% features = PluginFeature.find(:all, :order => "order_number ASC") %>
+	<table align=center style="width:100%" cellpadding=0 cellspacing=0>
+		 <tr>
+		  <td align=left class="sidebar_column" valign=top style="padding:0px;text-align:center">
+				<%= render :partial => "/settings/menu" %>
+	
+		  </td>
+		  <td align=left valign=top style="padding-left:5px">
+				
+					<div class="header">					
+						<table style="width:100%;" >
+							<tr>
+								<td align=left>
+									<h2 class="title">
+										<%=  PluginFeature.human_name.pluralize  %>
+									</h2>						
+								</td>
+								<td align=right >
+										<%= link_to icon("new") + " " + t("label.item_new", :item => PluginFeature.human_name), {:action => "new"} %>						
+								</td>
+							</tr>
+						</table>
+					</div>
+		
+	
+				<div >
+					<table style="width:100%" cellpadding=0 cellspacing=0>
 						<tr>
-							<td align=left>
-								<h2 class="title">
-									<%=  PluginFeature.human_name.pluralize  %>
-								</h2>						
+							<td  valign=top>
+				 
 							</td>
-							<td align=right >
-									<%= link_to icon("new") + " " + t("label.item_new", :item => PluginFeature.human_name), {:action => "new"} %>						
+		  					<td style="width:5px;"></td>						
+							<td  valign=top>				
+								<div class="box_style_2">	
+									<% if features.size > 0 %>															
+										 	<% for feature in features %>
+											   <div>
+													<table style="width:100%">
+														<tr>
+															<td align=left>
+																<h3>
+																	<%= feature_icon feature %>
+																	<%= feature.name %>
+																	<% if feature.is_required %>
+																		<img src="/themes/<%= @setting[:theme] %>/images/icons/required.png" class="icon"  alt="" title="<%= t("single.required") %>">
+																	<% end %>												
+																</h3>											
+															</td>
+															<td align=right>													
+																<% if feature.feature_type == "option" %>
+																	<%= link_to "#{feature.plugin_feature_value_options.size} #{PluginFeatureValueOption.human_name.pluralize}", { :action => 'edit', :controller => "plugin_features", :id => feature.id, :anchor => "options"} %>																									
+																	<%= link_to icon("new") + " " + t("label.item_new", :item =>  PluginFeatureValueOption.human_name), { :action => 'edit', :controller => "plugin_features", :id => feature.id, :anchor => "options"} %>
+																<% end %>
+																<%  if feature.description && feature.description != "" %>
+																	<%= icon("help", "#{feature.description}", "help") %>
+																<% end %>																																								
+																<%= link_to icon("edit"), { :action => 'edit', :controller => "plugin_features", :id => feature.id} %>										
+																<%= link_to icon("delete"), { :action => 'delete', :controller => "plugin_features", :id => feature.id}, :confirm => t("confirm.item_delete", :item => PluginFeatureValueOption.human_name)  %>
+																			
+															</td>
+														</tr>
+											   		</table>
+					
+													<div class="spacer" style="margin:5px 0px 5px 0px"></div>
+					
+												</div>
+											<% end %>
+									<% else %>
+										<div align=center>
+											<%= t("label.items_none_added", :items => PluginFeature.human_name.pluralize) %>
+										</div>
+									<% end %>											
+	
+								</div>					 
 							</td>
 						</tr>
 					</table>
 				</div>
-			</div>	
-
-			<div >
-				<table style="width:100%" cellpadding=0 cellspacing=0>
-					<tr>
-						<td  valign=top>
-			 
-						</td>
-	  					<td style="width:5px;"></td>						
-						<td  valign=top>				
-							<div class="box_style_2">	
-								<% if features.size > 0 %>															
-									 	<% for feature in features %>
-										   <div>
-												<table style="width:100%">
-													<tr>
-														<td align=left>
-															<h3>
-																<%= feature_icon feature %>
-																<%= feature.name %>
-																<% if feature.is_required %>
-																	<img src="/themes/<%= @setting[:theme] %>/images/icons/required.png" class="icon"  alt="" title="<%= t("single.required") %>">
-																<% end %>												
-															</h3>											
-														</td>
-														<td align=right>													
-															<% if feature.feature_type == "option" %>
-																<%= link_to "#{feature.plugin_feature_value_options.size} #{PluginFeatureValueOption.human_name.pluralize}", { :action => 'edit', :controller => "plugin_features", :id => feature.id, :anchor => "options"} %>																									
-																<%= link_to icon("new") + " " + t("label.item_new", :item =>  PluginFeatureValueOption.human_name), { :action => 'edit', :controller => "plugin_features", :id => feature.id, :anchor => "options"} %>
-															<% end %>
-															<%  if feature.description && feature.description != "" %>
-																<%= icon("help", "#{feature.description}", "help") %>
-															<% end %>																																								
-															<%= link_to icon("edit"), { :action => 'edit', :controller => "plugin_features", :id => feature.id} %>										
-															<%= link_to icon("delete"), { :action => 'delete', :controller => "plugin_features", :id => feature.id}, :confirm => t("confirm.item_delete", :item => PluginFeatureValueOption.human_name)  %>
-																		
-														</td>
-													</tr>
-										   		</table>
-				
-												<div class="spacer" style="margin:5px 0px 5px 0px"></div>
-				
-											</div>
-										<% end %>
-								<% else %>
-									<div align=center>
-										<%= t("label.items_none_added", :items => PluginFeature.human_name.pluralize) %>
-									</div>
-								<% end %>											
-
-							</div>					 
-						</td>
-					</tr>
-				</table>
-			</div>
-	
-			<div align=center style="margin-top:10px;">
-				<%= link_to icon("arrow_left") + " " + t("single.back"), { :action => 'index', :controller => "plugins"}  %>	
-			</div>
-	  </td> 
-	 </tr>
-</table>
+		
+				<div align=center style="margin-top:10px;">
+					<%= link_to icon("arrow_left") + " " + t("single.back"), { :action => 'index', :controller => "plugins"}  %>	
+				</div>
+		  </td> 
+		 </tr>
+	</table>
+</div>

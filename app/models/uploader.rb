@@ -206,7 +206,7 @@ class Uploader #< ActiveRecord::Base
     # Create Thumbnail 
     if options[:generate_thumbnail]
       options[:thumbnail_image] = options[:image] # duplicate image for thumbnail
-      FileUtils.mkdir_p(File.dirname(options[:thumbnail_path])) if !File.exist?(File.dirname(options[:thumbnail_path]))  
+      FileUtils.mkdir_p(File.dirname(options[:thumbnail_path])) if !File.exist?(File.dirname(options[:thumbnail_path])) && options[:thumbnail_path] 
       #file.rewind # rewind the read pointer since create_image was called first
       #image = Magick::Image.from_blob(file.read).first    # read in image binary
       options[:thumbnail_image].crop_resized!(options[:thumbnail_width], options[:thumbnail_height])

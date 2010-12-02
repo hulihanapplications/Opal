@@ -21,7 +21,7 @@
 								<td align=left style="padding:2px;">
 									<a href="/items/view/<%= "#{plugin_item.item_id}##{plugin.name.pluralize}" %>"><b><%= "#{plugin.human_name}" %></b></a> 
 									<%= t("single.for") %>
-									<%= link_to h "#{plugin_item.item.name}", {:action => "view", :controller => "items", :id => plugin_item.id}  %></b></a>
+									<%= link_to h("#{plugin_item.item.name}"), {:action => "view", :controller => "items", :id => plugin_item.id}  %></b></a>
 									<div class="indent">
 										<i>
 											<% if plugin_item.user %>

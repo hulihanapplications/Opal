@@ -1,68 +1,69 @@
-<table align=center style="width:100%" cellpadding=0 cellspacing=0>
-	 <tr>
-	  <td align=left class="sidebar_column" valign=top>
-			<%= render :partial => "/users/menu" %>
-	  </td>
-	  <td style="width:5px;">
-	  	
-	  </td>
-	  <td align=left valign=top >
-		<div class="section">
-			<div class="header">					
-				<table style="width:100%;" >
-					<tr>
-						<td align=left>
-							<h2 class="title">
-								<a name="groups"><%= @groups.total_entries %> <%= Group.human_name.pluralize %></a>
-							</h2>						
-						</td>
-						<td align=right >
-								<%= link_to icon("new") + " " + t("label.item_new", :item => Group.human_name), {:action => "new"} %>						
-						</td>
-					</tr>
-				</table>
-			</div>
-		</div>	
-	  	<div class="box_style_2" >
-				<div class="groups">
-					<table width="100%" cellpadding=0 cellspacing=0 class="row_table">
-					<tr>
-						<th><b><%= Group.human_attribute_name(:name) %></b></th>
-						<th><b><%= Group.human_attribute_name(:description) %></b></th>
-						<th><b><%= Group.human_attribute_name(:created_at) %></b></th>
-						<th style="width:20px;"></th>
-						<th style="width:20px;"></th>
-					</tr>
-					<% for group in @groups%>			
-						<tr class="<%= cycle("row_a", "row_b") %>">
-
-							<td><b><%= link_to "#{h group.name}", {:action => "edit", :controller => "groups", :id => group.id} %></b></td>
-							<td><i><%= h group.description %></i></td>
-							<td>
-								<%= friendly_date group.created_at %>
+<div class="section">
+	<table align=center style="width:100%" cellpadding=0 cellspacing=0>
+		 <tr>
+		  <td align=left class="sidebar_column" valign=top>
+				<%= render :partial => "/users/menu" %>
+		  </td>
+		  <td style="width:5px;">
+		  	
+		  </td>
+		  <td align=left valign=top >
+	
+				<div class="header">					
+					<table style="width:100%;" cellpadding=0 cellspacing=0>
+						<tr>
+							<td align=left>
+								<h2 class="title">
+									<a name="groups"><%= @groups.total_entries %> <%= Group.human_name.pluralize %></a>
+								</h2>						
 							</td>
-							<td>
-								<%= link_to icon("edit"), { :action => 'edit', :controller => "groups", :id => group.id, :group_id => group.id} %>
+							<td align=right >
+									<%= link_to icon("new") + " " + t("label.item_new", :item => Group.human_name), {:action => "new"} %>						
 							</td>
-							<td>
-								<%= link_to icon("delete"), { :action => 'delete', :controller => "groups", :id => group.id, :group_id => group.id}, :confirm => t("confirm.delete") if group.is_deletable? %>
-							</td>
-						</tr> 
-					<% end %>
+						</tr>
 					</table>
-						
+				</div>
+		
+		  	<div class="box_style_2" >
+					<div class="groups">
+						<table width="100%" cellpadding=0 cellspacing=0 class="row_table">
+						<tr>
+							<th><b><%= Group.human_attribute_name(:name) %></b></th>
+							<th><b><%= Group.human_attribute_name(:description) %></b></th>
+							<th><b><%= Group.human_attribute_name(:created_at) %></b></th>
+							<th style="width:20px;"></th>
+							<th style="width:20px;"></th>
+						</tr>
+						<% for group in @groups%>			
+							<tr class="<%= cycle("row_a", "row_b") %>">
+	
+								<td><b><%= link_to "#{h group.name}", {:action => "edit", :controller => "groups", :id => group.id} %></b></td>
+								<td><i><%= h group.description %></i></td>
+								<td>
+									<%= friendly_date group.created_at %>
+								</td>
+								<td>
+									<%= link_to icon("edit"), { :action => 'edit', :controller => "groups", :id => group.id, :group_id => group.id} %>
+								</td>
+								<td>
+									<%= link_to icon("delete"), { :action => 'delete', :controller => "groups", :id => group.id, :group_id => group.id}, :confirm => t("confirm.delete") if group.is_deletable? %>
+								</td>
+							</tr> 
+						<% end %>
+						</table>
+							
+					</div>
+					
+					<div align=center>
+						<%= will_paginate @groups %>
+					</div>
+									
 				</div>
 				
-				<div align=center>
-					<%= will_paginate @groups %>
-				</div>
-								
-			</div>
-			
-		</div>				
-	  </td> 
-	 </tr>
-</table>
+			</div>				
+		  </td> 
+		 </tr>
+	</table>
 	
-
+</div>
 

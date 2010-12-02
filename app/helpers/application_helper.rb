@@ -309,4 +309,14 @@ module ApplicationHelper
     return "<div class=\"flash_failure\">#{msg}</div>"
   end
   
+  def theme_url # get the path to the current theme
+    return "/themes/#{@setting[:theme]}"
+  end
+  
+  def theme_image_tag(filename, options = {})
+    path_array = [theme_url, "images", filename]
+    src = path_array.join("/")
+    image_tag(src, options)
+  end
 end
+

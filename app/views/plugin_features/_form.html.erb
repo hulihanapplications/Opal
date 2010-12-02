@@ -33,7 +33,7 @@
 						<select name="plugin_feature[feature_type]" id="feature_types" onchange="extra_details();">
 							<option value="text" <%= "SELECTED" if feature.feature_type == "text" %>><%= t("single.text") %></option>
 							<option value="option" <%= "SELECTED" if feature.feature_type == "option" %>><%= PluginFeatureValueOption.human_name %></option>
-							<option value="yesno" <%= "SELECTED" if feature.feature_type == "yesno" %>><%= t("single.affirmative") %>/<%= t("single.negative") %></option>
+							<option value="yesno" <%= "SELECTED" if feature.feature_type == "yesno" %>><%= t("single.positive") %>/<%= t("single.negative") %></option>
 							<option value="slider" <%= "SELECTED" if feature.feature_type == "slider" %>><%= t("single.slider")%></option>															
 							<option value="date" <%= "SELECTED" if feature.feature_type == "date" %>><%= t("single.date") %></option>										
 							<option value="number" <%= "SELECTED" if feature.feature_type == "number" %>><%= t("single.number")%></option>
@@ -52,13 +52,13 @@
 						
 						<h3><%= f.label :required, t("single.required") %></h3>
 						<!--<i>If checked, every <%= @setting[:item_name] %> must have a value for this <%= @plugin.human_name.downcase %>. </i>-->
-						<%= f.radio_button :is_required, true %> <%= t("single.affirmative") %>
+						<%= f.radio_button :is_required, true %> <%= t("single.positive") %>
 						<%= f.radio_button :is_required, false %> <%= t("single.negative") %>
 						<%#= check_box "feature", "is_required" %>							 
 						
 						<h3><%= f.label :listed %></h3>
 						<!--<i>If checked, this <%= @plugin.human_name.downcase %> will be shown on <b><%= @setting[:item_name] %> lists</b>. </i>-->
-						<%= f.radio_button :listed, true %> <%= t("single.affirmative") %>
+						<%= f.radio_button :listed, true %> <%= t("single.positive") %>
 						<%= f.radio_button :listed, false %> <%= t("single.negative") %>
 						
 						<h3><%= feature_icon feature %> <%= f.label :icon_url %></h3>

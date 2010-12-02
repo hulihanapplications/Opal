@@ -1,60 +1,62 @@
-<table align=center style="width:100%" cellpadding=0 cellspacing=0>
-	 <tr>
-	  <td align=left class="sidebar_column" valign=top style="padding:0px;text-align:center">
-			<%= render :partial => "/settings/menu" %>
-
-	  </td>
-	  <td style="width:5px;">
-	  	
-	  </td>
-	  <td align=left valign=top >
-		<div class="section">
-			<div class="header">					
-				<table style="width:100%;" >
-					<tr>
-						<td align=left>
-							<h2 class="title">
-								<%= Plugin.human_name.pluralize %>
-							</h2>						
-						</td>
-						<td align=right >
-						</td>
-					</tr>
-				</table>
-			</div>
-		</div>
+<div class="section">
+	<table align=center style="width:100%" cellpadding=0 cellspacing=0>
+		 <tr>
+		  <td align=left class="sidebar_column" valign=top style="padding:0px;text-align:center">
+				<%= render :partial => "/settings/menu" %>
+	
+		  </td>
+		  <td style="width:5px;">
+		  	
+		  </td>
+		  <td align=left valign=top >
 		
-		<ul class="plugin_tabs_horizontal"> 
-			    <li>
-			    	<%= link_to Plugin.human_name.pluralize, {:action => "index", :controller => "plugins"}%>
-				</li> 
-			    <li>
-			    	<%= link_to t("label.item_install", :item => Plugin.human_name), {:action => "new_install", :controller => "plugins"}, :class => "current"  %>
-				</li> 																																					
-		</ul>			
-		<div class="plugin_panes_horizontal"> 	
-			<div></div>	  			
-			<div>
-				<h2 class="title"><%= t("label.item_install", :item => Plugin.human_name)%></h2>
-				<div class="spacer"></div>
-				<!--This will install a new plugin into <%= @setting[:title] %>.<br><br>-->
-				<div class="box_style_2" align=center>
-					<% form_tag ({:action => "install", :controller => "plugins"}, :multipart => true) do %>
-					   <table>
-						   	<tr>
-						   		<td valign=top>
-						   			<div class="box_style_2a">
-										<%= render :partial => "shared/upload_form" %>
-									</div>
-						   		</td>
-						   	</tr>							
-						   </table>
-						   <br>
-						   <input type="submit" value="<%= t("label.item_install", :item => "") %>" class="button_1">					
-					<% end %>									
+				<div class="header">					
+					<table style="width:100%;" >
+						<tr>
+							<td align=left>
+								<h2 class="title">
+									<%= Plugin.human_name.pluralize %>
+								</h2>						
+							</td>
+							<td align=right >
+							</td>
+						</tr>
+					</table>
+				</div>
+			
+			
+			<ul class="plugin_tabs_horizontal"> 
+				    <li>
+				    	<%= link_to Plugin.human_name.pluralize, {:action => "index", :controller => "plugins"}%>
+					</li> 
+				    <li>
+				    	<%= link_to t("label.item_install", :item => Plugin.human_name), {:action => "new_install", :controller => "plugins"}, :class => "current"  %>
+					</li> 																																					
+			</ul>			
+			<div class="plugin_panes_horizontal"> 	
+				<div></div>	  			
+				<div>
+					<h2 class="title"><%= t("label.item_install", :item => Plugin.human_name)%></h2>
+					<div class="spacer"></div>
+					<!--This will install a new plugin into <%= @setting[:title] %>.<br><br>-->
+					<div class="box_style_2" align=center>
+						<% form_tag ({:action => "install", :controller => "plugins"}, :multipart => true) do %>
+						   <table>
+							   	<tr>
+							   		<td valign=top>
+							   			<div class="box_style_2a">
+											<%= render :partial => "shared/upload_form" %>
+										</div>
+							   		</td>
+							   	</tr>							
+							   </table>
+							   <br>
+							   <input type="submit" value="<%= t("label.item_install", :item => "") %>" class="button_1">					
+						<% end %>									
+					</div>
 				</div>
 			</div>
-		</div>
-	  </td> 
-	 </tr>
-</table>			
+		  </td> 
+		 </tr>
+	</table>	
+</div>			

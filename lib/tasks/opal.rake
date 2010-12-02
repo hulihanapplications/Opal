@@ -23,10 +23,10 @@ namespace app_name.downcase.to_sym do
 
   desc "Reset #{app_name}"
   task :reset => :environment do
-    Rake::Task['opal:uninstall'].invoke
+    Rake::Task["#{app_name.downcase}:uninstall"].invoke
     ENV.delete 'VERSION' # clear version 
     Rake::Task['db:migrate'].reenable
-    Rake::Task['opal:install'].invoke
+    Rake::Task["#{app_name.downcase}:install"].invoke
   end
 end
 

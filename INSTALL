@@ -10,8 +10,10 @@ To install this application, please follow the following steps:
            information. By default, Opal uses Mysql, but you can 
            use sqlite3 or any other rails-support database.
 
-3. Run 'rake db:migrate' from the command line(typically using ssh).
-   This will install the database structure of Opal. 
+3. Type 'rake opal:install' while inside the opal directory.
+   This will install the database structure of Opal. After Opal is 
+   installed, it will ask you if you want to install sample data.
+   This is good for first timers, but not required.
 
 4. That's it! Run your application on the web using apache, mongrel,
    webrick, or nginx. The default Admin username/password is:

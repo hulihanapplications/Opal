@@ -4,10 +4,10 @@
 	options[:truncate_length] = 255 if options[:truncate_length].nil? 
 	options[:only_listed] = false if options[:only_listed].nil? # show only listed features 
 %>
-<table  cellpadding=0 cellspacing=0>
+<table  cellpadding=1 cellspacing=1>
 	<% for feature_value in feature_values %>
 			<% feature = PluginFeature.find(feature_value.plugin_feature_id) %>
-			<% if !feature.nil? %>
+			<% if !feature.nil?  %>
 				<% if (options[:only_listed] && feature.listed) || !options[:only_listed] %>
 					<tr>
 						<td style="text-align:left;padding:0px;">
@@ -26,10 +26,16 @@
 								<span id="feature_value_<%= feature_value.id %>">
 									<b>
 										<% if !feature_value.url.nil? && feature_value.url != "" %>
-											<a href="<%= h feature_value.url %>" target="_blank"><%= h truncate(feature_value.value, :length => options[:truncate_length]) %></a>
-										<% else %>
-											<%= h truncate(feature_value.value, :length => options[:truncate_length]) %>
-										<% end %>
+											<a href="<%= h feature_value.url %>" target="_blank">
+										<% end  %>										
+											<% if feature_value.plugin_feature.feature_type == "stars" %>
+												<%= score(:type => "Stars", :value => feature_value.value.to_i,  :max => feature_value.plugin_feature.max) %>
+											<% else %>
+												<%= h truncate(feature_value.value, :length => options[:truncate_length]) %>
+											<% end %>										
+										<% if !feature_value.url.nil? && feature_value.url != "" %>
+											</a>
+										<% end  %>
 									</b>
 								</span>																																
 						</td>										

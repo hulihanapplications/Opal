@@ -5,7 +5,9 @@ namespace app_name.downcase.to_sym do
   task :install => :environment do
     Rake::Task["db:migrate"].invoke
     Rake::Task["db:seed"].invoke
-    puts "\n\n#{app_name} Installed successfully!"    
+    puts "\n\n#{app_name} Installed successfully!"
+    puts "You can now log in with the default admin account:\n\tusername: admin\n\tpassword: admin"
+    puts "Enjoy!"
     # Log Install
     Log.create(:log => "#{app_name} Installed!", :log_type => "system")    
   end

@@ -10,7 +10,7 @@
 				<% end %>					
 				<input name="features[<%= feature.id %>][plugin_feature_id]" value="<%= feature.id %>" type="hidden">														   				
    			</td>								
-   			<td align=right >
+   			<td align=left>
    				<% existing_value_for_item = PluginFeatureValue.find(:first, :conditions => ["plugin_feature_id = ? and item_id = ?", feature.id, item.id]) %>
 				<% 
 					if existing_value_for_item
@@ -35,18 +35,13 @@
 						});
 					</script>						
 				<% elsif feature.feature_type == "slider" %>
-					<% feature.min ||= 0  %>
-					<% feature.min ||= 100  %>						
-					<input name="features[<%= feature.id %>][value]" type="range" id="feature_input_<%= feature.id %>" value="<%= h value %>" min="<%= feature.min %>" max="<%= feature.max %>" />					
-					<script type="text/javascript">
-						$(document).ready(function() {
-							$("#feature_input_<%= feature.id %>").rangeinput();
-						});
-					</script>					
+					<%= slider_field_tag("features_#{feature.id}", :value, :value => value.to_i, :min => feature.min, :max => feature.max, :input_name => "features[#{feature.id}][value]") %>																																															
 				<% elsif feature.feature_type == "yesno" %>
 	   				<input name="features[<%= feature.id %>][value]" type="radio" id="feature_input_<%= feature.id %>"  value="<%= t("single.positive") %>" <%= "CHECKED" if value ==  t("single.positive")  %>> <%= t("single.positive") %>
 	   				<input name="features[<%= feature.id %>][value]" type="radio" id="feature_input_<%= feature.id %>"  value="<%= t("single.negative") %>" <%= "CHECKED" if value == t("single.negative") %>> <%= t("single.negative") %>
-	   				<input name="features[<%= feature.id %>][value]" type="radio" id="feature_input_<%= feature.id %>"  value="" <%= "CHECKED" if (value == "" || value == nil) %>> <%= t("single.none") %>																																														
+	   				<input name="features[<%= feature.id %>][value]" type="radio" id="feature_input_<%= feature.id %>"  value="" <%= "CHECKED" if (value == "" || value == nil) %>> <%= t("single.none") %>
+				<% elsif feature.feature_type == "stars" %>
+					<%= star_field_tag("features_#{feature.id}", :value, :value => value.to_i, :max => feature.max, :input_name => "features[#{feature.id}][value]") %>																																												
 				<% else %>
 	   				<input name="features[<%= feature.id %>][value]" type="text" id="feature_input_<%= feature.id %>" onfocus = "focus_input('feature_input_<%= feature.id %>')" onblur = "blur_input('feature_input_<%= feature.id %>')" value="<%= h value %>">								
 				<% end %>			

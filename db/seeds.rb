@@ -139,7 +139,7 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   @plugin.user_id = @user.id 
   @plugin.save
   
-  # Create Item Features
+  # Create  Features
   @plugin = PluginFeature.new(:name => "Price", :order_number => 0)
   @plugin.save    
       @plugin_feature_value = PluginFeatureValue.new(:value => "$200.00 USD")
@@ -149,15 +149,25 @@ if (install_sample_data == "y" || install_sample_data == "yes")
       @plugin_feature_value.user_id = @user.id 
       @plugin_feature_value.save    
         
-  @plugin = PluginFeature.new(:name => "Size", :order_number => 1)    
+  @plugin = PluginFeature.new(:name => "Size", :order_number => 1, :feature_type => "option")    
   @plugin.save
+  PluginFeatureValueOption.create(:value => "Small", :plugin_feature_id => @plugin.id)
+  PluginFeatureValueOption.create(:value => "Medium", :plugin_feature_id => @plugin.id)
+  PluginFeatureValueOption.create(:value => "Large", :plugin_feature_id => @plugin.id)  
       @plugin_feature_value = PluginFeatureValue.new(:value => "Large")
       @plugin_feature_value.plugin_feature_id = @plugin.id
       @plugin_feature_value.is_approved = "1"        
       @plugin_feature_value.item_id = item1.id
       @plugin_feature_value.user_id = @user.id 
       @plugin_feature_value.save        
+  
+  @plugin = PluginFeature.create(:name => "Date", :order_number => 1, :feature_type => "date")    
+  @plugin = PluginFeature.create(:name => "Rank", :order_number => 1, :feature_type => "slider", :min => 1, :max => 10)    
+  @plugin = PluginFeature.create(:name => "Score", :order_number => 1, :feature_type => "stars", :max => 5)    
+  @plugin = PluginFeature.create(:name => "Is this awesome?", :order_number => 1, :feature_type => "yesno", :max => 5)    
 
+  
+  
   @plugin = PluginReview.new(:review_score => 5, :review => "I really like this!")
   @plugin.item_id = item1.id
   @plugin.is_approved = "1"    

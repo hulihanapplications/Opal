@@ -90,6 +90,10 @@ en:
     preview: Preview
     version: Version
     website: Website
+    install: Install
+    security: Security
+    information: Information
+    for: For
   # Flash Messages & Notices
   notice:
     save_success: Your changes have been successfully saved!

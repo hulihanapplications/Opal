@@ -306,13 +306,14 @@ a.caldisabled {background-color:#efefef !important;color:#ccc	!important;cursor:
 
 div.rating-cancel,div.star-rating{float:left;width:16px;height:16px;padding:0px 1px 0px 0px;text-indent:-999em;cursor:pointer;display:block;background:transparent;overflow:hidden}
 div.rating-cancel,div.rating-cancel a{background:url(../images/icons/star_selected.png) no-repeat}
-div.star-rating,div.star-rating a{background:url(../images/icons/star_empty.png) no-repeat }
+div.star-rating,div.star-rating a{background:url(../images/icons/star_empty.png) no-repeat ;}
 div.rating-cancel a,div.star-rating a{display:block;width:16px;height:100%;background-position:0 0px;border:0}
 div.star-rating-on a{background:url(../images/icons/star_selected.png) no-repeat!important}
 div.star-rating-hover a{background:url(../images/icons/star_hover.png) no-repeat}
 div.star-rating-readonly a{cursor:default !important}
 div.star-rating{background:transparent!important;overflow:hidden!important}
- 
+
+
 
 /* ColorBox Image Gallery CSS */
 #colorbox, #cboxOverlay, #cboxWrapper{position:absolute; top:0; left:0; z-index:9999; overflow:hidden;}

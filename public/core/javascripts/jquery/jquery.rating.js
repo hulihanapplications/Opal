@@ -120,7 +120,8 @@
 			}; // first element of group
 			
 			// insert rating star
-			var star = $('<div class="star-rating rater-'+ control.serial +'"><a title="' + (this.title || this.value) + '">' + this.value + '</a></div>');
+			//var star = $('<div class="star-rating rater-'+ control.serial +'"><a title="' + (this.title || this.value) + '">' + this.value + '</a></div>'); // Opal Fix: Turning off anchor value to fix display issue 
+			var star = $('<div class="star-rating rater-'+ control.serial +'"><a title="' + (this.title || this.value) + '"></a></div>');
 			rater.append(star);
 			
 			// inherit attributes from input element

@@ -288,8 +288,9 @@ module ApplicationHelper
      end
      
      for i in 1..(options[:max].to_i - options[:value].to_i) # show empty stars
-       html << icon("star_empty")
+       html <<  icon("star_empty")
      end   
+
    else
      html += "<span class=\"score\">#{options[:value]}</span> out of #{options[:max]}"
    end 
@@ -318,5 +319,52 @@ module ApplicationHelper
     src = path_array.join("/")
     image_tag(src, options)
   end
+  
+  def star_field_tag(object, method_name, options = {})
+    options[:value] ||= 0
+    options[:max]   ||= 5
+    options[:input_name] ||= "#{object}[#{method_name}]"
+    html = String.new
+
+    html << "
+    <script type=\"text/javascript\">
+      $(function(){
+      $('.star_field_#{object.to_s}_#{method_name.to_s}').rating({
+          callback: function(value, link){
+            //alert(value);
+            $(\"##{object.to_s}_#{method_name.to_s}\").val(value); // set input value 
+        }
+       });
+      });
+      </script>
+    "                                
+              
+    for i in 1..options[:max]                                       
+      html << "<input class=\"star_field_#{object.to_s}_#{method_name.to_s}\" type=\"radio\" name=\"star_field_#{object.to_s}_#{method_name.to_s}\" value=\"#{i}\" #{ "checked=\"checked\"" if i == options[:value].to_i } />\n\n"
+    end 
+    
+    html << "<input name=\"#{options[:input_name]}\" type=\"hidden\" id=\"#{object.to_s}_#{method_name.to_s}\" value=\"#{h(options[:value])}\">"                    
+    return html
+  end
+ 
+  def slider_field_tag(object, method_name, options = {})
+    options[:value] ||= 0
+    options[:min]   ||= 0
+    options[:max]   ||= 5
+    options[:input_name] ||= "#{object}[#{method_name}]"
+    html = String.new
+
+    html << "<input name=\"#{options[:input_name]}\" type=\"range\" id=\"#{object.to_s}_#{method_name.to_s}_range\" min=\"#{options[:min]}\" max=\"#{options[:max]}\"  value=\"#{h(options[:value])}\">"                
+    
+    html << "
+        <script type=\"text/javascript\">
+          $(document).ready(function() {
+            $(\"##{object.to_s}_#{method_name.to_s}_range\").rangeinput();
+          });
+        </script>
+    "                                                
+    return html    
+  end   
+
 end
 

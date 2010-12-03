@@ -1,0 +1,77 @@
+h1. *Installing Opal*
+
+To install Opal, follow these steps:
+
+h2. Download Opal
+
+Opal is available for download "here":http://www.hulihanapplications.com/projects/opal.
+
+h2. Extract & Upload
+
+Once Opal is downloaded, extract it to the location you'll be running it from(a webserver, your local computer, etc.). By Default, Opal uses MySQL, but you can run Opal with sqlite or any other rails-compatible dbms. Here's an example of what database.yml should look like:
+
+h2. Set Up Your Database 
+
+As in all Rails applications, you must configure which database Opal will use in the _config/database.yml_ file. By default, Opal uses MySQL, but you can configure opal to use sqlite, and any other rails-compatible databases. Here's an example of what the database.yml file should look like:
+
+<pre>
+development:
+  adapter: mysql
+  database: database
+  username: databaseuser
+  password: somepassword
+
+production:
+  adapter: mysql
+  database: database
+  username: databaseuser
+  password: somepassword
+</pre>
+
+h2. Install Database Schema
+
+Next, Run the following command(while in the Opal directory) to install Opal's database schema: 
+<pre>
+rake opal:install
+</pre>
+
+This will install the database structure of Opal. It will set up the default admin account, some sample items, and other stuff to help you get started with Opal.
+
+h2. That's it! 
+
+Run your application on the web using your favorite webserver: apache, mongrel, webrick, or nginx. 
+To log in to Opal for the first time, the default Admin username and password is: *admin*.
+
+h1. *Extra Stuff*
+
+h2. Email Settings
+
+Opal includes an automated email system that will send you emails whenever someone registers, creates a new item, etc. 
+To use this automated email system, you must configure the _config/email.yml_ file to connect to an SMTP email server. Here's an example of what this file should look like:
+
+<pre>
+development:
+  :address: smtp.server.com
+  :port: 25
+  :authentication: plain
+  :user_name: user
+  :password: pass
+
+production:
+  :address: smtp.server.com
+  :port: 25
+  :authentication: plain
+  :user_name: user
+  :password: pass
+</pre>
+
+h2. Running Opal with FastCGI
+
+If you're running Opal on a shared hosting company like Bluehost, Hostmonster, IXWebhosting, etc. you're probably being forced to run all your Rails applications with FastCGI, which is a little more difficult to set up than Passenger(mod_rails) or Mongrel. To run Opal with FastCGI, you need to enable the _.htaccess_ file in the _public/_ directory. To do this, go into your Opal directory and do the following:
+<pre>
+cd public/
+mv .htaccess.fastcgi .htaccess
+</pre>
+
+
+

@@ -21,12 +21,12 @@ class ZeroThreeTwo < ActiveRecord::Migration
     
     # Set plugin permissions for regular users
     for plugin in Plugin.find(:all)
-      GroupPluginPermission.create(:group_id => users_group.id, :plugin_id => plugin.id, :can_read => "1") # turn on read permissions      
+      GroupPluginPermission.create(:group_id => 2, :plugin_id => plugin.id, :can_read => "1") # turn on read permissions      
     end
 
     # Set plugin permissions for the public
     for plugin in Plugin.find(:all)
-      GroupPluginPermission.create(:group_id => public_group.id, :plugin_id => plugin.id, :can_read => "1") # turn on read permissions      
+      GroupPluginPermission.create(:group_id => 1, :plugin_id => plugin.id, :can_read => "1") # turn on read permissions      
     end   
     
     # Create Opal Version Setting

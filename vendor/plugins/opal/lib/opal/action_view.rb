@@ -4,6 +4,15 @@ module Opal
       def test
         "Testing..."
       end
+      
     end
+    
+    module Helpers
+      module FormHelper
+       
+      end
+    end
+
   end
 end
+

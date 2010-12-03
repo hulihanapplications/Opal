@@ -23,7 +23,7 @@
 		
 					
 					<div class="box_style_2"  align=left style="margin-bottom:10px">
-						<h3 class="title">Change My Icon</h3>
+						<h3 class="title"><%= t("label.item_my", :item => t("single.avatar")) %></h3>
 						<% form_tag({:action => 'change_avatar'}, :multipart => true) do %>
 							<table>
 								<tr>
@@ -34,25 +34,25 @@
 									</td>
 								</tr>
 								<tr>
-									<td style="width:100px">Select an Image</td>
+									<td style="width:100px"><%= t("label.item_select", :item => Image.human_name) %></td>
 									<td><input type=file name="file" <% if @user.use_gravatar? %>DISABLED<% end %>></td>
 								</tr>
 								<tr>
 									<td colspan=2 align=center style="font-size:10px">
-										Note: All Images are monitored for appropriateness(<b>no adult, explicit, offensive, or otherwise graphic images allowed</b>). Also, all images will be scaled down to 100x100 pixels.
+										<%= t("info.image_guidelines") %>
 										<hr>
 									</td>
 								</tr>
 								<tr>
-									<td style="width:150px">Use <a href="http://www.gravatar.com" class="highlight">Gravatar</a> Instead?</td>
+									<td style="width:150px"><%= UserInfo.human_attribute_name(:use_gravatar) %></td>
 									<td align=right>
-										Yes <input type="radio" name="use_gravatar" value="1"<% if @user.use_gravatar? %>CHECKED<% end %>>
-										No <input type="radio" name="use_gravatar" value="0"<% if !@user.use_gravatar? %>CHECKED<% end %>>
+										<%= t("single.positive") %> <input type="radio" name="use_gravatar" value="1"<% if @user.use_gravatar? %>CHECKED<% end %>>
+										<%= t("single.negative") %> <input type="radio" name="use_gravatar" value="0"<% if !@user.use_gravatar? %>CHECKED<% end %>>
 									</td>
 								</tr>						
 							</table>
 						
-						   <div align=center><%= submit_tag t("single.upload"), :class => "button_1" %></div>
+						   <div align=center><%= submit_tag t("single.save"), :class => "button_1" %></div>
 						<% end %>
 					</div>
 					<div class="box_style_2"  align=left style="margin-bottom:10px">

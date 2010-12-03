@@ -98,14 +98,17 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   msg = UserMessage.new(:message => "Test message(unread) to test from admin.")
   msg.from_user_id = 1
   msg.user_id = 2
+  msg.to_user_id = 2
   msg.save
   msg = UserMessage.new(:message => "Test message(read) to test from admin.", :is_read => "1")
   msg.from_user_id = 1
   msg.user_id = 2
+  msg.to_user_id = 2
   msg.save    
   msg = UserMessage.new(:message => "Test Message from Test to Admin.", :reply_to_message_id => 1)
   msg.from_user_id = 2
   msg.user_id = 1
+  msg.to_user_id = 1  
   msg.save     
   
   # Create Test Item

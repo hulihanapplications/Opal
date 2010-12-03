@@ -13,7 +13,7 @@
    </li>
    <% end %>   
    <li>
-		<%= link_to icon("mail") + " " + UserMessage.human_name.pluralize, {:action => "for_me", :controller => "messages"}, :class => (params[:action] == "for_me" ? "active" : "") %>
+		<%= link_to icon("mail") + " " + UserMessage.human_name.pluralize, {:action => "for_me", :controller => "messages"}, :class => ((params[:action] == "for_me" && params[:controller] == "messages") ? "active" : "") %>
    </li>
    <li>
 		<%= link_to icon("settings") + " " + t("section.title.my_settings"), {:action => "settings", :controller => "user"}, :class => (params[:action] == "settings" || params[:action] == "update_account" || params[:action] == "change_password"  ? "active" : "") %>

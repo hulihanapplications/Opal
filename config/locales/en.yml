@@ -94,6 +94,8 @@ en:
     security: Security
     information: Information
     for: For
+    watermark: Watermark
+    stamp: Stamp    
   # Flash Messages & Notices
   notice:
     save_success: Your changes have been successfully saved!
@@ -222,6 +224,7 @@ en:
     user_greeting: Hello, %{name}.
     user_by: by %{name}
     user_welcome_to_admin: Welcome to the Administration section, all powerful %{name}.
+    user_welcome_to_account:  Welcome to your account. Here you can add new %{items}, check your messages, and much more! 
     user_logged_in_as: Logged in as
     search_results_for: Search Results for %{query}    
     apology: Whoops!
@@ -231,7 +234,6 @@ en:
     advanced_search: Advanced Search
     register: Sign Up!
     register_message: Don't have an account? 
-
     sort_asc: Currently sorted in ascending order.
     sort_desc: Currently sorted in descending order. 
     log_in: Log In
@@ -255,10 +257,21 @@ en:
     csv: CSV (Comma Separated)
     make_link: Make this a link.
     out_of: out of
+    from_local: From your Computer
+    from_web: From the Web(URL)
+    image_effect_bw: "Monochrome(Black & White)"
+    image_effect_sepia: Sepia
+    image_effect_rotate_90_cw: "Rotate 90&deg; Clockwise"
+    image_effect_rotate_90_ccw: "Rotate 90&deg; Counter-Clockwise"
+    image_effect_rotate_180: "Rotate 180&deg; Degrees"
+    image_effect_gaussian_blur: Gaussian Blur
+    image_effect_polaroid: Polaroid
+    image_effect_negate: Negate
   # General Information 
   info: 
     delete_main_logo: Deleting your main logo will show the title of your site instead. 
     html_allowed: "The following HTML elements are allowed here: %{elements}"
+    image_guidelines: All Images are monitored for appropriateness(no adult, explicit, offensive, or otherwise graphic images allowed). Also, all images will be scaled down to 100x100 pixels.
   # Confirmations
   confirm:
     general: Are you sure you want to do this?
@@ -381,7 +394,7 @@ en:
       group: Group
       category: Category
       group_plugin_permission: Group Plugin Permission
-      image: System Image
+      image: Image
       log: Activity
       page: Page
       public_page: Public Page # psuedo model
@@ -424,6 +437,7 @@ en:
         interests: My Interests
         notify_of_new_messages: Email me when someone sends me a message
         forgot_password_code: Password Recovery Code
+        use_gravatar: Use Gravatar Instead?
       user_message:
         read: Read
         unread: Unread      

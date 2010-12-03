@@ -137,7 +137,7 @@ class Uploader #< ActiveRecord::Base
       options[:image] = options[:image].colorize(0.30, 0.30, 0.30, '#cc9933')
     end
   
-    if options[:effects][:watermark] == "yes"
+    if options[:effects][:watermark] == "yes" # Watermark 
      watermark_path = RAILS_ROOT + "/public/themes/#{@setting[:theme]}/images/watermark.png"
      if File.exists?(watermark_path) # use existing watermark image
        watermark_image = Magick::Image.from_blob( File.read(watermark_path)).first 
@@ -166,7 +166,17 @@ class Uploader #< ActiveRecord::Base
        # Method 3 - Transparency 
        #watermark_image.fuzz = 100 # set transparency tolerance
        #watermark_image = watermark_image.transparent("black", (Magick::TransparentOpacity - Magick::OpaqueOpacity) * 0.25) # set opacity     
-       options[:image].composite!(watermark_image, Magick::CenterGravity, Magick::OverCompositeOp)      
+       options[:image].composite!(watermark_image, Magick::CenterGravity, Magick::OverCompositeOp)  # Other Gravities: SouthEastGravity, NorthGravity(centered), etc. see: http://studio.imagemagick.org/RMagick/doc/constants.html#GravityType for more     
+     end
+    end
+
+    if options[:effects][:stamp] == "yes" # Stamp 
+     stamp_path = RAILS_ROOT + "/public/themes/#{@setting[:theme]}/images/stamp.png"
+     if File.exists?(stamp_path) # use existing stamp image
+       stamp_image = Magick::Image.from_blob( File.read(stamp_path)).first 
+       options[:image].composite!(stamp_image, Magick::SouthEastGravity, Magick::OverCompositeOp)  # Other Gravities: SouthEastGravity, NorthGravity(centered), etc.    
+     else # no existing stamp image, generate one from text
+       logger.info("No Stamp Found: #{stamp_path}")
      end
     end
    

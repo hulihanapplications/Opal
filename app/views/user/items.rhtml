@@ -1,6 +1,6 @@
 <%= render :partial => "/browse/main_content_top_bar" %>
 
-<h2 class="title">My <%= @setting[:item_name_plural] %></h2>
+<h2 class="title"><%= t("label.item_my", :item => @setting[:item_name_plural])  %></h2>
 <div class="spacer"></div>
 <br>
 <table align=center style="width:100%" cellpadding=0 cellspacing=0>

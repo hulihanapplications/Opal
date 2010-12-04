@@ -81,7 +81,7 @@ class PluginImagesController < ApplicationController
   end
 
   def change_main_image
-    @old_main_image = PluginImage.find(:first, :order => "created_at ASC")
+    @old_main_image = PluginImage.find(:first, :order => "created_at ASC", :conditions => ["item_id = ?", @item.id])
     @new_main_image = PluginImage.find(params[:image_id])
     
     swap_time = @old_main_image.created_at 
@@ -90,8 +90,8 @@ class PluginImagesController < ApplicationController
     @old_main_image.update_attribute(:created_at, @new_main_image.created_at)
     @new_main_image.update_attribute(:created_at, swap_time)
     
-    flash[:success] =  t("notice.save_sucess") 
-    Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => t("log.item_approve", :item => @plugin.human_name, :name => @file.filename))
+    flash[:success] =  t("notice.save_success") 
+    Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => t("log.item_save", :item => t("single.main") + " " + @plugin.human_name, :name => @new_main_image.filename))
     redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.human_name.pluralize 
   end
 

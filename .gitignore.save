@@ -1,7 +1,0 @@
-# Rails
-.bundle
-db/*.sqlite3
-*.log
-tmp/**/*
-config/database.yml
-config/databaseyml

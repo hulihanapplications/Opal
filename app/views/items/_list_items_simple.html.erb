@@ -40,7 +40,7 @@
 								</td>
 								<td align=right>
 									<div style="position:relative;bottom:0px;left:0px;">
-										<%= "<b class=\"highlight\"><sup title=\"#{t("label.item_recently_added", :item => @setting[:item_name])}\">#{t("label.recently_added")}</sup></b>" if item.is_new? %>
+										<%= "<b class=\"highlight\"><sup title=\"#{t("label.item_recently_added", :item => @setting[:item_name])}\">#{t("single.new")}</sup></b>" if item.is_new? %>
 										<!--
 										<%= icon("bullet") %>
 										<sup><a href="javascript:toggle_box('details_<%= item.id%>')"> Details <%= icon("open") %></a></sup>

@@ -51,9 +51,9 @@ class ItemsController < ApplicationController
   def view
     @item = Item.find(params[:id])
     if @item.is_viewable_for_user?(@logged_in_user) 
-      @setting[:meta_title] = @item.name + " - " + @item.description + " - " + @item.category.name + " " + @setting[:item_name_plural] + " - " + @setting[:meta_title]
-      @setting[:meta_keywords] = @item.name + " - " + @item.description + " - "+ @item.category.name + " " + @setting[:item_name_plural] + " - " + @setting[:meta_keywords]
-      @setting[:meta_description] = @item.name + " - " + @item.description + " - "+ @item.category.name + " " + @setting[:item_name_plural] + " - " + @setting[:meta_description]
+      @setting[:meta_title] = meta_title(@item) 
+      @setting[:meta_keywords] = @setting[:meta_title]
+      @setting[:meta_description] = @setting[:meta_title]
       @item.update_attribute(:views, @item.views += 1) # update total views
       @item.update_attribute(:recent_views, @item.recent_views += 1) # update recent views  
     else # the user can't see this item

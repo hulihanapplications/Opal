@@ -388,7 +388,9 @@ en:
   # ActiveRecord Models & Validations
   activerecord:
     models:
-      user: User
+      user: 
+        one: User 
+        other: Users        
       user_info: Account Info
       user_message: Message
       user_verification: Verification Request
@@ -406,7 +408,7 @@ en:
       plugin_comment: Comment
       plugin_discussion: Discussion     
       plugin_discussion_post: Post
-      plugin_description: Description
+      plugin_description: Detail
       plugin_feature: Feature
       plugin_feature_value: Value
       plugin_feature_value_option: Option

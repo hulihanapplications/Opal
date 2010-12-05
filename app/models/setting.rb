@@ -65,4 +65,6 @@ class Setting < ActiveRecord::Base
     
     return YAML::dump hash
   end
+  
+
 end

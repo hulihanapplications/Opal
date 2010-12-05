@@ -14,7 +14,7 @@ Rails::Initializer.run do |config|
   # Load Required Gems
   config.gem "sanitize"
   config.gem "nokogiri"
-
+  config.gem "i18n", ">=0.5.0"
   
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers

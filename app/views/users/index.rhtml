@@ -1,51 +1,40 @@
-<div class="section">
-	<table align=center style="width:100%" cellpadding=0 cellspacing=0>
-		 <tr>
-		  <td align=left class="sidebar_column" valign=top style="padding:0px;text-align:center">
-				<%= render :partial => "/users/menu" %>
-	
-	
-		
-				<div class="box_1" style="margin-bottom:5px;" align=left>
-					<h3 class="title"><%= User.human_attribute_name(:latest_login).pluralize %></h3>
-					<% for user in @latest_logins %>
-						<% if user.last_login %>
-							<table cellpadding=0 cellspacing=0 style="width:100%">
-								<tr>
-									<td style="width:20px;" align=left>
-										<%= user_avatar(user, :size => "tiny") %>								
-									</td>
-									<td align=left style="padding-left:2px">
-										<h3><b><%= link_to user.username, {:action => "user", :controller => "browse", :id => user.id} %></b></h3>
-										<i><%= friendly_date user.last_login if  user.last_login %></i>
-									</td>
-								</tr>
-							</table>
-						<% end %>					
-					<% end %>			
-				</div>			
-		  </td>
-		  <td style="width:5px;">
-		  	
-		  </td>
-		  <td align=left valign=top >
-			
-				<div class="header">					
-					<table style="width:100%;" cellpadding=0 cellspacing=0>
+	<div id="side">
+		<%= render :partial => "menu" %>
+		<div class="box_1" style="margin-bottom:5px;" align=left>
+			<h3 class="title"><%= User.human_attribute_name(:latest_login).pluralize %></h3>
+			<% for user in @latest_logins %>
+				<% if user.last_login %>
+					<table cellpadding=0 cellspacing=0 style="width:100%">
 						<tr>
-							<td align=left>
-								<h2 class="title">
-									<a name="groups"><%= @users.total_entries %> <%= User.human_name.pluralize %></a>
-								</h2>						
+							<td style="width:20px;" align=left>
+								<%= user_avatar(user, :size => "tiny") %>								
 							</td>
-							<td align=right >
-									<%= link_to icon("new") + " " + t("label.item_new", :item => User.human_name), {:action => "new"} %>						
+							<td align=left style="padding-left:2px">
+								<h3><b><%= link_to user.username, {:action => "user", :controller => "browse", :id => user.id} %></b></h3>
+								<i><%= friendly_date user.last_login if  user.last_login %></i>
 							</td>
 						</tr>
 					</table>
-				</div>
+				<% end %>					
+			<% end %>			
+		</div>			
+	</div>
+	<div id="main">							
+					<div class="header">					
+						<table style="width:100%;" cellpadding=0 cellspacing=0>
+							<tr>
+								<td align=left>
+									<h2 class="title">
+										<a name="groups"><%= @users.total_entries %> <%= User.human_name.pluralize %></a>
+									</h2>						
+								</td>
+								<td align=right >
+										<%= link_to icon("new") + " " + t("label.item_new", :item => User.human_name), {:action => "new"} %>						
+								</td>
+							</tr>
+						</table>
+					</div>
 			
-		  	<div class="box_2">
 	
 					<div class="users">
 						<table width="100%" cellpadding=0 cellspacing=0 class="row_table">
@@ -79,15 +68,15 @@
 									<% end %>
 								</td>
 								<td>
-									<%= link_to icon("edit"), { :action => 'edit', :controller => "users", :id => user.id, :user_id => user.id} %>
+									<%= link_to icon("edit"), { :action => 'edit', :controller => "users", :id => user.id, :user_id => user.id}, :class => "transparent" %>
 								</td>
 								<td>
-									<%= link_to icon("delete"), { :action => 'delete', :controller => "users", :id => user.id, :user_id => user.id}, :confirm => t("confirm.delete_user") %>
+									<%= link_to icon("delete"), { :action => 'delete', :controller => "users", :id => user.id, :user_id => user.id}, :confirm => t("confirm.delete_user"), :class => "transparent" %>
 								</td>
 							</tr> 
 						<% end %>
 						</table>
-					</div>
+					
 				</div>
 	
 				<br>
@@ -96,10 +85,6 @@
 				</div>
 				<br>	
 	
-			</div>				
-		  </td> 
-		 </tr>
-	</table>
+	</div>
 	
 
-</div>	

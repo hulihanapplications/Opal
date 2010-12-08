@@ -5,15 +5,10 @@
  <div id="status_box" style="height:20px;"><%# This is where the ajax output goes %>
  </div>
  
-<table align=center style="width:100%" cellpadding=0 cellspacing=0>
- <tr>
-  <td align=left class="sidebar_column" valign=top style="padding:0px;">
+<div id="side">
 			<%= render :partial => "messages/menu" %>
-  </td>
-  <td style="width:5px;">
-  	
-  </td>
-  <td align=left valign=top >
+</div>
+<div id="main">
 	<div class="box_2">
 		<%= render :partial => "messages/list_messages", :locals => {:messages => @messages[params[:type].to_sym]}%>
 		<div align=center><%= page_entries_info @messages[params[:type].to_sym], :entry_name => UserMessage.human_name.pluralize %></div>								
@@ -22,6 +17,4 @@
 	<div align=center>
 		<%= will_paginate @messages[params[:type].to_sym] %>	
 	</div>	
-  </td> 
- </tr>
-</table>
+</div>	

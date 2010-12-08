@@ -4,11 +4,9 @@
 <% end %>
 
 <div class="item">
-	<table cellpadding=0 cellspacing=0>
-		<tr>
-			<td valign=top>
-								
-				<table cellpadding=0 cellspacing=0>
+	<div id="main">
+		<div align=center>
+				<table >
 					<tr>
 						<td>
 							<%= f.label :name %>
@@ -48,12 +46,12 @@
 							<div style="height:10px"></div>	
 						</td>
 					</tr>
-				</table>	
-			</td>
-			<td style="width:10px;">
-			</td>
-			<td valign=top align=left class="sidebar_column">
-				<div class="box_0" style="margin-bottom:5px">
+				</table>				
+		</div>								
+
+	</div>
+	<div id="side">
+				<div class="box_0" style="margin-bottom:5px" align=left>
 					<h2 class="title">
 						<img src="/themes/<%= @setting[:theme] %>/images/icons/options.png" class="icon" > 				
 						<%= t("single.options") %>
@@ -65,7 +63,7 @@
 				
 				</div>		
 				<div style="height:10px"></div>				
-				<div class="box_0">
+				<div class="box_0" align=left>
 					<h2 class="title">
 						<img src="/themes/<%= @setting[:theme] %>/images/icons/categories.png" class="icon" > 				
 						<%= Category.human_name %>
@@ -75,8 +73,5 @@
 						<%= descend_category(category, :include_children => @setting[:include_child_category_items], :make_radio_button => true, :id_to_check => item.category_id, :truncate_length => 35)  %>
 					<% end %>								
 				</div>
-		
-			</td>
-		</tr>
-	</table>	
+	</div>	
 </div>

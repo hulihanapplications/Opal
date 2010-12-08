@@ -1,7 +1,6 @@
-<table style="width:100%" cellpadding=0 cellspacing=0>
-    <tr>
-        <td class="sidebar_column" style="padding-right:5px;">
-            <div>
+<div class="section">
+	<div id="side">
+		<%= render :partial => "menu" %>
                 <div class="box_3" align=center>
                     <h1 class="title"><%= h @user.username %></h1>
                     <div class="user_avatar" align=center style="margin-bottom:5px">
@@ -82,9 +81,13 @@
                     <%= t("single.enabled") %>: <b><%= @user.is_enabled? ? t("single.positive") : t("single.negative") %></b>
                     <%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/cycle.png\" class=\"icon\"  title=\"#{t("label.item_change", :item => "")}\"> #{t("label.item_change", :item => "")}", { :action => 'toggle_user_disabled', :controller => "users", :id => @user.id}, :confirm => t("confirm.general") %>
                 </div>
-            </div>
-        </td>
-        <td style="padding-left:5px;">
+
+	</div>
+
+	<div id="main">
+
+
+
 			<div id="message_form" style="display:none;margin-bottom:10px;" align=center>	 			
 				<div class="box_2" align=left>
 	 				<div id="send_message_notice"></div>
@@ -161,8 +164,6 @@
                 </div>
                 <% end %>
             </div>
-        </td>
-    </tr>
-</table>
+</div>
 <br>
 <%= link_to icon("arrow_left") + " " + t("single.back"), :back %>

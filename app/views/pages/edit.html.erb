@@ -1,7 +1,5 @@
 <%= form_tag  :action => 'update', :controller => "pages", :id => @page.id  %>
-	<table align=center style="width:100%" cellpadding=0 cellspacing=0>
-		 <tr>
-		  <td align=left class="sidebar_column" valign=top style="padding:0px;text-align:center">
+<div id="side">
 		  	<%= render :partial => "pages/menu" %>
 			<div class="box_1" align=left style="margin-bottom:5px;">
 				<h3 class="title"><%= icon("details") %> <%= t("label.additional_info") %></h3>
@@ -43,10 +41,8 @@
 			<% end %>		
 			<%= render :partial => "shared/html_allowed" %>				
 			
-		  </td>
-		  <td style="width:5px;">
-		  </td>
-		  <td align=left valign=top >
+</div>
+</div id="main">
 					<input type="hidden" name="page[page_type]" value="<%= params[:type].downcase %>">
 					<div class="box_2" style="margin-bottom:5px" align=left>
 						<h2 class="title">
@@ -60,10 +56,7 @@
 						</div>					
 					</div>
 
-
-		  </td> 
-		 </tr>
-	</table>		
+</div>	
 </form>
 
 <div align=center>						

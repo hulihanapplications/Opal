@@ -1,17 +1,24 @@
-<div class="box_1" id="new_item_box">
-      <h2 class="title"><%= t("label.item_new", :item => @setting[:item_name]) %></h2>
-	   <%= show_page Page.get_system_page("New Item") %>
-	   
-	   <div style="margin-top:5px;">
-	        <% form_for(@item, :url => { :action => 'create', :controller => "items"}, :method => "post") do |f| %>
-			<%= render :partial => "form", :locals => {:item => @item, :f => f} %>
-			<br>
-				<div align=center>
-					<%= f.submit t("label.item_create", :item => @setting[:item_name]), :class => "button_1" %>
-				</div>
-			<% end %>
-		</div>
+<div align=center>
+   <h2 class="title"><%= t("label.item_new", :item => @setting[:item_name]) %></h2>
+   <%= show_page Page.get_system_page("New Item") %>	
 </div>
 
+
+
+<div style="margin-top:5px;">
+    <% form_for(@item, :url => { :action => 'create', :controller => "items"}, :method => "post") do |f| %>
+	<%= render :partial => "form", :locals => {:item => @item, :f => f} %>
+	
+	<div style="clear:both"></div>
+	<br>
+		<div align=center>
+			<%= f.submit t("label.item_create", :item => @setting[:item_name]), :class => "button_1" %>
+		</div>
+	<% end %>
+</div>
+
+
 <br>
-<%= link_to icon("arrow_left") + " " + t("single.back"), :back %>
+<div align=center>
+	<%= link_to icon("arrow_left") + " " + t("single.back"), :back %>
+</div>

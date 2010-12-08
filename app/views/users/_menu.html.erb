@@ -3,16 +3,16 @@
 	
 	<div class="box_<%= params[:controller] == "users" ? "1" : "2" %>" style="margin-bottom:5px;">
 		<img src="/themes/<%= @setting[:theme] %>/images/icons/users.png" class="icon"> 				
-		<%= link_to User.human_name.pluralize, {:action => "index", :controller => "users"} %></a>				
+		<%= link_to User.human_name.pluralize, {:action => "index", :controller => "users"} %>			
 	</div>
 	
 	<div class="box_<%= params[:controller] == "groups" ? "1" : "2" %>" style="margin-bottom:5px;">
 		<img src="/themes/<%= @setting[:theme] %>/images/icons/groups.png" class="icon"> 				
-		<%= link_to Group.human_name.pluralize, {:action => "index", :controller => "groups"} %></a>				
+		<%= link_to Group.human_name.pluralize, {:action => "index", :controller => "groups"} %>				
 	</div>	
 	
 	<div class="box_<%= params[:controller] == "messages" ? "1" : "2" %>" style="margin-bottom:5px;">
 		<img src="/themes/<%= @setting[:theme] %>/images/icons/mail.png" class="icon"> 				
-		<%= link_to UserMessage.human_name.pluralize, {:action => "index", :controller => "messages"} %></a>				
+		<%= link_to UserMessage.human_name.pluralize, {:action => "index", :controller => "messages"} %>			
 	</div>		
 </div>

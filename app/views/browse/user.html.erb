@@ -1,7 +1,5 @@
 
-<table width="100%" cellpadding=0 cellspacing=0>
-	<tr>
-		<td class="sidebar_column">
+<div id="side">
 			<div class="box_3" align=center>
 				<h1 class="title"><%= h @user.username %></h1>
 			   <div class="user_avatar" align=center style="margin-bottom:5px">
@@ -30,9 +28,8 @@
 					<%= link_to icon("delete") + " " + t("label.item_delete", :item => User.human_name), {:controller => "users", :action => "delete", :id => @user}, :confirm => t("confirm.delete_user")%>		   					
 				</div>								
 		    <% end %>
-		</td>
-
-		<td align=left style="padding-left:10px;" valign=top>
+</div>
+<div id="main">
 				   <div id="message_form" style="display:none" align=center>
 				   		<% if !@logged_in_user.anonymous? %>
 				 			<div class="box_2" align=left>
@@ -83,10 +80,7 @@
 			<br>
 			<%= render :partial => "items/list_items", :locals => {:items => @items } %>
 			<div align=center>			<%= will_paginate @items %>			</div>
-		</td>
-		
-	</tr>
-</table>
+</div>
 
 
 <br>

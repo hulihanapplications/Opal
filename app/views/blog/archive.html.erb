@@ -1,15 +1,13 @@
-<div align=center>
-	 <h2 class="title"><%= l(@date, :format => :month_year)  %></h2>
-	 <div class="spacer"></div> 
-</div>
-<br>
 
-<table align=center style="width:100%">
- <tr>
-  <td align=left class="sidebar_column" valign=top>
+
+<div id="side">
 		<%= render :partial => "menu" %>
-  </td>
-  <td align=left valign=top >
+</div>
+<div id="main">
+	<div align=center>
+		 <h2 class="title"><%= l(@date, :format => :month_year)  %></h2>
+	</div>
+	<br>	
    <div>
 		<%= render :partial => "blog/list_pages", :locals => {:pages => @pages} %>
    </div>
@@ -19,6 +17,4 @@
 			<%= will_paginate @pages %>	  	
    </div>
 	   
-  </td> 
- </tr>
-</table>
+</div>

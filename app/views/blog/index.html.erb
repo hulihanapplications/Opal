@@ -1,10 +1,7 @@
-
-<table align=center style="width:100%">
- <tr>
-  <td align=left class="sidebar_column" valign=top>
-		<%= render :partial => "menu" %>	
-  </td>
-  <td align=left valign=top >
+<div id="side">
+		<%= render :partial => "menu" %>
+</div>
+<div id="main">
    <div>
 			<%= render :partial => "blog/list_pages", :locals => {:pages => @pages} %>
 
@@ -15,6 +12,4 @@
 			<%= will_paginate @pages %>	  	
    </div>
 	   
-  </td> 
- </tr>
-</table>
+</div>

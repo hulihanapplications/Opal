@@ -1,29 +1,8 @@
 <div class="section">
-	<table align=center style="width:100%" cellpadding=0 cellspacing=0>
-		 <tr>
-		  <td align=left class="sidebar_column" valign=top style="padding:0px;text-align:center">
-				<%= render :partial => "pages/menu" %>
-				<!--	
-				<div align=center class="box_1">
-					<% if params[:type] == "System" %>
-						<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" alt="" title="Information" class="icon">
-						You can only modify the content(not the title or description) of system pages. You cannot delete system pages.
-					<% elsif params[:type] == "Public" %>
-						<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" alt="" title="Information" class="icon">
-						Public Pages are listed in the <a href="/about"><b>about</b></a> section. New pages you create will appear there automatically.
-					<% elsif params[:type] == "Blog" %>
-						<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" alt="" title="Information" class="icon">
-						Blog Pages are listed in the <b><%= link_to "blog",{ :action => "index", :controller => "blog"} %></b>.
-					<% else %>				
-						You have specified an invalid page type.						
-					<% end %>
-				</div>	
-				-->			  
-		  </td>
-		  <td style="width:5px;">
-		  </td>
-		  <td align=left valign=top >
-	
+	<div id="side">
+				<%= render :partial => "pages/menu" %>	  
+	</div>
+	<div id="main">		
 				<div class="header">					
 					<table style="width:100%;" cellpadding=0 cellspacing=0>
 						<tr>
@@ -52,8 +31,5 @@
 					</div>
 				</div>	
 			</div>				
-				
-		  </td> 
-		 </tr>
-	</table>	
+	</div>
 </div>			

@@ -5,7 +5,7 @@
 			<td><input name="file" id="image_file" type ="file" onfocus = "focus_input('image_file')" onblur = "blur_input('image_file')"></td>
 			</tr>
 			<tr>
-				<td colspan=2 align=center> <%= t("single.or") %></td>
+				<td colspan=2 align=center> <%= t("single.or").downcase %></td>
 			</tr>
 			<tr>
 				<td><img src="/themes/<%= @setting[:theme] %>/images/icons/web.png" class="icon"> <%= t("label.from_web") %></td>

@@ -97,6 +97,7 @@ en:
     watermark: Watermark
     stamp: Stamp    
     main: Main
+    or: Or
   # Flash Messages & Notices
   notice:
     save_success: Your changes have been successfully saved!
@@ -408,7 +409,7 @@ en:
       plugin_comment: Comment
       plugin_discussion: Discussion     
       plugin_discussion_post: Post
-      plugin_description: Detail
+      plugin_description: Description
       plugin_feature: Feature
       plugin_feature_value: Value
       plugin_feature_value_option: Option

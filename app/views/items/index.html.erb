@@ -1,8 +1,6 @@
 <%= render :partial => "browse/main_content_top_bar" %>
 
-<table align=center style="width:100%" cellpadding=0 cellspacing=0>
- <tr>
-  <td align=left class="sidebar_column" valign=top style="padding:0px;">
+<div id="side">
   	<% if @setting[:homepage_type] != "categories" %>
 		<div class="box_1" id="category_menu" style="margin-bottom:5px">
 	   		<%= render :partial => "items/category_menu", :locals => {:options => {:category => @category}} %>
@@ -19,11 +17,8 @@
 		</div>
 	<% end %>  	
 	<%= show_page Page.get_system_page("Category Column") %>	
-  </td>
-  <td style="width:5px;">
-  	
-  </td>
-  <td align=left valign=top >
+</div>
+<div id="main">
 		<%= render :partial => "/items/list_items", :locals => {:items => @items } %>
 		<div align="center" class="will_paginate">
 			<br>
@@ -31,7 +26,5 @@
 			<%= will_paginate @items %>
 			<br>
 		</div>			
-  </td> 
- </tr>
-</table>
+</div>
 

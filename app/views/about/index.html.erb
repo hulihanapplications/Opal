@@ -1,16 +1,12 @@
 <% @page = Page.get_system_page("About Home")%>
-<table align=center style="width:100%">
- <tr>
-  <td align=left class="sidebar_column" valign=top>
+<div id="side">
   	<div class="box_1">
 		<%= render :partial => "menu" %>
 	</div>
-  </td>
-  <td align=left valign=top >
+</div>
+<div id="main">
    <%= render :partial => "pages/header", :locals => {:page => @page} %> 
    <div>
 		<%= show_page @page  %>
    </div>   
-  </td> 
- </tr>
-</table>
+</div>

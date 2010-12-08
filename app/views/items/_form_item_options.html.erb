@@ -1,4 +1,4 @@
-<table  cellpadding=0 cellspacing=0 style="width:100%" class="item_options_table">
+<table style="width:100%" class="item_options_table">
 	<% if @logged_in_user.is_admin? %>	
 		<tr>
 			<td class="icon_column" align=right><input type="checkbox" name="item[is_approved]" value="1"  id="item_is_approved" <%= "CHECKED" if item.is_approved? %>></td>			

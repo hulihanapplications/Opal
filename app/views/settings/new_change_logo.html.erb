@@ -1,14 +1,7 @@
-<table align=center style="width:100%" cellpadding=0 cellspacing=0>
-	 <tr>
-	  <td align=left class="sidebar_column" valign=top style="padding:0px;text-align:center">
-			<%= render :partial => "/settings/menu" %>
-
-	  </td>
-	  <td style="width:5px;">
-	  	
-	  </td>
-	  <td align=left valign=top >	
-		<div class="section">
+<div id="side">
+	<%= render :partial => "/settings/menu" %>
+</div>
+<div id="main">	
 			<div class="header">					
 				<table style="width:100%;" cellpadding=0 cellspacing=0>
 					<tr>
@@ -20,13 +13,12 @@
 						<td align=right >
 							<% if @logo_image_exists %>
 								<img src="/themes/<%= @setting[:theme] %>/images/icons/delete.png" class="icon">
-								<%= link_to "#{t("single.delete")} #{t("single.logo")}", {:action => "delete_logo", :controller => "settings"}, :confirm => t("confirm.general")   %></a>
+								<%= link_to "#{t("single.delete")} #{t("single.logo")}", {:action => "delete_logo", :controller => "settings"}, :confirm => t("confirm.general")   %>
 							<% else %>
 								<!--No Logo has been uploaded.-->
 							<% end %>	
 							<%= icon("upload") %>													
 							<%= link_to "#{t("single.upload")} #{t("single.logo")}", {:action => "new_change_logo", :controller => "settings"}%>
-							<%#= link_to_function "#{t("single.upload")} #{t("single.logo")}", "toggle_box('upload_logo_box')" %></a>
 						</td>
 					</tr>
 				</table>
@@ -39,9 +31,5 @@
 					<br>
 				</form>			
 			</div>	
-			<br>
-		</div>
-		<div align=center><img src="/themes/<%= @setting[:theme] %>/images/icons/arrow_left.png" class="icon" title="Back"> <%= link_to "Back", { :action => 'index', :anchor => "Logo"}  %></div>
-	  </td> 
-	 </tr>
-</table>							
+	<div align=center><img src="/themes/<%= @setting[:theme] %>/images/icons/arrow_left.png" class="icon" title="Back"> <%= link_to "Back", { :action => 'index', :anchor => "Logo"}  %></div>
+</div>						

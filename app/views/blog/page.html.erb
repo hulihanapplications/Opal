@@ -1,11 +1,8 @@
-
-<table align=center style="width:100%">
- <tr>
-  <td align=left class="sidebar_column" valign=top>
+<div id="side">
 		<%= render :partial => "menu" %>
-  </td>
-  <td align=left valign=top>
-	<div class="box_2 blog_page" style="margin-bottom:10px">
+</div>
+<div id="main">
+   <div class="box_2 blog_page" style="margin-bottom:10px">
 		<%= render :partial => "blog/list_page", :locals => {:page => @page} %>
    </div>
    
@@ -33,6 +30,4 @@
 		<% end %>				
    </div>
 
-  </td> 
- </tr>
-</table>
+</div>

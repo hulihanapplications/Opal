@@ -30,7 +30,7 @@ class PluginReviewsController < ApplicationController
        @review.is_approved = "1" if !@my_group_plugin_permissions.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin       
        if @review.save
         Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => @plugin.human_name,  :name => truncate(@review.review, :length => 10)))                                       
-        flash[:success] = t("notice.item_create_sucess", :item => @plugin.human_name)
+        flash[:success] = t("notice.item_create_success", :item => @plugin.human_name)
         flash[:success] += t("notice.user_thanks", :name => @review.user.first_name)
         redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.human_name.pluralize 
        else # fail saved 

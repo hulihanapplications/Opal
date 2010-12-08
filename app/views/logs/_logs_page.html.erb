@@ -1,9 +1,7 @@
 <%= page_entries_info @logs, :entry_name => Log.human_name %>
 <br><br>
 
-	<table align=center style="width:100%" cellpadding=0 cellspacing=0>
-	 <tr>
-	  <td align=left class="sidebar_column" valign=top style="padding:0px;">
+<div id="side">
 	  		<%= render :partial => "tools/menu" if (params[:controller] == "logs" && params[:action] == "index")%>
 			<div class="box_1" style="margin-bottom:5px;">
 				<%= render :partial => "logs/legend" %>
@@ -49,17 +47,12 @@
 					</table>				
 			</div>
 			-->			
-	  </td>
-	  <td style="width:5px;">
-	  	
-	  </td>
-	  <td align=left valign=top >
+</div>
+<div id="main">
 	  	<div class="box_2">
 			<%= render :partial => "logs/list_logs", :locals => {:logs => logs} %>
 		</div>				
-	  </td> 
-	 </tr>
-	</table>	
+</div>
 
 
 <br>

@@ -17,7 +17,7 @@ class PluginsController < ApplicationController
       plugin = Plugin.update(id, :order_number => position)
     end
      Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_save", :item => Plugin.human_name, :name => Plugin.human_attribute_name(:order_number)))                                                 
-     render :text => "<div class=\"flash_success\">#{t("notice.save_success")}</div>"
+     render :text => "<div class=\"success\">#{t("notice.save_success")}</div>"
    end 
    
    
@@ -32,7 +32,7 @@ class PluginsController < ApplicationController
       end
       plugin.save
       Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => msg)                                              
-      render :text => "<div class=\"flash_success\">#{msg}</div>"
+      render :text => "<div class=\"success\">#{msg}</div>"
    end
        
    def update_plugin_settings # update plugin settings

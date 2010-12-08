@@ -161,12 +161,12 @@ div#new_comment_box a:hover{text-decoration:none;color:#D6EBF2}
 
 
 /* Box Styles for different Box types */
-.box_style_1{background:url(../images/box/solid/dark_blue_to_light_blue.png) repeat-x #6699CC;border:1px solid #336699;padding:5px;color:white;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
-	.box_style_1 a:visited, .box_style_1 a:link{color:white} 	.box_style_1 a:hover{color:#B9E3F1;text-decoration:none}
-	.box_style_1 h1.title, .box_style_1 h2.title, .box_style_1 h3.title{text-shadow:1px 1px 2px black;}
-	.box_style_1 div.spacer{border-bottom:1px solid #81A8CF}
-.box_style_2{border:1px solid #86C0D1;background:url(../images/bgs/white_to_trans_white.png) repeat-x ;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;color:#17505F}
-	.box_style_2 h1.title, .box_style_2 h2.title, .box_style_2 h3.title{text-shadow:1px 1px 2px #8BB5DF;}
+.box_1{background:url(../images/box/solid/dark_blue_to_light_blue.png) repeat-x #6699CC;border:1px solid #336699;padding:5px;color:white;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
+	.box_1 a:visited, .box_1 a:link{color:white} 	.box_1 a:hover{color:#B9E3F1;text-decoration:none}
+	.box_1 h1.title, .box_1 h2.title, .box_1 h3.title{text-shadow:1px 1px 2px black;}
+	.box_1 div.spacer{border-bottom:1px solid #81A8CF}
+.box_2{border:1px solid #86C0D1;background:url(../images/bgs/white_to_trans_white.png) repeat-x ;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;color:#17505F}
+	.box_2 h1.title, .box_2 h2.title, .box_2 h3.title{text-shadow:1px 1px 2px #8BB5DF;}
 
 /* Categories */ 
 .categories_top{background:url(../images/categories/categories_top.png) no-repeat;height:57px;}
@@ -209,8 +209,8 @@ a.button_1:hover{opacity:1.00;filter:alpha(opacity=100);-moz-opacity:1.0;-khtml-
 
 /* Flash Messages(Success and Failure Boxes) */
 .flash_notice{padding-top:10px;} /* This is the div that contains all flash messages. */
-.flash_success{color:#106F00;border:2px solid #1C8F08;background-color:#BBFFAF;padding:5px;margin: 5px 50px 5px 50px;text-align:center;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
-.flash_failure{color:#AF0000;border:2px solid #AF0000;background-color:#F3B3B3;padding:5px;margin: 5px 50px 5px 50px;text-align:center;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
+.success{color:#106F00;border:2px solid #1C8F08;background-color:#BBFFAF;padding:5px;margin: 5px 50px 5px 50px;text-align:center;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
+.failure{color:#AF0000;border:2px solid #AF0000;background-color:#F3B3B3;padding:5px;margin: 5px 50px 5px 50px;text-align:center;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
 
 /* Dropdown Menus */
 

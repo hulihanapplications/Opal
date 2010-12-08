@@ -44,7 +44,7 @@
 					<span id="sort_by_box">	
 						<%= icon("bullet") %>					
 						Sort By 
-						<span class="box_style_1 pointer" id="sort_by" >
+						<span class="box_1 pointer" id="sort_by" >
 							<%# params[:sort] = Hash.new %>
 							<%# params[:sort][:by] = "Date Added" %>
 							<%# params[:sort][:direction] = "desc" %>						
@@ -66,7 +66,7 @@
 						</span>																								
 					</span>		
 					<div id="sort_tooltip" class="tooltip">
-						<div class="box_style_1" style="font-weight:bold">							
+						<div class="box_1" style="font-weight:bold">							
 							<%# Override url_for vars for particular sort cases %> 
 							<% url[:sort_by] = Item.human_attribute_name(:name)  %>
 							<% url[:sort_direction] = "asc" %>							

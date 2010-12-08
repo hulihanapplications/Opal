@@ -16,13 +16,13 @@
 			
 			
 			<div>
-				<div class="box_style_2a" style="margin-bottom:5px">
+				<div class="box_2a" style="margin-bottom:5px">
 					<table style="width:100%" cellpadding=0 cellspacing=0 class="">
 						<tr>
 							<td style="width:50%;padding-right:5px;" align=left>
 								<h3 class="title"><%= t("single.details") %></h3>	
 						    	<% form_for(@plugin_feature, :url => { :action => 'update',  :controller => "plugin_features",:id => @plugin_feature.id  }, :method => "post") do |f| %>
-									<div class="box_style_2" style="margin-bottom:5px">
+									<div class="box_2" style="margin-bottom:5px">
 	
 										<%= render :partial => "plugin_features/form", :locals => {:feature => @plugin_feature, :f => f} %>								 
 										
@@ -37,14 +37,14 @@
 									<h3 class="title"><%= @plugin_feature.name %> <%= PluginFeatureValueOption.human_name.pluralize %></h3>
 									<!--<i>Allows users to select a predefined value for <%= @plugin_feature.name %>.</i>-->
 																	
-									<div class="box_style_2" style="margin-bottom:10px;">
+									<div class="box_2" style="margin-bottom:10px;">
 									   <div>					   	
 					   						<%= render :partial => "plugin_features/list_options", :locals => {:feature => @plugin_feature} %>		
 									   </div>
 									</div>									
 	
 								   <h3 class="title"><%= t("label.item_new", :item =>  @plugin_feature.name + " " + PluginFeatureValueOption.human_name) %> </h3>	
-									<div class="box_style_2" style="margin-bottom:5px">
+									<div class="box_2" style="margin-bottom:5px">
 																							   			
 							    		<% form_for(@plugin_feature_value_option, :url => { :action => 'create_option', :controller => "plugin_features", :id => @plugin_feature.id }, :method => "post") do |f| %>
 											<%= render :partial => "plugin_features/form_for_option", :locals => {:option => PluginFeatureValueOption.new(:plugin_feature_id => @plugin_feature.id), :f => f} %>

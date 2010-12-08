@@ -17,7 +17,7 @@
 	
 		 	</div>
 		    <% if @logged_in_user.is_admin? %>
-			   	<div class="box_style_2" align=left style="text-align:center">
+			   	<div class="box_2" align=left style="text-align:center">
 			   		<h2 class="title" align=left><%= t("single.admin") %></h2>
 			   		<hr>
 					
@@ -35,7 +35,7 @@
 		<td align=left style="padding-left:10px;" valign=top>
 				   <div id="message_form" style="display:none" align=center>
 				   		<% if !@logged_in_user.anonymous? %>
-				 			<div class="box_style_2" align=left>
+				 			<div class="box_2" align=left>
 				 				<div id="send_message_notice"></div>
 				 				<h2 class="title"><%= t("label.item_send_to", :item =>  UserMessage.human_name, :name => h(@user.username)) %></h2>								   	
 					   			<%= form_remote_tag :update => "send_message_notice", :url => { :action => 'send_message', :controller => "messages", :id => @user.id} %>
@@ -50,7 +50,7 @@
 								</form>
 							</div>
 						<% else %>
-							<div class="flash_failure"><%= t("notice.user_not_logged_in") %></div>
+							<div class="failure"><%= t("notice.user_not_logged_in") %></div>
 						<% end %>
 						
 				   		<a href="javascript:toggle_box('message_form')">
@@ -58,7 +58,7 @@
 						</a>	
 						<br><br>						
 				   </div>		
-			<div class="box_style_1" align=left>	
+			<div class="box_1" align=left>	
 				<h2 class="title"><%= UserInfo.human_attribute_name(:location) %></h2>
 				<%= h @user.user_info.location if @user.user_info.location  %>	
 				<hr>

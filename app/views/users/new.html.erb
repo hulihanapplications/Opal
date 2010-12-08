@@ -1,4 +1,4 @@
-<div class="box_style_2">
+<div class="box_2">
 <h2 class="title"><%= t("label.item_new", :item => User.human_name) %></h2><br>
 <% form_for(@user, :url => { :action => 'create' }, :method => "post") do |f| %>
 	<%= render :partial => "form", :locals => {:f => f} %>

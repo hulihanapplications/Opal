@@ -50,7 +50,7 @@
 	<table cellpadding=0 cellspacing=0 style="width:100%;">
 		<tr> 
 			<td valign=top >
-				<div class="box_style_1" align=center>
+				<div class="box_1" align=center>
 					<h3>Keywords in Title or Description</h3>
 					<input name="[search]keywords" type="text">
 					<br><br>
@@ -67,7 +67,7 @@
 										</tr>
 									</table>
 									
-									<div class="box_style_1">
+									<div class="box_1">
 										<% if feature.search_type == "Keyword" %>
 											Keyword: <input type="text" name="feature[<%= feature.id %>][value]">
 										<% elsif feature.search_type == "Number" %>
@@ -92,7 +92,7 @@
 			<td style="width:10px;">
 			</td>
 			<td valign=top align=left class="sidebar_column">
-				<div class="box_style_1">					
+				<div class="box_1">					
 					<h3>Category</h3>
 					<div class="indent">
 						<table cellpadding=0 cellspacing=0 style="width:100%"><tr><td style="width:100%;"><b>All</b></a></td><td align=right><input type="radio" name="item[category_id]" value="all" CHECKED></td></tr></table>
@@ -103,7 +103,7 @@
 					<% end %>
 				</div>
 				<br>
-				<div class="box_style_1">					
+				<div class="box_1">					
 					<h3>Dates &amp; Times</h3>
 					<table>
 						<tr>

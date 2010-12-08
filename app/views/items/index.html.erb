@@ -4,17 +4,17 @@
  <tr>
   <td align=left class="sidebar_column" valign=top style="padding:0px;">
   	<% if @setting[:homepage_type] != "categories" %>
-		<div class="box_style_1" id="category_menu" style="margin-bottom:5px">
+		<div class="box_1" id="category_menu" style="margin-bottom:5px">
 	   		<%= render :partial => "items/category_menu", :locals => {:options => {:category => @category}} %>
 		</div>   
 	<% end %>
    	<% if Setting.get_setting_bool("display_popular_items") %>
-		<div class="box_style_1" align=left style="margin-bottom:5px">
+		<div class="box_1" align=left style="margin-bottom:5px">
 			<%= render :partial => "items/popular_items" %>
 		</div>
 	<% end %>
    	<% if Setting.get_setting_bool("display_featured_items") %>
-		<div class="box_style_1" align=left style="margin-bottom:5px">
+		<div class="box_1" align=left style="margin-bottom:5px">
 			<%= render :partial => "items/featured_items" %>
 		</div>
 	<% end %>  	

@@ -17,14 +17,14 @@
                     </div>
                 </div>
                 <% if @logged_in_user.is_admin? %>
-                <div class="box_style_2" align=left style="text-align:center;margin-bottom:10px;" >
+                <div class="box_2" align=left style="text-align:center;margin-bottom:10px;" >
                     <h2 class="title" align=left><%= t("single.admin") %></h2>
                     <!--<hr><%= link_to icon("edit") + " " + t("label.item_edit", :item => User.human_name), {:controller => "users", :action => "edit", :id => @user} %>-->
                     <hr><%= link_to icon("logs") + " " + Log.human_name.pluralize, {:controller => "logs", :action => "for_user", :id => @user, :anchor => "activity"} %>
                     <hr><%= link_to icon("mail") + " " + UserMessage.human_name.pluralize, {:controller => "messages", :action => "for_user", :id => @user} %>
                     <hr><%= link_to icon("delete") + " " + t("label.item_delete", :item => User.human_name), {:controller => "users", :action => "delete", :id => @user}, :confirm => t("confirm.delete_user") %>
                 </div><% end %>
-                <div class="box_style_2" align=center style="margin-bottom:10px;">
+                <div class="box_2" align=center style="margin-bottom:10px;">
                     <h2 class="title"><%= t("label.item_change", :item => User.human_attribute_name(:password)) %></h2>
                     <%= form_tag :action => 'change_password' %>
                     <input type="hidden" name="id" value="<%= @user.id %>">
@@ -45,7 +45,7 @@
                     <input type="submit" value="<%=  t("label.item_change", :item => User.human_attribute_name(:password)) %>" class="button_1">
                     </form>
                 </div>
-                <div class="box_style_1" align=left style="margin-bottom:10px;">
+                <div class="box_1" align=left style="margin-bottom:10px;">
                     <h2 class="title"><%= Group.human_name %></h2>
                     <div style="height:5px">
                     </div>
@@ -57,7 +57,7 @@
                         <input type="submit" value="<%= t("single.save") %>" class="button_1"><% end %>
                     </div>
                 </div>
-                <div class="box_style_1" align=left style="margin-bottom:10px;">
+                <div class="box_1" align=left style="margin-bottom:10px;">
                     <h3 class="title"><%= t("label.additional_info") %></h3>
                     <%= User.human_attribute_name(:latest_login) %>: <b><%= @user.last_login ? "#{friendly_date @user.last_login}" : t("single.none") %></b>
                     <br>
@@ -71,7 +71,7 @@
                     <%= User.human_attribute_name(:registered_ip) %>: <b><%= @user.registered_ip %></b>
                     <br>
                 </div>
-                <div class="box_style_1" align=left style="margin-bottom:10px;">
+                <div class="box_1" align=left style="margin-bottom:10px;">
                     <h2 class="title"><%= t("single.options") %></h2>
                     <%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/mail.png\" class=\"icon\"  alt=\"\" title=\"\"> #{t("single.send")} #{UserVerification.human_name}", { :action => 'send_verification_email', :id => @user.id} %>
                     <br>
@@ -86,7 +86,7 @@
         </td>
         <td style="padding-left:5px;">
 			<div id="message_form" style="display:none;margin-bottom:10px;" align=center>	 			
-				<div class="box_style_2" align=left>
+				<div class="box_2" align=left>
 	 				<div id="send_message_notice"></div>
 	 				<h2 class="title"><%= t("label.item_send_to", :item =>  UserMessage.human_name, :name => h(@user.username)) %></h2>								   	
 		   			<%= form_remote_tag :update => "send_message_notice", :url => { :action => 'send_message', :controller => "messages", :id => @user.id} %>
@@ -105,7 +105,7 @@
 							<%= icon("cancel", t("single.cancel")) %>
 						</a>	
 			</div>	
-            <div id="edit_user_box_<%= @user.id %>" class="box_style_2" style="margin-bottom:10px;" align=center>
+            <div id="edit_user_box_<%= @user.id %>" class="box_2" style="margin-bottom:10px;" align=center>
                 <% form_for :user, @user,  :url => { :action => "update", :controller => "users", :id => @user.id} do |f| %>
                 <h3 class="title"><%= t("single.details") %></h3>
                 <%= render :partial => "form", :locals => {:f => f} %>
@@ -113,7 +113,7 @@
                 <%= f.submit t("single.save").capitalize, :class => "button_1" %>
                 <% end %>
             </div>
-            <div class="box_style_2" align=center style="margin-bottom:10px;">
+            <div class="box_2" align=center style="margin-bottom:10px;">
                 <h3 class="title"><b><%=  UserInfo.human_name %></b></h3>
                 <% form_tag :action => 'update_user_info', :id => @user.id do %>
                 <% @user_info = @user.user_info %>

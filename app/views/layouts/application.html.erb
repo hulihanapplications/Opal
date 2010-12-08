@@ -5,15 +5,9 @@
 </head>
 
 <body>
-
-<div class="top">
-	<%= show_page Page.get_system_page("Website Top") %>
-</div>
-<div class="middle">
-	<table class="main_table" cellspacing=0 cellpadding=0 align=center>   
-	 <tr>
-	  <td align=center>
-	   <div class="main_table_top">
+<div id="wrapper">
+	<div id="header">
+		<%= show_page Page.get_system_page("Website Top") %>
 	    <table align=center width="100%" cellpadding=0 cellspacing=0>
 	     <tr>
 	      <td align=left style="vertical-align:bottom;">
@@ -31,53 +25,31 @@
 	      </td>
 	     </tr>
 	    </table>
-	   </div>
-	  </td>
-	 </tr>
-	
-	 <tr>
-	  <td valign=top align=center>
-	   <div class="main_table_middle" align=center>
-	
-	    <div class="main_inner_top"> 
-	     <div class="top_bar"><%= render :partial => "browse/top_bar" %></div>
-	    </div> 
-	
-	    <div class="main_inner_middle">
-	     <div id="main_content">
-			 <%= render :partial => "shared/flash", :locals => {:flash => flash} %>
-			 <%= render :partial => "/browse/banner_top" %>		 		 
-			 <%= render :partial => "/user/menu" if @show_user_menu %>
-			 <%= render :partial => "/admin/menu" if @show_admin_menu %>		 
-		     <%= yield %>			
-	 		 <% if @show_user_menu || @show_admin_menu %>
-			  <%# Close Tab Div in Menu Partial %>
-			  	</div>
-			  </div>
-			 <% end %>
-	 		 <%= render :partial => "/browse/banner_bottom" %>
-	     </div>
-	    </div>
-	    <div class="main_inner_bottom">
-	    </div>
-	
-	   </div>
-	  </td>
-	 </tr>
-	
-	 <tr>
-	  <td align=center>
-	   <div class="main_table_bottom">
-			<%= render :partial => "shared/footer" %>
-	   </div>
-	  </td>
-	 </tr>
-	</table>
-</div>
-<div class="bottom">
-	<%= show_page Page.get_system_page("Website Bottom") %>
-</div>
+	</div>
+	<div id="content">
+	 	 <%= render :partial => "browse/top_bar" %>				    
+		 <%= render :partial => "shared/flash", :locals => {:flash => flash} %>
+		 <%= render :partial => "/browse/banner_top" %>		 		 
+		 <%= render :partial => "/user/menu" if @show_user_menu %>
+		 <%= render :partial => "/admin/menu" if @show_admin_menu %>		 
+	     <%= yield %>			
+ 		 <% if @show_user_menu || @show_admin_menu %>
+		  <%# Close Tab Div in Menu Partial %>
+		  	</div>
+		  </div>
+		 <% end %>
+ 		 <%= render :partial => "/browse/banner_bottom" %>
+		
 
+
+
+		<div style="clear:both"></div><!-- Break Floats -->
+	</div>
+	<div id="footer">
+		<%= show_page Page.get_system_page("Website Bottom") %>
+		<%= render :partial => "shared/footer" %>
+	</div>
+</div>
 </body>
 
 </html>

@@ -4,7 +4,7 @@
 		  <td align=left class="sidebar_column" valign=top style="padding:0px;text-align:center">
 				<%= render :partial => "pages/menu" %>
 				<!--	
-				<div align=center class="box_style_1">
+				<div align=center class="box_1">
 					<% if params[:type] == "System" %>
 						<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" alt="" title="Information" class="icon">
 						You can only modify the content(not the title or description) of system pages. You cannot delete system pages.
@@ -42,7 +42,7 @@
 					</table>
 				</div>
 	
-				<div class="plugin_box box_style_2" style="margin-bottom:5px">
+				<div class="plugin_box box_2" style="margin-bottom:5px">
 	
 					<div align=center>
 						<%= render :partial => "list_pages", :locals => {:pages => @pages} %>

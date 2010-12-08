@@ -148,8 +148,8 @@ class SettingsController < ApplicationController
            
       themes_layout_dir = RAILS_ROOT + "/app/views/layouts/themes"
       theme_layout_dir = themes_layout_dir + "/" + theme 
-      FileUtils.rm_rf (theme_dir) if File.exists?(theme_dir)# erase theme directory
-      FileUtils.rm_rf (theme_layout_dir) if File.exists?(theme_layout_dir)# erase theme layout directory, if it exists      
+      FileUtils.rm_rf(theme_dir) if File.exists?(theme_dir)# erase theme directory
+      FileUtils.rm_rf(theme_layout_dir) if File.exists?(theme_layout_dir)# erase theme layout directory, if it exists      
       flash[:failure] = t("notice.item_uninstall_success", :item => t("single.theme"))
       Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("log.item_uninstall", :item => t("single.theme"), :name => theme_config["theme"]["name"])) # log it
     end

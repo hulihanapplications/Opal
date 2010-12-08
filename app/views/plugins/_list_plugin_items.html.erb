@@ -13,15 +13,15 @@
 								<td style="width:20px;">
 									<% if plugin_item.user %>
 										<% user = plugin_item.user %>
-										<%= link_to user_avatar(user, :size => "tiny"), {:action => "user", :controller => "browse", :user_id => user}  %></a>														
+										<%= link_to user_avatar(user, :size => "tiny"), {:action => "user", :controller => "browse", :user_id => user}  %>													
 									<% else %>
 										<img src="/themes/<%= @setting[:theme] %>/images/default_avatar.png" class="avatar_tiny" title="<%= t("single.anonymous") %>">
 									<% end %>								
 								</td>
 								<td align=left style="padding:2px;">
-									<a href="/items/view/<%= "#{plugin_item.item_id}##{plugin.name.pluralize}" %>"><b><%= "#{plugin.human_name}" %></b></a> 
+									<%= link_to h("#{plugin.human_name}"), {:action => "view", :controller => "items", :id => plugin_item.item, :anchor => plugin.human_name}  %>
 									<%= t("single.for").downcase %>
-									<%= link_to h("#{plugin_item.item.name}"), {:action => "view", :controller => "items", :id => plugin_item.id}  %></b></a>
+									<%= link_to h("#{plugin_item.item.name}"), {:action => "view", :controller => "items", :id => plugin_item.item}  %>
 									<div class="indent">
 										<i>
 											<% if plugin_item.user %>

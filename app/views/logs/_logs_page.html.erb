@@ -5,11 +5,11 @@
 	 <tr>
 	  <td align=left class="sidebar_column" valign=top style="padding:0px;">
 	  		<%= render :partial => "tools/menu" if (params[:controller] == "logs" && params[:action] == "index")%>
-			<div class="box_style_1" style="margin-bottom:5px;">
+			<div class="box_1" style="margin-bottom:5px;">
 				<%= render :partial => "logs/legend" %>
 			</div>
 	  		<!--
-			<div class="box_style_1" style="margin-bottom:5px;">
+			<div class="box_1" style="margin-bottom:5px;">
 				<h3 class="title">Search by Log Type</h3>
 				<table>
 					<tr><td><input type="radio" name="log_type" value="create"></td><td>Create</td></tr>
@@ -19,7 +19,7 @@
 				</table>
 			</div>
 
-			<div class="box_style_1">
+			<div class="box_1">
 					<h3 class="title">Search by Time</h3>
 					<table>
 						<tr>
@@ -54,7 +54,7 @@
 	  	
 	  </td>
 	  <td align=left valign=top >
-	  	<div class="box_style_2">
+	  	<div class="box_2">
 			<%= render :partial => "logs/list_logs", :locals => {:logs => logs} %>
 		</div>				
 	  </td> 

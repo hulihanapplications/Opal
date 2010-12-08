@@ -5,13 +5,13 @@
 		<%= render :partial => "menu" %>
   </td>
   <td align=left valign=top>
-	<div class="box_style_2 blog_page" style="margin-bottom:10px">
+	<div class="box_2 blog_page" style="margin-bottom:10px">
 		<%= render :partial => "blog/list_page", :locals => {:page => @page} %>
    </div>
    
    <div class="" align=left style="margin-bottom:10px" id="comments_section">
    		<% if @page_comments.size > 0 || Setting.get_setting_bool("allow_page_comments") %>
-			<div class="box_style_2" style="margin-bottom:10px">
+			<div class="box_2" style="margin-bottom:10px">
 				<h2 class="title"><%= pluralize(@page_comments.size, PageComment.human_name) %></h2>					
 				<%= page_entries_info @page_comments, :entry_name => PageComment.human_name %>
 	   			<%= render :partial =>  "pages/list_page_comments", :locals => {:comments => @page_comments} %>
@@ -19,7 +19,7 @@
 	   		</div>
 		<% end %>
 		<% if Setting.get_setting_bool("allow_page_comments")   %>   
-		   <div class="box_style_2" align=left id="comment_form">			
+		   <div class="box_2" align=left id="comment_form">			
 				<h3 class="title"><%= t("label.item_new", :item => PageComment.human_name) %></h3>
 			 	<% if !@setting[:allow_anonymous_comments] && @logged_in_user.anonymous? %>
 					<%= t("notice.user_not_logged_in") %>

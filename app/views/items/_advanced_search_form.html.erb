@@ -11,7 +11,7 @@
 	<table cellpadding=0 cellspacing=0 style="width:100%;">
 		<tr> 
 			<td valign=top >
-				<div class="box_style_2" align=center>
+				<div class="box_2" align=center>
 
 						<h3>Keywords in Title or Description</h3>
 						<input name="[search]keywords" type="text">
@@ -29,7 +29,7 @@
 										<% if feature.search_type != "None" %>		
 		            						<%= "</tr><tr>" if counter % 2 == 0 %>																
 											<td style="width:50%">
-												<div class="box_style_2" id="<%= feature.id %>" style=";margin:5px 5px 5px 5px">
+												<div class="box_2" id="<%= feature.id %>" style=";margin:5px 5px 5px 5px">
 													<table style="width:100%">
 														<tr>
 															<td align=left style="vertical-align:middle">
@@ -76,7 +76,7 @@
 			<td style="width:10px;">
 			</td>
 			<td valign=top align=left class="sidebar_column">
-				<div class="box_style_1">					
+				<div class="box_1">					
 					<h3>Category</h3>
 					<div class="indent">
 						<table cellpadding=0 cellspacing=0 style="width:100%"><tr><td style="width:100%;"><b><%= t("single.all") %></b></a></td><td align=right><input type="radio" name="item[category_id]" value="all" CHECKED></td></tr></table>
@@ -87,7 +87,7 @@
 					<% end %>
 				</div>
 				<br>
-				<div class="box_style_1">										
+				<div class="box_1">										
 					<table style="width:100%">
 						<tr>
 							<td><b><%= Item.human_attribute_name(:created_at) %></b></td>

@@ -14,7 +14,7 @@
   	
   </td>
   <td align=left valign=top >
-	<div class="box_style_2">
+	<div class="box_2">
 		<%= render :partial => "messages/list_messages", :locals => {:messages => @messages[params[:type].to_sym]}%>
 		<div align=center><%= page_entries_info @messages[params[:type].to_sym], :entry_name => UserMessage.human_name.pluralize %></div>								
 	</div>

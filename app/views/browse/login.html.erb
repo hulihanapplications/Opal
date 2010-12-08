@@ -2,10 +2,10 @@
 <h2><%= t("label.log_in") %></h2>
 
 <br>
-<div class="box_style_2" style="width:500px;margin-bottom:5px">
+<div class="box_2" style="width:500px;margin-bottom:5px">
  <% if session[:original_uri] %>
 
-	<div class="flash_success" style="margin:0px 0px 5px 0px">
+	<div class="success" style="margin:0px 0px 5px 0px">
 			<%= icon("success") %>
 			<%= t("label.log_in_redirect_message") %>
 	</div>
@@ -23,7 +23,7 @@
 		  </tr>
 		 </table>
      </form>
-	 <div class="box_style_2">
+	 <div class="box_2">
 	 	<%= t("label.log_in_forgot_password") %>
 		<img src="/themes/<%= @setting[:theme] %>/images/icons/cycle.png" class="icon">		
 		<%= link_to_function "Recover", "toggle_box('forgot_password_box')" %>
@@ -48,7 +48,7 @@
 
 <% if get_setting_bool("allow_user_registration") %>
 
-	<div class="box_style_2" style="width:500px;margin-bottom:5px">
+	<div class="box_2" style="width:500px;margin-bottom:5px">
 		<%= t("label.register_message") %>	
 	  	<%= link_to t("label.register"), {:action => "register", :controller => "user"}, :class => "signup_button" %>
 	</div>

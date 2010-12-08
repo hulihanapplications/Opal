@@ -121,9 +121,9 @@ class UserController < ApplicationController
   def check_username
    username_found = User.find(:first, :conditions => ["username = ?", params[:username]], :select => :username)
    if username_found # username taken
-    render :text => "<div class=\"flash_failure\">#{t("label.username_taken")}</div>"
+    render :text => "<div class=\"failure\">#{t("label.username_taken")}</div>"
    else # username not taken
-    render :text => "<div class=\"flash_success\">#{t("label.username_available")}</div>"
+    render :text => "<div class=\"success\">#{t("label.username_available")}</div>"
    end
    #render :layout => false
   end

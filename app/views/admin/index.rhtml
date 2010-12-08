@@ -1,55 +1,40 @@
-<table style="width:100%" cellpadding=0 cellspacing=0>
-	<tr>
-		<td>
-			<div align=left>
-			   <div class="box_style_2" style="margin-bottom:10px;">
-				   <h2 class="title"><%= t("label.user_greeting", :name => h(@logged_in_user.first_name)) %></h2> 
-				   <div class="welcome_message">
-						<%= t("label.user_welcome_to_admin", :name => h(@logged_in_user.first_name)) %>
-				   </div>
-			   </div>
-			</div>
-			
-			<div class="box_style_2">
-				<h2 class="title">
-					<%= t("label.items_latest", :items => Log.human_name.pluralize) %>
-					<img src="/themes/<%= @setting[:theme] %>/images/icons/logs.png" class="icon">
-					<%= link_to t("single.all") + " " + Log.human_name.pluralize, {:controller => "logs"}%>
-				</h2>	
-				<div class="spacer"></div>									
-				<%= render :partial => "logs/list_logs", :locals => {:logs => @latest_logs} %>				
-			</div>
-			
-			
+<div id="side">
+	<div class="box_1" align=center style="margin-bottom:10px;">
+		<%= t("label.app_name") %> <%= t("single.version") %>: <b><%= Setting.get_setting("opal_version") %></b>
+	</div>				
+	<div class="box_1" align=left style="margin-bottom:10px;">
+		<%= render :partial => "items/all_items_menu" %>
+	</div>
+	<div class="box_1" align=left style="margin-bottom:10px;">
+		<h2 class="title"><%= t("label.recently_added") %></h2>
+		<div class="spacer"></div>		
+		<%= render :partial => "plugins/list_plugin_items", :locals => {:plugin_items => Plugin.find_plugin_items(:all, :conditions => ["created_at > ? and created_at < ?", Time.now.to_time.advance(:days => -3),  Time.now], :limit => 5, :order => "created_at DESC"), :plugins_to_look_for => @plugins} %>
+	
+	</div>
+	<div class="box_1" align=left style="margin-bottom:10px">
+		<%= render :partial => "items/popular_items" %>
+	</div>			
+</div>
+<div id="main">
+	<div align=left>
+	   <div class="box_2" style="margin-bottom:10px;">
+		   <h2 class="title"><%= t("label.user_greeting", :name => h(@logged_in_user.first_name)) %></h2> 
+		   <div class="welcome_message">
+				<%= t("label.user_welcome_to_admin", :name => h(@logged_in_user.first_name)) %>
+		   </div>
+	   </div>
+	</div>
+	
+	<div class="box_2">
+		<h2 class="title">
+			<%= t("label.items_latest", :items => Log.human_name.pluralize) %>
+			<img src="/themes/<%= @setting[:theme] %>/images/icons/logs.png" class="icon">
+			<%= link_to t("single.all") + " " + Log.human_name.pluralize, {:controller => "logs"}%>
+		</h2>	
+		<div class="spacer"></div>									
+		<%= render :partial => "logs/list_logs", :locals => {:logs => @latest_logs} %>				
+	</div>
+	
 
-			<br>			
-		</td>
-   	    <td style="width:10px;">  </td>
-		<td class="sidebar_column">
-			<div>
-				<div class="box_style_1" align=center style="margin-bottom:10px;">
-					<%= t("label.app_name") %> <%= t("single.version") %>: <b><%= Setting.get_setting("opal_version") %></b>
-				</div>				
-				<div class="box_style_1" align=left style="margin-bottom:10px;">
-					<%= render :partial => "items/all_items_menu" %>
-				</div>
-				<div class="box_style_1" align=left style="margin-bottom:10px;">
-					<h2 class="title"><%= t("label.recently_added") %></h2>
-					<div class="spacer"></div>		
-					<%= render :partial => "plugins/list_plugin_items", :locals => {:plugin_items => Plugin.find_plugin_items(:all, :conditions => ["created_at > ? and created_at < ?", Time.now.to_time.advance(:days => -3),  Time.now], :limit => 5, :order => "created_at DESC"), :plugins_to_look_for => @plugins} %>
-				
-				</div>
-				<div class="box_style_1" align=left style="margin-bottom:10px">
-					<%= render :partial => "items/popular_items" %>
-				</div>			
-			</div>
-		</td>
-	</tr>
-</table>
-<br>
-
-
-
-
-
-
+	<br>			
+</div>

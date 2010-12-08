@@ -158,11 +158,11 @@ div.comments td.comment_column{width:100%}
 	div#new_comment_box a:hover{text-decoration:none;color:#D6EBF2}
 
 /* Box Styles for different Box types */
-.box_style_1{background:url(/themes/vault/images/dark_trans_bg.png) repeat-x;border:1px solid #0B0B0B;padding:5px;color:white;;-moz-border-radius: 5px;-webkit-border-radius: 5px}
-	.box_style_1 a:visited, .box_style_1 a:link{color:white} 	.box_style_1 a:hover{color:#FFB36F;text-decoration:none}
-	.box_style_1 h1.title, .box_style_1 h2.title, .box_style_1 h3.title{text-shadow:1px 1px 2px black;}	
-.box_style_2{background:url(/themes/vault/images/dark_trans_bg.png) repeat-x;border:1px solid #0B0B0B;padding:5px;color:white;;-moz-border-radius: 5px;-webkit-border-radius: 5px}
-	.box_style_2 h1.title, .box_style_2 h2.title, .box_style_2 h3.title{text-shadow:1px 1px 2px black}
+.box_1{background:url(/themes/vault/images/dark_trans_bg.png) repeat-x;border:1px solid #0B0B0B;padding:5px;color:white;;-moz-border-radius: 5px;-webkit-border-radius: 5px}
+	.box_1 a:visited, .box_1 a:link{color:white} 	.box_1 a:hover{color:#FFB36F;text-decoration:none}
+	.box_1 h1.title, .box_1 h2.title, .box_1 h3.title{text-shadow:1px 1px 2px black;}	
+.box_2{background:url(/themes/vault/images/dark_trans_bg.png) repeat-x;border:1px solid #0B0B0B;padding:5px;color:white;;-moz-border-radius: 5px;-webkit-border-radius: 5px}
+	.box_2 h1.title, .box_2 h2.title, .box_2 h3.title{text-shadow:1px 1px 2px black}
 
 /* Categories */ 
 .categories_top{background:url(/themes/vault/images/categories/categories_top.png) no-repeat;height:57px;}
@@ -207,8 +207,8 @@ a.button_1:hover{opacity:1.00;filter:alpha(opacity=100);-moz-opacity:1.0;-khtml-
 	
 /* Flash Messages(Success and Failure Boxes) */
 .flash_notice{padding-top:10px;} /* This is the div that contains all flash messages. */
-.flash_success{background:#65900E;border:2px solid #D0F42A;color:white;padding:5px;margin: 5px 50px 5px 50px;text-align:center;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
-.flash_failure{border:2px solid #F3B3B3;background-color:#AF0000;color:white;padding:5px;margin: 5px 50px 5px 50px;text-align:center;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
+.success{background:#65900E;border:2px solid #D0F42A;color:white;padding:5px;margin: 5px 50px 5px 50px;text-align:center;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
+.failure{border:2px solid #F3B3B3;background-color:#AF0000;color:white;padding:5px;margin: 5px 50px 5px 50px;text-align:center;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
 
 /* Dropdown Menus */
 

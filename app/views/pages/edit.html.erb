@@ -3,7 +3,7 @@
 		 <tr>
 		  <td align=left class="sidebar_column" valign=top style="padding:0px;text-align:center">
 		  	<%= render :partial => "pages/menu" %>
-			<div class="box_style_1" align=left style="margin-bottom:5px;">
+			<div class="box_1" align=left style="margin-bottom:5px;">
 				<h3 class="title"><%= icon("details") %> <%= t("label.additional_info") %></h3>
 				<%= Page.human_attribute_name(:updated_at) %> <b><%= friendly_date @page.updated_at %></b>		<br>					
 				<%= Page.human_attribute_name(:created_at) %>  <b><%= friendly_date @page.created_at %></b>		<br>
@@ -15,13 +15,13 @@
 			</div>			
 			<% if @page.is_system_page? %>
 				<!--
-				<div align=left class="box_style_1" style="margin-bottom:5px;">
+				<div align=left class="box_1" style="margin-bottom:5px;">
 					<h3 class="title"><%= icon("info") %> Edit Only</h3>		
 						You can only modify the content(not the title or description) of system pages. You cannot delete system pages.
 				</div>
 				-->				
 			<% elsif @page.is_public_page? %>
-				<div align=left class="box_style_1" style="margin-bottom:5px;">
+				<div align=left class="box_1" style="margin-bottom:5px;">
 					<h3 class="title"><%= Page.human_attribute_name(:page_id) %></h3>
 					<div class="indent">
 						<table style="width:100%" cellpadding=0 cellspacing=0>
@@ -48,7 +48,7 @@
 		  </td>
 		  <td align=left valign=top >
 					<input type="hidden" name="page[page_type]" value="<%= params[:type].downcase %>">
-					<div class="box_style_2" style="margin-bottom:5px" align=left>
+					<div class="box_2" style="margin-bottom:5px" align=left>
 						<h2 class="title">
 							<%= t("label.item_edit", :item => @page.human_name) %>
 						</h2>

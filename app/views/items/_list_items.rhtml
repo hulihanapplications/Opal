@@ -12,7 +12,7 @@
 <% elsif @setting[:list_type] == "small" %>
   <%= render :partial => "/items/list_items_small" ,:locals => {:items => items, :my_group_plugin_permissions => my_group_plugin_permissions} %>    
 <% else %>
-  <div class="flash_failure">
+  <div class="failure">
   	 <%= t("notice.item_invalid", :item => Setting.find_by_name("list_type").title) %>
   </div>
 <% end %>

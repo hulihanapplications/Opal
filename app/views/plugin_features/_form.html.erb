@@ -40,7 +40,7 @@
 							<option value="stars" <%= "SELECTED" if feature.feature_type == "stars" %>><%= t("single.stars")%></option>							
 						</select>		
 
-						<div class="box_style_2a" style="<%= "display:none;" if feature.feature_type != "slider" && feature.feature_type != "number" && feature.feature_type != "stars"  %>" id="minmax_box">		
+						<div class="box_2a" style="<%= "display:none;" if feature.feature_type != "slider" && feature.feature_type != "number" && feature.feature_type != "stars"  %>" id="minmax_box">		
 								<h3><%= f.label :min %></h3>																						
 								<!--<i>The entered value must be greater than or equal to this number.</i>-->
 								<%= f.text_field :min, :style => "width:100%" %>

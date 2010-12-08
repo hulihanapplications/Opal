@@ -79,12 +79,12 @@
 							<div>							
 								<h2 class="title"><%= "#{t("label.item_install", :item =>  t("single.theme"))}" %></h2>
 
-								<div class="box_style_2" align=center>
+								<div class="box_2" align=center>
 									<% form_tag ({:action => "install_theme"}, :multipart => true) do %>
 									   <table>
 										   	<tr>
 										   		<td valign=top>
-										   			<div class="box_style_2a">
+										   			<div class="box_2a">
 														<%= render :partial => "shared/upload_form" %>
 													</div>
 										   		</td>

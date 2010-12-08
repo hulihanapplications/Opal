@@ -307,7 +307,7 @@ module ApplicationHelper
     errors.each do |key,value|
       msg << "<b>#{key}</b>...#{value}<br>" #print out any errors!
     end
-    return "<div class=\"flash_failure\">#{msg}</div>"
+    return "<div class=\"failure\">#{msg}</div>"
   end
   
   def theme_url # get the path to the current theme

@@ -22,7 +22,7 @@
 				<td valign=top align=center style="padding-right:5px;width:50%">
 		
 					
-					<div class="box_style_2"  align=left style="margin-bottom:10px">
+					<div class="box_2"  align=left style="margin-bottom:10px">
 						<h3 class="title"><%= t("label.item_my", :item => t("single.avatar")) %></h3>
 						<% form_tag({:action => 'change_avatar'}, :multipart => true) do %>
 							<table>
@@ -55,7 +55,7 @@
 						   <div align=center><%= submit_tag t("single.save"), :class => "button_1" %></div>
 						<% end %>
 					</div>
-					<div class="box_style_2"  align=left style="margin-bottom:10px">
+					<div class="box_2"  align=left style="margin-bottom:10px">
 						<h3 class="title"><%= t("label.item_change", :item => User.human_attribute_name(:password)) %></h3>
 						<% form_tag :action => 'change_password' do %>
 							<table class="input_table">
@@ -78,7 +78,7 @@
 					<%= error_messages_for :user %>
 					<%= error_messages_for :user_info %>
 					<% form_for(@user, :url => {:action => 'update_account'}, :method => "post") do |f| %>			
-						<div class="box_style_2" align=left>
+						<div class="box_2" align=left>
 							<h3 class="title"><%=  t("single.details") %></h3>
 							<table style="width:100%">
 								<tr><td align=left><%= f.label :username %></td><td align=right><b><%= h @user.username %></b></td></tr>

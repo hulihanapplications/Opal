@@ -41,7 +41,7 @@ class PluginsController < ApplicationController
       @setting = PluginSetting.find(:first, :conditions => ["name = ?", name]) 
       if @setting.value != value # the value of the setting has changed
        if @setting.update_attribute("value", value) # update the setting
-        flash[:success] << t("notice.item_save_success", :item => PluginSetting.human_name + ": #{@setting.title}")
+        flash[:success] << t("notice.item_save_success", :item => PluginSetting.human_name + ": #{@setting.title}") + "<br>"
         Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_save", :item => PluginSetting.human_name, :name => @setting.title))                                                 
        else # the setting failed saving 
         flash[:failure] << t("notice.item_save_failure", :item => PluginSetting.human_name + ": #{@setting.title}")

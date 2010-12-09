@@ -269,6 +269,7 @@ en:
     image_effect_gaussian_blur: Gaussian Blur
     image_effect_polaroid: Polaroid
     image_effect_negate: Negate
+    image_effect_resize: Resize to %{width}x%{height} pixels
   # General Information 
   info: 
     delete_main_logo: Deleting your main logo will show the title of your site instead. 
@@ -329,7 +330,19 @@ en:
       item_page_type_expanded: Expanded
       item_page_type_tabs_horizontal: Tabs - Horizontal 
       item_page_type_tabs_vertical: Tabs - Vertical
-      item_page_type_accordion: Accordion      
+      item_page_type_accordion: Accordion
+      # Plugin Settings
+      slideshow_speed: Slideshow Speed
+      item_thumbnail_width: Item Thumbnail Width
+      item_thumbnail_height: Item Thumbnail Height
+      resize_item_images: Resize New Images
+      item_image_width: Default Image Width
+      item_image_height: Default Image Height
+      login_required_for_download: Require Login For Download
+      log_downloads: Log Downloads
+      review_type: Review Type
+      score_min: Minimum Score
+      score_max: Maximum Score            
     description:
       site_title: The Title of your Site. You would see this at the very top of your browser window.
       site_description: The description for your site. Used in the title of your page(at the top of your browswer) and for search engine submission.
@@ -377,7 +390,20 @@ en:
       item_page_type_expanded: 
       item_page_type_tabs_horizontal:  
       item_page_type_tabs_vertical: 
-      item_page_type_accordion:           
+      item_page_type_accordion:   
+      # Plugin Settings
+      slideshow_speed: The speed of a slideshow, in milliseconds(ms). Default is 2500.
+      item_thumbnail_width: This is the default width(in pixels) of the thumbnails that are generated.
+      item_thumbnail_height: This is the default height(in pixels) of the thumbnails that are generated.
+      resize_item_images: Enable this if you would like all the images that are added to images resized to a particular size(you can choose the size below).
+      item_image_width: This is the width you want your images(in pixels) to be automatically resized to. 
+      item_image_height: This is the height you want your images(in pixels) to be automatically resized to. 
+      login_required_for_download: If enabled, only users who are logged in can download files. Visitors cannot download anything.
+      log_downloads: Log all downloads in the Item's activity log.
+      review_type: This determines the type of scoring that used for items.
+      score_min: The minimum value that can be used in review scores. This is not used in star ratings.
+      score_max: The maximum value that can be used in review scores.
+              
   # Pages
   page:
     title:

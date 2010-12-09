@@ -305,13 +305,19 @@ module ApplicationHelper
 
   
   def errors_for(someobject) # print out errors for an object
-   if someobject.errors.any?
-      messages = Array.new
-      someobject.errors.full_messages.each do |msg| 
-        messages <<  "<lu>#{msg}</li>" 
-     end
-     return "<div class=\"errorExplanation\"><ul>" + messages.join("\n") + "</ul></div>"
-   end   
+   messages = Array.new  
+   if someobject.class == Hash 
+       someobject.each do |key, value| 
+          messages <<  "#{key} #{value}" 
+       end     
+   else # check for active_record
+     if someobject.errors.any?
+        someobject.errors.full_messages.each do |msg| 
+          messages <<  "#{msg}" 
+       end
+     end     
+   end 
+   return "<div class=\"errorExplanation\"><ul>" + messages.map{|member| "<li>#{member}</li>"}.join("\n") + "</ul></div>"   
   end
   
   def theme_url # get the path to the current theme

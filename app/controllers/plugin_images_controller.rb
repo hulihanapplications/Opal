@@ -28,12 +28,7 @@ class PluginImagesController < ApplicationController
           :image => image,
           :path => RAILS_ROOT + "/public" + @image.url,          
           :thumbnail_path => RAILS_ROOT + "/public" + @image.thumb_url,
-          :effects => params[:effects],
-          :resize_image => @plugin.get_setting_bool("resize_item_images"),
-          :resized_image_width => @plugin.get_setting("item_image_width").to_i,
-          :resized_image_height => @plugin.get_setting("item_image_height").to_i,
-          :thumbnail_width => @plugin.get_setting("item_thumbnail_width").to_i,
-          :thumbnail_height => @plugin.get_setting("item_thumbnail_height").to_i
+          :effects => params[:effects]
         ) 
         
         # Set Approval

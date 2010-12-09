@@ -85,8 +85,7 @@ class ItemsController < ApplicationController
         
     @feature_errors = PluginFeature.check(:features => params[:features], :item => @item) # check if required features are present
         
-    if @feature_errors.size == 0 # make sure there's not required feature errors
-      if @item.update_attributes(params[:item])      
+    if @item.update_attributes(params[:item]) && @feature_errors.size == 0 # make sure there's not required feature errors
         # Update Protected Attributes 
         if @logged_in_user.is_admin? 
           @item.update_attribute(:is_approved, params[:item][:is_approved])
@@ -98,10 +97,7 @@ class ItemsController < ApplicationController
         Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log =>  t("log.item_save", :item => @setting[:item_name], :name => @item.name))                    
         flash[:success] = t("notice.item_save_success", :item => @setting[:item_name])
         redirect_to :action => "edit" , :id => @item        
-      else #
-        flash[:failure] = t("notice.item_save_failure", :item => @setting[:item_name])
-        render :action => "edit"
-      end
+
     else # failed adding required features
       flash[:failure] = t("notice.item_save_failure", :item => @setting[:item_name])
       render :action => "edit"
@@ -141,9 +137,7 @@ class ItemsController < ApplicationController
    @feature_errors = PluginFeature.check(:features => params[:features], :item => @item) # check if required features are present        
 
    if proceed 
-    if @feature_errors.size == 0 # make sure there's not required feature errors
-      # make sure there's no feature errors
-       if @item.save # item creation failed
+      if @item.save && @feature_errors.size == 0 # item creation failed
          Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => @setting[:item_name], :name => @item.name))
   
          # Create Features
@@ -155,11 +149,7 @@ class ItemsController < ApplicationController
        else
           flash[:failure] = t("notice.item_create_failure", :item => @setting[:item_name])
           render :action => "new"
-      end
-    else # failed adding required features
-      flash[:failure] = t("notice.item_create_failure", :item => @setting[:item_name])
-      render :action => "new"
-    end      
+      end     
    else # they aren't allowed to add item
       flash[:failure] = t("notice.invalid_permissions")
       render :action => "new"

@@ -105,7 +105,10 @@ class Uploader #< ActiveRecord::Base
   
   def self.generate_image(options = {})
      require "RMagick"
+     
      @setting = Setting.global_settings # set global settings
+     @plugin = Plugin.find_by_name("Image")
+      
      
      # Set Defaults 
      options[:image]              ||= nil # rmagick image object
@@ -114,17 +117,17 @@ class Uploader #< ActiveRecord::Base
      options[:thumbnail_path]     ||= nil # file location for thumbnail
      #options[:filename]          ||= nil 
      options[:effects]            ||= Hash.new # effects hash 
-     options[:resize_image]       = false if options[:resize_image].nil? # resize image?
-     options[:image_width]        ||= 500 # resized image width 
-     options[:image_height]       ||= 500 # resized image height 
-     options[:thumbnail_width]    ||= 100 # thumbnail width
-     options[:thumbnail_height]   ||= 100 # thumbnail height 
+     options[:resize_image]       = @plugin.get_setting_bool("resize_item_images") if options[:resize_image].nil?  # resize image?
+     options[:image_width]        ||= @plugin.get_setting("item_image_width").to_i        ||= 500 # resized image width 
+     options[:image_height]       ||= @plugin.get_setting("item_image_height").to_i   ||= 500 # resized image height 
+     options[:thumbnail_width]    ||= @plugin.get_setting("item_thumbnail_width").to_i    ||= 100 # thumbnail width
+     options[:thumbnail_height]   ||= @plugin.get_setting("item_thumbnail_height").to_i   ||= 100 # thumbnail height 
    
     #use wb+ or wb to transfer as binary for binary sensitive files(pics, so, etc)
     FileUtils.mkdir_p(File.dirname(options[:path])) if !File.exist?(File.dirname(options[:path]))  
   
     # Resize Main Image
-    if options[:resize_image] # resize image?
+    if options[:resize_image] || options[:effects][:resize_image] == "yes" # resize image?
       options[:image].crop_resized!( options[:image_width], options[:image_height] )    
     end
   

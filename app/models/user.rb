@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   #-------------validations-----------------------
   validates_uniqueness_of :username #this will comb through the database and make sure email is unique
   validates_uniqueness_of :email #this will comb through the database and make sure email is unique
-  validates_presence_of :username, :first_name, :last_name, :email
+  validates_presence_of :username, :first_name, :last_name, :email, :password
   validates_confirmation_of :password #this will confirm the password, but you have to have an html input called password_confirmation
   validates_length_of :username, :maximum => 255
   #validates_numericality_of :zip
@@ -28,12 +28,11 @@ class User < ActiveRecord::Base
   #------------Login Authentication---------------
   def self.authenticate(login, unhashed_pass)
     u = find(:first, :conditions => ["username = ? and password_hash = ?", login, Digest::SHA256.hexdigest(unhashed_pass) ] )# check username column with the hashed pass arg
-    return nil if u.nil? 
-    return u.id # return id if valid
+    u.nil? ? u.nil : u.id 
   end  
   #----------------------------------------------- 
   
-  attr_accessor :password_confirmation, :password#these are the database columns, which are pulled from param
+  attr_accessor :password_confirmation, :password # virtual attributes
   attr_protected :is_admin, :is_verified, :is_disabled # protect from bulk assignment
   
   #--------Encrypt Password-------------------------

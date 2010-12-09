@@ -79,10 +79,11 @@ class UsersController < ApplicationController
     if @user.update_attributes(:password => params[:user][:password], :password_confirmation => params[:user][:password_confirmation])
       Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => User.human_name, :name => @user.username + "(#{User.human_attribute_name(:password)}: #{params[:user][:password]})"))
       flash[:success] = t("notice.save_success") 
+      redirect_to :action => "edit", :id => @user
     else
       flash[:failure] = t("notice.save_failure") 
+      render :action => "edit"
     end
-    redirect_to :action => "edit", :id => @user
   end
 
   def edit

@@ -136,7 +136,7 @@
 	                <%= render :partial => "form", :locals => {:f => f, :user => @user} %>
 					<hr>
 					<div align=left><h3 class="title"><b><%=  UserInfo.human_name %></b></h3></div>
-          			<%= render :partial => "users/form_user_info", :locals => {:user_info => @user_info} %>
+          			<%= render :partial => "users/form_user_info", :locals => {:user_info => defined?(@user_info) ? @user_info : @user.user_info} %>
 					<br>
 	                <%= f.submit t("single.save").capitalize, :class => "button_1" %>
                 <% end %>

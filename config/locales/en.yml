@@ -512,12 +512,9 @@ en:
     errors: # you can find the list of validation error keys here: http://guides.rubyonrails.org/i18n.html 
       template: 
         header: 
-          one: "There's 1 thing wrong here." 
-          other: "Whoa, there's %{count} things wrong here." 
+          one: "There's 1 thing wrong with this %{model}." 
+          other: "Whoa, there's %{count} things wrong with this %{model}." 
         body: "There were problems with the following things:" 
-      models:
-        user:
-          blank: can't be blank!     
       messages:
         blank: can't be blank!     
         confirmation: does not match confirmation!    

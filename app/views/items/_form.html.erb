@@ -1,6 +1,7 @@
-<%= f.error_messages %>
+<%= error_messages_for :item %>
+<% @item.errors.full_messages.size %>
 <% if defined?(@feature_errors) %>
-	<%= print_errors(@feature_errors) if @feature_errors.size > 0  %>
+	<%= errors_for(@feature_errors) if @feature_errors.size > 0  %>
 <% end %>
 
 <div class="item">

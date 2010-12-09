@@ -1,19 +1,6 @@
 <%= error_messages_for :category  %>
 <div id="side">
-				<table cellpadding=1 cellspacing=1>
-							<tr>
-								<td><b><%= f.label :name %></b></td>
-								<td><%= f.text_field :name %></td>
-							</tr>
-							<tr>
-								<td><b><%= f.label :description %></b></td>
-								<td><%= f.text_field :description %><!--<input name="category[description]" type="text" id="category_description_<%= category.id %>" onfocus = "focus_input('category_description_<%= category.id %>')" onblur = "blur_input('category_description_<%= category.id %>')" maxlength=255 value="<%= category.description %>" size=50>--></td>
-							</tr>
-				</table>
-			</div>
-</div>
-<div id="main">
-			<div class="box_2">
+		<div class="box_2">
 				<h2 class="title">
 					<img src="/themes/<%= @setting[:theme] %>/images/icons/categories.png" class="icon" > 				
 					<%= f.label :category_id  %>
@@ -35,5 +22,19 @@
 					<%= descend_category(subcategory, :include_children => @setting[:include_child_category_items], :make_radio_button => true, :id_to_check => category.category_id, :id_to_ignore => category.id, :truncate_length => 35, :input_name => "category[category_id]")  %>
 				<% end %>								
 			</div>
+			
+</div>
+<div id="main">
+	<table cellpadding=1 cellspacing=1>
+				<tr>
+					<td><b><%= f.label :name %></b></td>
+					<td><%= f.text_field :name %></td>
+				</tr>
+				<tr>
+					<td><b><%= f.label :description %></b></td>
+					<td><%= f.text_field :description %><!--<input name="category[description]" type="text" id="category_description_<%= category.id %>" onfocus = "focus_input('category_description_<%= category.id %>')" onblur = "blur_input('category_description_<%= category.id %>')" maxlength=255 value="<%= category.description %>" size=50>--></td>
+				</tr>
+	</table>
 				
-</div>			
+</div>		
+<div style="clear:both"></div>	

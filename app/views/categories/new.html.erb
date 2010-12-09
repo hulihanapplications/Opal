@@ -1,5 +1,6 @@
-<div class="box_2" align=center>
-    <h2><%= t("label.item_new", :item => Category.human_name) %></h2><br>
+<div align=center>    
+	<h2><%= t("label.item_new", :item => Category.human_name) %></h2><br>
+</div>
     <% form_for(@category, :url => { :action => 'create', :controller => "categories"}, :method => "post") do |f| %>
 		<%= render :partial => "form", :locals => {:category => @category, :f => f } %>
 		<br>
@@ -8,6 +9,8 @@
 		</div>
    <% end %>
    <br>
-</div>
 <br>
-<%= link_to icon("arrow_left") + " " + t("single.back"), :back %>
+<div align=center>
+
+	<%= link_to icon("arrow_left") + " " + t("single.back"), :back %>
+</div>

@@ -27,14 +27,14 @@ class User < ActiveRecord::Base
   
   #------------Login Authentication---------------
   def self.authenticate(login, unhashed_pass)
-    u = find(:first, :conditions => ["username = ? and password_hash = ?", login, Digest::SHA256.hexdigest(unhashed_pass) ]  )# check username column with the hashed pass arg
+    u = find(:first, :conditions => ["username = ? and password_hash = ?", login, Digest::SHA256.hexdigest(unhashed_pass) ] )# check username column with the hashed pass arg
     return nil if u.nil? 
     return u.id # return id if valid
   end  
   #----------------------------------------------- 
   
   attr_accessor :password_confirmation, :password#these are the database columns, which are pulled from param
-  attr_protected :is_admin, :is_verified, :group_id # protect from bulk assignment
+  attr_protected :is_admin, :is_verified, :is_disabled # protect from bulk assignment
   
   #--------Encrypt Password-------------------------
   # make sure you're doing attr_accessor before this
@@ -145,7 +145,7 @@ class User < ActiveRecord::Base
   end
 
   def is_enabled?
-    if self.is_disabled == "1"
+    if self.is_disabled == "1" 
       return false
     else 
       return true
@@ -153,7 +153,7 @@ class User < ActiveRecord::Base
   end
 
   def is_verified?
-    if self.is_verified == "1" || self.is_admin == "1" # you don't have to be verified if you're an admin.
+    if self.is_verified == "1" || self.is_admin? # you don't have to be verified if you're an admin.
       return true
     else 
       return false

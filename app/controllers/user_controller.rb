@@ -131,64 +131,8 @@ class UserController < ApplicationController
 
 
 
-def change_password
-  if request.post?
-    @user = @logged_in_user    
-    if @user.update_attributes(:password => params[:user][:password], :password_confirmation => params[:user][:password_confirmation])
-      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log =>  t("log.user_account_item_save", :item => User.human_attribute_name(:password)))
-      flash[:success] = t("notice.save_success")
-      redirect_to :action => "settings"
-    else # save failed
-      flash[:failure] = t("notice.save_failure")
-      render :action => "settings"
-    end    
-  end
-end
-
- def change_avatar
-   @user = @logged_in_user   
-   if !@user.use_gravatar? && params[:use_gravatar] == "1" # They are enabling gravatar
-     @user.user_info.update_attribute(:use_gravatar, params[:use_gravatar])
-     flash[:success] = t("notice.save_success")     
-   elsif @user.use_gravatar? && params[:use_gravatar] == "0" # They are diabling gravatar
-     @user.user_info.update_attribute(:use_gravatar, params[:use_gravatar])
-     flash[:success] = t("notice.save_success")     
-   else # they are uploading a new photo
-     if params[:file] != ""   #from their computer
-      filename = params[:file].original_filename
-      file_dir = "#{RAILS_ROOT}/public/images/avatars" 
-      acceptable_file_extensions = ".png, .jpg, .jpeg, .gif, .bmp, .tiff, .PNG, .JPG, .JPEG, .GIF, .BMP, .TIFF"
-      if Uploader.check_file_extension(:filename => filename, :extensions => acceptable_file_extensions)
-       image = Magick::Image.from_blob(params[:file].read).first    # read in image binary
-       image.crop_resized!( 100, 100 ) # Resize image
-       image.write("#{file_dir}/#{@user.id.to_s}.png") # write the file
-        Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log =>  t("log.user_account_item_save", :item => t("single.avatar")))                                                   
-       flash[:success] = t("notice.save_success")     
-      else
-       flash[:failure] = t("notice.invalid_file_extensions", :item => Image.human_name, :acceptable_file_extensions => acceptable_file_extensions)      
-      end
-     else # they didn't select an image
-       flash[:failure] = t("notice.item_forgot_to_select", :item => Image.human_name)      
-     end
-   end
-
-   redirect_to :action => "settings"
-
- end
  
- def update_account
-   @user = @logged_in_user
-   #@user_info = @user.user_info
-     params[:user][:username] = @user.username # make username unchangeable
-     params[:user][:email] = @user.email # make email unchangeable
-     if @user.user_info.update_attributes(params[:user_info]) && @user.update_attributes(params[:user])       
-       Log.create(:user_id => @logged_in_user.id, :log_type => "update",  :log =>  t("log.user_account_item_save", :item => UserInfo.human_name))                                              
-       flash[:success] = t("notice.save_success")
-       redirect_to :action => "settings"  
-     else 
-       render :action => "settings"
-     end
- end
+ 
 
   def items
     #render :layout => false

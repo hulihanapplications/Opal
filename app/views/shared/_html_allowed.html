@@ -5,5 +5,5 @@
 	</h3>			
 	
 	<%  html_whitelist = YAML::load(File.open(RAILS_ROOT + "/config/whitelist_html.yml")) # load html whitelist from file %>
-	<b><%= t("info.html_allowed", :elements => html_whitelist["elements"].join(", ") )%>.</b>
-</div>	
+	<%= t("info.html_allowed", :elements => html_whitelist["elements"].join(", ") )%>
+</div>

@@ -1,5 +1,7 @@
-<div class="box_2" align=center>
-    <h2 class="title"><%= t("label.item_edit", :item => Category.human_name) %></h2><br>
+<div align=center>
+	<h2 class="title"><%= t("label.item_edit", :item => Category.human_name) %></h2><br>
+</div>    
+	
     <% form_for(@category, :url => { :action => 'update', :controller => "categories", :id => @category.id }, :method => "post") do |f| %>
 		<%= render :partial => "form", :locals => {:category => @category, :f => f } %>
 		<br>
@@ -7,7 +9,9 @@
 			<%= f.submit t("label.item_save", :item => Category.human_name), :class => "button_1" %>
 		</div>
    <% end %>
-</div>
 
-<br>
-<%= link_to icon("arrow_left") + " " + t("single.back"), :back %>
+	<br>
+<div align=center>
+	<%= link_to icon("arrow_left") + " " + t("single.back"), :back %>	
+</div>    
+		

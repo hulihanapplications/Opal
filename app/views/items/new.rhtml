@@ -9,7 +9,6 @@
     <% form_for(@item, :url => { :action => 'create', :controller => "items"}, :method => "post") do |f| %>
 	<%= render :partial => "form", :locals => {:item => @item, :f => f} %>
 	
-	<div style="clear:both"></div>
 	<br>
 		<div align=center>
 			<%= f.submit t("label.item_create", :item => @setting[:item_name]), :class => "button_1" %>

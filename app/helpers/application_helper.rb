@@ -51,21 +51,26 @@ module ApplicationHelper
       if user.use_gravatar? 
         gravatar_image(user, :size => options[:size])
       else # don't use gravatar, check local avatars 
-        if File.exists?(RAILS_ROOT + "/public/images/avatars/" + user.id.to_s + ".png") 
-           return "<img src=\"/images/avatars/#{user.id.to_s}.png\" class=\"avatar_#{options[:size]}\" title=\"#{user.username}\">"
-        else # get default avatar
-           return "<img src=\"/themes/#{@setting[:theme]}/images/default_avatar.png\" class=\"avatar_#{options[:size]}\" title=\"#{user.username}\">"
-        end
+        avatar_image(user, :size => options[:size])
       end
     else # user doesn't exist
       return "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\" title=\"#{t("notice.item_not_found", :item => User.human_name)}\">"      
     end     
   end 
 
-
+  def avatar_image(user, options = {:size => "normal"})
+      if File.exists?(RAILS_ROOT + "/public/images/avatars/" + user.id.to_s + ".png") 
+         return "<img src=\"/images/avatars/#{user.id.to_s}.png\" class=\"avatar_#{options[:size]}\" title=\"#{user.username}\">"
+      else # get default avatar
+         return "<img src=\"/themes/#{@setting[:theme]}/images/default_avatar.png\" class=\"avatar_#{options[:size]}\" title=\"#{user.username}\">"
+      end        
+  end 
+  
   def gravatar_image(user, options = {:size => "normal"})
-    return "<img src='http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5.hexdigest(user.email.downcase)}?d=#{URI.escape(@setting[:url] + @setting[:theme_url] + "/images/default_avatar.png")}' class=\"avatar_#{options[:size]}\" title=\"#{user.username}\">"
+    return "<img src='http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5.hexdigest(user.email.downcase)}?d=#{URI.escape(@setting[:url] + @setting[:theme_url] + "/images/default_avatar.png")}&s=100' class=\"avatar_#{options[:size]}\" title=\"#{user.username}\">"
   end
+
+
   
   def nav_link_category(category) # prints out a nav link for an category, ie: Home > General > Test Item
     navlinks = Array.new # container to hold nav links
@@ -297,17 +302,16 @@ module ApplicationHelper
    return html 
  end
  
-  def print_errors(some_item_or_hash) # print out errors in a pretty format, takes a Object or plain Hash
-    msg = ""
-    if some_item_or_hash.class == Hash # load in errors from hash
-      errors = some_item_or_hash
-    else # load in errors from object
-      errors = some_item_or_hash.errors
-    end
-    errors.each do |key,value|
-      msg << "<b>#{key}</b>...#{value}<br>" #print out any errors!
-    end
-    return "<div class=\"failure\">#{msg}</div>"
+
+  
+  def errors_for(someobject) # print out errors for an object
+   if someobject.errors.any?
+      messages = Array.new
+      someobject.errors.full_messages.each do |msg| 
+        messages <<  "<lu>#{msg}</li>" 
+     end
+     return "<div class=\"errorExplanation\"><ul>" + messages.join("\n") + "</ul></div>"
+   end   
   end
   
   def theme_url # get the path to the current theme

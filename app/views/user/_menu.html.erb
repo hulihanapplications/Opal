@@ -9,14 +9,14 @@
 		<%= link_to icon("new") + " " + t("label.item_new", :item => @setting[:item_name]), {:action => "new", :controller => "items"}, :class => (params[:action] == "new" || params[:action] == "create" ? "active" : "") %>
    </li>
    <li>
-		<%= link_to icon("items") + " " + t("label.item_my", :item => @setting[:item_name_plural]), {:action => "items", :controller => "user"}, :class => (params[:action] == "items" || params[:action] == "edit" || params[:action] == "update" ? "active" : "") %>
+		<%= link_to icon("items") + " " + t("label.item_my", :item => @setting[:item_name_plural]), {:action => "items", :controller => "user"}, :class => (params[:action] == "items" ? "active" : "") %>
    </li>
    <% end %>   
    <li>
 		<%= link_to icon("mail") + " " + UserMessage.human_name.pluralize, {:action => "for_me", :controller => "messages"}, :class => ((params[:action] == "for_me" && params[:controller] == "messages") ? "active" : "") %>
    </li>
    <li>
-		<%= link_to icon("settings") + " " + t("section.title.my_settings"), {:action => "settings", :controller => "user"}, :class => (params[:action] == "settings" || params[:action] == "update_account" || params[:action] == "change_password"  ? "active" : "") %>
+		<%= link_to icon("settings") + " " + t("section.title.my_settings"), {:action => "edit", :controller => "users", :id => @logged_in_user}, :class => (params[:action] == "edit" || params[:action] == "update" || params[:action] == "change_password"  ? "active" : "") %>
    </li>
    <% if @logged_in_user.is_admin? %>
     <li>

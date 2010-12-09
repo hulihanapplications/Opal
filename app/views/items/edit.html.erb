@@ -7,7 +7,6 @@
 <div style="margin-top:5px;">
     <% form_for(@item, :url => { :action => 'update', :controller => "items", :id => @item.id }, :method => "post") do |f| %>
 	<%= render :partial => "form", :locals => {:item => @item, :f => f} %>
-	<div style="clear:both"></div>
 		<br>
 		<div align=center>
 			<%= f.submit t("label.item_save", :item => @setting[:item_name]), :class => "button_1" %>

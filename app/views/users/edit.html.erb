@@ -1,30 +1,55 @@
-<div class="section">
-	<div id="side">
-		<%= render :partial => "menu" %>
-                <div class="box_3" align=center>
-                    <h1 class="title"><%= h @user.username %></h1>
-                    <div class="user_avatar" align=center style="margin-bottom:5px">
-                        <%= user_avatar(@user) %>
-                    </div>
-                    <%= User.human_attribute_name(:created_at) %> <%= friendly_date @user.created_at %>
-                    <br>
-                    <hr>
-                    <div id="message_box">
-                        <a href="javascript:toggle_box('message_form')"><%= icon("mail") %> 
-							<%= t("label.item_send_to", :item =>  UserMessage.human_name, :name => h(@user.username)) %>
-                        </a>
-                    </div>
-                </div>
-                <% if @logged_in_user.is_admin? %>
-                <div class="box_2" align=left style="text-align:center;margin-bottom:10px;" >
-                    <h2 class="title" align=left><%= t("single.admin") %></h2>
-                    <!--<hr><%= link_to icon("edit") + " " + t("label.item_edit", :item => User.human_name), {:controller => "users", :action => "edit", :id => @user} %>-->
-                    <hr><%= link_to icon("logs") + " " + Log.human_name.pluralize, {:controller => "logs", :action => "for_user", :id => @user, :anchor => "activity"} %>
-                    <hr><%= link_to icon("mail") + " " + UserMessage.human_name.pluralize, {:controller => "messages", :action => "for_user", :id => @user} %>
-                    <hr><%= link_to icon("delete") + " " + t("label.item_delete", :item => User.human_name), {:controller => "users", :action => "delete", :id => @user}, :confirm => t("confirm.delete_user") %>
-                </div><% end %>
+
+<div class="header">
+	<table style="width:100%">
+		<tr>
+			<td align=left>
+				<% if @user.id == @logged_in_user.id %>
+					<h2 class="title"><%=  t("section.title.my_settings") %></h2>
+				<% else %>
+					<h2 class="title"><%= t("label.item_edit", :item => User.human_name) %></h2>
+				<% end %>					
+				
+			</td>
+			<td align=right>
+
+			</td>
+		</tr>
+	</table>			
+</div>
+<table width="100%" cellpadding=0 cellspacing=0>
+	<tr>
+		<td valign=top align=center style="padding-right:5px;width:50%">
+					<div class="box_2"  align=left style="margin-bottom:10px">
+						<h3 class="title"><%= t("single.avatar") %></h3>
+						<% form_tag({:action => 'change_avatar', :id => @user.id}, :multipart => true) do %>
+							<table>
+								<tr>
+									<td colspan=2 align=center>
+									   <div class="user_avatar" align=center>
+											<%= user_avatar(@user) %>
+									   </div>						
+									</td>
+								</tr>
+								<tr>
+									<td style="width:100px"><%= t("label.item_select", :item => Image.human_name) %></td>
+									<td><input type=file name="file" <% if @user.use_gravatar? %>DISABLED<% end %>></td>
+								</tr>
+								<tr>
+									<td colspan=2 align=center style="font-size:10px">
+										<%= t("info.image_guidelines") %>
+										<hr>
+									</td>
+								</tr>					
+							</table>
+						
+						   <div align=center><%= submit_tag t("single.save"), :class => "button_1" %></div>
+						<% end %>
+					</div>
+                </div>		
                 <div class="box_2" align=center style="margin-bottom:10px;">
-                    <h2 class="title"><%= t("label.item_change", :item => User.human_attribute_name(:password)) %></h2>
+                    <div align=left>                    	
+						<h3 class="title"><%= t("label.item_change", :item => User.human_attribute_name(:password)) %></h3>
+					</div>
                     <%= form_tag :action => 'change_password' %>
                     <input type="hidden" name="id" value="<%= @user.id %>">
                     <p>
@@ -43,127 +68,83 @@
                     </p>
                     <input type="submit" value="<%=  t("label.item_change", :item => User.human_attribute_name(:password)) %>" class="button_1">
                     </form>
-                </div>
-                <div class="box_1" align=left style="margin-bottom:10px;">
-                    <h2 class="title"><%= Group.human_name %></h2>
-                    <div style="height:5px">
-                    </div>
-                    <div align=center>
-                        <% form_tag :action => 'change_group', :id => @user.id do %>
-                        <%= render :partial => "/groups/select_group", :locals => {:groups => Group.find(:all), :options => {:id_to_select => @user.group_id} } %>
-                        <div style="height:5px">
-                        </div>
-                        <input type="submit" value="<%= t("single.save") %>" class="button_1"><% end %>
-                    </div>
-                </div>
-                <div class="box_1" align=left style="margin-bottom:10px;">
-                    <h3 class="title"><%= t("label.additional_info") %></h3>
-                    <%= User.human_attribute_name(:latest_login) %>: <b><%= @user.last_login ? "#{friendly_date @user.last_login}" : t("single.none") %></b>
-                    <br>
-                    <%= User.human_attribute_name(:latest_login_ip) %>: <b><%= @user.last_login_ip %></b>
-                    <br>
-                    <br>
-                    <%= User.human_attribute_name(:updated_at) %>: <b><%= friendly_date @user.updated_at %></b>
-                    <br>
-                    <%= User.human_attribute_name(:created_at) %>: <b><%= friendly_date @user.created_at %></b>
-                    <br>
-                    <%= User.human_attribute_name(:registered_ip) %>: <b><%= @user.registered_ip %></b>
-                    <br>
-                </div>
-                <div class="box_1" align=left style="margin-bottom:10px;">
-                    <h2 class="title"><%= t("single.options") %></h2>
-                    <%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/mail.png\" class=\"icon\"  alt=\"\" title=\"\"> #{t("single.send")} #{UserVerification.human_name}", { :action => 'send_verification_email', :id => @user.id} %>
-                    <br>
-                    <%#= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/mail.png\" class=\"icon\"  alt=\"\" title=\"Send Verification Email\">", { :action => 'send_verification_email', :controller => "/admin/main", :id => @user.id} %>
-                    <%= User.human_attribute_name(:is_verified) %>: <b><%= @user.is_verified? ? t("single.yes") : t("single.no") %></b>
-                    <%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/cycle.png\" class=\"icon\"  title=\"#{t("label.item_change", :item => "")}\"> #{t("label.item_change", :item => "")}", { :action => 'toggle_user_verified', :controller => "users", :id => @user.id}, :confirm => t("confirm.general") %>
-                    <br>
-                    <%= t("single.enabled") %>: <b><%= @user.is_enabled? ? t("single.positive") : t("single.negative") %></b>
-                    <%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/cycle.png\" class=\"icon\"  title=\"#{t("label.item_change", :item => "")}\"> #{t("label.item_change", :item => "")}", { :action => 'toggle_user_disabled', :controller => "users", :id => @user.id}, :confirm => t("confirm.general") %>
-                </div>
-
-	</div>
-
-	<div id="main">
-
-
-
-			<div id="message_form" style="display:none;margin-bottom:10px;" align=center>	 			
-				<div class="box_2" align=left>
-	 				<div id="send_message_notice"></div>
-	 				<h2 class="title"><%= t("label.item_send_to", :item =>  UserMessage.human_name, :name => h(@user.username)) %></h2>								   	
-		   			<%= form_remote_tag :update => "send_message_notice", :url => { :action => 'send_message', :controller => "messages", :id => @user.id} %>
-						<table style="width:100%">
-							<tr>
-								<td align=center><textarea  style="width:400px;" name="message" id="message" onfocus = "focus_input('message')" onblur = "blur_input('message')"></textarea></td>
-							</tr>
-							<tr>
-								<td align=center><input type="submit" value="<%= t("label.item_send_to", :item =>  UserMessage.human_name, :name => h(@user.username)) %>" class="button_2"></td>
-							</tr>
-						</table>	
-					</form>
-				</div>
-										
+                </div>						
+                <% if @logged_in_user.is_admin? %>
+					<div id="message_form" style="display:none;margin-bottom:10px;" align=center>	 			
+						<div class="box_2" align=left>
+			 				<div id="send_message_notice"></div>
+			 				<h2 class="title"><%= t("label.item_send_to", :item =>  UserMessage.human_name, :name => h(@user.username)) %></h2>								   	
+				   			<%= form_remote_tag :update => "send_message_notice", :url => { :action => 'send_message', :controller => "messages", :id => @user.id} %>
+								<table style="width:100%">
+									<tr>
+										<td align=center><textarea  style="width:400px;" name="message" id="message" onfocus = "focus_input('message')" onblur = "blur_input('message')"></textarea></td>
+									</tr>
+									<tr>
+										<td align=center><input type="submit" value="<%= t("label.item_send_to", :item =>  UserMessage.human_name, :name => h(@user.username)) %>" class="button_2"></td>
+									</tr>
+								</table>	
+							</form>
+						</div>
+												
 				   		<a href="javascript:toggle_box('message_form')">
 							<%= icon("cancel", t("single.cancel")) %>
 						</a>	
-			</div>	
+					</div>					
+	                <div class="box_2" align=left style="text-align:center;margin-bottom:10px;" >
+	                    <h3 class="title" align=left><%= t("single.admin") %></h3>
+                        <hr>
+						<a href="javascript:toggle_box('message_form')"><%= icon("mail") %> 
+							<%= t("label.item_send_to", :item =>  UserMessage.human_name, :name => h(@user.username)) %>
+                        </a>	                    
+						<hr><%= link_to icon("logs") + " " + Log.human_name.pluralize, {:controller => "logs", :action => "for_user", :id => @user, :anchor => "activity"} %>
+	                    <hr><%= link_to icon("mail") + " " + UserMessage.human_name.pluralize, {:controller => "messages", :action => "for_user", :id => @user} %>
+	                    <hr><%= link_to icon("delete") + " " + t("label.item_delete", :item => User.human_name), {:controller => "users", :action => "delete", :id => @user}, :confirm => t("confirm.delete_user") %>
+	                </div>
+	                <div class="box_1" align=left style="margin-bottom:10px;">
+	                    <h3 class="title"><%= t("label.additional_info") %></h3>
+	                    <%= User.human_attribute_name(:latest_login) %>: <b><%= @user.last_login ? "#{friendly_date @user.last_login}" : t("single.none") %></b>
+	                    <br>
+	                    <%= User.human_attribute_name(:latest_login_ip) %>: <b><%= @user.last_login_ip %></b>
+	                    <hr>
+	                    <%= User.human_attribute_name(:updated_at) %>: <b><%= friendly_date @user.updated_at %></b>
+	                    <br>
+	                    <%= User.human_attribute_name(:created_at) %>: <b><%= friendly_date @user.created_at %></b>
+	                    <br>
+	                    <%= User.human_attribute_name(:registered_ip) %>: <b><%= @user.registered_ip %></b>
+	                    <br>
+	                </div>
+	                <div class="box_1" align=left style="margin-bottom:10px;">
+	                    <h3 class="title"><%= t("single.options") %></h3>
+	                    <%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/mail.png\" class=\"icon\"  alt=\"\" title=\"\"> #{t("single.send")} #{UserVerification.human_name}", { :action => 'send_verification_email', :id => @user.id} %>
+	                    <br>
+	                    <%#= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/mail.png\" class=\"icon\"  alt=\"\" title=\"Send Verification Email\">", { :action => 'send_verification_email', :controller => "/admin/main", :id => @user.id} %>
+	                    <%= User.human_attribute_name(:is_verified) %>: <b><%= @user.is_verified? ? t("single.positive") : t("single.negative") %></b>
+	                    <%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/cycle.png\" class=\"icon\"  title=\"#{t("label.item_change", :item => "")}\"> #{t("label.item_change", :item => "")}", { :action => 'toggle_user_verified', :controller => "users", :id => @user.id}, :confirm => t("confirm.general") %>
+	                    <br>
+	                    <%= t("single.enabled") %>: <b><%= @user.is_enabled? ? t("single.positive") : t("single.negative") %></b>
+	                    <%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/cycle.png\" class=\"icon\"  title=\"#{t("label.item_change", :item => "")}\"> #{t("label.item_change", :item => "")}", { :action => 'toggle_user_disabled', :controller => "users", :id => @user.id}, :confirm => t("confirm.general") %>
+	                </div>					
+				<% end %>
+	</td>
+	<td valign=top align=left style="padding-left:5px;width:50%">
+						
+
+
             <div id="edit_user_box_<%= @user.id %>" class="box_2" style="margin-bottom:10px;" align=center>
                 <% form_for :user, @user,  :url => { :action => "update", :controller => "users", :id => @user.id} do |f| %>
-                <h3 class="title"><%= t("single.details") %></h3>
-                <%= render :partial => "form", :locals => {:f => f} %>
-                <br>
-                <%= f.submit t("single.save").capitalize, :class => "button_1" %>
+                    <div align=left><h3 class="title"><%= t("single.details") %></h3></div>
+	                <%= render :partial => "form", :locals => {:f => f, :user => @user} %>
+					<hr>
+					<div align=left><h3 class="title"><b><%=  UserInfo.human_name %></b></h3></div>
+          			<%= render :partial => "users/form_user_info", :locals => {:user_info => @user_info} %>
+					<br>
+	                <%= f.submit t("single.save").capitalize, :class => "button_1" %>
                 <% end %>
             </div>
-            <div class="box_2" align=center style="margin-bottom:10px;">
-                <h3 class="title"><b><%=  UserInfo.human_name %></b></h3>
-                <% form_tag :action => 'update_user_info', :id => @user.id do %>
-                <% @user_info = @user.user_info %>
-                <table style="width:100%">
-                    <tr>
-                        <td align=left valign=top>
-                            <%= label :user_info, :location %>
-                        </td>
-                        <td align=right>
-                            <%= text_field :user_info, :location %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align=left valign=top>
-                            <%= label :user_info, :description %>
-                        </td>
-                        <td align=right>
-                            <%= text_area :user_info, :description, :style => "height:75px;width:160px" %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align=left valign=top>
-                            <%= label :user_info, :interests %>
-                        </td>
-                        <td align=right>
-                        <%= text_area :user_info, :interests, :style => "height:75px;width:160px" %>
-                        </textarea>
-                    </td>
-                    </tr>
-                </table>
-                <hr><h3 class="title"><%= t("single.notification").pluralize %></h3>
-                <table style="width:100%">
-                    <tr>
-                        <td align=left>
-                            <%= UserInfo.human_attribute_name(:notify_of_new_messages) %>
-                        </td>
-                        <td align=right>
-                            <%= check_box "user_info", "notify_of_new_messages" %>
-                        </td>
-                    </tr>
-                </table>
-                <br>
-                <div align=center>
-                    <%= submit_tag t("single.save"), :class => "button_1" %>
-                </div>
-                <% end %>
-            </div>
-</div>
+		</td>
+	</tr>
+</table>
 <br>
-<%= link_to icon("arrow_left") + " " + t("single.back"), :back %>
+<div align=center>
+	<%= link_to icon("arrow_left") + " " + t("single.back"), :back %>
+</div>

@@ -11,6 +11,13 @@ class CreateSettings < ActiveRecord::Migration
   end
 
   def self.down
+    # Delete Fracture Main Logo if it exists
+    file = File.join(RAILS_ROOT, "public", "themes", "fracture", "images", "logo.png")
+    if File.exists?(file)
+      File.delete(file) 
+      puts "\tDeleted: #{file}"
+    end
+    
     drop_table :settings
   end
 end

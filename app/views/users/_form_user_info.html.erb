@@ -1,0 +1,53 @@
+<% @user_info = user_info %>
+<%= errors_for(user_info) %>
+
+<table style="width:100%">
+    <tr>
+        <td align=left valign=top>
+            <%= label :user_info, :location %>
+        </td>
+        <td align=right>
+            <%= text_field :user_info, :location %>
+        </td>
+    </tr>
+    <tr>
+        <td align=left valign=top>
+            <%= label :user_info, :description %>
+        </td>
+        <td align=right>
+            <%= text_area :user_info, :description, :style => "height:75px;width:160px" %>
+        </td>
+    </tr>
+    <tr>
+        <td align=left valign=top>
+            <%= label :user_info, :interests %>
+        </td>
+        <td align=right>
+        <%= text_area :user_info, :interests, :style => "height:75px;width:160px" %>
+        </textarea>
+    </td>
+    </tr>
+	<tr>
+		<td style="width:150px">
+			 <%= label :user_info, :use_gravatar %>
+		</td>
+		<td align=right>
+			<%= gravatar_image(@user, :size => "tiny") %>
+			<%= t("single.positive") %> <input type="radio" name="user_info[use_gravatar]" value="1"<% if @user.use_gravatar? %>CHECKED<% end %>>
+			<%= avatar_image(@user, :size => "tiny") %>
+			<%= t("single.negative") %> <input type="radio" name="user_info[use_gravatar]" value="0"<% if !@user.use_gravatar? %>CHECKED<% end %>>
+		</td>			
+	</tr>	
+</table>
+<hr>
+<div align=left><h3 class="title"><%= t("single.notification").pluralize %></h3></div>
+<table style="width:100%">
+    <tr>
+        <td align=left>
+            <%= UserInfo.human_attribute_name(:notify_of_new_messages) %>
+        </td>
+        <td align=right>
+            <%= check_box "user_info", "notify_of_new_messages" %>
+        </td>
+    </tr>
+</table>

@@ -1,39 +1,104 @@
-	
 
-	<%= f.error_messages %>
-	<input type="hidden" name="id" value="<%= @user.id %>">
-	<p>
-	    <%= f.label :username %><br>
-	    <%= f.text_field :username, :id => "form_username_box_#{@user.id}", :onfocus => "focus_input('form_username_box_#{@user.id}')", :onblur => "blur_input('form_username_box_#{@user.id}')" %>
-	</p>
-	<p>
-	    <%= f.label :first_name %><br>
-	    <%= f.text_field :first_name, :id => "form_firstname_box_#{@user.id}", :onfocus => "focus_input('form_firstname_box_#{@user.id}')", :onblur => "blur_input('form_firstname_box_#{@user.id}')" %>
-	</p>
-	<p>
-	    <%= f.label :last_name %><br>
-	    <%= f.text_field  'last_name', :id => "form_lastname_box_#{@user.id}", :onfocus => "focus_input('form_lastname_box_#{@user.id}')", :onblur => "blur_input('form_lastname_box_#{@user.id}')" %>
-	</p>
-	<p>
-	    <%= f.label :email %><br>
-	    <%= f.text_field  'email', :id => "form_email_box_#{@user.id}", :onfocus => "focus_input('form_email_box_#{@user.id}')", :onblur => "blur_input('form_email_box_#{@user.id}')" %>
-	</p>
-	<% if params[:action] == "new" || params[:action] == "create" %>
-		<p>
-			<%= f.label :password %><br>
-			<%= f.text_field :password %>
-		</p>
-		<p>
-			<%= f.label :password_confirmation %><br>
-			<%= f.text_field :password_confirmation %>
-		</p>	
-	<% end %>
-	<p>
-	    <%= f.label :created_at %><br>
-	    <%= f.datetime_select 'created_at' %>
-	</p>
-	<%= f.label :is_admin %> <input type="checkbox" name="is_admin" value="1"<% if @user.is_admin? %>CHECKED<% end %>>
-
-	
-
-	<br>
+<%= f.error_messages %>
+<table style="width:100%">
+    <tr>
+        <td align=left>
+            <%= f.label :username %>
+        </td>
+        <td align=right>
+        	<% if @logged_in_user.is_admin? %>
+				<%= f.text_field :username %>
+			<% else %>
+            	<b><%= h user.username %></b>
+			<% end %>        	
+        </td>
+    </tr>
+    <% if params[:action] == "new" || params[:action] == "create" %>
+    <tr>
+        <td align=left>
+            <%= f.label :password %>
+        </td>
+        <td align=right>
+            <%= f.text_field :password %>
+        </td>
+    </tr>
+    <tr>
+        <td align=left>
+            <%= f.label :password_confirmation %>
+        </td>
+        <td align=right>
+            <%= f.text_field :password_confirmation %>
+        </td>
+    </tr>
+    <% end %>
+    <tr>
+        <td align=left>
+            <%= f.label :group %>
+        </td>
+        <td align=right>
+        	<% if @logged_in_user.is_admin? %>
+               <%= render :partial => "/groups/select_group", :locals => {:groups => Group.find(:all), :options => {:id_to_select => user.group_id} } %>
+			<% else %>
+				<b><%= user.group.name %></b>
+			<% end %>
+        </td>
+    </tr>
+    <tr>
+        <td align=left>
+            <%= f.label :email %>
+        </td>
+        <td align=right>
+        	<% if @logged_in_user.is_admin? %>
+				<%= f.text_field :email %>
+			<% else %>
+            	<b><%= h user.email %></b>
+			<% end %>  
+        </td>
+    </tr>
+    <tr>
+        <td align=left>
+            <%= f.label :first_name %>
+        </td>
+        <td align=right>
+            <b><%= f.text_field :first_name %></b>
+        </td>
+    </tr>
+    <tr>
+        <td align=left>
+            <%= f.label :last_name %>
+        </td>
+        <td align=right>
+            <b><%= f.text_field :last_name %></b>
+        </td>
+    </tr>
+    <tr>
+        <td align=left>
+            <%= f.label :locale %>
+        </td>
+        <td align=right>
+            <%= render :partial => "shared/select_locale", :locals => {:options => {:input_name => "user[locale]", :select => user.locale}} %>
+        </td>
+    </tr>
+    <tr>
+        <td align=left>
+            <%= f.label :created_at %>
+        </td>
+        <td align=right>
+        	<% if @logged_in_user.is_admin? %>
+         	   <%= f.datetime_select 'created_at' %>
+			<% else %>
+            	<b><%= friendly_date user.created_at %></b>
+			<% end %>          	
+        </td>
+    </tr>
+    <% if @logged_in_user.is_admin? %>
+    <tr>
+        <td align=left>
+            <%= icon("admin") %>
+			<%= f.label :is_admin %>
+        </td>
+        <td align=right>
+            <input type="checkbox" name="user[is_admin]" value="1"<% if user.is_admin? %>CHECKED<% end %>>
+        </td>
+    </tr><% end %>
+</table>

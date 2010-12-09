@@ -2,6 +2,7 @@ class UserInfo < ActiveRecord::Base
  validates_uniqueness_of :user_id, :message => "There can only be one group of info per user!"
  belongs_to :user
  before_save :strip_html 
+ 
   
  def strip_html # Automatically strips any tags from any string to text typed column
     for column in UserInfo.content_columns

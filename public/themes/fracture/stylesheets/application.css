@@ -15,7 +15,7 @@
 	textarea{overflow:auto;}
 	td{vertical-align:top;}
 	
-/* Serum CSS */
+
 	/*  Layout */
 	#wrapper{height:auto !important; height:100%; min-height:100%;position:relative;}
 	#wrapper > #header{width: 900px ; margin: 0 auto ;background:url(../images/bgs/main_logo_bg.png) no-repeat;background-position:bottom left;height:135px;}
@@ -31,7 +31,6 @@
 			ul.main_menu li a:visited, ul.main_menu li a:link{color:#ccc;}
 			ul.main_menu li a:hover{color:white;}
 			ul.main_menu li a.selected{color:#333;text-shadow:1px 1px 0px #aaa;background:#ECECEC; -moz-border-radius-topleft:5px;-webkit-border-top-left-radius:5px; -moz-border-radius-topright:5px;-webkit-border-top-right-radius:5px}
-
 	 
 
 	/* Boxes */
@@ -61,12 +60,9 @@
 		.fieldWithErrors{color:#AF0000;}
 			.fieldWithErrors input, .fieldWithErrors textarea, .fieldWithErrors select{border: 1px solid #AF0000;}
 
-
-	/* Sections */
-	.section{}
-		.section .header{}
-		.section .header td{}
-		.section .header .description{border-top:1px solid #aaa}
+	/* Sidebar & Main Styles */
+		#main > .header{margin-bottom:10px;}
+		#main > .header .description{border-top:1px solid #aaa}
 	
 /* Opal CSS */
 	/* Images */

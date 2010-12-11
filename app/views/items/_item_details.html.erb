@@ -1,0 +1,38 @@
+<% 
+	options ||= Hash.new 
+	options[:show_item_summary] = true if options[:show_item_summary].nil? # show item summary?
+	options[:show_item_info] = true if options[:show_item_info].nil? # show item info box?
+%>
+<div class="details">
+	<table style="width:100%" cellpadding=0 cellspacing=0>
+		<tr>
+			<td align=left>
+				<div class="summary">
+					<% if options[:show_item_summary] %>
+						<table>
+							<tr>
+								<td>
+									<div class="name" id="name">
+										<%= h item.name %>								
+									</div>		
+									<% if get_setting_bool("enable_item_description") %>
+										<div class="description" id="description">
+											<%= h item.description %>																							
+										</div>														
+									<% end %>	
+								</td>
+							</tr>
+						</table>
+					<% end %>
+				</div>
+			</td>
+			<td align=right>
+				<% if options[:show_item_info] %>
+					<div class="info">
+							<%= render :partial => "items/item_info", :locals => {:item => item } %>
+					</div>
+				<% end %>				
+			</td>
+		</tr>
+	</table>	
+</div>

@@ -16,6 +16,11 @@ class ZeroSixZero < ActiveRecord::Migration
 
    # Create Item Locking 
    add_column :items, :locked, :bool, :default => false   
+
+  
+   # Allow users to change page type
+   Setting.create(:name => "allow_item_page_type_changes", :title => "",  :value => "1", :setting_type => "Item", :description => "", :item_type => "bool") 
+     
   
   end
 

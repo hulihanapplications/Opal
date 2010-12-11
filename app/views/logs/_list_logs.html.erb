@@ -38,5 +38,7 @@
 	<% end %>
 	</table>
 <% else %>
-	<%= t("notice.items_not_found", :items => Log.human_name.pluralize) %>
+	<div align=center>		
+		<%= t("notice.items_not_found", :items => Log.human_name.pluralize) %>
+	</div>
 <% end%>

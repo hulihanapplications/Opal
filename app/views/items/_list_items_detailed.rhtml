@@ -22,7 +22,7 @@
 				<tr>
 					<td class="thumbnail">
 						<div class="thumbnail">
-							<%= link_to (item_thumbnail item,  :preview => true), {:action => "view", :controller => "items", :id => item, :anchor => image_plugin.human_name.pluralize}, :title => "#{h item.name}" %>
+							<%= link_to item_thumbnail(item,  :preview => false), {:action => "view", :controller => "items", :id => item, :anchor => image_plugin.human_name.pluralize}, :title => "#{h item.name}" %>
 						</div>
 						<div align=center>
 							<% if item.is_editable_for_user?(@logged_in_user) %>

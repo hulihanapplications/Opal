@@ -1,12 +1,12 @@
 class ItemsController < ApplicationController
- before_filter :authenticate_user, :except => [:index, :rss, :category, :view, :search, :tag, :new_advanced_search, :advanced_search] # check if user is logged in
+ before_filter :authenticate_user, :except => [:index, :rss, :category, :view, :search, :tag, :new_advanced_search, :advanced_search, :set_list_type, :set_item_page_type] # check if user is logged in
  before_filter :enable_user_menu, :only =>  [:new, :edit, :create, :update] # show user menu 
  
  before_filter :authenticate_admin, :only =>  [:all_items] # check if user is admin 
  before_filter :enable_admin_menu, :only =>  [:all_items] # show admin menu 
  
- before_filter :find_item, :except => [:index, :rss, :category, :all_items, :tag, :create, :new, :search, :new_advanced_search, :advanced_search] # look up item 
- before_filter :check_item_edit_permissions, :except => [:index, :rss, :category, :all_items, :tag, :create, :view, :new, :search, :new_advanced_search, :advanced_search] # check if item is editable by user 
+ before_filter :find_item, :except => [:index, :rss, :category, :all_items, :tag, :create, :new, :search, :new_advanced_search, :advanced_search, :set_list_type, :set_item_page_type] # look up item 
+ before_filter :check_item_edit_permissions, :except => [:index, :rss, :category, :all_items, :tag, :create, :view, :new, :search, :new_advanced_search, :advanced_search, :set_list_type, :set_item_page_type] # check if item is editable by user 
  before_filter :enable_sorting, :only => [:index, :category, :all_items, :search] # prepare sort variables & defaults for sorting
  
 
@@ -267,7 +267,23 @@ class ItemsController < ApplicationController
    end
  end
  
+ def set_list_type # change the item list type 
+   if get_setting_bool("allow_item_list_type_changes")   
+     session[:list_type] = params[:list_type] # save the list type in the visitor's browser sessions
+   else # not allowed to change list type
+     flash[:failure] = t("notice.invalid_permissions")
+   end 
+   redirect_to request.env["HTTP_REFERER"]  # send them back to original request 
+ end
 
+ def set_item_page_type # change the item list type 
+   if get_setting_bool("allow_item_page_type_changes")   
+     session[:item_page_type] = params[:item_page_type] # save the list type in the visitor's browser sessions
+   else # not allowed to change list type
+     flash[:failure] = t("notice.invalid_permissions")
+   end 
+   redirect_to request.env["HTTP_REFERER"]  # send them back to original request 
+ end
  
 private 
 

@@ -1,21 +1,21 @@
 <% images_plugin = Plugin.find_by_name("Image") %>
 <% features_plugin = Plugin.find_by_name("Feature") %>
 
-<div align=left class="item_page_summarized">
-	<%= render :partial => "items/item_header", :locals => {:item => item, :options => {:show_item_info => false, :show_item_title => false}} %>
-	
-	<div style="margin-bottom:10px;" class="item_header_box">		
+<div align=left id="page_summarized">	
+	<div style="margin-bottom:10px;" id="top">		
 				<% if images_plugin.is_enabled? %>
-					<div class="plugin_box">
+					<div id="images">
+						<div id="main_image">
+							<%= item_thumbnail(item) %>
+							<%#= item.main_image.to_html %>
+						</div>						
 						<div class="images">
-							<div class="image">
-								<%= (item_thumbnail item,  :preview => true) %>
-							</div>
+
 						</div>
 					</div>				
 				<% end %>							
 
-				<div >
+				<div id="details">
 					<table cellpadding=0 cellspacing=0>
 						<tr>
 							<td align=left>
@@ -54,8 +54,9 @@
 						<% end %>							
 					</div>								
 				</div>				
-			</tr>
-		</table>
+				<div id="side">
+					Test
+				</div>
 	</div>
 	<div class="plugins">
 		<% for plugin in plugins %>

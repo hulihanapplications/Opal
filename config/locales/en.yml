@@ -292,7 +292,8 @@ en:
       caching: Page Caching
       new_item_notification: Notify Admins of New Items
       section_blog: Blog
-      allow_item_list_type_changes: Allow Item List Type Changes from the Public
+      allow_item_list_type_changes: Allow Item List Type Changes
+      allow_item_page_type_changes: Allow Page Type Changes
       include_child_category_items: Include Child Category Items
       max_items_per_user: Maximum Items per User
       email_verification_required: Email Verification Required for New Users
@@ -353,6 +354,7 @@ en:
       new_item_notification: If enabled, all admins will be sent an email when a new item is created.
       section_blog: Opal's Integrated Blog. If enabled, a blog link will show up in the main menu.
       allow_item_list_type_changes: If enabled, this setting allows anyone(even the public) to change the Item list type that they see when visiting your Opal application. This only affects the visitor's browser.
+      allow_item_page_type_changes: If enabled, this setting allows anyone(even the public) to change the page type for items that they're looking at. This only affects the visitor's browser.
       include_child_category_items: If enabled, all Child Category Items will be included in lists and number counts for the Parent Category. Enabling this creates a small performance drop.
       max_items_per_user: This specifies the maximum number of items a user can create. Set to 0 for unlimited.
       email_verification_required: If enabled, new users must click on an verification link that is sent to their email account before they can log in.
@@ -386,11 +388,11 @@ en:
       list_type_detailed: View %{items} in a simple format.
       list_type_photo: View %{items} as thumbnails.
       list_type_small: View %{items} in a table.
-      item_page_type_summarized:    
-      item_page_type_expanded: 
-      item_page_type_tabs_horizontal:  
-      item_page_type_tabs_vertical: 
-      item_page_type_accordion:   
+      item_page_type_summarized: View %{item} details in a clean, summarized way.
+      item_page_type_expanded: View %{item} with expanded details.
+      item_page_type_tabs_horizontal:  View %{item} details in horizontal tabs.
+      item_page_type_tabs_vertical: View %{item} details in vertical tabs.
+      item_page_type_accordion: View %{item} details in an accordion.
       # Plugin Settings
       slideshow_speed: The speed of a slideshow, in milliseconds(ms). Default is 2500.
       item_thumbnail_width: This is the default width(in pixels) of the thumbnails that are generated.

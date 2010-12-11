@@ -26,17 +26,6 @@ class BrowseController < ApplicationController
  def login
  end
 
- def set_list_type # change the item list type 
-   original_uri = CGI::unescape(params[:original_uri]) # store original request
-   if get_setting_bool("allow_item_list_type_changes")   
-     session[:list_type] = params[:list_type] # save the list type in the visitor's browser sessions
-     #flash[:success] = "List Type changed!"
-   else # not allowed to change list type
-     flash[:failure] = t("notice.invalid_permissions")
-   end 
-   redirect_to original_uri  # send them back to original request 
- end
-
  def lost # they're lost   
  end
 

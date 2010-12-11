@@ -3,16 +3,4 @@
 %>
 
 <% @setting[:list_type] = get_setting("list_type") if !@setting[:list_type]  %><%# get default list type if not set. %>
-<% if @setting[:list_type] == "simple" %>
-  <%= render :partial => "/items/list_items_simple" ,:locals => {:items => items, :my_group_plugin_permissions => my_group_plugin_permissions} %>
-<% elsif @setting[:list_type] == "detailed" %>
-  <%= render :partial => "/items/list_items_detailed" ,:locals => {:items => items, :my_group_plugin_permissions => my_group_plugin_permissions} %>
-<% elsif @setting[:list_type] == "photo" %>
-  <%= render :partial => "/items/list_items_photo" ,:locals => {:items => items, :my_group_plugin_permissions => my_group_plugin_permissions} %>  
-<% elsif @setting[:list_type] == "small" %>
-  <%= render :partial => "/items/list_items_small" ,:locals => {:items => items, :my_group_plugin_permissions => my_group_plugin_permissions} %>    
-<% else %>
-  <div class="failure">
-  	 <%= t("notice.item_invalid", :item => Setting.find_by_name("list_type").title) %>
-  </div>
-<% end %>
+<%= render :partial => "/items/list_items_#{@setting[:list_type]}" ,:locals => {:items => items, :my_group_plugin_permissions => my_group_plugin_permissions} %>    

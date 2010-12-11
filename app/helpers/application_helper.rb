@@ -121,17 +121,13 @@ module ApplicationHelper
   
   def item_thumbnail(item, options = {})   
       # set defaults
-      options[:preview] ||= false 
+      options[:preview] = false if options[:preview].nil? 
       options[:class] ||= "thumbnail"
       
       if !item.nil? # item exists
-        image = PluginImage.find(:first, :conditions => ["item_id = ? and is_approved = '1'", item.id], :order => "created_at ASC") 
-        if image
-           if options[:preview]
-            return "<a href=\"#{h image.url}\"  title=\"#{h image.description}\" rel=\"colorbox\"><img src=\"#{image.thumb_url}\" class=\"#{options[:class]}\" title=\"#{h image.description}\"></a>"
-           else
-            return "<img src=\"#{image.thumb_url}\" class=\"#{options[:class]}\" title=\"#{h image.description}\">"            
-           end 
+        image = item.main_image 
+        if image           
+          thumbnail(image, options)
         else                
            return "<img src=\"/themes/#{@setting[:theme]}/images/default_item_image.png\" class=\"#{options[:class]}\">"
         end     
@@ -141,7 +137,7 @@ module ApplicationHelper
   end 
 
  def thumbnail(image, options = {}) # show thumbnail for an image
-      options[:preview] ||= false 
+      options[:preview] = false if options[:preview].nil? 
       options[:class] ||= "thumbnail" 
       if !image.nil? # item exists
          if options[:preview]

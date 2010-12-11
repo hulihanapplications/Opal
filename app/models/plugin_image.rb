@@ -26,9 +26,9 @@ class PluginImage < ActiveRecord::Base
  end
 
 
- def filename # get filename from url 
-   return File.basename(self.url)
- end
+  def filename # get filename from url 
+    return File.basename(self.url)
+  end
  
   def is_approved?
      if self.is_approved == "1"
@@ -36,5 +36,9 @@ class PluginImage < ActiveRecord::Base
      else # not approved
        return false
      end
-  end 
+ end
+ 
+ def to_html 
+   return "<img src=\"#{self.url}\">" 
+ end
 end

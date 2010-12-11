@@ -1,6 +1,9 @@
-<h2 class="title">
-	<%= t("label.item_my", :item => Log.human_name.pluralize) %>
-</h2>
+<div align=center>
+	<h2 class="title">
+		<%= t("label.item_my", :item => Log.human_name.pluralize) %>
+	</h2>
+</div>
+<br>
 
 <%= render :partial => "logs_page", :locals => {:logs => @logs} %>
 

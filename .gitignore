@@ -15,6 +15,9 @@ config/email.yml
 *_master.png
 *.ai
 
+# SQLite Databases
+db/*.sqlite3
+
 # Only Include Public Themes
 !public/themes/white_square
 !public/themes/fracture

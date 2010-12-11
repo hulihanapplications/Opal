@@ -1,9 +1,12 @@
 <%= render :partial => "browse/main_content_top_bar", :locals => {:options => {:show_list_type_selector => false}}  %>
-
-<h2 class="title">
-	 <%= @setting[:item_name].capitalize %> <%= Log.human_name.pluralize %> -  <%= @item.name %>
-</h2>
-
+<div align=center>
+	<h2 class="title">
+		 <%= Log.human_name.pluralize %> -  <%= @item.name %>
+	</h2>
+</div>
+<br>
 <%= render :partial => "logs_page", :locals => {:logs => @logs} %>
 
-<%= link_to icon("arrow_left") + " " + t("single.back"), :back %>
+<div align=center>
+	<%= link_to icon("arrow_left") + " " + t("single.back"), :back %>
+</div>

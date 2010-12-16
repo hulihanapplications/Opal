@@ -1,7 +1,7 @@
 class UserController < ApplicationController
  # this controller may/may not contain anything, but each controller under app/controllers/user/* inherits from this.
  before_filter :authenticate_user, :except =>  [:login, :create_account, :register, :check_username, :create_comment, :forgot_password, :recover_password]
- before_filter :enable_user_menu, :except => [:register]  # show_user_menu
+ before_filter :enable_user_menu, :except => [:register, :create_account]  # show_user_menu
  before_filter :enable_sorting, :only => [:items] # prepare sort variables & defaults for sorting
 
  
@@ -18,8 +18,8 @@ class UserController < ApplicationController
  def create_account
   if Setting.get_setting_bool("allow_user_registration")
     if request.post?
+     @user = User.new(params[:user]) # always remember that ANYONE can override bulk assignment
      if simple_captcha_valid?  
-        @user = User.new(params[:user]) # always remember that ANYONE can override bulk assignment
         @user.registered_ip = request.env["REMOTE_ADDR"]
         @user.is_admin = "0"   
 
@@ -49,11 +49,11 @@ class UserController < ApplicationController
          redirect_to :action => "index", :controller => "/browse"        
         else  #save failed
          flash[:failure] = t("notice.user_account_create_failure")
-         redirect_to :action => "register", :controller => "user"
+         render :action => "register"
         end
      else # captcha failed
         flash[:failure] =  t("notice.invalid_captcha")  #print out any errors!
-        redirect_to :action => "register", :controller => "user"
+        render :action => "register"
      end
    end
   else # users can't register.
@@ -93,11 +93,12 @@ class UserController < ApplicationController
     @logged_in_user = nil
     reset_session
     flash[:success] = t("notice.user_logout_success")
-    redirect_to  :action => "index", :controller => "/browse"
+    redirect_to  :action => "index", :controller => "browse"
   end
  
   def register
-    @setting[:load_prototype] = true # load prototype js in layout 
+    @setting[:load_prototype] = true # load prototype js in layout
+    @user = User.new 
   end
  
   def verify
@@ -121,9 +122,9 @@ class UserController < ApplicationController
   def check_username
    username_found = User.find(:first, :conditions => ["username = ?", params[:username]], :select => :username)
    if username_found # username taken
-    render :text => "<div class=\"failure\">#{t("label.username_taken")}</div>"
+    render :text => "<div class=\"notice\"><div class=\"failure\">#{t("label.username_taken")}</div></div>"
    else # username not taken
-    render :text => "<div class=\"success\">#{t("label.username_available")}</div>"
+    render :text => "<div class=\"notice\"><div class=\"success\">#{t("label.username_available")}</div></div>"
    end
    #render :layout => false
   end

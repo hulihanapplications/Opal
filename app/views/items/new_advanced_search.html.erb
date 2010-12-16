@@ -1,8 +1,8 @@
 <div align=center>
-	<h2><%= t("label.advanced_search")%></h2>
+	<h2><%= t("label.advanced_search")%></h2><br>
 	<%= form_remote_tag  :update => "results", :url => { :controller => "items", :action => "advanced_search" }, :loading => "loading('results')" %>
 		<%= render :partial => "advanced_search_form" %>
-		<div style="height:10px"></div>
+		<div style="height:10px;clear:both"></div>
 		<input type="submit" value="<%= t("single.search") %>" class="button_1">			
 	</form>
 	<br>

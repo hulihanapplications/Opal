@@ -42,7 +42,7 @@ Rails::Initializer.run do |config|
   # Make sure the secret is at least 30 characters and all random, 
   # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
-    :session_key => '_opal_session',
+    :key => '_opal_session',
     :secret      => 'bff43011c1d97afd51276a727bc4445fd3677768271593089d212e26630224ed9953da3ce809c0ffaf0622cf81ef11fb5438efb9f399a30ecafa8ac340ab84e3'
   }
 

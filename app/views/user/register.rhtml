@@ -1,7 +1,8 @@
-<div class="box_1" style="width:500px">	
+<div class="box_1" style="width:500px;margin: 0px auto" align=center>	
 	<h2><%= t("label.create_account") %> </h2>
 	<div style="height:5px"></div>	
 	   <% form_for :user,  :url => { :action => "create_account", :controller => "user" } do |f| %>
+	    <%= f.error_messages %>
 	 	<table style="text-align:left">
 	     <tr><td><%= f.label :email %></td><td> <%= f.text_field :email  %></td></tr>
 	     <tr><td><%= f.label :first_name %></td><td> <%= f.text_field :first_name  %></td></tr>

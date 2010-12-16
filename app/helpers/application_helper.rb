@@ -313,7 +313,11 @@ module ApplicationHelper
        end
      end     
    end 
-   return "<div class=\"errorExplanation\"><ul>" + messages.map{|member| "<li>#{member}</li>"}.join("\n") + "</ul></div>"   
+   if messages.size > 0
+    return "<div class=\"errorExplanation\"><ul>" + messages.map{|member| "<li>#{member}</li>"}.join("\n") + "</ul></div>"
+   else
+    return nil
+   end 
   end
   
   def theme_url # get the path to the current theme

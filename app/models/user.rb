@@ -27,8 +27,8 @@ class User < ActiveRecord::Base
   
   #------------Login Authentication---------------
   def self.authenticate(login, unhashed_pass)
-    u = find(:first, :conditions => ["username = ? and password_hash = ?", login, Digest::SHA256.hexdigest(unhashed_pass) ] )# check username column with the hashed pass arg
-    u.nil? ? u.nil : u.id 
+    u = self.find(:first, :conditions => ["username = ? and password_hash = ?", login, Digest::SHA256.hexdigest(unhashed_pass) ] )# check username column with the hashed pass arg
+    return u
   end  
   #----------------------------------------------- 
   

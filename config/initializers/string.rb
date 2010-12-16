@@ -1,0 +1,3 @@
+class String
+
+end

@@ -187,15 +187,19 @@ class ItemsController < ApplicationController
  def new_advanced_search
    @setting[:load_prototype] = true # use prototype for ajax calls in this method, instead of jquery
  end
- 
+
+
  def advanced_search
    @options = Hash.new
    @options[:item_ids] = Array.new # Array to hold item ids to search
+   conditions = Array.new # holds search conditions
    
+   # Santize User Input
+      # todo
+  
    # Prepare Features
    if params[:feature] # if there are any feature fields submitted
      # We need to sanitize all values entering the ActiveRecord's conditions. They will be passed in via the array[string, hash] format: ActiveRecord::Base.find(:all, :conditions => ["x = :x_value", {:x_value => "someValue"}])
-     conditions_array = Array.new # hash to contain strings of certain conditions, ie: ["x = :x_value", "y LIKE :y_value"], which we will then join with the appropriate conjunction, ie: conditions.join(" AND ")  to create the required string
      values_hash = Hash.new # hash to contain values, ie: {:x_value => "someValue", :y_value => "%someValue%"}   
      num_of_features_to_search = 0 # number of features to search       
      matching_feature_values = Hash.new # hash to hold arrays of ids of items that match each feature value
@@ -220,11 +224,9 @@ class ItemsController < ApplicationController
        end 
      end     
       
-    @options[:item_ids] =  get_common_elements_for_hash_of_arrays(matching_feature_values) if num_of_features_to_search > 0 # get common elements from hash using & operator
+    @options[:item_ids] =  get_common_elements_for_hash_of_arrays(matching_feature_values) if num_of_features_to_search > 0 # get common elements from hash using & operator    
     #logger.info "Matching Items: #{matching_feature_values.inspect}"
   else # no features selected
-    Item.find(:all, :select => "id").each{|item|  @options[:item_ids] << item.id } # load all item ids into array  
-            
   end 
          
 
@@ -232,30 +234,35 @@ class ItemsController < ApplicationController
    # Prepare Category
      @options[:category_ids] = Array.new # Array to hold category ids to search 
      if params[:item][:category_id] == "all" # search all categories
-       for category in Category.get_parent_categories 
-          @options[:category_ids] +=  category.get_all_ids(:include_children => true).split(',')
-       end
+       # do nothing
      else # search one category
        category = Category.find(params[:item][:category_id])
-       @options[:category_ids] +=  category.get_all_ids(:include_children => @setting[:include_child_category_items]).split(',')
+       #conditions << "category_id in (#{category.get_all_ids(:include_children => @setting[:include_child_category_items])})"
      end 
    
    # Prepare Times
      times  = Hash.new # create a new hash indexed by html value, which contains a time object to be passed into query 
-     times["whenever"] = Time.now.to_time.advance(:years => -100) 
-     times["today"] = Time.now.beginning_of_day
-     times["this_week"] = Time.now.beginning_of_week
-     times["this_month"] = Time.now.beginning_of_month
-     times["this_year"] = Time.now.beginning_of_year
+     times["whenever"] = Time.now.to_time.advance(:years => -100).to_sql
+     times["today"] = Time.now.beginning_of_day.to_sql
+     times["this_week"] = Time.now.beginning_of_week.to_sql
+     times["this_month"] = Time.now.beginning_of_month.to_sql
+     times["this_year"] = Time.now.beginning_of_year.to_sql
   
-     @options[:created_at_start] = times[params[:created_at]] # select hash item that matches selected form data
-     @options[:updated_at_start] = times[params[:updated_at]] # select hash item that matches form data
+     conditions << ["(created_at >= ? and updated_at >= ?)", times[params[:created_at]], times[params[:created_at]]]  # select hash item that matches selected form data
 
-   # Get Item That match our Search
-    @items = Item.find(:all, :conditions => ["(name like ? or description like ?) and id in (?) and category_id in (?) and ( created_at > ? and updated_at > ?)", "%#{params[:search]["keywords"]}%", "%#{params[:search]["keywords"]}%",  @options[:item_ids], @options[:category_ids], @options[:created_at_start], @options[:updated_at_start]  ], :limit => 20)
- 
+     # Prepare Name/Description     
+     conditions << ["(name like ? or description like ?)", "%#{params[:search]["keywords"]}%", "%#{params[:search]["keywords"]}%"] if params[:search]["keywords"] && !params[:search]["keywords"].empty?
+     
+     # Prepare Item Ids
+     conditions << ["id in (?)", @options[:item_ids].join(",")] if @options[:item_ids].size > 0 
+
+    # Get Item That match our Search
+    @items = Item.find(:all, :conditions => ActiveRecord::Base.combine_conditions(conditions), :limit => 20)
+
     render :layout => false # ajax powered? then no layout! 
- end
+ end 
+ 
+
  
  def tag
    @tag = CGI::unescape(params[:tag])

@@ -35,7 +35,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td><b><%= Item.human_attribute_name(:created_at) %></b></td>
+							<td><b><%= Item.human_attribute_name(:updated_at) %></b></td>
 							<td align=right>
 								<select name="updated_at">
 									<option value="whenever" SELECTED><%= t("label.time_any") %></option>						
@@ -54,7 +54,7 @@
 <div id="main">
 	<div class="box_2" align=center>
 
-			<h3>Keywords in Title or Description</h3>
+			<h3><%= "#{t("single.name")} #{t("single.or").downcase} #{t("single.description")}" %></h3>
 			<input name="[search]keywords" type="text">
 		<br>
 
@@ -70,7 +70,7 @@
 							<% if feature.search_type != "None" %>		
         						<%= "</tr><tr>" if counter % 2 == 0 && counter != 0  %>																
 								<td style="width:50%">
-									<div class="box_2" id="<%= feature.id %>" style=";margin:5px 5px 5px 5px">
+									<div class="box_2" id="feature_<%= feature.id %>" style=";margin:5px 5px 5px 5px">
 										<table style="width:100%">
 											<tr>
 												<td align=left style="vertical-align:middle">

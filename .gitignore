@@ -15,6 +15,9 @@ config/email.yml
 *_master.png
 *.ai
 
+# Backups
+backup/
+
 # SQLite Databases
 db/*.sqlite3
 

@@ -2,7 +2,6 @@
 # Likewise, all the methods added will be available for all controllers.
 class ApplicationController < ActionController::Base
   include SimpleCaptcha::ControllerHelpers
-  
   helper "application" # include main application helper
   
   before_filter :load_settings, :set_user # load global settings and set logged in user
@@ -44,6 +43,11 @@ class ApplicationController < ActionController::Base
     @setting[:theme] = params[:theme] if params[:theme] # preview theme if theme is specified in url
     @setting[:url] = "http://" + request.env["HTTP_HOST"] + "" # root url for host/port, taken from request
   end
+  
+  def reload_settings # reload global settings
+    logger.info "Reloading global settings."
+    Setting.global_settings = Setting.get_global_settings 
+  end  
   
   # Authentication Functions
   def set_user # If user isn't logged in, log them in as Guest. Otherwise, check their account for any problems

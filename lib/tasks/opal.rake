@@ -30,6 +30,28 @@ namespace app_name.downcase.to_sym do
     Rake::Task['db:migrate'].reenable
     Rake::Task["#{app_name.downcase}:install"].invoke
   end
+
+  namespace :db do
+    desc "Backup Database"
+    task :backup => :environment do
+      db = YAML::load(File.open(File.join(Rails.root.to_s,"config", "database.yml")))
+      db_config = db[Rails.env]
+      backup_path = File.join(Rails.root.to_s, "backup", Time.now.strftime("%Y%m%d_%H%M%S" + ".sql"))
+      FileUtils.mkdir_p(File.dirname(backup_path)) if !File.exists?(File.dirname(backup_path))
+      db_config["host"] ||= "localhost"
+      
+      if db_config["adapter"] == "mysql"
+        puts "Backing Up Mysql Database..."
+        command = "mysqldump -u #{db_config["username"]} -p'#{db_config["password"]}' #{db_config["database"]} -h #{db_config["host"]} # > #{backup_path}"
+      end
+      if defined?(command) && !command.nil?
+        system(command)
+      else
+        "No Command specified."
+      end
+      puts "Backup saved to #{backup_path}"
+    end    
+  end
 end
 
 

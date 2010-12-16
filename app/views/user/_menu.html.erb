@@ -9,7 +9,7 @@
 		<%= link_to icon("new") + " " + t("label.item_new", :item => @setting[:item_name]), {:action => "new", :controller => "items"}, :class => (params[:action] == "new" || params[:action] == "create" ? "active" : "") %>
    </li>
    <li>
-		<%= link_to icon("items") + " " + t("label.item_my", :item => @setting[:item_name_plural]), {:action => "items", :controller => "user"}, :class => (params[:controller] == "items" ? "active" : "") %>
+		<%= link_to icon("items") + " " + t("label.item_my", :item => @setting[:item_name_plural]), {:action => "items", :controller => "user"}, :class => (params[:action] == "items" ? "active" : "") %>
    </li>
    <% end %>   
    <li>

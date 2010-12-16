@@ -1,6 +1,7 @@
 class SettingsController < ApplicationController
  before_filter :authenticate_admin # make sure logged in user is an admin   
  before_filter :enable_admin_menu # show admin menu 
+ after_filter :reload_settings, :only => [:update_settings]
  
  def index
    @setting[:meta_title] = Setting.human_name.pluralize + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title]

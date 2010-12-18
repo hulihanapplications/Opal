@@ -3,12 +3,11 @@
 	<%= render :partial => "items/item_header", :locals => {:item => @item} %>
 	
 	<% 
-		plugins = Plugin.find(:all, :conditions => ["is_enabled = '1'"], :order => "order_number ASC") 
 		my_group_plugin_permissions = GroupPluginPermission.all_plugin_permissions_for_group(@logged_in_user.group) 
 	%>
 
 	<% @setting[:item_page_type] = get_setting("item_page_type") if !@setting[:item_page_type]  %><%# get default page type if not set. %>
-	<%= render :partial => "items/view_#{@setting[:item_page_type]}", :locals => {:item => @item, :plugins => plugins, :my_group_plugin_permissions => my_group_plugin_permissions} %>
+	<%= render :partial => "items/view_#{@setting[:item_page_type]}", :locals => {:item => @item, :plugins => Plugin.plugins, :my_group_plugin_permissions => my_group_plugin_permissions} %>
 </div>
 
 

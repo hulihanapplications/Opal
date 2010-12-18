@@ -1,5 +1,3 @@
-
-
 <div align=left id="page_summarized">	
 	<div style="margin-bottom:10px;" id="top">		
 				<% if Plugin.plugins[:image].is_enabled? %>
@@ -11,7 +9,7 @@
 						<div class="images">
 							<% if !item.main_image %>
 								<div class="box_1a">
-									<%= link_to icon("new") + " " + t("label.item_new", :item => PluginImage.human_name), "#{Plugin.plugins[:image].human_name.pluralize.downcase}"  %>
+									<%= link_to icon("new") + " " + t("label.item_new", :item => PluginImage.human_name), "##{Plugin.plugins[:image].human_name.pluralize}"  %>
 								</div>
 							<% end %>							
 						</div>
@@ -38,7 +36,7 @@
 					
 								
 					<div style="width:300px;" id="features">
-						<% if Plugin.plugins[:feature].is_enabled? %>
+						<% if Plugin.plugins[:review].is_enabled? %>
 							<% 
 								features = PluginFeature.find(:all, :order => "order_number ASC") 
 								if item.is_editable_for_user?(@logged_in_user)
@@ -57,7 +55,7 @@
 					<div class="description">
 						<%= h item.description%>	
 					</div>
-					<% if Plugin.plugins[:tag].is_enabled? %>
+					<% if Plugin.plugins[:review].is_enabled? %>
 						<%= icon("tag") %>
 						<%= PluginTag.human_name.pluralize %>:
 						<%= tags_for(item) %>
@@ -76,7 +74,6 @@
 					<% if Plugin.plugins[:comment].is_enabled? %>
 						<div class="box_2">									
 							<span>							
-								<%= score(:type => @setting[:review_type], :max => @setting[:score_max].to_i, :value => review_score) %>					
 							</span>							
 						</div>
 					<% end %>					
@@ -88,14 +85,14 @@
 		<tr>
 			<td>
 				<ul class="plugin_tabs_horizontal"> 
-					<% for plugin in plugins %>
+					<%  plugins.each do |key, plugin|  %>
 						<% if (my_group_plugin_permissions[plugin.id].can_read? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?) && (plugin.name != "Feature" && plugin.name != "Tag") %>
-					    	<li><a href="#<%= plugin.human_name.pluralize.downcase %>"><%= plugin.human_name.pluralize %></a></li>
+					    	<li><a href="#<%= plugin.human_name.pluralize %>"><%= plugin.human_name.pluralize %></a></li>
 						<% end %> 
 					<% end %>	
 				</ul>			
 				<div class="plugin_panes_horizontal"> 					
-					<% for plugin in plugins %>
+					<%  plugins.each do |key, plugin|  %>
 						<% if (my_group_plugin_permissions[plugin.id].can_read? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?) && (plugin.name != "Feature" && plugin.name != "Tag") %>
 						    <div>	
 								<%= render :partial => plugin.partial_path(:type => "view"), :locals => {:plugin => plugin, :item => item, :my_group_plugin_permissions => my_group_plugin_permissions } %>

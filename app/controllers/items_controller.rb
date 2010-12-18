@@ -84,20 +84,19 @@ class ItemsController < ApplicationController
     params[:item][:featured]      ||= false
         
     @feature_errors = PluginFeature.check(:features => params[:features], :item => @item) # check if required features are present
-        
-    if @item.update_attributes(params[:item]) && @feature_errors.size == 0 # make sure there's not required feature errors
-        # Update Protected Attributes 
-        if @logged_in_user.is_admin? 
-          @item.update_attribute(:is_approved, params[:item][:is_approved])
-          @item.update_attribute(:featured, params[:item][:featured])        
-        end
-        
+    
+    @item.attributes = params[:item] # mass assign any new attributes, but don't save.
+    if @logged_in_user.is_admin? # save protected attributes
+      @item.is_approved = params[:item][:is_approved]
+      @item.featured = params[:item][:featured]
+    end 
+    
+    if @item.save && @feature_errors.size == 0 # make sure there's not required feature errors        
         # Update Features
         num_of_features_updated = PluginFeature.create_values_for_item(:item => @item, :features => params[:features], :user => @logged_in_user, :delete_existing => true, :approve => true)  
         Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log =>  t("log.item_save", :item => @setting[:item_name], :name => @item.name))                    
         flash[:success] = t("notice.item_save_success", :item => @setting[:item_name])
         redirect_to :action => "edit" , :id => @item        
-
     else # failed adding required features
       flash[:failure] = t("notice.item_save_failure", :item => @setting[:item_name])
       render :action => "edit"

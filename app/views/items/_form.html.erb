@@ -23,10 +23,11 @@
 					<% if Plugin.plugins[:tag].is_enabled?   %>		
 						<tr>
 							<td>
-								<%= Plugin.plugins[:feature].human_name.pluralize %>	
+								<%= icon("tag") %>
+								<%= PluginTag.human_name.pluralize %>
 							</td>
 							<td>
-								
+								<%= tags_field_tag(item, :tags) %>
 							</td>
 						</tr>						
 
@@ -50,8 +51,8 @@
 								<% if features.size > 0 %>															
 									<%= render :partial => "plugin_features/form_for_item", :locals => {:item => item} %>	
 								<% else %>
-									<%= t("notice.items_not_found", :items => Plugin.plugins[:feature].human_name.pluralize) %>
-									<!--No <%= Plugin.plugins[:feature].human_name.pluralize %> have been created yet.-->
+									<%= t("notice.items_not_found", :items => feature_plugin.human_name.pluralize) %>
+									<!--No <%= feature_plugin.human_name.pluralize %> have been created yet.-->
 								<% end %>								
 							<% end %>
 							<div style="height:10px"></div>	

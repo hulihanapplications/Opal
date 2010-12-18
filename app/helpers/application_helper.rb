@@ -376,6 +376,17 @@ module ApplicationHelper
     return html    
   end   
 
+  
+  def tags_field_tag(object, method_name, options = {})
+    html = String.new
+    class_name = object.class.to_s.underscore
+    options[:input_name] ||= "#{class_name}[#{method_name.to_s}]"    
+    if object.class == Item
+      html << "<input name=\"#{options[:input_name]}\" type=\"text\" id=\"#{class_name}_#{method_name.to_s}\" value=\"#{h(object.tags)}\">"                
+    end
+    return html
+  end
+
   def tags_for(someobject)
     tags = Array.new
     if someobject.class == Item

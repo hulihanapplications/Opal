@@ -18,7 +18,9 @@ class Item < ActiveRecord::Base
   
   after_create :create_everything
   after_destroy :destroy_everything
+  after_save :save_tags
   
+  attr_accessor :tags 
   attr_protected :user_id, :is_approved, :featured
 
   
@@ -225,6 +227,36 @@ class Item < ActiveRecord::Base
 
 
 
+ def tags 
+   if @tags # have tags been set?
+     return @tags
+   else 
+     tag_array = Array.new
+     for tag in self.plugin_tags
+      tag_array << tag.name
+     end   
+     return tag_array.join(", ")        
+   end
+ end
+
+ def save_tags # save new tags
+   if @tags # if there are any tags...
+     # get rid of old tags
+     for tag in self.plugin_tags
+       tag.destroy
+     end
+     
+     for tag in self.tags.split(",") # separate tag by comma       
+       tag = tag.strip # remove whitespace  
+       if !tag.empty?
+        tag = PluginTag.new(:item_id => self.id, :name => tag.strip)
+        tag.is_approved = "1"
+        tag.save
+       end
+    end
+  end 
+ end 
+ 
 =begin
   # Create Dynamic Attributes from Features
   for feature in PluginFeature.find(:all)

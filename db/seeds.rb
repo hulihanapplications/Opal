@@ -194,6 +194,13 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   @plugin.is_approved = "1"    
   @plugin.user_id = @user.id 
   @plugin.save   
+ 
+  tag = PluginTag.create(:name => "Cool", :item_id => item1.id)
+  tag.is_approved = "1"
+  tag.save
+  tag = PluginTag.create(:name => "Cool", :item_id => item2.id)
+  tag.is_approved = "1"
+  tag.save
   
   # Create Public Page
   page = Page.new(:title => "Example Page", :content => "This is an example public page!", :page_type => "public")

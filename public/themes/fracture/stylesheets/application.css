@@ -33,7 +33,7 @@
 	.box_1{border:1px solid #aaa;background:#E9E9E9;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
 		.box_1 h1.title, .box_1 h2.title, .box_1 h3.title{text-shadow: 0px 0px 0px black;}
 		.box_1 hr{width: 100%; margin: 5px 0px 5px 0px; height: 1px; background: #aaa; border: 0; }
-	.box_2{border:1px solid #ccc;background:url(../images/bgs/white_trans_50.png) repeat;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
+	.box_2{border:1px solid #ccc;background:url(../images/bgs/white_trans_50.png) repeat;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:5px;}
 		.box_2 h1.title, .box_2 h2.title, .box_2 h3.title{;}
 	.box_3{background:url(../images/bgs/white_trans_50.png) repeat;border:1px solid #ccc;;padding:10px;text-align:center;;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-right:0px;margin-bottom:10px;}
 	
@@ -57,10 +57,11 @@
 			.fieldWithErrors input, .fieldWithErrors textarea, .fieldWithErrors select{border: 1px solid #AF0000;}
 
 	/* Sidebar & Main Sections */
-		#main > .header{margin-bottom:10px;}
-		#main > .header .description{border-top:1px solid #aaa}
+	#main > .header{margin-bottom:10px;}
+	#main > .header .description{border-top:1px solid #aaa}
 	
 /* Opal CSS */
+
 	/* Images */
 	img.thumbnail{background:white;padding:3px;margin:3px;border:0px solid #aaa;opacity:0.80;filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity: 0.8; box-shadow: 0px 2px 5px #333;-moz-box-shadow: 0px 2px 5px #333;  -webkit-box-shadow: 0px 2px 5px #333;}
 	img.thumbnail:hover{;opacity:1.00;filter:alpha(opacity=100);-moz-opacity:1.0;-khtml-opacity: 1.0}
@@ -122,13 +123,15 @@
 				.item .details .info{width:250px;}
 	
 		
-		/* Item Page Types */		
-		#page_summarized{}
-			#page_summarized #top{width:100%}
-				#page_summarized > #top > #images{float:left;width:320px;border:1px solid black;text-align:center;}
-								#page_summarized > #top > #images #main_image img{width:100%;}
-				#page_summarized > #top > #details{float:left;width:370px;padding-left:10px;border:1px solid black;}
-				#page_summarized > #top > #side{float:left;width:184px;padding:5px;border:1px solid black;text-align:center;}
+	/* Item Page Types */		
+	#page_summarized{}
+		#page_summarized #top{width:100%}
+			#page_summarized > #top > #images{float:left;width:320px;border:0px solid black;text-align:center;}
+							#page_summarized > #top > #images #main_image{padding:0px 10px 10px 0px}
+							#page_summarized > #top > #images #main_image img{width:100%;}
+			#page_summarized > #top > #details{float:left;width:370px;padding-left:10px;border:0px solid black;}
+			#page_summarized > #top #features{margin:5px 0px}
+			#page_summarized > #top > #side{float:left;width:184px;padding:5px;border:0px solid black;text-align:center;}
 
 
 	

@@ -45,9 +45,12 @@ class ApplicationController < ActionController::Base
   end
   
   def reload_settings # reload global settings
-    logger.info "Reloading global settings."
     Setting.global_settings = Setting.get_global_settings 
   end  
+
+  def reload_plugins # reload cached plugins
+    Plugin.plugins = Plugin.all_to_hash 
+  end    
   
   # Authentication Functions
   def set_user # If user isn't logged in, log them in as Guest. Otherwise, check their account for any problems

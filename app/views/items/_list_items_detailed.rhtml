@@ -1,17 +1,9 @@
 <%# Grab Plugins to Display %>
-<% link_plugin = Plugin.find(:first, :conditions => ["name = ?", "Link"])%>
-<% review_plugin = Plugin.find(:first, :conditions => ["name = ?", "Review"])%>
-<% comment_plugin = Plugin.find(:first, :conditions => ["name = ?", "Comment"])%>
-<% discussion_plugin = Plugin.find(:first, :conditions => ["name = ?", "Discussion"])%>
-<% feature_plugin = Plugin.find(:first, :conditions => ["name = ?", "Feature"])%>
-<% file_plugin = Plugin.find(:first, :conditions => ["name = ?", "File"])%>
-<% image_plugin = Plugin.find(:first, :conditions => ["name = ?", "image"])%>
-<% other_plugins = Plugin.find(:all, :conditions => ["is_builtin = '0'"], :order => "order_number ASC")%>
 
-<% if review_plugin.is_enabled? %>
-	<% @setting[:review_type] = review_plugin.get_setting("review_type") %>
-	<% @setting[:score_min] = review_plugin.get_setting("score_min") %>
-	<% @setting[:score_max] = review_plugin.get_setting("score_max") %>
+<% if Plugin.plugins[:review].is_enabled? %>
+	<% @setting[:review_type] = Plugin.plugins[:review].get_setting("review_type") %>
+	<% @setting[:score_min] = Plugin.plugins[:review].get_setting("score_min") %>
+	<% @setting[:score_max] = Plugin.plugins[:review].get_setting("score_max") %>
 <% end %>	
 	
 <% for item in items %>
@@ -22,7 +14,7 @@
 				<tr>
 					<td class="thumbnail">
 						<div class="thumbnail">
-							<%= link_to item_thumbnail(item,  :preview => false), {:action => "view", :controller => "items", :id => item, :anchor => image_plugin.human_name.pluralize}, :title => "#{h item.name}" %>
+							<%= link_to item_thumbnail(item,  :preview => false), {:action => "view", :controller => "items", :id => item, :anchor => Plugin.plugins[:image].human_name.pluralize}, :title => "#{h item.name}" %>
 						</div>
 						<div align=center>
 							<% if item.is_editable_for_user?(@logged_in_user) %>
@@ -87,16 +79,16 @@
 							<table cellpadding=0 cellspacing=0 style="width:100%">
 								<tr>
 									<td align=left style="vertical-align:middle">										
-										<% if review_plugin.is_enabled? %>									
-											<%= render :partial => review_plugin.partial_path(:type => "list"), :locals => {:plugin => review_plugin, :item => item, :my_group_plugin_permissions => my_group_plugin_permissions } %>
+										<% if Plugin.plugins[:review].is_enabled? %>									
+											<%= render :partial => Plugin.plugins[:review].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:review], :item => item, :my_group_plugin_permissions => my_group_plugin_permissions } %>
 										<% end %>
 									</td>
 									<td align=right style="vertical-align:middle">
 										<span>
 											<%= truncate("#{item.views} #{Item.human_attribute_name(:views)}", :length => 15) %>
 										</span>	
-										<% if comment_plugin.is_enabled? %>
-											<%= render :partial => comment_plugin.partial_path(:type => "list"), :locals => {:plugin => comment_plugin, :item => item, :my_group_plugin_permissions => my_group_plugin_permissions } %>
+										<% if Plugin.plugins[:comment].is_enabled? %>
+											<%= render :partial => Plugin.plugins[:comment].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:comment], :item => item, :my_group_plugin_permissions => my_group_plugin_permissions } %>
 										<% end %>	
 																													
 									</td>
@@ -108,32 +100,27 @@
 							<table cellpadding=0 cellspacing=0 style="width:100%">
 								<tr>
 									<td align=left style="width:50%">										
-										<% if feature_plugin.is_enabled? %>
-											<%= render :partial => feature_plugin.partial_path(:type => "list"), :locals => {:plugin => feature_plugin, :item => item, :my_group_plugin_permissions => my_group_plugin_permissions } %>
+										<% if Plugin.plugins[:feature].is_enabled? %>
+											<%= render :partial => Plugin.plugins[:feature].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:feature], :item => item, :my_group_plugin_permissions => my_group_plugin_permissions } %>
 										<% end %>
 									</td>
 									<td align=right style="vertical-align:top;width:50%">
 					
-										<% if discussion_plugin.is_enabled? %>
-											<%= render :partial => discussion_plugin.partial_path(:type => "list"), :locals => {:plugin => discussion_plugin, :item => item, :my_group_plugin_permissions => my_group_plugin_permissions } %>
+										<% if Plugin.plugins[:discussion].is_enabled? %>
+											<%= render :partial => Plugin.plugins[:discussion].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:discussion], :item => item, :my_group_plugin_permissions => my_group_plugin_permissions } %>
 										<% end %>									
-										<% if link_plugin.is_enabled? %>
-											<%= render :partial => link_plugin.partial_path(:type => "list"), :locals => {:plugin => link_plugin, :item => item, :my_group_plugin_permissions => my_group_plugin_permissions } %>
+										<% if Plugin.plugins[:link].is_enabled? %>
+											<%= render :partial => Plugin.plugins[:link].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:link], :item => item, :my_group_plugin_permissions => my_group_plugin_permissions } %>
 										<% end %>	
-										<% if image_plugin.is_enabled? %>
-											<%= render :partial => image_plugin.partial_path(:type => "list"), :locals => {:plugin => image_plugin, :item => item, :my_group_plugin_permissions => my_group_plugin_permissions } %>
+										<% if Plugin.plugins[:image].is_enabled? %>
+											<%= render :partial => Plugin.plugins[:image].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:image], :item => item, :my_group_plugin_permissions => my_group_plugin_permissions } %>
 										<% end %>
-										<% if file_plugin.is_enabled? %>
-											<%= render :partial => file_plugin.partial_path(:type => "list"), :locals => {:plugin => file_plugin, :item => item, :my_group_plugin_permissions => my_group_plugin_permissions } %>
+										<% if Plugin.plugins[:file].is_enabled? %>
+											<%= render :partial => Plugin.plugins[:file].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:file], :item => item, :my_group_plugin_permissions => my_group_plugin_permissions } %>
 										<% end %>																																	
 									</td>
 								</tr>
-							</table>						
-				
-							<%# Load Non-Builtin Plugin Items %>
-							<% for plugin in other_plugins %>
-								<%= render :partial => plugin.partial_path(:type => "list"), :locals => {:plugin => plugin, :item => item, :my_group_plugin_permissions => my_group_plugin_permissions} rescue nil %>
-							<% end %>
+							</table>										
 						</div>
 					</td>
 				</tr>

@@ -1,10 +1,8 @@
-<% review_plugin = Plugin.find(:first, :conditions => ["name = ?", "Review"])%>
-<% comment_plugin = Plugin.find(:first, :conditions => ["name = ?", "Comment"])%>
 
-<% if review_plugin.is_enabled? %>
-	<% @setting[:review_type] = review_plugin.get_setting("review_type") %>
-	<% @setting[:score_min] = review_plugin.get_setting("score_min") %>
-	<% @setting[:score_max] = review_plugin.get_setting("score_max") %>
+<% if Plugin.plugins[:review].is_enabled? %>
+	<% @setting[:review_type] = Plugin.plugins[:review].get_setting("review_type") %>
+	<% @setting[:score_min] = Plugin.plugins[:review].get_setting("score_min") %>
+	<% @setting[:score_max] = Plugin.plugins[:review].get_setting("score_max") %>
 <% end %>	
 
 <% if items.size > 0 %>
@@ -32,12 +30,12 @@
 								</td>
 	
 								<td align=right > 
-									<% if review_plugin.is_enabled? %>
-										<%= render :partial => review_plugin.partial_path(:type => "list"), :locals => {:plugin => review_plugin, :item => item, :my_group_plugin_permissions => my_group_plugin_permissions  } %>
+									<% if Plugin.plugins[:review].is_enabled? %>
+										<%= render :partial => Plugin.plugins[:review].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:review], :item => item, :my_group_plugin_permissions => my_group_plugin_permissions  } %>
 									<% end %>	
 																
-									<% if comment_plugin.is_enabled? %>
-										<%= render :partial => comment_plugin.partial_path(:type => "list"), :locals => {:plugin => comment_plugin, :item => item, :my_group_plugin_permissions => my_group_plugin_permissions  } %>
+									<% if Plugin.plugins[:comment].is_enabled? %>
+										<%= render :partial => Plugin.plugins[:comment].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:comment], :item => item, :my_group_plugin_permissions => my_group_plugin_permissions  } %>
 									<% end %>	
 								</td>			
 							</tr>

@@ -376,6 +376,18 @@ module ApplicationHelper
     return html    
   end   
 
-
+  def tags_for(someobject)
+    tags = Array.new
+    if someobject.class == Item
+      for tag in someobject.plugin_tags
+         tags << link_to_tag(tag)
+      end 
+    end
+    return tags.join(", ")
+  end
+  
+  def link_to_tag(tag)
+    link_to(h(tag.name), {:action => "tag", :controller => "items", :tag => CGI::escape(h tag.name)}) 
+  end
 end
 

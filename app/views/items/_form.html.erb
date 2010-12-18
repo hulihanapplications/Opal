@@ -1,5 +1,7 @@
 <%= error_messages_for :item %>
 <% @item.errors.full_messages.size %>
+
+
 <% if defined?(@feature_errors) %>
 	<%= errors_for(@feature_errors) if @feature_errors.size > 0  %>
 <% end %>
@@ -18,20 +20,29 @@
 						<td><%= f.label :description %></td>
 						<td><%= f.text_area :description, :class => "description", :id => "description" %></td>
 					</tr>
+					<% if Plugin.plugins[:tag].is_enabled?   %>		
+						<tr>
+							<td>
+								<%= Plugin.plugins[:feature].human_name.pluralize %>	
+							</td>
+							<td>
+								
+							</td>
+						</tr>						
+
+					<% end %>
 					<tr>
 						<td colspan=2>
 							<div style="height:10px"></div>
-							<% features_plugin = Plugin.find_by_name("Feature") %>
 							<% 	features = PluginFeature.find(:all, :order => "order_number ASC") %>
-							<% if features_plugin.is_enabled? && (features.size > 0|| @logged_in_user.is_admin?)  %>
-								<a name="Features"></a>
+							<% if Plugin.plugins[:feature].is_enabled? && (features.size > 0|| @logged_in_user.is_admin?)  %>
 								<table style="width:100%" cellpadding=0 cellspacing=0>
 									<tr>
 										<td align=left>
-											<h3><%= features_plugin.human_name.pluralize %></h3>	
+											<h3><%= Plugin.plugins[:feature].human_name.pluralize %></h3>	
 										</td>
 										<td align=right>
-											<%= link_to "#{icon("edit")} #{t("label.item_edit", :item => features_plugin.human_name.pluralize)}", {:action => "index", :controller => "plugin_features"} if @logged_in_user.is_admin?  %>
+											<%= link_to "#{icon("edit")} #{t("label.item_edit", :item => Plugin.plugins[:feature].human_name.pluralize)}", {:action => "index", :controller => "plugin_features"} if @logged_in_user.is_admin?  %>
 										</td>
 									</tr>
 								</table>
@@ -39,13 +50,13 @@
 								<% if features.size > 0 %>															
 									<%= render :partial => "plugin_features/form_for_item", :locals => {:item => item} %>	
 								<% else %>
-									<%= t("notice.items_not_found", :items => features_plugin.human_name.pluralize) %>
-									<!--No <%= features_plugin.human_name.pluralize %> have been created yet.-->
+									<%= t("notice.items_not_found", :items => Plugin.plugins[:feature].human_name.pluralize) %>
+									<!--No <%= Plugin.plugins[:feature].human_name.pluralize %> have been created yet.-->
 								<% end %>								
 							<% end %>
 							<div style="height:10px"></div>	
 						</td>
-					</tr>
+					</tr>				
 				</table>				
 		</div>								
 

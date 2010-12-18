@@ -1,7 +1,7 @@
 class PluginsController < ApplicationController
  before_filter :authenticate_admin # make sure logged in user is an admin  
  before_filter :enable_admin_menu # show admin menu 
- 
+ after_filter :reload_plugins # reload cached plugins
  protect_from_forgery :except => [:enable_disable_plugin]
 
 

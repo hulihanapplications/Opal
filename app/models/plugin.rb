@@ -15,6 +15,21 @@ class Plugin < ActiveRecord::Base
   def actual_model # returns the Class of plugin that this plugin object points to. Example: Plugin.find_by_name("Image").actual_model => PluginImage 
     return "Plugin#{self.name}".camelize.constantize
   end
+    
+  # Set plugins to metaclass
+  class << self # open up metaclass  
+    attr_accessor :plugins # Plugin.plugins
+  end    
+
+  def self.all_to_hash # return all plugins in a hash
+    plugin_hash = Hash.new
+    for plugin in self.find(:all)
+      plugin_hash[plugin.name.downcase.to_sym] = plugin
+    end
+    return plugin_hash
+  end
+  
+  self.plugins = Plugin.all_to_hash # store all plugins in Plugin.plugins
   
   def create_everything
     # auto assign order numbers
@@ -111,4 +126,5 @@ class Plugin < ActiveRecord::Base
     end 
   end
   
+
 end

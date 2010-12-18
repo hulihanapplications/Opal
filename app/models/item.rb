@@ -20,9 +20,7 @@ class Item < ActiveRecord::Base
   after_destroy :destroy_everything
   
   attr_protected :user_id, :is_approved, :featured
-  
-  # Create Virtual Attributes
-  
+
   
   def to_param # make custom parameter generator for seo urls, to use: pass actual object(not id) into id ie: :id => object
     # this is also backwards compatible with regular integer id lookups, since .to_i gets only contiguous numbers, ie: "4-some-string-here".to_i # => 4    

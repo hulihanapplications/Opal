@@ -15,7 +15,7 @@
 	/*  Layout */
 	#wrapper{height:auto !important; height:100%; min-height:100%;position:relative;}
 	#wrapper > #header{width: 900px ; margin: 0 auto ;background:url(../images/bgs/main_logo_bg.png) no-repeat;background-position:bottom left;height:135px;}
-	#wrapper > #content{width: 900px ;margin: 0 auto ;padding:5px; padding-bottom:70px;}
+	#wrapper > #content{width: 900px ;margin: 0 auto ;padding:5px; padding-bottom:70px;height:100%}
 			#wrapper > #content #main{width:650px;float:left;}
 			#wrapper > #content #side{width:230px;float:left;padding-right:10px}
 	#wrapper > #footer{position:absolute;bottom:0;width:100%;height:45px;padding:5px 0px 0px 0px;background:#eee;border-top:1px solid #ddd;;text-align:center;}
@@ -30,7 +30,7 @@
 	 
 
 	/* Boxes */
-	.box_1{border:1px solid #aaa;background:#E9E9E9;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
+	.box_1{border:1px solid #aaa;background:#E9E9E9;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:5px;}
 		.box_1 h1.title, .box_1 h2.title, .box_1 h3.title{text-shadow: 0px 0px 0px black;}
 		.box_1 hr{width: 100%; margin: 5px 0px 5px 0px; height: 1px; background: #aaa; border: 0; }
 	.box_2{border:1px solid #ccc;background:url(../images/bgs/white_trans_50.png) repeat;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:5px;}
@@ -130,9 +130,9 @@
 							#page_summarized > #top > #images #main_image{padding:0px 10px 10px 0px}
 							#page_summarized > #top > #images #main_image img{width:100%;}
 			#page_summarized > #top > #details{float:left;width:370px;padding-left:10px;border:0px solid black;}
+				#page_summarized > #top > #details .description{margin-bottom:10px;}			
 			#page_summarized > #top #features{margin:5px 0px}
 			#page_summarized > #top > #side{float:left;width:184px;padding:5px;border:0px solid black;text-align:center;}
-
 
 	
 		
@@ -198,8 +198,8 @@
 	.tooltip {	display:none; /*text-align:right;background:white;padding:10px;margin:3px;border:1px solid #aaa;; box-shadow: 0px 1px 5px #666;-moz-box-shadow: 0px 1px 5px #666;  -webkit-box-shadow: 0px 1px 5px #666;-moz-border-radius: 5px;-webkit-border-radius: 5px;*/}
 	.preloaded_images{display:none}
 	#top_bar{padding-top:10px;text-align:right;height:40px;}
-		.search_box{font-size:12px;}
-		.login_box{font-size:12px;}
+		.search_box{}
+		.login_box{}
 			.login_box td{vertical-align:middle;}	
 	div.loading{text-align:center;} /* The box containing the loading img */
 

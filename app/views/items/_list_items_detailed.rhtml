@@ -105,7 +105,9 @@
 										<% end %>
 									</td>
 									<td align=right style="vertical-align:top;width:50%">
-					
+										<% if Plugin.plugins[:tag].is_enabled? %>
+											<%= render :partial => Plugin.plugins[:tag].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:tag], :item => item, :my_group_plugin_permissions => my_group_plugin_permissions } %>							
+										<% end %>						
 										<% if Plugin.plugins[:discussion].is_enabled? %>
 											<%= render :partial => Plugin.plugins[:discussion].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:discussion], :item => item, :my_group_plugin_permissions => my_group_plugin_permissions } %>
 										<% end %>									

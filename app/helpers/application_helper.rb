@@ -284,7 +284,7 @@ module ApplicationHelper
    
    html = ""
    if options[:type] == "Stars"
-     for i in options[:min].to_i..options[:value].to_i # show filled stars
+     for i in 1..options[:value].to_i # show filled stars
        html << icon("star_selected")
      end
      
@@ -387,14 +387,14 @@ module ApplicationHelper
     return html
   end
 
-  def tags_for(someobject)
+  def tags_links(someobject)
     tags = Array.new
     if someobject.class == Item
       for tag in someobject.plugin_tags
          tags << link_to_tag(tag)
       end 
     end
-    return tags.join(", ")
+    return "#{icon("tag")} #{PluginTag.human_name.pluralize}: #{tags.join(", ")}" unless tags.size == 0 
   end
   
   def link_to_tag(tag)

@@ -222,21 +222,20 @@ class Item < ActiveRecord::Base
   end
   
   def main_image # get the main image for this item
-   return PluginImage.find(:first, :conditions => ["item_id = ?", self.id])
+   return PluginImage.find(:first, :conditions => ["item_id = ?", self.id], :order => "created_at ASC")
  end
 
 
-
- def tags 
-   if @tags # have tags been set?
-     return @tags
-   else 
+ def tag_list
      tag_array = Array.new
      for tag in self.plugin_tags
       tag_array << tag.name
      end   
-     return tag_array.join(", ")        
-   end
+     return tag_array.join(", ")     
+ end
+
+ def tags 
+   @tags ||= self.tag_list
  end
 
  def save_tags # save new tags

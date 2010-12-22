@@ -76,7 +76,7 @@ class PluginImagesController < ApplicationController
   end
 
   def change_main_image
-    @old_main_image = PluginImage.find(:first, :order => "created_at ASC", :conditions => ["item_id = ?", @item.id])
+    @old_main_image = @item.main_image
     @new_main_image = PluginImage.find(params[:image_id])
     
     swap_time = @old_main_image.created_at 

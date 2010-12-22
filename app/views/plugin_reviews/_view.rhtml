@@ -25,7 +25,7 @@
 						<% review_score ||= 0 %>										
 						<span>							
 							<%= PluginReview.human_attribute_name(:average) %>							
-							<%= score(:type => @setting[:review_type], :max => @setting[:score_max].to_i, :value => review_score) %>					
+							<%= score(:type => @setting[:review_type], :min => @setting[:score_min].to_i, :max => @setting[:score_max].to_i, :value => review_score) %>					
 						</span>
 				</td>
 			</tr>
@@ -52,8 +52,8 @@
 									<div class="review">	
 										<table style="width:100%" cellpadding=0 cellspacing=0>
 											<tr>
-												<td style="vertical-align:middle;text-align:left">								
-													<%= score(:type => @setting[:review_type], :max => @setting[:score_max], :value => review.review_score.to_i) %>
+												<td style="vertical-align:middle;text-align:left">		
+													<%= score(:type => @setting[:review_type], :min => @setting[:score_min].to_i, :max => @setting[:score_max], :value => review.review_score.to_i) %>
 												</td>
 												<td style="vertical-align:middle;text-align:right">																			
 													 <span title="The score for this <%= plugin.human_name %>." class="box_2" style="padding:2px;margin-right:5px" >												 	

@@ -216,7 +216,7 @@ en:
     item_recently_added: This %{item} was added within the last 3 days.
     item_mark_as: Mark %{item} as %{name}
     item_unknown: "Unknown %{item}: %{name}"    
-    items_from: %{name}'s %{items}
+    items_from: %{items} from %{name}
     items_for: %{items} for %{name}
     items_more: More %{items}
     items_remaining: %{items} remaining

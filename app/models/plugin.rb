@@ -21,9 +21,9 @@ class Plugin < ActiveRecord::Base
     attr_accessor :plugins # Plugin.plugins
   end    
 
-  def self.all_to_hash # return all plugins in a hash
+  def self.all_to_hash # return all plugins in an unordered hash
     plugin_hash = Hash.new
-    for plugin in self.find(:all)
+    for plugin in self.find(:all, :order => "order_number ASC")
       plugin_hash[plugin.name.downcase.to_sym] = plugin
     end
     return plugin_hash
@@ -54,6 +54,10 @@ class Plugin < ActiveRecord::Base
       item.destroy
     end
   end 
+  
+  def self.enabled # get all enabled plugins
+    self.find(:all, :conditions => ["is_enabled = ?", "1"], :order => "order_number ASC")
+  end
   
   # The Plugin is not a child of an Object, instead it is a type of view that will be displayed for all items. 
   # Notes: order_number must be 0 indexed because of each_index in the sorting method  

@@ -270,6 +270,7 @@ en:
     image_effect_polaroid: Polaroid
     image_effect_negate: Negate
     image_effect_resize: Resize to %{width}x%{height} pixels
+    tag_example: "Example: cool, funny, weird"
   # General Information 
   info: 
     delete_main_logo: Deleting your main logo will show the title of your site instead. 

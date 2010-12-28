@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   #-------------validations-----------------------
   validates_uniqueness_of :username #this will comb through the database and make sure email is unique
   validates_uniqueness_of :email #this will comb through the database and make sure email is unique
-  validates_presence_of :username, :first_name, :last_name, :email, :password
+  validates_presence_of :username, :first_name, :last_name, :email
   validates_confirmation_of :password #this will confirm the password, but you have to have an html input called password_confirmation
   validates_length_of :username, :maximum => 255
   #validates_numericality_of :zip

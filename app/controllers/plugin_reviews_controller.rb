@@ -31,7 +31,7 @@ class PluginReviewsController < ApplicationController
        if @review.save
         Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => @plugin.human_name,  :name => truncate(@review.review, :length => 10)))                                       
         flash[:success] = t("notice.item_create_success", :item => @plugin.human_name)
-        flash[:success] += t("notice.user_thanks", :name => @review.user.first_name)
+        flash[:success] += " " +  t("notice.user_thanks", :name => @review.user.first_name)
         redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.human_name.pluralize 
        else # fail saved 
         flash[:failure] = t("notice.item_create_failure", :item => @plugin.human_name)

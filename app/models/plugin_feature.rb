@@ -15,6 +15,10 @@ class PluginFeature < ActiveRecord::Base
     for item in self.plugin_feature_values
       item.destroy
     end
+    
+    for item in self.plugin_feature_value_options
+      item.destroy
+    end    
   end
 
   def is_approved?

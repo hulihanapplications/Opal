@@ -4,7 +4,7 @@ class ZeroFourTwo < ActiveRecord::Migration
 
     # New Setting Changes
     Setting.create(:name => "homepage_type",  :title => "Homepage Type", :value => "new_items", :setting_type => "Hidden", :description => "This is what is shown in main section of Opal's homepage.", :item_type => "string")
-    Setting.create(:name => "item_page_type",  :title => "Item Page Type", :value => "tabs_horizontal", :setting_type => "Hidden", :description => "This is the layout of each item's page.", :item_type => "string")
+    Setting.create(:name => "item_page_type",  :title => "Item Page Type", :value => "summarized", :setting_type => "Hidden", :description => "This is the layout of each item's page.", :item_type => "string")
     Setting.find_by_name("plugin_list_type").destroy # destroy the old item plugin_list_type settings, since it will be replaced by item_page_type
     Setting.find_by_name("display_new_items").destroy # destroy the "Display New Items" setting, since it's being combined into the new homepage_type setting.
    

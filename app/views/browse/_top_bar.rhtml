@@ -30,13 +30,13 @@
 				<% if session[:user_id] && !@logged_in_user.anonymous? %>
 				 <%= user_avatar(@logged_in_user, :size => "tiny") %>
 				 <%= t("label.user_logged_in_as") %> <%= @logged_in_user.username %> 
-				 <%= icon("bullet") %>
+				 <%= icon("spacer") %>
 				 <%= link_to t("section.title.my_account"), {:action => "index", :controller => "user"} %>
 				 <% if @logged_in_user.is_admin? %>
-				 	<%= icon("bullet") %>
+				 	<%= icon("spacer") %>
 				 	<%= link_to t("section.title.admin"), {:action => "index", :controller => "admin"} %>
 				 <% end %>
-				 <%= icon("bullet") %>
+				 <%= icon("spacer") %>
 				 <%= link_to t("label.log_out"), {:action => "logout", :controller => "user"} %>
 				 <%= render :partial => "shared/help" if Setting.get_setting_bool("display_help_sections")  %>
 				<% elsif get_setting_bool("show_user_login") %> 

@@ -6,7 +6,7 @@
 %>
 <table  cellpadding=1 cellspacing=1>
 	<% for feature_value in feature_values %>
-			<% feature = PluginFeature.find(feature_value.plugin_feature_id) %>
+			<% feature = feature_value.plugin_feature %>
 			<% if !feature.nil?  %>
 				<% if (options[:only_listed] && feature.listed) || !options[:only_listed] %>
 					<tr>

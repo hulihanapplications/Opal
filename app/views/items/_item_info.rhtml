@@ -10,7 +10,7 @@
 		<% end %>
 		<br>
 	<% end %>
-	<div class="spacer"></div>
+	<hr>
 	<% items_from_user = Item.find(:all, :select => "id", :conditions => ["user_id = ? and id != ?", item.user.id, item.id] ) %>
 	<%= link_to "#{t("label.items_from", :items => @setting[:item_name_plural], :name => item.user.username)} (#{items_from_user.size})", {:action => "user", :controller => "browse", :id => item.user}, :style => "font-weight:bold"  %><br>
 	<% if get_setting_bool("display_item_views") %>					

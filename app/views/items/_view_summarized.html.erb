@@ -1,17 +1,18 @@
+<% 
+	tab_index = Hash.new # hash to store tab id for each plugin
+ 	tab_counter = 0
+%>
 <script type="text/javascript">
-	function select_images_tab(){
+	function select_tab(index){ //index can be a 0-index integer or the name attribute for the anchor tab, ie: "Images" for name="#Images" 
 		var api = $("ul.plugin_tabs_horizontal").data("tabs");
-		api.click(<%= Plugin.plugins[:image].order_number - 1 %>);											
+		api.click(index);											
 	}
 
 	function new_image(){
-		select_images_tab();
-		//alert("hey")
-		timeoutID = window.setTimeout(show_new_image_box, 410);
-
-		//setTimeout(toggle_box("new_image_box"),5000)
-		//$("#new_image_box").delay(3000).show();										
+		select_tab("<%= Plugin.plugins[:image].human_name.pluralize  %>");
+		timeoutID = window.setTimeout(show_new_image_box, 410);									
 	}	
+	
 	function show_new_image_box()
 	{
 	  show_box("new_image_box")
@@ -35,8 +36,8 @@
 							<% end %>
 							<% if images.size > 1 %>
 							    <%= icon("spacer")%>
-								<span >
-									<%= link_to_function icon("image") + " " + t("label.items_more", :items => PluginImage.human_name.pluralize), "select_images_tab()"  %>
+								<span>
+									<%= link_to_function icon("image") + " " + t("label.items_more", :items => PluginImage.human_name.pluralize), "select_tab(\"#{Plugin.plugins[:image].human_name.pluralize}\")"  %>
 								</span>
 							<% end %>																				
 						</div>
@@ -83,17 +84,18 @@
 						<% @setting[:score_max] = Plugin.plugins[:review].get_setting("score_max") %>
 
 						<div class="box_2">
+							<a href="javascript:("
 							<% review_score = PluginReview.average(:review_score, :conditions => ["item_id = ?", item.id]) %>
 							<% review_score ||= 0 %>										
-							<span>							
-								<%= score(:type => @setting[:review_type], :min => @setting[:score_min].to_i, :max => @setting[:score_max].to_i, :value => review_score) %>					
+							<span>	
+								<%= link_to_function score(:type => @setting[:review_type], :min => @setting[:score_min].to_i, :max => @setting[:score_max].to_i, :value => review_score),  "select_tab(\"#{Plugin.plugins[:review].human_name.pluralize}\")"  %>																			
 							</span>							
 						</div>
 					<% end %>
 					<% if Plugin.plugins[:comment].is_enabled? %>
 						<div class="box_2">									
 							<span>	
-								<%= link_to "#{icon("comments")} #{item.plugin_comments.size} #{PluginComment.human_name.pluralize}", "#Comments" %>						
+								<%= link_to_function "#{icon("comments")} #{item.plugin_comments.size} #{PluginComment.human_name.pluralize}", "select_tab(\"#{Plugin.plugins[:comment].human_name.pluralize}\")" %>						
 							</span>							
 						</div>
 					<% end %>	
@@ -111,7 +113,7 @@
 		<table style="width:100%">
 			<tr>
 				<td>
-					<ul class="plugin_tabs_horizontal"> 
+					<ul class="plugin_tabs_horizontal">
 						<%  for plugin in plugins  %>
 							<% if (my_group_plugin_permissions[plugin.id].can_read? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?) && (plugin.name != "Feature" && plugin.name != "Tag") %>
 						    	<li><a href="#<%= plugin.human_name.pluralize %>"><%= plugin.human_name.pluralize %></a></li>

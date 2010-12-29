@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>	
+	<%= render :partial => "shared/head" %>
+</head>
+
+<body>
+<%= show_page Page.get_system_page("Website Top") %>
+<div class="preloaded_images">
+	<img src="/themes/<%= @setting[:theme] %>/images/main_menu/main_menu_item_hover.png">
+</div>
+
+<table class="main_table" cellspacing=0 cellpadding=0 align=center>   
+ <tr>
+  <td align=center>
+   <div class="main_table_top">
+    <table align=center width="100%" cellpadding=0 cellspacing=0>
+     <tr>
+      <td align=left>
+      	<div class="main_logo">
+      		<% if File.exists?(RAILS_ROOT + "/public/themes/#{@setting[:theme]}/images/logo.png") %>
+	      		<a href="/"><img src="/themes/<%= @setting[:theme] %>/images/logo.png" border=0 alt="<%= @setting[:title] %>" title="<%= @setting[:title] %>"></a>
+			<% else %>
+	      		<a href="/"><h1><%= @setting[:title] %></h1></a>
+			<% end %>
+      	</div>
+	  </td>
+      <td align=right valign=bottom>
+	   <div class="main_menu">
+	      <%= render :partial => "browse/main_menu" %>	   
+	   </div>
+      </td>
+     </tr>
+    </table>
+   </div>
+  </td>
+ </tr>
+
+ <tr>
+  <td valign=top align=center>
+   <div class="main_table_middle" align=center>
+
+    <div class="main_inner_top"> 
+     <div class="top_bar"><%= render :partial => "browse/top_bar" %></div>
+    </div> 
+
+    <div class="main_inner_middle">
+     <div id="main_content">
+		 <%= render :partial => "shared/flash" %>
+		 <%= render :partial => "/browse/banner_top" %>
+		 <%= render :partial => "/user/menu" if @show_user_menu %>
+		 <%= render :partial => "/admin/menu" if @show_admin_menu %>		 
+	     <%= yield %>			
+ 		 <% if @show_user_menu || @show_admin_menu %>
+		  <%# Close Tab Div in Menu Partial %>
+		  	</div>
+		  </div>
+		 <% end %>
+ 		 <%= render :partial => "/browse/banner_bottom" %>
+     </div>
+    </div>
+    <div class="main_inner_bottom">
+    </div>
+   </div>
+  </td>
+ </tr>
+
+ <tr>
+  <td align=center>
+   <!-- top -->
+   <div class="main_table_bottom">
+     	Powered by <a href="http://www.hulihanapplications.com/projects/opal"><b>Opal</b></a> &copy; 2010 - <a href="http://www.hulihanapplications.com">Hulihan Applications</a>
+		<div align=center>
+		<a href="http://www.hulihanapplications.com/projects/opal"><img src="/images/opal_powered_small.png" border=0 alt="" title="This site is powered by Opal &copy; 2010 Hulihan Applications"></a>
+		</div>
+   </div>
+  </td>
+ </tr>
+</table>
+
+
+<%= show_page Page.get_system_page("Website Bottom") %>
+</body>
+
+</html>

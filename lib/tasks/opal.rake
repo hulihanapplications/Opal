@@ -3,6 +3,7 @@ namespace app_name.downcase.to_sym do
 
   desc "Install #{app_name} - Database, Default Data, and optional Example Data"
   task :install => :environment do
+    ENV["PROMPTS"] ||= "TRUE"    
     Rake::Task["db:migrate"].invoke
     Rake::Task["db:seed"].invoke
     puts "\n\n#{app_name} Installed successfully!"
@@ -14,12 +15,14 @@ namespace app_name.downcase.to_sym do
 
   desc 'Uninstall #{app_name}'
   task :uninstall => :environment do
+    ENV["PROMPTS"] ||= "TRUE"    
     ENV['VERSION']= '0'
     Rake::Task['db:migrate'].invoke
   end
 
   desc "Update #{app_name}"
   task :install => :environment do
+    ENV["PROMPTS"] ||= "TRUE"    
     Rake::Task["db:migrate"].invoke
   end
 

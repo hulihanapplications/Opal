@@ -1,4 +1,7 @@
 # This file creates required & sample data for new installations. 
+
+ENV["PROMPTS"] ||= "TRUE" # turn prompts on by default    
+
 def prompt(msg, default_value = "") # prompt user and get value
   if default_value != ""
     print msg + " (default: #{default_value}) "
@@ -11,10 +14,9 @@ def prompt(msg, default_value = "") # prompt user and get value
   return entered_value
 end  
 
-
-
 # Required Data
 print "Installing Required Data..."
+
 # Create Default Admin Account
 @admin = User.new(:first_name => "Bob", :last_name => "Jones", :username => "admin", :password => "admin", :is_admin => "1", :email => "admin@test.com")
 @admin.is_admin = "1" 
@@ -27,7 +29,6 @@ Setting.create(:name => "item_name_plural", :title => "Plural Item Name",  :valu
 Setting.create(:name => "site_title", :title => "Title of Your Site",  :value => "My Opal Website", :setting_type => "Public", :description => "The Title of your Site. You would see this at the very top of your browser window.", :item_type => "string")
 Setting.create(:name => "site_keywords", :title => "Site Keywords",  :value => "Opal", :setting_type => "Public", :description => "The Keywords Metatag for your site. Used for search engine submission. Seperated by commas.", :item_type => "string")
 Setting.create(:name => "site_description", :title => "Site Description",  :value => "The Free, Open Source, Item Listing Application. List Anything!", :setting_type => "Public", :description => "The description for your site. Used in the title of your page(at the top of your browswer) and for search engine submission.", :item_type => "string")
-#Setting.create(:name => "admin_email", :title => "Admin Email Address",  :value => "admin@example.com", :setting_type => "Public", :description => "The email address of the master admin of this site.", :item_type => "string") # deprecated as of 0.3.5
 Setting.create(:name => "theme", :title => "Theme",  :value => "fracture", :setting_type => "Hidden", :description => "This is the visual theme for the entire system", :item_type => "string")
 Setting.create(:name => "max_items_per_user", :title => "Maximum Items per User",  :value => "0", :setting_type => "Item", :description => "This specifies the maximum number of items a user can create. Set to 0 for unlimited.", :item_type => "string")
 Setting.create(:name => "items_per_page", :title => "Items Per Page",  :value => "10", :setting_type => "Item", :description => "This is the number of items to show per page.", :item_type => "string")

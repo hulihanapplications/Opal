@@ -11,6 +11,8 @@ def prompt(msg, default_value = "") # prompt user and get value
   return entered_value
 end  
 
+
+
 # Required Data
 print "Installing Required Data..."
 # Create Default Admin Account
@@ -74,17 +76,18 @@ admin_group.save
 GroupPluginPermission.find(:first, :conditions => ["group_id = ? and plugin_id = ?", public_group.id, Plugin.find_by_name("Comment").id]).update_attribute(:can_create, "1")  
 GroupPluginPermission.find(:first, :conditions => ["group_id = ? and plugin_id = ?", users_group.id, Plugin.find_by_name("Comment").id]).update_attribute(:can_create, "1")  
 GroupPluginPermission.find(:first, :conditions => ["group_id = ? and plugin_id = ?", users_group.id, Plugin.find_by_name("Review").id]).update_attribute(:can_create, "1")  
-
-
-  
- 
  
 puts "Done."
 
-
 # Sample Data
-install_sample_data = prompt("Install Sample Data? (Example Items, Categories, Users)", "Y").downcase
-if (install_sample_data == "y" || install_sample_data == "yes")
+if ENV["PROMPTS"].downcase == "false" # skip prompt
+  puts "Skipping Prompt..." 
+  install_sample_data = "y"
+else # show prompt    
+  install_sample_data = prompt("Install Sample Data? (Example Items, Categories, Users)", "Y").downcase 
+end
+
+if (install_sample_data == "y" || install_sample_data == "yes")   
   print "Installing Sample Data..."
   #Create Verified user
   @user = User.new(:first_name => "John", :last_name => "Doe", :username => "test", :password => "test", :email => "test@test.com")

@@ -17,7 +17,8 @@ To install this application, please follow the following steps:
 
 4. That's it! Run your application on the web using apache, mongrel,
    webrick, or nginx. The default Admin username/password is:
-			   				admin/admin 
+
+			admin/admin 
 
 * Note: If you need any additional help, see the README section, it
 tells you everything you need to get started, or contact us,

@@ -48,7 +48,7 @@
 				<% @plugins.each do |plugin| %>
 				  <%# With a sortable_list, plugin_12, the 12 is sent to the action, it is serialized with regexp. %>
 				  <li id="plugin_<%= plugin.id %>" class="plugin_unselected" style="padding:5px;cursor:move"  onmouseover = "change_class('plugin_<%= plugin.id %>','plugin_hover')" onmouseout="change_class('plugin_<%= plugin.id %>','plugin_unselected')"  >
-				  	<table width="100%" cellpadding=0 cellspacing=0>
+					<table width="100%" cellpadding=0 cellspacing=0>
 				  		<tr> 
 				  			<td align=left width="90%">
 				  				<div id="plugin_title_<%= plugin.id %>">
@@ -68,8 +68,11 @@
 								</div>				
 				  			</td>
 							<td valign=middle width="10%" align=center style="text-align:center">
-								 <%= t("single.enabled") %><br><input type="checkbox" name="enable_<%= plugin.human_name %>" value="1" <% if plugin.is_enabled? %>CHECKED<% end %> onchange="javascript:loading('event_box');new Ajax.Updater('event_box', '/plugins/enable_disable_plugin/<%= plugin.id %>', {asynchronous:true, evalScripts:true}); return false;">
-								 <br>
+							  	<div class="box_2">
+							  		<%= t("single.enabled") %>
+									<br>
+									<input type="checkbox" name="enable_<%= plugin.human_name %>" value="1" <% if plugin.is_enabled? %>CHECKED<% end %> onchange="javascript:loading('event_box');new Ajax.Updater('event_box', '/plugins/enable_disable_plugin/<%= plugin.id %>', {asynchronous:true, evalScripts:true}); return false;">
+							  	</div>
 							</td>
 						</tr>
 							

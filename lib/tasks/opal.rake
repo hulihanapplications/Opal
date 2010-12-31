@@ -23,12 +23,14 @@ namespace app_name.downcase.to_sym do
     Rake::Task["db:migrate"].invoke
   end
 
-  desc "Reset #{app_name}"
-  task :reset => :environment do
+  desc "Reset #{app_name}, To bypass prompts, type: rake opal:reset PROMPTS=FALSE"
+  task :reset => :environment do |task, args|
+    # Set ENV Defaults
+    ENV["PROMPTS"] ||= "TRUE"    
     Rake::Task["#{app_name.downcase}:uninstall"].invoke
     ENV.delete 'VERSION' # clear version 
     Rake::Task['db:migrate'].reenable
-    Rake::Task["#{app_name.downcase}:install"].invoke
+    Rake::Task["#{app_name.downcase}:install"].invoke    
   end
 
   namespace :db do

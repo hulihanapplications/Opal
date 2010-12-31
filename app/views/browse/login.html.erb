@@ -6,10 +6,11 @@
 
 	<div class="box_2" style="margin-bottom:5px;" align=center>
 		 <% if session[:original_uri] %>
-		
-			<div class="success" style="margin:0px 0px 5px 0px">
-					<%= icon("success") %>
-					<%= t("label.log_in_redirect_message") %>
+			<div class="notice">
+				<div class="success" style="margin:0px 0px 5px 0px">
+						<%= icon("success") %>
+						<%= t("label.log_in_redirect_message") %>
+				</div>
 			</div>
 		<% end %>
 		 <%= form_tag :action => "login", :controller => "user"  %>

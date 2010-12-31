@@ -17,7 +17,7 @@ class PluginsController < ApplicationController
       plugin = Plugin.update(id, :order_number => position)
     end
      Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_save", :item => Plugin.human_name, :name => Plugin.human_attribute_name(:order_number)))                                                 
-     render :text => "<div class=\"success\">#{t("notice.save_success")}</div>"
+     render :text => "<div class=\"notice\"><div class=\"success\">#{t("notice.save_success")}</div></div>"
    end 
    
    
@@ -25,14 +25,14 @@ class PluginsController < ApplicationController
       plugin = Plugin.find(params[:id])
       if plugin.is_enabled == "1"
         plugin.is_enabled = "0"
-        msg = t("log.item_disable", :item => plugin.human_name.pluralize, :name => plugin.human_name) 
+        msg = t("log.item_disable", :item => Plugin.human_name, :name => plugin.human_name.pluralize) 
       elsif plugin.is_enabled == "0"
         plugin.is_enabled = "1"
-        msg = t("log.item_enable", :item => plugin.human_name.pluralize, :name => plugin.human_name) 
+        msg = t("log.item_enable", :item => Plugin.human_name, :name => plugin.human_name.pluralize) 
       end
       plugin.save
       Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => msg)                                              
-      render :text => "<div class=\"success\">#{msg}</div>"
+      render :text => "<div class=\"notice\"><div class=\"success\">#{msg}</div></div>"
    end
        
    def update_plugin_settings # update plugin settings

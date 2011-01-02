@@ -9,6 +9,9 @@ class AdminController < ApplicationController
     @latest_logs = Log.find(:all, :limit => 10)
  end  
 
+ def env
+ end
+
 private
 
 

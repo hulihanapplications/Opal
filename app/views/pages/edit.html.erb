@@ -3,8 +3,8 @@
 			  	<%= render :partial => "pages/menu" %>
 				<div class="box_1" align=left style="margin-bottom:5px;">
 					<h3 class="title"><%= icon("details") %> <%= t("label.additional_info") %></h3>
-					<%= Page.human_attribute_name(:updated_at) %> <b><%= friendly_date @page.updated_at %></b>		<br>					
-					<%= Page.human_attribute_name(:created_at) %>  <b><%= friendly_date @page.created_at %></b>		<br>
+					<%= Page.human_attribute_name(:updated_at) %>: <b><%= friendly_date @page.updated_at %></b>		<br>					
+					<%= Page.human_attribute_name(:created_at) %>:  <b><%= friendly_date @page.created_at %></b>		<br>
 					<% if @page.user %>
 						<%= Page.human_attribute_name(:user_id) %> 			
 						<b><%= link_to  "#{h @page.user.username}", {:action => "user", :controller => "browse", :id => @page.user}, :title => "#{@page.user.username}"  %></b>

@@ -4,7 +4,7 @@ class Log < ActiveRecord::Base
   
   default_scope :order => "created_at DESC" # override default find
 
-  validates_presence_of :log => "You must log something!"
+  validates_presence_of :log
   
   after_create :create_everything
   

@@ -1,0 +1,8 @@
+<div class="item_events_box">
+	<% 
+		current_events = PluginEvent.find(:all, :conditions => ["item_id = ? and date > ?" , item.id, Time.now.beginning_of_day], :order => "date DESC")
+	%> 
+	<% if current_events.size > 0 %>
+		<%= link_to "#{current_events.size} Upcoming #{plugin.title}s", {:action => "view", :controller => "items", :id => item.id, :anchor => "Events"} %>	
+	<% end %>
+</div>

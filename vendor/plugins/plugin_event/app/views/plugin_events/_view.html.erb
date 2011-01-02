@@ -1,0 +1,82 @@
+<% 
+	past_events = PluginEvent.find(:all, :conditions => ["item_id = ? and date < ?" ,item.id, Time.now.beginning_of_day], :order => "date DESC")
+%> 
+<% 
+	current_events = PluginEvent.find(:all, :conditions => ["item_id = ? and date > ?" ,item.id, Time.now.beginning_of_day], :order => "date DESC")
+	total_events = current_events.size  + past_events.size
+%> 
+<% if total_events > 0 || item.is_editable_for_user?(@logged_in_user) %>
+	<div class="plugin_box">
+		<div class="title"> 
+			<a name="<%= h plugin.title %>s"><%= current_events.size  %> Upcoming <%= h plugin.title %>s</a>
+			<% if item.is_editable_for_user?(@logged_in_user) %>
+				<a href="javascript:toggle_box('new_event_box')" class="plugin.title_link">
+					<img src="/themes/<%= @setting[:theme] %>/images/icons/new.png" class="icon" alt="New" title="New" border=0>
+					Add New <%= h plugin.title %>
+				</a>
+			<% end %>   
+		</div>
+		<% if item.is_editable_for_user?(@logged_in_user) %>
+			<div style="display:none;margin-bottom:5px;" id="new_event_box" class="box_style_1">
+			      <h2>Add A New <%= h plugin.title %> to <%= h item.name %></h2>
+				   <div>
+      					   <%= form_tag  :action => 'create', :controller => "plugin_events", :id => @item.id %>
+								<table style="width:400px;" cellpadding=0 cellspacing=0>
+									<tr><td>Date &amp; Time</td><td><%= datetime_select 'event', 'date', :start_year => Time.now.year %></td></tr>
+									<tr><td><%= h plugin.title %> Title</td><td><input name="event[title]" type=text style="width:90%" id="event_title" onfocus = "focus_input('event_title')" onblur = "blur_input('event_title')"></td></tr>
+									<tr><td>Description</td><td><textarea name="event[description]" id="event_description" onfocus = "focus_input('event_description')" onblur = "blur_input('event_description')" style="width:90%"></textarea></td></tr>
+									<tr><td>Price(Optional)</td><td><input name="event[price]" type="text" id="event_price" onfocus = "focus_input('event_price')" onblur = "blur_input('event_price')" style="width:90%"></td></td></tr>
+									<tr><td><input type="submit" value="Add <%= h plugin.title %>"></td><td></td></tr>
+								</table>
+							</form>
+							<br>
+					 </div>
+					 <br>
+				 	 <div align="center">
+					   			<a href="javascript:toggle_box('new_event_box')"><img src="/themes/<%= @setting[:theme] %>/images/icons/cancel.png" alt="Cancel" title="Cancel" border=0 class="icon"></a>
+					 </div>
+			</div>
+		<% end %>
+		<div class="events">
+			<% for event in current_events %>
+				<div class="box_style_2" style="padding:5px;float:left;width:190px;margin:2px;" align=center>
+					<h2>
+						<b><%= event.title %></b>
+						<% if item.is_editable_for_user?(@logged_in_user) %>
+						    <%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/delete.png\" alt=\"Delete\" title=\"Delete\" border=0 class=\"icon\">", { :action => 'delete', :controller => "/user/plugins/events", :id => item.id, :event_id => event.id}, :confirm => "Are you sure you want to delete this #{h plugin.title}?" %>						
+						<% end %>
+					</h2>
+					<font size=2 style="font-weight:normal;font-style:italic"><%= event.date.strftime("%B %d %Y at %I:%M %p")%></font>
+					<div class="spacer"></div>					
+					<%= event.description %><br> 
+					<% if event.price && event.price != "" %>
+						Price: $<b><%= event.price %></b><br>
+					<% end %>
+				</div> 
+			<% end %>
+			<% if past_events.size > 0 %>
+			 	 <div align="center" style="clear:both">
+			   			<a href="javascript:toggle_box('past_events_box')">View Past <%= past_events.size %> Events</a>
+				 </div>
+			<% end %>
+			 <div id="past_events_box" style="display:none;clear:both">	
+				<% for event in past_events %>
+					<div class="box_style_2" style="padding:5px;float:left;width:190px;margin:2px;" align=center>
+						<h2>
+							<b><%= event.title %></b>
+							<% if item.is_editable_for_user?(@logged_in_user) %>
+							    <%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/icons/delete.png\" alt=\"Delete\" title=\"Delete\" border=0 class=\"icon\">", { :action => 'delete', :controller => "/user/plugins/events", :id => item.id, :event_id => event.id}, :confirm => "Are you sure you want to delete this #{h plugin.title}?" %>						
+							<% end %>
+						</h2>
+						<font size=2 style="font-weight:normal;font-style:italic"><%= event.date.strftime("%B %d %Y at %I:%M %p")%></font>
+						<div class="spacer"></div>					
+						<%= event.description %><br> 
+						<% if event.price && event.price != "" %>
+							Price: $<b><%= event.price %></b><br>
+						<% end %>
+					</div> 
+				<% end %>
+			 </div>
+		</div>
+	</div>
+<% end %>

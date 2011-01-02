@@ -19,7 +19,7 @@
 								</td>
 								<td align=left>
 									<span class="name">
-										<%= link_to "<b>#{h truncate(item.name,  :length => 20)}</b>", {:action => "view", :controller => "/items", :id => item }, :title => "#{h item.name}" %>
+										<%= link_to truncate(item.name,  :length => 20), {:action => "view", :controller => "/items", :id => item }, :title => "#{h item.name}" %>
 									</span>
 									<% if get_setting_bool("enable_item_description") && item.description && item.description != "" %>
 										-

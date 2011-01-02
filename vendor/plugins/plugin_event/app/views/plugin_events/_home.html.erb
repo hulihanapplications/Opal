@@ -1,0 +1,65 @@
+<% if plugin.get_setting_bool("display_upcoming_events") %>
+	<% 
+		current_events = PluginEvent.find(:all, :conditions => ["date > ?" , Time.now.beginning_of_day], :order => "date DESC", :limit => 5)
+	%> 
+	<% if current_events.size > 0 %>
+	<div class="box_style_2" align=left >
+		<h2>Upcoming <%= plugin.title %>s</h2>
+		<div class="spacer"></div> 									
+		<% for event in current_events %>
+				<div  align=center>
+					<%#= link_to item_thumbnail(event.item, :preview => true), {:action => "view", :controller => "items", :id => event.item , :anchor => "Events"}, :title => "#{h event.item.name}" %>
+					<h3>
+						<%= link_to event.title, {:action => "view", :controller => "items", :id => event.item_id, :anchor => "Events"}, :title => h(event.description) %>
+					</h3>
+					<font size=1 style="font-weight:normal;font-style:italic"><%= event.date.strftime("%B %d %Y - %I:%M %p")%></font>
+					<br> 
+					at
+					<%= link_to "<b>#{truncate(event.item.name,  :length => 20)}</b>", {:action => "view", :controller => "items", :id =>event.item.id } %>
+					<%#= link_to item_thumbnail(event.item, :preview => true, :class => "pinky"), {:action => "view", :controller => "items", :id => event.item , :anchor => "Events"}, :title => "#{h event.item.name}" %>					 
+				</div> 
+				<div class="spacer"></div> 										
+		<% end %>
+		<% 
+			more_current_events = PluginEvent.find(:all, :conditions => ["date > ?" , Time.now.beginning_of_day], :order => "date DESC", :offset => 5)
+		%> 
+		<% if more_current_events.size > 0 && current_events.size > 5  %>
+			<br>
+			<div align=center>
+				<a href="javascript:toggle_box('more_events')">More Upcoming <%= plugin.title %>s</a>
+			</div>
+		
+			<table id="more_events" style="display:none">
+		    <tr>
+		    <% counter = 0 %>
+			<% for i in 5..(current_events.size - 1)   %>
+				<% event = current_events[i] %>
+				<% if counter == 5 %>
+					</tr><tr>
+				<% end %>
+				<td>
+					<div style="padding:5px;" align=center class="box_style_1">
+						<%= link_to item_thumbnail(event.item, :preview => true), {:action => "view", :controller => "items", :id => event.item , :anchor => "Events"}, :title => "#{h event.item.name}" %>
+						<h2>
+							<%= link_to event.title, {:action => "view", :controller => "items", :id => event.item_id, :anchor => "Events"} %>
+							<font size=2 style="font-weight:normal;font-style:italic"><%= event.date.strftime("%B %d %Y <br> %I:%M %p")%><br> at <%= link_to "<b>#{truncate(event.item.name,  :length => 20)}</b>", {:action => "view", :controller => "items", :id =>event.item.id } %></font> 
+						</h2>
+						<%= truncate(event.description,   :length => 30) %><br> 
+						<% if event.price != "" %>
+							Price: <b><%= event.price %></b><br>
+						<% else %>
+							<br>
+						<% end %>
+					</div>
+				</td>
+				<% counter += 1%>
+			<% end %>	 	
+			 </tr>
+			</table>
+		<% end %>
+	</div>
+	<br>
+	<% else %>
+		<!-- There are no current <%= plugin.title %>s. -->
+	<% end %>
+<% end %>

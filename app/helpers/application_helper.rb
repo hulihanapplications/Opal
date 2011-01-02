@@ -35,7 +35,7 @@ module ApplicationHelper
 
   def show_page(page) # prints out page content
     if page && page.content 
-      return page.content  
+      return raw page.content  
     else # either no page found or no content for page.
       return nil
     end
@@ -43,7 +43,7 @@ module ApplicationHelper
   
   def link_to_page(page, options = {})
     options[:truncate_length] = 256 if options[:truncate].nil?    
-    link_to(truncate(t("page.title.#{page.title.delete(' ').underscore}", :default => page.title), :length => options[:truncate_length]), {:action => "page",  :controller => "pages", :id => page}, :class => "page_link", :title => t("page.description.#{page.title.delete(' ').underscore}", :default => page.description))   
+    raw link_to(truncate(t("page.title.#{page.title.delete(' ').underscore}", :default => page.title), :length => options[:truncate_length]), {:action => "page",  :controller => "pages", :id => page}, :class => "page_link", :title => t("page.description.#{page.title.delete(' ').underscore}", :default => page.description))   
   end
 
    def user_avatar(user, options = {:size => "normal"})
@@ -54,20 +54,20 @@ module ApplicationHelper
         avatar_image(user, :size => options[:size])
       end
     else # user doesn't exist
-      return "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\" title=\"#{t("notice.item_not_found", :item => User.human_name)}\">"      
+      return raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\" title=\"#{t("notice.item_not_found", :item => User.human_name)}\">"      
     end     
   end 
 
   def avatar_image(user, options = {:size => "normal"})
       if File.exists?(RAILS_ROOT + "/public/images/avatars/" + user.id.to_s + ".png") 
-         return "<img src=\"/images/avatars/#{user.id.to_s}.png\" class=\"avatar_#{options[:size]}\" title=\"#{user.username}\">"
+         return raw "<img src=\"/images/avatars/#{user.id.to_s}.png\" class=\"avatar_#{options[:size]}\" title=\"#{user.username}\">"
       else # get default avatar
-         return "<img src=\"/themes/#{@setting[:theme]}/images/default_avatar.png\" class=\"avatar_#{options[:size]}\" title=\"#{user.username}\">"
+         return raw "<img src=\"/themes/#{@setting[:theme]}/images/default_avatar.png\" class=\"avatar_#{options[:size]}\" title=\"#{user.username}\">"
       end        
   end 
   
   def gravatar_image(user, options = {:size => "normal"})
-    return "<img src='http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5.hexdigest(user.email.downcase)}?d=#{URI.escape(@setting[:url] + @setting[:theme_url] + "/images/default_avatar.png")}&s=100' class=\"avatar_#{options[:size]}\" title=\"#{user.username}\">"
+    return raw "<img src='http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5.hexdigest(user.email.downcase)}?d=#{URI.escape(@setting[:url] + @setting[:theme_url] + "/images/default_avatar.png")}&s=100' class=\"avatar_#{options[:size]}\" title=\"#{user.username}\">"
   end
 
 
@@ -86,7 +86,7 @@ module ApplicationHelper
         navlinks << (link_to "Home", {:action => "index", :controller => "browse"})
     end
     navlinks = navlinks.reverse # reverse items 
-    return "<div class=\"navlinks\"><b>" + navlinks.join(" &raquo; ") + "</b></div>"
+    return raw "<div class=\"navlinks\"><b>" + navlinks.join(" &raquo; ") + "</b></div>"
   end
   
   def nav_link_item(item) # prints out a nav link for an category, ie: Home > General > Test Item
@@ -99,7 +99,7 @@ module ApplicationHelper
       navlinks << (link_to "Home", {:action => "index", :controller => "browse"}) 
     end
     navlinks = navlinks.reverse
-    return "<div class=\"navlinks\"><b>" + navlinks.join(" &raquo; ") + "</b></div>"
+    return raw "<div class=\"navlinks\"><b>" + navlinks.join(" &raquo; ") + "</b></div>"
   end  
   
   def nav_link_page(page) 
@@ -113,7 +113,7 @@ module ApplicationHelper
     end 
     
     if navlinks.size > 0 # if there are any navlinks...
-      return "<div class=\"navlinks\"><b>" + navlinks.join(" &raquo; ") + "</b></div>"
+      return raw "<div class=\"navlinks\"><b>" + navlinks.join(" &raquo; ") + "</b></div>"
     else # no navlinks shown
       return ""
     end
@@ -129,10 +129,10 @@ module ApplicationHelper
         if image           
           thumbnail(image, options)
         else                
-           return "<img src=\"/themes/#{@setting[:theme]}/images/default_item_image.png\" class=\"#{options[:class]}\">"
+           return raw "<img src=\"/themes/#{@setting[:theme]}/images/default_item_image.png\" class=\"#{options[:class]}\">"
         end     
       else # item doesn't exist
-        return "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\" title=\"#{@setting[:item_name]} cannot be found.\">"      
+        return raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\" title=\"#{@setting[:item_name]} cannot be found.\">"      
       end 
   end 
 
@@ -141,20 +141,20 @@ module ApplicationHelper
       options[:class] ||= "thumbnail" 
       if !image.nil? # item exists
          if options[:preview]
-          return "<a href=\"#{h image.url}\"  title=\"#{h image.description}\" rel=\"colorbox\"><img src=\"#{image.thumb_url}\" class=\"#{options[:class]}\" title=\"#{h image.description}\"></a>"
+          return raw "<a href=\"#{h image.url}\"  title=\"#{h image.description}\" rel=\"colorbox\"><img src=\"#{image.thumb_url}\" class=\"#{options[:class]}\" title=\"#{h image.description}\"></a>"
          else
-          return "<img src=\"#{image.thumb_url}\" class=\"#{options[:class]}\" title=\"#{h image.description}\">"            
+          return raw "<img src=\"#{image.thumb_url}\" class=\"#{options[:class]}\" title=\"#{h image.description}\">"            
          end     
       else # item doesn't exist
-        return "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\" title=\"#{@setting[:item_name]} cannot be found.\">"      
+        return raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\" title=\"#{@setting[:item_name]} cannot be found.\">"      
       end       
  end
  
  def feature_icon(feature)
      if !feature.icon_url.nil? && feature.icon_url != "" # Show unique feature icon, but if not set, show default 
-      return "<img src=\"#{feature.icon_url}\" class=\"icon\" title=\"#{h feature.name}\">"         
+      return raw "<img src=\"#{feature.icon_url}\" class=\"icon\" title=\"#{h feature.name}\">"         
      else 
-      return "<img src=\"/themes/#{@setting[:theme]}/images/icons/feature.png\" class=\"icon\" title=\"#{h feature.name}\">"       
+      return raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/feature.png\" class=\"icon\" title=\"#{h feature.name}\">"       
      end    
  end
  
@@ -194,9 +194,9 @@ module ApplicationHelper
           if options[:admin_controls] # show admin controls      
             html += "<td align=right class=\"icon_column\"><img src=\"/themes/#{@setting[:theme]}/images/icons/private.png\" class=\"icon help\" title=\"This is not published and cannot be seen by others.\"></td>" if !page.published                        
             html += "<td align=right class=\"icon_column\"><img src=\"/themes/#{@setting[:theme]}/images/icons/help.png\" class=\"icon help\" title=\"#{page.description}\"></td>" if page.description && page.description != ""            
-            html += "<td align=right class=\"icon_column\">" + link_to("<img src=\"/themes/#{@setting[:theme]}/images/icons/new.png\" class=\"icon\" title=\"#{t("label.item_new_child", :item => Page.human_name)}\">", {:action => "new", :controller => "pages", :id => page}, :class => "transparent") + "</td>" if page.is_public_page?              
-            html += "<td align=right class=\"icon_column\">" + link_to("<img src=\"/themes/#{@setting[:theme]}/images/icons/edit.png\" class=\"icon\" title=\"Edit\">", {:action => "edit", :controller => "pages", :id => page}, :class => "transparent") + "</td>"
-            html += "<td align=right class=\"icon_column\">" + link_to("<img src=\"/themes/#{@setting[:theme]}/images/icons/delete.png\" class=\"icon\" title=\"Delete\">", {:action => "delete", :controller => "pages", :id => page}, :confirm => "Are you sure you want to delete this?", :class => "transparent") + "</td>" if !page.is_system_page? 
+            html += "<td align=right class=\"icon_column\">" + link_to(icon("new", "#{t("label.item_new_child", :item => Page.human_name)}"), {:action => "new", :controller => "pages", :id => page}, :class => "transparent") + "</td>" if page.is_public_page?              
+            html += "<td align=right class=\"icon_column\">" + link_to(icon("edit"), {:action => "edit", :controller => "pages", :id => page}, :class => "transparent") + "</td>"
+            html += "<td align=right class=\"icon_column\">" + link_to(icon("delete"), {:action => "delete", :controller => "pages", :id => page}, :confirm => "Are you sure you want to delete this?", :class => "transparent") + "</td>" if !page.is_system_page? 
           end  
 
           html += "<td align=right><input type=\"checkbox\" name=\"page_id\" value=\"1\" #{checked_value} #{disabled_value}></td>" if options[:make_checkbox]
@@ -211,7 +211,7 @@ module ApplicationHelper
         end
       end
       html += "</div></div>\n"
-      return html
+      return raw html
     else 
       return "" # return empty string for concatenation
     end 
@@ -248,9 +248,9 @@ module ApplicationHelper
           
           if options[:admin_controls] # show admin controls      
             html += "<td align=right class=\"icon_column\"><img src=\"/themes/#{@setting[:theme]}/images/icons/help.png\" class=\"icon help\" title=\"#{category.description}\"></td>" if category.description && category.description != ""            
-            html += "<td align=right class=\"icon_column\">" + link_to("<img src=\"/themes/#{@setting[:theme]}/images/icons/new.png\" class=\"icon\" title=\"#{t("label.item_new_child", :item => Page.human_name)}\">", {:action => "new", :controller => "categories", :id => category}, :class => "transparent") + "</td>"              
-            html += "<td align=right class=\"icon_column\">" + link_to("<img src=\"/themes/#{@setting[:theme]}/images/icons/edit.png\" class=\"icon\" title=\"Edit\">", {:action => "edit", :controller => "categories", :id => category}, :class => "transparent") + "</td>"
-            html += "<td align=right class=\"icon_column\">" + link_to("<img src=\"/themes/#{@setting[:theme]}/images/icons/delete.png\" class=\"icon\" title=\"Delete\">", {:action => "delete", :controller => "categories", :id => category}, :confirm => "Are you sure you want to delete this category? All #{@setting[:item_name_plural]} in this category will be also be deleted.", :class => "transparent") + "</td>"
+            html += "<td align=right class=\"icon_column\">" + link_to(icon("new", "#{t("label.item_new_child", :item => Page.human_name)}"), {:action => "new", :controller => "categories", :id => category}, :class => "transparent") + "</td>"              
+            html += "<td align=right class=\"icon_column\">" + link_to(icon("edit"), {:action => "edit", :controller => "categories", :id => category}, :class => "transparent") + "</td>"
+            html += "<td align=right class=\"icon_column\">" + link_to(icon("delete"), {:action => "delete", :controller => "categories", :id => category}, :confirm => "Are you sure you want to delete this category? All #{@setting[:item_name_plural]} in this category will be also be deleted.", :class => "transparent") + "</td>"
           end   
           
           html += "<td align=right><input type=\"checkbox\" name=\"category_id\" value=\"1\" #{checked_value} #{disabled_value}></td>" if options[:make_checkbox]                  
@@ -265,7 +265,7 @@ module ApplicationHelper
         end
       end
       html += "</div></div>\n"
-      return html
+      return raw html
     else 
       return "" # return empty string for concatenation
     end
@@ -273,7 +273,7 @@ module ApplicationHelper
 
  def icon(name, title = "", css_class = "") # show icon
    #title = name.capitalize if title == "" # set default title
-   return "<img src=\"/themes/#{@setting[:theme]}/images/icons/#{name}.png\" class=\"icon #{css_class}\" title=\"#{title}\">"
+   return raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/#{name}.png\" class=\"icon #{css_class}\" title=\"#{title}\">"
  end
  
  def score(options = {}) # print out a score
@@ -295,7 +295,7 @@ module ApplicationHelper
    else
      html += "<span class=\"score\">#{options[:value]}</span> out of #{options[:max]}"
    end 
-   return html 
+   return raw html 
  end
  
 
@@ -314,14 +314,14 @@ module ApplicationHelper
      end     
    end 
    if messages.size > 0
-    return "<div class=\"errorExplanation\"><ul>" + messages.map{|member| "<li>#{member}</li>"}.join("\n") + "</ul></div>"
+    return raw "<div class=\"errorExplanation\"><ul>" + messages.map{|member| "<li>#{member}</li>"}.join("\n") + "</ul></div>"
    else
     return nil
    end 
   end
   
   def theme_url # get the path to the current theme
-    return "/themes/#{@setting[:theme]}"
+    return raw "/themes/#{@setting[:theme]}"
   end
   
   def theme_image_tag(filename, options = {})
@@ -354,7 +354,7 @@ module ApplicationHelper
     end 
     
     html << "<input name=\"#{options[:input_name]}\" type=\"hidden\" id=\"#{object.to_s}_#{method_name.to_s}\" value=\"#{h(options[:value])}\">"                    
-    return html
+    return raw html
   end
  
   def slider_field_tag(object, method_name, options = {})
@@ -373,7 +373,7 @@ module ApplicationHelper
           });
         </script>
     "                                                
-    return html    
+    return raw html    
   end   
 
   
@@ -384,7 +384,7 @@ module ApplicationHelper
     if object.class == Item
       html << "<input name=\"#{options[:input_name]}\" type=\"text\" id=\"#{class_name}_#{method_name.to_s}\" value=\"#{h(object.tags)}\">"                
     end
-    return html
+    return raw html
   end
 
   def tags_links(someobject)
@@ -394,11 +394,11 @@ module ApplicationHelper
          tags << link_to_tag(tag)
       end 
     end
-    return "#{icon("tag")} #{PluginTag.human_name.pluralize}: #{tags.join(", ")}" unless tags.size == 0 
+    return raw "#{icon("tag")} #{PluginTag.human_name.pluralize}: #{tags.join(", ")}" unless tags.size == 0 
   end
   
   def link_to_tag(tag)
-    link_to(h(tag.name), {:action => "tag", :controller => "items", :tag => CGI::escape(h tag.name)}) 
+    raw link_to(h(tag.name), {:action => "tag", :controller => "items", :tag => CGI::escape(h tag.name)}) 
   end
 end
 

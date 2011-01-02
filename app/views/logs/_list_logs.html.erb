@@ -21,15 +21,15 @@
 				<% end %>			
 			</td>			
 			<td align=center style="width:20px;vertical-align:middle">
-				<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/file.png\" class=\"icon\" title=\"#{t("single.downloaded")}\">" if (log.log_type == "download") %>
-				<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/new.png\" class=\"icon\" title=\"#{t("single.created")}\">" if (log.log_type == "create" || log.log_type == "new") %>
-				<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/edit.png\" class=\"icon\" title=\"#{t("single.updated")}\">" if (log.log_type == "update") %>			  
-				<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/delete.png\" class=\"icon\" title=\"#{t("single.deleted")}\">" if (log.log_type == "delete") %> 
-				<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/success.png\" class=\"icon\" title=\"#{t("single.system") + " " + Log.human_name.pluralize}\">" if (log.log_type == "system") %>
-				<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/warning.png\" class=\"icon\" title=\"#{t("single.warning")}\">" if (log.log_type == "warning") %> 				 
+				<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/file.png\" class=\"icon\" title=\"#{t("single.downloaded")}\">" if (log.log_type == "download") %>
+				<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/new.png\" class=\"icon\" title=\"#{t("single.created")}\">" if (log.log_type == "create" || log.log_type == "new") %>
+				<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/edit.png\" class=\"icon\" title=\"#{t("single.updated")}\">" if (log.log_type == "update") %>			  
+				<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/delete.png\" class=\"icon\" title=\"#{t("single.deleted")}\">" if (log.log_type == "delete") %> 
+				<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/success.png\" class=\"icon\" title=\"#{t("single.system") + " " + Log.human_name.pluralize}\">" if (log.log_type == "system") %>
+				<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/warning.png\" class=\"icon\" title=\"#{t("single.warning")}\">" if (log.log_type == "warning") %> 				 
 			</td>
 			<td align=left style="vertical-align:middle">
-				<%= h log.log %>		
+				<%= log.log %>		
 			</td>
 			<td align=right style="vertical-align:middle;width:175px;">
 				<%= friendly_date log.created_at %>

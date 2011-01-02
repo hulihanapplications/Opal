@@ -18,7 +18,7 @@
 		<% for page in @public_pages %>
 			<%= descend_page(page) %>
 		<% end %>	
-	   <%= "<div class=\"spacer\"></div>" if @public_pages.size > 0 %> 
+	   <%= raw "<div class=\"spacer\"></div>" if @public_pages.size > 0 %> 
 	   <% if get_setting_bool("allow_user_registration") %>
 	   		<div class="indent"> 
 				<% page =  Page.get_system_page("Terms Of Service")%>

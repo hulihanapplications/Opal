@@ -1,1 +1,0 @@
-require 'tiny_mce'

@@ -12,7 +12,7 @@ Once Opal is downloaded, extract it to the location you'll be running it from(a 
 
 h2. Set Up Your Database 
 
-As in all Rails applications, you must configure which database Opal will use in the _config/database.yml_ file. By default, Opal uses MySQL, but you can configure opal to use sqlite, and any other rails-compatible databases. Here's an example of what the database.yml file should look like:
+Just like most Rails applications, you must configure which database Opal will use in the _config/database.yml_ file. By default, Opal uses MySQL, but you can configure opal to use sqlite, and any other rails-compatible databases. Here's an example of what the database.yml file should look like:
 
 <pre>
 development:
@@ -35,7 +35,9 @@ Next, Run the following command(while in the Opal directory) to install Opal's d
 rake opal:install
 </pre>
 
-This will install the database structure of Opal. It will set up the default admin account, some sample items, and other stuff to help you get started with Opal.
+This will install the database structure of Opal. It will set up the default admin account, some sample items(you'll be asked if you want to install sample Data), and other stuff to help you get started with Opal.
+
+  * If you want to automate an Opal installation, or if you just want to bypass prompts(that ask you if you want to install sample data and other stuff: run this command: _rake opal:install PROMPTS=FALSE_)
 
 h2. That's it! 
 

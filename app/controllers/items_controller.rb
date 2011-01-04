@@ -8,7 +8,6 @@ class ItemsController < ApplicationController
  before_filter :find_item, :except => [:index, :rss, :category, :all_items, :tag, :create, :new, :search, :new_advanced_search, :advanced_search, :set_list_type, :set_item_page_type] # look up item 
  before_filter :check_item_edit_permissions, :except => [:index, :rss, :category, :all_items, :tag, :create, :view, :new, :search, :new_advanced_search, :advanced_search, :set_list_type, :set_item_page_type] # check if item is editable by user 
  before_filter :enable_sorting, :only => [:index, :category, :all_items, :search] # prepare sort variables & defaults for sorting
- 
 
  
   def index # show all items to user

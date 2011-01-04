@@ -58,7 +58,7 @@ class PluginTagsController < ApplicationController
     
     if @tag.update_attribute(:is_approved, approval)
       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => log_msg)      
-      flash[:success] = t("notice.item_approve_success", :item => @plugin.human_name) 
+      flash[:success] = t("notice.item_#{"un" if approval == "0"}approve_success", :item => @plugin.human_name)  
     else
       flash[:failure] =  t("notice.item_save_failure", :item => @plugin.human_name) 
     end

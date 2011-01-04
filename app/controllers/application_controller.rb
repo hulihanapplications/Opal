@@ -1,12 +1,14 @@
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
 class ApplicationController < ActionController::Base
-  include SimpleCaptcha::ControllerHelpers
+    
   helper "application" # include main application helper
   
   before_filter :load_settings, :set_user # load global settings and set logged in user
   before_filter :set_locale
   layout :layout_location # using a symbol defers layout choice until after a request is processed 
+  
+  include SimpleCaptcha::ControllerHelpers
   
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store

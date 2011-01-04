@@ -21,13 +21,17 @@
 	#wrapper > #footer{position:absolute;bottom:0;width:100%;height:45px;padding:5px 0px 0px 0px;background:#eee;border-top:1px solid #ddd;;text-align:center;}
 
 	/* Main Menu */
-	ul.main_menu{list-style:none;margin-top:102px;margin-right:0px;}
+	ul.main_menu{list-style:none;margin:95px 0px 0px auto ;width:325px;}
 		ul.main_menu li{float:left;list-style-image:none !important;margin:0px 0px 0px 0px;text-align:center;}
-			ul.main_menu li a{display:block;padding:0px 20px 3px 20px;margin:0px 5px 0px 5px;text-align:center;text-shadow:1px 1px 0px #000;font-size:18px;}
+			ul.main_menu li a{display:block;padding:5px 12px 5px 12px;margin:0px 0px 0px 10px;text-align:center;text-shadow:1px 1px 4px black;font-size:18px;}
 			ul.main_menu li a:visited, ul.main_menu li a:link{color:#ccc;}
 			ul.main_menu li a:hover{color:white;}
 			ul.main_menu li a.selected{color:#333;text-shadow:1px 1px 0px #aaa;background:#ECECEC; -moz-border-radius-topleft:5px;-webkit-border-top-left-radius:5px; -moz-border-radius-topright:5px;-webkit-border-top-right-radius:5px}
-	 
+
+	/* Main Logo */ 
+	.main_logo{margin-bottom:6px;margin-left:0px;} /* .main_logo and .main_menu are in the same table, so their positions affect eachother */
+		.main_logo .description{font-style:italic;color:white;text-shadow:2px 2px 4px black}
+		.main_logo a:visited, .main_logo a:link{color:#ddd;;text-shadow:2px 2px 4px black;text-decoration:none;} .main_logo a:hover{color:white;text-shadow:2px 2px 4px black;text-decoration:none;}	 
 
 	/* Boxes */
 	.box_1{border:1px solid #aaa;background:#E9E9E9;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:5px;}
@@ -72,10 +76,6 @@
 	img.avatar_tiny, img.pinky{width:20px;height:20px;border:1px solid #666;vertical-align:middle;}
 	img.loading{margin:2px;background:#ccc;padding:5px;border:1px solid #666}
 	
-	/* Main Logo */ 
-	.main_logo{margin-bottom:7px;margin-left:27px;} /* .main_logo and .main_menu are in the same table, so their positions affect eachother */
-		.main_logo .description{font-style:italic;color:white;text-shadow:2px 2px 4px black}
-		.main_logo a:visited, .main_logo a:link{color:#ddd;;text-shadow:2px 2px 4px black;text-decoration:none;} .main_logo a:hover{color:white;text-shadow:2px 2px 4px black;text-decoration:none;}
 
 
 	/* Items */

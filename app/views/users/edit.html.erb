@@ -74,7 +74,7 @@
 						<div class="box_2" align=left>
 			 				<div id="send_message_notice"></div>
 			 				<h2 class="title"><%= t("label.item_send_to", :item =>  UserMessage.human_name, :name => h(@user.username)) %></h2>								   	
-				   			<%= form_remote_tag :update => "send_message_notice", :url => { :action => 'send_message', :controller => "messages", :id => @user.id} %>
+				   			<%= form_tag( :action => 'send_message', :controller => "messages", :id => @user.id) %>
 								<table style="width:100%">
 									<tr>
 										<td align=center><textarea  style="width:400px;" name="message" id="message" onfocus = "focus_input('message')" onblur = "blur_input('message')"></textarea></td>

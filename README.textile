@@ -10,6 +10,13 @@ h2. Extract & Upload
 
 Once Opal is downloaded, extract it to the location you'll be running it from(a webserver, your local computer, etc.). By Default, Opal uses MySQL, but you can run Opal with sqlite or any other rails-compatible dbms. Here's an example of what database.yml should look like:
 
+h2. Install Dependencies
+
+Before Opal is up and running, we need to install all of its required gems and other stuff. To do this, run this command:
+<pre>
+bundle install
+</pre>
+
 h2. Set Up Your Database 
 
 Just like most Rails applications, you must configure which database Opal will use in the _config/database.yml_ file. By default, Opal uses MySQL, but you can configure opal to use sqlite, and any other rails-compatible databases. Here's an example of what the database.yml file should look like:

@@ -8,16 +8,16 @@
 			<table style="width:100%" cellpadding=0 cellspacing=0>
 				<tr>
 					<td align=left>		
-			 			<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/approved.png\" title=\"#{Item.human_attribute_name(:approved)}\" class=\"icon help\">" if item.is_approved? %> 										
-			 			<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/unapproved.png\" title=\"#{t("single.not")} #{Item.human_attribute_name(:approved)}\" class=\"icon help\">" if !item.is_approved? %> 																								
-			 			<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/locked.png\" title=\"#{Item.human_attribute_name(:locked)}\" class=\"icon help\">" if item.locked %> 										
-			 			<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/unlocked.png\" title=\"#{t("single.not")} #{Item.human_attribute_name(:unlocked)}\" class=\"icon help\">" if !item.locked %> 																								
+			 			<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/approved.png\" title=\"#{Item.human_attribute_name(:approved)}\" class=\"icon help\">" if item.is_approved? %> 										
+			 			<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/unapproved.png\" title=\"#{t("single.not")} #{Item.human_attribute_name(:approved)}\" class=\"icon help\">" if !item.is_approved? %> 																								
+			 			<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/locked.png\" title=\"#{Item.human_attribute_name(:locked)}\" class=\"icon help\">" if item.locked %> 										
+			 			<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/unlocked.png\" title=\"#{t("single.not")} #{Item.human_attribute_name(:unlocked)}\" class=\"icon help\">" if !item.locked %> 																								
 																											
 						<% if get_setting_bool("allow_private_items")  %>
 								<% if item.is_public? %>
-						 			<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/public.png\" title=\"#{Item.human_attribute_name(:public)}\" class=\"icon help\">" %> 										
+						 			<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/public.png\" title=\"#{Item.human_attribute_name(:public)}\" class=\"icon help\">" %> 										
 								<% else %>
-						 			<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/private.png\" title=\"#{t("single.not")} #{Item.human_attribute_name(:public)}\" class=\"icon help\">" %> 										
+						 			<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/private.png\" title=\"#{t("single.not")} #{Item.human_attribute_name(:public)}\" class=\"icon help\">" %> 										
 								<% end %>
 						<% end %>
 						<% if item.featured %>							
@@ -28,7 +28,7 @@
 					</td>
 					<td align=right>
 						<% if @logged_in_user && !@logged_in_user.anonymous?  %>
-							<%= link_to "#{icon("new")} #{t("label.item_new", :item => @item.category.name) + " " + @setting[:item_name]}", {:action => "new", :controller => "items", :id => item.category} %>
+							<%= link_to raw("#{icon("new")} #{t("label.item_new", :item => @item.category.name) + " " + @setting[:item_name]}"), {:action => "new", :controller => "items", :id => item.category} %>
 						<% end %>												
 						<% if item.is_editable_for_user?(@logged_in_user) %>
 							   		<img src="/themes/<%= @setting[:theme] %>/images/icons/logs.png" class="icon">

@@ -288,7 +288,7 @@ en:
       site_title: Title of Your Site   
       site_description: Site Description
       site_keywords: Site Keywords      
-      locale: Language
+      locale: Locale
       display_item_views: Display Number of Item Views
       caching: Page Caching
       new_item_notification: Notify Admins of New Items
@@ -459,7 +459,7 @@ en:
         email: Email Address
         created_at: Joined
         is_admin: Admin?
-        locale: Language
+        locale: Locale
         last_login: Latest Login
         last_login_ip: Latest Login IP Address
         registered_ip: Registered IP Address
@@ -511,8 +511,8 @@ en:
         name: Name
         description: Description
         views: Views
-        created_at: Date Added
-        updated_at: Last Updated
+        created_at: Created
+        updated_at: Updated
         user_id: Added by
         featured: Featured
         featured_description: If featured, this will be given special attention and shown on the homepage.        

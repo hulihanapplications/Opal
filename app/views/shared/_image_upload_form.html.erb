@@ -35,22 +35,17 @@
 				
 			<h3 class="title"><%= t("single.details") %></h3>
 			<div>
-		      <input type="checkbox" name="[effects][monochrome]" value="yes"> <%= t("label.image_effect_bw") %><br> 
-		      <input type="checkbox" name="[effects][sepia]" value="yes"> <%= t("label.image_effect_sepia") %><br>
-		      <input type="checkbox" name="[effects][rotate_90_cw]" value="yes">	<%= t("label.image_effect_rotate_90_cw") %><br>
-		      <input type="checkbox" name="[effects][rotate_90_ccw]" value="yes"> <%= t("label.image_effect_rotate_90_ccw") %> <br>
-		      <input type="checkbox" name="[effects][rotate_180]" value="yes"> <%= t("label.image_effect_rotate_180") %><br>
-		      <input type="checkbox" name="[effects][resize_image]" value="yes"> <%= t("label.image_effect_resize", :width => plugin.get_setting("item_image_width"), :height => plugin.get_setting("item_image_height")) %><br>			  
-			  <!--
-		      <input type="checkbox" name="[effects][reduce_25]" value="yes"> Reduce Size by 25&#37;<br>
-		      <input type="checkbox" name="[effects][reduce_50]" value="yes"> Reduce Size by 50&#37;<br>
-		      <input type="checkbox" name="[effects][reduce_75]" value="yes"> Reduce Size by 75&#37;<br>
-			  -->
-		      <input type="checkbox" name="[effects][watermark]" value="yes"> <%= t("single.watermark") %><br>
-			  <input type="checkbox" name="[effects][stamp]" value="yes"> <%= t("single.stamp") %><br>
-		      <input type="checkbox" name="[effects][gaussian_blur]" value="yes"> <%= t("label.image_effect_gaussian_blur") %><br>
-		      <input type="checkbox" name="[effects][polaroid]" value="yes"> <%= t("label.image_effect_polaroid") %><br>
-		      <input type="checkbox" name="[effects][negate]" value="yes"> <%= t("label.image_effect_negate") %><br>
+		      <input type="checkbox" name="[effects][monochrome]" value="yes"> <%= raw t("label.image_effect_bw") %><br> 
+		      <input type="checkbox" name="[effects][sepia]" value="yes"> <%= raw t("label.image_effect_sepia") %><br>
+		      <input type="checkbox" name="[effects][rotate_90_cw]" value="yes">	<%= raw t("label.image_effect_rotate_90_cw") %><br>
+		      <input type="checkbox" name="[effects][rotate_90_ccw]" value="yes"> <%= raw t("label.image_effect_rotate_90_ccw") %> <br>
+		      <input type="checkbox" name="[effects][rotate_180]" value="yes"> <%= raw t("label.image_effect_rotate_180") %><br>
+		      <input type="checkbox" name="[effects][resize_image]" value="yes"> <%= raw t("label.image_effect_resize", :width => plugin.get_setting("item_image_width"), :height => plugin.get_setting("item_image_height")) %><br>			  
+		      <input type="checkbox" name="[effects][watermark]" value="yes"> <%= raw t("single.watermark") %><br>
+			  <input type="checkbox" name="[effects][stamp]" value="yes"> <%= raw t("single.stamp") %><br>
+		      <input type="checkbox" name="[effects][gaussian_blur]" value="yes"> <%= raw t("label.image_effect_gaussian_blur") %><br>
+		      <input type="checkbox" name="[effects][polaroid]" value="yes"> <%= raw t("label.image_effect_polaroid") %><br>
+		      <input type="checkbox" name="[effects][negate]" value="yes"> <%= raw t("label.image_effect_negate") %><br>
 			</div>
 		</div>
 	</td>

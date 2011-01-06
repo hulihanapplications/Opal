@@ -1,5 +1,4 @@
 <%= error_messages_for :item %>
-<% @item.errors.full_messages.size %>
 
 
 <% if defined?(@feature_errors) %>
@@ -44,7 +43,7 @@
 											<h3><%= Plugin.plugins[:feature].human_name.pluralize %></h3>	
 										</td>
 										<td align=right>
-											<%= link_to "#{icon("edit")} #{t("label.item_edit", :item => Plugin.plugins[:feature].human_name.pluralize)}", {:action => "index", :controller => "plugin_features"} if @logged_in_user.is_admin?  %>
+											<%= link_to raw("#{icon("edit")} #{t("label.item_edit", :item => Plugin.plugins[:feature].human_name.pluralize)}"), {:action => "index", :controller => "plugin_features"} if @logged_in_user.is_admin?  %>
 										</td>
 									</tr>
 								</table>

@@ -269,7 +269,7 @@ en:
     image_effect_gaussian_blur: Gaussian Blur
     image_effect_polaroid: Polaroid
     image_effect_negate: Negate
-    image_effect_resize: Resize to %{width}x%{height} pixels
+    image_effect_resize: Resize to %{width} x %{height} pixels
     tag_example: "Example: cool, funny, weird"
   # General Information 
   info: 

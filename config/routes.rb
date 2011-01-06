@@ -5,7 +5,7 @@ Opal::Application.routes.draw do
   @setting = Setting.global_settings
 
   #map.simple_captcha '/simple_captcha/:action', :controller => 'simple_captcha'
-  match '/simple_captcha/:action', :controller => 'simple_captcha'
+  #match '/simple_captcha/:action', :controller => 'simple_captcha'
 
   # Set up default
   root :to => "browse#index"
@@ -36,7 +36,7 @@ Opal::Application.routes.draw do
   #Dir["#{RAILS_ROOT}/vendor/plugins/*"].each do |plugin_dir|
     #map.from_plugin(File.basename(plugin_dir))
   #end  
-
+  
 
   # See how all your routes lay out with "rake routes"
   

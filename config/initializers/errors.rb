@@ -19,7 +19,7 @@ module ActiveRecord
            "models.#{options[:model].downcase}.attributes.#{options[:attribute].gsub(/ /, "_").downcase}.#{self.type}"
          ] 
          options.merge!(:default => keys, :message => self.message)
-         "#{self.base.class.human_attribute_name(self.attribute)} #{self.message}"
+          "#{self.base.class.human_attribute_name(self.attribute)} #{self.message}"
          # To Debug, use self.inspect
     end
   end

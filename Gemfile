@@ -7,7 +7,7 @@ gem "will_paginate", ">= 3.0.pre2"
 gem "rmagick"
 gem "i18n", ">=0.5.0"
 gem 'simple_captcha'#, :git => 'git://github.com/galetahub/simple-captcha.git'
-gem 'tiny_mce'
+#gem 'tiny_mce' 
 
 group :test do
  # no test gems 

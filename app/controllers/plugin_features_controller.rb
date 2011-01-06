@@ -4,7 +4,7 @@ class PluginFeaturesController < ApplicationController
  before_filter :find_plugin # look up plugin
  before_filter :get_my_group_plugin_permissions # get permissions for this plugin  
  before_filter :check_item_edit_permissions, :only => [:change_approval] # list of actions that don't require that the item is editable by the user
- before_filter [:authenticate_admin, :enable_admin_menu] , :only =>  [:create, :delete, :index, :new, :edit, :update, :create_option, :delete_option] # make sure logged in user is an admin  
+ before_filter :authenticate_admin, :enable_admin_menu, :only =>  [:create, :delete, :index, :new, :edit, :update, :create_option, :delete_option] # make sure logged in user is an admin  
 
  include ActionView::Helpers::TextHelper # for truncate, etc.
 

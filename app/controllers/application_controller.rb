@@ -198,4 +198,12 @@ class ApplicationController < ActionController::Base
     params[:sort][:by] = params[:sort_by]
     params[:sort][:direction] = params[:sort_direction]   
   end  
+  
+  def uses_tiny_mce(options = {}) # replacement for tiny_mce gem
+    proc = Proc.new do |c|
+       c.instance_variable_set(:@uses_tiny_mce, true)
+       @uses_tiny_mce = true        
+    end    
+    proc.call(self) 
+  end
 end

@@ -304,12 +304,12 @@ module ApplicationHelper
    messages = Array.new  
    if someobject.class == Hash 
        someobject.each do |key, value| 
-          messages <<  "#{key} #{value}" 
+          messages <<  raw("#{key} #{value}") 
        end     
    else # check for active_record
-     if someobject.errors.any?
+     if defined?(someobject.errors) && someobject.errors.any?
         someobject.errors.full_messages.each do |msg| 
-          messages <<  "#{msg}" 
+          messages <<  raw(msg)
        end
      end     
    end 
@@ -319,6 +319,9 @@ module ApplicationHelper
     return nil
    end 
   end
+  
+  #alias :error_messages_for :errors_for
+
   
   def theme_url # get the path to the current theme
     return raw "/themes/#{@setting[:theme]}"
@@ -399,6 +402,10 @@ module ApplicationHelper
   
   def link_to_tag(tag)
     raw link_to(h(tag.name), {:action => "tag", :controller => "items", :tag => CGI::escape(h tag.name)}) 
+  end
+  
+  def using_tiny_mce?
+    defined?(@uses_tiny_mce) && @uses_tiny_mce
   end
 end
 

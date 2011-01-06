@@ -1,8 +1,7 @@
 class PagesController < ApplicationController
  before_filter :authenticate_admin, :except => [:create_page_comment, :redirect_to_page, :page, :tinymce_images] # make sure logged in user is an admin    
  before_filter :enable_admin_menu # show admin menu 
- 
- uses_tiny_mce :only => [:new, :edit]  # which actions to load tiny_mce, TinyMCE Config is done in Layout. 
+ before_filter :uses_tiny_mce, :only => [:new, :edit]  # which actions to load tiny_mce, TinyMCE Config is done in Layout. 
  
  def index
    @setting[:meta_title] = Page.human_name.pluralize + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title]

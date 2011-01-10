@@ -37,9 +37,10 @@ Opal::Application.routes.draw do
     #map.from_plugin(File.basename(plugin_dir))
   #end  
   
+  # Resources
 
   # See how all your routes lay out with "rake routes"
-  
+   
   # Simple Captcha
   match '/simple_captcha/:id', :to => 'simple_captcha#show', :as => :simple_captcha
 

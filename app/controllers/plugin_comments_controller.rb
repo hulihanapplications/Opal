@@ -6,7 +6,6 @@ class PluginCommentsController < ApplicationController
  before_filter :check_item_edit_permissions, :only => [:change_approval] # list of actions that don't require that the item is editable by the user
  
  include ActionView::Helpers::TextHelper # for truncate, etc.
- 
     
  def create # this is the only create action that doesn't require that the item is editable by the user
    if simple_captcha_valid?

@@ -10,7 +10,6 @@ class Plugin < ActiveRecord::Base
   after_destroy :destroy_everything
 
   default_scope :order => "order_number ASC" # override default find
-  named_scope :enabled, :conditions => {:is_enabled => '1'} # Get all enabled Item Objects with Plugin.enabled
   
   def actual_model # returns the Class of plugin that this plugin object points to. Example: Plugin.find_by_name("Image").actual_model => PluginImage 
     return "Plugin#{self.name}".camelize.constantize
@@ -19,6 +18,10 @@ class Plugin < ActiveRecord::Base
   # Set plugins to metaclass
   class << self # open up metaclass  
     attr_accessor :plugins # Plugin.plugins
+    
+    def enabled      
+      where(["enabled = ?", "1"]).order("order_number ASC")
+    end
   end    
 
   def self.all_to_hash # return all plugins in an unordered hash

@@ -6,7 +6,7 @@ en:
     title: 
       home: Home
       about: About
-      items: #{items}
+      items: %{items}
       blog: Blog
       forum: Forum
       admin: Administration
@@ -86,6 +86,7 @@ en:
     title: Title
     url: URL
     enabled: Enabled
+    disabled: Disabled
     logo: Logo
     preview: Preview
     version: Version
@@ -98,6 +99,7 @@ en:
     stamp: Stamp    
     main: Main
     or: Or
+    
   # Flash Messages & Notices
   notice:
     save_success: Your changes have been successfully saved!

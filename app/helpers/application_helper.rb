@@ -271,8 +271,8 @@ module ApplicationHelper
     end
   end 
 
- def icon(name, title = "", css_class = "") # show icon
-   #title = name.capitalize if title == "" # set default title
+ def icon(name, title = nil, css_class = "") # show icon
+   title ||= I18n.t("single.#{name}", :default => name.humanize) # if translation for icon name doesn't exist, use english  
    return raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/#{name}.png\" class=\"icon #{css_class}\" title=\"#{title}\">"
  end
  

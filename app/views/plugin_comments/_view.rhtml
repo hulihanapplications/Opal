@@ -30,8 +30,8 @@
 						 <table style="width:100%">							
 							 <tr><td colspan=2 align=center><textarea name="comment[comment]" style="width:100%" onfocus = "focus_input('comment_text')" onblur = "blur_input('comment_text')" id="comment_text"></textarea></td>			 </tr>
 				  	         <tr><td colspan=2 align=center><%= t("label.captcha") %></td></tr>
-							 <tr><td colspan=2 align=center><%#= show_simple_captcha %></td></tr>
-						     <tr><td colspan=2 align=center><%= submit_tag  t("label.item_create", :item => plugin.human_name, :class => "button_1") %></td></tr>
+							 <tr><td colspan=2 align=center><%= show_simple_captcha %></td></tr>
+						     <tr><td colspan=2 align=center><%= submit_tag  t("label.item_create", :item => plugin.human_name), :class => "button_1" %></td></tr>							 
 						 </table>
 					   <% end %>
 				   </div>

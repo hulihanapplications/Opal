@@ -1,13 +1,16 @@
-<div class='simple_captcha'>
-  <div class='simple_captcha_image'>
-    <%= simple_captcha_options[:image] %>
-  </div>
-  
-  <div class='simple_captcha_field'>
-    <%= simple_captcha_options[:field] %>
-  </div>
-  
-  <div class='simple_captcha_label'>
-    <%#= simple_captcha_options[:label] %>
-  </div>
+<div id='simple_captcha' style="width:220px;">
+        <table cellpadding=0 cellspacing=0>
+                <tr>
+                        <td align=right style="width:110px;padding-right:5px;">
+                          <div class='simple_captcha_field' align=left>
+                            <%= simple_captcha_options[:field] %>
+                          </div>
+                        </td>
+                        <td align=left style="width:110px;">
+                          <div class='simple_captcha_image' align=left>
+                            <%= simple_captcha_options[:image] %>
+                          </div>
+                        </td>
+                </tr>
+        </table>
 </div>

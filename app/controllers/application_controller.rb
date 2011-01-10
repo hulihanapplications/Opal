@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   layout :layout_location # using a symbol defers layout choice until after a request is processed 
   
   include SimpleCaptcha::ControllerHelpers
-  
+    
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery  #:secret => '271565d54852d3da3a489c27f69a31b1'

@@ -222,6 +222,9 @@ ul#tabmenu {	list-style:none; 	margin:0 !important; 	padding:0;	height:25px;	mar
 .current{border:1px solid #aaa;background:url(../images/bgs/black_trans_05.png) repeat;;padding:10px;-moz-border-radius: 3px;-webkit-border-radius: 3px;}
 .disabled{border:1px solid #ccc;background:url(../images/bgs/white_trans_50.png) repeat;padding:10px;filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity: 0.5;opacity: 0.5;-moz-border-radius: 3px;-webkit-border-radius: 3px;}
 
+/* SimpleCaptcha */
+.simple_captcha_image{padding:1.2px;border:1px solid #666;background:#fff;-moz-border-radius: 3px;-webkit-border-radius: 3px;}
+
 /* jQuery TOOLS - Horizontal Tabs CSS */
 ul.plugin_tabs_horizontal {	list-style:none; 	margin:0 !important; 	padding:0;	height:25px;	margin-bottom:0px;}
 ul.plugin_tabs_horizontal li { 	float:left;	 	text-indent:0;	padding:0;	margin:0 !important;	list-style-image:none !important; }/* single tab */

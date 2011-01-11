@@ -8,6 +8,7 @@
 		<%= javascript_include_tag "/core/javascripts/controls.js" %>
 	<% else %>
 		<%= javascript_include_tag "/core/javascripts/jquery/jquery-1.4.2.min.js" %>
+		<%= javascript_include_tag "/core/javascripts/jquery/jquery-ui-1.8.7.custom.min.js" if (params[:controller] == "plugins" && params[:action] == "index" )%>
 		<%= javascript_include_tag "/core/javascripts/jquery/jquery.tools.min.js" %>
 		<%= javascript_include_tag "/core/javascripts/jquery/jquery.colorbox-min.js" %>
 		<%= javascript_include_tag "/core/javascripts/jquery/jquery.rating.js" %>		
@@ -24,7 +25,7 @@
 	</script>		
 	<% if using_tiny_mce? %>
 		<!-- Load TinyMCE -->
-		<script src="/core/javascripts/tiny_mce/tiny_mce_src.js?1269065647" type="text/javascript"></script>
+		<%= javascript_include_tag "/core/javascripts/tinymce/tiny_mce_src.js" %>
 		<script type="text/javascript">
 			// Activate TinyMCE 			
 			//<![CDATA[

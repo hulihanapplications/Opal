@@ -64,7 +64,7 @@
 									</h2>
 				  				</div>
 								<div style="">
-									<%= plugin.description %>
+									<%= raw t("plugin.description.#{plugin.name.underscore.downcase}", :default => "") %>
 								</div>				
 				  			</td>
 							<td valign=middle width="10%" align=center style="text-align:center">

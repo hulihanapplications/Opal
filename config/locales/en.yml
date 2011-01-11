@@ -408,7 +408,18 @@ en:
       review_type: This determines the type of scoring that used for items.
       score_min: The minimum value that can be used in review scores. This is not used in star ratings.
       score_max: The maximum value that can be used in review scores.
-              
+  # Plugins
+  plugin:
+    description:
+      image: Images for Items.
+      comment: Comments from Users or Visitors. Comments are small notes or feedback about an item.
+      file: Files uploaded for a particular item. Useful for Software, PDFs, Images, etc.
+      tag: Tags are like labels for an Item. This is another way to organize items besides by categories. All tags in the System are grouped together. You can add as many as you want.
+      feature: "These are shared atttributes that an several items might have. For example: a house would have a feature called price."
+      description: Large Text Descriptions For Items.      
+      link: A link for an item. This can be a link to a page for more information about the item, a website, or a file location.
+      discussion: Allows multiple people to have discussions about an item.   
+      review: Item Reviews from Users. Reviews have scores that are tallied up to rate the value of an item.
   # Pages
   page:
     title:

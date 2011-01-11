@@ -17,29 +17,75 @@ end
 # Required Data
 print "Installing Required Data..."
 
-# Create Default Admin Account
-@admin = User.new(:first_name => "Bob", :last_name => "Jones", :username => "admin", :password => "admin", :is_admin => "1", :email => "admin@test.com")
-@admin.is_admin = "1" 
-@admin.is_verified = "1"     
-@admin.save
+
 
 # Create Global Settings
-Setting.create(:name => "item_name", :title => "Item Name", :value => "Item", :setting_type => "Item", :description => "This is the <b>singular</b> name of the items on your site, so if you want to show people homes, this would be <b>home</b>.", :item_type => "string")
-Setting.create(:name => "item_name_plural", :title => "Plural Item Name",  :value => "Items", :setting_type => "Item", :description => "This is the <b>plural</b> name of the items on your site, so if you want to show people homes, this would be <b>homes</b>.", :item_type => "string")
-Setting.create(:name => "site_title", :title => "Title of Your Site",  :value => "My Opal Website", :setting_type => "Public", :description => "The Title of your Site. You would see this at the very top of your browser window.", :item_type => "string")
-Setting.create(:name => "site_keywords", :title => "Site Keywords",  :value => "Opal", :setting_type => "Public", :description => "The Keywords Metatag for your site. Used for search engine submission. Seperated by commas.", :item_type => "string")
-Setting.create(:name => "site_description", :title => "Site Description",  :value => "The Free, Open Source, Item Listing Application. List Anything!", :setting_type => "Public", :description => "The description for your site. Used in the title of your page(at the top of your browswer) and for search engine submission.", :item_type => "string")
-Setting.create(:name => "theme", :title => "Theme",  :value => "fracture", :setting_type => "Hidden", :description => "This is the visual theme for the entire system", :item_type => "string")
-Setting.create(:name => "max_items_per_user", :title => "Maximum Items per User",  :value => "0", :setting_type => "Item", :description => "This specifies the maximum number of items a user can create. Set to 0 for unlimited.", :item_type => "string")
-Setting.create(:name => "items_per_page", :title => "Items Per Page",  :value => "10", :setting_type => "Item", :description => "This is the number of items to show per page.", :item_type => "string")
-Setting.create(:name => "item_approval_required", :title => "Approval Required",  :value => "0", :setting_type => "Item", :description => "Enable this if you want to approve items created by users before they can be seen by the public. All unapproved items can viewed in the admin section. If disabled, all items will become approved upon creation.", :item_type => "bool")
-Setting.create(:name => "allow_user_registration",  :title => "User Registration", :value => "1", :setting_type => "User", :description => "This specifies if users can register for a new account.", :item_type => "bool")
-Setting.create(:name => "show_user_login", :title => "Display User Login",  :value => "1", :setting_type => "User", :description => "This specifies if the user login box is visible on the top menu bar. If disabled, users can login at site.example.com/browse/login", :item_type => "bool")
-Setting.create(:name => "users_can_delete_items", :title => "Let Users Delete Their Items",  :value => "1", :setting_type => "Item", :description => "This allows users to delete items that they've created. If disabled, only admins can delete items.", :item_type => "bool")
-Setting.create(:name => "caching", :title => "Page Caching",  :value => "0", :setting_type => "System", :description => "This allows item pages to be cached to speed up performance. A flat file is stored on the server that visitors will see, instead of having the server generate a dynamic page every time.", :item_type => "bool")
-Setting.create(:name => "enable_item_description", :title => "Enable Item Description",  :value => "1", :setting_type => "Item", :description => "Enable/Disable Item Description from item details and lists of items.", :item_type => "bool")
-Setting.create(:name => "enable_item_date", :title => "Enable Item Date",  :value => "1", :setting_type => "Item", :description => "Enable/Disable Item Date from item details and lists of items. This shows the date that the item was created.", :item_type => "bool")
-Setting.create(:name => "enable_contact_us", :title => "Enable Contact Us Form",  :value => "1", :setting_type => "Public", :description => "Enable/Disable The Contact Us Form in the About section.", :item_type => "bool")
+Setting.create(:name => "item_name", :value => "Item", :setting_type => "Item", :item_type => "string")
+Setting.create(:name => "item_name_plural",  :value => "Items", :setting_type => "Item",  :item_type => "string")
+Setting.create(:name => "site_title",  :value => "My Opal Website", :setting_type => "Public",  :item_type => "string")
+Setting.create(:name => "site_keywords",  :value => "Opal", :setting_type => "Public",  :item_type => "string")
+Setting.create(:name => "site_description",  :value => "The Free, Open Source, Item Listing Application. List Anything!", :setting_type => "Public",  :item_type => "string")
+Setting.create(:name => "theme",  :value => "fracture", :setting_type => "Hidden",  :item_type => "string")
+Setting.create(:name => "max_items_per_user",  :value => "0", :setting_type => "Item", :item_type => "string")
+Setting.create(:name => "items_per_page",  :value => "10", :setting_type => "Item", :item_type => "string")
+Setting.create(:name => "item_approval_required",  :value => "0", :setting_type => "Item",  :item_type => "bool")
+Setting.create(:name => "allow_user_registration", :value => "1", :setting_type => "User",  :item_type => "bool")
+Setting.create(:name => "show_user_login", :value => "1", :setting_type => "User",  :item_type => "bool")
+Setting.create(:name => "users_can_delete_items",  :value => "1", :setting_type => "Item",  :item_type => "bool")
+Setting.create(:name => "caching",  :value => "0", :setting_type => "System",  :item_type => "bool")
+Setting.create(:name => "enable_item_description",  :value => "1", :setting_type => "Item", :item_type => "bool")
+Setting.create(:name => "enable_item_date",  :value => "1", :setting_type => "Item", :item_type => "bool")
+Setting.create(:name => "enable_contact_us",  :value => "1", :setting_type => "Public", :item_type => "bool")
+
+Setting.create(:name => "display_help_sections",  :value => "0", :setting_type => "Public", :item_type => "bool")        
+Setting.create(:name => "list_type",  :value => "detailed", :setting_type => "Hidden", :item_type => "string") # choices: detailed, photos, small      
+Setting.create(:name => "include_child_category_items",  :value => "1", :setting_type => "Item", :item_type => "bool")        
+Setting.create(:name => "allow_item_list_type_changes",  :value => "1", :setting_type => "Item", :item_type => "bool") # let the public change the item list type(via session[:list_type])
+Setting.create(:name => "enable_navlinks",  :value => "1", :setting_type => "Item", :item_type => "bool")     
+Setting.create(:name => "allow_private_items", :value => "1", :setting_type => "Item", :item_type => "bool")          
+Setting.create(:name => "let_users_create_items", :value => "1", :setting_type => "Item", :item_type => "bool")              
+Setting.create(:name => "display_popular_items",  :value => "1", :setting_type => "Item", :item_type => "bool")
+Setting.create(:name => "display_item_views", :value => "1", :setting_type => "Item", :item_type => "bool")
+Setting.create(:name => "email_verification_required",   :value => "0", :setting_type => "User", :item_type => "bool")    
+Setting.create(:name => "allow_page_comments",  :value => "1", :setting_type => "Public", :item_type => "bool")
+Setting.create(:name => "allow_public_access",  :value => "1", :setting_type => "System", :item_type => "bool")
+Setting.create(:name => "opal_version",  :value => nil, :setting_type => "Hidden", :item_type => "string")
+Setting.create(:name => "section_blog",   :value => "1", :setting_type => "Section", :item_type => "bool")
+Setting.create(:name => "section_about",   :value => "1", :setting_type => "Section", :item_type => "bool")
+Setting.create(:name => "new_user_notification",  :value => "1", :setting_type => "User", :item_type => "bool")
+Setting.create(:name => "new_item_notification",  :value => "1", :setting_type => "Item", :item_type => "bool")
+Setting.create(:name => "display_featured_items", :value => "1", :setting_type => "Item", :item_type => "bool")    
+Setting.create(:name => "homepage_type", :value => "new_items", :setting_type => "Hidden", :item_type => "string")
+Setting.create(:name => "item_page_type", :value => "summarized", :setting_type => "Hidden", :item_type => "string")
+Setting.create(:name => "setup_completed", :value => "0", :item_type => "bool", :setting_type => "Hidden")   
+Setting.create(:name => "locale", :value => "en", :item_type => "special", :setting_type => "Public")
+Setting.create(:name => "allow_item_page_type_changes",  :value => "1", :setting_type => "Item", :item_type => "bool") 
+Setting.create(:name => "allow_item_page_type_changes",  :value => "1", :setting_type => "Item", :item_type => "bool") 
+Setting.create(:name => "opal_version", :value => "0.0.0", :setting_type => "Hidden", :item_type => "string")
+
+# Create Builtin Plugins
+plugin = Plugin.create(:name => "Image", :is_enabled => "1", :is_builtin => "1")
+    PluginSetting.create(:plugin_id => plugin.id, :name => "slideshow_speed",   :value => "2500", :setting_type => "System", :item_type => "string")
+    PluginSetting.create(:plugin_id => plugin.id, :name => "item_thumbnail_width",  :value => "180", :setting_type => "Plugin",  :item_type => "string")
+    PluginSetting.create(:plugin_id => plugin.id, :name => "item_thumbnail_height",   :value => "125", :setting_type => "Plugin",  :item_type => "string")           
+    PluginSetting.create(:plugin_id => plugin.id, :name => "resize_item_images",   :value => "0", :setting_type => "Plugin",  :item_type => "bool")   
+    PluginSetting.create(:plugin_id => plugin.id, :name => "item_image_width",   :value => "500", :setting_type => "Plugin",  :item_type => "string")
+    PluginSetting.create(:plugin_id => plugin.id, :name => "item_image_height",  :value => "500", :setting_type => "Plugin", :item_type => "string")        
+plugin = Plugin.create(:name => "Description",    :is_enabled => "1", :is_builtin => "1")
+plugin = Plugin.create(:name => "Feature", :is_enabled => "1", :is_builtin => "1")
+plugin = Plugin.create(:name => "Link", :is_enabled => "1", :is_builtin => "1")    
+plugin = Plugin.create(:name => "Review",  :is_enabled => "1", :is_builtin => "1")
+    PluginSetting.create(:plugin_id => plugin.id, :name => "review_type", :value => "Stars", :item_type => "option", :options => "Stars, Slider, Number")
+    PluginSetting.create(:plugin_id => plugin.id, :name => "score_min",  :value => "0",  :item_type => "string")
+    PluginSetting.create(:plugin_id => plugin.id, :name => "score_max",   :value => "5",  :item_type => "string")        
+plugin = Plugin.create(:name => "Comment", :is_enabled => "1", :is_builtin => "1")    
+plugin = Plugin.create(:name => "File", , :is_enabled => "1", :is_builtin => "1")
+    PluginSetting.create(:plugin_id => plugin.id, :name => "login_required_for_download",   :value => "0", :setting_type => "System",  :item_type => "bool")
+    PluginSetting.create(:plugin_id => plugin.id, :name => "log_downloads",  :value => "0", :setting_type => "System", :item_type => "bool")    
+plugin = Plugin.create(:name => "Tag", :is_enabled => "1", :is_builtin => "1")              
+plugin = Plugin.create(:name => "Discussion", :order_number => Plugin.next_order_number, :is_enabled => "1", :is_builtin => "1")
+
+
 
 # Create Categories
 Category.create(:name => "Uncategorized", :category_id => 0, :description => "Things that are just too cool to fit into one category.")
@@ -49,7 +95,6 @@ title = Setting.get_setting("title")
 Page.create(:title => "Banner Top", :description => "Any content added here will show at the top of your site. Useful for ad banners and javascript.", :page_type => "system")
 Page.create(:title => "Banner Bottom", :description => "Any content added here will show at the bottom of your site. Useful for ad banners and javascript.", :page_type => "system")
 Page.create(:title => "Main Home Page", :description => "The Main Home Page of your site.", :page_type => "system", :content => "<div class=\"box_2\" style=\"margin-bottom:5px\">\r\n<h1 class=\"title\">Welcome!</h1>Welcome to Opal. First time using Opal? No problem. Start by reading the <b>Getting Started</b> section.<br><br><h2 class=\"title\">Change this Section</h2>\r\n<div class=\"spacer\"></div>After you log in, Click on the <strong>admin Tab</strong>, then Click on the <strong>Pages Tab</strong>. In the <strong>System Pages Section</strong>, click on the edit icon next to the page: <span style=\"text-decoration: underline;\">Main Home Page</span>. That's all there is to it!</div>")
-Page.create(:title => "About Home", :description => "The Homepage of the About Section.", :page_type => "system", :content => "<div class=\"box_2\"><h1>What is Opal?</h1>Opal is a Ruby on Rails Item Management Application. Well, what kind of items can you <b>manage</b>? Anything! Bicycles, homes for sale, banana vendors, etc. can all be managed and organized by Opal.</div>")
 Page.create(:title => "Terms of Service", :description => "The Terms of Service for new users.", :page_type => "system", :content => "<h1>Terms of Service</h1>By joining this site, you agree not to add or submit any damaging or offensive content, including by not limited to: pornography, any malicious software or files, violent or hateful images, etc.<br><br>You also agree not to submit any content that is either stolen, plagiarized, or otherwise listed without the consent of the copyright holder.")
 # Add a new page that will show when a user is creating a new item.
 Page.create(:title => "New Item", :description => "This page appears when a User is creating a new item.", :page_type => "system", :content => "")
@@ -73,10 +118,28 @@ admin_group = Group.new(:name => "Admins", :description => "Supreme Masters. The
 admin_group.is_deletable = "0"
 admin_group.save  
 
+# Group Plugin Permissions 
+for plugin in Plugin.find(:all)
+  GroupPluginPermission.create(:group_id => users_group.id, :plugin_id => plugin.id, :can_read => "1") # turn on read permissions for users
+  GroupPluginPermission.create(:group_id => public_group.id, :plugin_id => plugin.id, :can_read => "1") # turn on read permissions for the public   
+end 
+
+
 # Create Default Group Plugin Permissions
 GroupPluginPermission.find(:first, :conditions => ["group_id = ? and plugin_id = ?", public_group.id, Plugin.find_by_name("Comment").id]).update_attribute(:can_create, "1")  
 GroupPluginPermission.find(:first, :conditions => ["group_id = ? and plugin_id = ?", users_group.id, Plugin.find_by_name("Comment").id]).update_attribute(:can_create, "1")  
 GroupPluginPermission.find(:first, :conditions => ["group_id = ? and plugin_id = ?", users_group.id, Plugin.find_by_name("Review").id]).update_attribute(:can_create, "1")  
+
+
+# Create Default Admin Account
+@admin = User.new(:first_name => "Bob", :last_name => "Jones", :username => "admin", :password => "admin", :is_admin => "1", :email => "admin@test.com")
+@admin.group_id = admin_group.id
+@admin.is_admin = "1" 
+@admin.is_verified = "1"     
+@admin.save
+
+
+
  
 puts "Done."
 
@@ -100,37 +163,37 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   
   #Create User Messages
   msg = UserMessage.new(:message => "Test message(unread) to test from admin.")
-  msg.from_user_id = 1
-  msg.user_id = 2
-  msg.to_user_id = 2
+  msg.from_user_id = @admin.id
+  msg.user_id = @user.id
+  msg.to_user_id = @user.id
   msg.save
   msg = UserMessage.new(:message => "Test message(read) to test from admin.", :is_read => "1")
-  msg.from_user_id = 1
-  msg.user_id = 2
-  msg.to_user_id = 2
+  msg.from_user_id = @admin.id
+  msg.user_id = @user.id
+  msg.to_user_id = @user.id
   msg.save    
   msg = UserMessage.new(:message => "Test Message from Test to Admin.", :reply_to_message_id => 1)
-  msg.from_user_id = 2
-  msg.user_id = 1
-  msg.to_user_id = 1  
+  msg.from_user_id = @user.id
+  msg.user_id = @admin.id
+  msg.to_user_id = @admin.id  
   msg.save     
   
   # Create Test Item
   item1 = Item.new(:name => "Test Item A", :description => "This is a test description")
-  item1.user_id = 1
+  item1.user_id = @admin.id
   item1.is_public = "1"
   item1.featured = true
   item1.is_approved = "1"
   item1.save
   
   item2 = Item.new(:name => "Test Item B(with a Really Really Really Really Really Long Name).", :description => "This is a test description. It is really really really really really really really really really really really really really really really really really really really really really really really really really really really really really really long.")
-  item2.user_id = 2
+  item2.user_id = @user.id
   item2.is_public = "1"
   item2.is_approved = "1"
   item2.save
   
   item3 = Item.new(:name => "Test Item C (Unapproved)", :description => "This is a test description. This item is neither approved nor Public.")
-  item3.user_id = 2
+  item3.user_id = @user.id
   item3.save
   
   
@@ -205,8 +268,18 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   tag = PluginTag.create(:name => "Cool", :item_id => item2.id)
   tag.is_approved = "1"
   tag.save
+
+  # Sample Discussion
+  discussion = PluginDiscussion.new(:item_id => 1, :user_id => 1, :title => "Test Discussion", :description => "This is a test discussion. Feel free to delete this.")
+  discussion.is_approved = "1"
+  discussion.save
+
+  discussion_post = PluginDiscussionPost.create(:item_id => 1, :user_id => 1, :plugin_discussion_id => discussion.id, :post => "This is a test post.")
+    
   
   # Create Public Page
+  Page.create(:title => "About", :description => "All about us.", :page_type => "public", :content => "<div class=\"box_2\"><h1>What is Opal?</h1>Opal is a Ruby on Rails Item Management Application. Well, what kind of items can you <b>manage</b>? Anything! Bicycles, homes for sale, banana vendors, etc. can all be managed and organized by Opal.</div>")
+  
   page = Page.new(:title => "Example Page", :content => "This is an example public page!", :page_type => "public")
   page.save
   
@@ -221,3 +294,5 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   puts "Done."
 end 
 
+
+Setting.find_by_name("opal_version").update_attribute(:value, "0.7.0") # Update Version    

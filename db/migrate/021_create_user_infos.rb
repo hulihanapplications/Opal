@@ -11,7 +11,11 @@ class CreateUserInfos < ActiveRecord::Migration
       t.column :description, :text
       t.column :interests, :string, :default => ""
       t.column :created_at, :datetime#this will get populated automatically  
-      t.column :updated_at, :datetime#this will get populated automatically 
+      t.column :updated_at, :datetime#this will get populated automatically
+      t.column :use_gravatar, :string, :default => "0", :limit => 1 
+      t.column :location, :string, :default => ""
+      t.column :forgot_password_code, :string
+      t.column :notify_of_new_messages, :boolean, :default => true
      end
   end 
 

@@ -29,11 +29,7 @@ class Item < ActiveRecord::Base
     "#{id}-#{name.parameterize}" 
   end
   
-  def create_everything
-    # Create Item Statistic Record
-    ItemStatistic.create(:item_id => self.id)
-    
-    
+  def create_everything   
     # Make Images Folder
     images_path = "#{RAILS_ROOT}/public/images/item_images/#{self.id}"
     FileUtils.mkdir_p(images_path) if !File.exist?(images_path) # create the folder if it doesn't exist

@@ -8,6 +8,12 @@ class CreatePages < ActiveRecord::Migration
       t.string :description, :default => ""      
       t.string :page_type, :default => "public" # public, system(title & description non-editable)
       t.text :content 
+      t.column :name, :string, :default => nil
+      t.column :deletable, :boolean, :default => true # if page can be deleted    
+      t.column :title_editable, :boolean, :default => true # if title can be edited
+      t.column :description_editable, :boolean, :default => true # if description can be edited    
+      t.column :content_editable, :boolean, :default => true # if content can be edited
+      t.column :published, :bool, :default => true      
       t.timestamps
     end
   end

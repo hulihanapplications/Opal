@@ -12,7 +12,11 @@ class CreateUsers < ActiveRecord::Migration
       t.column :is_disabled, :string,  :limit => 1, :default => "0" # are they disabled for being bad?      t.column :is_admin, :string, :limit => 1, :default => "0"
       t.column :is_admin, :string, :limit => 1, :default => "0"      
       t.column :created_at, :datetime#this will get populated automatically  
-      t.column :updated_at, :datetime#this will get populated automatically 
+      t.column :updated_at, :datetime#this will get populated automatically
+      t.column :registered_ip, :string, :default => "0.0.0.0" 
+      t.column :last_login_ip, :string, :default => "0.0.0.0"  
+      t.column :group_id, :integer, :default => 2 
+      t.column :locale, :string, :default => nil
     end
     
     # Make Avatar Folder

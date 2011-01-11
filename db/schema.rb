@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100913052029) do
+ActiveRecord::Schema.define(:version => 20110111201745) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -70,8 +70,8 @@ ActiveRecord::Schema.define(:version => 20100913052029) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "featured",                  :default => false
-    t.integer  "recent_views",              :default => 0
     t.integer  "views",                     :default => 0
+    t.integer  "recent_views",              :default => 0
     t.boolean  "locked",                    :default => false
   end
 
@@ -102,14 +102,14 @@ ActiveRecord::Schema.define(:version => 20100913052029) do
     t.string   "description",          :default => ""
     t.string   "page_type",            :default => "public"
     t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "name"
     t.boolean  "deletable",            :default => true
     t.boolean  "title_editable",       :default => true
     t.boolean  "description_editable", :default => true
     t.boolean  "content_editable",     :default => true
     t.boolean  "published",            :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "plugin_comments", :force => true do |t|
@@ -250,10 +250,8 @@ ActiveRecord::Schema.define(:version => 20100913052029) do
   create_table "plugin_settings", :force => true do |t|
     t.integer  "plugin_id"
     t.string   "name"
-    t.string   "title"
     t.string   "setting_type"
     t.string   "value"
-    t.string   "description"
     t.string   "item_type"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -292,10 +290,8 @@ ActiveRecord::Schema.define(:version => 20100913052029) do
 
   create_table "settings", :force => true do |t|
     t.string "name"
-    t.string "title"
     t.string "setting_type"
     t.string "value"
-    t.string "description"
     t.string "item_type"
     t.string "options"
   end
@@ -306,6 +302,8 @@ ActiveRecord::Schema.define(:version => 20100913052029) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "simple_captcha_data", ["key"], :name => "idx_key"
 
   create_table "user_infos", :force => true do |t|
     t.integer  "user_id"
@@ -320,20 +318,20 @@ ActiveRecord::Schema.define(:version => 20100913052029) do
     t.datetime "updated_at"
     t.string   "use_gravatar",           :limit => 1, :default => "0"
     t.string   "location",                            :default => ""
-    t.boolean  "notify_of_new_messages",              :default => true
     t.string   "forgot_password_code"
+    t.boolean  "notify_of_new_messages",              :default => true
   end
 
   create_table "user_messages", :force => true do |t|
     t.text     "message"
     t.integer  "user_id"
     t.integer  "from_user_id"
+    t.integer  "to_user_id"
     t.integer  "reply_to_message_id",              :default => 0
     t.string   "is_read",             :limit => 1, :default => "0"
+    t.boolean  "is_deletable",                     :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "to_user_id"
-    t.boolean  "is_deletable",                     :default => true
   end
 
   create_table "user_verifications", :force => true do |t|

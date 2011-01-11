@@ -9,6 +9,7 @@ class CreatePluginReviews < ActiveRecord::Migration
       t.integer :useful_score, :default => 0 # is this useful? 
       t.column :created_at, :datetime#this will get populated automatically
       t.column :updated_at, :datetime#this will get populated automatically
+      t.column :vote_score, :integer, :default => 0
     end
   end
 

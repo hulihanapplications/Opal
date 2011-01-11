@@ -9,6 +9,7 @@ class CreatePluginFiles < ActiveRecord::Migration
       t.string :is_approved, :limit => 1, :default => "0" #has this review been approved by admins?
       t.column :created_at, :datetime#this will get populated automatically
       t.column :updated_at, :datetime#this will get populated automatically
+      t.column :downloads, :integer, :default => 0          
     end
     
     # Create Files Folder

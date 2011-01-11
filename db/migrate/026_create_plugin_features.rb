@@ -9,6 +9,15 @@ class CreatePluginFeatures < ActiveRecord::Migration
       t.column :order_number, :integer, :default => 0
       t.column :created_at, :datetime#this will get populated automatically
       t.column :updated_at, :datetime#this will get populated automatically
+      t.column :icon_url, :string, :default => nil
+      t.column :description, :string, :default => nil
+      t.column :search_type, :string, :default => "Grouped"
+      t.column :is_required, :bool, :default => false
+      t.column :feature_type, :string, :default => "text"
+      t.column :default_value, :string, :default => nil
+      t.column :min, :float, :default => nil
+      t.column :max, :float, :default => nil
+      t.column :listed, :bool, :default => true
     end
   end
 

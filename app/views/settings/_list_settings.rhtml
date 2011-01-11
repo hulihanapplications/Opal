@@ -14,7 +14,7 @@
 	    <% @class = cycle("row_a", "row_b") %>
 	    <tr class="<%= @class %>">
 	        <td align=left>
-	            <h2><%= t("setting.title.#{setting.name}", :default => setting.title) %></h2>
+	            <h2><%= t("setting.title.#{setting.name}", :default => setting.name.humanize) %></h2>
 	        </td>
 	        <td align=right valign=middle>
 	        	<div align=right>
@@ -46,7 +46,7 @@
 	    <tr class="<%= @class %>">
 	        <td colspan=2 align=left>
 	            <div class="setting_description">
-	                <%= t("setting.description.#{setting.name}", :default => setting.description) %>
+	                <%= raw t("setting.description.#{setting.name}", :default => "") %>
 	            </div>
 	        </td>
 	    </tr>

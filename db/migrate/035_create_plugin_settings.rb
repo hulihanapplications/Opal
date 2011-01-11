@@ -3,12 +3,11 @@ class CreatePluginSettings < ActiveRecord::Migration
     create_table :plugin_settings do |t|
       t.column :plugin_id, :integer
       t.column :name, :string 
-      t.column :title, :string
       t.column :setting_type, :string
       t.column :value, :string
-      t.column :description, :string
       t.column :item_type, :string
       t.timestamps
+      t.column :options, :string, :default => nil
     end
   end
 

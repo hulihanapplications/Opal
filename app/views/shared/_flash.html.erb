@@ -1,5 +1,9 @@
-<% if flash[:notice]  && flash[:notice] != "" %><div class="notice"><div class="flash_notice"><%= flash[:notice] %></div></div><% end %> 
-<% if flash[:success] && flash[:success] != "" %><div class="notice"><div class="success"><%= flash[:success] %></div></div><% end %> 
-<% if flash[:warning] && flash[:warning] != "" %><div class="notice"><div class="flash_warning"><%= flash[:warning] %></div></div><% end %> 
-<% if flash[:failure] && flash[:failure] != "" %><div class="notice"><div class="failure"><%= flash[:failure] %></div></div><% end %> 
-<% if flash[:info] && flash[:info] != "" %><div class="notice"><div class="flash_info"><%= flash[:info] %></div></div><% end %> 
+<% for notice_type in %w{notice info success warning failure} %>
+	<% if flash[notice_type.to_sym] && !flash[notice_type.to_sym].empty? %>
+		<div class="notice">
+			<div class="<%= notice_type %>">
+				<%= raw flash[notice_type.to_sym] %>
+			</div>
+		</div>
+	<% end %>
+<% end %>

@@ -57,8 +57,8 @@
 		.notice .info{color:#aaa;border:2px solid #333;background-color:#ccc;margin: 0px 0px 10px 0px;;padding:5px;text-align:center;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
 		.notice .warning{color:#aaa;border:2px solid #333;background-color:#ccc;margin: 0px 0px 10px 0px;;padding:5px;text-align:center;-moz-border-radius: 5px;-webkit-border-radius: 5px;}	
 		.notice .failure, .errorExplanation{color:#AF0000;border:2px solid #AF0000;background-color:#F3B3B3;margin: 0px 0px 10px 0px;padding:5px;text-align:center;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
-		.fieldWithErrors{color:#AF0000;}
-			.fieldWithErrors input, .fieldWithErrors textarea, .fieldWithErrors select{border: 1px solid #AF0000;}
+		.field_with_errors{color:#AF0000;}
+			.field_with_errors input, .field_with_errors textarea, .field_with_errors select{border: 1px solid #AF0000;}
 
 	/* Sidebar & Main Sections */
 	#main > .header{margin-bottom:10px;}

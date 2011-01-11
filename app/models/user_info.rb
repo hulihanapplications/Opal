@@ -1,5 +1,5 @@
 class UserInfo < ActiveRecord::Base
- validates_uniqueness_of :user_id, :message => "There can only be one group of info per user!"
+ validates_uniqueness_of :user_id
  belongs_to :user
  before_save :strip_html 
  

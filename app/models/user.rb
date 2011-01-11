@@ -80,7 +80,7 @@ class User < ActiveRecord::Base
       item.destroy
     end
   
-    self.user_info.destroy # delete user info(descriptions, avatar, etc.)
+    self.user_info.destroy if self.user_info # delete user info(descriptions, avatar, etc.)
     
     for item in self.user_messages # delete messages
       item.destroy 
@@ -127,8 +127,7 @@ class User < ActiveRecord::Base
     # Dave: This is called after a user account is created. Makes Public Info, etc.
     user_info = UserInfo.new(:description => "No Description.")
     user_info.user_id = self.id
-    user_info.save
-    
+    user_info.save    
   end
 
  def strip_html # Automatically strips any tags from any string to text typed column

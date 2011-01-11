@@ -26,15 +26,15 @@ class UsersController < ApplicationController
    
     def create
       @user = User.new(params[:user])
-      @user_info = UserInfo.new(params[:user_info])
-      @user_info.user_id = @user.id
+      #@user_info = UserInfo.new(params[:user_info])
+      #@user_info.user_id = @user.id
       if params[:is_admin] == "1"
         @user.is_admin = "1" # Make user an admin 
       end
       
       @user.is_verified = "1"
       
-      if @user.save && @user_info.save # save successful
+      if @user.save #&& @user_info.save # save successful
         flash[:success] = t("notice.item_create_success", :item => User.human_name)      
         Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log => t("log.item_create", :item => User.human_name, :name => @user.username))
         redirect_to :action => 'index'        

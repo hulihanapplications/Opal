@@ -1,25 +1,30 @@
 <%# Main Menu %>
-<ul class="main_menu">
-	<li>
-		<%= link_to t("section.title.home"), {:action => "index", :controller => "browse"}, :class => (params[:controller] == "browse"  && params[:action] == "index") ? "selected" : "" %>		
-	</li>
-	<li>
-		<%= link_to "#{@setting[:item_name_plural].capitalize}", {:action => "index", :controller => "items" }, :class => (params[:controller] == "items") ? "selected" : "" %>
-	</li>
-	<% if Setting.get_setting_bool("section_blog") %>	
-	<li>
-		<%= link_to t("section.title.blog"), {:action => "index", :controller => "blog" }, :class => (params[:controller] == "blog") ? "selected" : ""  %>
-	</li>
-	<% end %>
-	<% if Setting.get_setting_bool("section_forum") %>	
-	<li>
-		<%= link_to t("section.title.forum"), {:action => "index", :controller => "forum" }, :class => (params[:controller] == "forum") ? "selected" : ""%>
-	</li>	
-	<% end %>
-	<% for page in Page.all(:page_type => "Public", :root_only => true) %>
-	<li>
-		<%= link_to page.title, {:action => "page", :controller => "pages", :id => page}, :class => (params[:controller] == "pages" && params[:id] == page.to_param) ? "selected" : "" %>
-	</li>
-	<% end %>	
-</ul>
+<div id="main_menu">
+	<ul class="main_menu">
+		<li>
+			<%= link_to t("section.title.home"), {:action => "index", :controller => "browse"}, :class => (params[:controller] == "browse"  && params[:action] == "index") ? "selected" : "" %>		
+		</li>
+		<li>
+			<%= link_to "#{@setting[:item_name_plural].capitalize}", {:action => "index", :controller => "items" }, :class => (params[:controller] == "items") ? "selected" : "" %>
+		</li>
+		<% if Setting.get_setting_bool("section_blog") %>	
+		<li>
+			<%= link_to t("section.title.blog"), {:action => "index", :controller => "blog" }, :class => (params[:controller] == "blog") ? "selected" : ""  %>
+		</li>
+		<% end %>
+		<% if Setting.get_setting_bool("section_forum") %>	
+		<li>
+			<%= link_to t("section.title.forum"), {:action => "index", :controller => "forum" }, :class => (params[:controller] == "forum") ? "selected" : ""%>
+		</li>	
+		<% end %>
+		<% for page in Page.all(:page_type => "Public", :root_only => true) %>
+		<li>
+			<%= link_to page.title, {:action => "page", :controller => "pages", :id => page}, :class => (params[:controller] == "pages" && params[:id] == page.to_param) ? "selected" : "" %>
+		</li>
+		<% end %>	
+	</ul>
+	 <span id="breaker"></span>
+</div>
+
+
 

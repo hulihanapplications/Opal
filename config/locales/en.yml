@@ -524,8 +524,8 @@ en:
         name: Name
         description: Description
         views: Views
-        created_at: Creation Time
-        updated_at: Last Updated
+        created_at: Created
+        updated_at: Updated
         user_id: Added by
         featured: Featured
         featured_description: If featured, this will be given special attention and shown on the homepage.        

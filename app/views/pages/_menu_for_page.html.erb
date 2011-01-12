@@ -1,4 +1,4 @@
-<div class="box_1">
+<div class="box_1" id="page_menu">
 		<table style="width:100%" cellpadding=0 cellspacing=0>
 			<tr>
 				<td align=left>
@@ -15,9 +15,11 @@
 		</table>
 		<div class="spacer"></div>
 
-		<% for subpage in page.pages %>
-			<%= descend_page(subpage) %>
-		<% end %>	
+		<div class="pages">				
+			<% for subpage in page.pages %>
+				<%= descend_page(subpage) %>
+			<% end %>	
+		</div>
 	   <%= raw "<hr>" if page.pages.size > 0 %> 
 	   <% if get_setting_bool("allow_user_registration") %>
 	   		<div class="indent"> 

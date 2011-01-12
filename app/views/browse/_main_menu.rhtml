@@ -11,15 +11,15 @@
 		<%= link_to t("section.title.blog"), {:action => "index", :controller => "blog" }, :class => (params[:controller] == "blog") ? "selected" : ""  %>
 	</li>
 	<% end %>
-	<% if Setting.get_setting_bool("section_about") %>
-	<li>
-		<%= link_to t("section.title.about"), {:action => "index", :controller => "about" }, :class => (params[:controller] == "about") ? "selected" : ""  %>
-	</li>
-	<% end %>
 	<% if Setting.get_setting_bool("section_forum") %>	
 	<li>
 		<%= link_to t("section.title.forum"), {:action => "index", :controller => "forum" }, :class => (params[:controller] == "forum") ? "selected" : ""%>
 	</li>	
 	<% end %>
+	<% for page in Page.all(:page_type => "Public", :root_only => true) %>
+	<li>
+		<%= link_to page.title, {:action => "page", :controller => "pages", :id => page}, :class => (params[:controller] == "pages" && params[:id] == page.to_param) ? "selected" : "" %>
+	</li>
+	<% end %>	
 </ul>
 

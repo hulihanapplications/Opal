@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(:version => 20110111201745) do
     t.boolean  "description_editable", :default => true
     t.boolean  "content_editable",     :default => true
     t.boolean  "published",            :default => true
+    t.integer  "order_number"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -270,7 +271,6 @@ ActiveRecord::Schema.define(:version => 20110111201745) do
 
   create_table "plugins", :force => true do |t|
     t.string   "name"
-    t.string   "description",               :default => ""
     t.integer  "order_number",              :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"

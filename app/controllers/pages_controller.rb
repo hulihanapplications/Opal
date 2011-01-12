@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
- before_filter :authenticate_admin, :except => [:create_page_comment, :redirect_to_page, :page, :tinymce_images] # make sure logged in user is an admin    
- before_filter :enable_admin_menu # show admin menu 
+ before_filter :authenticate_admin, :except => [:create_page_comment, :redirect_to_page, :page, :tinymce_images, :view] # make sure logged in user is an admin    
+ before_filter :enable_admin_menu, :except => [:view]# show admin menu 
  before_filter :uses_tiny_mce, :only => [:new, :edit]  # which actions to load tiny_mce, TinyMCE Config is done in Layout. 
  
  def index
@@ -117,9 +117,9 @@ class PagesController < ApplicationController
     page = Page.find(params[:id])
     if page.published || @logged_in_user.is_admin? # make sure this is a published page they're going to
       if page.page_type == "blog" # go to blog page
-        redirect_to :action => "page", :controller => "blog", :id => page
+        redirect_to :action => "post", :controller => "blog", :id => page
       else # public page 
-        redirect_to :action => "page", :controller => "about", :id => page     
+        redirect_to :action => "view", :id => page     
       end
     else
       flash[:failure] = t("notice.not_visible")      
@@ -192,6 +192,23 @@ class PagesController < ApplicationController
        flash[:failure] = t("notice.item_delete_failure", :item => Image.human_name)     
      end
     redirect_to :action => "tinymce_images"
+  end  
+
+  def view
+     if params[:id] # A page number is set, show that page
+       @page = Page.find(params[:id])   
+       if @page.published || @logged_in_user.is_admin? # make sure this is a published page they're going to
+           @setting[:meta_title] = @page.title + " - " + @page.description + " - " + @setting[:meta_title]
+           @setting[:meta_keywords] = @page.title + " - " + @page.description + " - " + @setting[:meta_title]
+           @setting[:meta_description] = @page.title + " - " + @page.description + " - " + @setting[:meta_title]
+           @comments = PageComment.paginate :page => params[:page], :per_page => 25, :conditions => ["page_id = ? and is_approved = ?", @page.id, "1"]                  
+       else
+          flash[:failure] = "#{t("notice.not_visible")}"      
+          redirect_to :action => "index", :controller => "browse"
+       end    
+     else 
+       @page = nil
+     end
   end  
   
 end

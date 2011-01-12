@@ -57,9 +57,9 @@
 										<tr>
 											<td align=left style="vertical-align:middle">										
 												<% if item.created_at < item.updated_at %>
-													<%= Item.human_attribute_name(:updated_at) %> <%= friendly_date item.updated_at %>
+													<%= Item.human_attribute_name(:updated_at) %>: <%= friendly_date item.updated_at %>
 												<% else %>
-													<%= Item.human_attribute_name(:created_at) %> <%= friendly_date item.created_at %>
+													<%= Item.human_attribute_name(:created_at) %>: <%= friendly_date item.created_at %>
 												<% end %>
 											</td>
 											<td align=right style="vertical-align:middle">

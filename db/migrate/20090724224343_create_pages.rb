@@ -13,7 +13,8 @@ class CreatePages < ActiveRecord::Migration
       t.column :title_editable, :boolean, :default => true # if title can be edited
       t.column :description_editable, :boolean, :default => true # if description can be edited    
       t.column :content_editable, :boolean, :default => true # if content can be edited
-      t.column :published, :bool, :default => true      
+      t.column :published, :bool, :default => true   
+      t.column :order_number, :integer      
       t.timestamps
     end
   end

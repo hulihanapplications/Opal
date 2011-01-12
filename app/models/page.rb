@@ -20,6 +20,7 @@ class Page < ActiveRecord::Base
     end
   end 
 
+
   def to_param # make custom parameter generator for seo urls, to use: pass actual object(not id) into id ie: :id => object
     # this is also backwards compatible with regular integer id lookups, since .to_i gets only contiguous numbers, ie: "4-some-string-here".to_i # => 4    
     "#{id}-#{title.parameterize}" 
@@ -83,6 +84,15 @@ class Page < ActiveRecord::Base
    end
   end
  
+  def self.all(options = {})
+    #options[:page_type]
+    conditions = Array.new
+    conditions << ["page_id = ?", 0] if options[:root_only]    
+    conditions << ["page_type = ?", options[:page_type].downcase] if options[:page_type]
+    
+    where(ActiveRecord::Base.combine_conditions(conditions))
+  end
+  
   def children # get the children of this category
     return Page.find(:all, :conditions => ["page_id = ?", self.id], :order => "title ASC")    
   end 

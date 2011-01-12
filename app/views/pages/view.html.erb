@@ -1,0 +1,38 @@
+<% if @page.pages.size > 0 %>
+	<div id="side">
+		<% if params[:controller] == "blog" %>
+			<%= render :partial => "blog/menu" %>
+		<% else %>
+			<%= render :partial => "menu_for_page", :locals => {:page => @page}  %>
+		<% end %>
+	</div>
+	<div id="main">	
+<% end %>
+	   <%= render :partial => "pages/header", :locals => {:page => @page} %>
+	   
+	   <div class="page">
+			<%= show_page(@page) %>
+	   </div>
+	   
+	   <% if !@page.is_system_page? %>
+	   		<% if Setting.get_setting_bool("allow_page_comments") %>
+		   		<% if @comments.size > 0 %>
+					<div class="box_2">
+						<h2 class="title"><%= @comments.size %> <%= PageComment.human_name.pluralize %></h2>	
+						<%= page_entries_info @comments, :entry_name => PageComment.human_name %>									
+						<%= render :partial =>  "pages/list_page_comments", :locals => {:comments => @comments}  %>
+						<div align=center><%= will_paginate @comments %></div>																   			
+					</div>												   			
+				<% end %>
+				 <div class="box_2">
+				 	<h3 class="title"><%= t("label.item_new", :item => PageComment.human_name) %></h3>			
+						<%= form_tag  :action => 'create_page_comment', :controller => "pages", :id => @page.id  %>
+						   	<%= render :partial =>  "pages/page_comment_form" %>
+							<input type="submit" value="<%= t("label.item_create", :item => PageComment.human_name) %>" class="button_1">
+						</form>
+				 </div>					
+			<% end %>
+	    <% end %>  
+<% if @page.pages.size > 0 %>
+	</div>
+<% end %>

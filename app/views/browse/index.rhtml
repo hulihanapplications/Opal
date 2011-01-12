@@ -1,4 +1,3 @@
-<%= simple_captcha_key  %>
 <% plugins = Plugin.enabled %>
 <% for plugin in plugins %>
 			<%= render :partial => plugin.partial_path(:type => "home"), :locals => {:plugin => plugin } rescue nil %>

@@ -1,26 +1,29 @@
-<table cellpadding=0 cellspacing=0 style="width:100%">
-	<tr>
-		<td align=left style="text-align:left;vertical-align:bottom"> 
-			<h1 class="title"> <%= link_to page.title, {:action => "page", :controller => "pages", :id => page} %></h1>							
-		</td>
-		<td align=right style="text-align:right;vertical-align:middle">
-			<%= friendly_date page.created_at %>
-			<% if page.user %>
-				<b><%= link_to t("label.user_by", :name => h(page.user.username)), {:action => "user", :controller => "browse", :id => page.user}, :title => "#{page.user.username}"  %></b>
-				<%= user_avatar(page.user, :size => "tiny") %>
-			<% end %>										
-			<% if @logged_in_user.is_admin?  %>
-				<%= link_to icon("edit", t("single.edit")), {:action => "edit", :controller => "pages", :id => page.id, :type => page.page_type.capitalize} %>
-				<%= link_to icon("delete", t("single.delete")), { :action => 'delete', :controller => "pages", :id => page.id, :type => page.page_type.capitalize}, :confirm => t("confirm.delete") %>
-			<% end %>																						
-	 	</td>									
-	</tr>
-</table>
 
-<div class="spacer"></div>
+	<table cellpadding=0 cellspacing=0 style="width:100%">
+		<tr>
+			<td align=left style="text-align:left;vertical-align:bottom"> 
+				<h1 class="title"> <%= link_to page.title, {:action => "page", :controller => "pages", :id => page} %></h1>							
+			</td>
+			<td align=right style="text-align:right;vertical-align:middle">
+				<%= friendly_date page.created_at %>
+				<% if page.user %>
+					<b><%= link_to t("label.user_by", :name => h(page.user.username)), {:action => "user", :controller => "browse", :id => page.user}, :title => "#{page.user.username}"  %></b>
+					<%= user_avatar(page.user, :size => "tiny") %>
+				<% end %>										
+				<% if @logged_in_user.is_admin?  %>
+					<%= link_to icon("edit", t("single.edit")), {:action => "edit", :controller => "pages", :id => page.id, :type => page.page_type.capitalize} %>
+					<%= link_to icon("delete", t("single.delete")), { :action => 'delete', :controller => "pages", :id => page.id, :type => page.page_type.capitalize}, :confirm => t("confirm.delete") %>
+				<% end %>																						
+		 	</td>									
+		</tr>
+	</table>
+	
+	<div class="spacer"></div>
+	
+	<div style="height:10px"></div>
+	<div class="content">
+		<%= raw page.content %>
+	</div>
+	<div style="height:10px"></div>	
 
-<div style="height:10px"></div>
-<div class="page">
-	<%= page.content %>
-</div>
-<div style="height:10px"></div>
+

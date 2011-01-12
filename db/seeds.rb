@@ -24,7 +24,7 @@ Setting.create(:name => "item_name", :value => "Item", :setting_type => "Item", 
 Setting.create(:name => "item_name_plural",  :value => "Items", :setting_type => "Item",  :item_type => "string")
 Setting.create(:name => "site_title",  :value => "My Opal Website", :setting_type => "Public",  :item_type => "string")
 Setting.create(:name => "site_keywords",  :value => "Opal", :setting_type => "Public",  :item_type => "string")
-Setting.create(:name => "site_description",  :value => "The Free, Open Source, Item Listing Application. List Anything!", :setting_type => "Public",  :item_type => "string")
+Setting.create(:name => "site_description",  :value => "The Free, Open Source, Item Management System. List Anything!", :setting_type => "Public",  :item_type => "string")
 Setting.create(:name => "theme",  :value => "fracture", :setting_type => "Hidden",  :item_type => "string")
 Setting.create(:name => "max_items_per_user",  :value => "0", :setting_type => "Item", :item_type => "string")
 Setting.create(:name => "items_per_page",  :value => "10", :setting_type => "Item", :item_type => "string")
@@ -51,7 +51,6 @@ Setting.create(:name => "allow_page_comments",  :value => "1", :setting_type => 
 Setting.create(:name => "allow_public_access",  :value => "1", :setting_type => "System", :item_type => "bool")
 Setting.create(:name => "opal_version",  :value => nil, :setting_type => "Hidden", :item_type => "string")
 Setting.create(:name => "section_blog",   :value => "1", :setting_type => "Section", :item_type => "bool")
-Setting.create(:name => "section_about",   :value => "1", :setting_type => "Section", :item_type => "bool")
 Setting.create(:name => "new_user_notification",  :value => "1", :setting_type => "User", :item_type => "bool")
 Setting.create(:name => "new_item_notification",  :value => "1", :setting_type => "Item", :item_type => "bool")
 Setting.create(:name => "display_featured_items", :value => "1", :setting_type => "Item", :item_type => "bool")    
@@ -79,7 +78,7 @@ plugin = Plugin.create(:name => "Review",  :is_enabled => "1", :is_builtin => "1
     PluginSetting.create(:plugin_id => plugin.id, :name => "score_min",  :value => "0",  :item_type => "string")
     PluginSetting.create(:plugin_id => plugin.id, :name => "score_max",   :value => "5",  :item_type => "string")        
 plugin = Plugin.create(:name => "Comment", :is_enabled => "1", :is_builtin => "1")    
-plugin = Plugin.create(:name => "File", , :is_enabled => "1", :is_builtin => "1")
+plugin = Plugin.create(:name => "File",  :is_enabled => "1", :is_builtin => "1")
     PluginSetting.create(:plugin_id => plugin.id, :name => "login_required_for_download",   :value => "0", :setting_type => "System",  :item_type => "bool")
     PluginSetting.create(:plugin_id => plugin.id, :name => "log_downloads",  :value => "0", :setting_type => "System", :item_type => "bool")    
 plugin = Plugin.create(:name => "Tag", :is_enabled => "1", :is_builtin => "1")              
@@ -280,8 +279,8 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   # Create Public Page
   Page.create(:title => "About", :description => "All about us.", :page_type => "public", :content => "<div class=\"box_2\"><h1>What is Opal?</h1>Opal is a Ruby on Rails Item Management Application. Well, what kind of items can you <b>manage</b>? Anything! Bicycles, homes for sale, banana vendors, etc. can all be managed and organized by Opal.</div>")
   
-  page = Page.new(:title => "Example Page", :content => "This is an example public page!", :page_type => "public")
-  page.save
+  #page = Page.new(:title => "Example Page", :content => "This is an example public page!", :page_type => "public")
+  #page.save
   
   # Create Blog Post
   blog_page = Page.new(:title => "First Post", :content => "This is the first blog post!", :page_type => "blog")

@@ -14,10 +14,10 @@
 	     <tr><td><%= f.label :password_confirmation %></td><td > <%= f.password_field :password_confirmation %></td></tr>
 	     <tr><td><%= f.label :locale %></td><td > <%= render :partial => "shared/select_locale", :locals => {:options => {:input_name => "user[locale]"}}  %></td></tr>
 	     <tr><td><%= t("label.captcha") %></td><td align=left><%= show_simple_captcha %></td></tr>
-		 <% page = Page.get_system_page("Terms Of Service") %>
+		 <% page = Page.find_by_name("terms_of_service") %>
 	     <tr><td colspan=2 align=center>
 	     	<div style="height:20px"></div>	
-				<%= t("label.agree_to_tos") %> <%= link_to(t("page.title.terms_of_service", :default => page.title), {:action => "page",  :controller => "pages", :id => page}, :class => "page_link", :title => page.description) %>
+				<%= t("label.agree_to_tos") %> <%= link_to_page(page) %>
 			
 			</td></tr>
 	     <tr><td colspan=2 align=center><%= submit_tag t("label.create_account"), :class => "button_1" %></td></tr>
@@ -25,7 +25,7 @@
 	   <% end %>
 	<br>
 </div>
-<%= observe_field("user_username",
+<%#= observe_field("user_username",
   :frequency => 1,
   :update => "username_search_box",
   :url => {:action => "check_username"},

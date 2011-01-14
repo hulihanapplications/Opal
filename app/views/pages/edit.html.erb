@@ -43,7 +43,7 @@
 				
 	</div>
 	<div id="main">
-		<input type="hidden" name="page[page_type]" value="<%= params[:type].downcase %>">
+		<input type="hidden" name="page[page_type]" value="<%= @page.page_type.downcase %>">
 		<div class="box_2" style="margin-bottom:5px" align=left>
 			<h2 class="title">
 				<%= t("label.item_edit", :item => @page.human_name) %>
@@ -60,5 +60,5 @@
 </form>
 
 <div align=center>						
-	<%= link_to icon("arrow_left") + " " + t("single.back"), :back %>
+	<%= link_to icon("arrow_left") + " " + t("single.back"), {:action => "index", :type => @page.page_type}  %>
 </div>

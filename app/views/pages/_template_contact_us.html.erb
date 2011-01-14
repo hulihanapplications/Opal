@@ -1,0 +1,23 @@
+<div align=center>
+	<% form_tag({:action => "send_contact_us", :controller => "pages"}) do |f| %>
+	 <table>
+		 <tr>
+		 	<td align=left><%= t("single.name") %></td>
+			<td align=left><input type="text" name="name" style="width:100%"></td>
+		 </tr>
+		 <tr>
+		 	<td align=left><%= User.human_attribute_name(:email) %> </td>
+			<td align=left><input type="text" name="email" style="width:100%"></td>
+		 </tr>
+		 <tr>
+		 	<td align=left><%= UserMessage.human_name %> </td>
+		 	<td align=left><textarea name="message" style="width:100%"></textarea></td>			 
+		 </tr>
+	         <tr>
+	         	<td align=left><%= t("label.captcha") %></td>
+	     	<td align=left><%= show_simple_captcha %></td>
+		</tr>
+	     <tr><td align=center colspan=2><br><%= submit_tag  t("single.send"), :class => "button_1" %></td></tr>
+	 </table>
+	<% end %>	
+</div>

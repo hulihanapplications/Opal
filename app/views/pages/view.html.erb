@@ -1,9 +1,11 @@
-<% if @page.pages.size > 0 %>
+<% subpages = Page.all(:page_id => @page.id, :display_in_menu => true) %>
+<% if subpages.size > 0 %>
 	<div id="side">
 		<% if params[:controller] == "blog" %>
 			<%= render :partial => "blog/menu" %>
 		<% else %>
-			<%= render :partial => "menu_for_page", :locals => {:page => @page}  %>
+				<%= render :partial => "menu_for_page", :locals => {:page => @page, :subpages => subpages}  %>
+				
 		<% end %>
 	</div>
 	<div id="main">	
@@ -12,6 +14,9 @@
 	   
 	   <div class="page">
 			<%= show_page(@page) %>
+	   
+	   		<%# Handle Special Pages %>
+			<%= render :partial => "pages/template_contact_us" if @page.name == "contact_us" %>
 	   </div>
 	   
 	   <% if !@page.is_system_page? %>
@@ -24,15 +29,17 @@
 						<div align=center><%= will_paginate @comments %></div>																   			
 					</div>												   			
 				<% end %>
+				<% if !@page.locked %>
 				 <div class="box_2">
 				 	<h3 class="title"><%= t("label.item_new", :item => PageComment.human_name) %></h3>			
 						<%= form_tag  :action => 'create_page_comment', :controller => "pages", :id => @page.id  %>
 						   	<%= render :partial =>  "pages/page_comment_form" %>
 							<input type="submit" value="<%= t("label.item_create", :item => PageComment.human_name) %>" class="button_1">
 						</form>
-				 </div>					
+				 </div>		
+				<% end %>			
 			<% end %>
 	    <% end %>  
-<% if @page.pages.size > 0 %>
+<% if subpages.size > 0 %>
 	</div>
 <% end %>

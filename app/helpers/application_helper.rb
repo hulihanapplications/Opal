@@ -43,7 +43,7 @@ module ApplicationHelper
   
   def link_to_page(page, options = {})
     options[:truncate_length] = 256 if options[:truncate].nil?    
-    raw link_to(truncate(t("page.title.#{page.title.delete(' ').underscore}", :default => page.title), :length => options[:truncate_length]), {:action => "view",  :controller => "pages", :id => page}, :class => "page_link", :title => t("page.description.#{page.title.delete(' ').underscore}", :default => page.description))   
+    raw link_to(truncate(t("page.title.#{page.title.delete(' ').underscore}", :default => page.title), :length => options[:truncate_length]), {:action => "page",  :controller => "pages", :id => page}, :class => "page_link", :title => t("page.description.#{page.title.delete(' ').underscore}", :default => page.description))   
   end
 
    def user_avatar(user, options = {:size => "normal"})
@@ -195,8 +195,8 @@ module ApplicationHelper
             html += "<td align=right class=\"icon_column\"><img src=\"/themes/#{@setting[:theme]}/images/icons/private.png\" class=\"icon help\" title=\"This is not published and cannot be seen by others.\"></td>" if !page.published                        
             html += "<td align=right class=\"icon_column\"><img src=\"/themes/#{@setting[:theme]}/images/icons/help.png\" class=\"icon help\" title=\"#{page.description}\"></td>" if page.description && page.description != ""            
             html += "<td align=right class=\"icon_column\">" + link_to(icon("new", "#{t("label.item_new_child", :item => Page.human_name)}"), {:action => "new", :controller => "pages", :id => page}, :class => "transparent") + "</td>" if page.is_public_page?              
-            html += "<td align=right class=\"icon_column\">" + link_to(icon("edit"), {:action => "edit", :controller => "pages", :id => page}, :class => "transparent") + "</td>"
-            html += "<td align=right class=\"icon_column\">" + link_to(icon("delete"), {:action => "delete", :controller => "pages", :id => page}, :confirm => "Are you sure you want to delete this?", :class => "transparent") + "</td>" if !page.is_system_page? 
+            html += "<td align=right class=\"icon_column\">" + link_to(icon("edit"), {:action => "edit", :controller => "pages", :id => page}, :class => "transparent") + "</td>" 
+            html += "<td align=right class=\"icon_column\">" + link_to(icon("delete"), {:action => "delete", :controller => "pages", :id => page}, :confirm => "Are you sure you want to delete this?", :class => "transparent") + "</td>" if !page.is_system_page? && page.deletable 
           end  
 
           html += "<td align=right><input type=\"checkbox\" name=\"page_id\" value=\"1\" #{checked_value} #{disabled_value}></td>" if options[:make_checkbox]

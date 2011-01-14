@@ -21,9 +21,7 @@ class AboutController < ApplicationController
      end
   end
   
-  def contact_us
-     @setting[:admin_email] = get_setting("admin_email")
-  end
+
 
   def send_contact_us
    if get_setting_bool("enable_contact_us")

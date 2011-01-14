@@ -1,6 +1,6 @@
 <%# Menu for Regular User %>
 <div style="display: block;">
- <ul id="tabmenu">
+ <ul id="tabmenu" >
    <li>				   	
 		<%= link_to icon("home") + " " + t("section.title.my_account"), {:action => "index", :controller => "user"} , :class => (params[:action] == "index" && params[:controller] == "user" ? "active" : "") %>		
    </li>
@@ -24,4 +24,4 @@
 	</li>
    <% end %>
  </ul>
- <div id="tabcontent">
+ <div id="tabcontent" class="tabcontent">

@@ -98,17 +98,21 @@ ActiveRecord::Schema.define(:version => 20110111201745) do
   create_table "pages", :force => true do |t|
     t.integer  "page_id",              :default => 0
     t.integer  "user_id"
+    t.string   "name"
     t.string   "title",                :default => ""
     t.string   "description",          :default => ""
     t.string   "page_type",            :default => "public"
     t.text     "content"
-    t.string   "name"
     t.boolean  "deletable",            :default => true
     t.boolean  "title_editable",       :default => true
     t.boolean  "description_editable", :default => true
     t.boolean  "content_editable",     :default => true
     t.boolean  "published",            :default => true
+    t.boolean  "locked",               :default => false
     t.integer  "order_number"
+    t.boolean  "display_in_menu",      :default => true
+    t.boolean  "redirect",             :default => false
+    t.string   "redirect_url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

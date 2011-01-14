@@ -4,7 +4,7 @@
       <td align=left style="vertical-align:bottom;">
       	<div class="main_logo">
       		<% if File.exists?(RAILS_ROOT + "/public/themes/#{@setting[:theme]}/images/logo.png") %>
-	      		<%= link_to "<img src=\"/themes/#{@setting[:theme]}/images/logo.png\" border=0 alt=\"#{@setting[:title]}\" title=\"#{@setting[:title]}\">", {:action => "index", :controller => "browse"} %>
+	      		<%= link_to raw("<img src=\"/themes/#{@setting[:theme]}/images/logo.png\" border=0 alt=\"#{@setting[:title]}\" title=\"#{@setting[:title]}\">"), {:action => "index", :controller => "browse"} %>
 			<% else %>
 	      		<div class="title"><h1><%= link_to @setting[:title], {:action => "index", :controller => "browse"} %></h1></div>
 				<div class="description"><%= @setting[:description] %> </div>					

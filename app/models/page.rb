@@ -2,17 +2,25 @@ class Page < ActiveRecord::Base
   has_many :pages
   has_many :page_comments
   belongs_to :page
-  after_destroy :destroy_everything
   belongs_to :user
   
   validates_uniqueness_of :title, :scope => "page_id"
   validates_presence_of :title 
-  
+
+    
+    
   attr_protected :user_id 
 
+  after_destroy :destroy_everything  
+  after_create  :assign_order_number
+
   def destroy_everything
-    for item in self.pages # delete all subpages
-      item.destroy
+    for subpage in self.pages # delete all subpages
+      if !subpage.deletable # if the subpage is not deletable, move to root
+        subpage.update_attribute(:page_id, 0) 
+      else 
+        subpage.destroy
+      end 
     end
     
     for item in self.page_comments # delete all comments
@@ -20,6 +28,12 @@ class Page < ActiveRecord::Base
     end
   end 
 
+
+  def validate
+    if self.redirect
+        validates_format_of :redirect_url, :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
+    end 
+  end
 
   def to_param # make custom parameter generator for seo urls, to use: pass actual object(not id) into id ie: :id => object
     # this is also backwards compatible with regular integer id lookups, since .to_i gets only contiguous numbers, ie: "4-some-string-here".to_i # => 4    
@@ -84,12 +98,23 @@ class Page < ActiveRecord::Base
    end
   end
  
+  def assign_order_number
+    self.update_attribute(:order_number, self.class.next_order_number) # assign next order number
+  end
+
+  def self.next_order_number # >> Returns the next order_number. Example: Plugin.next_order_number => 8 
+    last_object = Page.find(:last, :order => "order_number ASC")
+    (last_object.nil? || last_object.order_number.nil?) ? order_number = 0 : order_number = last_object.order_number + 1  
+    return order_number
+  end
+  
   def self.all(options = {})
     #options[:page_type]
     conditions = Array.new
-    conditions << ["page_id = ?", 0] if options[:root_only]    
+    conditions << ["page_id = ?", 0] if options[:root_only]
+    conditions << ["page_id = ?", options[:page_id] ] if options[:page_id]        
     conditions << ["page_type = ?", options[:page_type].downcase] if options[:page_type]
-    
+    conditions << ["display_in_menu = ?", options[:display_in_menu]] if !options[:display_in_menu].nil?
     where(ActiveRecord::Base.combine_conditions(conditions))
   end
   

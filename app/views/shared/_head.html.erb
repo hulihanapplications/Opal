@@ -26,7 +26,7 @@
 	</script>		
 	<% if using_tiny_mce? %>
 		<!-- Load TinyMCE -->
-		<%= javascript_include_tag "/core/javascripts/tinymce/tiny_mce_src.js" %>
+		<%= javascript_include_tag "/core/javascripts/tiny_mce/tiny_mce.js" %>
 		<script type="text/javascript">
 			// Activate TinyMCE 			
 			//<![CDATA[
@@ -84,5 +84,20 @@
 				$("a[rel='colorbox_slideshow']").colorbox({slideshow:true, slideshowSpeed:<%= plugin.get_setting("slideshow_speed") %>});
 			<% end %>
 		<% end %>
+
+		
+		/* Input States */
+		$(":input").focus(function(){
+			//alert($(this).attr("type"))
+			if($(this).attr("type") != "submit")
+			{
+				$(this).addClass('selected');
+			}
+		});		
+		
+		$(":input").blur(function(){
+			$(this).removeClass('selected');
+		});			
+		
 	});
 </script>

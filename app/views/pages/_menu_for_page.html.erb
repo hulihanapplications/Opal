@@ -16,18 +16,8 @@
 		<div class="spacer"></div>
 
 		<div class="pages">				
-			<% for subpage in page.pages %>
+			<% for subpage in subpages %>
 				<%= descend_page(subpage) %>
 			<% end %>	
 		</div>
-	   <%= raw "<hr>" if page.pages.size > 0 %> 
-	   <% if get_setting_bool("allow_user_registration") %>
-	   		<div class="indent"> 
-				<% page =  Page.get_system_page("Terms Of Service")%>
-				<%= link_to_page(page)  %> 			
-			</div>
-	   <% end %>
-	   <% if get_setting_bool("enable_contact_us") %>
-	   	  <div class="indent"><%= link_to t("page.title.contact_us"), {:action => "contact_us", :controller => "about"} %></div>
- 	   <% end %>
 </div>

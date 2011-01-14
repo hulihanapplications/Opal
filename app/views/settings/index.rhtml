@@ -40,7 +40,7 @@
 											<div class="description"><%= t("setting.description.homepage_type") %></div>				
 									</div>		
 
-									<% @setting[:homepage_type] = get_setting("homepage_type") %>							
+									<% @setting[:homepage_type] = Setting.get_setting("homepage_type") %>							
 									
 									<table width="100%" cellpadding=0 cellspacing=0  class="setting_table row_table">	
 									 <tr class="row_a">
@@ -62,7 +62,7 @@
 									 <tr class="row_a">
 									  <!--<td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/homepage_type_none.png" rel="colorbox" title="New Items"><img alt="" class="thumbnail" src="/images/examples/homepage_type_none.png"  /></a></td>-->
 									  <td align=left style="padding-left:10px;vertical-align:middle">
-									  	<h2>None</h2>
+									  	<h2><%= t("single.none") %></h2>
 									  	<!--Nothing special is shown on the homepage. This is a good option if you only want to show the <%= link_to "Main Home Page", {:action => "index", :controller => "pages", :type => "System"}, :class => "highlight"  %>. -->
 								      </td>
 									  <td align=right style="padding-right:20px;vertical-align:middle"><input type="radio" name="setting[homepage_type]" value="none" <% if @setting[:homepage_type] == "none" %>CHECKED<% end %>></td>		  

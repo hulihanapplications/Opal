@@ -35,7 +35,7 @@
 				 			<div class="box_2" align=left>
 				 				<div id="send_message_notice"></div>
 				 				<h2 class="title"><%= t("label.item_send_to", :item =>  UserMessage.human_name, :name => h(@user.username)) %></h2>								   	
-					   			<%= form_remote_tag :update => "send_message_notice", :url => { :action => 'send_message', :controller => "messages", :id => @user.id} %>
+					   			<%= form_tag({ :action => 'send_message', :controller => "messages", :id => @user.id}) %>
 									<table style="width:100%">
 										<tr>
 											<td align=center><textarea  style="width:400px;" name="message" id="message" onfocus = "focus_input('message')" onblur = "blur_input('message')"></textarea></td>
@@ -56,17 +56,23 @@
 						<br><br>						
 				   </div>		
 			<div class="box_1" align=left>	
-				<h2 class="title"><%= UserInfo.human_attribute_name(:location) %></h2>
-				<%= h @user.user_info.location if @user.user_info.location  %>	
-				<hr>
-				<h2 class="title"><%= UserInfo.human_attribute_name(:description) %></h2>
-				<%= h @user.user_info.description %>
-				<hr>
-				<h2 class="title"><%= UserInfo.human_attribute_name(:interests) %></h2>
-				<%= h @user.user_info.interests %>
-				<hr>
+				<% if @user.user_info.location && !@user.user_info.location.empty? %>
+					<h2 class="title"><%= UserInfo.human_attribute_name(:location) %></h2>
+					<%= h @user.user_info.location  %>	
+					<hr>
+				<% end %>
+				<% if @user.user_info.description && !@user.user_info.description.empty? %>				
+					<h2 class="title"><%= UserInfo.human_attribute_name(:description) %></h2>
+					<%= h @user.user_info.description %>
+					<hr>
+				<% end %>
+				<% if @user.user_info.interests && !@user.user_info.interests.empty? %>
+					<h2 class="title"><%= UserInfo.human_attribute_name(:interests) %></h2>
+					<%= h @user.user_info.interests %>
+					<hr>
+				<% end %>								
 				<h2 class="title"><%= Group.human_name %></h2>
-				<%= h @user.group.name %>				
+				<%= h @user.group.name %>							
 			</div>
 			<br>
 			<%= render :partial => "main_content_top_bar" %>

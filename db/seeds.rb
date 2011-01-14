@@ -35,7 +35,6 @@ Setting.create(:name => "users_can_delete_items",  :value => "1", :setting_type 
 Setting.create(:name => "caching",  :value => "0", :setting_type => "System",  :item_type => "bool")
 Setting.create(:name => "enable_item_description",  :value => "1", :setting_type => "Item", :item_type => "bool")
 Setting.create(:name => "enable_item_date",  :value => "1", :setting_type => "Item", :item_type => "bool")
-Setting.create(:name => "enable_contact_us",  :value => "1", :setting_type => "Public", :item_type => "bool")
 
 Setting.create(:name => "display_help_sections",  :value => "0", :setting_type => "Public", :item_type => "bool")        
 Setting.create(:name => "list_type",  :value => "detailed", :setting_type => "Hidden", :item_type => "string") # choices: detailed, photos, small      
@@ -89,12 +88,12 @@ plugin = Plugin.create(:name => "Discussion", :order_number => Plugin.next_order
 # Create Categories
 Category.create(:name => "Uncategorized", :category_id => 0, :description => "Things that are just too cool to fit into one category.")
 
-# Create System Pages
+# Create  Pages
 title = Setting.get_setting("title")
 Page.create(:title => "Banner Top", :description => "Any content added here will show at the top of your site. Useful for ad banners and javascript.", :page_type => "system")
 Page.create(:title => "Banner Bottom", :description => "Any content added here will show at the bottom of your site. Useful for ad banners and javascript.", :page_type => "system")
 Page.create(:title => "Main Home Page", :description => "The Main Home Page of your site.", :page_type => "system", :content => "<div class=\"box_2\" style=\"margin-bottom:5px\">\r\n<h1 class=\"title\">Welcome!</h1>Welcome to Opal. First time using Opal? No problem. Start by reading the <b>Getting Started</b> section.<br><br><h2 class=\"title\">Change this Section</h2>\r\n<div class=\"spacer\"></div>After you log in, Click on the <strong>admin Tab</strong>, then Click on the <strong>Pages Tab</strong>. In the <strong>System Pages Section</strong>, click on the edit icon next to the page: <span style=\"text-decoration: underline;\">Main Home Page</span>. That's all there is to it!</div>")
-Page.create(:title => "Terms of Service", :description => "The Terms of Service for new users.", :page_type => "system", :content => "<h1>Terms of Service</h1>By joining this site, you agree not to add or submit any damaging or offensive content, including by not limited to: pornography, any malicious software or files, violent or hateful images, etc.<br><br>You also agree not to submit any content that is either stolen, plagiarized, or otherwise listed without the consent of the copyright holder.")
+#Page.create(:title => "Terms of Service", :description => "The Terms of Service for new users.", :page_type => "system", :content => "<h1>Terms of Service</h1>By joining this site, you agree not to add or submit any damaging or offensive content, including by not limited to: pornography, any malicious software or files, violent or hateful images, etc.<br><br>You also agree not to submit any content that is either stolen, plagiarized, or otherwise listed without the consent of the copyright holder.")
 # Add a new page that will show when a user is creating a new item.
 Page.create(:title => "New Item", :description => "This page appears when a User is creating a new item.", :page_type => "system", :content => "")
 # Create Email Footer Page
@@ -105,6 +104,17 @@ Page.create(:title => "Website Top", :description => "Shown at the very very top
 Page.create(:title => "Website Bottom", :description => "Shown at the very very bottom of the website.", :page_type => "system", :content => "")
 Page.create(:title => "Category Column", :description => "This page appears below the category menu.", :page_type => "system", :content => "")
 
+
+tos = Page.new(:name => "terms_of_service", :title => "Terms of Service", :description => "The Terms of Service for people using this website.", :page_type => "public", :content => "<h1>Terms of Service</h1>By joining this site, you agree not to add or submit any damaging or offensive content, including by not limited to: pornography, any malicious software or files, violent or hateful images, etc.<br><br>You also agree not to submit any content that is either stolen, plagiarized, or otherwise listed without the consent of the copyright holder.")
+tos.deletable = false
+tos.display_in_menu = false
+tos.locked = true
+tos.save
+
+contact_us = Page.new(:name => "contact_us", :title => "Contact Us", :description => "This page helps people get in touch with you.", :page_type => "public", :content => "<div align=center style=\"margin-bottom:10px\">\r\n<h2 class=\"title\">Contact Us</h2><hr> Feel free to contact us about anything!</div>")
+contact_us.locked = true
+contact_us.deletable = false
+contact_us.save
 
 # Create Groups
 public_group = Group.new(:name => "The Public", :description => "People visiting your site that aren't logged in.")

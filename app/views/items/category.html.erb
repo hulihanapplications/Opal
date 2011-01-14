@@ -3,7 +3,7 @@
 	<h1 class="title">
 		<%= @category.name %> <%#= @setting[:item_name_plural] %>
 		<% if !@logged_in_user.anonymous? %>
-			<%= link_to "#{icon("new")} #{t("label.item_new", :item => @setting[:item_name])}", {:action => "new", :controller => "items", :id => @category} %>
+			<%= link_to raw("#{icon("new")} #{t("label.item_new", :item => @setting[:item_name])}"), {:action => "new", :controller => "items", :id => @category} %>
 		<% end %>
 	</h1>
 	<h3><%= @category.description %></h3><br>

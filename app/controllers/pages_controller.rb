@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
- before_filter :authenticate_admin, :except => [:create_page_comment, :redirect_to_page, :page, :tinymce_images, :view] # make sure logged in user is an admin    
- before_filter :enable_admin_menu, :except => [:view]# show admin menu 
+ before_filter :authenticate_admin, :except => [:create_page_comment, :redirect_to_page, :page, :tinymce_images, :view, :send_contact_us] # make sure logged in user is an admin    
+ before_filter :enable_admin_menu, :except => [:view, :send_contact_us]# show admin menu 
  before_filter :uses_tiny_mce, :only => [:new, :edit]  # which actions to load tiny_mce, TinyMCE Config is done in Layout. 
  
  def index
@@ -116,10 +116,14 @@ class PagesController < ApplicationController
   def page # go to page
     page = Page.find(params[:id])
     if page.published || @logged_in_user.is_admin? # make sure this is a published page they're going to
-      if page.page_type == "blog" # go to blog page
-        redirect_to :action => "post", :controller => "blog", :id => page
-      else # public page 
-        redirect_to :action => "view", :id => page     
+      if page.redirect # redirect? 
+        redirect_to page.redirect_url 
+      else # don't redirect, go to page.
+        if page.page_type == "blog" # go to blog page
+          redirect_to :action => "post", :controller => "blog", :id => page
+        else # public page 
+          redirect_to :action => "view", :id => page     
+        end      
       end
     else
       flash[:failure] = t("notice.not_visible")      
@@ -205,10 +209,27 @@ class PagesController < ApplicationController
        else
           flash[:failure] = "#{t("notice.not_visible")}"      
           redirect_to :action => "index", :controller => "browse"
-       end    
+       end   
      else 
        @page = nil
      end
+  end  
+
+  def send_contact_us
+   if simple_captcha_valid?  
+     email_regexp = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
+     if !email_regexp.match(params[:email])# validate email
+       flash[:failure] = "#{t("notice.invalid_email")}" #print out any errors!
+     else # email okay
+      #  def contact_us_email(recipient, from = "noemailset@none.com", name = "No Name Set", subject = "No Subject Set", message = "No Message Set", ip = "", display = "plain") 
+      # Send Email
+      Emailer.deliver_contact_us_email(params[:email], params[:name], t("email.subject.contact_us", :site_title => @setting[:title], :from => params[:name]), params[:message], request.env['REMOTE_ADDR'])
+      flash[:success] = "#{t("notice.contact_thanks", :name => params[:name])}" #print out any errors!
+     end
+   else # captcha failed
+     flash[:failure] = t("notice.invalid_captcha") #print out any errors!
+   end 
+   redirect_to :action => "index", :controller => "browse"
   end  
   
 end

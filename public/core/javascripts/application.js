@@ -81,3 +81,5 @@ function submit(id) // submit a form with this particular id
 	element = document.getElementById(id)
 	element.submit();
 }
+
+/* jQuery Stuff */

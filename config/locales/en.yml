@@ -263,7 +263,7 @@ en:
     out_of: out of
     from_local: From your Computer
     from_web: From the Web(URL)
-    image_effect_bw: "Monochrome(Black & White)"
+    image_effect_bw: "Monochrome(Black &amp; White)"
     image_effect_sepia: Sepia
     image_effect_rotate_90_cw: "Rotate 90&deg; Clockwise"
     image_effect_rotate_90_ccw: "Rotate 90&deg; Counter-Clockwise"
@@ -427,7 +427,13 @@ en:
       contact_us: Contact Us
     description:
       terms_of_service: Terms of service.
-      contact_us: Get in touch with us.
+      contact_us: Get in touch with us.      
+  # System Records
+  record:
+    name:
+      page:        
+    description:
+      page:   
   # ActiveRecord Models & Validations
   activerecord:
     models:
@@ -543,7 +549,9 @@ en:
         created_at: Date Added
         updated_at: Last Updated
         user_id: Added by        
-        published_description: If this is published, it will be visible by others.
+        published_description: If this is published, it will be visible by others.        
+        redirect: Redirect to URL
+        locked_description: If locked, people cannot add comments to this.
       page_comment:
         anonymous_name: Name
         anonymous_email: Email

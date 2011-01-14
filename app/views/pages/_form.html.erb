@@ -1,3 +1,4 @@
+<%= error_messages_for :page %>
 <table style="width:100%;" cellpadding=0 cellspacing=0>
 	<tr>
 		<td align=left>
@@ -17,7 +18,7 @@
 				<% end %>
 			</div>			
 		</td>
-		<td align=right>
+		<td align=right style="width:250px">
 			<% if !page.is_system_page? %>
 				<table style="width:100%;" cellpadding=1 cellspacing=0>
 					<tr>
@@ -27,6 +28,42 @@
 						<td class="icon_column"><img src="/themes/<%= @setting[:theme] %>/images/icons/help.png" class="help icon"  alt="" title="<%= Page.human_attribute_name(:published_description) %>" ></td>							
 					</tr>
 				</table>
+				<table style="width:100%;" cellpadding=1 cellspacing=0>
+					<tr>
+						<td class="icon_column"><%= check_box "page", "locked" %></td>
+						<td class="icon_column"><img src="/themes/<%= @setting[:theme] %>/images/icons/locked.png" class="icon"  alt="" title="" ></td>					
+						<td><b><%= label "page", "locked" %></b></td>
+						<td class="icon_column"><img src="/themes/<%= @setting[:theme] %>/images/icons/help.png" class="help icon"  alt="" title="<%= Page.human_attribute_name(:locked_description) %>" ></td>							
+					</tr>
+				</table>				
+				<% if page.is_public_page? %>
+					<table style="width:100%;" cellpadding=1 cellspacing=0>
+						<tr>
+							<td class="icon_column"><%= check_box "page", "display_in_menu" %></td>
+							<td class="icon_column"><img src="/themes/<%= @setting[:theme] %>/images/icons/public.png" class="icon"  alt="" title="" ></td>					
+							<td><b><%= label "page", "display_in_menu" %></b></td>
+							<td class="icon_column"><!--<img src="/themes/<%= @setting[:theme] %>/images/icons/help.png" class="help icon"  alt="" title="<%= Page.human_attribute_name(:display_in_menu_description) %>" >--></td>							
+						</tr>
+					</table>	
+				<% end %>								
+					<table style="width:100%;" cellpadding=1 cellspacing=0>
+						<tr>
+							<td class="icon_column"><%= check_box "page", "redirect" %></td>
+							<td class="icon_column"><%= icon("redirect") %></td>					
+							<td>
+								<b><%= label "page", "redirect" %></b><br>
+							</td>
+							<td class="icon_column"></td>							
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>							
+							<td colspan=2>
+								<%= text_field "page", "redirect_url" %>
+							</td>
+														
+						</tr>
+					</table>									
 			<% end %>
 		</td>
 	</tr>

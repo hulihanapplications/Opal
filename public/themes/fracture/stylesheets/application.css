@@ -14,7 +14,7 @@
 
 	/*  Layout */
 	#wrapper{height:auto !important; height:100%; min-height:100%;position:relative;}
-	#wrapper > #header{width: 900px ; margin: 0 auto ;background:url(../images/bgs/main_logo_bg.png) no-repeat;background-position:bottom left;height:135px;}
+	#wrapper > #header{width: 900px ; margin: 0 auto ;background:url(../images/bgs/main_logo_bg.png) no-repeat;background-position:bottom left;}
 	#wrapper > #content{width: 900px ;margin: 0 auto ;padding:5px; padding-bottom:70px;height:100%}
 			#wrapper > #content #main{width:660px;float:left;}
 			#wrapper > #content #side{width:230px;float:left;padding-right:10px}
@@ -219,7 +219,7 @@ ul#tabmenu {	list-style:none; 	margin:0 !important; 	padding:0;	height:25px;	mar
 .pagination{margin-top:20px;margin-bottom:20px;}
 .pagination a{border:1px solid #ccc;background:url(../images/bgs/white_trans_50.png) repeat;padding:10px;;text-decoration:none;-moz-border-radius: 3px;-webkit-border-radius: 3px;}
 .pagination a:hover{border:1px solid #aaa;background:url(../images/bgs/black_trans_05.png) repeat;padding:10px;text-decoration:none}
-.current{border:1px solid #aaa;background:url(../images/bgs/black_trans_05.png) repeat;;padding:10px;-moz-border-radius: 3px;-webkit-border-radius: 3px;}
+.pagination .current, .pagination em{font-style:normal;border:1px solid #aaa;background:url(../images/bgs/black_trans_05.png) repeat;;padding:10px;-moz-border-radius: 3px;-webkit-border-radius: 3px;}
 .disabled{border:1px solid #ccc;background:url(../images/bgs/white_trans_50.png) repeat;padding:10px;filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity: 0.5;opacity: 0.5;-moz-border-radius: 3px;-webkit-border-radius: 3px;}
 
 /* SimpleCaptcha */

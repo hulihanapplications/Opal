@@ -143,7 +143,7 @@ en:
     user_thanks: Thanks %{name}!   
     user_thanks_for_voting: Thanks for voting, %{name}!
     user_not_logged_in: You must be logged in to do this.
-    contact_thanks: Thanks for contacting us, #{name}. we'll try to get back to you shortly!
+    contact_thanks: Thanks for contacting us, %{name}. we'll try to get back to you shortly!
     invalid_captcha: You entered the wrong verification code!
     disabled: Sorry, this is disabled.
     account_not_verified: Sorry, Your account has not been verified yet!

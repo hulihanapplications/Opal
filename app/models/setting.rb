@@ -43,6 +43,8 @@ class Setting < ActiveRecord::Base
     setting[:include_child_category_items] = Setting.get_setting_bool("include_child_category_items")
     setting[:theme_url] =  "/themes/#{setting[:theme]}" # url for theme directory 
     setting[:theme_dir] =  File.join(RAILS_ROOT, "public", "themes", setting[:theme]) # system path for theme directory 
+    setting[:section_blog] =  Setting.get_setting_bool("section_blog")
+    setting[:section_items] =  Setting.get_setting_bool("section_items")    
     return setting
   end
 

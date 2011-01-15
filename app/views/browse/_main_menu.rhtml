@@ -4,18 +4,15 @@
 		<li>
 			<%= link_to t("section.title.home"), {:action => "index", :controller => "browse"}, :class => (params[:controller] == "browse"  && params[:action] == "index") ? "selected" : "" %>		
 		</li>
+		<% if @setting[:section_items] %>			
 		<li>
 			<%= link_to "#{@setting[:item_name_plural].capitalize}", {:action => "index", :controller => "items" }, :class => (params[:controller] == "items") ? "selected" : "" %>
 		</li>
-		<% if Setting.get_setting_bool("section_blog") %>	
+		<% end %>
+		<% if @setting[:section_blog] %>	
 		<li>
 			<%= link_to t("section.title.blog"), {:action => "index", :controller => "blog" }, :class => (params[:controller] == "blog") ? "selected" : ""  %>
 		</li>
-		<% end %>
-		<% if Setting.get_setting_bool("section_forum") %>	
-		<li>
-			<%= link_to t("section.title.forum"), {:action => "index", :controller => "forum" }, :class => (params[:controller] == "forum") ? "selected" : ""%>
-		</li>	
 		<% end %>
 		<% for page in Page.all(:page_type => "Public", :root_only => true, :display_in_menu => true) %>
 		<li>

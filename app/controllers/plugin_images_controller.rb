@@ -8,6 +8,7 @@ class PluginImagesController < ApplicationController
 
 
   def create
+    require "RMagick"
     if @my_group_plugin_permissions.can_create? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # check permissions                 
       
       acceptable_file_extensions = ".png, .jpg, .jpeg, .gif, .bmp, .tiff, .PNG, .JPG, .JPEG, .GIF, .BMP, .TIFF"

@@ -1,100 +1,75 @@
-class Emailer < ActionMailer::Base
+class Emailer < ActionMailer::Base  
+  default :from => "#{Setting.get_setting("site_title")} <noreply@none.com>"
+  default :content_type => "text/plain" # not working in Rails 3.0.3 for some reason, must set inside mail()
   
-  def contact_us_email(from = "noemailset@none.com", name = "No Name Set", subject = "No Subject Set", message = "No Message Set", ip = "0.0.0.0", display = "plain") 
-     @recipients = Emailer.admin_emails
-     @from = "#{from}"
-     @subject = subject
-     @sent_on = Time.now
-     @body["message"] = message
-     @body["from"] = from
-     @body["name"] = name
-     @body["display"] = display
-     @body["ip"] = ip
-     #@body["message"] = message
-     if display == "plain"
-       @content_type = "text/plain"
-     elsif display == "html"
-       @content_type = "text/html"
-     end
-     @headers = {}
+  def contact_us_email(email = "noemailset@none.com", name = "No Name Set", subject = "No Subject Set", message = "No Message Set", ip = "0.0.0.0", display = "plain") 
+     recipients = Emailer.admin_emails
+     @message = message
+     @email = email
+     @name = name
+     @ip = ip
+     mail(:to => nil, :bcc => recipients, :subject => subject, :date => Time.now, :content_type => "text/plain")
   end
  
    
   def test_email(recipients, subject = "No Subject Set", message = "No Message Set.", sent_at = Time.now)
-      @subject = subject
-      @recipients = recipients
-      @from = 'test@test.com'
-      @sent_on = sent_at
-      @body["email"] = 'test@test.com'
-      @body["message"] = message
-      @headers = {}
+      @message = message
+      mail(:to => nil, :bcc => recipients, :subject => subject, :date => Time.now, :content_type => "text/plain")
   end
   
   def verification_email(recipients, user_verification = UserVerification.new, url = "http://localhost/")
       @setting = Setting.global_settings
-      @setting[:admin_email] = Setting.get_setting("admin_email")        
       @url = url
       @user_verification = user_verification      
-      @recipients = recipients
-      @from = "#{@setting[:title]}<noreply@none.com>"
-      @sent_on = Time.now
-      @headers = {}
-      @subject = I18n.t("email.subject.verification", :name => @user_verification.user.username, :title => @setting[:title])       
+      subject = I18n.t("email.subject.verification", :name => @user_verification.user.username, :title => @setting[:title])
+      mail(:to => nil, :bcc => recipients, :subject =>  subject, :date => Time.now, :content_type => "text/plain")      
   end  
 
   # Send an email with a modified from header 
   def email_from_anyone(recipients, from = "none@none.com", subject = "No Subject Set", message = "No Message Set.", sent_at = Time.now)
-      @subject = subject
-      @recipients = recipients
-      @from = from
-      @sent_on = sent_at
       @body["email"] = from
       @body["message"] = message
-      @headers = {}
+      mail(:to => nil, :from => from, :bcc => recipients, :subject =>  subject, :date => Time.now, :content_type => "text/plain")      
   end
   
   # Notify a User that a message was sent to them
   def new_message_notification(message, url = "http://localhost/")     
     @setting = Setting.global_settings
-    @recipients = message.user.email
-    @sent_on = Time.now    
+    recipients = message.user.email
     @message = message
     @url = url
-    @from = "#{@setting[:title]}<noreply@none.com>"
-    @subject = I18n.t("email.subject.item_new_from_user", :item => UserMessage.human_name, :from => @message.user_from.username, :name => "#{@message.user_from.first_name} #{@message.user_from.last_name}", :title => @setting[:title]) 
+    subject = I18n.t("email.subject.item_new_from_user", :item => UserMessage.human_name, :from => @message.user_from.username, :name => "#{@message.user_from.first_name} #{@message.user_from.last_name}", :title => @setting[:title])
+    mail(:to => nil, :bcc => recipients, :subject => subject, :date => Time.now, :content_type => "text/plain")    
   end
   
   # Send User a password recovery email
   def password_recovery_email(user, url = "http://localhost/")
     @setting = Setting.global_settings     
-    @recipients = user.email
-    @sent_on = Time.now    
+    recipients = user.email
     @user = user
     @url = url          
-    @from = "#{@setting[:title]}<noreply@none.com>"
-    @subject = I18n.t("email.subject.item_new", :item => UserInfo.human_attribute_name(:forgot_password_code), :name => @user.username, :title => @setting[:title]) 
+    subject = I18n.t("email.subject.item_new", :item => UserInfo.human_attribute_name(:forgot_password_code), :name => @user.username, :title => @setting[:title])
+    mail(:to => nil, :bcc => recipients, :subject => subject, :date => Time.now, :content_type => "text/plain")        
   end
 
   # Send New User Notification Email
   def new_user_notification(user, url = "http://localhost/")
     @setting = Setting.global_settings
-    @recipients = Emailer.admin_emails
-    @sent_on = Time.now    
+    recipients = Emailer.admin_emails
     @user = user
     @url = url        
-    @from = "#{@setting[:title]}<noreply@none.com>"
-    @subject = I18n.t("email.subject.item_new", :item => User.human_name, :name => @user.username + " (#{@user.first_name} #{@user.last_name})", :title => @setting[:title])
+    subject = I18n.t("email.subject.item_new", :item => User.human_name, :name => @user.username + " (#{@user.first_name} #{@user.last_name})", :title => @setting[:title])
+    mail(:to => nil, :bcc => recipients, :subject => subject, :date => Time.now, :content_type => "text/plain")        
   end
   
   # Send New Item Notification Email 
   def new_item_notification(item, url = "http://localhost/")
     @setting = Setting.global_settings
-    @recipients = Emailer.admin_emails
-    @sent_on = Time.now    
+    recipients = Emailer.admin_emails
     @item = item
     @url = url           
-    @from = "#{@setting[:title]}<noreply@none.com>"
-    @subject = I18n.t("email.subject.item_new_from_user", :item => @setting[:item_name], :name => @item.name, :title => @setting[:title], :from => @item.user.username) 
+    subject = I18n.t("email.subject.item_new_from_user", :item => @setting[:item_name], :name => @item.name, :title => @setting[:title], :from => @item.user.username)
+    mail(:to => nil, :bcc => recipients, :subject => subject, :date => Time.now, :content_type => "text/plain")        
   end
   
   private 

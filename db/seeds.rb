@@ -50,6 +50,7 @@ Setting.create(:name => "allow_page_comments",  :value => "1", :setting_type => 
 Setting.create(:name => "allow_public_access",  :value => "1", :setting_type => "System", :item_type => "bool")
 Setting.create(:name => "opal_version",  :value => nil, :setting_type => "Hidden", :item_type => "string")
 Setting.create(:name => "section_blog",   :value => "1", :setting_type => "Section", :item_type => "bool")
+Setting.create(:name => "section_items",   :value => "1", :setting_type => "Section", :item_type => "bool")
 Setting.create(:name => "new_user_notification",  :value => "1", :setting_type => "User", :item_type => "bool")
 Setting.create(:name => "new_item_notification",  :value => "1", :setting_type => "Item", :item_type => "bool")
 Setting.create(:name => "display_featured_items", :value => "1", :setting_type => "Item", :item_type => "bool")    

@@ -216,14 +216,14 @@ class PagesController < ApplicationController
   end  
 
   def send_contact_us
-   if simple_captcha_valid?  
+   if true#simple_captcha_valid?  
      email_regexp = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
      if !email_regexp.match(params[:email])# validate email
        flash[:failure] = "#{t("notice.invalid_email")}" #print out any errors!
      else # email okay
       #  def contact_us_email(recipient, from = "noemailset@none.com", name = "No Name Set", subject = "No Subject Set", message = "No Message Set", ip = "", display = "plain") 
       # Send Email
-      Emailer.deliver_contact_us_email(params[:email], params[:name], t("email.subject.contact_us", :site_title => @setting[:title], :from => params[:name]), params[:message], request.env['REMOTE_ADDR'])
+      Emailer.contact_us_email(params[:email], params[:name], t("email.subject.contact_us", :site_title => @setting[:title], :from => params[:name]), params[:message], request.env['REMOTE_ADDR']).deliver
       flash[:success] = "#{t("notice.contact_thanks", :name => params[:name])}" #print out any errors!
      end
    else # captcha failed

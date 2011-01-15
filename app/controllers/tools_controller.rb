@@ -64,18 +64,20 @@ class ToolsController < ApplicationController
       while(line = uploaded_file.gets)
         logger.info line
         line_array = line.split(",") # split by comma csv
-        temp_item = Item.new(:name => line_array[0], :description => line_array[1], :category_id => @category.id)
+        attributes = {:name => line_array[0], :description => line_array[1], :category_id => @category.id}
+        temp_item = Item.new(attributes)
         temp_item.user_id = @logged_in_user.id        
         temp_item.is_approved = "1" # auto-approve
         linestring += line
         if temp_item.save
+          Log.create(:user_id => @logged_in_user.id, :item_id => temp_item.id,  :log_type => "new", :log => t("log.item_create", :item => @setting[:item_name], :name => temp_item.name + " (#{t("single.import")})"))
           item_counter += 1
         end
       end
       
-      flash[:success] = t("notice.items_import_success", :item => @setting[:item_name_pural], :count => item_counter)                 
-      Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("notice.items_import", :item => @setting[:item_name_pural], :count => item_counter)) # log it
-      redirect_to :action => "category", :controller => "browse", :id => @category      
+      flash[:success] = t("notice.save_success", :item => @setting[:item_name_pural], :count => item_counter)                 
+      #Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("notice.items_import", :item => @setting[:item_name_pural], :count => item_counter)) # log it
+      redirect_to :action => "category", :controller => "items", :id => @category      
     else # No Format Selected
       flash[:failure] = t("notice.item_forgot_to_select", :item => t("single.format"))                 
       redirect_to :action => "import"

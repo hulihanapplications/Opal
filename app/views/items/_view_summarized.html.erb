@@ -35,7 +35,7 @@
 								</span>	
 							<% end %>
 							<% if images.size > 1 %>
-							    <%= icon("spacer")%>
+							    <%= icon("spacer") if item.is_editable_for_user?(@logged_in_user) %>
 								<span>
 									<%= link_to_function icon("image") + " " + t("label.items_more", :items => PluginImage.human_name.pluralize), "select_tab(\"#{Plugin.plugins[:image].human_name.pluralize}\")"  %>
 								</span>

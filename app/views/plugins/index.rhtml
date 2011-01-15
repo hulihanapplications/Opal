@@ -11,7 +11,7 @@
 					<tr>
 						<td align=left>
 							<h2 class="title">
-								<%= Plugin.human_name.pluralize %>
+								<%= Plugin.model_name.human.pluralize %>
 							</h2>						
 						</td>
 						<td align=right >
@@ -24,10 +24,10 @@
 
 		<ul class="plugin_tabs_horizontal"> 
 			    <li>
-			    	<%= link_to Plugin.human_name.pluralize, {:action => "index", :controller => "plugins"}, :class => "current" %>
+			    	<%= link_to Plugin.model_name.human.pluralize, {:action => "index", :controller => "plugins"}, :class => "current" %>
 				</li> 
 			    <li>
-			    	<%= link_to t("label.item_install", :item => Plugin.human_name), {:action => "new_install", :controller => "plugins"} %>
+			    	<%= link_to t("label.item_install", :item => Plugin.model_name.human), {:action => "new_install", :controller => "plugins"} %>
 				</li> 																																					
 		</ul>			
 		<div class="plugin_panes_horizontal"> 	
@@ -52,13 +52,13 @@
 				  		<tr> 
 				  			<td align=left width="90%">
 				  				<div id="plugin_title_<%= plugin.id %>">
-				  			  		<h2><%= plugin.human_name.pluralize %> 
+				  			  		<h2><%= plugin.model_name.human.pluralize %> 
 									<font size=1>
-				  			  			<a href="javascript:toggle_box_s('plugin_settings_<%= plugin.id %>')">(<%= PluginSetting.human_name.pluralize %>)</a>						
+				  			  			<a href="javascript:toggle_box_s('plugin_settings_<%= plugin.id %>')">(<%= PluginSetting.model_name.human.pluralize %>)</a>						
 										<% if plugin.name == "Feature" %>
-					  			  			<%= link_to "(#{t("label.item_edit", :item => plugin.human_name.pluralize)})", {:action => "index", :controller => "plugin_features"} %>
+					  			  			<%= link_to "(#{t("label.item_edit", :item => plugin.model_name.human.pluralize)})", {:action => "index", :controller => "plugin_features"} %>
 										<% end %>	
-										<%= link_to "(#{t("label.item_uninstall", :item => "")})", {:action => "uninstall", :controller => "plugins", :id => plugin.id}, :confirm => "Are you sure? Every #{plugin.human_name} for every #{@setting[:item_name]} in #{@setting[:title]} will also be deleted!"  if !plugin.is_builtin? %>					
+										<%= link_to "(#{t("label.item_uninstall", :item => "")})", {:action => "uninstall", :controller => "plugins", :id => plugin.id}, :confirm => "Are you sure? Every #{plugin.model_name.human} for every #{@setting[:item_name]} in #{@setting[:title]} will also be deleted!"  if !plugin.is_builtin? %>					
 									</font>
 										
 									</h2>
@@ -71,7 +71,7 @@
 							  	<div class="box_2">
 							  		<%= t("single.enabled") %>
 									<br>
-									<input type="checkbox" name="enable_<%= plugin.human_name %>" value="1" <% if plugin.is_enabled? %>CHECKED<% end %> onchange="javascript:loading('event_box');new Ajax.Updater('event_box', '/plugins/enable_disable_plugin/<%= plugin.id %>', {asynchronous:true, evalScripts:true}); return false;">
+									<input type="checkbox" name="enable_<%= plugin.model_name.human %>" value="1" <% if plugin.is_enabled? %>CHECKED<% end %> onchange="javascript:loading('event_box');new Ajax.Updater('event_box', '/plugins/enable_disable_plugin/<%= plugin.id %>', {asynchronous:true, evalScripts:true}); return false;">
 							  	</div>
 							</td>
 						</tr>
@@ -90,7 +90,7 @@
 										</div>
 									<% end %>
 								<% else %> 
-									<div align=center><%= t("notice.items_not_found", :items => PluginSetting.human_name.pluralize) %></div>
+									<div align=center><%= t("notice.items_not_found", :items => PluginSetting.model_name.human.pluralize) %></div>
 								<% end %>
 								</div>					
 							</td>			

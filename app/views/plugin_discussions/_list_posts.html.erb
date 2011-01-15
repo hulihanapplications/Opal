@@ -56,7 +56,7 @@
 							<div align=left>
 								<b><%= friendly_date post.created_at %></b>
 									<% if item.is_editable_for_user?(@logged_in_user) %>
-								    	<%= link_to icon("delete"), { :action => 'delete_post', :controller => "plugin_discussions", :id => item.id, :post_id => post.id}, :confirm =>  t("confirm.item_delete", :item => PluginDiscussionPost.human_name) %>						
+								    	<%= link_to icon("delete"), { :action => 'delete_post', :controller => "plugin_discussions", :id => item.id, :post_id => post.id}, :confirm =>  t("confirm.item_delete", :item => PluginDiscussionPost.model_name.human) %>						
 									<% end %>
 								<br>
 								<%= h post.post %>

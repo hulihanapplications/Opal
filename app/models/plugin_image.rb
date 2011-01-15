@@ -9,8 +9,8 @@ class PluginImage < ActiveRecord::Base
   validates_uniqueness_of :url, :scope => :item_id, :message => "There is already an image with this filename!"
   
   def delete_files
-    image_path = "#{RAILS_ROOT}/public" + "#{self.url}"
-    thumb_path = "#{RAILS_ROOT}/public" + "#{self.thumb_url}"
+    image_path = "#{Rails.root.to_s}/public" + "#{self.url}"
+    thumb_path = "#{Rails.root.to_s}/public" + "#{self.thumb_url}"
 
     if File.exists?(image_path) # does the file exist?
      FileUtils.rm(image_path) # delete the file

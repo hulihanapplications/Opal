@@ -73,7 +73,7 @@
 							<%= t("single.reply") + " " + t("single.to") + " " + message.user_from.username %>
 						</a>
 					<% end %>					
-					<%= link_to icon("delete") + " " + t("single.delete"), { :action => 'delete_message', :controller => "messages", :id => message.id, :type => params[:type]}, :confirm => t("confirm.item_delete", :item => UserMessage.human_name) %>
+					<%= link_to icon("delete") + " " + t("single.delete"), { :action => 'delete_message', :controller => "messages", :id => message.id, :type => params[:type]}, :confirm => t("confirm.item_delete", :item => UserMessage.model_name.human) %>
 					<% if message.is_read? %>
 						<%= link_to icon("success") + " " + t("label.item_mark_as", :item => "", :name => UserMessage.human_attribute_name(:unread)), { :action => 'unread_message', :controller => "messages", :id => message.id, :type => params[:type]} %>							
 					<% else %>
@@ -91,7 +91,7 @@
 								</tr>
 								<tr>
 									<td align=center>
-											<input type="submit" class="button_1" value="<%= t("label.item_send_to", :item => UserMessage.human_name, :name => message.user_from.username) %>" >
+											<input type="submit" class="button_1" value="<%= t("label.item_send_to", :item => UserMessage.model_name.human, :name => message.user_from.username) %>" >
 											<div style="margin-bottom:5px"></div>
 											<a  href="javascript:toggle_box('reply_box_<%= message.id %>')">
 												<%= icon("cancel") %>

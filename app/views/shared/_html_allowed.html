@@ -4,6 +4,6 @@
 		<%= t("single.security") %> <%= t("single.information") %>
 	</h3>			
 	
-	<%  html_whitelist = YAML::load(File.open(RAILS_ROOT + "/config/whitelist_html.yml")) # load html whitelist from file %>
+	<%  html_whitelist = YAML::load(File.open(Rails.root.to_s + "/config/whitelist_html.yml")) # load html whitelist from file %>
 	<%= t("info.html_allowed", :elements => html_whitelist["elements"].join(", ") )%>
 </div>

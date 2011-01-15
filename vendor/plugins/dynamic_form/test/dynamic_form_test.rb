@@ -19,7 +19,7 @@ class DynamicFormTest < ActionView::TestCase
       include ActiveModel::Conversion
     end
 
-    class Column < Struct.new(:type, :name, :human_name)
+    class Column < Struct.new(:type, :name, :model_name.human)
       extend ActiveModel::Naming
       include ActiveModel::Conversion
     end

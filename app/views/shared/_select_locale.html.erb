@@ -1,5 +1,5 @@
 <%# Dynamically find which locales are stored in config/locales and present them as a selection %>
-<% locales_dir = File.join(RAILS_ROOT, "config", "locales") %>
+<% locales_dir = File.join(Rails.root.to_s, "config", "locales") %>
 
 <%
  # Set Defaults

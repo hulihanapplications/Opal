@@ -39,8 +39,8 @@ class Plugin < ActiveRecord::Base
     self.update_attribute(:order_number, Plugin.next_order_number) # assign next order number
   end
   
-  def human_name # get human/translated name of plugin child 
-    return self.actual_model.human_name # get human name of actual model 
+  def model_name # get human/translated name of plugin child 
+    return self.actual_model.model_name # get human name of actual model 
   end
   
   def destroy_everything

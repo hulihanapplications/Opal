@@ -4,7 +4,7 @@ namespace app_name.downcase.to_sym do
   desc "Install #{app_name} - Database, Default Data, and optional Example Data"
   task :install => :environment do
     ENV["PROMPTS"] ||= "TRUE"    
-    ENV["RAILS_ENV"] ||= "production"    
+    ENV["Rails.env"] ||= "production"    
     Rake::Task["db:migrate"].invoke
     Rake::Task["db:seed"].invoke
     puts "\n\n#{app_name} Installed successfully!"
@@ -16,7 +16,7 @@ namespace app_name.downcase.to_sym do
 
   desc 'Uninstall #{app_name}'
   task :uninstall => :environment do
-    ENV["RAILS_ENV"] ||= "production"
+    ENV["Rails.env"] ||= "production"
     ENV["PROMPTS"] ||= "TRUE"    
     ENV['VERSION']= '0'
     Rake::Task['db:migrate'].invoke
@@ -25,7 +25,7 @@ namespace app_name.downcase.to_sym do
   desc "Update #{app_name}"
   task :install => :environment do
     ENV["PROMPTS"] ||= "TRUE"    
-    ENV["RAILS_ENV"] ||= "production"    
+    ENV["Rails.env"] ||= "production"    
     Rake::Task["db:migrate"].invoke
   end
 
@@ -33,7 +33,7 @@ namespace app_name.downcase.to_sym do
   task :reset => :environment do |task, args|
     # Set ENV Defaults
     ENV["PROMPTS"] ||= "TRUE"    
-    ENV["RAILS_ENV"] ||= "production"    
+    ENV["Rails.env"] ||= "production"    
     Rake::Task["#{app_name.downcase}:uninstall"].invoke
     ENV.delete 'VERSION' # clear version 
     Rake::Task['db:migrate'].reenable
@@ -43,7 +43,7 @@ namespace app_name.downcase.to_sym do
   namespace :db do
     desc "Backup Database"
     task :backup => :environment do
-      ENV["RAILS_ENV"] ||= "production"      
+      ENV["Rails.env"] ||= "production"      
       db = YAML::load(File.open(File.join(Rails.root.to_s,"config", "database.yml")))
       db_config = db[Rails.env]      
       backup_path = File.join(Rails.root.to_s, "backup", Time.now.strftime("%Y%m%d_%H%M%S" + ".sql"))

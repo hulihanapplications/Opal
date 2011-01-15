@@ -25,7 +25,7 @@ Opal::Application.routes.draw do
 
 
   # Load Custom Plugin Routes 
-  #Dir["#{RAILS_ROOT}/vendor/plugins/*"].each do |plugin| 
+  #Dir["#{Rails.root.to_s}/vendor/plugins/*"].each do |plugin| 
   #  if File.exists?("#{plugin}/routes.rb") 
   #    File.open("#{plugin}/routes.rb").each do |line|
   #      eval "#{line}" 
@@ -33,7 +33,7 @@ Opal::Application.routes.draw do
   #  end
   #end
   
-  #Dir["#{RAILS_ROOT}/vendor/plugins/*"].each do |plugin_dir|
+  #Dir["#{Rails.root.to_s}/vendor/plugins/*"].each do |plugin_dir|
     #map.from_plugin(File.basename(plugin_dir))
   #end  
   

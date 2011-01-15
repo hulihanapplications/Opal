@@ -3,7 +3,7 @@
 </div>
 <div id="main">
 	<div class="box_2">
-		<h2 class="title"><%= t("label.item_new", :item => User.human_name) %></h2><br>
+		<h2 class="title"><%= t("label.item_new", :item => User.model_name.human) %></h2><br>
 		<% form_for(@user, :url => { :action => 'create' }, :method => "post") do |f| %>
 			<%= render :partial => "form", :locals => {:f => f, :user => @user} %>
 			<br>

@@ -6,7 +6,7 @@
 	<div id="main">
 			<div class="header">
 					<h2 class="title">
-						<%= t("label.item_edit", :item => PluginFeature.human_name) %>
+						<%= t("label.item_edit", :item => PluginFeature.model_name.human) %>
 					</h2>
 			</div>
 			
@@ -22,14 +22,14 @@
 									<%= render :partial => "plugin_features/form", :locals => {:feature => @plugin_feature, :f => f} %>								 
 									
 									<div align=center>
-										<%= f.submit t("label.item_save", :item => PluginFeature.human_name), :class => "button_1" %>
+										<%= f.submit t("label.item_save", :item => PluginFeature.model_name.human), :class => "button_1" %>
 									</div>
 								</div>
 							<% end %>								
 						</td>
 						<td style="width:50%;padding-left:5px;" align=left>
 							<% if @plugin_feature.feature_type == "option" %>
-								<h3 class="title"><%= @plugin_feature.name %> <%= PluginFeatureValueOption.human_name.pluralize %></h3>
+								<h3 class="title"><%= @plugin_feature.name %> <%= PluginFeatureValueOption.model_name.human.pluralize %></h3>
 								<!--<i>Allows users to select a predefined value for <%= @plugin_feature.name %>.</i>-->
 																
 								<div class="box_2" style="margin-bottom:10px;">
@@ -38,14 +38,14 @@
 								   </div>
 								</div>									
 
-							   <h3 class="title"><%= t("label.item_new", :item =>  @plugin_feature.name + " " + PluginFeatureValueOption.human_name) %> </h3>	
+							   <h3 class="title"><%= t("label.item_new", :item =>  @plugin_feature.name + " " + PluginFeatureValueOption.model_name.human) %> </h3>	
 								<div class="box_2" style="margin-bottom:5px">
 																						   			
 						    		<% form_for(@plugin_feature_value_option, :url => { :action => 'create_option', :controller => "plugin_features", :id => @plugin_feature.id }, :method => "post") do |f| %>
 										<%= render :partial => "plugin_features/form_for_option", :locals => {:option => PluginFeatureValueOption.new(:plugin_feature_id => @plugin_feature.id), :f => f} %>
 									
 										<div align=center>
-											<%= submit_tag t("label.item_create", :item => PluginFeatureValueOption.human_name), :class => "button_1" %>
+											<%= submit_tag t("label.item_create", :item => PluginFeatureValueOption.model_name.human), :class => "button_1" %>
 										</div>									   
 								   <% end %>										
 								</div>

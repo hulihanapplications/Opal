@@ -10,7 +10,7 @@ class LogsController < ApplicationController
   
   
   def index 
-    @setting[:meta_title] = Log.human_name + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title]
+    @setting[:meta_title] = Log.model_name.human + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title]
     @logs = Log.paginate :page => params[:page], :per_page => 25
   end
   
@@ -44,10 +44,10 @@ class LogsController < ApplicationController
   def update
     log = Log.find(params[:id])    
     if log.update_attributes(params[:log])
-      flash[:success] = t("notice.item_save_success", :item => Log.human_name)
-      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log =>  t("log.item_save", :item => Log.human_name, :name => log.id))
+      flash[:success] = t("notice.item_save_success", :item => Log.model_name.human)
+      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log =>  t("log.item_save", :item => Log.model_name.human, :name => log.id))
      else
-      flash[:failure] = t("notice.item_save_failure", :item => Log.human_name)
+      flash[:failure] = t("notice.item_save_failure", :item => Log.model_name.human)
     end
     redirect_to :action => "index"
   end
@@ -62,10 +62,10 @@ class LogsController < ApplicationController
     end
     
     if log.save
-      flash[:success] = t("notice.item_create_success", :item => Log.human_name)
-      Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log =>  t("log.item_create", :item => Log.human_name, :name => log.id))        
+      flash[:success] = t("notice.item_create_success", :item => Log.model_name.human)
+      Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log =>  t("log.item_create", :item => Log.model_name.human, :name => log.id))        
      else
-      flash[:failure] = t("notice.item_create_failure", :item => Log.human_name)           
+      flash[:failure] = t("notice.item_create_failure", :item => Log.model_name.human)           
     end
     redirect_to :action => "index"
   end
@@ -73,10 +73,10 @@ class LogsController < ApplicationController
   def delete # deletes feature 
     log = Log.find(params[:id])    
     if log.destroy
-      flash[:success] = t("notice.item_delete_success", :item => Log.human_name)
-      Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log =>  t("log.item_delete", :item => Log.human_name, :name => log.id))                    
+      flash[:success] = t("notice.item_delete_success", :item => Log.model_name.human)
+      Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log =>  t("log.item_delete", :item => Log.model_name.human, :name => log.id))                    
     else
-      flash[:failure] = t("notice.item_delete_failure", :item => Log.human_name)    
+      flash[:failure] = t("notice.item_delete_failure", :item => Log.model_name.human)    
     end
     redirect_to :action => "index"
   end

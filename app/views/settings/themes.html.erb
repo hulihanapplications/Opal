@@ -24,7 +24,7 @@
 										  <td style="width:100px;height:100px;vertical-align:middle" align=center>
 										  	<% screenshot = "/themes/#{theme}/screenshot.png" %>
 										  	<% screenshot_thumbnail = "/themes/#{theme}/screenshot_thumbnail.png" %>
-										  	<% if File.exists?(RAILS_ROOT + "/public" + screenshot)%>
+										  	<% if File.exists?(Rails.root.to_s + "/public" + screenshot)%>
 										 			    <a href="<%= screenshot %>" rel="colorbox" title="<%= t("single.theme") %> <%= t("single.preview") %> ">
 														    <img alt="<%= theme %>" class="thumbnail" src="<%= screenshot_thumbnail %>" />
 														</a>
@@ -34,7 +34,7 @@
 										  </td>
 										  <td align=left style="padding-left:10px;vertical-align:middle">
 										  	
-										  		<% theme_config_file  = RAILS_ROOT + "/public" + "/themes/#{theme}/theme.yml" %>
+										  		<% theme_config_file  = Rails.root.to_s + "/public" + "/themes/#{theme}/theme.yml" %>
 										  		<% if File.exists?(theme_config_file)%>
 													
 													<% theme_file = YAML::load(File.open(theme_config_file)) %>

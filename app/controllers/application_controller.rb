@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
     if ActiveRecord::Base.connection.tables.include?('settings') # check if settings table exists
       #theme = Setting.get_setting("theme") # get the theme name 
       theme = @setting[:theme]
-      layout_location = File.join(RAILS_ROOT, "public", "themes", theme, "layouts", "application.html.erb") # set path to theme layout
+      layout_location = File.join(Rails.root.to_s, "public", "themes", theme, "layouts", "application.html.erb") # set path to theme layout
       logger.info(layout_location)
       if !File.exists?(layout_location) # if the theme's layout file isn't present, use default layout. File.exists? requires absolute path.
         logger.info(layout_location)
@@ -158,7 +158,7 @@ class ApplicationController < ActionController::Base
     if @plugin.is_enabled? # check to see if the plugin is enabled
      # Proceed
     else # Plugin Disabled 
-     flash[:failure] = t("notice.items_disabled", :items => @plugin.human_name.pluralize)
+     flash[:failure] = t("notice.items_disabled", :items => @plugin.model_name.human.pluralize)
      if defined?(@item) # has an item already been looked up?
       redirect_to :action => "view", :controller => "items", :id => @item.id # redirect to item page
      else
@@ -166,7 +166,7 @@ class ApplicationController < ActionController::Base
      end  
     end
   rescue Exception => e  
-    flash[:failure] = t("notice.item_not_found", :item => @plugin.human_name.pluralize)
+    flash[:failure] = t("notice.item_not_found", :item => @plugin.model_name.human.pluralize)
   end
   
   def check_item_edit_permissions # check to see if the logged in user has permission to edit item
@@ -184,7 +184,7 @@ class ApplicationController < ActionController::Base
   end    
   
   def sanitize(data) # sanitize data
-    html_whitelist = YAML::load(File.open(RAILS_ROOT + "/config/whitelist_html.yml")) # load html whitelist from file
+    html_whitelist = YAML::load(File.open(Rails.root.to_s + "/config/whitelist_html.yml")) # load html whitelist from file
     #return Sanitize.clean(data, Sanitize::Config::RELAXED)
     return Sanitize.clean(data, :elements => html_whitelist["elements"], :attributes => html_whitelist["attributes"])    
   end

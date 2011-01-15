@@ -4,8 +4,8 @@ class SettingsController < ApplicationController
  after_filter :reload_settings, :only => [:update_settings]
  
  def index
-   @setting[:meta_title] = Setting.human_name.pluralize + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title]
-   @logo_image_exists = File.exists?(RAILS_ROOT + "/public/themes/#{@setting[:theme]}/images/logo.png")    # check if an existing logo image exists
+   @setting[:meta_title] = Setting.model_name.human.pluralize + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title]
+   @logo_image_exists = File.exists?(Rails.root.to_s + "/public/themes/#{@setting[:theme]}/images/logo.png")    # check if an existing logo image exists
  end
 
  def update_settings
@@ -21,17 +21,17 @@ class SettingsController < ApplicationController
     @setting = Setting.find(:first, :conditions => ["name = ?", name]) 
     if @setting.value != value # the value of the setting has changed
      if @setting.update_attribute("value", value) # update the setting
-      flash[:success] << t("notice.item_save_success", :item => Setting.human_name + ": #{@setting.title}") 
-      Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_save", :item => PluginSetting.human_name, :name => @setting.title))  # log it
+      flash[:success] << t("notice.item_save_success", :item => Setting.model_name.human + ": #{@setting.title}") 
+      Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_save", :item => PluginSetting.model_name.human, :name => @setting.title))  # log it
      else # the setting failed saving 
-      flash[:failure] << t("notice.item_save_failure", :item => Setting.human_name + ": #{@setting.title}") 
+      flash[:failure] << t("notice.item_save_failure", :item => Setting.model_name.human + ": #{@setting.title}") 
      end
      counter += 1 
     else # show that the setting hasn't changed
      #flash[:notice] << "<font color=grey>The Setting(#{name}) has not changed.<br></font>"
     end
    end
-   #flash[:failure] << t("notice.items_forgot_to_select", :items => Setting.human_name.pluralize) if counter == 0 # no items changed
+   #flash[:failure] << t("notice.items_forgot_to_select", :items => Setting.model_name.human.pluralize) if counter == 0 # no items changed
    redirect_to :action => "index"
   end
  
@@ -42,7 +42,7 @@ class SettingsController < ApplicationController
   end
 
   def new_change_logo
-    @logo_image_exists = File.exists?(RAILS_ROOT + "/public/themes/#{@setting[:theme]}/images/logo.png")    # check if an existing logo image exists
+    @logo_image_exists = File.exists?(Rails.root.to_s + "/public/themes/#{@setting[:theme]}/images/logo.png")    # check if an existing logo image exists
   end
   
   def change_logo # change the main logo
@@ -77,7 +77,7 @@ class SettingsController < ApplicationController
         flash[:success] = t("notice.item_create_success", :item => t("single.logo"))
         Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_create", :item => t("single.logo"), :name => filename))  # log it
      else
-        flash[:failure] = t("notice.invalid_file_extensions", :item => Image.human_name, :acceptable_file_extensions => acceptable_file_extensions)      
+        flash[:failure] = t("notice.invalid_file_extensions", :item => Image.model_name.human, :acceptable_file_extensions => acceptable_file_extensions)      
      end     
 
  
@@ -118,7 +118,7 @@ class SettingsController < ApplicationController
       theme_config_file = File.join(unzipped_theme_dir, "theme.yml")
       if File.exists?(theme_config_file)
         theme_config = YAML::load(File.open(theme_config_file)) # get theme configuration          
-        themes_dir = File.join(RAILS_ROOT, "public/themes") 
+        themes_dir = File.join(Rails.root.to_s, "public/themes") 
         if FileUtils.mv(unzipped_theme_dir, themes_dir) # move tmp theme dir into the real themes dir
            flash[:success] = t("notice.item_install_success", :item => t("single.theme")) 
            Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("log.item_install", :item => t("single.theme"), :name => theme_config["theme"]["name"])) # log it
@@ -142,12 +142,12 @@ class SettingsController < ApplicationController
       flash[:failure] = t("notice.invalid_permissions")           
       #flash[:failure] = "Sorry, you can't delete the active theme! Please change your theme first."     
     else 
-      themes_dir = RAILS_ROOT + "/public/themes"
+      themes_dir = Rails.root.to_s + "/public/themes"
       theme_dir = themes_dir + "/" + theme
       theme_config_file = File.join(theme_dir, "theme.yml")
       theme_config = YAML::load(File.open(theme_config_file)) # get theme configuration    
            
-      themes_layout_dir = RAILS_ROOT + "/app/views/layouts/themes"
+      themes_layout_dir = Rails.root.to_s + "/app/views/layouts/themes"
       theme_layout_dir = themes_layout_dir + "/" + theme 
       FileUtils.rm_rf(theme_dir) if File.exists?(theme_dir)# erase theme directory
       FileUtils.rm_rf(theme_layout_dir) if File.exists?(theme_layout_dir)# erase theme layout directory, if it exists      

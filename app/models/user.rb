@@ -70,7 +70,7 @@ class User < ActiveRecord::Base
   end
   
   def destroy_everything
-    avatars_path = "#{RAILS_ROOT}/public/images/avatars"
+    avatars_path = "#{Rails.root.to_s}/public/images/avatars"
     avatar_path = "#{avatars_path}/#{self.id}.png"
     if File.exists?(avatar_path) # check if avatar exists
       FileUtils.rm(avatar_path) # delete!

@@ -155,7 +155,7 @@ class UserController < ApplicationController
         flash[:success] = t("notice.user_account_recover_password_instructions")
       end
     else  # user not found
-      flash[:failure] = t("notice.item_not_found", :item => User.human_name)
+      flash[:failure] = t("notice.item_not_found", :item => User.model_name.human)
     end
     redirect_to :action => "login", :controller => "browse"
   end
@@ -166,7 +166,7 @@ class UserController < ApplicationController
        @user.user_info.update_attribute(:forgot_password_code, nil) # reset password recovery code
        new_password = UserInfo.generate_password
        if @user.update_attribute(:password, new_password) # reset password
-         Log.create(:user_id => @user.id, :log_type => "system", :log =>  t("log.item_recover", :item => User.human_attribute_name(:password)))
+         Log.create(:user_id => @user.id, :log_type => "system", :log =>  t("log.item_recovered", :item => User.human_attribute_name(:password)))
          flash[:success] =  t("notice.user_account_recover_password_success", :new_password => new_password)
        end
     else

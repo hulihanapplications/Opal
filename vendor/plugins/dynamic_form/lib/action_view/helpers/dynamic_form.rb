@@ -44,7 +44,7 @@ module ActionView
       #   form("entry",
       #     :action => "sign",
       #     :input_block => Proc.new { |record, column|
-      #       "#{column.human_name}: #{input(record, column.name)}<br />"
+      #       "#{column.model_name.human}: #{input(record, column.name)}<br />"
       #   })
       #
       # would yield a form like the following (modulus formatting):
@@ -247,7 +247,7 @@ module ActionView
       end
 
       def default_input_block
-        Proc.new { |record, column| %(<p><label for="#{record}_#{column.name}">#{column.human_name}</label><br />#{input(record, column.name)}</p>) }
+        Proc.new { |record, column| %(<p><label for="#{record}_#{column.name}">#{column.model_name.human}</label><br />#{input(record, column.name)}</p>) }
       end
 
       module InstanceTagMethods

@@ -7,14 +7,14 @@
 </div>
 <div id="main">
 	            <div class="header">
-	            	<h2 class="title"><%= t("single.system") + " " + Log.human_name.pluralize %></h2>
+	            	<h2 class="title"><%= t("single.system") + " " + Log.model_name.human.pluralize %></h2>
 	            </div>
 	            <div class="box_2" align=left>
 	                <%= render :partial => "list_logs", :locals => {:logs => @logs} %>
 	            </div>
 	            <br>
 	            <div align=center>
-	                <%= page_entries_info @logs, :entry_name => Log.human_name %>
+	                <%= page_entries_info @logs, :entry_name => Log.model_name.human %>
 	                <%= will_paginate @logs %>
 	            </div>
 </div>

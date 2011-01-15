@@ -12,7 +12,7 @@ class MessagesController < ApplicationController
   before_filter :enable_admin_menu, :only => [:index, :for_user] # show admin menu
  
   def index
-    @setting[:meta_title] = UserMessage.human_name.pluralize + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title]
+    @setting[:meta_title] = UserMessage.model_name.human.pluralize + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title]
     @messages = UserMessage.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i
   end
 
@@ -43,9 +43,9 @@ class MessagesController < ApplicationController
     @message = UserMessage.find(params[:id])
     if @message.destroy
       #render :nothing => true # show nothing
-      flash[:success] =  t("notice.item_delete_success", :item => UserMessage.human_name)
+      flash[:success] =  t("notice.item_delete_success", :item => UserMessage.model_name.human)
     else 
-      flash[:success] =  t("notice.item_delete_failure", :item => UserMessage.human_name) 
+      flash[:success] =  t("notice.item_delete_failure", :item => UserMessage.model_name.human) 
     end 
     
     if @logged_in_user.is_admin? # did an admin do this?
@@ -59,9 +59,9 @@ class MessagesController < ApplicationController
     @message = UserMessage.find(params[:id])
     if @message.update_attribute(:is_read, "1")
       #render :nothing => true # show nothing
-      flash[:success] =  t("notice.item_save_success", :item => UserMessage.human_name)
+      flash[:success] =  t("notice.item_save_success", :item => UserMessage.model_name.human)
     else 
-      flash[:success] =  t("notice.item_save_failure", :item => UserMessage.human_name) 
+      flash[:success] =  t("notice.item_save_failure", :item => UserMessage.model_name.human) 
     end  
     
     if @logged_in_user.is_admin? # did an admin do this?
@@ -73,9 +73,9 @@ class MessagesController < ApplicationController
   
   def unread_message # mark message as unread
     if @message.update_attribute(:is_read, "0")
-       flash[:success] =  t("notice.item_save_success", :item => UserMessage.human_name) 
+       flash[:success] =  t("notice.item_save_success", :item => UserMessage.model_name.human) 
     else 
-      flash[:success] =  t("notice.item_save_failure", :item => UserMessage.human_name) 
+      flash[:success] =  t("notice.item_save_failure", :item => UserMessage.model_name.human) 
     end 
 
     if @logged_in_user.is_admin? # did an admin do this?
@@ -107,9 +107,9 @@ class MessagesController < ApplicationController
       @sent_message.save      
       
       Emailer.deliver_new_message_notification(@message, url_for(:action => "for_me", :controller => "messages", :only_path => false)) if @message.user.user_info.notify_of_new_messages? # send notification email      
-      flash[:success] = t("notice.message_send_success", :item => UserMessage.human_name, :to => @user_to.username)  
+      flash[:success] = t("notice.message_send_success", :item => UserMessage.model_name.human, :to => @user_to.username)  
     else 
-      flash[:failure] = t("notice.message_send_failure", :item => UserMessage.human_name, :to => @user_to.username)  
+      flash[:failure] = t("notice.message_send_failure", :item => UserMessage.model_name.human, :to => @user_to.username)  
     end 
     
     redirect_to :action => "for_me", :type => params[:type]        

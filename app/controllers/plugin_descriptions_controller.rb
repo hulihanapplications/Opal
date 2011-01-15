@@ -20,16 +20,16 @@ class PluginDescriptionsController < ApplicationController
      @description.is_approved = "1" if !@my_group_plugin_permissions.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin 
            
      if @description.save
-      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "create", :log => t("log.item_create", :item => @plugin.human_name, :name => @description.title))             
-      flash[:success] = t("notice.item_create_success", :item => @plugin.human_name)
-      flash[:success] += t("notice.item_needs_approval", :item => @plugin.human_name) if !@description.is_approved?
+      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "create", :log => t("log.item_create", :item => @plugin.model_name.human, :name => @description.title))             
+      flash[:success] = t("notice.item_create_success", :item => @plugin.model_name.human)
+      flash[:success] += t("notice.item_needs_approval", :item => @plugin.model_name.human) if !@description.is_approved?
      else # fail saved 
-      flash[:failure] = t("notice.item_create_failure", :item => @plugin.human_name)
+      flash[:failure] = t("notice.item_create_failure", :item => @plugin.model_name.human)
      end
    else # Improper Permissions  
         flash[:failure] = t("notice.invalid_permissions")    
    end   
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.human_name.pluralize 
+   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human.pluralize 
   end
  
   def update
@@ -38,49 +38,49 @@ class PluginDescriptionsController < ApplicationController
      @description.title = params[:description][:title]
      @description.content = sanitize(params[:description][:content])
      if @description.save
-      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => t("log.item_save", :item => @plugin.human_name, :name => @description.title))                    
-      flash[:success] =  t("notice.item_save_success", :item => @plugin.human_name)
+      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => t("log.item_save", :item => @plugin.model_name.human, :name => @description.title))                    
+      flash[:success] =  t("notice.item_save_success", :item => @plugin.model_name.human)
      else # fail saved 
-       flash[:success] = t("notice.item_save_failure", :item => @plugin.human_name)
+       flash[:success] = t("notice.item_save_failure", :item => @plugin.model_name.human)
      end
    else # Improper Permissions  
         flash[:failure] =  t("notice.invalid_permissions")        
    end    
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.human_name.pluralize 
+   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human.pluralize 
   end
   
   def delete
    if @my_group_plugin_permissions.can_delete? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?   
      @description = PluginDescription.find(params[:description_id])
      if @description.destroy
-      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => t("log.item_delete", :item => @plugin.human_name, :name => @description.title))                           
-      flash[:success] = t("notice.item_delete_success", :item => @plugin.human_name)
+      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => t("log.item_delete", :item => @plugin.model_name.human, :name => @description.title))                           
+      flash[:success] = t("notice.item_delete_success", :item => @plugin.model_name.human)
      else # fail saved 
-       flash[:success] = t("notice.item_delete_failure", :item => @plugin.human_name)
+       flash[:success] = t("notice.item_delete_failure", :item => @plugin.model_name.human)
      end
    else # Improper Permissions  
         flash[:failure] =  t("notice.invalid_permissions")        
    end   
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.human_name.pluralize 
+   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human.pluralize 
  end  
 
  def change_approval
     @description = PluginDescription.find(params[:description_id])    
     if  @description.is_approved?
       approval = "0" # set to unapproved if approved already    
-      log_msg = t("log.item_unapprove", :item => @plugin.human_name, :name => truncate(@description.content, :length => 20))
+      log_msg = t("log.item_unapprove", :item => @plugin.model_name.human, :name => truncate(@description.content, :length => 20))
     else
       approval = "1" # set to approved if unapproved already    
-      log_msg = t("log.item_approve", :item => @plugin.human_name, :name => truncate(@description.content, :length => 20))
+      log_msg = t("log.item_approve", :item => @plugin.model_name.human, :name => truncate(@description.content, :length => 20))
     end
     
     if @description.update_attribute(:is_approved, approval)
       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => log_msg)      
-      flash[:success] = t("notice.item_#{"un" if approval == "0"}approve_success", :item => @plugin.human_name)  
+      flash[:success] = t("notice.item_#{"un" if approval == "0"}approve_success", :item => @plugin.model_name.human)  
     else
-      flash[:failure] = t("notice.item_save_failure", :item => @plugin.human_name)
+      flash[:failure] = t("notice.item_save_failure", :item => @plugin.model_name.human)
     end
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.human_name.pluralize 
+   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human.pluralize 
   end
  
   def new 

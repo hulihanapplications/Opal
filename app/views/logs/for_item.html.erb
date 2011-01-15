@@ -1,7 +1,7 @@
 <%= render :partial => "browse/main_content_top_bar", :locals => {:options => {:show_list_type_selector => false}}  %>
 <div align=center>
 	<h2 class="title">
-		 <%= Log.human_name.pluralize %> -  <%= @item.name %>
+		 <%= Log.model_name.human.pluralize %> -  <%= @item.name %>
 	</h2>
 </div>
 <br>

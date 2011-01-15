@@ -6,14 +6,14 @@
 <div class="plugin_box">
 	<% if my_group_plugin_permissions[plugin.id].can_create? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
 		<div class="title">
-			<%= discussions.size %> <%= plugin.human_name.pluralize %> 
+			<%= discussions.size %> <%= plugin.model_name.human.pluralize %> 
 			<a href="javascript:toggle_box('new_discussion_box')" class="plugin_title_link">
 				<%= icon("new") %>
-				<%=  t("label.item_new", :item => plugin.human_name) %>
+				<%=  t("label.item_new", :item => plugin.model_name.human) %>
 			</a>
 		</div>
 		<div style="display:none;margin-bottom:5px" id="new_discussion_box" class="box_1">
-		      <h2><%=  t("label.item_new", :item => plugin.human_name) %></h2>
+		      <h2><%=  t("label.item_new", :item => plugin.model_name.human) %></h2>
 			  	 <div>
   					   <%= form_tag  :action => 'create', :controller => "plugin_discussions", :id => item.id %>
 								<img src="/themes/<%= @setting[:theme] %>/images/icons/discussion.png" class="icon">
@@ -21,7 +21,7 @@
 					   			<%= PluginDiscussion.human_attribute_name(:title) %>									
 								<input name="discussion[description]" type="text" id="discussion_description" onfocus = "focus_input('discussion_description')" onblur = "blur_input('discussion_description')"> 
 					   			<%= PluginDiscussion.human_attribute_name(:description) %>
-								<%= submit_tag  t("label.item_create", :item => plugin.human_name), :class => "button_1" %>
+								<%= submit_tag  t("label.item_create", :item => plugin.model_name.human), :class => "button_1" %>
 						</form>
 						<div style="margin-bottom:5px"></div>
 				 </div>
@@ -51,12 +51,12 @@
 								<i><%= h discussion.description if discussion.description %></i>
 							</td>
 							<td align=right style="text-align:right">
-								<%= link_to "<b>#{discussion.plugin_discussion_posts.size} #{PluginDiscussionPost.human_name.pluralize}</b>", {:action => "view", :controller => "plugin_discussions", :id => @item.id, :discussion_id => discussion.id}%>
+								<%= link_to "<b>#{discussion.plugin_discussion_posts.size} #{PluginDiscussionPost.model_name.human.pluralize}</b>", {:action => "view", :controller => "plugin_discussions", :id => @item.id, :discussion_id => discussion.id}%>
 								<% if !@logged_in_user.anonymous? %>
 									<img src="/themes/<%= @setting[:theme] %>/images/icons/new.png" class="icon" alt="New" title="New">
-									<%= link_to t("label.item_new", :item => PluginDiscussionPost.human_name), {:action => "view", :controller => "plugin_discussions", :id => @item.id, :discussion_id => discussion.id, :anchor => "new_post"}%>
+									<%= link_to t("label.item_new", :item => PluginDiscussionPost.model_name.human), {:action => "view", :controller => "plugin_discussions", :id => @item.id, :discussion_id => discussion.id, :anchor => "new_post"}%>
 								<% end %>
-								<%= link_to icon("rss", t("label.rss_feed") + " - " + t("label.items_latest", :items => PluginDiscussionPost.human_name.pluralize)), {:action => "rss", :controller => "plugin_discussions", :id => @item.id, :discussion_id => discussion.id} %>
+								<%= link_to icon("rss", t("label.rss_feed") + " - " + t("label.items_latest", :items => PluginDiscussionPost.model_name.human.pluralize)), {:action => "rss", :controller => "plugin_discussions", :id => @item.id, :discussion_id => discussion.id} %>
 
 								<% if my_group_plugin_permissions[plugin.id].can_update? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>									
 									<a href="javascript:replace_box('discussion_box_<%= discussion.id %>','edit_discussion_box_<%= discussion.id %>')">
@@ -64,7 +64,7 @@
 									</a>
 								<% end %>									
 								<% if my_group_plugin_permissions[plugin.id].can_delete? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>									
-									<%= link_to icon("delete"), { :action => 'delete', :controller => "plugin_discussions", :id => item.id, :discussion_id => discussion.id}, :confirm => t("confirm.item_delete", :item => plugin.human_name) %>
+									<%= link_to icon("delete"), { :action => 'delete', :controller => "plugin_discussions", :id => item.id, :discussion_id => discussion.id}, :confirm => t("confirm.item_delete", :item => plugin.model_name.human) %>
 								<% end %>
 								<% if @item.is_editable_for_user?(@logged_in_user)  %>
 									<span class="box_2" style="padding:2px;">									
@@ -79,13 +79,13 @@
 					<% latest_posts = PluginDiscussionPost.find(:all, :conditions => ["plugin_discussion_id = ?", discussion.id], :limit => 3) %>
 					<% if latest_posts.size > 0 %>
 						<div class="spacer"></div>					
-						<h3><%= t("label.items_latest", :items => PluginDiscussionPost.human_name.pluralize) %></h3>
+						<h3><%= t("label.items_latest", :items => PluginDiscussionPost.model_name.human.pluralize) %></h3>
 						<%= render :partial => "plugin_discussions/list_posts", :locals => {:posts => latest_posts, :item => item, :options => {:size => "small"}} %>
 					<% end %>
 				</div>
 			<% end %>
 		</div>
 	<% else %>
-		<%= t("label.items_none_added", :items => plugin.human_name.pluralize) %>
+		<%= t("label.items_none_added", :items => plugin.model_name.human.pluralize) %>
 	<% end %>
 </div>

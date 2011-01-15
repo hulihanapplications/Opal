@@ -30,8 +30,8 @@ class PluginReview < ActiveRecord::Base
   
   
   def validate_on_create
-     errors.add(:base, I18n.t("activerecord.errors.messages.items_cannot_add_more", :items => self.class.human_name.pluralize)) if PluginReview.find(:all, :conditions => ["user_id = ? and item_id = ?", self.user_id, self.item_id]).size > 0
-     errors.add(:base, I18n.t("activerecord.errors.messages.item_must_be_owner", :item => self.class.human_name)) if Setting.get_setting_bool("only_creator_can_review") && self.user_id != self.item.user_id    
+     errors.add(:base, I18n.t("activerecord.errors.messages.items_cannot_add_more", :items => self.class.model_name.human.pluralize)) if PluginReview.find(:all, :conditions => ["user_id = ? and item_id = ?", self.user_id, self.item_id]).size > 0
+     errors.add(:base, I18n.t("activerecord.errors.messages.item_must_be_owner", :item => self.class.model_name.human)) if Setting.get_setting_bool("only_creator_can_review") && self.user_id != self.item.user_id    
   end
   
   def can_user_vote?(user) # check if user voted or not

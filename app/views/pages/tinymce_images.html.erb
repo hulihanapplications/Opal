@@ -10,8 +10,8 @@
 	<div style="padding:10px;min-height:465px;" id="tinymce_plugin_opal_image">
 	    <% if flash[:notice] %><div class="flash_notice"><%= flash[:notice] %></div><% end %> 		
 		<ul class="plugin_tabs_horizontal"> 
-			    <li><a href="#Images"><%= @plugin.human_name.pluralize %></a></li>				
-				<li><a href="#Upload"><%= t("single.upload") %> <%= @plugin.human_name %></a></li> 
+			    <li><a href="#Images"><%= @plugin.model_name.human.pluralize %></a></li>				
+				<li><a href="#Upload"><%= t("single.upload") %> <%= @plugin.model_name.human %></a></li> 
 		</ul>			
 		<div class="plugin_panes_horizontal"> 					
 			<div class="plugin_box">		
@@ -21,15 +21,15 @@
 							<% for image in @images %>
 								<div class="image">
 								   <!--<a href="<%= h image.url %>"  title="<%= h image.description %>" rel="colorbox">-->
-								   <a href="javascript:ImageDialog.insertOpalImage('<%= image.url %>', '<%= image.description %>')" title="<%= t("label.item_select", :item => Image.human_name) %>">
+								   <a href="javascript:ImageDialog.insertOpalImage('<%= image.url %>', '<%= image.description %>')" title="<%= t("label.item_select", :item => Image.model_name.human) %>">
 											<img src="<%= h image.thumb_url %>" class="thumbnail"/>
 								   </a>
 								   <div class="box_2" style="margin-top:3px">
 										<%= link_to icon("zoom"), image.url, :target => "_blank", :title => t("label.zoom_in"), :class => "transparent" %>
 										<% if @item %>	
-											<%= link_to icon("delete"), { :action => 'delete', :controller => "plugin_images", :id => @item.id, :image_id => image.id, :tinymce => "true"}, :confirm => t("confirm.item_delete", :item => @plugin.human_name), :class => "transparent" %>																											   	
+											<%= link_to icon("delete"), { :action => 'delete', :controller => "plugin_images", :id => @item.id, :image_id => image.id, :tinymce => "true"}, :confirm => t("confirm.item_delete", :item => @plugin.model_name.human), :class => "transparent" %>																											   	
 										<% else %>
-											<%= link_to icon("delete"), { :action => 'delete_image', :controller => "pages", :id => image.id}, :confirm => t("confirm.item_delete", :item => @plugin.human_name), :class => "transparent" %>										
+											<%= link_to icon("delete"), { :action => 'delete_image', :controller => "pages", :id => image.id}, :confirm => t("confirm.item_delete", :item => @plugin.model_name.human), :class => "transparent" %>										
 										<% end %>										
 								   </div>									   							
 								</div>							
@@ -37,7 +37,7 @@
 							<div style="clear:both"></div>
 						<% else %>	
 							<div style="padding:5px;" align=center>												
-								<%= t("notice.items_not_found", :items => @plugin.human_name.pluralize) %>
+								<%= t("notice.items_not_found", :items => @plugin.model_name.human.pluralize) %>
 							</div>
 						<% end %>
 					</div>
@@ -45,7 +45,7 @@
 			</div>
 			<div id="Upload">								   
 			  <% if @item %>
-	   			<%= form_tag ({:action => 'create', :controller => "plugin_#{@plugin.human_name.pluralize}", :id => @item.id, :tinymce => "true"} , :multipart => true) %>			 
+	   			<%= form_tag ({:action => 'create', :controller => "plugin_#{@plugin.model_name.human.pluralize}", :id => @item.id, :tinymce => "true"} , :multipart => true) %>			 
 			  <% else %>			
 				<%= form_tag ({:action => 'upload_image', :controller => "pages"} , :multipart => true) %>
 			  <% end %>				

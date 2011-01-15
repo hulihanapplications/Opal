@@ -27,13 +27,13 @@
 <div id="main">
 				<div class="box_2" style="margin-bottom:5px">
 					<h2 class="title">
-						<%= t("label.item_new", :item => @page.human_name) %>
+						<%= t("label.item_new", :item => @page.model_name.human) %>
 					</h2>
 					<hr>
 					<div style="margin-bottom:10px"></div>
 						<input type="hidden" name="page[page_type]" value="<%= params[:type].downcase %>">
 						<%= render :partial => "form", :locals => {:page => @page}  %>
-						<div align=center><%= submit_tag t("label.item_create", :item => @page.human_name), :class => "button_1" %></div>	
+						<div align=center><%= submit_tag t("label.item_create", :item => @page.model_name.human), :class => "button_1" %></div>	
 				</div>
 </div>	
 </form>

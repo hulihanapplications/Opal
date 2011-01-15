@@ -27,8 +27,8 @@ class PluginImagesController < ApplicationController
         # generate image, apply special effects, save image to filesystem 
         Uploader.generate_image(
           :image => image,
-          :path => RAILS_ROOT + "/public" + @image.url,          
-          :thumbnail_path => RAILS_ROOT + "/public" + @image.thumb_url,
+          :path => Rails.root.to_s + "/public" + @image.url,          
+          :thumbnail_path => Rails.root.to_s + "/public" + @image.thumb_url,
           :effects => params[:effects]
         ) 
         
@@ -36,14 +36,14 @@ class PluginImagesController < ApplicationController
         @image.is_approved = "1" if !@my_group_plugin_permissions.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin
  
         if @image.save # if image was saved successfully
-          Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => @plugin.human_name, :name => @image.filename))                 
-          flash[:success] =  t("notice.item_create_success", :item => @plugin.human_name)
-          flash[:success] +=  t("notice.item_needs_approval", :item => @plugin.human_name) if !@image.is_approved?      
+          Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => @plugin.model_name.human, :name => @image.filename))                 
+          flash[:success] =  t("notice.item_create_success", :item => @plugin.model_name.human)
+          flash[:success] +=  t("notice.item_needs_approval", :item => @plugin.model_name.human) if !@image.is_approved?      
         else # save failed
-          flash[:failure] =  t("notice.item_create_failure", :item => @plugin.human_name)
+          flash[:failure] =  t("notice.item_create_failure", :item => @plugin.model_name.human)
         end
       else
-        flash[:failure] = t("notice.invalid_file_extensions", :item => @plugin.human_name, :acceptable_file_extensions => acceptable_file_extensions)      
+        flash[:failure] = t("notice.invalid_file_extensions", :item => @plugin.model_name.human, :acceptable_file_extensions => acceptable_file_extensions)      
       end      
     else # Improper Permissions  
       flash[:failure] = t("notice.invalid_permissions")           
@@ -52,7 +52,7 @@ class PluginImagesController < ApplicationController
     if params[:tinymce] == "true" # redirect them back to the tinymce popup box
       redirect_to :action => "tinymce_images", :controller => "pages", :item_id => @item.id     
     else # redirect them back to item page
-      redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.human_name.pluralize     
+      redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human.pluralize     
     end
   end 
 
@@ -60,10 +60,10 @@ class PluginImagesController < ApplicationController
     if @my_group_plugin_permissions.can_delete? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # check permissions           
        @image = PluginImage.find(params[:image_id])
        if @image.destroy
-         Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => t("log.item_delete", :item => @plugin.human_name, :name => @image.filename))                        
-         flash[:success] =  t("notice.item_delete_success", :item => @plugin.human_name)     
+         Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => t("log.item_delete", :item => @plugin.model_name.human, :name => @image.filename))                        
+         flash[:success] =  t("notice.item_delete_success", :item => @plugin.model_name.human)     
        else # fail saved 
-         flash[:failure] =  t("notice.item_delete_failure", :item => @plugin.human_name)   
+         flash[:failure] =  t("notice.item_delete_failure", :item => @plugin.model_name.human)   
        end
      else # Improper Permissions  
           flash[:failure] = t("notice.invalid_permissions")            
@@ -72,7 +72,7 @@ class PluginImagesController < ApplicationController
     if params[:tinymce] == "true" # redirect them back to the tinymce popup box
       redirect_to :action => "tinymce_images", :controller => "pages", :item_id => @item.id     
     else # redirect them back to item page
-      redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.human_name.pluralize     
+      redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human.pluralize     
     end
   end
 
@@ -87,8 +87,8 @@ class PluginImagesController < ApplicationController
     @new_main_image.update_attribute(:created_at, swap_time)
     
     flash[:success] =  t("notice.save_success") 
-    Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => t("log.item_save", :item => t("single.main") + " " + @plugin.human_name, :name => @new_main_image.filename))
-    redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.human_name.pluralize 
+    Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => t("log.item_save", :item => t("single.main") + " " + @plugin.model_name.human, :name => @new_main_image.filename))
+    redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human.pluralize 
   end
 
  
@@ -96,19 +96,19 @@ class PluginImagesController < ApplicationController
     @image = PluginImage.find(params[:image_id])    
     if  @image.is_approved?
       approval = "0" # set to unapproved if approved already    
-      log_msg = t("log.item_unapprove", :item => @plugin.human_name, :name => @image.filename) 
+      log_msg = t("log.item_unapprove", :item => @plugin.model_name.human, :name => @image.filename) 
     else
       approval = "1" # set to approved if unapproved already    
-      log_msg =  t("log.item_approve", :item => @plugin.human_name, :name => @image.filename) 
+      log_msg =  t("log.item_approve", :item => @plugin.model_name.human, :name => @image.filename) 
     end
     
     if @image.update_attribute(:is_approved, approval)
       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => log_msg)      
-      flash[:success] = t("notice.item_#{"un" if approval == "0"}approve_success", :item => @plugin.human_name)  
+      flash[:success] = t("notice.item_#{"un" if approval == "0"}approve_success", :item => @plugin.model_name.human)  
     else
-      flash[:failure] =  t("notice.item_save_failure", :item => @plugin.human_name)
+      flash[:failure] =  t("notice.item_save_failure", :item => @plugin.model_name.human)
     end
-    redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.human_name.pluralize 
+    redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human.pluralize 
   end  
 
   def tiny_mce_images # display images in tinymce  

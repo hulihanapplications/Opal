@@ -54,12 +54,12 @@ module ApplicationHelper
         avatar_image(user, :size => options[:size])
       end
     else # user doesn't exist
-      return raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\" title=\"#{t("notice.item_not_found", :item => User.human_name)}\">"      
+      return raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\" title=\"#{t("notice.item_not_found", :item => User.model_name.human)}\">"      
     end     
   end 
 
   def avatar_image(user, options = {:size => "normal"})
-      if File.exists?(RAILS_ROOT + "/public/images/avatars/" + user.id.to_s + ".png") 
+      if File.exists?(Rails.root.to_s + "/public/images/avatars/" + user.id.to_s + ".png") 
          return raw "<img src=\"/images/avatars/#{user.id.to_s}.png\" class=\"avatar_#{options[:size]}\" title=\"#{user.username}\">"
       else # get default avatar
          return raw "<img src=\"/themes/#{@setting[:theme]}/images/default_avatar.png\" class=\"avatar_#{options[:size]}\" title=\"#{user.username}\">"
@@ -194,7 +194,7 @@ module ApplicationHelper
           if options[:admin_controls] # show admin controls      
             html += "<td align=right class=\"icon_column\"><img src=\"/themes/#{@setting[:theme]}/images/icons/private.png\" class=\"icon help\" title=\"This is not published and cannot be seen by others.\"></td>" if !page.published                        
             html += "<td align=right class=\"icon_column\"><img src=\"/themes/#{@setting[:theme]}/images/icons/help.png\" class=\"icon help\" title=\"#{page.description}\"></td>" if page.description && page.description != ""            
-            html += "<td align=right class=\"icon_column\">" + link_to(icon("new", "#{t("label.item_new_child", :item => Page.human_name)}"), {:action => "new", :controller => "pages", :id => page}, :class => "transparent") + "</td>" if page.is_public_page?              
+            html += "<td align=right class=\"icon_column\">" + link_to(icon("new", "#{t("label.item_new_child", :item => Page.model_name.human)}"), {:action => "new", :controller => "pages", :id => page}, :class => "transparent") + "</td>" if page.is_public_page?              
             html += "<td align=right class=\"icon_column\">" + link_to(icon("edit"), {:action => "edit", :controller => "pages", :id => page}, :class => "transparent") + "</td>" 
             html += "<td align=right class=\"icon_column\">" + link_to(icon("delete"), {:action => "delete", :controller => "pages", :id => page}, :confirm => "Are you sure you want to delete this?", :class => "transparent") + "</td>" if !page.is_system_page? && page.deletable 
           end  
@@ -248,7 +248,7 @@ module ApplicationHelper
           
           if options[:admin_controls] # show admin controls      
             html += "<td align=right class=\"icon_column\"><img src=\"/themes/#{@setting[:theme]}/images/icons/help.png\" class=\"icon help\" title=\"#{category.description}\"></td>" if category.description && category.description != ""            
-            html += "<td align=right class=\"icon_column\">" + link_to(icon("new", "#{t("label.item_new_child", :item => Page.human_name)}"), {:action => "new", :controller => "categories", :id => category}, :class => "transparent") + "</td>"              
+            html += "<td align=right class=\"icon_column\">" + link_to(icon("new", "#{t("label.item_new_child", :item => Page.model_name.human)}"), {:action => "new", :controller => "categories", :id => category}, :class => "transparent") + "</td>"              
             html += "<td align=right class=\"icon_column\">" + link_to(icon("edit"), {:action => "edit", :controller => "categories", :id => category}, :class => "transparent") + "</td>"
             html += "<td align=right class=\"icon_column\">" + link_to(icon("delete"), {:action => "delete", :controller => "categories", :id => category}, :confirm => "Are you sure you want to delete this category? All #{@setting[:item_name_plural]} in this category will be also be deleted.", :class => "transparent") + "</td>"
           end   
@@ -397,7 +397,7 @@ module ApplicationHelper
          tags << link_to_tag(tag)
       end 
     end
-    return raw "#{icon("tag")} #{PluginTag.human_name.pluralize}: #{tags.join(", ")}" unless tags.size == 0 
+    return raw "#{icon("tag")} #{PluginTag.model_name.human.pluralize}: #{tags.join(", ")}" unless tags.size == 0 
   end
   
   def link_to_tag(tag)

@@ -3,6 +3,6 @@
 		<%= render :partial => "blog/list_page", :locals => {:page => page} %>
 		<div class="spacer"></div>
 			<%= icon("comments") %> 										
-			<%= link_to "#{page.page_comments.size} #{PageComment.human_name.pluralize}", {:action => "page", :controller => "pages", :id => page, :anchor => "comments"} %>
+			<%= link_to "#{page.page_comments.size} #{PageComment.model_name.human.pluralize}", {:action => "page", :controller => "pages", :id => page, :anchor => "comments"} %>
 	</div>
 <% end %>

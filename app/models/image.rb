@@ -7,7 +7,7 @@ class Image < ActiveRecord::Base
   #validates_uniqueness_of :url, :scope => :item_id, :message => "There is already an image with this filename!"
   
   def delete_files
-    image_dir = File.join(RAILS_ROOT, "public", "images", "uploaded_images", self.id.to_s)
+    image_dir = File.join(Rails.root.to_s, "public", "images", "uploaded_images", self.id.to_s)
 
     # Remove Image Folder
     FileUtils.rm_rf(image_dir) if File.exist?(image_dir) # remove the folder if it exists 

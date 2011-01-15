@@ -38,7 +38,7 @@ class Emailer < ActionMailer::Base
     recipients = message.user.email
     @message = message
     @url = url
-    subject = I18n.t("email.subject.item_new_from_user", :item => UserMessage.human_name, :from => @message.user_from.username, :name => "#{@message.user_from.first_name} #{@message.user_from.last_name}", :title => @setting[:title])
+    subject = I18n.t("email.subject.item_new_from_user", :item => UserMessage.model_name.human, :from => @message.user_from.username, :name => "#{@message.user_from.first_name} #{@message.user_from.last_name}", :title => @setting[:title])
     mail(:to => nil, :bcc => recipients, :subject => subject, :date => Time.now, :content_type => "text/plain")    
   end
   
@@ -58,7 +58,7 @@ class Emailer < ActionMailer::Base
     recipients = Emailer.admin_emails
     @user = user
     @url = url        
-    subject = I18n.t("email.subject.item_new", :item => User.human_name, :name => @user.username + " (#{@user.first_name} #{@user.last_name})", :title => @setting[:title])
+    subject = I18n.t("email.subject.item_new", :item => User.model_name.human, :name => @user.username + " (#{@user.first_name} #{@user.last_name})", :title => @setting[:title])
     mail(:to => nil, :bcc => recipients, :subject => subject, :date => Time.now, :content_type => "text/plain")        
   end
   

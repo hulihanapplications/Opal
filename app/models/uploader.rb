@@ -141,7 +141,7 @@ class Uploader #< ActiveRecord::Base
     end
   
     if options[:effects][:watermark] == "yes" # Watermark 
-     watermark_path = RAILS_ROOT + "/public/themes/#{@setting[:theme]}/images/watermark.png"
+     watermark_path = Rails.root.to_s + "/public/themes/#{@setting[:theme]}/images/watermark.png"
      if File.exists?(watermark_path) # use existing watermark image
        watermark_image = Magick::Image.from_blob( File.read(watermark_path)).first 
        options[:image].composite!(watermark_image, Magick::CenterGravity, Magick::OverCompositeOp)      
@@ -174,7 +174,7 @@ class Uploader #< ActiveRecord::Base
     end
 
     if options[:effects][:stamp] == "yes" # Stamp 
-     stamp_path = RAILS_ROOT + "/public/themes/#{@setting[:theme]}/images/stamp.png"
+     stamp_path = Rails.root.to_s + "/public/themes/#{@setting[:theme]}/images/stamp.png"
      if File.exists?(stamp_path) # use existing stamp image
        stamp_image = Magick::Image.from_blob( File.read(stamp_path)).first 
        options[:image].composite!(stamp_image, Magick::SouthEastGravity, Magick::OverCompositeOp)  # Other Gravities: SouthEastGravity, NorthGravity(centered), etc.    

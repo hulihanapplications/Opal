@@ -34,7 +34,7 @@
 						<!--<input type="radio" name="format" value="excel"> Excel <br>-->									
 					</div>							
 		   			<div class="box_1">
-						<h2><%= Category.human_name.pluralize %></h2>
+						<h2><%= Category.model_name.human.pluralize %></h2>
 						<div class="spacer"></div>
 						<% for category in Category.get_parent_categories  %>
 							<%= descend_category(category, :include_children => @setting[:include_child_category_items], :make_radio_button => true, :truncate_length => 35)  %>

@@ -4,7 +4,7 @@ class PagesController < ApplicationController
  before_filter :uses_tiny_mce, :only => [:new, :edit]  # which actions to load tiny_mce, TinyMCE Config is done in Layout. 
  
  def index
-   @setting[:meta_title] = Page.human_name.pluralize + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title]
+   @setting[:meta_title] = Page.model_name.human.pluralize + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title]
    params[:type] ||= "System" # set default
    if params[:type] == "Blog" # if blog pages
      order = "created_at DESC" # set order
@@ -19,11 +19,11 @@ class PagesController < ApplicationController
     @page = Page.new(params[:page])
     @page.user_id = @logged_in_user.id
     if @page.save
-      Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("log.item_create", :item => Page.human_name, :name => @page.title))             
-      flash[:success] = t("notice.item_create_success", :item => Page.human_name)
+      Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("log.item_create", :item => Page.model_name.human, :name => @page.title))             
+      flash[:success] = t("notice.item_create_success", :item => Page.model_name.human)
       redirect_to :action => 'index', :type => @page.page_type.capitalize   
     else
-      flash[:failure] = t("notice.item_create_failure", :item => Page.human_name)
+      flash[:failure] = t("notice.item_create_failure", :item => Page.model_name.human)
       render :action => "new"
     end
  end
@@ -33,15 +33,15 @@ class PagesController < ApplicationController
    if params[:page][:page_id].to_i != @page.id # trying to select self as parent category    
      params[:page][:content] = params[:page][:content] # clean user input      
       if @page.update_attributes(params[:page]) 
-        flash[:success] = t("notice.item_save_success", :item => Page.human_name)
-        Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => Page.human_name, :name => @page.title))
+        flash[:success] = t("notice.item_save_success", :item => Page.model_name.human)
+        Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => Page.model_name.human, :name => @page.title))
         redirect_to :action => 'edit', :id => @page.id, :type => @page.page_type.capitalize  
       else
-        flash[:failure] = t("notice.item_save_failure", :item => Page.human_name)
+        flash[:failure] = t("notice.item_save_failure", :item => Page.model_name.human)
         render :action => "edit"
       end
     else
-      flash[:failure] = t("notice.association_loop_failure", :item => Page.human_name)
+      flash[:failure] = t("notice.association_loop_failure", :item => Page.model_name.human)
       render :action => "edit"
     end 
  end
@@ -51,8 +51,8 @@ class PagesController < ApplicationController
    if @page.is_system_page? # Can't delete system pages
      flash[:failure] = t("notice.invalid_permissions")
    else 
-     Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.item_delete", :item => Page.human_name, :name => @page.title))                        
-     flash[:success] = t("notice.item_delete_success", :item => Page.human_name)
+     Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.item_delete", :item => Page.model_name.human, :name => @page.title))                        
+     flash[:success] = t("notice.item_delete_success", :item => Page.model_name.human)
      @page.destroy
    end
    redirect_to :action => 'index', :type => @page.page_type.capitalize     
@@ -70,12 +70,12 @@ class PagesController < ApplicationController
                @comment.user_id = @logged_in_user.id # set comment user id
              end 
              if @comment.save
-              Log.create(:user_id => @logged_in_user.id,  :log_type => "new", :log => t("log.item_create", :item => PageComment.human_name, :name => @page.title)) if !@logged_in_user.anonymous?
-              Log.create(:log_type => "new", :log => t("log.item_create", :item => PageComment.human_name, :name => @page.title + " (#{t("single.visior")}: #{request.env["REMOTE_ADDR"]})")) if @logged_in_user.anonymous?
+              Log.create(:user_id => @logged_in_user.id,  :log_type => "new", :log => t("log.item_create", :item => PageComment.model_name.human, :name => @page.title)) if !@logged_in_user.anonymous?
+              Log.create(:log_type => "new", :log => t("log.item_create", :item => PageComment.model_name.human, :name => @page.title + " (#{t("single.visior")}: #{request.env["REMOTE_ADDR"]})")) if @logged_in_user.anonymous?
               
-              flash[:success] = t("notice.item_create_success", :item => PageComment.human_name)
+              flash[:success] = t("notice.item_create_success", :item => PageComment.model_name.human)
              else # fail saved 
-              flash[:failure] = t("notice.item_create_failure", :item => PageComment.human_name)
+              flash[:failure] = t("notice.item_create_failure", :item => PageComment.model_name.human)
              end 
        else # Attempted Securtiy Bypass: User is trying to add a comment to an item that's not viewable. They shouldn't be able to get to the add comment form, but this stops them server-side.
             flash[:failure] = t("notice.invalid_permissions")        
@@ -92,8 +92,8 @@ class PagesController < ApplicationController
 
  def delete_page_comment
    @page_comment = PageComment.find(params[:id])   
-   Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_delete", :item => PageComment.human_name, :name => @page_comment.page.title))                        
-   flash[:success] = t("notice.item_delete_success", :item => PageComment.human_name)
+   Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_delete", :item => PageComment.model_name.human, :name => @page_comment.page.title))                        
+   flash[:success] = t("notice.item_delete_success", :item => PageComment.model_name.human)
    @page_comment.destroy
    redirect_to :action => "page", :id => @page_comment.page_id # go to page
  end  
@@ -163,8 +163,8 @@ class PagesController < ApplicationController
             # generate image, apply special effects, save image to filesystem 
             Uploader.generate_image(
               :image => image,
-              :path => RAILS_ROOT + "/public" + @image.url,          
-              :thumbnail_path => RAILS_ROOT + "/public" + @image.thumb_url,
+              :path => Rails.root.to_s + "/public" + @image.url,          
+              :thumbnail_path => Rails.root.to_s + "/public" + @image.thumb_url,
               :effects => params[:effects],
               :resize_image => @plugin.get_setting_bool("resize_item_images"),
               :resized_image_width => @plugin.get_setting("item_image_width").to_i,
@@ -173,16 +173,16 @@ class PagesController < ApplicationController
               :thumbnail_height => @plugin.get_setting("item_thumbnail_height").to_i
             ) 
           
-            Log.create(:user_id => @logged_in_user.id,  :log_type => "new", :log => t("log.item_create", :item => Image.human_name , :name => filename))                 
-            flash[:success] = t("notice.item_create_success", :item => PluginImage.human_name) 
+            Log.create(:user_id => @logged_in_user.id,  :log_type => "new", :log => t("log.item_create", :item => Image.model_name.human , :name => filename))                 
+            flash[:success] = t("notice.item_create_success", :item => PluginImage.model_name.human) 
           else 
-            flash[:failure] = t("notice.item_create_failure", :item => PluginImage.human_name)           
+            flash[:failure] = t("notice.item_create_failure", :item => PluginImage.model_name.human)           
           end 
         else # save failed
-          flash[:failure] = t("notice.item_create_failure", :item => PluginImage.human_name) 
+          flash[:failure] = t("notice.item_create_failure", :item => PluginImage.model_name.human) 
         end
       else
-        flash[:failure] = t("notice.invalid_file_extensions", :item => PluginImage.human_name, :acceptable_extensions => acceptable_file_extensions)    
+        flash[:failure] = t("notice.invalid_file_extensions", :item => PluginImage.model_name.human, :acceptable_extensions => acceptable_file_extensions)    
     end
     redirect_to :action => "tinymce_images"
   end
@@ -190,10 +190,10 @@ class PagesController < ApplicationController
   def delete_image
      @image = Image.find(params[:id])
      if @image.destroy
-       Log.create(:user_id => @logged_in_user.id,  :log_type => "delete",  :log => t("log.item_delete", :item => Image.human_name, :name => File.basename(@image.url)))                        
-       flash[:success] = t("notice.item_delete_success", :item => Image.human_name)    
+       Log.create(:user_id => @logged_in_user.id,  :log_type => "delete",  :log => t("log.item_delete", :item => Image.model_name.human, :name => File.basename(@image.url)))                        
+       flash[:success] = t("notice.item_delete_success", :item => Image.model_name.human)    
      else # fail saved 
-       flash[:failure] = t("notice.item_delete_failure", :item => Image.human_name)     
+       flash[:failure] = t("notice.item_delete_failure", :item => Image.model_name.human)     
      end
     redirect_to :action => "tinymce_images"
   end  

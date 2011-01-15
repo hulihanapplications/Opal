@@ -32,7 +32,7 @@
 						<% end %>												
 						<% if item.is_editable_for_user?(@logged_in_user) %>
 							   		<img src="/themes/<%= @setting[:theme] %>/images/icons/logs.png" class="icon">
-									<%= link_to Log.human_name.pluralize, {:controller => "logs", :action => "for_item", :id => @item.id}, :title => t("label.item_view_items", :item => @setting[:item_name], :items => Log.human_name.pluralize) %>						
+									<%= link_to Log.model_name.human.pluralize, {:controller => "logs", :action => "for_item", :id => @item.id}, :title => t("label.item_view_items", :item => @setting[:item_name], :items => Log.model_name.human.pluralize) %>						
 								<%= link_to icon("edit") + " " + t("single.edit") , {:action => "edit", :controller => "items", :id => item}, :title => t("label.item_edit", :item => @setting[:item_name]) %>
 						<% end %>
 						<% if item.is_deletable_for_user?(@logged_in_user) %>

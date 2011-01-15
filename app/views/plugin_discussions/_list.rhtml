@@ -2,7 +2,7 @@
 	<% discussion_count = PluginDiscussion.count(:all, :conditions => ["item_id = ?", item.id]) %>
 	<% if discussion_count > 0 %>
 		<img src="/themes/<%= @setting[:theme] %>/images/icons/discussion.png" class="icon" title="" alt="">
-		<%= link_to "#{discussion_count} #{plugin.human_name.pluralize}", {:action => "view", :controller => "items", :id => item.id, :anchor => "#{plugin.human_name.pluralize}"}, :title => "" %>
+		<%= link_to "#{discussion_count} #{plugin.model_name.human.pluralize}", {:action => "view", :controller => "items", :id => item.id, :anchor => "#{plugin.model_name.human.pluralize}"}, :title => "" %>
 		<br>
 	<% end %>
 	

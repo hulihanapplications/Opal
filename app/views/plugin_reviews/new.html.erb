@@ -7,16 +7,16 @@
 	</div>
 	<div id="main">
 				<div class="box_2" style="margin-bottom:5px">
-					<h2 class="title"><%= t("label.item_new", :item => @plugin.human_name) %></h2>
+					<h2 class="title"><%= t("label.item_new", :item => @plugin.model_name.human) %></h2>
 					<div class="spacer"></div>		
 					<%= form_tag  :action => 'create', :controller => "plugin_reviews", :id => @item.id %>
 						<%= render :partial => "form", :locals => {:review => @review, :plugin => @plugin} %>
 						<br>
-						<div align=center><%= submit_tag t("label.item_create", :item => @plugin.human_name), :class => "button_1" %></div>
+						<div align=center><%= submit_tag t("label.item_create", :item => @plugin.model_name.human), :class => "button_1" %></div>
 					</form>
 					
 				</div>
 	</div>				
 	
-	<div align=center><img src="/themes/<%= @setting[:theme] %>/images/icons/arrow_left.png" class="icon" title="Back"> <%= link_to t("single.back"), { :action => 'view', :controller => "items", :id => @item.id, :anchor => "#{@plugin.human_name.pluralize}"}  %></div>
+	<div align=center><img src="/themes/<%= @setting[:theme] %>/images/icons/arrow_left.png" class="icon" title="Back"> <%= link_to t("single.back"), { :action => 'view', :controller => "items", :id => @item.id, :anchor => "#{@plugin.model_name.human.pluralize}"}  %></div>
 </div>

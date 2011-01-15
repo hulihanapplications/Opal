@@ -1,7 +1,7 @@
 <% if plugin_item %>
 	<%
 		plugin_class = plugin_item.class
-		plugin_name = plugin_class.human_name		
+		plugin_name = plugin_class.model_name.human		
 	%>
 	<span class="box_2" style="padding:2px;">									
 		<%= icon("approved", t("single.approved")) if plugin_item.is_approved? %> 

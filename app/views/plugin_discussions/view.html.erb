@@ -13,14 +13,14 @@
 				</td>
 				<td align=right style="text-align:right">
 					<%= friendly_date @discussion.created_at %>
-					<%= link_to icon("rss", t("label.rss_feed") + " -  " + t("label.items_latest", :items => PluginDiscussionPost.human_name.pluralize)), {:action => "rss", :controller => "plugin_discussions", :id => @item.id, :discussion_id => @discussion.id} %>
+					<%= link_to icon("rss", t("label.rss_feed") + " -  " + t("label.items_latest", :items => PluginDiscussionPost.model_name.human.pluralize)), {:action => "rss", :controller => "plugin_discussions", :id => @item.id, :discussion_id => @discussion.id} %>
 				<% if @logged_in_user.is_admin? || (@my_group_plugin_permissions[@plugin.id].can_update? || item.is_user_owner?(@logged_in_user))   %>									
 					<a href="javascript:replace_box('discussion_box_<%= @discussion.id %>','edit_discussion_box_<%= @discussion.id %>')">
 						<%= icon("edit") %>
 					</a>
 				<% end %>									
 				<% if @logged_in_user.is_admin? || (@my_group_plugin_permissions[@plugin.id].can_delete? || @item.is_user_owner?(@logged_in_user)) %>									
-					<%= link_to icon("delete"), { :action => 'delete', :controller => "plugin_discussions", :id => @item.id, :discussion_id => @discussion.id}, :confirm => t("confirm.item_delete", :item => @plugin.human_name) %>
+					<%= link_to icon("delete"), { :action => 'delete', :controller => "plugin_discussions", :id => @item.id, :discussion_id => @discussion.id}, :confirm => t("confirm.item_delete", :item => @plugin.model_name.human) %>
 				<% end %>	
 					<% if @item.is_editable_for_user?(@logged_in_user)  %>
 						<span class="box_2" style="padding:2px;">									
@@ -36,7 +36,7 @@
 		<% if @posts.size > 0 %>
 			<%= render :partial => "plugin_discussions/list_posts", :locals => {:posts => @posts, :item => @item} %>
 		<% else %>
-			<h3><%= t("label.items_none_added", :items => PluginDiscussionPost.human_name.pluralize) %></h3>
+			<h3><%= t("label.items_none_added", :items => PluginDiscussionPost.model_name.human.pluralize) %></h3>
 		<% end %>
 	
 	</div>
@@ -44,7 +44,7 @@
 	
 	<div align=center style="margin-bottom:5px;">
 		<% if @posts.size > 0 %>
-			<%= page_entries_info @posts, :entry_name => PluginDiscussionPost.human_name %>
+			<%= page_entries_info @posts, :entry_name => PluginDiscussionPost.model_name.human %>
 		<% end %>
 		<%= will_paginate @posts %>	
 	</div>
@@ -53,14 +53,14 @@
 		<a name="new_post"></a>
 		<h2 class="title" style="margin-bottom:5px">
 			<img src="/themes/<%= @setting[:theme] %>/images/icons/new.png" class="icon">
-			<%= t("label.item_new", :item => PluginDiscussionPost.human_name) %>
+			<%= t("label.item_new", :item => PluginDiscussionPost.model_name.human) %>
 	
 		</h2>
 		<% if !@logged_in_user.anonymous? %>		
 		    <%= form_tag  :action => 'create_post', :controller => "plugin_discussions", :id => @item.id, :discussion_id => @discussion.id %>
 					<textarea name="post[post]"  id="post_post" onfocus = "focus_input('post_post')" onblur = "blur_input('post_post')" style="width:100%;margin-bottom:5px"></textarea>
 		
-					<%= submit_tag  t("label.item_create", :item => PluginDiscussionPost.human_name), :class => "button_1" %>
+					<%= submit_tag  t("label.item_create", :item => PluginDiscussionPost.model_name.human), :class => "button_1" %>
 			</form>	
 		<% else %>
 			<div align=center >

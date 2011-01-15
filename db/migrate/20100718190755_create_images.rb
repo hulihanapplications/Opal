@@ -1,5 +1,5 @@
 class CreateImages < ActiveRecord::Migration
-  @images_path  = "#{RAILS_ROOT}/public/images/uploaded_images"
+  @images_path  = "#{Rails.root.to_s}/public/images/uploaded_images"
   
   def self.up
     # Create Images Folder

@@ -22,7 +22,7 @@ class PluginFile < ActiveRecord::Base
   end
   
   def delete_file
-    file = RAILS_ROOT + "/files/item_files/#{self.item_id}/#{self.filename}"
+    file = Rails.root.to_s + "/files/item_files/#{self.item_id}/#{self.filename}"
 
     if File.exists?(file) # does the file exist?
      FileUtils.rm(file) # delete the file
@@ -32,7 +32,7 @@ class PluginFile < ActiveRecord::Base
   end
   
   def path # the path to the file
-    return RAILS_ROOT + "/files/item_files/#{self.item_id}/#{self.filename}"
+    return Rails.root.to_s + "/files/item_files/#{self.item_id}/#{self.filename}"
   end
 
   def is_approved?

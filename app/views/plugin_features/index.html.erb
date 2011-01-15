@@ -11,11 +11,11 @@
 							<tr>
 								<td align=left>
 									<h2 class="title">
-										<%=  PluginFeature.human_name.pluralize  %>
+										<%=  PluginFeature.model_name.human.pluralize  %>
 									</h2>						
 								</td>
 								<td align=right >
-										<%= link_to icon("new") + " " + t("label.item_new", :item => PluginFeature.human_name), {:action => "new"} %>						
+										<%= link_to icon("new") + " " + t("label.item_new", :item => PluginFeature.model_name.human), {:action => "new"} %>						
 								</td>
 							</tr>
 						</table>
@@ -47,14 +47,14 @@
 															</td>
 															<td align=right>													
 																<% if feature.feature_type == "option" %>
-																	<%= link_to "#{feature.plugin_feature_value_options.size} #{PluginFeatureValueOption.human_name.pluralize}", { :action => 'edit', :controller => "plugin_features", :id => feature.id, :anchor => "options"} %>																									
-																	<%= link_to icon("new") + " " + t("label.item_new", :item =>  PluginFeatureValueOption.human_name), { :action => 'edit', :controller => "plugin_features", :id => feature.id, :anchor => "options"} %>
+																	<%= link_to "#{feature.plugin_feature_value_options.size} #{PluginFeatureValueOption.model_name.human.pluralize}", { :action => 'edit', :controller => "plugin_features", :id => feature.id, :anchor => "options"} %>																									
+																	<%= link_to icon("new") + " " + t("label.item_new", :item =>  PluginFeatureValueOption.model_name.human), { :action => 'edit', :controller => "plugin_features", :id => feature.id, :anchor => "options"} %>
 																<% end %>
 																<%  if feature.description && feature.description != "" %>
 																	<%= icon("help", "#{feature.description}", "help") %>
 																<% end %>																																								
 																<%= link_to icon("edit"), { :action => 'edit', :controller => "plugin_features", :id => feature.id} %>										
-																<%= link_to icon("delete"), { :action => 'delete', :controller => "plugin_features", :id => feature.id}, :confirm => t("confirm.item_delete", :item => PluginFeatureValueOption.human_name)  %>
+																<%= link_to icon("delete"), { :action => 'delete', :controller => "plugin_features", :id => feature.id}, :confirm => t("confirm.item_delete", :item => PluginFeatureValueOption.model_name.human)  %>
 																			
 															</td>
 														</tr>
@@ -66,7 +66,7 @@
 											<% end %>
 									<% else %>
 										<div align=center>
-											<%= t("label.items_none_added", :items => PluginFeature.human_name.pluralize) %>
+											<%= t("label.items_none_added", :items => PluginFeature.model_name.human.pluralize) %>
 										</div>
 									<% end %>											
 	

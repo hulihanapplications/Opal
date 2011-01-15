@@ -7,7 +7,7 @@ class PluginsController < ApplicationController
 
   
    def index
-     @setting[:meta_title] =  Plugin.human_name.pluralize + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title] 
+     @setting[:meta_title] =  Plugin.model_name.human.pluralize + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title] 
      @setting[:load_prototype] = true # load prototype js in layout 
      @plugins = Plugin.find(:all, :order => "order_number ASC")
    end
@@ -16,7 +16,7 @@ class PluginsController < ApplicationController
     params[:sortable_list].each_with_index do |id, position|
       plugin = Plugin.update(id, :order_number => position)
     end
-     Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_save", :item => Plugin.human_name, :name => Plugin.human_attribute_name(:order_number)))                                                 
+     Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_save", :item => Plugin.model_name.human, :name => Plugin.human_attribute_name(:order_number)))                                                 
      render :text => "<div class=\"notice\"><div class=\"success\">#{t("notice.save_success")}</div></div>"
    end 
    
@@ -25,10 +25,10 @@ class PluginsController < ApplicationController
       plugin = Plugin.find(params[:id])
       if plugin.is_enabled == "1"
         plugin.is_enabled = "0"
-        msg = t("log.item_disable", :item => Plugin.human_name, :name => plugin.human_name.pluralize) 
+        msg = t("log.item_disable", :item => Plugin.model_name.human, :name => plugin.model_name.human.pluralize) 
       elsif plugin.is_enabled == "0"
         plugin.is_enabled = "1"
-        msg = t("log.item_enable", :item => Plugin.human_name, :name => plugin.human_name.pluralize) 
+        msg = t("log.item_enable", :item => Plugin.model_name.human, :name => plugin.model_name.human.pluralize) 
       end
       plugin.save
       Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => msg)                                              
@@ -41,10 +41,10 @@ class PluginsController < ApplicationController
       @setting = PluginSetting.find(:first, :conditions => ["name = ?", name]) 
       if @setting.value != value # the value of the setting has changed
        if @setting.update_attribute("value", value) # update the setting
-        flash[:success] << t("notice.item_save_success", :item => PluginSetting.human_name + ": #{@setting.title}") + "<br>"
-        Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_save", :item => PluginSetting.human_name, :name => @setting.title))                                                 
+        flash[:success] << t("notice.item_save_success", :item => PluginSetting.model_name.human + ": #{@setting.title}") + "<br>"
+        Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_save", :item => PluginSetting.model_name.human, :name => @setting.title))                                                 
        else # the setting failed saving 
-        flash[:failure] << t("notice.item_save_failure", :item => PluginSetting.human_name + ": #{@setting.title}")
+        flash[:failure] << t("notice.item_save_failure", :item => PluginSetting.model_name.human + ": #{@setting.title}")
        end
       else # show that the setting hasn't changed
        #flash[:notice] << "<font color=grey>The Setting(#{name}) has not changed.<br></font>"
@@ -74,19 +74,19 @@ class PluginsController < ApplicationController
           if plugin.install # run new plugin model's install method
             # Install files 
             for file in  plugin.install.files 
-              FileUtils.mkdir_p(File.dirname(File.join(RAILS_ROOT, file))) if !File.exists?(File.dirname(File.join(RAILS_ROOT, file))) # create directory if it doesn't exist
-              FileUtils.cp_r(File.join(unzipped_plugin_dir, file), File.join(RAILS_ROOT, file)) # install file
+              FileUtils.mkdir_p(File.dirname(File.join(Rails.root.to_s, file))) if !File.exists?(File.dirname(File.join(Rails.root.to_s, file))) # create directory if it doesn't exist
+              FileUtils.cp_r(File.join(unzipped_plugin_dir, file), File.join(Rails.root.to_s, file)) # install file
             end
-            flash[:success] = t("notice.item_install_success", :item => Plugin.human_name) 
-            Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("notice.item_install", :item => Plugin.human_name, :name => plugin.human_name)) # log it
+            flash[:success] = t("notice.item_install_success", :item => Plugin.model_name.human) 
+            Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("notice.item_install", :item => Plugin.model_name.human, :name => plugin.model_name.human)) # log it
           else 
-            flash[:failure] = t("notice.item_install_failure", :item => Plugin.human_name)                             
+            flash[:failure] = t("notice.item_install_failure", :item => Plugin.model_name.human)                             
           end        
         else # no plugin model .rb file found 
           flash[:failure] = t("notice.file_not_found", :file => plugin_model_path) 
         end
       else # bad file extension
-        flash[:failure] = t("notice.item_install_failure", :item => Plugin.human_name) #"#{File.basename(zipfile.path)} upload failed! Please make sure that this is a zip file, and that it ends in .zip or .ZIP "           
+        flash[:failure] = t("notice.item_install_failure", :item => Plugin.model_name.human) #"#{File.basename(zipfile.path)} upload failed! Please make sure that this is a zip file, and that it ends in .zip or .ZIP "           
       end 
       redirect_to :action => "index"   
     ensure
@@ -100,12 +100,12 @@ class PluginsController < ApplicationController
         plugin =  ("Plugin" + @plugin.name.classify).constantize # get the class for this plugin 
         if plugin.uninstall # call model's uninstall method
           for file in plugin.files # uninstall files 
-            FileUtils.rm_rf(File.join(RAILS_ROOT, file)) if File.exists?(File.join(RAILS_ROOT, file)) # uninstall file
+            FileUtils.rm_rf(File.join(Rails.root.to_s, file)) if File.exists?(File.join(Rails.root.to_s, file)) # uninstall file
           end         
-          flash[:success] = t("notice.item_uninstall_success", :item => Plugin.human_name)
-          Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("notice.item_uninstall", :item => Plugin.human_name, :name => plugin.human_name)) # log it
+          flash[:success] = t("notice.item_uninstall_success", :item => Plugin.model_name.human)
+          Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("notice.item_uninstall", :item => Plugin.model_name.human, :name => plugin.model_name.human)) # log it
         else 
-          flash[:success] = t("notice.item_uninstall_failure", :item => Plugin.human_name)
+          flash[:success] = t("notice.item_uninstall_failure", :item => Plugin.model_name.human)
         end
       else # trying to unistall builtin plugin
         flash[:failure] = t("notice.invalid_permissions")                  

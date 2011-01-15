@@ -40,7 +40,7 @@ class Page < ActiveRecord::Base
     "#{id}-#{title.parameterize}" 
   end
   
-  def human_name # return human name of instance
+  def model_name # return human name of instance
     I18n.t("activerecord.models.#{(self.page_type.capitalize + "Page").underscore}") 
   end
   

@@ -25,11 +25,11 @@
 							<tr>
 								<td align=left>
 									<h2 class="title">
-										<a name="groups"><%= @users.total_entries %> <%= User.human_name.pluralize %></a>
+										<a name="groups"><%= @users.total_entries %> <%= User.model_name.human.pluralize %></a>
 									</h2>				
 								</td>
 								<td align=right >
-										<%= link_to icon("new") + " " + t("label.item_new", :item => User.human_name), {:action => "new"} %>						
+										<%= link_to icon("new") + " " + t("label.item_new", :item => User.model_name.human), {:action => "new"} %>						
 								</td>
 							</tr>
 						</table>

@@ -1,12 +1,12 @@
 <div align=center>
-	<h2 class="title"><%= t("label.item_edit", :item => Category.human_name) %></h2><br>
+	<h2 class="title"><%= t("label.item_edit", :item => Category.model_name.human) %></h2><br>
 </div>    
 	
     <% form_for(@category, :url => { :action => 'update', :controller => "categories", :id => @category.id }, :method => "post") do |f| %>
 		<%= render :partial => "form", :locals => {:category => @category, :f => f } %>
 		<br>
 		<div align=center>	
-			<%= f.submit t("label.item_save", :item => Category.human_name), :class => "button_1" %>
+			<%= f.submit t("label.item_save", :item => Category.model_name.human), :class => "button_1" %>
 		</div>
    <% end %>
 

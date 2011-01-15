@@ -1,5 +1,5 @@
 <div class="box_2" style="margin-bottom:5px;" align=center>
-	<h3 class="title" align=left><%= UserMessage.human_name.pluralize %></h3>
+	<h3 class="title" align=left><%= UserMessage.model_name.human.pluralize %></h3>
 	
 	<div class="box_<%= params[:type] == "unread" ? "1" : "2" %>" style="margin-bottom:5px;">
 		<%= link_to "#{UserMessage.human_attribute_name(:unread)} (#{@messages[:unread].total_entries})", {:action => params[:action], :controller => "messages", :type => "unread"} %></a>				

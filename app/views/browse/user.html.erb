@@ -9,7 +9,7 @@
 			   <hr>
 			   <div id="message_box">
 			   		<a href="javascript:toggle_box('message_form')">
-						<%= icon("mail") %> <%= t("label.item_send_to", :item =>  UserMessage.human_name, :name => h(@user.username)) %>
+						<%= icon("mail") %> <%= t("label.item_send_to", :item =>  UserMessage.model_name.human, :name => h(@user.username)) %>
 					</a>	
 			   </div>
 	
@@ -19,13 +19,13 @@
 			   		<h2 class="title" align=left><%= t("single.admin") %></h2>
 			   		<hr>
 					
-					<%= link_to icon("edit") + " " + t("label.item_edit", :item => User.human_name), {:controller => "users", :action => "edit", :id => @user}%>		   
+					<%= link_to icon("edit") + " " + t("label.item_edit", :item => User.model_name.human), {:controller => "users", :action => "edit", :id => @user}%>		   
 			   		<hr>					
-					<%= link_to icon("logs") + " " + Log.human_name.pluralize, {:controller => "logs", :action => "for_user", :id => @user, :anchor => "activity"}%>
+					<%= link_to icon("logs") + " " + Log.model_name.human.pluralize, {:controller => "logs", :action => "for_user", :id => @user, :anchor => "activity"}%>
 			   		<hr>
-					<%= link_to icon("mail") + " " + UserMessage.human_name.pluralize, {:controller => "messages", :action => "for_user", :id => @user}%>
+					<%= link_to icon("mail") + " " + UserMessage.model_name.human.pluralize, {:controller => "messages", :action => "for_user", :id => @user}%>
 			   		<hr>
-					<%= link_to icon("delete") + " " + t("label.item_delete", :item => User.human_name), {:controller => "users", :action => "delete", :id => @user}, :confirm => t("confirm.delete_user")%>		   					
+					<%= link_to icon("delete") + " " + t("label.item_delete", :item => User.model_name.human), {:controller => "users", :action => "delete", :id => @user}, :confirm => t("confirm.delete_user")%>		   					
 				</div>								
 		    <% end %>
 </div>
@@ -34,14 +34,14 @@
 				   		<% if !@logged_in_user.anonymous? %>
 				 			<div class="box_2" align=left>
 				 				<div id="send_message_notice"></div>
-				 				<h2 class="title"><%= t("label.item_send_to", :item =>  UserMessage.human_name, :name => h(@user.username)) %></h2>								   	
+				 				<h2 class="title"><%= t("label.item_send_to", :item =>  UserMessage.model_name.human, :name => h(@user.username)) %></h2>								   	
 					   			<%= form_tag({ :action => 'send_message', :controller => "messages", :id => @user.id}) %>
 									<table style="width:100%">
 										<tr>
 											<td align=center><textarea  style="width:400px;" name="message" id="message" onfocus = "focus_input('message')" onblur = "blur_input('message')"></textarea></td>
 										</tr>
 										<tr>
-											<td align=center><input type="submit" value="<%= t("label.item_send_to", :item =>  UserMessage.human_name, :name => h(@user.username)) %>" class="button_2"></td>
+											<td align=center><input type="submit" value="<%= t("label.item_send_to", :item =>  UserMessage.model_name.human, :name => h(@user.username)) %>" class="button_2"></td>
 										</tr>
 									</table>	
 								</form>
@@ -71,7 +71,7 @@
 					<%= h @user.user_info.interests %>
 					<hr>
 				<% end %>								
-				<h2 class="title"><%= Group.human_name %></h2>
+				<h2 class="title"><%= Group.model_name.human %></h2>
 				<%= h @user.group.name %>							
 			</div>
 			<br>

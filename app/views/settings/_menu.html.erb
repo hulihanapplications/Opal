@@ -3,7 +3,7 @@
 	
 	<div class="box_<%= (params[:controller] == "settings" && params[:action] == "index") || params[:action] == "new_change_logo" ? "1" : "2" %>" style="margin-bottom:5px;">
 		<img src="/themes/<%= @setting[:theme] %>/images/icons/settings.png" class="icon"> 				
-		<%= link_to Setting.human_name.pluralize, {:action => "index", :controller => "settings"} %>				
+		<%= link_to Setting.model_name.human.pluralize, {:action => "index", :controller => "settings"} %>				
 	</div>
 	
 	<div class="box_<%= (params[:controller] == "settings" && params[:action] == "items") ? "1" : "2" %>" style="margin-bottom:5px;">
@@ -18,7 +18,7 @@
 	
 	<div class="box_<%= (params[:controller] == "plugins" || params[:controller] == "plugin_features") ? "1" : "2" %>" style="margin-bottom:0px;">
 		<img src="/themes/<%= @setting[:theme] %>/images/icons/plugins.png" class="icon"> 				
-		<%= link_to Plugin.human_name.pluralize, {:action => "index", :controller => "plugins"} %>				
+		<%= link_to Plugin.model_name.human.pluralize, {:action => "index", :controller => "plugins"} %>				
 	</div>	
 		
 </div>

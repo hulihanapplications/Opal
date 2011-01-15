@@ -6,7 +6,7 @@
 <div id="main">
 	<div class="header">					
 		<h2 class="title">
-			<%= @setting[:item_name] %> <%= Setting.human_name.pluralize %>
+			<%= @setting[:item_name] %> <%= Setting.model_name.human.pluralize %>
 		</h2>	
 		<span class="description">
 			<!--This section allows you to change different settings and options for your <%= @setting[:item_name_plural] %>.-->	
@@ -16,7 +16,7 @@
 
 	<% form_tag ({:action => "update_settings"}) do %>
 			<ul class="plugin_tabs_horizontal"> 
-				    <li><a href="#<%= Setting.human_name.pluralize %>"><%= Setting.human_name.pluralize %></a></li>				
+				    <li><a href="#<%= Setting.model_name.human.pluralize %>"><%= Setting.model_name.human.pluralize %></a></li>				
 				    <li><a href="#<%= t("setting.title.list_type") %>"><%= t("setting.title.list_type") %></a></li> 
 				    <li><a href="#<%= t("setting.title.item_page_type") %>"><%= t("setting.title.item_page_type") %></a></li>								
 			</ul>			

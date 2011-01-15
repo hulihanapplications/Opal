@@ -2,7 +2,7 @@
 	<div class="header">					
 		
 		<% if defined?(title) %>
-			<h2 class="title"><%= title %> <%= Setting.human_name.pluralize %></h2>
+			<h2 class="title"><%= title %> <%= Setting.model_name.human.pluralize %></h2>
 		<% end %>
 								
 	</div>		
@@ -38,7 +38,7 @@
 							<%= render :partial => "shared/select_locale", :locals => {:options => {:input_name => "setting[#{setting.name}]"}} %>
 						<% end%>									
 					<% else %>
-		            	<%= t("label.item_unknown", :item => Setting.human_name, :name => setting.item_type) %>
+		            	<%= t("label.item_unknown", :item => Setting.model_name.human, :name => setting.item_type) %>
 		            <% end %>       		
 	        	</div>
 	        </td>

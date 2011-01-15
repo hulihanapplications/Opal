@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
 
    def index
         @groups = Group.paginate :page => params[:page], :per_page => 25, :order => "name ASC"
-        @setting[:meta_title] = Group.human_name + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title]
+        @setting[:meta_title] = Group.model_name.human + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title]
    end
    
     def create
@@ -13,11 +13,11 @@ class GroupsController < ApplicationController
         @group.is_admin = "1" # Make group an admin 
       end
       if @group.save # save successful
-        flash[:success] = t("notice.item_create_success", :item => Group.human_name)        
-        Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log =>  t("log.item_create", :item => Group.human_name, :name => @group.name))
+        flash[:success] = t("notice.item_create_success", :item => Group.model_name.human)        
+        Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log =>  t("log.item_create", :item => Group.model_name.human, :name => @group.name))
         redirect_to :action => 'index'
       else
-        flash[:failure] = t("notice.item_create_failure", :item => Group.human_name)
+        flash[:failure] = t("notice.item_create_failure", :item => Group.model_name.human)
         render :action => 'new'
       end
     end
@@ -27,11 +27,11 @@ class GroupsController < ApplicationController
       @group = Group.find(params[:id])
       flash[:notice] = ""
       if @group.update_attributes(params[:group])
-        Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => Group.human_name, :name => @group.name))
-        flash[:success] = t("notice.item_save_success", :item => Group.human_name)
+        Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => Group.model_name.human, :name => @group.name))
+        flash[:success] = t("notice.item_save_success", :item => Group.model_name.human)
         redirect_to :action => "edit", :id => @group.id
       else
-        flash[:failure] = t("notice.item_save_failure", :item => Group.human_name)
+        flash[:failure] = t("notice.item_save_failure", :item => Group.model_name.human)
         render :action => "edit"
       end
    end
@@ -58,9 +58,9 @@ class GroupsController < ApplicationController
             permissions_hash[:plugin_id] = key # set the plugin id      
             GroupPluginPermission.create(permissions_hash) # create the record
         end
-        Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log => t("log.item_save", :item => GroupPluginPermission.human_name, :name => @group.name))
+        Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log => t("log.item_save", :item => GroupPluginPermission.model_name.human, :name => @group.name))
       end
-      flash[:success] = t("notice.item_save_success", :item => GroupPluginPermission.human_name.pluralize)            
+      flash[:success] = t("notice.item_save_success", :item => GroupPluginPermission.model_name.human.pluralize)            
       redirect_to :action => "edit", :id => @group.id
    end  
   
@@ -70,11 +70,11 @@ class GroupsController < ApplicationController
      else
        @group = Group.find(params[:id])
        if @group.is_deletable?
-         Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.item_delete", :item => Group.human_name, :name => @group.name))
-         flash[:success] = t("notice.item_delete_success", :item => Group.human_name) 
+         Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.item_delete", :item => Group.model_name.human, :name => @group.name))
+         flash[:success] = t("notice.item_delete_success", :item => Group.model_name.human) 
          @group.destroy
        else
-         flash[:failure] = t("notice.item_delete_failure", :item => Group.human_name)         
+         flash[:failure] = t("notice.item_delete_failure", :item => Group.model_name.human)         
        end 
      end
      redirect_to :action => 'index'

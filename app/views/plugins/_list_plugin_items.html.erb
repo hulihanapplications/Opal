@@ -1,11 +1,11 @@
 <%# plugin items are passed in via a hash called plugin_items, indexed by plugin id, ie: plugin_items[plugin.id] %>
 <% if plugin_items == 0 %>
-	<%= t("label.items_none_added", :items => Plugin.human_name.pluralize) %>
+	<%= t("label.items_none_added", :items => Plugin.model_name.human.pluralize) %>
 <% else %>
 	<% for plugin in plugins_to_look_for %>
 		<% if plugin.name != "Feature" && plugin.name != "FeatureValue" %> 			
 			<% if plugin_items[plugin.id].size > 0 %>
-				<h3><b><%= plugin.human_name.pluralize %></b></h3>		
+				<h3><b><%= plugin.model_name.human.pluralize %></b></h3>		
 				<div class="indent">
 					<% for plugin_item in plugin_items[plugin.id] %>
 						<table cellpadding=0 cellspacing=0 style="width:100%">
@@ -19,7 +19,7 @@
 									<% end %>								
 								</td>
 								<td align=left style="padding:2px;">
-									<%= link_to h("#{plugin.human_name}"), {:action => "view", :controller => "items", :id => plugin_item.item, :anchor => plugin.human_name}  %>
+									<%= link_to h("#{plugin.model_name.human}"), {:action => "view", :controller => "items", :id => plugin_item.item, :anchor => plugin.model_name.human}  %>
 									<%= t("single.for").downcase %>
 									<%= link_to h("#{plugin_item.item.name}"), {:action => "view", :controller => "items", :id => plugin_item.item}  %>
 									<div class="indent">

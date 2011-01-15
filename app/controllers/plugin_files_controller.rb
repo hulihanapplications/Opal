@@ -33,20 +33,20 @@ class PluginFilesController < ApplicationController
        @file.is_approved = "1" if !@my_group_plugin_permissions.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin 
       
        if @file.save
-        Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => @plugin.human_name, :name => filename))         
-        flash[:success] = t("notice.item_create_success", :item => @plugin.human_name)
-        flash[:success] += t("notice.item_needs_approval", :item => @plugin.human_name) if !@file.is_approved?
+        Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => @plugin.model_name.human, :name => filename))         
+        flash[:success] = t("notice.item_create_success", :item => @plugin.model_name.human)
+        flash[:success] += t("notice.item_needs_approval", :item => @plugin.model_name.human) if !@file.is_approved?
        else # fail saved 
-        flash[:failure] = t("notice.item_create_failure", :item => @plugin.human_name)
+        flash[:failure] = t("notice.item_create_failure", :item => @plugin.model_name.human)
         
        end 
      else # No file/url submitted 
-      flash[:failure] = t("notice.item_not_found", :item => @plugin.human_name)
+      flash[:failure] = t("notice.item_not_found", :item => @plugin.model_name.human)
      end
    else # Improper Permissions  
         flash[:failure] = t("notice.invalid_permissions")           
    end 
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.human_name.pluralize 
+   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human.pluralize 
   end
 
 
@@ -55,15 +55,15 @@ class PluginFilesController < ApplicationController
    if @my_group_plugin_permissions.can_delete? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # check permissions       
      @file = PluginFile.find(params[:file_id])
      if @file.destroy
-      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => t("log.item_delete", :item => @plugin.human_name, :name => @file.filename))                
-      flash[:success] = t("notice.item_delete_success", :item => @plugin.human_name)
+      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => t("log.item_delete", :item => @plugin.model_name.human, :name => @file.filename))                
+      flash[:success] = t("notice.item_delete_success", :item => @plugin.model_name.human)
      else # fail saved 
-      flash[:success] = t("notice.item_delete_failure", :item => @plugin.human_name)
+      flash[:success] = t("notice.item_delete_failure", :item => @plugin.model_name.human)
      end
    else # Improper Permissions  
         flash[:failure] = t("notice.invalid_permissions")        
    end  
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.human_name.pluralize 
+   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human.pluralize 
  end
 
   def download
@@ -73,8 +73,8 @@ class PluginFilesController < ApplicationController
     if @my_group_plugin_permissions.can_read? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # check permissions           
       if (@plugin.get_setting_bool("login_required_for_download") && !@logged_in_user.anonymous?) || (!@plugin.get_setting_bool("login_required_for_download"))# are logins required for downloading?
         if @plugin.get_setting_bool("log_downloads") # log this download?
-          Log.create(:user_id => @logged_in_user.id, :item_id => @item.id, :log_type => "download", :log => t("log.item_downloaded_by_user", :item => @plugin.human_name, :name => @file.filename)) if !@logged_in_user.anonymous? # msg if a user is logged in
-          Log.create(:item_id => @item.id, :log_type => "download", :log => t("log.item_downloaded_by_visitor", :item => @plugin.human_name, :name => @file.filename, :ip => request.env["REMOTE_ADDR"])) if @logged_in_user.anonymous?  # msg if a user is logged in
+          Log.create(:user_id => @logged_in_user.id, :item_id => @item.id, :log_type => "download", :log => t("log.item_downloaded_by_user", :item => @plugin.model_name.human, :name => @file.filename)) if !@logged_in_user.anonymous? # msg if a user is logged in
+          Log.create(:item_id => @item.id, :log_type => "download", :log => t("log.item_downloaded_by_visitor", :item => @plugin.model_name.human, :name => @file.filename, :ip => request.env["REMOTE_ADDR"])) if @logged_in_user.anonymous?  # msg if a user is logged in
         end  
         @file.update_attribute(:downloads, @file.downloads + 1) # increment downloads
         send_file @file.path
@@ -95,19 +95,19 @@ class PluginFilesController < ApplicationController
     @file = PluginFile.find(params[:file_id])    
     if  @file.is_approved?
       approval = "0" # set to unapproved if approved already    
-      log_msg = t("log.item_unapprove", :item => @plugin.human_name, :name => @file.filename)
+      log_msg = t("log.item_unapprove", :item => @plugin.model_name.human, :name => @file.filename)
     else
       approval = "1" # set to approved if unapproved already    
-      log_msg = t("log.item_approve", :item => @plugin.human_name, :name => @file.filename)
+      log_msg = t("log.item_approve", :item => @plugin.model_name.human, :name => @file.filename)
     end
     
     if @file.update_attribute(:is_approved, approval)
       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => log_msg)      
-      flash[:success] = t("notice.item_#{"un" if approval == "0"}approve_success", :item => @plugin.human_name)  
+      flash[:success] = t("notice.item_#{"un" if approval == "0"}approve_success", :item => @plugin.model_name.human)  
     else
-      flash[:failure] = t("notice.item_save_failure", :item => @plugin.human_name)
+      flash[:failure] = t("notice.item_save_failure", :item => @plugin.model_name.human)
     end
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.human_name.pluralize 
+   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human.pluralize 
   end
 
 private

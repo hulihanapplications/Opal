@@ -31,11 +31,11 @@ class Item < ActiveRecord::Base
   
   def create_everything   
     # Make Images Folder
-    images_path = "#{RAILS_ROOT}/public/images/item_images/#{self.id}"
+    images_path = "#{Rails.root.to_s}/public/images/item_images/#{self.id}"
     FileUtils.mkdir_p(images_path) if !File.exist?(images_path) # create the folder if it doesn't exist
 
     # Make Images Folder
-    files_path = "#{RAILS_ROOT}/files/item_files/#{self.id}"
+    files_path = "#{Rails.root.to_s}/files/item_files/#{self.id}"
     FileUtils.mkdir_p(files_path) if !File.exist?(files_path) # create the folder if it doesn't exist
   end
 
@@ -101,14 +101,14 @@ class Item < ActiveRecord::Base
     end
     
     # Remove Images Folder
-    images_path = "#{RAILS_ROOT}/public/images/item_images/#{self.id}"
+    images_path = "#{Rails.root.to_s}/public/images/item_images/#{self.id}"
     FileUtils.rm_rf(images_path) if File.exist?(images_path) # remove the folder if it exists 
     
     # Remove Files Folder
-    files_path = "#{RAILS_ROOT}/files/item_files/#{self.id}"
+    files_path = "#{Rails.root.to_s}/files/item_files/#{self.id}"
     FileUtils.rm_rf(files_path) if File.exist?(files_path) # remove the folder if it exists 
     
-    #require "#{RAILS_ROOT}/print_id.rb"
+    #require "#{Rails.root.to_s}/print_id.rb"
   end
   
   

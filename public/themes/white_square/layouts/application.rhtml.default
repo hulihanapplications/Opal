@@ -18,7 +18,7 @@
      <tr>
       <td align=left>
       	<div class="main_logo">
-      		<% if File.exists?(RAILS_ROOT + "/public/themes/#{@setting[:theme]}/images/logo.png") %>
+      		<% if File.exists?(Rails.root.to_s + "/public/themes/#{@setting[:theme]}/images/logo.png") %>
 	      		<a href="/"><img src="/themes/<%= @setting[:theme] %>/images/logo.png" border=0 alt="<%= @setting[:title] %>" title="<%= @setting[:title] %>"></a>
 			<% else %>
 	      		<a href="/"><h1><%= @setting[:title] %></h1></a>

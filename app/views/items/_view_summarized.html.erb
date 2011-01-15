@@ -9,7 +9,7 @@
 	}
 
 	function new_image(){
-		select_tab("<%= Plugin.plugins[:image].human_name.pluralize  %>");
+		select_tab("<%= Plugin.plugins[:image].model_name.human.pluralize  %>");
 		timeoutID = window.setTimeout(show_new_image_box, 410);									
 	}	
 	
@@ -31,13 +31,13 @@
 						<div class="images">
 							<% if item.is_editable_for_user?(@logged_in_user) %>
 								<span >
-									<%= link_to_function icon("new") + " " + t("label.item_new", :item => PluginImage.human_name), "new_image()"  %>
+									<%= link_to_function icon("new") + " " + t("label.item_new", :item => PluginImage.model_name.human), "new_image()"  %>
 								</span>	
 							<% end %>
 							<% if images.size > 1 %>
 							    <%= icon("spacer") if item.is_editable_for_user?(@logged_in_user) %>
 								<span>
-									<%= link_to_function icon("image") + " " + t("label.items_more", :items => PluginImage.human_name.pluralize), "select_tab(\"#{Plugin.plugins[:image].human_name.pluralize}\")"  %>
+									<%= link_to_function icon("image") + " " + t("label.items_more", :items => PluginImage.model_name.human.pluralize), "select_tab(\"#{Plugin.plugins[:image].model_name.human.pluralize}\")"  %>
 								</span>
 							<% end %>																				
 						</div>
@@ -87,14 +87,14 @@
 							<% review_score = PluginReview.average(:review_score, :conditions => ["item_id = ?", item.id]) %>
 							<% review_score ||= 0 %>										
 							<span>	
-								<%= link_to_function score(:type => @setting[:review_type], :min => @setting[:score_min].to_i, :max => @setting[:score_max].to_i, :value => review_score),  "select_tab(\"#{Plugin.plugins[:review].human_name.pluralize}\")"  %>																			
+								<%= link_to_function score(:type => @setting[:review_type], :min => @setting[:score_min].to_i, :max => @setting[:score_max].to_i, :value => review_score),  "select_tab(\"#{Plugin.plugins[:review].model_name.human.pluralize}\")"  %>																			
 							</span>							
 						</div>
 					<% end %>
 					<% if Plugin.plugins[:comment].is_enabled? %>
 						<div class="box_2">									
 							<span>	
-								<%= link_to_function raw("#{icon("comments")} #{item.plugin_comments.size} #{PluginComment.human_name.pluralize}"), "select_tab(\"#{Plugin.plugins[:comment].human_name.pluralize}\")" %>						
+								<%= link_to_function raw("#{icon("comments")} #{item.plugin_comments.size} #{PluginComment.model_name.human.pluralize}"), "select_tab(\"#{Plugin.plugins[:comment].model_name.human.pluralize}\")" %>						
 							</span>							
 						</div>
 					<% end %>	
@@ -115,7 +115,7 @@
 					<ul class="plugin_tabs_horizontal">
 						<%  for plugin in plugins  %>
 							<% if (my_group_plugin_permissions[plugin.id].can_read? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?) && (plugin.name != "Feature" && plugin.name != "Tag") %>
-						    	<li><a href="#<%= plugin.human_name.pluralize %>"><%= plugin.human_name.pluralize %></a></li>
+						    	<li><a href="#<%= plugin.model_name.human.pluralize %>"><%= plugin.model_name.human.pluralize %></a></li>
 							<% end %> 
 						<% end %>	
 					</ul>			

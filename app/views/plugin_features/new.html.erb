@@ -7,7 +7,7 @@
 	<div id="main">
 			<div class="header">
 					<h2 class="title">
-						<%= t("label.item_new", :item => PluginFeature.human_name) %>
+						<%= t("label.item_new", :item => PluginFeature.model_name.human) %>
 					</h2>
 			</div>
 			
@@ -25,7 +25,7 @@
 										<%= render :partial => "plugin_features/form", :locals => {:feature => @plugin_feature, :f => f} %>								 
 										
 										<div align=center>
-											<%= f.submit t("label.item_create", :item => PluginFeature.human_name), :class => "button_1" %>
+											<%= f.submit t("label.item_create", :item => PluginFeature.model_name.human), :class => "button_1" %>
 										</div>
 									</div>
 								<% end %>								

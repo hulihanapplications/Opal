@@ -16,7 +16,7 @@ class UsersController < ApplicationController
    end 
   
    def index
-        @setting[:meta_title] = User.human_name.pluralize + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title]
+        @setting[:meta_title] = User.model_name.human.pluralize + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title]
         #@users = User.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i, :order => "username ASC"
         @users = User.paginate :page => params[:page], :per_page => 100, :order => "username ASC"
         #@users = User.find(:all, :order => "username ASC")
@@ -35,8 +35,8 @@ class UsersController < ApplicationController
       @user.is_verified = "1"
       
       if @user.save #&& @user_info.save # save successful
-        flash[:success] = t("notice.item_create_success", :item => User.human_name)      
-        Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log => t("log.item_create", :item => User.human_name, :name => @user.username))
+        flash[:success] = t("notice.item_create_success", :item => User.model_name.human)      
+        Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log => t("log.item_create", :item => User.model_name.human, :name => @user.username))
         redirect_to :action => 'index'        
       else # creation failed
         render :action => "new"
@@ -56,7 +56,7 @@ class UsersController < ApplicationController
                   
       if @user.update_attributes(params[:user]) && @user_info.update_attributes(params[:user_info])        
         @user.update_attribute(:is_admin, params[:user][:is_admin]) if @logged_in_user.is_admin?
-        Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => User.human_name, :name => @user.username))
+        Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => User.model_name.human, :name => @user.username))
         flash[:success] = t("notice.save_success") 
         redirect_to :action => "edit", :id => @user
       else
@@ -68,8 +68,8 @@ class UsersController < ApplicationController
      if @user.id == @logged_in_user.id.to_i # trying to delete the user they're logged in as.
        flash[:failure] = t("notice.invalid_permissions")
      else
-       Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.item_delete", :item => User.human_name, :name => @user.username))
-       flash[:success] = t("notice.item_delete_success", :item => User.human_name) 
+       Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.item_delete", :item => User.model_name.human, :name => @user.username))
+       flash[:success] = t("notice.item_delete_success", :item => User.model_name.human) 
        @user.destroy
      end
      redirect_to :action => 'index'
@@ -77,7 +77,7 @@ class UsersController < ApplicationController
    
   def change_password
     if @user.update_attributes(:password => params[:user][:password], :password_confirmation => params[:user][:password_confirmation])
-      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => User.human_name, :name => @user.username + "(#{User.human_attribute_name(:password)}: #{params[:user][:password]})"))
+      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => User.model_name.human, :name => @user.username + "(#{User.human_attribute_name(:password)}: #{params[:user][:password]})"))
       flash[:success] = t("notice.save_success") 
       redirect_to :action => "edit", :id => @user
     else
@@ -97,13 +97,13 @@ class UsersController < ApplicationController
   def toggle_user_disabled
     if @user.is_enabled?
       flag = "1"   # make disabled
-      log_msg = t("log.item_disable", :item => User.human_name, :name => @user.username) 
+      log_msg = t("log.item_disable", :item => User.model_name.human, :name => @user.username) 
     else # if user was disabled
       flag = "0"  # make enabled
-      log_msg = t("log.item_enable", :item => User.human_name, :name => @user.username) 
+      log_msg = t("log.item_enable", :item => User.model_name.human, :name => @user.username) 
     end  
     if @user.update_attribute(:is_disabled, flag)
-      flash[:success] = t("notice.item_save_success", :item => User.human_name)
+      flash[:success] = t("notice.item_save_success", :item => User.model_name.human)
       Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => log_msg)
     end
     redirect_to :action => "edit", :id => @user  
@@ -116,8 +116,8 @@ class UsersController < ApplicationController
       flag = "1"  # make verified
     end  
     if @user.update_attribute(:is_verified, flag)
-      Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log => t("log.item_verify", :item => User.human_name, :name => @user.username))
-      flash[:success] = t("notice.item_save_success", :item => User.human_name)
+      Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log => t("log.item_verify", :item => User.model_name.human, :name => @user.username))
+      flash[:success] = t("notice.item_save_success", :item => User.model_name.human)
     end
     redirect_to :action => "edit", :id => @user    
   end  
@@ -128,10 +128,10 @@ class UsersController < ApplicationController
     if verification
       url = url_for(:action => "verify", :controller => "user", :id => verification.id, :code =>  verification.code, :only_path => false)
       Emailer.deliver_verification_email(@user.email, verification, url)
-      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_email_sent", :item => UserVerification.human_name, :name => @user.username))                                                  
-      flash[:success] =  t("log.item_email_sent", :item => UserVerification.human_name, :name => @user.username)
+      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_email_sent", :item => UserVerification.model_name.human, :name => @user.username))                                                  
+      flash[:success] =  t("log.item_email_sent", :item => UserVerification.model_name.human, :name => @user.username)
     else
-      flash[:failure] = t("notice.item_not_found", :item => UserVerification.human_name)
+      flash[:failure] = t("notice.item_not_found", :item => UserVerification.model_name.human)
     end 
     redirect_to :action => "edit", :controller => "users", :id => @user
   end
@@ -139,7 +139,7 @@ class UsersController < ApplicationController
  def change_avatar
      if !params[:file].nil? && !params[:file].empty?    #from their computer
       filename = params[:file].original_filename
-      file_dir = "#{RAILS_ROOT}/public/images/avatars" 
+      file_dir = "#{Rails.root.to_s}/public/images/avatars" 
       acceptable_file_extensions = ".png, .jpg, .jpeg, .gif, .bmp, .tiff, .PNG, .JPG, .JPEG, .GIF, .BMP, .TIFF"
       if Uploader.check_file_extension(:filename => filename, :extensions => acceptable_file_extensions)
        image = Magick::Image.from_blob(params[:file].read).first    # read in image binary
@@ -148,10 +148,10 @@ class UsersController < ApplicationController
         Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log =>  t("log.user_account_item_save", :item => t("single.avatar")))                                                   
        flash[:success] = t("notice.save_success")     
       else
-       flash[:failure] = t("notice.invalid_file_extensions", :item => Image.human_name, :acceptable_file_extensions => acceptable_file_extensions)      
+       flash[:failure] = t("notice.invalid_file_extensions", :item => Image.model_name.human, :acceptable_file_extensions => acceptable_file_extensions)      
       end
      else # they didn't select an image
-       flash[:failure] = t("notice.item_forgot_to_select", :item => Image.human_name)      
+       flash[:failure] = t("notice.item_forgot_to_select", :item => Image.model_name.human)      
      end
 
    redirect_to :action => "edit", :id => @user

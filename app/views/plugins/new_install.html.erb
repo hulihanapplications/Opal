@@ -10,7 +10,7 @@
 						<tr>
 							<td align=left>
 								<h2 class="title">
-									<%= Plugin.human_name.pluralize %>
+									<%= Plugin.model_name.human.pluralize %>
 								</h2>						
 							</td>
 							<td align=right >
@@ -22,16 +22,16 @@
 			
 			<ul class="plugin_tabs_horizontal"> 
 				    <li>
-				    	<%= link_to Plugin.human_name.pluralize, {:action => "index", :controller => "plugins"}%>
+				    	<%= link_to Plugin.model_name.human.pluralize, {:action => "index", :controller => "plugins"}%>
 					</li> 
 				    <li>
-				    	<%= link_to t("label.item_install", :item => Plugin.human_name), {:action => "new_install", :controller => "plugins"}, :class => "current"  %>
+				    	<%= link_to t("label.item_install", :item => Plugin.model_name.human), {:action => "new_install", :controller => "plugins"}, :class => "current"  %>
 					</li> 																																					
 			</ul>			
 			<div class="plugin_panes_horizontal"> 	
 				<div></div>	  			
 				<div>
-					<h2 class="title"><%= t("label.item_install", :item => Plugin.human_name)%></h2>
+					<h2 class="title"><%= t("label.item_install", :item => Plugin.model_name.human)%></h2>
 					<div class="spacer"></div>
 					<!--This will install a new plugin into <%= @setting[:title] %>.<br><br>-->
 					<div class="box_2" align=center>

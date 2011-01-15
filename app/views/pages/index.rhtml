@@ -8,13 +8,13 @@
 						<tr>
 							<td align=left>
 								<h2 class="title">
-									<% type_human_name = t("activerecord.models.#{(params[:type] + "Page").underscore}") %>
-									<a name="pages"><%= type_human_name.pluralize  %></a>
+									<% type_model_name.human = t("activerecord.models.#{(params[:type] + "Page").underscore}") %>
+									<a name="pages"><%= type_model_name.human.pluralize  %></a>
 								</h2>
 							</td>
 							<td align=right >
 								<% if params[:type] != "System" %>											
-									<%= link_to icon("new") + " " + t("label.item_new", :item => type_human_name), {:action => "new", :type => params[:type]}, :class=> "plugin_title_link" %>
+									<%= link_to icon("new") + " " + t("label.item_new", :item => type_model_name.human), {:action => "new", :type => params[:type]}, :class=> "plugin_title_link" %>
 								<% end %>										
 							</td>
 						</tr>
@@ -25,7 +25,7 @@
 	
 					<div align=center>
 						<%= render :partial => "list_pages", :locals => {:pages => @pages} %>
-				 		<%= page_entries_info @pages, :entry_name => type_human_name.pluralize  %>							
+				 		<%= page_entries_info @pages, :entry_name => type_model_name.human.pluralize  %>							
 						<br>
 						<%= will_paginate @pages %>					
 					</div>

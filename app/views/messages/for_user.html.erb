@@ -1,5 +1,5 @@
 
-<h2 class="title"><%= t("label.items_for", :items => UserMessage.human_name.pluralize, :name =>  @user.username) %></h2>
+<h2 class="title"><%= t("label.items_for", :items => UserMessage.model_name.human.pluralize, :name =>  @user.username) %></h2>
 <div class="spacer"></div>
  <div id="status_box" style="height:20px;"><%# This is where the ajax output goes %>
  </div>
@@ -11,7 +11,7 @@
 	<div class="box_2">
 		<%= render :partial => "messages/list_messages", :locals => {:messages => @messages[params[:type].to_sym]}%>
 
-		<div align=center><%= page_entries_info @messages[params[:type].to_sym], :entry_name => UserMessage.human_name.pluralize %></div>						
+		<div align=center><%= page_entries_info @messages[params[:type].to_sym], :entry_name => UserMessage.model_name.human.pluralize %></div>						
 	</div>
 	<br>	
 	<div align=center>

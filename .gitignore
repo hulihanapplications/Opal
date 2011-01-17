@@ -7,8 +7,9 @@ tmp/**/*
 config/database.yml
 config/email.yml
 
-# Don't Include Rails
-#vendor/rails
+# Don't Include Rails or Gems
+vendor/rails
+vendor/bundle
 
 # Master Graphics
 *_master.png

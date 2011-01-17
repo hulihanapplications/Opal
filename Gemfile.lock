@@ -1,13 +1,12 @@
-GIT
-  remote: git://github.com/galetahub/simple-captcha.git
-  revision: 98293d408e9025ce0de105d36c7bba50b745aeb7
-  specs:
-    simple_captcha (0.1.1)
-
 PATH
   remote: vendor/gems/opal-0.7.0
   specs:
     opal (0.7.0)
+
+PATH
+  remote: vendor/gems/simple_captcha-0.1.1
+  specs:
+    simple_captcha (0.1.1)
 
 GEM
   remote: http://rubygems.org/
@@ -88,7 +87,7 @@ DEPENDENCIES
   nokogiri
   opal (= 0.7.0)!
   rails (= 3.0.3)
-  rmagick (= 2.12.2)
+  rmagick
   sanitize
-  simple_captcha!
+  simple_captcha (= 0.1.1)!
   will_paginate (>= 3.0.pre2)

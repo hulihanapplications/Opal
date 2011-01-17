@@ -1,4 +1,4 @@
-h1. *Installing Opal*
+h1. Installing Opal
  
 To install Opal, follow these steps;
 
@@ -71,7 +71,7 @@ bundle install --deployment
 
 This will store all required gems in vendor/bundle, which Bundler knows to look for automatically.
 
-h1. *Extra Stuff*
+h1. Extra Stuff
 
 h2. Email Settings
 

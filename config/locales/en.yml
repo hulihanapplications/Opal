@@ -99,7 +99,7 @@ en:
     stamp: Stamp    
     main: Main
     or: Or
-    
+    mode: Mode
   # Flash Messages & Notices
   notice:
     save_success: Your changes have been successfully saved!
@@ -273,6 +273,7 @@ en:
     image_effect_negate: Negate
     image_effect_resize: Resize to %{width} x %{height} pixels
     tag_example: "Example: cool, funny, weird"
+    check_for_updates: Check for Updates
   # General Information 
   info: 
     delete_main_logo: Deleting your main logo will show the title of your site instead. 

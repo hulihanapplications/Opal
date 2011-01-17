@@ -1,6 +1,6 @@
 h1. *Installing Opal*
-
-To install Opal, follow these steps:
+ 
+To install Opal, follow these steps;
 
 h2. Download Opal
 
@@ -8,18 +8,25 @@ Opal is available for download "here":http://www.hulihanapplications.com/project
 
 h2. Extract & Upload
 
-Once Opal is downloaded, extract it to the location you'll be running it from(a webserver, your local computer, etc.). By Default, Opal uses MySQL, but you can run Opal with sqlite or any other rails-compatible dbms. Here's an example of what database.yml should look like:
+Once Opal is downloaded, extract it to the location you'll be running it from(a webserver, your local computer, etc.).
 
-h2. Install Dependencies
+* Note: To install Opal, SSH/Command Line access to the server/computer that you're installing it on is required.
 
-Before Opal is up and running, we need to install all of its required gems and other stuff. To do this, run this command:
+We'll be running commands from the Opal directory itself. Next, you'll change to your Opal directory. For this step, you'll need to know where you uploaded Opal. Here's an example of what the command will look like:
+<pre>
+cd path/to/wherever/you/uploaded/opal
+</pre>  
+
+h2. Install Gems
+
+Before Opal is up and running, we need to install all of its required gems(also known as dependencies). To do this, run this command:
 <pre>
 bundle install
 </pre>
 
 h2. Set Up Your Database 
 
-Just like most Rails applications, you must configure which database Opal will use in the _config/database.yml_ file. By default, Opal uses MySQL, but you can configure opal to use sqlite, and any other rails-compatible databases. Here's an example of what the database.yml file should look like:
+Just like most Rails applications, you must configure which database Opal will use by editing the _config/database.yml_ file. By default, Opal uses MySQL, but you can configure opal to use sqlite, and any other rails-compatible database systems. Here's an example of what the database.yml file should look like:
 
 <pre>
 development:
@@ -35,14 +42,16 @@ production:
   password: somepassword
 </pre>
 
-h2. Install Database Schema
+This assumes that the database is already created by you. 
 
-Next, Run the following command(while in the Opal directory) to install Opal's database schema: 
+h2. Install Database 
+
+Next, Run the following command(while in the Opal directory) to install Opal's database schema in production mode: 
 <pre>
-rake opal:install
+rake opal:install RAILS_ENV=production
 </pre>
 
-This will install the database structure of Opal. It will set up the default admin account, some sample items(you'll be asked if you want to install sample Data), and other stuff to help you get started with Opal.
+This will install the database structure of Opal into the production database. If you leave out *RAILS_ENV=PRODUCTION*, everything will be installed into your development database instead. This command will also set up the default admin account, some sample items(you'll be asked if you want to install sample Data), and other stuff to help you get started with Opal.
 
   * If you want to automate an Opal installation, or if you just want to bypass prompts(that ask you if you want to install sample data and other stuff: run this command: _rake opal:install PROMPTS=FALSE_)
 
@@ -50,6 +59,17 @@ h2. That's it!
 
 Run your application on the web using your favorite webserver: apache, mongrel, webrick, or nginx. 
 To log in to Opal for the first time, the default Admin username and password is: *admin*.
+
+h1. Troubleshooting
+
+h2. Gem Problems
+
+If Opal is having trouble loading any of its required gems, you can always store them locally inside of Opal. To do this, run the following command from the Opal directory:
+<pre>
+bundle install --deployment
+</pre> 
+
+This will store all required gems in vendor/bundle, which Bundler knows to look for automatically.
 
 h1. *Extra Stuff*
 
@@ -81,6 +101,8 @@ If you're running Opal on a shared hosting company like Bluehost, Hostmonster, I
 cd public/
 mv .htaccess.fastcgi .htaccess
 </pre>
+
+
 
 
 

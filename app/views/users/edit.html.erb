@@ -130,7 +130,7 @@
 
 
             <div id="edit_user_box_<%= @user.id %>" class="box_2" style="margin-bottom:10px;" align=center>
-                <% form_for :user, @user,  :url => { :action => "update", :controller => "users", :id => @user.id} do |f| %>
+                <% form_for(@user,  :url => { :action => "update", :controller => "users", :id => @user.id}) do |f| %>
                     <div align=left><h3 class="title"><%= t("single.details") %></h3></div>
 	                <%= render :partial => "form", :locals => {:f => f, :user => @user} %>
 					<hr>

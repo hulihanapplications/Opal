@@ -1,12 +1,12 @@
 PATH
-  remote: vendor/gems/opal-0.7.0
-  specs:
-    opal (0.7.0)
-
-PATH
-  remote: vendor/gems/simple_captcha-0.1.1
+  remote: vendor/gems
   specs:
     simple_captcha (0.1.1)
+
+PATH
+  remote: vendor/gems
+  specs:
+    opal (0.7.0)
 
 GEM
   remote: http://rubygems.org/
@@ -49,6 +49,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
+    mysql (2.8.1)
     nokogiri (1.4.4)
     polyglot (0.3.1)
     rack (1.2.1)
@@ -84,6 +85,7 @@ PLATFORMS
 
 DEPENDENCIES
   i18n (>= 0.5.0)
+  mysql
   nokogiri
   opal (= 0.7.0)!
   rails (= 3.0.3)

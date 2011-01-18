@@ -121,4 +121,8 @@ class Page < ActiveRecord::Base
   def children # get the children of this category
     return Page.find(:all, :conditions => ["page_id = ?", self.id], :order => "title ASC")    
   end 
+  
+  def model_name # get model name
+    I18n.t("activerecord.models.#{(self.page_type.capitalize + "Page").underscore}", :default => Page.model_name)
+  end
 end

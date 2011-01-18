@@ -30,19 +30,21 @@ Just like most Rails applications, you must configure which database Opal will u
 
 <pre>
 development:
+  hostname: localhost
   adapter: mysql
   database: database
   username: databaseuser
   password: somepassword
 
 production:
+  hostname: localhost
   adapter: mysql
   database: database
   username: databaseuser
   password: somepassword
 </pre>
 
-This assumes that the database is already created by you. 
+This assumes that the database is already created by you. If your database server is located somewhere else, be sure to specify its location in the _hostname_ attribute. 
 
 h2. Install Database 
 

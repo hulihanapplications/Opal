@@ -68,7 +68,7 @@
 			        <tr>
 						<% for feature in features %>
 							<% if feature.search_type != "None" %>		
-        						<%= "</tr><tr>" if counter % 2 == 0 && counter != 0  %>																
+        						<%= raw "</tr><tr>" if counter % 2 == 0 && counter != 0  %>																
 								<td style="width:50%">
 									<div class="box_2" id="feature_<%= feature.id %>" style=";margin:5px 5px 5px 5px">
 										<table style="width:100%">

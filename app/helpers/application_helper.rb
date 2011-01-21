@@ -276,6 +276,8 @@ module ApplicationHelper
    return raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/#{name}.png\" class=\"icon #{css_class}\" title=\"#{title}\">"
  end
  
+ 
+ 
  def score(options = {}) # print out a score
    options[:type]   ||= "Number" # type of score to show
    options[:min]    ||= 1 # minimum number to create

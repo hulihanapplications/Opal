@@ -82,4 +82,33 @@ function submit(id) // submit a form with this particular id
 	element.submit();
 }
 
-/* jQuery Stuff */
+// JQuery Functions
+jQuery.fn.reveal = function(transition_time) { // hide object
+	if (transition_time == null){transition_time  = 400}
+	this.slideDown(transition_time)	  		      				
+}
+
+jQuery.fn.conceal = function(transition_time) { // show object
+	//alert("Concealing...")
+	if (transition_time == null){transition_time  = 400}
+	this.slideUp(transition_time)	  		      				
+}
+	
+jQuery.fn.delayed_conceal = function(timeout) { // hide object after time has passed
+	if (timeout == null){timeout = 5000}
+	var $this = $(this); // keep chain: http://docs.jquery.com/Plugins/Authoring
+    setTimeout(function() {
+		$this.conceal();	  		      				
+    }, timeout);			      				
+}
+
+jQuery.fn.delayed_reveal = function(timeout) { // show object after time has passed
+	if (timeout == null){timeout = 5000}
+	var $this = $(this); // keep chain: http://docs.jquery.com/Plugins/Authoring
+    setTimeout(function() {
+		$this.reveal();	  		      				
+    }, timeout);			      				
+}
+
+
+

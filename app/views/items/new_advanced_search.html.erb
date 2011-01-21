@@ -1,12 +1,36 @@
 <div align=center>
 	<h2><%= t("label.advanced_search")%></h2><br>
-	<%= form_remote_tag  :update => "results", :url => { :controller => "items", :action => "advanced_search" }, :loading => "loading('results')" %>
+
+
+	<%= form_tag (url_for(:controller => "items", :action => "advanced_search"), :remote => true, :id => "advanced_search_form") do |f|  %>
 		<%= render :partial => "advanced_search_form" %>
 		<div style="height:10px;clear:both"></div>
-		<input type="submit" value="<%= t("single.search") %>" class="button_1">			
-	</form>
+		<input type="submit" value="<%= t("single.search") %>" class="button_1" id="advanced_search_button">			
+	<% end %>
+	<script type="text/javascript">
+		$(document).ready(function(){		
+			$('#advanced_search_form')	
+				.bind('ajax:beforeSend', function(evt, data, status, xhr){
+				  //alert("Loading!");
+				  $('#results').html('<div class="loading"><%= theme_image_tag("loading.gif", :class => "loading") %></div>');
+				  $('#results').reveal();
+				})	
+				.bind('ajax:success', function(evt, data, status, xhr){
+				  //alert("Success!");
+				  $('#results').html(xhr.responseText);
+				})	
+				.bind('ajax:error', function(evt, xhr, status, error){
+  					alert("Error!");
+				    $('#results').html(xhr.responseText);
+				})					
+				.bind('ajax:complete', function(evt, data, status, xhr){
+				  //alert("Complete!");
+				});					
+
+		});			
+	</script>
 	<br>
-	<div id="results">
+	<div id="results" style="display:none">
 	</div>
 	
 

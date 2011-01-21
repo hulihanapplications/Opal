@@ -183,7 +183,7 @@ class ItemsController < ApplicationController
  end
  
  def new_advanced_search
-   @setting[:load_prototype] = true # use prototype for ajax calls in this method, instead of jquery
+   #@setting[:load_prototype] = true # use prototype for ajax calls in this method, instead of jquery
  end
 
 
@@ -256,8 +256,16 @@ class ItemsController < ApplicationController
 
     # Get Item That match our Search
     @items = Item.find(:all, :conditions => ActiveRecord::Base.combine_conditions(conditions), :limit => 20)
-
-    render :layout => false # ajax powered? then no layout! 
+    respond_to do |format|
+      format.html do
+        if request.xhr?
+          render :action => "advanced_search.html.erb", :layout => false
+        else
+          # render regular action
+        end
+      end
+    end
+   
  end 
  
 

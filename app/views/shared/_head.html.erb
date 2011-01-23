@@ -80,6 +80,18 @@
 			<% end %>
 		<% end %>
 
+		// Hovering
+		$(".hoverable").mouseover(
+		  function () { // focus
+		  	//alert("hovering..")
+			$(this).addClass('hover');
+		  }	
+		);	
+		$(".hoverable").mouseout(
+		  function () { // focus
+			$(this).removeClass('hover');
+		  }	
+		);			
 		
 		/* Input States */
 		$(":input").focus(function(){

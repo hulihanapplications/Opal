@@ -18,6 +18,14 @@
 	        }  		  
 		});		
 	}
+	
+	function install() // redirect to install page, since jquery TOOLS tabs won't like regular anchors execute
+	{
+		//alert("Redirecting...")
+		//window.location.replace = "<%= url_for(:action => "new_install", :controller => "plugins") %>";
+		window.location.href = "<%= url_for(:action => "new_install", :controller => "plugins") %>";
+
+	}
 </script>
 <div class="section">
 	<div id="side">
@@ -36,6 +44,7 @@
 							</h2>						
 						</td>
 						<td align=right >
+							<%= link_to icon("new") + " " + t("label.item_install", :item => Plugin.model_name.human), {:action => "new_install", :controller => "plugins"} %>
 						</td>
 					</tr>
 				</table>
@@ -43,15 +52,7 @@
 
 
 
-		<ul class="plugin_tabs_horizontal"> 
-			    <li>
-			    	<%= link_to Plugin.model_name.human.pluralize, {:action => "index", :controller => "plugins"}, :class => "current" %>
-				</li> 
-			    <li>
-			    	<%= link_to t("label.item_install", :item => Plugin.model_name.human), {:action => "new_install", :controller => "plugins"} %>
-				</li> 																																					
-		</ul>			
-		<div class="plugin_panes_horizontal"> 	
+
 	  		<div>
 				<!--
 				<h2 class="title">Plugin Order &amp; Settings</h2>
@@ -67,64 +68,64 @@
 				
 
 				<div id="items" class="plugins">
-				<ul id="sortable_list" style="list-style: none;">
-				<% @plugins.each do |plugin| %>
-				  <%# With a sortable_list, plugin_12, the 12 is sent to the action, it is serialized with regexp. %>
-				  <li id="<%= plugin.id %>" class="plugin_unselected box_2" style="cursor:move">
-					<table width="100%" cellpadding=0 cellspacing=0>
-				  		<tr> 
-				  			<td align=left width="90%">
-				  				<div id="plugin_title_<%= plugin.id %>">
-				  			  		<h2><%= plugin.model_name.human.pluralize %> 
-									<font size=1>
-				  			  			<a href="javascript:toggle_box('plugin_settings_<%= plugin.id %>')">(<%= PluginSetting.model_name.human.pluralize %>)</a>						
-										<% if plugin.name == "Feature" %>
-					  			  			<%= link_to "(#{t("label.item_edit", :item => plugin.model_name.human.pluralize)})", {:action => "index", :controller => "plugin_features"} %>
-										<% end %>	
-										<%= link_to "(#{t("label.item_uninstall", :item => "")})", {:action => "uninstall", :controller => "plugins", :id => plugin.id}, :confirm => "Are you sure? Every #{plugin.model_name.human} for every #{@setting[:item_name]} in #{@setting[:title]} will also be deleted!"  if !plugin.is_builtin? %>					
-									</font>
-										
-									</h2>
-				  				</div>
-								<div style="">
-									<%= raw t("plugin.description.#{plugin.name.underscore.downcase}", :default => "") %>
-								</div>				
-				  			</td>
-							<td valign=middle width="10%" align=center style="text-align:center">
-							  	<div class="box_2">
-							  		<%= t("single.enabled") %>
-									<br>
-									<input type="checkbox" name="enable_<%= plugin.model_name.human %>" value="1" <% if plugin.is_enabled? %>CHECKED<% end %> onchange="javascript:toggle_plugin('<%= plugin.id %>')">
-							  	</div>
-							</td>
-						</tr>
-							
-						<tr>
-							<td colspan=2>
-								<div id="plugin_settings_<%= plugin.id %>" style="display:none;margin-right:6px;" >
-								<% if plugin.plugin_settings.size > 0 %>
-									<% form_tag ({:action => "update_plugin_settings"}) do %>
-										<%= render :partial => "/settings/list_settings", :locals => {:settings => plugin.plugin_settings}%>
-				  					 	<br>
-										<div align=center>
-											<%= submit_tag t("single.save")  %>
-											<br><br>
-											<a href="javascript:toggle_box('plugin_settings_<%= plugin.id %>')"><img src="/themes/<%= @setting[:theme] %>/images/icons/cancel.png" alt="" title="" border=0 class="icon">						</a>							
-										</div>
-									<% end %>
-								<% else %> 
-									<div align=center><%= t("notice.items_not_found", :items => PluginSetting.model_name.human.pluralize) %></div>
-								<% end %>
-								</div>					
-							</td>			
-				  		</tr>
-				  	</table>
-				
-				  </li>
-				<% end %>
-				</ul>
+					<ul id="sortable_list" style="list-style: none;">
+					<% @plugins.each do |plugin| %>
+					  <%# With a sortable_list, plugin_12, the 12 is sent to the action, it is serialized with regexp. %>
+					  <li id="<%= plugin.id %>" class="hoverable" style="cursor:move">
+					  	<div class="box_2">
+							<table width="100%" cellpadding=0 cellspacing=0>
+						  		<tr> 
+						  			<td align=left width="90%">
+						  				<div id="plugin_title_<%= plugin.id %>">
+						  			  		<h2><%= plugin.model_name.human.pluralize %> 
+											<font size=1>
+						  			  			<a href="javascript:toggle_box('plugin_settings_<%= plugin.id %>')">(<%= PluginSetting.model_name.human.pluralize %>)</a>						
+												<% if plugin.name == "Feature" %>
+							  			  			<%= link_to "(#{t("label.item_edit", :item => plugin.model_name.human.pluralize)})", {:action => "index", :controller => "plugin_features"} %>
+												<% end %>	
+												<%= link_to "(#{t("label.item_uninstall", :item => "")})", {:action => "uninstall", :controller => "plugins", :id => plugin.id}, :confirm => "Are you sure? Every #{plugin.model_name.human} for every #{@setting[:item_name]} in #{@setting[:title]} will also be deleted!"  if !plugin.is_builtin? %>					
+											</font>
+												
+											</h2>
+						  				</div>
+										<div style="">
+											<%= raw t("plugin.description.#{plugin.name.underscore.downcase}", :default => "") %>
+										</div>				
+						  			</td>
+									<td valign=middle width="10%" align=center style="text-align:center">
+									  	<div class="box_2">
+									  		<%= t("single.enabled") %>
+											<br>
+											<input type="checkbox" name="enable_<%= plugin.model_name.human %>" value="1" <% if plugin.is_enabled? %>CHECKED<% end %> onchange="javascript:toggle_plugin('<%= plugin.id %>')">
+									  	</div>
+									</td>
+								</tr>
+									
+								<tr>
+									<td colspan=2>
+										<div id="plugin_settings_<%= plugin.id %>" style="display:none;margin-right:6px;" >
+										<% if plugin.plugin_settings.size > 0 %>
+											<% form_tag ({:action => "update_plugin_settings"}) do %>
+												<%= render :partial => "/settings/list_settings", :locals => {:settings => plugin.plugin_settings}%>
+						  					 	<br>
+												<div align=center>
+													<%= submit_tag t("single.save")  %>
+													<br><br>
+													<a href="javascript:toggle_box('plugin_settings_<%= plugin.id %>')"><img src="/themes/<%= @setting[:theme] %>/images/icons/cancel.png" alt="" title="" border=0 class="icon">						</a>							
+												</div>
+											<% end %>
+										<% else %> 
+											<div align=center><%= t("notice.items_not_found", :items => PluginSetting.model_name.human.pluralize) %></div>
+										<% end %>
+										</div>					
+									</td>			
+						  		</tr>
+						  	</table>				  		
+					  	</div>				
+					  </li>
+					<% end %>
+					</ul>
 				</div>
-			</div>
 		
 		</div>
 	</div>

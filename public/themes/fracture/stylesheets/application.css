@@ -39,6 +39,7 @@
 		.box_1 hr, .box_1 div.spacer{width: 100%; margin: 5px 0px 5px 0px; height: 1px; background: #ccc; border: 0; }
 	.box_2{border:1px solid #ccc;background:url(../images/bgs/white_trans_50.png) repeat;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:5px;}
 		.box_2 h1.title, .box_2 h2.title, .box_2 h3.title{;}
+		.hover .box_2{border:1px solid #999}
 	.box_3{background:url(../images/bgs/white_trans_50.png) repeat;border:1px solid #ccc;;padding:10px;text-align:center;;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-right:0px;margin-bottom:10px;}
 	
 	
@@ -74,7 +75,7 @@
 	img.avatar_normal{border:1px solid #666}
 	img.avatar_small{width:50px;height:50px;border:1px solid #666}
 	img.avatar_tiny, img.pinky{width:20px;height:20px;border:1px solid #666;vertical-align:middle;}
-	img.loading{margin:2px;background:#ccc;padding:5px;border:1px solid #666}
+	img.loading{margin:2px;background:#ccc;padding:5px;border:1px solid #666;;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
 	
 
 

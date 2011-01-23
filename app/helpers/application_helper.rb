@@ -409,5 +409,50 @@ module ApplicationHelper
   def using_tiny_mce?
     defined?(@uses_tiny_mce) && @uses_tiny_mce
   end
+  
+ # make a list of items sortable
+ #  list_id: the ul with li's to sort
+ #  update_url: the url to send the list item ids to(in order)
+ #  update_id: The dom object to send update to
+ def sortable_list(list_id, update_url, update_id)  
+   html = <<-HTML
+      <script type="text/javascript">
+          $(function(){
+              $("##{list_id}").sortable({
+                  stop: function(event, ui){
+                      $("##{update_id}").html('#{theme_image_tag("loading.gif", :class => "loading")}') // show loading
+                      //alert("New position: " + ui.item.index());
+                      update_order();
+                  }
+              });
+              
+              $("##{list_id}").disableSelection();
+              
+              function update_order() // update
+              {
+                  //alert("Order Changed!")
+                  var ids = $('##{list_id}').sortable('toArray'); // get element ids in order
+                  //alert(ids)
+                  $.post('#{update_url}', {
+                      ids: ids 
+                  }, function(data){
+                     //alert("#{update_id}")
+
+                     //alert("Data Loaded: " + data);
+                     $("#"+"#{update_id}").html(data)
+                  });
+              } 
+              
+              // Handle AJAX Errors 
+              $("##{update_id}").ajaxError(function(event, request, settings){
+                  //alert("There was an ajaxError!")
+                  //$("#"+update_id).html(settings.url)  
+                  $("#"+"#{update_id}").html('<div class="notice"><div class="failure">#{I18n.t("activerecord.errors.template.body")}<br />'+ settings.url +'</div></div>')                               
+              });       
+         });        
+      </script>
+   HTML
+   return raw html
+ end  
 end
 

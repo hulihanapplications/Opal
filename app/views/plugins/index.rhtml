@@ -1,3 +1,24 @@
+<script type="text/javascript">
+	function toggle_plugin(plugin_id){
+		//alert("toggling...")
+		$("#event_box").html('<%= theme_image_tag("loading.gif", :class => "loading") %>')
+		
+
+		$.ajax({
+		  typ: "POST",	
+		  url: '<%= url_for :action => "toggle_plugin", :controller => "plugins" %>',
+		  data: "id="+plugin_id,
+		  success: function(data) {
+		    $("#event_box").html(data);
+		    //alert('Load was performed.');
+		  },
+	        error:function (xhr, ajaxOptions, thrownError){
+	            alert(xhr.status);
+	            alert(thrownError);
+	        }  		  
+		});		
+	}
+</script>
 <div class="section">
 	<div id="side">
 		<%= render :partial => "/settings/menu" %>
@@ -38,8 +59,10 @@
 				Here you can turn plugins off and on, change plugin settings, or change the order of how plugins are seen on each <%= @setting[:item_name] %>'s page.  To change the order, just drag each item object around and rearrange them as you please.
 				-->
 				
-				<div id="event_box" style=";margin:5px 0px 5px 0px">
+				<div id="event_box" style=";margin:5px 0px 5px 0px" align=center>
 				</div> 
+
+				<%= sortable_list("sortable_list", url_for(:action => "update_order", :controller => "plugins"), "event_box") %>
 				
 				
 
@@ -47,14 +70,14 @@
 				<ul id="sortable_list" style="list-style: none;">
 				<% @plugins.each do |plugin| %>
 				  <%# With a sortable_list, plugin_12, the 12 is sent to the action, it is serialized with regexp. %>
-				  <li id="plugin_<%= plugin.id %>" class="plugin_unselected" style="padding:5px;cursor:move"  onmouseover = "change_class('plugin_<%= plugin.id %>','plugin_hover')" onmouseout="change_class('plugin_<%= plugin.id %>','plugin_unselected')"  >
+				  <li id="<%= plugin.id %>" class="plugin_unselected box_2" style="cursor:move">
 					<table width="100%" cellpadding=0 cellspacing=0>
 				  		<tr> 
 				  			<td align=left width="90%">
 				  				<div id="plugin_title_<%= plugin.id %>">
 				  			  		<h2><%= plugin.model_name.human.pluralize %> 
 									<font size=1>
-				  			  			<a href="javascript:toggle_box_s('plugin_settings_<%= plugin.id %>')">(<%= PluginSetting.model_name.human.pluralize %>)</a>						
+				  			  			<a href="javascript:toggle_box('plugin_settings_<%= plugin.id %>')">(<%= PluginSetting.model_name.human.pluralize %>)</a>						
 										<% if plugin.name == "Feature" %>
 					  			  			<%= link_to "(#{t("label.item_edit", :item => plugin.model_name.human.pluralize)})", {:action => "index", :controller => "plugin_features"} %>
 										<% end %>	
@@ -71,7 +94,7 @@
 							  	<div class="box_2">
 							  		<%= t("single.enabled") %>
 									<br>
-									<input type="checkbox" name="enable_<%= plugin.model_name.human %>" value="1" <% if plugin.is_enabled? %>CHECKED<% end %> onchange="javascript:loading('event_box');new Ajax.Updater('event_box', '/plugins/enable_disable_plugin/<%= plugin.id %>', {asynchronous:true, evalScripts:true}); return false;">
+									<input type="checkbox" name="enable_<%= plugin.model_name.human %>" value="1" <% if plugin.is_enabled? %>CHECKED<% end %> onchange="javascript:toggle_plugin('<%= plugin.id %>')">
 							  	</div>
 							</td>
 						</tr>
@@ -86,7 +109,7 @@
 										<div align=center>
 											<%= submit_tag t("single.save")  %>
 											<br><br>
-											<a href="javascript:toggle_box_s('plugin_settings_<%= plugin.id %>')"><img src="/themes/<%= @setting[:theme] %>/images/icons/cancel.png" alt="" title="" border=0 class="icon">						</a>							
+											<a href="javascript:toggle_box('plugin_settings_<%= plugin.id %>')"><img src="/themes/<%= @setting[:theme] %>/images/icons/cancel.png" alt="" title="" border=0 class="icon">						</a>							
 										</div>
 									<% end %>
 								<% else %> 
@@ -101,14 +124,6 @@
 				<% end %>
 				</ul>
 				</div>
-				<!--
-				<br>
-				<div class="box_1" align=center style="margin-bottom:5px;">
-						<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" class="icon">
-						Do you want only certain people to be able to see/edit/create/delete certain plugins? You can do this in the
-						<%= link_to "groups section", {:action => "index", :controller => "groups" } %>.
-				</div>
-				-->
 			</div>
 		
 		</div>
@@ -116,9 +131,6 @@
 
 		
 		
-		<%= sortable_element('sortable_list', :update => 'event_box', :url => {:action => "update_plugins_order"}) %>
-		<!-- Revision of above, calls update_position action WITHOUT AJAX -->
-		<%#= sortable_element('sortable_list', :url => {:action => "update_plugins_order"}) %>
 		
 		
 </div>	

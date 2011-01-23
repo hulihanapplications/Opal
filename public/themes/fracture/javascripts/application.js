@@ -37,56 +37,6 @@ function hide_box(id){
  	$(element).slideUp(transition_time)
 }
 
-function toggle_box_s(id) // This Function Hides/Shows an element, using scriptaculous
-{
-	// Animation Choices(Appearing): 
-	//		Appear
-	//		BlindDown
-	//		Fold
-	//		Highlight
-	//		Shake
-	//		SlideDown
-	// Animation Choices(For Disappearing): 
-	//		BlindUp
-	//		DropOut
-	//		Fade
-	//		Pulsate
-	//		Shrink
-	//		SlideUp
-	//		Squish
-	//		Puff
-	//		SwitchOff
-	 element = document.getElementById(id)
-	 if(element.style.display == "none") // The Element is currently Hidden
- 		 new Effect.Appear(element, {duration:0.5}); // Show Element(Must be a Appearing effect listed above)
- 	 else // The Element is currently Visible
- 		 new Effect.Fade(element, {duration:0.5}); // Hide Element(Must be an Disappearing effect listed above)
-}
-function replace_box_s(id_to_hide, id_to_show) // This function hides the first element and shows the second(which should already be hidden)
-{
-	// Animation Choices(Appearing): 
-	//		Appear
-	//		BlindDown
-	//		Fold
-	//		Highlight
-	//		Shake
-	//		SlideDown
-	// Animation Choices(For Disappearing): 
-	//		BlindUp
-	//		DropOut
-	//		Fade
-	//		Pulsate
-	//		Shrink
-	//		SlideUp
-	//		Squish
-	//		Puff
-	//		SwitchOff
-	element_to_hide = document.getElementById(id_to_hide)
-	element_to_show = document.getElementById(id_to_show)
- 	new Effect.Shrink(element_to_hide, {duration:0.5}); // Hide Element(Must be a Disappearing effect listed above)
-	new Effect.Appear(element_to_show, {duration:0.5}); // Show Element(Must be an Appearing effect listed above)
-
-}
 
 
 function loading(id)
@@ -94,8 +44,6 @@ function loading(id)
 	 element = document.getElementById(id)
 	 element.innerHTML = "<div class='loading'><img src='/themes/fracture/images/loading.gif' class='loading'></div>"
 }
-
-
 
 
 /* Opens and Closes Boxes With an expanding link */

@@ -8,12 +8,11 @@ class PluginsController < ApplicationController
   
    def index
      @setting[:meta_title] <<  Plugin.model_name.human.pluralize  
-     @setting[:load_prototype] = true # load prototype js in layout 
      @plugins = Plugin.find(:all, :order => "order_number ASC")
    end
     
-   def update_plugins_order
-    params[:sortable_list].each_with_index do |id, position|
+   def update_order
+    params[:ids].each_with_index do |id, position|
       plugin = Plugin.update(id, :order_number => position)
     end
      Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_save", :item => Plugin.model_name.human, :name => Plugin.human_attribute_name(:order_number)))                                                 
@@ -21,7 +20,7 @@ class PluginsController < ApplicationController
    end 
    
    
-   def enable_disable_plugin
+   def toggle_plugin
       plugin = Plugin.find(params[:id])
       if plugin.is_enabled == "1"
         plugin.is_enabled = "0"

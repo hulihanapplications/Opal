@@ -1,19 +1,14 @@
 <%= auto_discovery_link_tag(:rss, {:action => "rss", :controller => "items"}, {:title => "#{t("label.rss_feed")} - #{t("single.new").capitalize} #{@setting[:item_name_plural]}"}) %> 
 
 <!-- Load Core Files -->
-	<% if @setting[:load_prototype] %>
-		<%= javascript_include_tag "/core/javascripts/prototype.js" %>
-		<%= javascript_include_tag "/core/javascripts/scriptaculous.js?load=effects" %>
-		<%= javascript_include_tag "/core/javascripts/dragdrop.js" %>
-		<%= javascript_include_tag "/core/javascripts/controls.js" %>
-	<% else %>
-		<%= javascript_include_tag "/core/javascripts/jquery/jquery-1.4.2.min.js" %>
-		<%= javascript_include_tag "/core/javascripts/jquery/jquery-ui-1.8.7.custom.min.js" if (params[:controller] == "plugins" && params[:action] == "index" )%>
-		<%= javascript_include_tag "/core/javascripts/jquery/jquery.tools.min.js" %>
-		<%= javascript_include_tag "/core/javascripts/jquery/jquery.colorbox-min.js" %>
-		<%= javascript_include_tag "/core/javascripts/jquery/jquery.rating.js" %>
-		<%= javascript_include_tag "/core/javascripts/rails.js" %>	
-	<% end %>
+
+	<%= javascript_include_tag "/core/javascripts/jquery/jquery-1.4.2.min.js" %>
+	<%= javascript_include_tag "/core/javascripts/jquery/jquery-ui-1.8.7.custom.min.js" if (params[:controller] == "plugins" && params[:action] == "index" )%>
+	<%= javascript_include_tag "/core/javascripts/jquery/jquery.tools.min.js" %>
+	<%= javascript_include_tag "/core/javascripts/jquery/jquery.colorbox-min.js" %>
+	<%= javascript_include_tag "/core/javascripts/jquery/jquery.rating.js" %>
+	<%= javascript_include_tag "/core/javascripts/rails.js" %>	
+
 	<%= javascript_include_tag "/core/javascripts/application.js" %>
 	<%= stylesheet_link_tag "/core/stylesheets/application.css" %>
 	<%#= include_tiny_mce_if_needed %>

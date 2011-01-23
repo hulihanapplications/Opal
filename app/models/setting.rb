@@ -35,9 +35,6 @@ class Setting < ActiveRecord::Base
     setting[:item_name_plural] = Setting.get_setting("item_name_plural")
     setting[:title] = Setting.get_setting("site_title")
     setting[:description] = Setting.get_setting("site_description")
-    setting[:meta_keywords] = Setting.get_setting("site_keywords")
-    setting[:meta_description] = setting[:description]
-    setting[:meta_title] = setting[:title] + " - " + setting[:meta_description]
     setting[:theme] = Setting.get_setting("theme")
     setting[:items_per_page] = Setting.get_setting("items_per_page")
     setting[:include_child_category_items] = Setting.get_setting_bool("include_child_category_items")

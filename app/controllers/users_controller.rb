@@ -16,7 +16,7 @@ class UsersController < ApplicationController
    end 
   
    def index
-        @setting[:meta_title] = User.model_name.human.pluralize + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title]
+        @setting[:meta_title] << User.model_name.human.pluralize 
         #@users = User.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i, :order => "username ASC"
         @users = User.paginate :page => params[:page], :per_page => 100, :order => "username ASC"
         #@users = User.find(:all, :order => "username ASC")

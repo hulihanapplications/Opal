@@ -44,6 +44,9 @@ class ApplicationController < ActionController::Base
     @setting = Setting.global_settings 
     @setting[:theme] = params[:theme] if params[:theme] # preview theme if theme is specified in url
     @setting[:url] = "http://" + request.env["HTTP_HOST"] + "" # root url for host/port, taken from request
+    # Get Meta Settings Manually So they're not cached(which causes nested meta information)
+    @setting[:meta_title] = [@setting[:description], @setting[:title]]
+    @setting[:meta_description] = [@setting[:description]]
   end
   
   def reload_settings # reload global settings
@@ -102,7 +105,8 @@ class ApplicationController < ActionController::Base
       redirect_to :action => "login", :controller => "browse"
     else #there's a user logged in, but what type is he?
       if(@logged_in_user.is_admin?) # make sure user is an admin
-        # Proceedr
+        # Proceed
+        @setting[:meta_title] << t("section.title.admin")
       else # a non-admin is trying to do someting
         flash[:failure] = t("notice.failed_admin_access_attempt")
         Log.create(:log_type => "warning", :log => t("log.failed_admin_access_attempt_user", :username => @logged_in_user.username, :id => @logged_in_user.id, :controller => params[:controller], :action => params[:action]))        

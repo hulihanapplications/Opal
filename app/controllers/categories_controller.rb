@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
   before_filter :enable_admin_menu
   
   def index 
-    @setting[:meta_title] = @setting[:meta_title] = Category.model_name.human.pluralize + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title]
+    @setting[:meta_title] << Category.model_name.human.pluralize
     @categories = Category.find(:all, :conditions =>["category_id = 0"], :order => "name ASC")
   end
   

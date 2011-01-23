@@ -1,34 +1,37 @@
-<% plugins = Plugin.enabled %>
-<% for plugin in plugins %>
-			<%= render :partial => plugin.partial_path(:type => "home"), :locals => {:plugin => plugin } rescue nil %>
-<% end %>
-<div id="side">
-  	<% if @setting[:homepage_type] != "categories" %>
-		<div class="box_1" id="category_menu" >
-	   		<%= render :partial => "items/category_menu", :locals => {:options => {:category => @category}} %>
-		</div>   
-		<%= show_page Page.get_system_page("Category Column") %>
-	<% end %>
-   	<% if Setting.get_setting_bool("display_popular_items") %>
-		<div class="box_1" align=left > 
-			<%= render :partial => "items/popular_items" %>
-		</div> 
-	<% end %>
-   	<% if Setting.get_setting_bool("display_featured_items") %>
-		<div class="box_1" align=left >
-			<%= render :partial => "items/featured_items" %>
-		</div>
-	<% end %>  		  	
-	<%= show_page Page.get_system_page("Home Page Sidebar") %>
-</div>
-<div id="main">
-	<%= show_page Page.get_system_page("Main Home Page") if !params[:page]  %>
-	<% if @setting[:homepage_type] == "new_items" %>
-		<%= render :partial => "browse/homepage_new_items" %>
-	<% elsif @setting[:homepage_type] == "categories" %>
-		<%= render :partial => "browse/homepage_categories" %>
-	<% else %>
-		<%# Display nothing %>
-	<% end %> 			
-</div>
+
+	<div id="side">
+		<% if @setting[:section_items] %>
+			<% plugins = Plugin.enabled %>
+				<% for plugin in plugins %>
+							<%= render :partial => plugin.partial_path(:type => "home"), :locals => {:plugin => plugin } rescue nil %>
+				<% end %>
+			  	<% if @setting[:homepage_type] != "categories" %>
+					<div class="box_1" id="category_menu" >
+				   		<%= render :partial => "items/category_menu", :locals => {:options => {:category => @category}} %>
+					</div>   
+					<%= show_page Page.get_system_page("Category Column") %>
+				<% end %>
+			   	<% if Setting.get_setting_bool("display_popular_items") %>
+					<div class="box_1" align=left > 
+						<%= render :partial => "items/popular_items" %>
+					</div> 
+				<% end %>
+			   	<% if Setting.get_setting_bool("display_featured_items") %>
+					<div class="box_1" align=left >
+						<%= render :partial => "items/featured_items" %>
+					</div>
+				<% end %>  	
+		<% end %>						  	
+		<%= show_page Page.get_system_page("Home Page Sidebar") %>
+	</div>
+	<div id="main">
+		<%= show_page Page.get_system_page("Main Home Page") if !params[:page]  %>
+		<% if @setting[:homepage_type] == "new_items" && @setting[:section_items] %>
+			<%= render :partial => "browse/homepage_new_items" %>
+		<% elsif @setting[:homepage_type] == "categories" && @setting[:section_items] %>
+			<%= render :partial => "browse/homepage_categories" %>
+		<% else %>
+			<%# Display nothing %>
+		<% end %> 			
+	</div>
 

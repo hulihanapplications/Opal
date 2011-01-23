@@ -7,7 +7,7 @@ class PluginsController < ApplicationController
 
   
    def index
-     @setting[:meta_title] =  Plugin.model_name.human.pluralize + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title] 
+     @setting[:meta_title] <<  Plugin.model_name.human.pluralize  
      @setting[:load_prototype] = true # load prototype js in layout 
      @plugins = Plugin.find(:all, :order => "order_number ASC")
    end

@@ -12,7 +12,7 @@ class MessagesController < ApplicationController
   before_filter :enable_admin_menu, :only => [:index, :for_user] # show admin menu
  
   def index
-    @setting[:meta_title] = UserMessage.model_name.human.pluralize + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title]
+    @setting[:meta_title] << UserMessage.model_name.human.pluralize 
     @messages = UserMessage.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i
   end
 

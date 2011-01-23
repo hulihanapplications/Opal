@@ -60,9 +60,9 @@
 	<link rel="shortcut icon" href="/themes/<%= @setting[:theme] %>/images/favicon.ico"> 
 
 <!-- Load Meta Data -->
-	<title><%= @setting[:meta_title] %></title>
-	<meta name="keywords" content="<%= @setting[:meta_keywords] %>">
-	<meta name="description" content="<%= @setting[:meta_description] %>">
+	<title><%= @setting[:meta_title].reverse.flatten.join(" - ") %></title>
+	<meta name="keywords" content="<%= @setting[:meta_title].reverse.flatten.join(", ") %>">
+	<meta name="description" content="<%= @setting[:meta_description].nil? ? @setting[:meta_title].reverse.flatten.join(", ")  : @setting[:meta_description].reverse.flatten.join(", ") %>">
 
 
 

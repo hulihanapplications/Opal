@@ -14,7 +14,7 @@ class BrowseController < ApplicationController
  
  def user
   @user = User.find(params[:id]) 
-  @setting[:meta_title] = "#{@user.username}" + " - " + @setting[:meta_title]
+  @setting[:meta_title] << "#{@user.username}" 
   @items = Item.paginate :page => params[:page], :per_page => @setting[:items_per_page], :order => Item.sort_order(params[:sort]), :conditions => ["user_id = ? and is_approved = '1' and is_public = '1'", @user.id ]
  end
 

@@ -4,7 +4,7 @@ class PagesController < ApplicationController
  before_filter :uses_tiny_mce, :only => [:new, :edit]  # which actions to load tiny_mce, TinyMCE Config is done in Layout. 
  
  def index
-   @setting[:meta_title] = Page.model_name.human.pluralize + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title]
+   @setting[:meta_title] << Page.model_name.human.pluralize 
    params[:type] ||= "System" # set default
    if params[:type] == "Blog" # if blog pages
      order = "created_at DESC" # set order
@@ -202,9 +202,8 @@ class PagesController < ApplicationController
      if params[:id] # A page number is set, show that page
        @page = Page.find(params[:id])   
        if @page.published || @logged_in_user.is_admin? # make sure this is a published page they're going to
-           @setting[:meta_title] = @page.title + " - " + @page.description + " - " + @setting[:meta_title]
-           @setting[:meta_keywords] = @page.title + " - " + @page.description + " - " + @setting[:meta_title]
-           @setting[:meta_description] = @page.title + " - " + @page.description + " - " + @setting[:meta_title]
+           @setting[:meta_title] << @page.description 
+           @setting[:meta_title] << @page.title 
            @comments = PageComment.paginate :page => params[:page], :per_page => 25, :conditions => ["page_id = ? and is_approved = ?", @page.id, "1"]                  
        else
           flash[:failure] = "#{t("notice.not_visible")}"      

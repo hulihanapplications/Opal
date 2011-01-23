@@ -16,7 +16,8 @@ class ItemsController < ApplicationController
     @items = Item.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i, :order => Item.sort_order(params[:sort])     
    else      
     @items = Item.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i, :order => Item.sort_order(params[:sort]), :conditions => ["is_approved = '1' and is_public = '1'"]
-   end 
+   end
+   @setting[:meta_title] << @setting[:item_name_plural] 
   end
  
   def category # get all items for a category and its children/descendants recursively
@@ -28,9 +29,8 @@ class ItemsController < ApplicationController
      
      @items = Item.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i, :order => "created_at DESC", :conditions => ["category_id IN (?) and is_approved = '1' and is_public = '1'", category_ids]    
      
-     @setting[:meta_title] = @category.name + " - " + @setting[:meta_title]
-     @setting[:meta_keywords] = @category.name + " - " + @category.description + " - " + @setting[:item_name_plural] + " - " + @setting[:meta_keywords]
-     @setting[:meta_description] = @category.name + " - " + @category.description + " - " + @setting[:item_name_plural] + " - " + @setting[:meta_description]   
+     @setting[:meta_title] << @category.name 
+     @setting[:meta_description] << [@category.name , @category.description, @setting[:item_name_plural], @setting[:meta_description]].join(" - ") 
   end
  
   def all_items # show all items in system 
@@ -50,9 +50,10 @@ class ItemsController < ApplicationController
   def view
     @item = Item.find(params[:id])
     if @item.is_viewable_for_user?(@logged_in_user) 
-      @setting[:meta_title] = meta_title(@item) 
-      @setting[:meta_keywords] = @setting[:meta_title]
-      @setting[:meta_description] = @setting[:meta_title]
+      @setting[:meta_title] << @item.name 
+      @setting[:meta_title] << @item.description 
+
+
       @item.update_attribute(:views, @item.views += 1) # update total views
       @item.update_attribute(:recent_views, @item.recent_views += 1) # update recent views  
     else # the user can't see this item
@@ -174,7 +175,7 @@ class ItemsController < ApplicationController
  def search
    if !params[:search_for] == "" || !params[:search_for].nil?
     @search_for = params[:search_for] # what to search for
-    @setting[:meta_title] = t("label.search_results_for", :query => @search_for) + " - " + @setting[:meta_title] 
+    @setting[:meta_title] << t("label.search_results_for", :query => @search_for) 
     @items = Item.paginate :page => params[:page], :per_page => @setting[:items_per_page], :order => Item.sort_order(params[:sort]), :conditions => ["name like ? or description like ? and is_approved = '1' and is_public = '1'", "%#{@search_for}%", "%#{@search_for}%" ]
    else # No Input
      flash[:failure] = t("notice.search_results_left_blank")

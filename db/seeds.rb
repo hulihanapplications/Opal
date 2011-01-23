@@ -23,7 +23,6 @@ print "Installing Required Data..."
 Setting.create(:name => "item_name", :value => "Item", :setting_type => "Item", :item_type => "string")
 Setting.create(:name => "item_name_plural",  :value => "Items", :setting_type => "Item",  :item_type => "string")
 Setting.create(:name => "site_title",  :value => "My Opal Website", :setting_type => "Public",  :item_type => "string")
-Setting.create(:name => "site_keywords",  :value => "Opal", :setting_type => "Public",  :item_type => "string")
 Setting.create(:name => "site_description",  :value => "The Free, Open Source, Item Management System. List Anything!", :setting_type => "Public",  :item_type => "string")
 Setting.create(:name => "theme",  :value => "fracture", :setting_type => "Hidden",  :item_type => "string")
 Setting.create(:name => "max_items_per_user",  :value => "0", :setting_type => "Item", :item_type => "string")

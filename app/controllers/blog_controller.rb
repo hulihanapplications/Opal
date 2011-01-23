@@ -13,6 +13,7 @@ class BlogController < ApplicationController
     @page_comments = PageComment.paginate :page => params[:page], :per_page => 25, :conditions => ["page_id = ? and is_approved = ?", @page.id, "1"], :order => "created_at DESC"    
     if @page.published || @logged_in_user.is_admin? # make sure this is a published page they're going to
       # proceed
+      @setting[:meta_title] << @page.title
     else
       flash[:error] = t("notice.not_visible")      
       redirect_to :action => "index", :controller => "browse"

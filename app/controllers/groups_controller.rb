@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
 
    def index
         @groups = Group.paginate :page => params[:page], :per_page => 25, :order => "name ASC"
-        @setting[:meta_title] = Group.model_name.human + " - " + t("section.title.admin").capitalize + " - " + @setting[:meta_title]
+        @setting[:meta_title] << Group.model_name.human.pluralize
    end
    
     def create

@@ -13,11 +13,11 @@
 							<tr>
 								<td>
 									<div class="name" id="name">
-										<%= h item.name %>								
+										<%=  item.name %>								
 									</div>		
 									<% if get_setting_bool("enable_item_description") %>
 										<div class="description" id="description">
-											<%= h item.description %>																							
+											<%= simple_format item.description %>																							
 										</div>														
 									<% end %>	
 								</td>

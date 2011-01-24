@@ -96,7 +96,8 @@ module ApplicationHelper
     if item.category.category_id != 0 # if the item's category is a sub category, print one more category link
       navlinks << link_to("#{h item.category.category.name}", {:action => "category", :controller => "items", :id => item.category.category}, :title => item.category.category.description)
     else # the item's category is a parent category, print home
-      navlinks << (link_to "Home", {:action => "index", :controller => "browse"}) 
+      #navlinks << (link_to t("section.title.items", :items => @setting[:item_name_plural]), {:action => "index", :controller => "items"})               
+      navlinks << (link_to t("section.title.home"), {:action => "index", :controller => "browse"}) 
     end
     navlinks = navlinks.reverse
     return raw "<div class=\"navlinks\"><b>" + navlinks.join(" &raquo; ") + "</b></div>"

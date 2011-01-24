@@ -38,7 +38,7 @@
 								    <%= link_to icon("delete"), { :action => 'delete_page_comment', :controller => "pages", :id => comment.id, :comment_id => comment.id},  :confirm => t("confirm.item_delete", :item => PageComment.model_name.human) %>						
 								<% end %>
 								<br>
-								<%= h comment.comment %>
+								<%= simple_format comment.comment %>
 							</div>
 						</div>
 					</td>

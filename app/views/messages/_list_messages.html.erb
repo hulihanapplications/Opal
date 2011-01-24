@@ -16,95 +16,97 @@
 
 <% if messages.size > 0 %>
 	<% for message in messages %>
-		<div  id="message_<%= message.id %>" style="margin-bottom:5px;" class="box_2">
-		  <table  width="100%" cellpadding=0 cellspacing=0>
-		  	<tr>
-				<td style="vertical-align:top;text-align:left;width:70px">
-				  <table  cellpadding=0 cellspacing=0 >
-				  	<tr>
-					  <td style="width:20px;vertical-align:middle;text-align:center">
-						 <%= link_to user_avatar(message.user_from, :size => "tiny"), {:action => "user", :controller => "browse", :id => message.user_from} %>
-					  </td>
-					  <td style="width:20px;vertical-align:middle;text-align:center">
-					    <% if message.is_replied_to? && message.message_replied_to %>
-							<img src="/themes/<%= @setting[:theme] %>/images/icons/reply.png" class="icon" title="<%= t("single.reply") + " " + t("single.to") + " " + message.user_to.username %>">																	  	
+		<div class="hoverable">
+			<div  id="message_<%= message.id %>" style="margin-bottom:5px;"  class="box_2">
+			  <table  width="100%" cellpadding=0 cellspacing=0>
+			  	<tr>
+					<td style="vertical-align:top;text-align:left;width:70px">
+					  <table  cellpadding=0 cellspacing=0 >
+					  	<tr>
+						  <td style="width:20px;vertical-align:middle;text-align:center">
+							 <%= link_to user_avatar(message.user_from, :size => "tiny"), {:action => "user", :controller => "browse", :id => message.user_from} %>
+						  </td>
+						  <td style="width:20px;vertical-align:middle;text-align:center">
+						    <% if message.is_replied_to? && message.message_replied_to %>
+								<img src="/themes/<%= @setting[:theme] %>/images/icons/reply.png" class="icon" title="<%= t("single.reply") + " " + t("single.to") + " " + message.user_to.username %>">																	  	
+							<% else %>
+								<img src="/themes/<%= @setting[:theme] %>/images/icons/arrow_right.png" class="icon" title="<%= t("single.to") %>">										  	
+							<% end %>
+						  </td>
+						  <td style="width:20px;vertical-align:middle;text-align:center">
+							 <%= link_to user_avatar(message.user_to, :size => "tiny"), {:action => "user", :controller => "browse", :id => message.user_to} %>		  	
+						  </td>						  			  		
+					  	</tr>
+					  </table>		
+				  	</td>
+	
+					<td style="vertical-align:middle;text-align:left">
+					  	<%# The Truncated Message %>
+					  	<div id="message_box_<%= message.id %>">
+					  									
+								<a href="javascript:toggle_box('message_box_hidden_<%= message.id %>')">
+									<%= h truncate(message.message,  :length => 65) %>
+								</a>							
+												
+					  	</div>
+					</td>
+					<td align=right style="width:135px;vertical-align:middle;">
+						<%= friendly_date message.created_at %>					
+					</td>
+			  	</tr>	
+			   </table>
+			   <%# The Full Message %>
+			   <div id = "message_box_hidden_<%= message.id %>" style="display:none">
+			  		<div style="margin-bottom:5px"></div>
+			  		<div style="margin-bottom:5px">
+			  			<%= simple_format h(message.message) %>
+			  		</div>
+					<% if message.is_replied_to? && message.message_replied_to %>
+						<div class="box_1" style="margin-bottom:5px">
+							<h3 class="title"><%= t("single.reply") + " " + t("single.to")  %>: </h3>
+							<%= h message.message_replied_to.message %> 
+						</div>																	  	
+					<% end %>
+					<div class="box_2" align=center>
+						<% if message.user_from %>
+							<img src="/themes/<%= @setting[:theme] %>/images/icons/arrow_left.png" title="<%= t("single.reply") %>" class="icon">														
+							<a href="javascript:toggle_box('reply_box_<%= message.id %>')">
+								<%= t("single.reply") + " " + t("single.to") + " " + message.user_from.username %>
+							</a>
+						<% end %>					
+						<%= link_to icon("delete") + " " + t("single.delete"), { :action => 'delete_message', :controller => "messages", :id => message.id, :type => params[:type]}, :confirm => t("confirm.item_delete", :item => UserMessage.model_name.human) %>
+						<% if message.is_read? %>
+							<%= link_to icon("success") + " " + t("label.item_mark_as", :item => "", :name => UserMessage.human_attribute_name(:unread)), { :action => 'unread_message', :controller => "messages", :id => message.id, :type => params[:type]} %>							
 						<% else %>
-							<img src="/themes/<%= @setting[:theme] %>/images/icons/arrow_right.png" class="icon" title="<%= t("single.to") %>">										  	
-						<% end %>
-					  </td>
-					  <td style="width:20px;vertical-align:middle;text-align:center">
-						 <%= link_to user_avatar(message.user_to, :size => "tiny"), {:action => "user", :controller => "browse", :id => message.user_to} %>		  	
-					  </td>						  			  		
-				  	</tr>
-				  </table>		
-			  	</td>
-
-				<td style="vertical-align:middle;text-align:left">
-				  	<%# The Truncated Message %>
-				  	<div id = "message_box_<%= message.id %>">
-				  									
-							<a href="javascript:toggle_box('message_box_hidden_<%= message.id %>')">
-								<%= h truncate(message.message,  :length => 65) %>
-							</a>							
-											
-				  	</div>
-				</td>
-				<td align=right style="width:135px;vertical-align:middle;">
-					<%= friendly_date message.created_at %>					
-				</td>
-		  	</tr>	
-		   </table>
-		   <%# The Full Message %>
-		   <div id = "message_box_hidden_<%= message.id %>" style="display:none">
-		  		<div style="margin-bottom:5px"></div>
-		  		<div style="margin-bottom:5px">
-		  			<%= h message.message %>
-		  		</div>
-				<% if message.is_replied_to? && message.message_replied_to %>
-					<div class="box_1" style="margin-bottom:5px">
-						<h3 class="title"><%= t("single.reply") + " " + t("single.to")  %></h3>
-						<%= h message.message_replied_to.message %> 
-					</div>																	  	
-				<% end %>
-				<div class="box_2" align=center>
-					<% if message.user_from %>
-						<img src="/themes/<%= @setting[:theme] %>/images/icons/arrow_left.png" title="<%= t("single.reply") %>" class="icon">														
-						<a href="javascript:toggle_box('reply_box_<%= message.id %>')">
-							<%= t("single.reply") + " " + t("single.to") + " " + message.user_from.username %>
-						</a>
-					<% end %>					
-					<%= link_to icon("delete") + " " + t("single.delete"), { :action => 'delete_message', :controller => "messages", :id => message.id, :type => params[:type]}, :confirm => t("confirm.item_delete", :item => UserMessage.model_name.human) %>
-					<% if message.is_read? %>
-						<%= link_to icon("success") + " " + t("label.item_mark_as", :item => "", :name => UserMessage.human_attribute_name(:unread)), { :action => 'unread_message', :controller => "messages", :id => message.id, :type => params[:type]} %>							
-					<% else %>
-						<%= link_to icon("success") + " " + t("label.item_mark_as", :item => "", :name => UserMessage.human_attribute_name(:read)),  { :action => 'read_message', :controller => "messages", :id => message.id, :type => params[:type]} %>					
-					<% end %>							
-					<a href="javascript:toggle_box('message_box_hidden_<%= message.id %>')"> <%= icon("cancel") %> <%= t("single.close") %></a>							
-				</div>
-			  	<%# The Reply Box %>	
-				<div id = "reply_box_<%= message.id %>" style="display:none">	
-					<%= form_tag  :action => 'send_message', :controller => "messages", :id => message.from_user_id %>
-						<input type="hidden" name="reply_to_message_id" value="<%= message.id %>"> 
-							<table style="width:100%">
-								<tr>
-									<td><textarea  style="width:100%;" name="message" id="reply_message_<%= message.id %>" onfocus = "focus_input('reply_message_<%= message.id %>')" onblur = "blur_input('reply_message_<%= message.id %>')"></textarea></td>
-								</tr>
-								<tr>
-									<td align=center>
-											<input type="submit" class="button_1" value="<%= t("label.item_send_to", :item => UserMessage.model_name.human, :name => message.user_from.username) %>" >
-											<div style="margin-bottom:5px"></div>
-											<a  href="javascript:toggle_box('reply_box_<%= message.id %>')">
-												<%= icon("cancel") %>
-											</a>
-									</td>
-								</tr>
-							</table>	
-							
-							<br>
-					</form>				
-			   </div>				
-			</div>							  
-		</div> 
+							<%= link_to icon("success") + " " + t("label.item_mark_as", :item => "", :name => UserMessage.human_attribute_name(:read)),  { :action => 'read_message', :controller => "messages", :id => message.id, :type => params[:type]} %>					
+						<% end %>							
+						<a href="javascript:toggle_box('message_box_hidden_<%= message.id %>')"> <%= icon("cancel") %> <%= t("single.close") %></a>							
+					</div>
+				  	<%# The Reply Box %>	
+					<div id = "reply_box_<%= message.id %>" style="display:none">	
+						<%= form_tag  :action => 'send_message', :controller => "messages", :id => message.from_user_id %>
+							<input type="hidden" name="reply_to_message_id" value="<%= message.id %>"> 
+								<table style="width:100%">
+									<tr>
+										<td><textarea  style="width:100%;" name="message" id="reply_message_<%= message.id %>" onfocus = "focus_input('reply_message_<%= message.id %>')" onblur = "blur_input('reply_message_<%= message.id %>')"></textarea></td>
+									</tr>
+									<tr>
+										<td align=center>
+												<input type="submit" class="button_1" value="<%= t("label.item_send_to", :item => UserMessage.model_name.human, :name => message.user_from.username) %>" >
+												<div style="margin-bottom:5px"></div>
+												<a  href="javascript:toggle_box('reply_box_<%= message.id %>')">
+													<%= icon("cancel") %>
+												</a>
+										</td>
+									</tr>
+								</table>	
+								
+								<br>
+						</form>				
+				   </div>				
+				</div>							  
+			</div> 
+		</div>
 	<% end %>
 <% else %>
 	<div align=center>

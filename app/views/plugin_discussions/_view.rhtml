@@ -51,7 +51,7 @@
 								<i><%= h discussion.description if discussion.description %></i>
 							</td>
 							<td align=right style="text-align:right">
-								<%= link_to "<b>#{discussion.plugin_discussion_posts.size} #{PluginDiscussionPost.model_name.human.pluralize}</b>", {:action => "view", :controller => "plugin_discussions", :id => @item.id, :discussion_id => discussion.id}%>
+								<%= link_to "#{discussion.plugin_discussion_posts.size} #{PluginDiscussionPost.model_name.human.pluralize}", {:action => "view", :controller => "plugin_discussions", :id => @item.id, :discussion_id => discussion.id}%>
 								<% if !@logged_in_user.anonymous? %>
 									<img src="/themes/<%= @setting[:theme] %>/images/icons/new.png" class="icon" alt="New" title="New">
 									<%= link_to t("label.item_new", :item => PluginDiscussionPost.model_name.human), {:action => "view", :controller => "plugin_discussions", :id => @item.id, :discussion_id => discussion.id, :anchor => "new_post"}%>
@@ -66,13 +66,8 @@
 								<% if my_group_plugin_permissions[plugin.id].can_delete? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>									
 									<%= link_to icon("delete"), { :action => 'delete', :controller => "plugin_discussions", :id => item.id, :discussion_id => discussion.id}, :confirm => t("confirm.item_delete", :item => plugin.model_name.human) %>
 								<% end %>
-								<% if @item.is_editable_for_user?(@logged_in_user)  %>
-									<span class="box_2" style="padding:2px;">									
-							 			<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/approved.png\" title=\"#{t("single.approved")}\" class=\"icon\">" if discussion.is_approved? %> 										
-							 			<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/unapproved.png\" title=\"#{t("single.not")} #{t("single.approved")}\" class=\"icon\">" if !discussion.is_approved? %> 																							
-										<%= link_to raw("<img src=\"/themes/#{@setting[:theme]}/images/icons/cycle.png\" class=\"icon\">"), {:action => "change_approval", :id => item.id, :discussion_id => discussion.id, :controller => "plugin_discussions"}, :confirm => t("confirm.general"), :title => "#{t("label.item_change", :item => "")}", :class => "transparent" %>
-									</span>												
-								<% end %>								
+								<%= render :partial => "plugins/approval_controls", :locals => { :plugin_item => discussion} if @item.is_editable_for_user?(@logged_in_user) %>											
+						
 							</td>							
 						</tr>
 					</table>

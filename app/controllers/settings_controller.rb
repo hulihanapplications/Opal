@@ -22,7 +22,7 @@ class SettingsController < ApplicationController
     if @setting.value != value # the value of the setting has changed
      if @setting.update_attribute("value", value) # update the setting
       flash[:success] << t("notice.item_save_success", :item => Setting.model_name.human + ": #{@setting.title}") 
-      Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_save", :item => PluginSetting.model_name.human, :name => @setting.title))  # log it
+      Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_save", :item => Setting.model_name.human, :name => @setting.title))  # log it
      else # the setting failed saving 
       flash[:failure] << t("notice.item_save_failure", :item => Setting.model_name.human + ": #{@setting.title}") 
      end

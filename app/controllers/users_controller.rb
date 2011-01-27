@@ -28,7 +28,7 @@ class UsersController < ApplicationController
       @user = User.new(params[:user])
       #@user_info = UserInfo.new(params[:user_info])
       #@user_info.user_id = @user.id
-      if params[:is_admin] == "1"
+      if params[:user][:is_admin] == "1"
         @user.is_admin = "1" # Make user an admin 
       end
       
@@ -137,7 +137,8 @@ class UsersController < ApplicationController
   end
 
  def change_avatar
-     if !params[:file].nil? && !params[:file].empty?    #from their computer
+   require "RMagick"
+     if !params[:file].nil? && !params[:file].blank?    #from their computer
       filename = params[:file].original_filename
       file_dir = "#{Rails.root.to_s}/public/images/avatars" 
       acceptable_file_extensions = ".png, .jpg, .jpeg, .gif, .bmp, .tiff, .PNG, .JPG, .JPEG, .GIF, .BMP, .TIFF"

@@ -10,7 +10,8 @@
 		</div>
 		<hr>
 		<%= t("single.system") %> <%= t("single.mode") %>: <b class="highlight_1"><%= Rails.env.capitalize %></b>
-	</div>				
+	</div>	
+	<% if @setting[:section_items] %>			
 	<div class="box_1" align=left style="margin-bottom:10px;">
 		<%= render :partial => "items/all_items_menu" %>
 	</div>
@@ -22,7 +23,8 @@
 	</div>
 	<div class="box_1" align=left style="margin-bottom:10px">
 		<%= render :partial => "items/popular_items" %>
-	</div>			
+	</div>
+	<% end %>			
 </div>
 <div id="main">
 	<div align=left>

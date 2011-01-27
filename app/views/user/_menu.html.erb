@@ -4,7 +4,7 @@
    <li>				   	
 		<%= link_to icon("home") + " " + t("section.title.my_account"), {:action => "index", :controller => "user"} , :class => (params[:action] == "index" && params[:controller] == "user" ? "active" : "") %>		
    </li>
-   <% if Setting.get_setting_bool("let_users_create_items") || @logged_in_user.is_admin? %>
+   <% if (Setting.get_setting_bool("let_users_create_items") || @logged_in_user.is_admin?) && @setting[:section_items] %>
    <li>			
 		<%= link_to icon("new") + " " + t("label.item_new", :item => @setting[:item_name]), {:action => "new", :controller => "items"}, :class => (params[:action] == "new" || params[:action] == "create" ? "active" : "") %>
    </li>

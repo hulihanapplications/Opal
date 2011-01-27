@@ -145,6 +145,7 @@ class PagesController < ApplicationController
   end
 
   def upload_image  
+      require "RMagick"
       @plugin = Plugin.find_by_name("Image") # use Images Plugin for title and thumbnail settings
       acceptable_file_extensions = ".png, .jpg, .jpeg, .gif, .bmp, .tiff, .PNG, .JPG, .JPEG, .GIF, .BMP, .TIFF"
       uploaded_file = Uploader.file_from_url_or_local(:local => params[:file], :url => params[:url])

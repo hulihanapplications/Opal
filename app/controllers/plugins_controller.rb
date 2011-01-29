@@ -9,6 +9,7 @@ class PluginsController < ApplicationController
    def index
      @setting[:meta_title] <<  Plugin.model_name.human.pluralize  
      @plugins = Plugin.find(:all, :order => "order_number ASC")
+     @setting[:ui] = true
    end
     
    def update_order
@@ -32,6 +33,10 @@ class PluginsController < ApplicationController
       plugin.save
       Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => msg)                                              
       render :text => "<div class=\"notice\"><div class=\"success\">#{msg}</div></div>"
+   end
+   
+   def settings
+     @plugin = Plugin.find(params[:id])
    end
        
    def update_plugin_settings # update plugin settings

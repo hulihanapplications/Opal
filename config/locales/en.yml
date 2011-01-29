@@ -467,7 +467,7 @@ en:
       plugin_link: Link
       plugin_review: Review
       plugin_tag: Tag
-      plugin_setting: Plugin Setting
+      plugin_setting: Setting
       setting: Setting            
     attributes:
       user:

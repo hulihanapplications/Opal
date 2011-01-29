@@ -1,0 +1,67 @@
+<%#= descend_page(page, :admin_controls => true, :make_link => params[:type] != "System", :style => "font-size:16px;", :show_spacer => true, :show_date => params[:type] == "Blog")  %>								
+<% 
+    # initialize default values for options
+	options 					||= Hash.new
+    options[:depth]             ||= 5      # how many levels to descend
+    options[:truncate_length]   ||= 30     # Truncate title after this amount of characters
+    options[:radio] 			= false if options[:make_radio_button].nil? # add an <input type="radio"... button 
+    options[:checkbox]    		= false if options[:make_chekcbox].nil? # add an <input type="checkbox"... button 
+    options[:id_to_check]       ||= 0  # if the id to check matches the page id, select the radio button
+    options[:id_to_disable]     ||= 0  # diable this id's radio/check button
+    options[:id_to_ignore]      ||= 0  # ignore this id        
+    options[:input_name]        ||= "page[page_id]"  # name of the html input
+    options[:admin_controls]    = false   if options[:admin_controls].nil?          # show the admin controls (edit/delete)    
+    options[:class]             ||= ""  # css class
+    options[:style]             ||= ""  # css style
+    options[:sortable]    		= false if options[:sortable].nil? # make these sortable?	
+%>
+<% if page.id != options[:id_to_ignore] %>
+	<div class="<%= options[:class] %>" style="<%= options[:style] %>">
+		<table style="width:100%">
+			<tr>
+				<td align=left>
+					<% 
+			         	 options[:id_to_check] == page.id ? checked_value = "checked = \"checked\"" : checked_value = ""
+	         		 	 options[:id_to_disable] == page.id ? disabled_value = "disabled = \"disabled\"" : disabled_value = ""   
+					%> 		
+					<% if options[:radio] %>
+						<input type="radio" name="<%= options[:input_name] %>" value="<%=page.id %>" <%=checked_value %> <%= disabled_value %>>
+					<% end %>
+					<% if options[:checkbox] %>					
+						<input type="checkbox" name=<%= options[:input_name] %>" value="<%=page.id %>" <%= checked_value %> <%= disabled_value %>>
+					<% end %>
+					<%= raw "<i>" if !page.display_in_menu %>				
+						<%= link_to(truncate(page.title, :length => options[:truncate_length]), {:action => "page",  :controller => "pages", :id => page}, :class => "page_link", :title => page.description) %>
+					<%= raw "</i>" if !page.display_in_menu %>									
+				</td>
+				<td align=right>
+					<%=  friendly_date page.created_at if options[:show_date] || page.is_blog_post? %>
+					<%= icon("private") if !page.published && page.display %>
+					<%= icon("help", page.description, "icon help") if !page.description.blank? %>
+									
+	 				<% if options[:admin_controls] %>				
+			        	<%=  link_to(icon("new", "#{t("label.item_new_child", :item => Page.model_name.human)}"), {:action => "new", :controller => "pages", :id => page}, :class => "transparent") if page.is_public_page? %>              
+	           			<%=  link_to(icon("edit"), {:action => "edit", :controller => "pages", :id => page}, :class => "transparent") %>
+	        			<%=  link_to(icon("delete"), {:action => "delete", :controller => "pages", :id => page}, :confirm => t("confirm.general"), :class => "transparent") if !page.is_system_page? && page.deletable %>
+					<% end %> 				
+				</td>
+			</tr>
+		</table>
+		<%= raw "<hr>" if options[:spacer]  %>		
+		<%# display descendants %>
+	    <% 
+			if options[:depth] > 0 # if we can still descend
+	        options[:depth] = options[:depth] - 1 # decrement depth counter
+	        options[:truncate_length] = options[:truncate_length] - 1 # decrement truncate length by x characters
+		%>	
+		<%= sortable_list("#{page.id}_children", url_for(:action => "update_order", :controller => "pages"), "notice")  if options[:sortable] %>
+			  <ul id="<%= page.id %>_children" class="pages tree <%= "sortable hoverable" if options[:sortable] %>">
+				  <% for child in page.children %>		
+				  	  <li id="<%= child.id %>">
+				  	  	<%= render :partial => "pages/show", :locals => {:page => child, :options => options} %>
+				  	  </li>	  	     
+				  <% end %>			  	
+			  </ul>
+		<% end %>  		
+	</div>
+<% end %>

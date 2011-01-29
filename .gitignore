@@ -2,7 +2,7 @@
 .bundle
 *.log
 tmp/**/*
-.bundle
+Gemfile.lock
 
 # Config Files
 config/database.yml

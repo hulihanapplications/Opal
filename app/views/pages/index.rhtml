@@ -21,13 +21,13 @@
 					</table>
 				</div>
 	
-				<div class="plugin_box box_2" style="margin-bottom:5px">
+				<div class="" style="margin-bottom:5px">
 	
 					<div align=center>
-						<%= render :partial => "list_pages", :locals => {:pages => @pages} %>
-				 		<%= page_entries_info @pages, :entry_name => page_type  %>							
+						<%= render :partial => "list_pages", :locals => {:pages => @pages, :options => {:sortable => params[:type].downcase == "public"}} %>
+				 		<%#= page_entries_info @pages, :entry_name => page_type  %>							
 						<br>
-						<%= will_paginate @pages %>					
+						<%#= will_paginate @pages %>					
 					</div>
 				</div>	
 						

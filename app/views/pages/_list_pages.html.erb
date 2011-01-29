@@ -1,8 +1,21 @@
-<div class="pages" align=left>
-	<% if pages.size > 0 %>
-			<% for page in pages %>	
-				<%= descend_page(page, :admin_controls => true, :make_link => params[:type] != "System", :style => "font-size:16px;", :show_spacer => true, :show_date => params[:type] == "Blog")  %>								
-			<% end %>
-	<% else %>
-	<% end %>
+<% 
+    # initialize default values for options
+	options 					||= Hash.new
+    options[:sortable]    		= false if options[:sortable].nil? # make these sortable?	
+%>
+<div class="pages" >
+	<div id="event_box" style=";margin:5px 0px 5px 0px" align=center></div> 	
+	<%= sortable_list("pages", url_for(:action => "update_order", :controller => "pages"), "notice") if options[:sortable] %>	
+	<ul id="pages" class="tree <%= "sortable" if options[:sortable] %> collapsed">
+		<% if pages.size > 0 %>
+				<% for page in pages %>
+					<li id="<%= page.id %>" class="root <%= "hoverable" if options[:sortable] %>">
+						<div class="box_2">
+							<%= render :partial => "show", :locals => {:page => page, :options => {:admin_controls => true, :style => "font-size:16px", :spacer => false, :sortable => options[:sortable]}} %>							
+						</div>
+					</li>
+				<% end %>
+		<% else %>
+		<% end %>		
+	</ul>	
 </div>

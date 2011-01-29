@@ -5,14 +5,17 @@ class Page < ActiveRecord::Base
   belongs_to :user
   
   validates_uniqueness_of :title, :scope => "page_id"
-  validates_presence_of :title 
-
-    
+  validates_presence_of :title, :order_number   
     
   attr_protected :user_id 
 
   after_destroy :destroy_everything  
-  after_create  :assign_order_number
+  before_validation(:on => :create) do 
+    self.assign_order_number
+  end 
+  
+  default_scope :order => "order_number asc"
+
 
   def destroy_everything
     for subpage in self.pages # delete all subpages
@@ -98,15 +101,7 @@ class Page < ActiveRecord::Base
    end
   end
  
-  def assign_order_number
-    self.update_attribute(:order_number, self.class.next_order_number) # assign next order number
-  end
 
-  def self.next_order_number # >> Returns the next order_number. Example: Plugin.next_order_number => 8 
-    last_object = Page.find(:last, :order => "order_number ASC")
-    (last_object.nil? || last_object.order_number.nil?) ? order_number = 0 : order_number = last_object.order_number + 1  
-    return order_number
-  end
   
   def self.all(options = {})
     #options[:page_type]

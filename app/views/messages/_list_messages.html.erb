@@ -82,27 +82,32 @@
 						<% end %>							
 						<a href="javascript:toggle_box('message_box_hidden_<%= message.id %>')"> <%= icon("cancel") %> <%= t("single.close") %></a>							
 					</div>
-				  	<%# The Reply Box %>	
+				  	<%# The Reply Box %>
 					<div id = "reply_box_<%= message.id %>" style="display:none">	
-						<%= form_tag  :action => 'send_message', :controller => "messages", :id => message.from_user_id %>
-							<input type="hidden" name="reply_to_message_id" value="<%= message.id %>"> 
-								<table style="width:100%">
-									<tr>
-										<td><textarea  style="width:100%;" name="message" id="reply_message_<%= message.id %>" onfocus = "focus_input('reply_message_<%= message.id %>')" onblur = "blur_input('reply_message_<%= message.id %>')"></textarea></td>
-									</tr>
-									<tr>
-										<td align=center>
-												<input type="submit" class="button_1" value="<%= t("label.item_send_to", :item => UserMessage.model_name.human, :name => message.user_from.username) %>" >
-												<div style="margin-bottom:5px"></div>
-												<a  href="javascript:toggle_box('reply_box_<%= message.id %>')">
-													<%= icon("cancel") %>
-												</a>
-										</td>
-									</tr>
-								</table>	
-								
-								<br>
-						</form>				
+						<% if message.user_from %>	
+				
+							<%= form_tag  :action => 'send_message', :controller => "messages", :id => message.from_user_id %>
+								<input type="hidden" name="reply_to_message_id" value="<%= message.id %>"> 
+									<table style="width:100%">
+										<tr>
+											<td><textarea  style="width:100%;" name="message" id="reply_message_<%= message.id %>" onfocus = "focus_input('reply_message_<%= message.id %>')" onblur = "blur_input('reply_message_<%= message.id %>')"></textarea></td>
+										</tr>
+										<tr>
+											<td align=center>
+													<input type="submit" class="button_1" value="<%= t("label.item_send_to", :item => UserMessage.model_name.human, :name => message.user_from.username) %>" >
+													<div style="margin-bottom:5px"></div>
+													<a  href="javascript:toggle_box('reply_box_<%= message.id %>')">
+														<%= icon("cancel") %>
+													</a>
+											</td>
+										</tr>
+									</table>	
+									
+									<br>
+							</form>	
+						<% else %>
+							<%= t("notice.item_not_found", :item => User.model_name.human)  %>
+						<% end %>			
 				   </div>				
 				</div>							  
 			</div> 

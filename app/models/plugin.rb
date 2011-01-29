@@ -8,6 +8,9 @@ class Plugin < ActiveRecord::Base
   
   after_create :create_everything
   after_destroy :destroy_everything
+  before_validation(:on => :create) do 
+    self.assign_order_number
+  end 
 
   default_scope :order => "order_number ASC" # override default find
   
@@ -35,8 +38,6 @@ class Plugin < ActiveRecord::Base
   self.plugins = Plugin.all_to_hash # store all plugins in Plugin.plugins
   
   def create_everything
-    # auto assign order numbers
-    self.update_attribute(:order_number, Plugin.next_order_number) # assign next order number
   end
   
   def model_name # get human/translated name of plugin child 
@@ -70,13 +71,7 @@ class Plugin < ActiveRecord::Base
   
   def is_builtin?
     return self.is_builtin == "1"
-  end
-  
-  def self.next_order_number # >> Returns the next order_number. Example: Plugin.next_order_number => 8 
-    last_plugin = self.find(:last, :order => "order_number ASC")
-    return last_plugin.order_number + 1
-  end
-  
+  end  
     
   def get_setting(name) # get an PluginSetting from the database
    setting = PluginSetting.find(:first, :conditions => ["name = ? and plugin_id = ?", name, self.id], :limit => 1 )

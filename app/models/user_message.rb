@@ -1,6 +1,8 @@
 class UserMessage < ActiveRecord::Base
   belongs_to :user
   
+  validates_presence_of :user_id, :from_user_id, :to_user_id
+  
   default_scope :order => "created_at desc"
   
   attr_protected :user_id, :from_user_id

@@ -420,6 +420,7 @@ module ApplicationHelper
       <script type="text/javascript">
           $(function(){
               $("##{list_id}").sortable({
+                  //placeholder: "placeholder",              
                   stop: function(event, ui){
                       $("##{update_id}").html('#{theme_image_tag("loading.gif", :class => "loading")}') // show loading
                       //alert("New position: " + ui.item.index());
@@ -455,5 +456,10 @@ module ApplicationHelper
    HTML
    return raw html
  end  
+ 
+ def back(options = {})
+   options[:url] ||= :back
+   raw "<div align=center class=\"back\">" + link_to(icon("arrow_left") + " #{I18n.t("single.back")}", options[:url]) + "</div>"
+ end
 end
 

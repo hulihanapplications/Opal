@@ -1,0 +1,41 @@
+
+<div class="section">
+	<div id="side">
+		<%= render :partial => "/settings/menu" %>
+	</div>
+
+	<div id="main">
+
+			<div class="header">					
+				<h2 class="title">
+					<%= PluginSetting.model_name.human.pluralize %> <%= t("single.for") %> <%= @plugin.model_name.human.pluralize %>
+				</h2>						
+			</div>
+
+
+			<% if @plugin.plugin_settings.size > 0  %>
+				<% form_tag ({:action => "update_plugin_settings"}) do %>
+					<%= render :partial => "/settings/list_settings", :locals => {:settings => @plugin.plugin_settings}%>
+					 	<br>
+					<div align=center>
+						<%= submit_tag t("single.save"), :class => "button_1"  %>
+					</div>
+				<% end %>
+			<% else %> 
+				<div align=center><%= t("notice.items_not_found", :items => PluginSetting.model_name.human.pluralize) %></div>
+			<% end %>
+
+
+		
+		</div>
+	</div>
+
+	<%= back %>
+		
+		
+		
+</div>	
+
+
+
+

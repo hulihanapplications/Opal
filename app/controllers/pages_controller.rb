@@ -11,7 +11,9 @@ class PagesController < ApplicationController
    else # all other page types
      order = "title ASC"         
    end
-   @pages = Page.paginate  :page => params[:page], :per_page => 25, :conditions => ["page_type = ? and page_id = 0", params[:type].downcase], :order => order
+   #@pages = Page.paginate  :page => params[:page], :per_page => 25, :conditions => ["page_type = ? and page_id = 0", params[:type].downcase], :order => order
+   @pages = Page.all.where ["page_type = ? and page_id = 0", params[:type].downcase]    
+   @setting[:ui] = true
  end
   
  def create
@@ -203,7 +205,7 @@ class PagesController < ApplicationController
      if params[:id] # A page number is set, show that page
        @page = Page.find(params[:id])   
        if @page.published || @logged_in_user.is_admin? # make sure this is a published page they're going to
-           @setting[:meta_title] << @page.description 
+           @setting[:meta_title] << @page.description if !@page.description.blank?
            @setting[:meta_title] << @page.title 
            @comments = PageComment.paginate :page => params[:page], :per_page => 25, :conditions => ["page_id = ? and is_approved = ?", @page.id, "1"]                  
        else
@@ -232,4 +234,13 @@ class PagesController < ApplicationController
    redirect_to :action => "index", :controller => "browse"
   end  
   
+   def update_order
+    msg = String.new
+    params[:ids].each_with_index do |id, position|
+      page = Page.find(id) 
+      page.update_attribute(:order_number, position)
+    end
+     Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_save", :item => Page.model_name.human, :name => Page.human_attribute_name(:order_number)))                                                 
+     render :text => "<div class=\"notice\"><div class=\"success\">#{t("notice.save_success")}</div></div>"
+   end 
 end

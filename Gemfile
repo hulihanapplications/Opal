@@ -11,7 +11,10 @@ gem "sanitize"
 gem "will_paginate", ">= 3.0.pre2"
 gem "rmagick"
 gem "i18n", ">=0.5.0"
+
+# Database Gems
 gem "mysql" 
+gem 'sqlite3-ruby', :require => 'sqlite3'
 
 #gem 'simple_captcha', :git => 'git://github.com/galetahub/simple-captcha.git' # galetahub's simple_captcha from github
 #gem 'tiny_mce' 

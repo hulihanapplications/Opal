@@ -1,9 +1,10 @@
+<div class="notice" id="notice">
 <% for notice_type in %w{notice info success warning failure} %>
 	<% if flash[notice_type.to_sym] && !flash[notice_type.to_sym].empty? %>
-		<div class="notice">
 			<div class="<%= notice_type %>">
+				<%= icon(notice_type) %>
 				<%= raw flash[notice_type.to_sym] %>
 			</div>
-		</div>
 	<% end %>
 <% end %>
+</div>

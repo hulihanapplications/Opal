@@ -1,21 +1,35 @@
-h1. Installing Opal
+h1. Opal
  
-To install Opal, follow these steps;
+Opal is a powerful Item Listing Application built in Ruby on Rails. It allows you to list any kind of item, from houses to video games to hotdog vendors. 
+Opal is powered By Rails 3 and a bunch of "other cool stuff":http://www.hulihanapplications.com/projects/opal. Here's some of the many features found in Opal:
 
-h2. Download Opal
+    * List Any Type of Item(Products, Video Games, Locations, Events, Classifieds, etc.)
+    * Ruby On Rails 3 Compatible
+    * State-of-the-Art Interface powered by HTML5, CSS3, jQuery, and jQuery TOOLS
+    * Multiple-User Login System with Secure Admin Section
+    * Infinite-Depth Category Organization & Customizable Advanced Item Searching
+    * Internationalization Support for multiple languages & locales
+    * CMS-style Page Publishing & Integrated Blog
+    * Easy-To-Use TinyMCE Editor with Security Filtering and Image Uploader
+    * Customizable Themes with easy uploader & installer
+    * Upload Images with Special Effects(Rotate, Resize, Watermark, Stamp, B&W, etc.)
 
-Opal is available for download "here":http://www.hulihanapplications.com/projects/opal.
 
-h2. Extract & Upload
+!https://github.com/hulihanapplications/Opal/raw/master/public/themes/fracture/screenshot.png!
 
-Once Opal is downloaded, extract it to the location you'll be running it from(a webserver, your local computer, etc.).
+h1. How To Install Opal
 
-* Note: To install Opal, SSH/Command Line access to the server/computer that you're installing it on is required.
+h2. Get Opal 
 
-We'll be running commands from the Opal directory itself. Next, you'll change to your Opal directory. For this step, you'll need to know where you uploaded Opal. Here's an example of what the command will look like:
+Opal is available at the following places:
+
+ * "Official Website":http://www.hulihanapplications.com/projects/opal.
+ * "Github":https://github.com/hulihanapplications/Opal
+
+If you have git installed on your server, you can install it directly from Github:
 <pre>
-cd path/to/wherever/you/uploaded/opal
-</pre>  
+git clone git://github.com/hulihanapplications/Opal.git
+</pre>
 
 h2. Install Gems
 
@@ -24,29 +38,7 @@ Before Opal is up and running, we need to install all of its required gems(also 
 bundle install
 </pre>
 
-h2. Set Up Your Database 
-
-Just like most Rails applications, you must configure which database Opal will use by editing the _config/database.yml_ file. By default, Opal uses MySQL, but you can configure opal to use sqlite, and any other rails-compatible database systems. Here's an example of what the database.yml file should look like:
-
-<pre>
-development:
-  host: localhost
-  adapter: mysql
-  database: database
-  username: databaseuser
-  password: somepassword
-
-production:
-  host: localhost
-  adapter: mysql
-  database: database
-  username: databaseuser
-  password: somepassword
-</pre>
-
-This assumes that the database is already created by you. If your database server is located somewhere else, be sure to specify its location with the _host_ attribute. 
-
-h2. Install Database 
+h2. Install Opal 
 
 Next, Run the following command(while in the Opal directory) to install Opal's database schema in production mode: 
 <pre>
@@ -59,19 +51,14 @@ This will install the database structure of Opal into the production database. I
 
 h2. That's it! 
 
-Run your application on the web using your favorite webserver: apache, mongrel, webrick, or nginx. 
-To log in to Opal for the first time, the default Admin username and password is: *admin*.
-
-h1. Troubleshooting
-
-h2. Gem Problems
-
-If Opal is having trouble loading any of its required gems, you can always store them locally inside of Opal. To do this, run the following command from the Opal directory:
+You can now start Opal using the built-in Rails webserver, WEBrick... 
 <pre>
-bundle install --deployment
-</pre> 
+rails s
+</pre>
 
-This will store all required gems in vendor/bundle, which Bundler knows to look for automatically.
+..or any of your favorite other webservers: apache, mongrel, nginx, etc.
+ 
+* To log in to Opal for the first time, the default Admin username and password is: *admin*.
 
 h1. Extra Stuff
 
@@ -94,15 +81,42 @@ production:
   :authentication: plain
   :user_name: user
   :password: pass
-</pre>
+ </pre>
 
-h2. Running Opal with FastCGI
+h1. Troubleshooting
 
-If you're running Opal on a shared hosting company like Bluehost, Hostmonster, IXWebhosting, etc. you're probably being forced to run all your Rails applications with FastCGI, which is a little more difficult to set up than Passenger(mod_rails) or Mongrel. To run Opal with FastCGI, you need to enable the _.htaccess_ file in the _public/_ directory. To do this, go into your Opal directory and do the following:
+h2. Gem Problems
+
+If Opal is having trouble loading any of its required gems, you can always store them locally inside of Opal. To do this, run the following command from the Opal directory:
 <pre>
-cd public/
-mv .htaccess.fastcgi .htaccess
-</pre>
+bundle install --deployment
+</pre> 
+
+This will store all required gems in vendor/bundle, which Bundler knows to look for automatically.
+
+h1. Community
+
+If you need help with Opal or if you're interested in contributing a theme, plugin, translation, or some other code, check out the following:
+
+* "Opal Forum":http://dev.hulihanapplications.com/projects/opal/boards
+* "Opal Source Code On Github":https://github.com/hulihanapplications/Opal
+* "Plugin Development Guide":http://dev.hulihanapplications.com/wiki/opal/Plugin_Development
+* "Theme Development Guide":http://dev.hulihanapplications.com/wiki/opal/Theme_Development
+* "Locale Development Guide":http://dev.hulihanapplications.com/wiki/opal/Locale_Development
+
+h1. License 
+
+Opal is Licensed under the  "Creative Commons Attribution 3.0 United States License":http://creativecommons.org/licenses/by/3.0/us/ .
+
+h1. Kudos
+
+Special Thanks goes to following:
+
+* "Yusuke Kamiyamane":http://p.yusukekamiyamane.com/ for his snazzy fugue icon set.
+* The "jQuery Core Team":http://jquery.org/team for making javascript dance like a puppet.   
+
+
+
 
 
 

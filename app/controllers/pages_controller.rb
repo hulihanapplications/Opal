@@ -5,7 +5,7 @@ class PagesController < ApplicationController
  
  def index
    @setting[:meta_title] << Page.model_name.human.pluralize 
-   params[:type] ||= "System" # set default
+   params[:type] ||= "Public" # set default
    if params[:type] == "Blog" # if blog pages
      order = "created_at DESC" # set order
    else # all other page types
@@ -115,7 +115,7 @@ class PagesController < ApplicationController
     params[:type] = @page.page_type.capitalize
   end
   
-  def page # go to page
+  def page # Master Page Router 
     page = Page.find(params[:id])
     if page.published || @logged_in_user.is_admin? # make sure this is a published page they're going to
       if page.redirect # redirect? 
@@ -124,7 +124,7 @@ class PagesController < ApplicationController
         if page.page_type == "blog" # go to blog page
           redirect_to :action => "post", :controller => "blog", :id => page
         else # public page 
-          redirect_to :action => "view", :id => page     
+            redirect_to :action => "view", :id => page
         end      
       end
     else

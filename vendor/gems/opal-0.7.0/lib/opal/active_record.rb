@@ -12,7 +12,8 @@ module Opal
         # Get the next order number in line for sorting
         def next_order_number
           last_record = self.find(:last, :order => "order_number ASC")
-          return last_record.order_number + 1          
+          last_record ? order_number = last_record.order_number + 1 : order_number = 0
+          return order_number         
         end        
         
         def test

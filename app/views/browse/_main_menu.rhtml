@@ -1,6 +1,7 @@
 <%# Main Menu %>
 <div id="main_menu">
 	<ul class="main_menu">
+		<!--
 		<li>
 			<%= link_to t("section.title.home"), {:action => "index", :controller => "browse"}, :class => (params[:controller] == "browse"  && params[:action] == "index") ? "selected" : "" %>		
 		</li>
@@ -14,9 +15,26 @@
 			<%= link_to t("section.title.blog"), {:action => "index", :controller => "blog" }, :class => (params[:controller] == "blog") ? "selected" : ""  %>
 		</li>
 		<% end %>
+		-->
 		<% for page in Page.all(:page_type => "Public", :root_only => true, :display_in_menu => true) %>
 		<li>
-			<%= link_to page.title, {:action => "page", :controller => "pages", :id => page}, :class => (params[:controller] == "pages" && params[:id] == page.to_param) ? "selected" : "" %>
+			<%# handle selection & special pages %>
+			<% 
+				if (page.name == "home" && (params[:controller] == "browse" && params[:action] == "index"))
+					this_page_selected = true
+				elsif (page.name == "items" && params[:controller] == "items")
+					this_page_selected = true
+				elsif (page.name == "blog" && params[:controller] == "blog")
+					this_page_selected = true  				
+				elsif (params[:controller] == "pages" && params[:id] == page.to_param)
+					this_page_selected = true
+				else
+					this_page_selected = false
+				end
+			%>
+
+			<%= link_to_page(page, :class => this_page_selected ? "selected" : "") %>
+			<%#= link_to page.title, {:action => "page", :controller => "pages", :id => page}, :class => (params[:controller] == "pages" && params[:id] == page.to_param) ? "selected" : "" %>
 		</li>
 		<% end %>	
 	</ul>

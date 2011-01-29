@@ -120,4 +120,16 @@ class Page < ActiveRecord::Base
   def model_name # get model name
     I18n.t("activerecord.models.#{(self.page_type.capitalize + "Page").underscore}", :default => Page.model_name)
   end
+  
+  def title # get pretty title
+    if self.name # handle special pages
+      if self.name == "items"
+        Setting.global_settings[:item_name_plural]
+      else 
+        self["title"]
+      end
+    else 
+      self["title"]
+    end
+  end
 end

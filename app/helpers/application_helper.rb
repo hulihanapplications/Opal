@@ -43,7 +43,13 @@ module ApplicationHelper
   
   def link_to_page(page, options = {})
     options[:truncate_length] = 256 if options[:truncate].nil?    
-    raw link_to(truncate(t("page.title.#{page.title.delete(' ').underscore}", :default => page.title), :length => options[:truncate_length]), {:action => "page",  :controller => "pages", :id => page}, :class => "page_link", :title => t("page.description.#{page.title.delete(' ').underscore}", :default => page.description))   
+    if page.name # handle special cases
+      url = :root if page.name == "home"
+      url = url_for(:action => "index", :controller => "items") if page.name == "items"
+      url = url_for(:action => "index", :controller => "blog") if page.name == "blog"
+    end 
+    url ||= {:action => "page",  :controller => "pages", :id => page}
+    raw link_to(truncate(t("page.title.#{page.title.delete(' ').underscore}", :default => page.title), :length => options[:truncate_length]), url, :class => options[:class], :title => t("page.description.#{page.title.delete(' ').underscore}", :default => page.description))   
   end
 
    def user_avatar(user, options = {:size => "normal"})

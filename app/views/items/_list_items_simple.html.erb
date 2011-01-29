@@ -25,8 +25,8 @@
 							<% if item.is_deletable_for_user?(@logged_in_user) %>
 								<%= link_to icon("delete"), {:action => "delete", :controller => "items", :id => item}, :title => t("label.item_delete", :item => @setting[:item_name]), :confirm => t("confirm.item_delete", :item => @setting[:item_name]) %>
 							<% end %>					
-						 	<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/private.png\" title=\"#{t("single.not")} #{Item.human_attribute_name(:public)}\" class=\"icon help\">" if !item.is_public? %> 										
-			 				<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/unapproved.png\" title=\"#{t("single.not")} #{Item.human_attribute_name(:approved)}\" class=\"icon help\">" if !item.is_approved? %> 																								
+						 	<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/private.png\" title=\"#{t("single.not")} #{Item.human_attribute_name(:public)}\" class=\"icon help\">" if !item.is_public? %> 										
+			 				<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/unapproved.png\" title=\"#{t("single.not")} #{Item.human_attribute_name(:approved)}\" class=\"icon help\">" if !item.is_approved? %> 																								
 						</div>
 					</td>
 					<td class="details">

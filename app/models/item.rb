@@ -40,12 +40,6 @@ class Item < ActiveRecord::Base
   end
 
   def destroy_everything
-    # Destroy Statistics
-    for stat in ItemStatistic.find(:all, :conditions => ["item_id = ?", self.id])
-      stat.destroy
-    end
-
-
     # Destroy Images
     plugins = PluginImage.find(:all, :conditions => ["item_id = ?", self.id])
     for item in plugins

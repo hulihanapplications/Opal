@@ -5,7 +5,6 @@ en:
   section:
     title: 
       home: Home
-      about: About
       items: %{items}
       blog: Blog
       forum: Forum
@@ -427,7 +426,7 @@ en:
       terms_of_service: Terms of Service 
       contact_us: Contact Us
     description:
-      terms_of_service: Terms of service.
+      terms_of_service: Terms of service for users of this site.
       contact_us: Get in touch with us.      
   # System Records
   record:

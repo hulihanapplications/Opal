@@ -15,7 +15,7 @@ Opal is powered By Rails 3 and a bunch of "other cool stuff":http://www.hulihana
     * Upload Images with Special Effects(Rotate, Resize, Watermark, Stamp, B&W, etc.)
 
 
-!https://github.com/hulihanapplications/Opal/raw/master/public/themes/fracture/screenshot.png!
+!https://github.com/hulihanapplications/Opal/raw/master/public/themes/fracture/screenshot.png(Fracture Theme In Opal)!
 
 h1. How To Install Opal
 
@@ -23,19 +23,23 @@ h2. Get Opal
 
 Opal is available at the following places:
 
- * "Official Website":http://www.hulihanapplications.com/projects/opal.
+ * "Official Website":http://www.hulihanapplications.com/projects/opal
  * "Github":https://github.com/hulihanapplications/Opal
 
 If you have git installed on your server, you can install it directly from Github:
 <pre>
+<code>
 git clone git://github.com/hulihanapplications/Opal.git
+</code>
 </pre>
 
 h2. Install Gems
 
 Before Opal is up and running, we need to install all of its required gems(also known as dependencies). To do this, run this command:
 <pre>
+<code>
 bundle install
+</code>
 </pre>
 
 h2. Install Opal 

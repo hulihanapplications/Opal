@@ -1,4 +1,5 @@
-<% subpages = Page.all(:page_id => @page.id, :display_in_menu => true) %>
+<%# subpages = Page.all(:page_id => @page.id, :display_in_menu => true) %>
+<% subpages = Page.all.for_page(@page).display_in_menu.published.in_order %>
 <% if subpages.size > 0 %>
 	<div id="side">
 		<% if params[:controller] == "blog" %>

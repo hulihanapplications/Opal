@@ -3,7 +3,7 @@
 		<table style="width:100%" cellpadding=0 cellspacing=0>
 			<tr>
 				<td align=left>		
-             		<%= "<img src=\"/themes/#{@setting[:theme]}/images/icons/private.png\" class=\"icon help\" title=\"#{Page.human_attribute_name(:published_description)}\">" if !page.published %>                        																		
+             		<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/private.png\" class=\"icon help\" title=\"#{Page.human_attribute_name(:published_description)}\">" if !page.published %>                        																		
 				</td>
 				<td align=right>
 						<% if page.is_public_page? %>						

@@ -1,6 +1,7 @@
 h1. Opal
  
-Opal is a powerful Item Listing Application built in Ruby on Rails. It allows you to list any kind of item, from houses to video games to hotdog vendors. 
+Opal is a powerful Item Listing Application built in Ruby on Rails. It allows you to list any kind of item, from houses to video games to hotdog vendors.
+ 
 Opal is powered By Rails 3 and a bunch of "other cool stuff":http://www.hulihanapplications.com/projects/opal. Here's some of the many features found in Opal:
 
     * List Any Type of Item(Products, Video Games, Locations, Events, Classifieds, etc.)
@@ -15,7 +16,7 @@ Opal is powered By Rails 3 and a bunch of "other cool stuff":http://www.hulihana
     * Upload Images with Special Effects(Rotate, Resize, Watermark, Stamp, B&W, etc.)
 
 
-!https://github.com/hulihanapplications/Opal/raw/master/public/themes/fracture/screenshot.png(Fracture Theme In Opal)!
+!https://github.com/hulihanapplications/Opal/raw/master/public/themes/fracture/screenshot.png(Opal's Default Theme - Fracture)!
 
 h1. How To Install Opal
 
@@ -27,24 +28,23 @@ Opal is available at the following places:
  * "Github":https://github.com/hulihanapplications/Opal
 
 If you have git installed on your server, you can install it directly from Github:
+
 <pre>
-<code>
 git clone git://github.com/hulihanapplications/Opal.git
-</code>
 </pre>
 
 h2. Install Gems
 
 Before Opal is up and running, we need to install all of its required gems(also known as dependencies). To do this, run this command:
+
 <pre>
-<code>
 bundle install
-</code>
 </pre>
 
 h2. Install Opal 
 
 Next, Run the following command(while in the Opal directory) to install Opal's database schema in production mode: 
+
 <pre>
 rake opal:install RAILS_ENV=production
 </pre>
@@ -56,11 +56,12 @@ This will install the database structure of Opal into the production database. I
 h2. That's it! 
 
 You can now start Opal using the built-in Rails webserver, WEBrick... 
+
 <pre>
-rails s
+rails s -e production
 </pre>
 
-..or any of your favorite other webservers: apache, mongrel, nginx, etc.
+...or any of your other favorite webservers: apache, mongrel, nginx, etc.
  
 * To log in to Opal for the first time, the default Admin username and password is: *admin*.
 
@@ -85,28 +86,36 @@ production:
   :authentication: plain
   :user_name: user
   :password: pass
- </pre>
+</pre>
 
 h1. Troubleshooting
 
 h2. Gem Problems
 
 If Opal is having trouble loading any of its required gems, you can always store them locally inside of Opal. To do this, run the following command from the Opal directory:
+
 <pre>
 bundle install --deployment
 </pre> 
 
 This will store all required gems in vendor/bundle, which Bundler knows to look for automatically.
 
-h1. Community
+h1. Community & Additional Help
 
-If you need help with Opal or if you're interested in contributing a theme, plugin, translation, or some other code, check out the following:
+If you need any more help, check out these resources:
 
+* "Opal User's Guide":http://dev.hulihanapplications.com/wiki/opal/User%27s_Guide
 * "Opal Forum":http://dev.hulihanapplications.com/projects/opal/boards
-* "Opal Source Code On Github":https://github.com/hulihanapplications/Opal
-* "Plugin Development Guide":http://dev.hulihanapplications.com/wiki/opal/Plugin_Development
-* "Theme Development Guide":http://dev.hulihanapplications.com/wiki/opal/Theme_Development
-* "Locale Development Guide":http://dev.hulihanapplications.com/wiki/opal/Locale_Development
+
+h1. Development & Contribution
+
+If you're interested in developing Opal or contributing a theme, plugin, or translation, check out the following:
+
+* "Source Code On Github":https://github.com/hulihanapplications/Opal
+* "Opal Developer's Guide":http://dev.hulihanapplications.com/wiki/opal/Developer%27s_Guide
+** "Plugin Development Guide":http://dev.hulihanapplications.com/wiki/opal/Plugin_Development
+** "Theme Development Guide":http://dev.hulihanapplications.com/wiki/opal/Theme_Development
+** "Locale Development Guide":http://dev.hulihanapplications.com/wiki/opal/Locale_Development
 
 h1. License 
 
@@ -118,11 +127,3 @@ Special Thanks goes to following:
 
 * "Yusuke Kamiyamane":http://p.yusukekamiyamane.com/ for his snazzy fugue icon set.
 * The "jQuery Core Team":http://jquery.org/team for making javascript dance like a puppet.   
-
-
-
-
-
-
-
-

@@ -1,10 +1,10 @@
 class BlogController < ApplicationController
   def index
-    @pages = Page.paginate :page => params[:page], :per_page => 5, :conditions => ["page_type = ? and published = true", 'blog'], :order => "created_at DESC"
+    @pages = Page.all.blog.published.newest_first.paginate :page => params[:page], :per_page => 5
   end
 
   def rss 
-    @pages = Page.paginate :page => params[:page], :per_page => 10, :conditions => ["page_type = ? and published = true", 'blog'], :order => "created_at DESC"
+    @pages = Page.all.blog.published.newest_first.paginate :page => params[:page], :per_page => 10
     render :layout => false
   end
 
@@ -26,7 +26,7 @@ class BlogController < ApplicationController
    params[:year] ||= Time.now.strftime("%Y") # default year 
    params[:day] ||= Time.now.strftime("%d") # default day    
    @date = Time.parse("#{params[:year]}/#{params[:month]}/") # date to search(by month)
-   @pages = Page.paginate :page => params[:page], :per_page => 5, :conditions => ["created_at > ? and created_at < ? and page_type = ? and published = true", @date.beginning_of_month, @date.end_of_month, "blog"], :order => "created_at DESC"
+   @pages = Page.all.blog.published.newest_first.paginate :page => params[:page], :per_page => 5, :conditions => ["created_at > ? and created_at < ?", @date.beginning_of_month, @date.end_of_month]
   end  
   
 end

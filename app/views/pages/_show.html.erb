@@ -35,8 +35,10 @@
 					<%= raw "</i>" if !page.display_in_menu %>									
 				</td>
 				<td align=right>
-					<%=  friendly_date page.created_at if options[:show_date] || page.is_blog_post? %>
-					<%= icon("private") if !page.published && page.display %>
+					<%=  friendly_date page.created_at if (options[:show_date] || page.is_blog_post?) %>
+					<%= link_to icon("comments",  "#{page.page_comments.size} #{PageComment.model_name.human.pluralize}") + " #{page.page_comments.size}", {:action => "page", :controller => "pages", :id => page, :anchor => "comments"}, :title => "#{page.page_comments.size} #{PageComment.model_name.human.pluralize}" if page.is_blog_post? %>
+					
+					<%= icon("private", "#{t("single.not")} #{Page.human_attribute_name(:published)}", "icon help") if !page.published  %>
 					<%= icon("help", page.description, "icon help") if !page.description.blank? %>
 									
 	 				<% if options[:admin_controls] %>				

@@ -2,6 +2,7 @@
 		<%= render :partial => "menu" %>
 </div>
 <div id="main">
+   <%= show_page Page.find_by_name("blog") %>
    <div>
 			<%= render :partial => "blog/list_pages", :locals => {:pages => @pages} %>
 

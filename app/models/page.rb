@@ -14,7 +14,18 @@ class Page < ActiveRecord::Base
     self.assign_order_number
   end 
   
-  default_scope :order => "order_number asc"
+  #default_scope :order => "order_number asc"
+  
+  # Scopes
+  scope :blog, lambda { where("page_type = ?", "blog")}   
+  scope :public, lambda { where("page_type = ?", "public")}   
+  scope :system, lambda { where("page_type = ?", "system")}     
+  scope :in_order, lambda { order("order_number ASC") }  
+  scope :newest_first, lambda { order("created_at DESC") } 
+  scope :published, lambda { where("published = ?", true)}   
+  scope :root, lambda { where("page_id = ?", 0)}   
+  scope :display_in_menu, where("display_in_menu = ?", true)   
+  scope :for_page, lambda { |page| where("page_id = ?", page.id)}   
 
 
   def destroy_everything
@@ -70,7 +81,7 @@ class Page < ActiveRecord::Base
 
   
   def is_system_page?
-    if self.page_type == "system"
+    if self.page_type.downcase == "system"
       return true
     else 
       return false
@@ -78,7 +89,7 @@ class Page < ActiveRecord::Base
   end
   
   def is_public_page?
-    if self.page_type == "public"
+    if self.page_type.downcase == "public"
       return true
     else 
       return false
@@ -86,7 +97,7 @@ class Page < ActiveRecord::Base
   end
 
   def is_blog_post?
-    if self.page_type == "blog_post"
+    if self.page_type.downcase == "blog"
       return true
     else 
       return false

@@ -3,6 +3,7 @@
 	<tr>
 		<td align=left>
 			<% if page.is_system_page? %>
+				<h3 class="title"><%= page.title %></h3>
 			<% else %>
 				<div align=left style="margin-bottom:5px">
 					<%= text_field 'page', 'title', :id => "form_title_box_#{page.id}", :disabled => !page.title_editable  %>
@@ -16,7 +17,7 @@
 					<%= text_field 'page', 'description', :id => "form_description_box_#{page.id}", :disabled => !page.description_editable  %>
 					<%= label "page", "description" %>		
 				<% end %>
-			</div>			
+			</div>								
 		</td>
 		<td align=right style="width:250px">
 			<% if !page.is_system_page? %>
@@ -79,6 +80,13 @@
 
 <b><%= text_area 'page', 'content', :style => "width:100%;height:500px", :class => "mceEditor", :id => "form_content_box_#{page.id}", :disabled => !page.content_editable %></b>
 
+<div style="height:20px"></div>		
 
-<br><br>
+<% if page.is_blog_post? %>			
+<div align=left style="margin-bottom:20px">
+		<%= datetime_select 'page', 'created_at'  %>
+		<%= label "page", "created_at" %>		
+</div>	
+<% end %>	
+
 													

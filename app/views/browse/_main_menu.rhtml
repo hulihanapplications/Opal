@@ -2,7 +2,7 @@
 <div id="main_menu">
 	<ul class="main_menu">
 
-		<% for page in Page.all(:page_type => "Public", :root_only => true, :display_in_menu => true) %>
+		<% for page in Page.all.public.root.published.display_in_menu.in_order %>
 		<li>
 			<%# handle selection & special pages %>
 			<%= 

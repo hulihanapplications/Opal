@@ -5,14 +5,17 @@ class PagesController < ApplicationController
  
  def index
    @setting[:meta_title] << Page.model_name.human.pluralize 
-   params[:type] ||= "Public" # set default
-   if params[:type] == "Blog" # if blog pages
-     order = "created_at DESC" # set order
-   else # all other page types
-     order = "title ASC"         
-   end
-   #@pages = Page.paginate  :page => params[:page], :per_page => 25, :conditions => ["page_type = ? and page_id = 0", params[:type].downcase], :order => order
-   @pages = Page.all.where ["page_type = ? and page_id = 0", params[:type].downcase]    
+   
+   if params[:type].downcase == "public"
+      @pages = Page.all.root.public.in_order
+   elsif params[:type].downcase == "blog"
+      @pages = Page.all.root.blog.newest_first     
+   elsif  params[:type].downcase == "system"
+      @pages = Page.all.root.system.in_order     
+   else # unknown page type   
+      @pages = Page.all.root.public.in_order   
+   end        
+ 
    @setting[:ui] = true
  end
   

@@ -173,6 +173,15 @@ class ApplicationController < ActionController::Base
     flash[:failure] = t("notice.item_not_found", :item => @plugin.model_name.human.pluralize)
   end
   
+  def check_item_view_permissions # can user view this item?
+    if @item.is_viewable_for_user?(@logged_in_user)
+        # proceed
+    else 
+     flash[:failure] = t("notice.not_visible")   
+     redirect_to :action => "index", :category => "browse"      
+    end
+  end
+  
   def check_item_edit_permissions # check to see if the logged in user has permission to edit item
     if @item.is_editable_for_user?(@logged_in_user)
       @item.update_attribute(:updated_at, Time.now) # refresh item's last update time 

@@ -75,33 +75,32 @@ module ApplicationHelper
   
   def nav_link_category(category) # prints out a nav link for an category, ie: Home > General > Test Item
     navlinks = Array.new # container to hold nav links
-    navlinks << link_to("#{h category.name}", {:action => "category", :controller => "items", :id => category}, :title => category.description) # Add Category Name
+    navlinks << link_to(content_tag(:span, category.name, :itemprop => "title"), {:action => "category", :controller => "items", :id => category}, :title => category.description, :itemprop => "url") # Add Category Name
     if category.category_id != 0 # if the item's category is a sub category, print one more category link
-        navlinks << link_to("#{h category.category.name}", {:action => "category", :controller => "items", :id => category.category}, :title => category.category.description) 
+        navlinks << link_to(content_tag(:span, category.category.name, :itemprop => "title"), {:action => "category", :controller => "items", :id => category.category}, :title => category.category.description, :itemprop => "url") 
       if category.category.category_id != 0 # if the item's category is a sub category, print one more category link
-        navlinks << link_to("#{h category.category.category.name}", {:action => "category", :controller => "items", :id => category.category.category}, :title => category.category.category.description) 
+        navlinks << link_to(content_tag(:span, category.category.category.name, :itemprop => "title"), {:action => "category", :controller => "items", :id => category.category.category}, :title => category.category.category.description, :itemprop => "url") 
       else # the item's category is a parent category, print home
-        navlinks << (link_to "Home", {:action => "index", :controller => "browse"}) 
+        navlinks << (link_to  content_tag(:span, (Page.public.with_name("home").first).title, :itemprop => "title"), {:action => "index", :controller => "browse"}, :itemprop => "url") 
       end      
     else # the item's category is a parent category, print home
-        navlinks << (link_to "Home", {:action => "index", :controller => "browse"})
+        navlinks << (link_to  content_tag(:span, (Page.public.with_name("home").first).title, :itemprop => "title"), {:action => "index", :controller => "browse"}, :itemprop => "url")
     end
     navlinks = navlinks.reverse # reverse items 
-    return raw "<div class=\"navlinks\"><b>" + navlinks.join(" &raquo; ") + "</b></div>"
+    return raw "<div class=\"navlinks\"><b>" + navlinks.collect{|navlink| ("<span itemscope item_type=\"http://data-vocabulary.org/Breadcrumb\">#{navlink}</span>")}.join(" &raquo; ") + "</b></div>"
   end
   
   def nav_link_item(item) # prints out a nav link for an category, ie: Home > General > Test Item
     navlinks = Array.new # container to hold nav links
-    navlinks << link_to("#{h item.name}", {:action => "view", :controller => "items", :id => item}, :title => h(item.description)) 
-    navlinks << link_to("#{h item.category.name}", {:action => "category", :controller => "items", :id => item.category}, :title => item.category.description) 
+    navlinks << link_to(content_tag(:span, item.name, :itemprop => "title"), {:action => "view", :controller => "items", :id => item}, :title => h(item.description), :itemprop => "url") 
+    navlinks << link_to(content_tag(:span, item.category.name, :itemprop => "title"), {:action => "category", :controller => "items", :id => item.category}, :title => item.category.description, :itemprop => "url") 
     if item.category.category_id != 0 # if the item's category is a sub category, print one more category link
-      navlinks << link_to("#{h item.category.category.name}", {:action => "category", :controller => "items", :id => item.category.category}, :title => item.category.category.description)
+      navlinks << link_to(content_tag(:span, item.category.category.name, :itemprop => "title"), {:action => "category", :controller => "items", :id => item.category.category}, :title => item.category.category.description, :itemprop => "url")
     else # the item's category is a parent category, print home
-      #navlinks << (link_to t("section.title.items", :items => @setting[:item_name_plural]), {:action => "index", :controller => "items"})               
-      navlinks << (link_to t("section.title.home"), {:action => "index", :controller => "browse"}) 
+      navlinks << (link_to content_tag(:span, (Page.public.with_name("home").first).title, :itemprop => "title"), {:action => "index", :controller => "browse"}, :itemprop => "url") 
     end
     navlinks = navlinks.reverse
-    return raw "<div class=\"navlinks\"><b>" + navlinks.join(" &raquo; ") + "</b></div>"
+    return raw "<div class=\"navlinks\"><b>" + navlinks.collect{|navlink| ("<span itemscope item_type=\"http://data-vocabulary.org/Breadcrumb\">#{navlink}</span>")}.join(" &raquo; ") + "</b></div>"
   end  
   
   def nav_link_page(page) 

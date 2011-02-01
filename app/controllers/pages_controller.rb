@@ -5,7 +5,7 @@ class PagesController < ApplicationController
  
  def index
    @setting[:meta_title] << Page.model_name.human.pluralize 
-   
+   params[:type] ||= "public"
    if params[:type].downcase == "public"
       @pages = Page.all.root.public.in_order
    elsif params[:type].downcase == "blog"
@@ -14,8 +14,7 @@ class PagesController < ApplicationController
       @pages = Page.all.root.system.in_order     
    else # unknown page type   
       @pages = Page.all.root.public.in_order   
-   end        
- 
+   end         
    @setting[:ui] = true
  end
   

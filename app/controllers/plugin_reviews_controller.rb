@@ -4,8 +4,10 @@ class PluginReviewsController < ApplicationController
  before_filter :find_plugin
  before_filter :get_plugin_settings
  before_filter :get_my_group_plugin_permissions # get permissions for this plugin  
+ before_filter :check_item_view_permissions, :only => [:show] # can user view item?
  before_filter :check_item_edit_permissions, :only => [:change_approval] # list of actions that don't require that the item is editable by the user 
  before_filter :uses_tiny_mce, :only => [:new, :edit, :create, :update]  # which actions to load tiny_mce, TinyMCE Config is done in Layout.
+
 
  include ActionView::Helpers::TextHelper # for truncate, etc.
 
@@ -138,4 +140,12 @@ end
   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human.pluralize               
  end                    
 
+
+ def show  
+     if @my_group_plugin_permissions.can_read? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
+        @review = PluginReview.find(params[:review_id])
+     else # Improper Permissions  
+          flash[:failure] = t("notice.invalid_permissions")       
+     end  
+ end
 end

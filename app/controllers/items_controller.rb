@@ -6,6 +6,7 @@ class ItemsController < ApplicationController
  before_filter :enable_admin_menu, :only =>  [:all_items] # show admin menu 
  
  before_filter :find_item, :except => [:index, :rss, :category, :all_items, :tag, :create, :new, :search, :new_advanced_search, :advanced_search, :set_list_type, :set_item_page_type] # look up item 
+ before_filter :check_item_view_permissions, :only => [:view] # check item view permissions
  before_filter :check_item_edit_permissions, :except => [:index, :rss, :category, :all_items, :tag, :create, :view, :new, :search, :new_advanced_search, :advanced_search, :set_list_type, :set_item_page_type] # check if item is editable by user 
  before_filter :enable_sorting, :only => [:index, :category, :all_items, :search] # prepare sort variables & defaults for sorting
 
@@ -49,17 +50,11 @@ class ItemsController < ApplicationController
 
   def view
     @item = Item.find(params[:id])
-    if @item.is_viewable_for_user?(@logged_in_user) 
       @setting[:meta_title] << @item.name 
       @setting[:meta_title] << @item.description 
 
-
       @item.update_attribute(:views, @item.views += 1) # update total views
       @item.update_attribute(:recent_views, @item.recent_views += 1) # update recent views  
-    else # the user can't see this item
-        flash[:failure] = t("notice.not_visible")
-        redirect_to :action => "index", :controller => "browse"
-    end
     rescue ActiveRecord::RecordNotFound # the item doesn't exist
         flash[:failure] = t("notice.item_not_found", :item => @setting[:item_name] + " #{(@item.id)}")
         redirect_to :action => "index", :controller => "browse"

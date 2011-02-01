@@ -1,0 +1,68 @@
+ <!-- Include Rich Snippet for Individual Review -->				 
+ <div id="review_box_<%= review.id %>" itemscope itemtype="http://data-vocabulary.org/Review">
+ 	<meta itemprop="itemreviewed" content="<%= item.name %>" /> 
+	
+	<table style="width:100%">
+		<tr>
+			<td style="vertical-align:top;"  class="user_column">
+				  <div class="user_box" align=center >
+				 <% review_user = User.find(review.user_id)%>
+				 <%= link_to user_avatar(review_user, :size => "small"), {:action => "user", :id => review_user, :controller => "browse"}   %>
+				 <br>
+				 <%= link_to content_tag(:span, review_user.username, :itemprop => "reviewer"), {:action => "user", :id => review_user, :controller => "browse"}   %>
+					 
+		      </div>
+			</td>
+			<td style="vertical-align:top" class="review_column">
+				<div class="review_box">
+					<div class="review">	
+						<table style="width:100%" cellpadding=0 cellspacing=0>
+							<tr>
+								<td style="vertical-align:middle;text-align:left">		
+									<%= link_to score(:type => @setting[:review_type], :min => @setting[:score_min].to_i, :max => @setting[:score_max], :value => review.review_score.to_i), {:action => "show", :controller => "plugin_reviews", :id => item.id, :review_id => review.id} %>
+								</td>
+								<td style="vertical-align:middle;text-align:right">																			
+									 <span title="The score for this <%= plugin.model_name.human %>." class="box_2" style="padding:2px;margin-right:5px" >												 	
+										<b><%= review.vote_score >= 0 ? icon("vote_up") : icon("vote_down") %> <%= review.vote_score %> </b>
+									 </span>
+									 <% if my_group_plugin_permissions[plugin.id].can_create? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>												 	
+									 		<% if review.can_user_vote?(@logged_in_user) %>
+												<%= link_to icon("vote_up", "Vote for this #{plugin.model_name.human}."), {:action => "vote", :controller => "plugin_reviews", :id => item.id, :review_id => review.id, :direction => "up"}, :class => "transparent" %>
+												<%= link_to icon("vote_down", "Vote against this #{plugin.model_name.human}."), {:action => "vote", :controller => "plugin_reviews", :id => item.id, :review_id => review.id, :direction => "down"}, :class => "transparent" %>
+									 			<%= icon("bullet") %>																								
+											<% end %>
+									 <% end %>
+									 													
+										
+    								<time itemprop="dtreviewed" datetime="<%= review.created_at.strftime("%Y-%m-%d") %>">
+    									<b><%= friendly_date review.created_at %></b>
+									</time>	
+									<%#= link_to icon("link"), {:action => "show", :controller => "plugin_reviews", :id => item.id, :review_id => review.id}, :class => "transparent" %>
+
+									<% if my_group_plugin_permissions[plugin.id].can_update? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
+										<%= link_to icon("edit"), {:action => "edit", :controller => "plugin_reviews", :id => item.id, :review_id => review.id} %>
+									<% end %>
+									
+									<% if my_group_plugin_permissions[plugin.id].can_delete? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
+									    <%= link_to icon("delete"), { :action => 'delete', :controller => "plugin_#{plugin.model_name.human.pluralize}", :id => item.id, :review_id => review.id}, :confirm => t("confirm.item_delete", :item => plugin.model_name.human) %>																
+									<% end %>
+									
+									<%= render :partial => "plugins/approval_controls", :locals => { :plugin_item => review} if @item.is_editable_for_user?(@logged_in_user) %>											
+								</td>											
+							</tr>
+						</table>		
+							
+						<div style="height:10px;"></div>
+						
+						<meta itemprop="summary" content="<%= truncate(review.review, :length => 80) %>" /> <!-- Short Description --> 
+						
+						<div class="review_content" itemprop="description">
+							<%= raw review.review %>
+						</div>
+						
+					</div>							
+				</div>
+			</td>
+		</tr>
+	</table>
+ </div>	

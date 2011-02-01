@@ -2,12 +2,13 @@ class PluginDiscussionsController < ApplicationController
  # before_filter :authenticate_user # check if user is logged in and not a public user  
  before_filter :find_item # look up item 
  before_filter :find_plugin # look up item  
+ 
  before_filter :get_my_group_plugin_permissions # get permissions for this plugin  
+ before_filter :check_item_view_permissions # can user view item? 
  before_filter :check_item_edit_permissions, :only => [:change_approval] # list of actions that don't require that the item is editable by the user
+ 
  before_filter :uses_tiny_mce, :only => [:new, :edit, :create, :update]  # which actions to load tiny_mce, TinyMCE Config is done in Layout.
  include ActionView::Helpers::TextHelper # for truncate, etc.
-
-
 
  def create # this is the only create action that doesn't require that the item is editable by the user
    if @my_group_plugin_permissions.can_create? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?   
@@ -46,24 +47,17 @@ class PluginDiscussionsController < ApplicationController
  end
  
  def view
-   if @item.is_viewable_for_user?(@logged_in_user)
      if @my_group_plugin_permissions.can_read? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
-
        @discussion = PluginDiscussion.find(params[:discussion_id])
        @posts = PluginDiscussionPost.paginate :page => params[:page], :per_page => 10, :conditions => ["plugin_discussion_id = ?", @discussion.id], :order => "created_at ASC"
        @setting[:show_item_nav_links] = true # show nav links
      else # Improper Permissions  
           flash[:failure] = t("notice.invalid_permissions")       
      end        
-   else # Attempted Securtiy Bypass: User is trying to add a comment to an item that's not viewable. They shouldn't be able to get to the add comment form, but this stops them server-side.
-     flash[:failure] = t("notice.not_visible")   
-     redirect_to :action => "index", :category => "browse"
-   end
  end
  
  def create_post
    @discussion = PluginDiscussion.find(params[:discussion_id])
-   if @item.is_viewable_for_user?(@logged_in_user) # make sure user can see the item
      if @my_group_plugin_permissions.can_read? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?     
        @post = PluginDiscussionPost.new(params[:post])
        @post.user_id = @logged_in_user.id
@@ -80,10 +74,6 @@ class PluginDiscussionsController < ApplicationController
      else # Improper Permissions  
           flash[:failure] = t("notice.invalid_permissions")         
      end         
-   else # Attempted Securtiy Bypass: User is trying to add a comment to an item that's not viewable. They shouldn't be able to get to the add comment form, but this stops them server-side.
-     flash[:failure] = t("notice.not_visible")   
-     redirect_to :action => "index", :category => "browse"     
-   end 
  end
  
  def delete_post   

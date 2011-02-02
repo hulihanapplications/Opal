@@ -1,7 +1,7 @@
 <% if item.is_editable_for_user?(@logged_in_user) %>
-	<% reviews = PluginReview.find(:all, :conditions => ["item_id = ?", item.id], :order => "created_at DESC") %>
+	<% reviews = PluginReview.for_item(item).with_total_vote_score.order("total_vote_score DESC").all %>
 <% else %>
-	<% reviews = PluginReview.find(:all, :conditions => ["item_id = ? and is_approved = '1'", item.id], :order => "created_at DESC") %>
+	<% reviews = PluginReview.for_item(item).with_total_vote_score.order("total_vote_score DESC").approved.all %>
 <% end %>
 
 <% @setting[:review_type] = plugin.get_setting("review_type") %>

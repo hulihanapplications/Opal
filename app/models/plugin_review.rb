@@ -7,6 +7,15 @@ class PluginReview < ActiveRecord::Base
   belongs_to :user
   has_many :plugin_review_votes
   
+  scope :with_total_vote_score, lambda{   # computes vote score of reviews by summing all associated plugin_review_vote records
+    group("plugin_reviews.id").
+    joins(:plugin_review_votes).
+    select("plugin_reviews.*").
+    select("sum(plugin_review_votes.score) as total_vote_score")
+  }
+  scope :approved, where("is_approved = ?", "1")
+  scope :for_item, lambda{|item| where("item_id = ?", item.id)}
+  
   before_destroy :delete_everything
    validates_presence_of :review_score, :message => "You forgot to select a score!"
    #validates_length_of :review, :minimum => 10, :message => "This review is too short! It must have at least 10 characters."

@@ -15,6 +15,8 @@ class PluginReview < ActiveRecord::Base
   }
   scope :approved, where("is_approved = ?", "1")
   scope :for_item, lambda{|item| where("item_id = ?", item.id)}
+  scope :newest_first, order("created_at DESC")
+
   
   before_destroy :delete_everything
    validates_presence_of :review_score, :message => "You forgot to select a score!"

@@ -1,29 +1,28 @@
 <div id="top_bar">
-	<script type="text/javascript">
-		
-	</script>
 	<table width="100%" cellpadding=0 cellspacing=0>
 		<tr>
-			<td>
-				<div class="search_box">
-					<%#= form_remote_tag :update => "content", :url => { :action => 'search'} %>				
-					<%= form_tag({:action => 'search', :controller => "items"},{:id => "search_form", :method => :get}) %>
-					<table cellpadding=0 cellspacing=0>
-						<tr>
-							<td>
-								<input name="search_for" type="text" id="search_box" onfocus="focus_input('search_box')" onblur="blur_input('search_box')">							
-							</td>
-							<td style="padding-left:4px;">
-								<a href="javascript:submit('search_form')" class="button_1"><%= t("single.search") %></a>
-							    <%= link_to icon("rss") ,  {:action => "rss", :controller => "items"}, :title => "#{t("label.rss_feed")} - #{t("single.new").capitalize} #{@setting[:item_name_plural]}" %>
-	
-								<b><%= link_to t("label.advanced_search"), {:action => "new_advanced_search", :controller => "items"} %></b>							
-							</td>						
-						</tr>
-					</table>
-					</form>				
-	
-				</div>
+			<td style="padding-left:0px;">
+				<% if @setting[:section_items] %>
+					<div class="search_box">
+						<%#= form_remote_tag :update => "content", :url => { :action => 'search'} %>				
+						<%= form_tag({:action => 'search', :controller => "items"},{:id => "search_form", :method => :get}) %>
+						<table cellpadding=0 cellspacing=0>
+							<tr>
+								<td style="padding-left:0px;">
+									<input name="search_for" type="text" id="search_box" >							
+								</td>
+								<td >
+									<a href="javascript:submit('search_form')" class="button_1"><%= t("single.search") %></a>
+								    <%= link_to icon("rss") ,  {:action => "rss", :controller => "items"}, :title => "#{t("label.rss_feed")} - #{t("single.new").capitalize} #{@setting[:item_name_plural]}" %>
+		
+									<b><%= link_to t("label.advanced_search"), {:action => "new_advanced_search", :controller => "items"} %></b>							
+								</td>						
+							</tr>
+						</table>
+						</form>				
+		
+					</div>
+				<% end %>
 			</td>
 			<td>
 				<div align=right class="login_box">
@@ -43,8 +42,8 @@
 					 <%= form_tag({:action => "login", :controller => "user"}, {:id => "login_form"})  %>
 					 <table cellpadding=0 cellspacing=0>
 					  <tr>
-					   <td><%= User.human_attribute_name(:username) %></td><td > <%= text_field 'user', 'username', :style => "width:70px;", :id => "login_username", :onfocus => "focus_input('login_username')", :onblur => "blur_input('login_username')" %></td>
-					   <td><%= User.human_attribute_name(:password) %></td><td > <%= password_field 'user', 'password', :style => "width:70px;", :id => "login_password", :onfocus => "focus_input('login_password')", :onblur => "blur_input('login_password')" %></td>
+					   <td><%= User.human_attribute_name(:username) %></td><td > <%= text_field 'user', 'username', :style => "width:70px;", :id => "login_username"  %></td>
+					   <td><%= User.human_attribute_name(:password) %></td><td > <%= password_field 'user', 'password', :style => "width:70px;", :id => "login_password" %></td>
 					   <td>
 					   		<%#= submit_tag "Log In", :style => "", :class => "button_1" %>
 							<%= submit_tag "Hidden", :style => "display:none" %>

@@ -365,7 +365,7 @@ en:
       display_featured_items: Display featured items on the homepage.
       enable_navlinks: NavLinks are simple navigation links shown at the top of item and item list pages. They show information about which category an item or category is in, and more.
       item_approval_required: Enable this if you want to approve items created by users before they can be seen by the public. All unapproved items can viewed in the admin section. If disabled, all items will become approved upon creation.
-      section_items: Enable items in Opal. If enabled, an Items link will be displayed in the main menu.
+      section_items: If enabled, Items will be displayed and a  link will be shown in the main menu. If disabled, Opal will no longer display any items.
       allow_page_comments: If enabled, people can leave comments for pages.
       enable_item_date: Enable/Disable Item Date from item details and lists of items. This shows the date that the item was created.
       homepage_type: This is what is shown on your homepage.

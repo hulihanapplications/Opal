@@ -54,7 +54,8 @@ class ToolsController < ApplicationController
 
  
   def do_import  
-    params[:item][:category_id] ||= Category.find(:first).id # default category
+    params[:item] ||= Hash.new
+    params[:item][:category_id] ||= Category.first.id # default category
     @category = Category.find(params[:item][:category_id])
     
     uploaded_file = Uploader.file_from_url_or_local(:local => params[:file], :url => params[:url])
@@ -83,7 +84,7 @@ class ToolsController < ApplicationController
       redirect_to :action => "import"
     end
   ensure
-   FileUtils.rm_rf(uploaded_file.path)
+   FileUtils.rm_rf(uploaded_file.path) if uploaded_file
   end
 
 

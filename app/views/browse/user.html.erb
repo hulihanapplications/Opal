@@ -75,17 +75,22 @@
 				<%= h @user.group.name %>							
 			</div>
 			<br>
-			<%= render :partial => "main_content_top_bar" %>
-			<br>
-
 			
-			<div align=center>				
-				<h1 class="title"><%= t("label.items_from", :items =>  @setting[:item_name_plural], :name => h(@user.username)) %></h1>
-				<%= page_entries_info @items, :entry_name => @setting[:item_name] %>				
-			</div>
-			<br>
-			<%= render :partial => "items/list_items", :locals => {:items => @items } %>
-			<div align=center>			<%= will_paginate @items %>			</div>
+			<% if @setting[:section_items] %>
+				<%= render :partial => "main_content_top_bar" %>
+				<br>
+	
+				
+				<div align=center>				
+					<h1 class="title"><%= t("label.items_from", :items =>  @setting[:item_name_plural], :name => h(@user.username)) %></h1>
+					<%= page_entries_info @items, :entry_name => @setting[:item_name] %>				
+				</div>
+				<br>
+				<%= render :partial => "items/list_items", :locals => {:items => @items } %>
+				<div align=center>			
+					<%= will_paginate @items %>			
+				</div>
+			<% end %>
 </div>
 
 

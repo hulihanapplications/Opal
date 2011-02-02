@@ -13,19 +13,15 @@ class SettingsController < ApplicationController
    flash[:failure] = "" 
    counter = 0
    params[:setting].each do |name, value| 
-    # Dave: here were are querying the db once for EVERY setting in the table, just to get the setting name.
-    # This is a little costly, the alternative being a find(:all) that is indexed with a integer-style counter
-    # ie: @settings[counter], but the problem is that if the settings in the html form are listed in any 
-    # different order, updating will do nothing, since the form setting and the indexed find(:all) won't match.
-    # In the long run, this won't be too bad, since the size of the settings table shouldn't be very large(< 100)
     @setting = Setting.find(:first, :conditions => ["name = ?", name]) 
     if @setting.value != value # the value of the setting has changed
      if @setting.update_attribute("value", value) # update the setting
-      flash[:success] << t("notice.item_save_success", :item => Setting.model_name.human + ": #{@setting.title}") 
+      flash[:success] << t("notice.item_save_success", :item => Setting.model_name.human + ": #{@setting.title}") + "<br />" 
       Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_save", :item => Setting.model_name.human, :name => @setting.title))  # log it
      else # the setting failed saving 
-      flash[:failure] << t("notice.item_save_failure", :item => Setting.model_name.human + ": #{@setting.title}") 
+      flash[:failure] << t("notice.item_save_failure", :item => Setting.model_name.human + ": #{@setting.title}")  + "<br />" 
      end
+    
      counter += 1 
     else # show that the setting hasn't changed
      #flash[:notice] << "<font color=grey>The Setting(#{name}) has not changed.<br></font>"

@@ -19,7 +19,7 @@ class PluginDiscussionsController < ApplicationController
            
      @discussion.item_id = @item.id
      if @discussion.save
-      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => @plugin.model_name.human, :name => "#{@disccussion.title}"))            
+      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => @plugin.model_name.human, :name => "#{@discussion.title}"))            
       flash[:success] = t("notice.item_create_success", :item => @plugin.model_name.human)
       flash[:success] += t("notice.item_needs_approval", :item => @plugin.model_name.human) if !@discussion.is_approved?
      else # fail saved 
@@ -35,7 +35,7 @@ class PluginDiscussionsController < ApplicationController
    if @my_group_plugin_permissions.can_delete? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?   
      @discussion = PluginDiscussion.find(params[:discussion_id])
      if @discussion.destroy
-       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => t("log.item_delete", :item => @plugin.model_name.human, :name => "#{@disccussion.title}")) 
+       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => t("log.item_delete", :item => @plugin.model_name.human, :name => "#{@discussion.title}")) 
        flash[:success] = t("notice.item_delete_success", :item => @plugin.model_name.human)   
      else # fail saved 
        flash[:failure] = t("notice.item_failure_success", :item => @plugin.model_name.human)    

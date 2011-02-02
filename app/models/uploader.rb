@@ -12,7 +12,7 @@ class Uploader #< ActiveRecord::Base
     elsif options[:url] # from url
       return Uploader.file_from_url(options[:url]) # return file from url
     else # nothing 
-      return "No File Set."
+      return false
     end
   end 
 

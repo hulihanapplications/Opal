@@ -50,11 +50,11 @@
 						<% for user in @users%>			
 							<tr class="<%= cycle("row_a", "row_b") %>">
 								<td>	
-								<%= link_to  user_avatar(user, :size => "tiny"), {:action => "user", :controller => "browse", :id => user.id}, :title => "#{h user.username}"  %>
+								<%= link_to  user_avatar(user, :size => "tiny"), {:action => "user", :controller => "browse", :id => user}, :title => "#{h user.username}"  %>
 								</td>
 								<td>
 									<%= icon("admin") if user.is_admin? %>									
-									<b><%= link_to "#{h user.username}", {:action => "user", :controller => "browse", :id => user.id} %></b>
+									<b><%= link_to "#{h user.username}", {:action => "user", :controller => "browse", :id => user} %></b>
 								</td>
 								<td><i><%= h user.first_name %> <%= h user.last_name %></i></td>
 								<td>

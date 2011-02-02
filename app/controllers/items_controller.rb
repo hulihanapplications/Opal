@@ -28,7 +28,7 @@ class ItemsController < ApplicationController
      current_page = params[:page] ||= 1 
      page = @setting[:items_per_page].to_i
      
-     @items = Item.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i, :order => "created_at DESC", :conditions => ["category_id IN (?) and is_approved = '1' and is_public = '1'", category_ids]    
+     @items = Item.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i, :order => Item.sort_order(params[:sort]), :conditions => ["category_id IN (?) and is_approved = '1' and is_public = '1'", category_ids]    
      
      @setting[:meta_title] << @category.name 
      @setting[:meta_description] << [@category.name , @category.description, @setting[:item_name_plural], @setting[:meta_description]].join(" - ") 

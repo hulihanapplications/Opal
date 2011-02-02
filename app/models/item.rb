@@ -120,7 +120,7 @@ class Item < ActiveRecord::Base
   end
   
   def is_viewable_for_user?(user) # Can the current user see this item?
-    if user.is_admin == "1" || self.user_id == user.id # User is an admin, or the user that created the item. Item owners can always see their item, but no one else can, if not allowed.
+    if user.is_admin? || self.user_id == user.id # User is an admin, or the user that created the item. Item owners can always see their item, but no one else can, if not allowed.
       return true
     else # not an admin or user that created item.
         if self.is_public == "1" && self.is_approved == "1"

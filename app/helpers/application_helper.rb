@@ -288,11 +288,11 @@ module ApplicationHelper
    html = ""
    if options[:type] == "Stars"
      for i in 1..options[:value].to_i # show filled stars
-       html << icon("star_selected")
+       html << icon("star_selected", "")
      end
      
      for i in 1..(options[:max].to_i - options[:value].to_i) # show empty stars
-       html <<  icon("star_empty")
+       html <<  icon("star_empty", "")
      end   
 
    else

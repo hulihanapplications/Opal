@@ -48,12 +48,9 @@
 <div id="main">
 	  	<div class="box_2">
 			<%= render :partial => "logs/list_logs", :locals => {:logs => logs} %>
-		</div>				
+		</div>			
+		<%= will_paginate @logs %>	
 </div>
 
 
-<br>
-<div align=center>
-	<%= will_paginate @logs %>
-</div>
-<br>
+

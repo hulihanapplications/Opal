@@ -1,6 +1,6 @@
 class PluginFilesController < ApplicationController
  # before_filter :authenticate_user # check if user is logged in and not a public user  
- before_filter :find_item # look up item 
+ before_filter :find_item, :except => [:download] # look up item 
  before_filter :find_plugin # look up item  
  before_filter :get_my_group_plugin_permissions # get permissions for this plugin  
  before_filter :check_item_edit_permissions, :only => [:change_approval] # list of actions that don't require that the item is editable by the user
@@ -10,23 +10,24 @@ class PluginFilesController < ApplicationController
 
  
   def create
-   if @my_group_plugin_permissions.can_create? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # check permissions       
+   if @my_group_plugin_permissions.can_create? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # check permissions
      @file = PluginFile.new
      @file.user_id = @logged_in_user.id
      @file.item_id = @item.id
      @file.title = params[:file_title]
      
-     if params[:file] != "" # && params[:url] == ""  #from their computer
-       filename = Uploader.clean_filename(params[:file].original_filename)
+     uploaded_file = Uploader.file_from_url_or_local(:local => params[:file], :url => params[:url])
+     if uploaded_file
+       filename = Uploader.clean_filename(File.basename(uploaded_file.path))
        @file.filename = filename
  
        #write the file
        folder_path = File.dirname(@file.path)
        FileUtils.mkdir_p(folder_path) if !File.exist?(folder_path) # create the folder if it doesn't exist
-       @file.size = (File.size(params[:file]) / 1000).to_s + "kb" # get filesize
+       @file.size = (File.size(uploaded_file) / 1000).to_s + "kb" # get filesize
        
        f = File.new(@file.path, "wb") # open new file
-       f.write params[:file].read # write the file
+       f.write uploaded_file.read # write the file
        f.close # close the file
 
        # Set Approval

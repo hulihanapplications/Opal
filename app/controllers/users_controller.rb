@@ -77,7 +77,7 @@ class UsersController < ApplicationController
    
   def change_password
     if @user.update_attributes(:password => params[:user][:password], :password_confirmation => params[:user][:password_confirmation])
-      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => User.model_name.human, :name => @user.username + "(#{User.human_attribute_name(:password)}: #{params[:user][:password]})"))
+      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => User.model_name.human + "(#{User.human_attribute_name(:password)})", :name => @user.username ))
       flash[:success] = t("notice.save_success") 
       redirect_to :action => "edit", :id => @user
     else

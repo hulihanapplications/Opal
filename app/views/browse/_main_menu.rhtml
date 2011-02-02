@@ -1,26 +1,23 @@
 <%# Main Menu %>
 <div id="main_menu">
 	<ul class="main_menu">
-
 		<% for page in Page.all.public.root.published.display_in_menu.in_order %>
-		<li>
 			<%# handle selection & special pages %>
 			<%= 
 				if !page.name.blank? # name is set, which means it's a special page
 					if page.name == "home"
-						link_to page.title, {:action => "index", :controller => "browse"},  :class => (params[:controller] == "browse" && params[:action] == "index") ? "selected" : ""
+						content_tag(:li, link_to(page.title, {:action => "index", :controller => "browse"},  :class => (params[:controller] == "browse" && params[:action] == "index") ? "selected" : ""))
 					elsif page.name == "items"
-						link_to page.title, {:action => "index", :controller => "items"},  :class => params[:controller] == "items" ? "selected" : ""
+						content_tag(:li,link_to(page.title, {:action => "index", :controller => "items"},  :class => params[:controller] == "items" ? "selected" : "")) if @setting[:section_items] 
 					elsif page.name == "blog"
-						link_to page.title, {:action => "index", :controller => "blog"},  :class => params[:controller] == "blog" ? "selected" : ""
+						content_tag(:li, link_to(page.title, {:action => "index", :controller => "blog"},  :class => params[:controller] == "blog" ? "selected" : "")) if @setting[:section_blog] 
 					else # unknown special page 
- 						link_to_page(page, :class => params[:controller] == "pages" && params[:id] == page.to_param ? "selected" : "")
+ 						content_tag(:li, link_to_page(page, :class => params[:controller] == "pages" && params[:id] == page.to_param ? "selected" : ""))
 					end					
 				else # not a special page
- 					link_to_page(page, :class => params[:controller] == "pages" && params[:id] == page.to_param ? "selected" : "")
+ 					content_tag(:li, link_to_page(page, :class => params[:controller] == "pages" && params[:id] == page.to_param ? "selected" : ""))
 				end
 			%>
-		</li>
 		<% end %>	
 	</ul>
 </div>

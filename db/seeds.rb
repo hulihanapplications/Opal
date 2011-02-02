@@ -208,7 +208,7 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   msg.save     
   
   # Create Test Item
-  item1 = Item.new(:name => "Test Item A", :description => "This is a test description")
+  item1 = Item.new(:name => "Test Item A", :description => "This is a test description.")
   item1.user_id = @admin.id
   item1.is_public = "1"
   item1.featured = true
@@ -323,4 +323,4 @@ if (install_sample_data == "y" || install_sample_data == "yes")
 end 
 
 
-Setting.find_by_name("opal_version").update_attribute(:value, "0.7.0") # Update Version    
+Setting.find_by_name("opal_version").update_attribute(:value, "0.7.1") # Update Version    

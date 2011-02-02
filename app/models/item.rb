@@ -182,7 +182,7 @@ class Item < ActiveRecord::Base
   end 
 
   def self.featured_items # get featured items
-    return Item.find(:all, :conditions => ["featured = true and is_approved = '1' and is_public = '1'"], :order => "created_at DESC")
+    return Item.find(:all, :conditions => ["featured = ? and is_approved = ? and is_public = ?", true, "1", "1"], :order => "created_at DESC")
   end 
   
   def is_new? # has the item been recently added?

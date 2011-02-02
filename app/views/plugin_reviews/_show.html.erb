@@ -1,6 +1,10 @@
- <!-- Include Rich Snippet for Individual Review -->				 
- <div id="review_box_<%= review.id %>" itemscope itemtype="http://data-vocabulary.org/Review">
- 	<meta itemprop="itemreviewed" content="<%= item.name %>" /> 
+ <%
+ 	# Set Defaults
+	options  					||= Hash.new
+	options[:rich_snippets] 	= false if options[:rich_snippets].nil?
+ %>				 
+ <div id="review_box_<%= review.id %>" <%= raw "itemscope itemtype=\"http://data-vocabulary.org/Review\"" if options[:rich_snippets] %>>
+ 	<%= raw "<meta itemprop=\"itemreviewed\" content=\"#{item.name}\" />" if options[:rich_snippets] %>
 	
 	<table style="width:100%">
 		<tr>
@@ -19,7 +23,14 @@
 						<table style="width:100%" cellpadding=0 cellspacing=0>
 							<tr>
 								<td style="vertical-align:middle;text-align:left">		
-									<%= link_to score(:type => @setting[:review_type], :min => @setting[:score_min].to_i, :max => @setting[:score_max], :value => review.review_score.to_i), {:action => "show", :controller => "plugin_reviews", :id => item.id, :review_id => review.id} %>
+									<span <%= raw "itemprop=\"rating\" itemscope itemtype=\"http://data-vocabulary.org/Rating\"" if options[:rich_snippets] %>>					
+									
+										 <%= raw "<meta itemprop=\"worst\" content=\"#{@setting[:score_min].to_i}\" />" if options[:rich_snippets] %>
+										 <%= raw "<meta itemprop=\"best\" content=\"#{@setting[:score_max].to_i}\" />" if options[:rich_snippets] %>																 						
+										 <%= raw "<meta itemprop=\"value\" content=\"#{review.review_score.to_i}\" />" if options[:rich_snippets] %>
+
+									 	<%= link_to score(:type => @setting[:review_type], :min => @setting[:score_min].to_i, :max => @setting[:score_max], :value => review.review_score.to_i), {:action => "show", :controller => "plugin_reviews", :id => item.id, :review_id => review.id} %>
+										
 								</td>
 								<td style="vertical-align:middle;text-align:right">																			
 									 <span title="The score for this <%= plugin.model_name.human %>." class="box_2" style="padding:2px;margin-right:5px" >												 	

@@ -144,6 +144,11 @@ end
  def show  
      if @my_group_plugin_permissions.can_read? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
         @review = PluginReview.find(params[:review_id])
+
+        @setting[:meta_title] << @item.description     
+        @setting[:meta_title] << @item.name 
+        @setting[:meta_title] << [PluginReview.model_name.human, t("single.from").downcase, @review.user.username].join(" ")
+        
      else # Improper Permissions  
           flash[:failure] = t("notice.invalid_permissions")       
      end  

@@ -1,16 +1,15 @@
-
 <div class="item">
 	<%= render :partial => "items/item_header", :locals => {:item => @item, :options => {:show_item_info => true, :show_item_title => true}} %>
 	<div class="header">					
 		<h2 class="title">
-			<%= PluginReview.model_name.human%> 
-			<%= t("single.from") %>
+			<%= PluginReview.model_name.human %> 
+			<%= t("single.from").downcase %>
 			<%= @review.user.username %>
 		</h2>						
 	</div>
 	<div class="plugin_box">
 		<div class="reviews">	
-	    	<%= render :partial => "plugin_reviews/show", :locals => {:review => @review, :item => @item, :plugin => @plugin, :my_group_plugin_permissions =>  GroupPluginPermission.all_plugin_permissions_for_group(@logged_in_user.group)} if @item.is_editable_for_user?(@logged_in_user) || @review.is_approved? %>
+	    	<%= render :partial => "plugin_reviews/show", :locals => {:review => @review, :item => @item, :plugin => @plugin, :my_group_plugin_permissions =>  GroupPluginPermission.all_plugin_permissions_for_group(@logged_in_user.group), :options => {:rich_snippets => true}} if @item.is_editable_for_user?(@logged_in_user) || @review.is_approved? %>
 		</div>			
 	</div>										
 	<div align=center><img src="/themes/<%= @setting[:theme] %>/images/icons/arrow_left.png" class="icon" title="Back"> <%= link_to t("single.back"), { :action => 'view', :controller => "items", :id => @item.id, :anchor => "#{@plugin.name}s"}  %></div>				

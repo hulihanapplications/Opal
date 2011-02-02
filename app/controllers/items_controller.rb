@@ -50,9 +50,9 @@ class ItemsController < ApplicationController
 
   def view
     @item = Item.find(params[:id])
+      @setting[:meta_title] << @item.description     
       @setting[:meta_title] << @item.name 
-      @setting[:meta_title] << @item.description 
-
+      
       @item.update_attribute(:views, @item.views += 1) # update total views
       @item.update_attribute(:recent_views, @item.recent_views += 1) # update recent views  
     rescue ActiveRecord::RecordNotFound # the item doesn't exist

@@ -12,7 +12,7 @@
 									<input name="search_for" type="text" id="search_box" >							
 								</td>
 								<td >
-									<a href="javascript:submit('search_form')" class="button_1"><%= t("single.search") %></a>
+									<%= submit_tag t("single.search"), :class => "button_1" %>
 								    <%= link_to icon("rss") ,  {:action => "rss", :controller => "items"}, :title => "#{t("label.rss_feed")} - #{t("single.new").capitalize} #{@setting[:item_name_plural]}" %>
 		
 									<b><%= link_to t("label.advanced_search"), {:action => "new_advanced_search", :controller => "items"} %></b>							
@@ -45,9 +45,7 @@
 					   <td><%= User.human_attribute_name(:username) %></td><td > <%= text_field 'user', 'username', :style => "width:70px;", :id => "login_username"  %></td>
 					   <td><%= User.human_attribute_name(:password) %></td><td > <%= password_field 'user', 'password', :style => "width:70px;", :id => "login_password" %></td>
 					   <td>
-					   		<%#= submit_tag "Log In", :style => "", :class => "button_1" %>
-							<%= submit_tag "Hidden", :style => "display:none" %>
-							<a href="javascript:submit('login_form')" class="button_1"><%= t("label.log_in") %></a>
+							<%= submit_tag t("label.log_in"), :class => "button_1" %>
 					   </td>	
 					   <td> 
 					   		<% if get_setting_bool("allow_user_registration") %>

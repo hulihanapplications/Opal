@@ -46,19 +46,31 @@ class UsersController < ApplicationController
    
    def update
       @user_info = @user.user_info
-
-        if !@logged_in_user.is_admin? # handle protected attributes
-          params[:user][:group_id] = @user.group_id
-          params[:user][:username] = @user.username
-          params[:user][:email] =  @user.email 
-          params[:user][:created_at] = @user.created_at  
-        end                    
+      
+      if @logged_in_user.is_admin? 
+         # Manually change protected attributes
+        @user.is_admin = params[:user][:is_admin]
+        @user.group_id = params[:group_id]        
+      else # User is not admin
+        # Reset protected attributes  
+        params[:user][:group_id] = @user.group_id
+        params[:user][:username] = @user.username
+        params[:user][:email] =  @user.email 
+        params[:user][:created_at] = @user.created_at  
+      end                    
+ 
+      # Load Attributes from form using Mass Assign
+      @user.attributes = params[:user]
+      @user_info.attributes = params[:user_info] 
                   
-      if @user.update_attributes(params[:user]) && @user_info.update_attributes(params[:user_info])        
-        @user.update_attribute(:is_admin, params[:user][:is_admin]) if @logged_in_user.is_admin?
-        Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => User.model_name.human, :name => @user.username))
-        flash[:success] = t("notice.save_success") 
-        redirect_to :action => "edit", :id => @user
+      if @user.valid? && @user_info.valid?       
+        if @user.save && @user_info.save 
+          Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => User.model_name.human, :name => @user.username))
+          flash[:success] = t("notice.save_success") 
+          redirect_to :action => "edit", :id => @user
+        else
+          render :action => "edit"      
+        end        
       else
         render :action => "edit"      
       end

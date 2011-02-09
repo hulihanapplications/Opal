@@ -76,11 +76,7 @@ function get_url_vars(){ // get url variables
     return vars;  
 }
 
-function submit(id) // submit a form with this particular id
-{
-	element = document.getElementById(id)
-	element.submit();
-}
+
 
 // JQuery Functions
 jQuery.fn.reveal = function(transition_time) { // hide object

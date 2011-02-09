@@ -13,8 +13,8 @@ class CreatePages < ActiveRecord::Migration
       t.column :title_editable, :boolean, :default => true # if title can be edited
       t.column :description_editable, :boolean, :default => true # if description can be edited    
       t.column :content_editable, :boolean, :default => true # if content can be edited      
-      t.column :published, :bool, :default => true   
-      t.column :locked, :bool, :default => false 
+      t.column :published, :boolean, :default => true   
+      t.column :locked, :boolean, :default => false 
       t.column :order_number, :integer      
       t.column :display_in_menu, :boolean, :default => true # display in menu    
       t.column :redirect, :boolean, :default => false # redirect this page?  

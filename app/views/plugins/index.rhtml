@@ -5,7 +5,7 @@
 		
 
 		$.ajax({
-		  typ: "POST",	
+		  type: "POST",	
 		  url: '<%= url_for :action => "toggle_plugin", :controller => "plugins" %>',
 		  data: "id="+plugin_id,
 		  success: function(data) {

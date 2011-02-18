@@ -26,10 +26,10 @@ class UsersController < ApplicationController
    
     def create
       @user = User.new(params[:user])
-      #@user_info = UserInfo.new(params[:user_info])
-      #@user_info.user_id = @user.id
-      if params[:user][:is_admin] == "1"
-        @user.is_admin = "1" # Make user an admin 
+      if @logged_in_user.is_admin? # handle protected attributes
+        @user.is_admin = params[:user][:is_admin]
+        @user.group_id = params[:group_id]        
+      else # User is not admin
       end
       
       @user.is_verified = "1"

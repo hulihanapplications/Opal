@@ -14,7 +14,7 @@
 		</table>
 		<div class="spacer"></div>
 		<!--<div class="indent"><%= link_to "<b>About Home</b>", {:action => "index", :controller => "about"} %></div>-->
-		<% @public_pages = Page.find(:all, :conditions => ["page_type = ? and page_id = 0 and published = true", "public"], :order => "title ASC", :select => "id, title, description") %>
+		<% @public_pages = Page.find(:all, :conditions => ["page_type = ? and page_id = 0 and published = ?", "public", true], :order => "title ASC", :select => "id, title, description") %>
 		<% for page in @public_pages %>
 			<%= descend_page(page) %>
 		<% end %>	

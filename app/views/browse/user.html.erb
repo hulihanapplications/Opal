@@ -70,9 +70,11 @@
 					<h2 class="title"><%= UserInfo.human_attribute_name(:interests) %></h2>
 					<%= h @user.user_info.interests %>
 					<hr>
-				<% end %>								
-				<h2 class="title"><%= Group.model_name.human %></h2>
-				<%= h @user.group.name %>							
+				<% end %>	
+				<% if @logged_in_user.is_admin? %>							
+					<h2 class="title"><%= Group.model_name.human %></h2>
+					<%= h @user.group.name %>
+				<% end %>							
 			</div>
 			<br>
 			

@@ -45,7 +45,9 @@ class ApplicationController < ActionController::Base
     @setting[:theme] = params[:theme] if params[:theme] # preview theme if theme is specified in url
     @setting[:url] = "http://" + request.env["HTTP_HOST"] + "" # root url for host/port, taken from request
     # Get Meta Settings Manually So they're not cached(which causes nested meta information)
-    @setting[:meta_title] = [@setting[:description], @setting[:title]]
+    @setting[:meta_title] = Array.new
+    @setting[:meta_title] <<  @setting[:description] if !@setting[:description].blank?
+    @setting[:meta_title] <<  @setting[:title] if !@setting[:title].blank?
     @setting[:meta_description] = [@setting[:description]]
   end
   

@@ -1,0 +1,9 @@
+<%
+	options ||= Hash.new
+	options[:id_to_select] ||= nil
+	pages ||= Page.all 
+%>
+
+<% for page in pages %>
+	<%= grouped_collection_select(:page, :page_id, pages, :pages, :title, :id, :title, :prompt => true) %>
+<% end %>

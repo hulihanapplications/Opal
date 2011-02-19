@@ -25,7 +25,8 @@
 							<tr>
 								<td align=left>
 									<h2 class="title">
-										<a name="groups"><%= @users.total_entries %> <%= User.model_name.human.pluralize %></a>
+										<a name="users"></a>
+										<%= @users.total_entries %> <%= User.model_name.human.pluralize %>
 									</h2>				
 								</td>
 								<td align=right >
@@ -42,7 +43,7 @@
 							<th style="width:20px;"></th>
 							<th><b><%= User.human_attribute_name(:username) %></b></th>
 							<th><b><%= t("single.name") %></b></th>
-							<th><b><%= User.human_attribute_name(:created_at) %></b></th>
+							<th><b><%= Group.model_name.human %></b></th>
 							<th><b><%= User.human_attribute_name(:latest_login) %></b></th>
 							<th style="width:20px;"></th>
 							<th style="width:20px;"></th>
@@ -58,7 +59,7 @@
 								</td>
 								<td><i><%= h user.first_name %> <%= h user.last_name %></i></td>
 								<td>
-									<%= friendly_date user.created_at %>
+									<%= user.group.name %>
 								</td>
 								<td>
 									<% if user.last_login%>

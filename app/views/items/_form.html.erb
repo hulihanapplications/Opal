@@ -51,8 +51,7 @@
 								<% if features.size > 0 %>															
 									<%= render :partial => "plugin_features/form_for_item", :locals => {:item => item} %>	
 								<% else %>
-									<%= t("notice.items_not_found", :items => feature_plugin.model_name.human.pluralize) %>
-									<!--No <%= feature_plugin.model_name.human.pluralize %> have been created yet.-->
+									<%= t("notice.items_not_found", :items => Plugin.plugins[:feature].model_name.human.pluralize) %>
 								<% end %>								
 							<% end %>
 							<div style="height:10px"></div>	

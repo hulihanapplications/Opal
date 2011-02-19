@@ -45,16 +45,12 @@
 				<% end %>							
 
 				<div id="details">
-
 					<div class="name">
 						<%= item.name %>		
 					</div>								
-
 					<div class="description">
-						<%= simple_format item.description%>	
-					</div>
-					
-								
+						<%= simple_format item.description unless item.description.blank? %>	
+					</div>													
 					<div style="width:300px;" id="features">
 						<% if Plugin.plugins[:review].is_enabled? %>
 							<% 

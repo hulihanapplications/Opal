@@ -110,13 +110,12 @@ pages[:home].locked = true
 pages[:home].deletable = false
 pages[:home].save
 
-
-pages[:items] = Page.new(:title => "Items", :page_type => "public", :content => "")
+pages[:items] = Page.new(:title => "Items", :page_type => "public")
 pages[:items].name = "items"
 pages[:items].locked = true
 pages[:items].title_editable = false
 pages[:items].deletable = false
-pages[:items].save
+pages[:items].save 
 
 pages[:blog] = Page.new(:title => I18n.t("section.title.blog"), :description => "", :page_type => "public", :content => "")
 pages[:blog].name = "blog"

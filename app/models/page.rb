@@ -136,7 +136,7 @@ class Page < ActiveRecord::Base
   def title # get pretty title
     if self.name # handle special pages
       if self.name == "items"
-        Setting.global_settings[:item_name_plural]
+        Setting.global_settings[:item_name_plural].blank? ? self["title"] : Setting.global_settings[:item_name_plural]
       else 
         self["title"]
       end

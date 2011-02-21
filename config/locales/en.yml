@@ -178,7 +178,7 @@ en:
     user_account_verify: "Verified my account."
     items_imported: "%{count} %{items} imported."
     failed_admin_access_attempt_visitor: Someone at %{ip} attempted to access the Admin Area. %{controller} - %{action}
-    failed_admin_access_attempt_user: %{username}(%{id}) attempted to access the Admin Area. %{controller} - %{action}
+    failed_admin_access_attempt_user: %{username}(%{id}) attempted to access the Admin Area. %{controller} - %{action} 
   # Email
   email:
     subject:

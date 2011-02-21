@@ -246,6 +246,9 @@ class Item < ActiveRecord::Base
   end 
  end 
  
+ def logs # get logs for item
+   Log.for_item(self).newest_first
+ end
 =begin
   # Create Dynamic Attributes from Features
   for feature in PluginFeature.find(:all)

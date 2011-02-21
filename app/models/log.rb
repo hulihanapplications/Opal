@@ -3,6 +3,9 @@ class Log < ActiveRecord::Base
   belongs_to :item
   
   default_scope :order => "created_at DESC" # override default find
+  scope :for_item, lambda{|item| where("item_id = ?", item.id)}
+  scope :newest_first, order("created_at DESC")
+
 
   validates_presence_of :log
   
@@ -75,4 +78,11 @@ class Log < ActiveRecord::Base
     return conditions
   end
   
+  def to_s
+    string = String.new
+    if self.user_id
+      string << self.user.username + " "
+    end
+    string << self.log
+  end
 end

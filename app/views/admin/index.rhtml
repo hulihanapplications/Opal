@@ -24,7 +24,7 @@
 	</div>
 	
 	<div class="box_2">
-		<table style="width:100%">
+		<table style="width:100%" cellpadding=0 cellspacing=0>
 			<tr>
 				<td align=left>
 					<h2 class='title'>
@@ -35,7 +35,8 @@
 					<%= link_to icon("logs") + " " + t("single.all") + " " + Log.model_name.human.pluralize, {:controller => "logs"}%>														
 				</td>
 			</tr>
-		</table>			
+		</table>	
+		<hr>		
 		<%= render :partial => "logs/list_logs", :locals => {:logs => @latest_logs} %>
 
 	</div>

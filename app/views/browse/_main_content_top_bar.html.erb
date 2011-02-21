@@ -84,7 +84,7 @@
 							});
 						</script>	
 					<% end %>					
-				<% else %>							
+				<% else %>		
 					<% if Setting.get_setting_bool("allow_item_page_type_changes")  && (params[:action] == "view") %>		
 						<%  session[:item_page_type] ?  @setting[:item_page_type] = session[:item_page_type] : @setting[:item_page_type] = Setting.get_setting("item_page_type") %>																			
 						<%= link_to raw("<img src=\"/themes/#{@setting[:theme]}/images/icons/item_page_type_summarized.png\" class=\"icon #{"selected" if @setting[:item_page_type] == "summarized"}\">"), { :action => 'set_item_page_type', :controller => "items", :item_page_type => "summarized"}, :class => "transparent", :title => t("setting.description.item_page_type_summarized", :item => @setting[:item_name] ) %>						
@@ -93,6 +93,9 @@
 						<%= link_to raw("<img src=\"/themes/#{@setting[:theme]}/images/icons/item_page_type_accordion.png\" class=\"icon #{"selected" if @setting[:item_page_type] == "accordion"}\">"), { :action => 'set_item_page_type', :controller => "items", :item_page_type => "accordion"}, :class => "transparent", :title => t("setting.description.item_page_type_accordion", :item => @setting[:item_name] ) %>						
 						<%= link_to raw("<img src=\"/themes/#{@setting[:theme]}/images/icons/item_page_type_expanded.png\" class=\"icon #{"selected" if @setting[:item_page_type] == "expanded"}\">"), { :action => 'set_item_page_type', :controller => "items", :item_page_type => "expanded"}, :class => "transparent", :title => t("setting.description.item_page_type_expanded", :item => @setting[:item_name] ) %>						
 					<% end %>
+				  		<%= auto_discovery_link_tag(:rss, {:action => "view", :controller => "items", :id => @item,  :format => "xml"}, :title => "#{t("label.rss_feed")} - #{@item.name}") %> 
+					    <%= link_to icon("rss", "#{t("label.rss_feed")} - #{@item.name}"),  {:action => "view", :controller => "items", :id => @item,  :format => "xml"}, :class => "transparent" %>
+					
 				<% end %>
 			</td>
 		</tr>

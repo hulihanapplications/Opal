@@ -33,6 +33,7 @@ class AboutController < ApplicationController
         #  def contact_us_email(recipient, from = "noemailset@none.com", name = "No Name Set", subject = "No Subject Set", message = "No Message Set", ip = "", display = "plain") 
         # Send Email
         Emailer.deliver_contact_us_email(params[:email], params[:name], t("email.subject.contact_us", :site_title => @setting[:title], :from => params[:name]), params[:message], request.env['REMOTE_ADDR'])
+
         flash[:success] = "#{t("notice.contact_thanks", :name => params[:name])}" #print out any errors!
        end
      else # captcha failed

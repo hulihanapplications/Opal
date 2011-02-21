@@ -4,7 +4,6 @@
 	homepage_subpages = homepage.pages.display_in_menu.published.in_order
 	show_sidebar = homepage_subpages.size > 0 || @setting[:section_items] || !homepage_sidebar.content.blank? 
 %>
-
 	<%= content_tag :div, :id => "side" do %>
 		<%= render :partial => "pages/menu_for_page", :locals => {:page => homepage, :subpages => homepage_subpages} if homepage_subpages.size > 0 %>	
 		<% if @setting[:section_items] %>

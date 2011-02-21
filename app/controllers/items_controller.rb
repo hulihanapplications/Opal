@@ -1,13 +1,14 @@
 class ItemsController < ApplicationController
- before_filter :authenticate_user, :except => [:index, :rss, :category, :view, :search, :tag, :new_advanced_search, :advanced_search, :set_list_type, :set_item_page_type] # check if user is logged in
+ before_filter :authenticate_user, :only => [:edit, :update, :delete, :create, :new] 
  before_filter :enable_user_menu, :only =>  [:new, :edit, :create, :update] # show user menu 
  
  before_filter :authenticate_admin, :only =>  [:all_items, :settings] # check if user is admin 
  before_filter :enable_admin_menu, :only =>  [:all_items, :settings] # show admin menu 
  
- before_filter :find_item, :except => [:index, :rss, :category, :all_items, :tag, :create, :new, :search, :new_advanced_search, :advanced_search, :set_list_type, :set_item_page_type, :settings] # look up item 
+ before_filter :find_item, :only => [:view, :edit, :update, :delete] # look up item  
+ # before_filter :find_item, :except => [:index, :rss, :category, :all_items, :tag, :create, :new, :search, :new_advanced_search, :advanced_search, :set_list_type, :set_item_page_type, :settings] # look up item 
  before_filter :check_item_view_permissions, :only => [:view] # check item view permissions
- before_filter :check_item_edit_permissions, :except => [:index, :rss, :category, :all_items, :tag, :create, :view, :new, :search, :new_advanced_search, :advanced_search, :set_list_type, :set_item_page_type, :settings] # check if item is editable by user 
+ before_filter :check_item_edit_permissions, :only => [:view, :edit, :update, :delete] # check if item is editable by user 
  before_filter :enable_sorting, :only => [:index, :category, :all_items, :search] # prepare sort variables & defaults for sorting
 
  
@@ -31,7 +32,12 @@ class ItemsController < ApplicationController
      @items = Item.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i, :order => Item.sort_order(params[:sort]), :conditions => ["category_id IN (?) and is_approved = '1' and is_public = '1'", category_ids]    
      
      @setting[:meta_title] << @category.name 
-     @setting[:meta_description] << [@category.name , @category.description, @setting[:item_name_plural], @setting[:meta_description]].join(" - ") 
+     @setting[:meta_description] << [@category.name , @category.description, @setting[:item_name_plural], @setting[:meta_description]].join(" - ")
+     
+    respond_to do |format|
+      format.html # new.html.erb
+      format.xml  { render :layout => false }
+    end
   end
  
   def all_items # show all items in system 
@@ -50,12 +56,15 @@ class ItemsController < ApplicationController
   # Regular Methods   
 
   def view
-    @item = Item.find(params[:id])
       @setting[:meta_title] << @item.description unless @item.description.blank?    
       @setting[:meta_title] << @item.name unless @item.name.blank? 
-      
+      @setting[:meta_description] = @setting[:meta_title]
       @item.update_attribute(:views, @item.views += 1) # update total views
       @item.update_attribute(:recent_views, @item.recent_views += 1) # update recent views  
+      respond_to do |format|
+        format.html # new.html.erb
+        format.xml  { render :layout => false }
+      end      
     rescue ActiveRecord::RecordNotFound # the item doesn't exist
         flash[:failure] = t("notice.item_not_found", :item => @setting[:item_name] + " #{(@item.id)}")
         redirect_to :action => "index", :controller => "browse"
@@ -92,7 +101,7 @@ class ItemsController < ApplicationController
         num_of_features_updated = PluginFeature.create_values_for_item(:item => @item, :features => params[:features], :user => @logged_in_user, :delete_existing => true, :approve => true)  
         Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log =>  t("log.item_save", :item => @setting[:item_name], :name => @item.name))                    
         flash[:success] = t("notice.item_save_success", :item => @setting[:item_name])
-        redirect_to :action => "edit" , :id => @item        
+        redirect_to :action => "" , :id => @item        
     else # failed adding required features
       flash[:failure] = t("notice.item_save_failure", :item => @setting[:item_name])
       render :action => "edit"
@@ -152,7 +161,6 @@ class ItemsController < ApplicationController
   end
   
   def delete
-   @item = Item.find(params[:id])
    if @item.is_deletable_for_user?(@logged_in_user)
      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => t("log.item_delete", :item => @setting[:item_name], :name => @item.name))     
      @item.destroy

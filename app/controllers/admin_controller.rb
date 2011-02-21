@@ -4,8 +4,7 @@ class AdminController < ApplicationController
 
 
  def index
-    @plugins = Plugin.find(:all, :order => "order_number ASC", :conditions => ["is_enabled = '1'"])       
-    @latest_logs = Log.find(:all, :limit => 10)
+    @latest_logs = Log.find(:all, :limit => 5)
  end  
 
  def env

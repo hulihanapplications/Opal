@@ -153,43 +153,47 @@ class PagesController < ApplicationController
       @plugin = Plugin.find_by_name("Image") # use Images Plugin for title and thumbnail settings
       acceptable_file_extensions = ".png, .jpg, .jpeg, .gif, .bmp, .tiff, .PNG, .JPG, .JPEG, .GIF, .BMP, .TIFF"
       uploaded_file = Uploader.file_from_url_or_local(:local => params[:file], :url => params[:url])
-      filename = File.basename(uploaded_file.path)
-      if Uploader.check_file_extension(:filename => filename, :extensions => acceptable_file_extensions)
-       image = Magick::Image.from_blob(File.open(uploaded_file.path).read)[0] # read in image binary, from_blob returns an array of images, grab first item
-              
-        @image = Image.new(params[:image])
-        @image.description = params[:description]
-        if @image.save # save to obtain next id assigned by db
-          @image.url = "/images/uploaded_images/#{@image.id}/normal/#{filename}"
-          @image.thumb_url = "/images/uploaded_images/#{@image.id}/thumbnails/#{filename}"
-          @image.user_id = @logged_in_user.id
-          
-          if @image.save # if image was saved successfully
-            # generate image, apply special effects, save image to filesystem 
-            Uploader.generate_image(
-              :image => image,
-              :path => Rails.root.to_s + "/public" + @image.url,          
-              :thumbnail_path => Rails.root.to_s + "/public" + @image.thumb_url,
-              :effects => params[:effects],
-              :resize_image => @plugin.get_setting_bool("resize_item_images"),
-              :resized_image_width => @plugin.get_setting("item_image_width").to_i,
-              :resized_image_height => @plugin.get_setting("item_image_height").to_i,
-              :thumbnail_width => @plugin.get_setting("item_thumbnail_width").to_i,
-              :thumbnail_height => @plugin.get_setting("item_thumbnail_height").to_i
-            ) 
-          
-            Log.create(:user_id => @logged_in_user.id,  :log_type => "new", :log => t("log.item_create", :item => Image.model_name.human , :name => filename))                 
-            flash[:success] = t("notice.item_create_success", :item => PluginImage.model_name.human) 
-          else 
-            flash[:failure] = t("notice.item_create_failure", :item => PluginImage.model_name.human)           
-          end 
-        else # save failed
-          flash[:failure] = t("notice.item_create_failure", :item => PluginImage.model_name.human) 
+      if uploaded_file
+        filename = File.basename(uploaded_file.path)
+        if Uploader.check_file_extension(:filename => filename, :extensions => acceptable_file_extensions)
+         image = Magick::Image.from_blob(File.open(uploaded_file.path).read)[0] # read in image binary, from_blob returns an array of images, grab first item                  
+          @image = Image.new(params[:image])
+          @image.description = params[:description]
+          if @image.save # save to obtain next id assigned by db
+            @image.url = "/images/uploaded_images/#{@image.id}/normal/#{filename}"
+            @image.thumb_url = "/images/uploaded_images/#{@image.id}/thumbnails/#{filename}"
+            @image.user_id = @logged_in_user.id
+            
+            if @image.save # if image was saved successfully
+              # generate image, apply special effects, save image to filesystem 
+              Uploader.generate_image(
+                :image => image,
+                :path => Rails.root.to_s + "/public" + @image.url,          
+                :thumbnail_path => Rails.root.to_s + "/public" + @image.thumb_url,
+                :effects => params[:effects],
+                :resize_image => @plugin.get_setting_bool("resize_item_images"),
+                :resized_image_width => @plugin.get_setting("item_image_width").to_i,
+                :resized_image_height => @plugin.get_setting("item_image_height").to_i,
+                :thumbnail_width => @plugin.get_setting("item_thumbnail_width").to_i,
+                :thumbnail_height => @plugin.get_setting("item_thumbnail_height").to_i
+              ) 
+            
+              Log.create(:user_id => @logged_in_user.id,  :log_type => "new", :log => t("log.item_create", :item => Image.model_name.human , :name => filename))                 
+              flash[:success] = t("notice.item_create_success", :item => PluginImage.model_name.human)  
+              result = true
+            else 
+              flash[:failure] = t("notice.item_create_failure", :item => PluginImage.model_name.human)           
+            end 
+          else # save failed
+            flash[:failure] = t("notice.item_create_failure", :item => PluginImage.model_name.human) 
+          end
+        else
+          flash[:failure] = t("notice.invalid_file_extensions", :item => PluginImage.model_name.human, :acceptable_file_extensions => acceptable_file_extensions)    
         end
-      else
-        flash[:failure] = t("notice.invalid_file_extensions", :item => PluginImage.model_name.human, :acceptable_extensions => acceptable_file_extensions)    
-    end
-    redirect_to :action => "tinymce_images"
+    else # didn't select an image
+      flash[:failure] =  t("notice.item_forgot_to_select", :item => @plugin.model_name.human)          
+    end 
+    (defined?(result) && result) ? render(:layout => false) : redirect_to(:action => "tinymce_images", :anchor => Image.model_name.human.pluralize)
   end
 
   def delete_image

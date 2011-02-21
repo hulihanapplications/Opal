@@ -20,12 +20,13 @@
 						</tr>
 					</table>		
 	</div>
-	<%= render :partial => "/items/list_items", :locals => {:items => @items} %>	
+	<%= render :partial => "/items/list_items", :locals => {:items => @items} %>
+	<div align="center" class="will_paginate">
+		<%= page_entries_info @items, :entry_name => @setting[:item_name] %>	
+		<%= will_paginate @items %>
+		<br>
+	</div>		
 </div>
 
-<div align="center" class="will_paginate">
-	<%= page_entries_info @items, :entry_name => @setting[:item_name] %>	
-	<%= will_paginate @items %>
-	<br>
-</div>
+
 

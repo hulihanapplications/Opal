@@ -28,7 +28,7 @@ class SettingsController < ApplicationController
     end
    end
    #flash[:failure] << t("notice.items_forgot_to_select", :items => Setting.model_name.human.pluralize) if counter == 0 # no items changed
-   redirect_to :action => "index"
+   redirect_to :back
   end
  
   def edit

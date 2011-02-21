@@ -1,4 +1,4 @@
-<h2 class="title"><%= t("single.all") %> <%= @setting[:item_name_plural] %></h2>
+<h2 class="title"> <%= @setting[:item_name_plural] %></h2>
 <div class="spacer"></div>		
 <%= link_to "#{Item.count(:all)} #{@setting[:item_name_plural]}", {:action => "all_items", :controller => "items"} %><br>
 <div class="indent">

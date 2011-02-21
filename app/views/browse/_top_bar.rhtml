@@ -48,7 +48,7 @@
 							<%= submit_tag t("label.log_in"), :class => "button_1" %>
 					   </td>	
 					   <td> 
-					   		<% if get_setting_bool("allow_user_registration") %>
+					   		<% if @setting[:allow_user_registration] %>
 						 	  	or <%= link_to t("label.register"), {:action => "register", :controller => "user"} %>
 							<% end %>
 						</td>
@@ -59,7 +59,7 @@
 					 <table cellpadding=0 cellspacing=0>
 					  <tr>
 					   <td> 
-					   		<% if get_setting_bool("allow_user_registration") %>
+					   		<% if @setting[:allow_user_registration] %>
 						 	  	<%= link_to t("label.register"), {:action => "register", :controller => "user"} %>
 							<% end %>
 						</td>

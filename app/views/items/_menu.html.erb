@@ -1,0 +1,27 @@
+<div class="box_2" style="" align=center>
+	<h3 class="title" align=left><%= @setting[:item_name_plural]  %></h3>
+
+	<div class="box_<%= params[:action] == "all_items" ? "1" : "2" %>" style="margin-bottom:5px;">
+		<%= link_to icon("items") + " " +  "#{@setting[:item_name_plural]}", {:action => "all_items", :controller => "items"} %></a>				
+	</div>
+		
+	<div class="box_<%= params[:controller] == "categories" ? "1" : "2" %>" style="margin-bottom:5px;">
+		<%= link_to icon("categories") + " " + Category.model_name.human.pluralize, {:action => "index", :controller => "categories"}  %>				
+	</div>	
+		
+	<div class="box_<%= (params[:action] == "settings" && params[:controller] == "items") ? "1" : "2" %>" style="margin-bottom:5px;">
+		<%= link_to icon("settings") + " " + Setting.model_name.human.pluralize, {:action => "settings", :controller => "items"} %>				
+	</div>	
+
+	<div class="box_<%= (params[:controller] == "plugins" || params[:controller] == "plugin_features") ? "1" : "2" %>" style="margin-bottom:5px;">
+		<%= link_to icon("plugins") + " " + Plugin.model_name.human.pluralize, {:action => "index", :controller => "plugins"} %>				
+	</div>
+
+	<div class="box_<%= ( params[:action] == "import") ? "1" : "2" %>" style="margin-bottom:5px;">
+		<%= link_to icon("arrow_left") + " " + t("single.import") + " " + @setting[:item_name_plural], {:action => "import", :controller => "tools"} %></a>				
+	</div>
+
+	<div class="box_<%= params[:action] == "export" ? "1" : "2" %>" style="margin-bottom:5px;">
+		<%= link_to icon("arrow_right") + " " + t("single.export") + " " + @setting[:item_name_plural], {:action => "export", :controller => "tools"} %></a>				
+	</div>					
+</div>

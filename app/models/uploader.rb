@@ -1,15 +1,14 @@
 class Uploader #< ActiveRecord::Base
   # This class handles file uploads, storage, and other options(zip extraction, extension validation, etc.)
   
-  def self.file_from_url_or_local(options = {}) # pass in a local source of a file and a url for a net file, return one standardized File object.
-    
-    options[:local] ||= nil # file uploaded locally
-    options[:url] ||= nil   # file from a url
+  def self.file_from_url_or_local(options = {}) # pass in a local source of a file and a url for a net file, return one standardized File object.    
+    options[:local]   ||= nil # file uploaded locally
+    options[:url]     ||= nil   # file from a url
 
-    return "Both Used" if (options[:local]) && (options[:url] && options[:url] != "") # return nil if they did both
-    if options[:local] && options[:local] != "" # local upload, convert TempFile to real File  
+    return "Both Used" if (!options[:local].blank? && !options[:url].blank?) # return nil if they did both
+    if !options[:local].blank? # local upload, convert TempFile to real File  
       return Uploader.convert_tempfile_to_file(options[:local]) # return file from url      
-    elsif options[:url] # from url
+    elsif !options[:url].blank? # from url
       return Uploader.file_from_url(options[:url]) # return file from url
     else # nothing 
       return false

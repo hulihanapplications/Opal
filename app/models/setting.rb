@@ -41,7 +41,8 @@ class Setting < ActiveRecord::Base
     setting[:theme_url] =  "/themes/#{setting[:theme]}" # url for theme directory 
     setting[:theme_dir] =  File.join(Rails.root.to_s, "public", "themes", setting[:theme]) # system path for theme directory 
     setting[:section_blog] =  Setting.get_setting_bool("section_blog")
-    setting[:section_items] =  Setting.get_setting_bool("section_items")    
+    setting[:section_items] =  Setting.get_setting_bool("section_items")
+    setting[:allow_user_registration] =  Setting.get_setting_bool("allow_user_registration")
     return setting
   end
 

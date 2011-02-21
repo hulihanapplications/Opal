@@ -1,7 +1,7 @@
 <% 
 	plugin ||= Plugin.find_by_name("Image")
 %>
-<table>
+<table style="width:100%">
 	<tr>
 		<td valign=top>
 			<table>
@@ -31,9 +31,8 @@
 
 		</td>								
 	<td valign=top> 
-		<div class="box_2">
-				
-			<h3 class="title"><%= t("single.details") %></h3>
+		<div class="box_2">				
+			<h3 class="title"><%= t("single.effects") %></h3>
 			<div>
 		      <input type="checkbox" name="[effects][monochrome]" value="yes"> <%= raw t("label.image_effect_bw") %><br> 
 		      <input type="checkbox" name="[effects][sepia]" value="yes"> <%= raw t("label.image_effect_sepia") %><br>

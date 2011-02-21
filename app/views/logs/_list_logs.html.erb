@@ -2,7 +2,7 @@
 	<table style="width:100%">
 	<% for log in logs %>
 		<tr>
-			<td align=center style="width:20px;vertical-align:middle">
+			<td align=center class="icon_column">
 				<% if log.user_id %>	
 					<% if log.user %>																					
 						<%= link_to  user_avatar(log.user, :size => "tiny"), {:action => "user", :controller => "browse", :id => log.user}, :title => "#{log.user.username}"  %>
@@ -10,17 +10,8 @@
      					<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon help\" title=\"#{t("label.not_found")}\">" %>      						
 					<% end %>	
 				<% end %>					
-			</td>
-			<td align=center style="width:20px;vertical-align:middle">
-				<% if log.item_id %>
-					<% if log.item %>
-						<%= link_to item_thumbnail(log.item, :class => "pinky"), {:action => "view", :controller => "items", :id => log.item}, :title => h(log.item.name) %>
-					<% else %>
-	     				<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon help\" title=\"#{t("label.not_found")}\">" %>      											
-					<% end %>		
-				<% end %>			
-			</td>			
-			<td align=center style="width:20px;vertical-align:middle">
+			</td>		
+			<td align=center class="icon_column">
 				<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/file.png\" class=\"icon help\" title=\"#{t("single.downloaded")}\">" if (log.log_type == "download") %>
 				<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/new.png\" class=\"icon help\" title=\"#{t("single.created")}\">" if (log.log_type == "create" || log.log_type == "new") %>
 				<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/edit.png\" class=\"icon help\" title=\"#{t("single.updated")}\">" if (log.log_type == "update") %>			  
@@ -28,10 +19,17 @@
 				<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/success.png\" class=\"icon help\" title=\"#{t("single.system") + " " + Log.model_name.human.pluralize}\">" if (log.log_type == "system") %>
 				<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/warning.png\" class=\"icon help\" title=\"#{t("single.warning")}\">" if (log.log_type == "warning") %> 				 
 			</td>
-			<td align=left style="vertical-align:middle">
+			<td align=left style="vertical-align:middle">		
+				<% if log.item_id %>
+					<% if log.item %>
+						<%= link_to item_thumbnail(log.item, :class => "pinky"), {:action => "view", :controller => "items", :id => log.item}, :title => h(log.item.name) %>
+					<% else %>
+	     				<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon help\" title=\"#{t("label.not_found")}\">" %>      											
+					<% end %>		
+				<% end %>
 				<%= log.log %>		
-			</td>
-			<td align=right style="vertical-align:middle;width:175px;">
+			</td>			
+			<td align=right style="vertical-align:middle;width:175px;">		
 				<%= friendly_date log.created_at %>
 			</td>
 		</tr>

@@ -2,24 +2,21 @@
 	 <div style="display: block;">
 		 <ul id="tabmenu" >
 		   <li>
-		   		<%= link_to icon("admin") + " " + t("section.title.admin").capitalize, {:action => "index", :controller => "admin"} , :class => (params[:controller] == "admin" || params[:action] == "all_items" ? "active" : "") %>		
+		   		<%= link_to icon("admin") + " " + t("section.title.admin").capitalize, {:action => "index", :controller => "admin"} , :class => (params[:controller] == "admin" || params[:controller] == "logs"   ? "active" : "") %>		
 		   </li>
+		   <% if @setting[:section_items] %>		   		  
 		   <li>
-		   		<%= link_to icon("categories") + " " + Category.model_name.human.pluralize, {:action => "index", :controller => "categories"} , :class => (params[:controller] == "categories" ? "active" : "") %>		
-			</li>
-
-		   <li>
-		   		<%= link_to icon("users") + " " + User.model_name.human.pluralize, {:action => "index", :controller => "users"} , :class => (params[:controller] == "users" || params[:controller] == "groups" || params[:controller] == "messages" ? "active" : "") %>		
-
+		   		<%= link_to icon("items") + " " + @setting[:item_name_plural], {:action => "all_items", :controller => "items"} , :class => (params[:controller] == "items" || params[:controller] == "categories" || params[:controller] == "plugins" || params[:controller] == "plugins" || params[:controller] == "plugin_features" || params[:controller] == "tools"  ? "active" : "") %>		
 		   </li>
+		   <% end %>
 		   <li>
 		   		<%= link_to icon("pages") + " " + Page.model_name.human.pluralize, {:action => "index", :controller => "pages"} , :class => (params[:controller] == "pages" ? "active" : "") %>		
-		   </li>
-		   	<li>
-		   		<%= link_to icon("tools") + " " + t("section.title.tools").capitalize, {:action => "index", :controller => "tools"} , :class => (params[:controller] == "tools" || params[:controller] == "logs" ? "active" : "") %>		
-			</li>		   					   
+		   </li>	
 		   <li>
-		   		<%= link_to icon("settings") + " " + t("section.title.configure").capitalize, {:action => "index", :controller => "settings"} , :class => (params[:controller] == "settings" || params[:controller] == "plugins" || params[:controller] == "plugin_features" ? "active" : "") %>		
+		   		<%= link_to icon("users") + " " + User.model_name.human.pluralize, {:action => "index", :controller => "users"} , :class => (params[:controller] == "users" || params[:controller] == "groups" || params[:controller] == "messages" ? "active" : "") %>		
+		   </li>		   	   					   
+		   <li>
+		   		<%= link_to icon("settings") + " " + t("section.title.configure").capitalize, {:action => "index", :controller => "settings"} , :class => (params[:controller] == "settings"  ? "active" : "") %>		
 		   </li>
 		   <li>
 				<%= link_to icon("home") + " " + t("section.title.my_account"), {:action => "index", :controller => "user"}  %>		

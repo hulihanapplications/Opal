@@ -1,5 +1,5 @@
 <div id="side">
-	<%= render :partial => "/tools/menu" %>
+	<%= render :partial => "/items/menu" %>
 </div>
 <div id="main">		
 
@@ -20,7 +20,7 @@
 		<!--Export <%= @setting[:item_name_plural] %> from <%= @setting[:title] %> to other formats and software.-->
 		
 		<div class="box_2a" align=center>  
-			<% form_tag ({:action => "do_export"}) do %>
+			<% form_tag ({:action => "do_export", :controller => "tools"}) do %>
 			   <table style="width:100%">
 				   	<tr>
 				   		<td valign=top style="width:60%">

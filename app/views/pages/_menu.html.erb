@@ -6,12 +6,14 @@
 		<%= link_to "#{t("activerecord.models.public_page").pluralize} (#{Page.public_pages.size})", {:action => "index", :controller => "pages", :type => "Public"} %>				
 	</div>	
 
+	<%  if @setting[:section_blog] %>
 	<div class="box_<%= params[:type].downcase == "blog" ? "1" : "2" %>" style="margin-bottom:5px;">
 		<img src="/themes/<%= @setting[:theme] %>/images/icons/pages.png" class="icon"> 				
 		<%= link_to "#{t("activerecord.models.blog_page").pluralize} (#{Page.blog_pages.size})", {:action => "index", :controller => "pages", :type => "Blog"} %>				
 	</div>	
+	<% end %>
 	
-	<div class="box_<%= params[:type].downcase == "system" ? "1" : "2" %>" style="margin-bottom:5px;">
+	<div class="box_<%= params[:type].downcase == "system" ? "1" : "2" %>" style="margin-bottom:0px;">
 		<img src="/themes/<%= @setting[:theme] %>/images/icons/pages.png" class="icon"> 				
 		<%= link_to "#{t("activerecord.models.system_page").pluralize} (#{Page.system_pages.size})", {:action => "index", :controller => "pages", :type => "System"} %>			
 	</div>

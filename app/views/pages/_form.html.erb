@@ -1,77 +1,31 @@
 <%= error_messages_for :page %>
+
 <table style="width:100%;" cellpadding=0 cellspacing=0>
 	<tr>
-		<td align=left>
-			<% if page.is_system_page? %>
-				<h3 class="title"><%= page.title %></h3>
-			<% else %>
-				<div align=left style="margin-bottom:5px">
-					<%= text_field 'page', 'title', :id => "form_title_box_#{page.id}", :disabled => !page.title_editable  %>
-					<%= label "page", "title" %>
-				</div>
-			<% end %>
-			<div align=left style="margin-bottom:5px">
+		<td align=left style="width:50%" class="left">
+			<div class="field">
 				<% if page.is_system_page? %>
-					<i><%= page.description %></i>
+					<h3><%= page.title %></h3>
+					<%= content_tag(:div, page.description, :class => "description") %>
 				<% else %>
-					<%= text_field 'page', 'description', :id => "form_description_box_#{page.id}", :disabled => !page.description_editable  %>
-					<%= label "page", "description" %>		
-				<% end %>
-			</div>								
+					<h3><%= label "page", "title" %></h3>							
+					<%= text_field 'page', 'title', :id => "form_title_box_#{page.id}", :disabled => !page.title_editable  %>
+				<% end %>				
+			</div>
+
+
 		</td>
-		<td align=right style="width:250px">
-			<% if !page.is_system_page? %>
-				<table style="width:100%;" cellpadding=1 cellspacing=0>
-					<tr>
-						<td class="icon_column"><%= check_box "page", "published" %></td>
-						<td class="icon_column"><img src="/themes/<%= @setting[:theme] %>/images/icons/public.png" class="icon"  alt="" title="" ></td>					
-						<td><b><%= label "page", "published" %></b></td>
-						<td class="icon_column"><img src="/themes/<%= @setting[:theme] %>/images/icons/help.png" class="help icon"  alt="" title="<%= Page.human_attribute_name(:published_description) %>" ></td>							
-					</tr>
-				</table>
-				<table style="width:100%;" cellpadding=1 cellspacing=0>
-					<tr>
-						<td class="icon_column"><%= check_box "page", "locked" %></td>
-						<td class="icon_column"><img src="/themes/<%= @setting[:theme] %>/images/icons/locked.png" class="icon"  alt="" title="" ></td>					
-						<td><b><%= label "page", "locked" %></b></td>
-						<td class="icon_column"><img src="/themes/<%= @setting[:theme] %>/images/icons/help.png" class="help icon"  alt="" title="<%= Page.human_attribute_name(:locked_description) %>" ></td>							
-					</tr>
-				</table>				
-				<% if page.is_public_page? %>
-					<table style="width:100%;" cellpadding=1 cellspacing=0>
-						<tr>
-							<td class="icon_column"><%= check_box "page", "display_in_menu" %></td>
-							<td class="icon_column"><img src="/themes/<%= @setting[:theme] %>/images/icons/public.png" class="icon"  alt="" title="" ></td>					
-							<td><b><%= label "page", "display_in_menu" %></b></td>
-							<td class="icon_column"><!--<img src="/themes/<%= @setting[:theme] %>/images/icons/help.png" class="help icon"  alt="" title="<%= Page.human_attribute_name(:display_in_menu_description) %>" >--></td>							
-						</tr>
-					</table>	
-				<% end %>								
-					<table style="width:100%;" cellpadding=1 cellspacing=0>
-						<tr>
-							<td class="icon_column"><%= check_box "page", "redirect" %></td>
-							<td class="icon_column"><%= icon("redirect") %></td>					
-							<td>
-								<b><%= label "page", "redirect" %></b><br>
-							</td>
-							<td class="icon_column"></td>							
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>							
-							<td colspan=2>
-								<%= text_field "page", "redirect_url" %>
-							</td>
-														
-						</tr>
-					</table>									
-			<% end %>
+		<td align=left style="width:50%">
+			<% if page.is_blog_post? %>	
+				<div class="field">		
+					<h3><%= label "page", "created_at" %></h3>		
+					<%= datetime_select 'page', 'created_at'  %>
+				</div>								
+			<% end %>							
 		</td>
 	</tr>
 </table>
-<div style="height:10px"></div>
 
-				
 <div align=right>
 	<%= link_to_function(t("label.toggle_editor"), "toggleEditor('form_content_box_#{page.id}')") %>
 </div> 
@@ -80,14 +34,119 @@
 	<%= text_area 'page', 'content', :style => "width:100%;height:500px", :class => "mceEditor", :id => "form_content_box_#{page.id}", :disabled => !page.content_editable %>
 </div>
 
+<div style="height:5px"></div>
+<%= link_to_function content_tag(:h3, link_to_function(raw("#{icon("options")} #{t("single.advanced")} #{t("single.options")}"), "$('#advanced_options').toggle()"), :style => "padding:5px 0px") if !page.is_system_page? %>
+<div id="advanced_options" class="box_2" style="display:none;">
+	<table cellpadding=0 cellspacing=0>
+		<tr>
+			<td class="">
+				<% if page.is_public_page? %>
+					<div class="side">				
+						<div class="box_1" style="margin-bottom:0px">
+							<h3 class="title"><%= Page.human_attribute_name(:page_id) %></h3>
+							<div class="indent">
+								<table style="width:100%" cellpadding=0 cellspacing=0>
+									<tr>
+										<td align=left>
+											<%= t("single.none") %>
+										</td>
+										<td align=right>
+											<input type="radio" value="0" name="page[page_id]" <%= "CHECKED" if @page.page_id == 0 %>> 
+										</td>	
+									</tr>
+								</table>						
+							</div>
+							<div class="spacer"></div>				
+							<% for page in Page.find(:all, :conditions => ["page_type = ? and page_id = 0", "public"], :order => "title ASC") %>
+								<%= descend_page(page, :make_radio_button => true, :id_to_ignore => @page.id, :id_to_check => @page.page_id) %>
+							<% end %>
+						</div>	
+					</div>						
+				<% end %>								
+
+						
+		
+			</td>
+			<td>
+					<div class="field">
+						<% if !page.is_system_page? %>
+							<h3><%= label "page", "description" %></h3>								
+							<%= text_field 'page', 'description', :id => "form_description_box_#{page.id}", :disabled => !page.description_editable  %>
+						<% end %>									
+					</div>			
+																													
+					<% if !page.is_system_page? %>
+						<div class="field">
+							<h3>
+								<%= check_box "page", "published" %>
+								<%= icon("public") %>
+								<%= label "page", "published" %>
+							</h3>	
+							<%= content_tag(:div, Page.human_attribute_name(:published_description), :class => "description")%>																										
+						</div>	
+						<div class="field">
+							<h3>
+								<%= check_box "page", "locked" %>
+								<%= icon("locked") %>
+								<%= label "page", "locked" %>
+							</h3>	
+							<%= content_tag(:div, Page.human_attribute_name(:locked_description), :class => "description") %>																										
+						</div>	
+						<div class="field">
+							<h3>
+								<%= check_box "page", "display_in_menu" %>
+								<%= icon("menu") %>
+								<%= label "page", "display_in_menu" %>
+							</h3>	
+						</div>	
+						<div class="field">
+							<h3>
+								<%= check_box "page", "redirect" %>
+								<%= icon("redirect") %>
+								<%= label "page", "redirect" %>
+								<%= content_tag(:div, text_field("page", "redirect_url"), :class => "description") %>																										
+							</h3>	
+						</div>			
+				<% end %>																		
+			</td>					
+		</tr>
+	</table>			
+</div>
+<%= link_to_function content_tag(:h3, link_to_function(raw("#{icon("details")} #{t("label.additional_info")}"), "$('#additional_info').toggle()"), :style => "padding:5px 0px") %>
+<div id="additional_info" class="box_2" style="display:none;">
+	<table cellpadding=0 cellspacing=0>
+		<tr>
+			<td>
+				<% if params[:action] == "edit" || params[:action] == "update" %>
+					<div class="side">									
+						<div class="box_1" style="margin-bottom:0px">
+							<h3 class="title"><%= icon("details") %> <%= t("label.additional_info") %></h3>
+							<%= Page.human_attribute_name(:updated_at) %>: <b><%= friendly_date @page.updated_at %></b>		<br>					
+							<%= Page.human_attribute_name(:created_at) %>:  <b><%= friendly_date @page.created_at %></b>		<br>
+							<% if @page.user %>
+								<%= Page.human_attribute_name(:user_id) %> 			
+								<b><%= link_to  "#{h @page.user.username}", {:action => "user", :controller => "browse", :id => @page.user}, :title => "#{@page.user.username}"  %></b>
+								<%= user_avatar(@page.user, :size => "tiny") %>
+							<% end %>	
+						</div>	
+					</div>						
+				<% end %>							
+			</td>
+			<td>
+				<%= render :partial => "shared/html_allowed" %>												
+			</td>
+		</tr>
+	</table>
+
+</div>
+						
+
+
+				
+
+
 <div style="height:20px"></div>		
 
-<% if page.is_blog_post? %>			
-<div align=left style="margin-bottom:20px">
-		<%= datetime_select 'page', 'created_at'  %>
-		<%= label "page", "created_at" %>		
-</div>	
-<% end %>	
 
 
 

@@ -100,6 +100,7 @@ en:
     or: Or
     mode: Mode
     effects: Effects    
+    advanced: Advanced
   # Flash Messages & Notices
   notice:
     save_success: Your changes have been successfully saved!
@@ -235,7 +236,6 @@ en:
     captcha: Verification Code
     rss_feed: RSS Feed
     search: Search
-    advanced_search: Advanced Search
     register: Sign Up!
     register_message: Don't have an account? 
     sort_asc: Currently sorted in ascending order.
@@ -319,7 +319,7 @@ en:
       show_user_login: Display User Login
       display_help_sections: Display Help Sections
       theme: Theme
-      setup_completed: "translation missing: en, setting, title, setup_completed"
+      setup_completed: Setup Completed!
       display_popular_items: Display Most Popular Items
       users_can_delete_items: Let Users Delete Their Items
       item_name: Item Name
@@ -352,7 +352,7 @@ en:
       site_title: The Title of your Site. You would see this at the very top of your browser window.
       site_description: The description for your site. Used in the title of your page(at the top of your browswer) and for search engine submission.
       site_keywords: The Keywords Metatag for your site. Used for search engine submission. Seperated by commas.      
-      locale: The default language and time zone used by Opal. Users can also set their own unique locale.
+      locale: The default language and time zone used by Opal. Since users can also set their own unique locale, this applies to visitors and new users.
       display_item_views: Display the number of times an item has been viewed(visible on an item's page).
       caching: This allows item pages to be cached to speed up performance. A flat file is stored on the server that visitors will see, instead of having the server generate a dynamic page every time.
       new_item_notification: If enabled, all admins will be sent an email when a new item is created.

@@ -97,8 +97,7 @@ class SettingsController < ApplicationController
   
   def themes
    @themes = Array.new
-   themes_dir = File.join(@setting[:theme_dir], "..")  # the folder containing the themes
-   Dir.new(themes_dir).entries.each do |file|
+   Dir.new(@setting[:themes_dir]).entries.each do |file|
      if (file.to_s != ".") && (file != "..")
       @themes << file
      end 

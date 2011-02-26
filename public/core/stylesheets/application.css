@@ -6,6 +6,14 @@ textarea{overflow:auto;}
 td{vertical-align:top;}
 p{margin:0px 0px 20px 0px;}
 
+/*  Layout */
+#wrapper{height:auto !important; height:100%; min-height:100%;position:relative;}
+#wrapper > #header{width: 900px ; margin: 0 auto ;;}
+#wrapper > #content{width: 900px ;margin: 0 auto ;height:100%}
+		#wrapper > #content #main, div.main{width:660px;float:left;}
+		#wrapper > #content #side, div.side{width:230px;float:left;padding-right:10px}
+#wrapper > #footer{position:absolute;bottom:0;width:100%;padding:5px 0px 0px 0px;;text-align:center;}
+
 
 /* Links */
 a:visited, a:link{outline: none;}
@@ -22,6 +30,8 @@ img.help{cursor:help;}
 
 /* Tables & Cells */
 td.icon_column{width:20px;vertical-align:middle;text-align:center}
+td.left{padding-right:10px}
+td.right{padding-left:10px}
 
 /* Interaction States(Selection, Hovering, Sorting, Etc.) */
 .hoverable{opacity:0.90;filter:alpha(opacity=90);-moz-opacity:0.9;-khtml-opacity: 0.9;}
@@ -65,7 +75,10 @@ div.simple_captcha_image{}
 
 
 /* Forms, Fields & Inputs */
-.form_box input, .form_box select, .form_box textarea{margin-bottom:12px;} 
+.form_box input, .form_box select, .form_box textarea{margin-bottom:12px;}
+.field{margin:10px 0px}
+	.field input{vertical-align:middle}
+	.field .description{padding:0px 0px 0px 25px} 
 
 
 /* Other Stuff */

@@ -1,9 +1,8 @@
 
-
-<p>
-<%= text_field 'description', 'title', :id => "form_title_box_#{description.id}", :onfocus => "focus_input('form_title_box_#{description.id}')", :onblur => "blur_input('form_title_box_#{description.id}')"%>
-<%= PluginDescription.human_attribute_name(:title) %>	
-</p>
+<div class="field">
+		<h3><%= PluginDescription.human_attribute_name(:title) %></h3>							
+		<%= text_field 'description', 'title' %>
+</div>
 
 <div align=right>
 	<a href="javascript:toggleEditor('<%= "form_content_box_#{description.id}" %>');"><%= t("label.toggle_editor") %></a>

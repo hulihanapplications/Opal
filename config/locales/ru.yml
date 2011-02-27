@@ -1,0 +1,648 @@
+# Schema: group by category(log, notice, etc.), use interpolation(ie: %{item}), anything from user perspective(ie: "My Account") should be labeled: user_account, all verbs must not use any tense(created_account = bad, create_account = good). 
+ru:
+  greeting: Привет %{name}! # call with t(:greeting, :name => "John")
+  # Sections
+  section:
+    title: 
+      home: Главная
+      items: %{items}
+      blog: Блог
+      forum: Форум
+      admin: Админ. панель
+      tools: Tools 
+      configure: Configure    
+      my_account: Мой профиль    
+      my_settings: Мои настройки   
+  # Single Words 
+  single:
+    ago: Ago
+    by: By
+    admin: Administration
+    save: Сохранить
+    submit: Отправить
+    search: Искать
+    cancel: Отменить
+    delete: Удалить
+    edit: Редактировать
+    new: Новый
+    create: Создать
+    sort: Сортировать
+    view: Просмотреть
+    help: Помощь
+    deleted: Удален
+    created: Создан
+    updated: Обновлен
+    downloaded: Скачан
+    download: Скачать
+    upload: Загрузить
+    warning: Внимание    
+    added: Добавлен
+    language: Язык
+    locale: Локализация
+    anonymous: Аноним
+    visitor: Посетитель
+    ip_address: IP адрес
+    theme: Тема
+    section: Секция
+    format: Формат
+    avatar: Аватар
+    name: Название 
+    description: Описание
+    archive: Архив  
+    send: Послать
+    none: - Нет -
+    all: Все
+    back: Назад
+    time: Время 
+    not: Нет
+    private: Личный
+    options: Опции
+    popular: Популярный
+    all: Все
+    close: Закрыть
+    open: Открыть
+    from: От
+    to: Кому
+    reply: Ответить
+    sent: Послать
+    details: Детали
+    positive: "Да"
+    negative: "Нет"
+    notification: Уведомление
+    approved: Подтвержден
+    system: Система
+    public: Публичный
+    import: Импорт
+    export: Экспорт
+    text: Текст
+    number: Число
+    slider: Прокрутка 
+    date: Дата     
+    stars: Звезды
+    grouped: Группировка
+    keyword: Ключевое слово
+    required: Обязательное
+    title: Заглавие
+    url: URL
+    enabled: Включен
+    disabled: Выключен
+    logo: Логотип
+    preview: Просмотр
+    version: Версия
+    website: Сайт
+    install: Установка
+    security: Безопасность
+    information: Информация
+    for: для
+    watermark: Водяной знак
+    stamp: Марка    
+    main: Главный
+    or: Или
+    mode: Режим
+  # Flash Messages & Notices
+  notice:
+    save_success: Ваши изменения были успешно сохранены!
+    save_failure: Ваши изменения не могут быть сохранены!
+    item_save_success: Этот %{item} сохранен!
+    item_save_failure: Этот %{item} не может быть сохранен.
+    item_create_success: %{item} создан!
+    item_create_failure: %{item} не может быть создан.    
+    item_delete_success: %{item} удален!
+    item_delete_failure: %{item} не может быть удален.
+    item_install_success: %{item} установлен!
+    item_install_failure: Этот %{item} не может быть установлен. 
+    item_uninstall_success: %{item} удален!
+    item_uninstall_failure: Этот %{item} не может быть удален.
+    item_approve_success: Этот %{item} подтвержден! Спасибо!
+    item_unapprove_success: Этот %{item} был отмечен как неподтвержденный!
+    item_import_success: Успешно импортировано %{count} %{items}.
+    item_forgot_to_select: Вы забыли выбрать %{item}.
+    item_not_found: %{item} не найден.
+    item_invalid: Извините, этот %{item} не верен.    
+    item_needs_approval: Этот %{item} все ещё нуждается в подтверждении.
+    items_disabled: Извините, %{items} не включены.
+    items_cannot_add_any_more: Вы не можете добавить ещё %{items}.
+    items_not_found: Не найдено %{items}.
+    items_forgot_to_select: Вы не выбрали %{items}.
+    file_not_found: "Файл не найден: %{file}"
+    not_visible: Извините, вам нельзя это видеть.
+    invalid_email: Извините, вы ввели неправильный email адрес.
+    invalid_permissions: Извините, вам нельзя это сделать.
+    user_account_create_success: Ваш профиль создан!    
+    user_account_create_failure: Ваш профиль не может быть создан.
+    user_account_needs_verification: Ваш профиль нуждается в активации, перед тем как вы сможете войти. Активационное письмо было выслано на Ваш email.
+    user_account_verify_success: Ваш профиль был активирован!<br>Теперь вы можете войти. 
+    user_account_verify_failure: Ваш профиль не может быть активирован. 
+    user_account_recover_password_instructions:  Инструкции по восстановлению пароля были высланы Вам на email.                     
+    user_account_recover_password_success: Ващ пароль был изменен на %{new_password}. Вы должны немедленно изменить пароль, потому что Ваш пароль - временный.
+    user_account_recover_password_failure: Ваш пароль не может быть восстановлен.
+    user_login_success: Вы успешно вошли. Добро пожаловать! 
+    user_login_failure: Ошибка входа. Извините.    
+    user_logout_success: Вы успешно вышли! Удачного дня.     
+    user_thanks: Спасибо %{name}!   
+    user_thanks_for_voting: Спасибо за голосование, %{name}!
+    user_not_logged_in: Вы должны войти чтобы сделать это.
+    contact_thanks: Спасибо за связь с нами, %{name}. Мы постараемся поскорее вам ответить!
+    invalid_captcha: Вы ввели неправильный код!
+    disabled: Извините, это выключено.
+    account_not_verified: Извините, Ваш профиль ещё не был активирован.
+    account_disabled: Ваш профиль был заблокирован.
+    failed_admin_access_attempt: Вы не администратор! Была записана информация о вашей попытке доступа в эту часть сайта.
+    association_loop_failure: %{item} не может принадлежать себе. Это сумашествие!
+    delete_own_group_failure: Извините, вы не можете удалить свою собственную группу.
+    search_results_left_blank: Я не знаю что искать!
+    message_send_success: Ваш %{item} был послан %{to}. 
+    message_send_failure: Ваш %{item} %{to} не может быть послан! 
+    invalid_file_extensions: "Этот %{item} не может быть сохранен потому что имя файла не заканчивается следующим образом: %{acceptable_file_extensions}"
+  # Logs 
+  log: # call with t(:failed_admin_access_attempt_user, :scope => [:log]) or t("log.failed_admin_access_attempt_user") 
+    item_create: "Создан %{item}: %{name}"
+    item_save: "Сделаны изменения в %{item}: %{name}"
+    item_delete: "Удален %{item}: %{name}"
+    item_install: "Установлен %{item}: %{name}"
+    item_uninstall: "Удален %{item}: %{name}"
+    item_enable: "Включен %{item}: %{name}"
+    item_disable: "Выключен %{item}: %{name}"    
+    item_approve: "Подтвержден %{item}: %{name}"
+    item_verify: "Активирован %{item}: %{name}"
+    item_unapprove: "Не подтвержден %{item}: %{name}"
+    item_downloaded_by_user: "Скачан %{item}: %{name}"
+    item_downloaded_by_visitor: "Посетитель с адресом %{ip} скачал %{item}: %{name}"
+    item_voted_for: "Проголосовал за %{item}: %{name}"
+    item_voted_against: "Проголосовал против %{item}: %{name}"
+    item_recovered: Восстановлен %{item}.
+    item_email_sent: %{item} email послан %{name}.    
+    user_account_item_save: Изменил мой %{item}.    
+    user_account_create: "Создан профиль %{title}."
+    user_account_verify: "Активировал мой аккаунт."
+    items_imported: "%{count} %{items} импортировано."
+    failed_admin_access_attempt_visitor: Кто-то с адресом %{ip} пытался войти в Админ. зону. %{controller} - %{action}
+    failed_admin_access_attempt_user: %{username}(%{id}) пытался войти в Админ. зону. %{controller} - %{action}
+  # Email
+  email:
+    subject:
+      contact_us: "%{site_title}: Обратная связь от %{from}"
+      item_new: "%{title}: Новый %{item} - %{name}"
+      item_new_from_user: "%{title}: New %{item} от %{from} - %{name}"
+      verification: "%{title}: Активации обязательна - %{name}"
+    message:
+      item_new: "At %{title}, there's a new %{item} in town: %{name}. Check it out their profile here: \n\n%{url}\n\n"    
+      item_new_from_user: "At %{title}, %{from} has created a new %{item}: %{name}. Check it out here:\n\n%{url}\n\n"   
+      new_message_from_user: "At %{title}, you've received a new message from %{from}:\n\n%{message}\n\nYou can reply to this message or read your other messages here:\n\n%{url}\n\n"
+      password_recovery: "At %{title}, A password recovery request has been made for your account: %{name}.\n\nTo recover your password, go to the following address:\n\n%{url}\n\nIf you didn't make this request, please disregard this email. Feel free to contact %{title} if you have any questions or concerns."  
+      verification: "In order to log in to your account(%{name}) at %{title}, you must first verify your account by clicking on this verification link:\n\n%{url}"    
+  # Labels & Sentences
+  label:
+    app_name: Opal  
+    create_account: Создать новый профиль
+    password_mismatch: Ваши пароли не совпадают!
+    username_available: Это имя пользователя свободно!
+    username_taken: Это имя пользователя уже занято! 
+    agree_to_tos: Создавая профиль вы соглашаетесь с 
+    logged_in_as: Вы вошли как %{username}  
+    item_create: Создать %{item}
+    item_edit: Редактировать %{item}
+    item_save: Сохранить %{item}
+    item_delete: Удалить %{item}
+    item_new: Новый %{item}
+    item_my: Мой %{item}
+    item_select: Выбрать %{item}
+    item_install: Установка %{item}
+    item_uninstall: Удален %{item}
+    item_new_child: Новый дочерний %{item}
+    item_send_to: Послать %{item} для %{name}
+    item_change: Изменить %{item}.
+    item_featured: Рекомендованный %{item}
+    item_view_items: Просмотреть %{item}этого %{items}.
+    item_recently_added: Этот %{item} был добавлен за последние 3 дня.
+    item_mark_as: Отметить %{item} как %{name}
+    item_unknown: "Неизвестный %{item}: %{name}"    
+    items_from: %{items} от %{name}
+    items_for: %{items} для %{name}
+    items_more: Больше %{items}
+    items_remaining: %{items} осталось
+    items_found: Найдено %{count} %{items}.
+    items_latest: Последние %{items}    
+    items_none_added: %{items} не добавлено. 
+    user_greeting: Привет, %{name}.
+    user_by:  %{name}
+    user_welcome_to_admin: Добро пожаловать в Админ. панель, всемогущий %{name}.
+    user_welcome_to_account:  Добро пожаловать в Ваш профиль. Здесь вы можете добавить новые %{items}, проверить сообщения, и многое другое! 
+    user_logged_in_as: Вы вошли как
+    search_results_for: Результат поиска для %{query}    
+    apology: Уупс!
+    captcha: Код подтверждения
+    rss_feed: RSS Лента
+    search: Поиск
+    advanced_search: Расширенный поиск
+    register: Регистрация!
+    register_message: У вас нет профиля? 
+    sort_asc: Отсортировано в возрастающем порядке.
+    sort_desc: Отсортировано в убывающем порядке. 
+    log_in: Вход
+    log_out: Выход
+    log_in_forgot_password: Забыли пароль? Нет проблем!
+    log_in_forgot_password_message: Пожалуйста введите email адрес вашего профиля.
+    log_in_recover_password: Восстановить пароль
+    log_in_redirect_message: Предыдущая посещенная страница сохранена. Пожалуйста Войдите для продолжения.			
+    check_all: Отметить все
+    additional_info: Дополнительная информация
+    time_today: Сегодня
+    time_this_week: На этой неделе    
+    time_this_month: В этом месяце
+    time_this_year: В этом году
+    time_any: В любое время
+    recently_added: Недавно добавленные
+    approval_required: Требуется подтверждение
+    not_found: Не найдено
+    zoom_in: Просмотреть в полном размере
+    toggle_editor: Вкл/Выкл редактор
+    csv: CSV (разделенный запятыми)
+    make_link: Сделать это ссылкой.
+    out_of: закончились
+    from_local: С вашего компьютера
+    from_web: С сайта (URL)
+    image_effect_bw: "Монохромный(Черно-белый)"
+    image_effect_sepia: Сепия
+    image_effect_rotate_90_cw: "Повернуть на 90&deg; по часовой стрелке"
+    image_effect_rotate_90_ccw: "Повернуть на 90&deg; против часовой стрелки"
+    image_effect_rotate_180: "Повернуть на 180&deg;"
+    image_effect_gaussian_blur: Размытие по Гауссу
+    image_effect_polaroid: Polaroid
+    image_effect_negate: Негатив
+    image_effect_resize: Измерить размер до %{width} x %{height} пикселей
+    tag_example: "Например: веселый, смешной, странный"
+    check_for_updates: Проверить обновления
+  # General Information 
+  info: 
+    delete_main_logo: Удаление логотипа отобразит заголовок вашего сайта. 
+    html_allowed: "Следующие HTML-теги разрешены для использования здесь: %{elements}"
+    image_guidelines: Все изображения проверяются на допустимость (не допускается порнографического, оскорбительного содержания или других сцен насилия и жестокости).  Также изображения будут масштабированы до 100x100 пикселей.
+  # Confirmations
+  confirm:
+    general: Вы уверены что хотите сделать это?
+    delete: Вы уверены что хотите удалить это?
+    delete_user: Вы уверены что хотите удалить этого пользователя? Все что создал этот пользователь также будет удалено! Если вы не хотите чтобы это случилось, вы можете вместо этого заблокировать его профиль.
+    item_delete: Вы действительно хотите удалить этот %{item}? 
+  # Settings
+  setting:
+    title:
+      site_title: Заголовок Вашего сайта   
+      site_description: Описание сайта
+      site_keywords: Ключевые слова сайта      
+      locale: Локализация
+      display_item_views: Показывать число просмотров %{item}
+      caching: Кэширование страниц
+      new_item_notification: Оповещать администраторов о новых %{items}
+      section_blog: Блог
+      allow_item_list_type_changes: Разрешить изменения вида списка
+      allow_item_page_type_changes: Разрешить изменения вида страницы
+      include_child_category_items: Включать %{items} дочерней категории
+      max_items_per_user: Максимальное число %{items} для пользователя
+      email_verification_required: Проверка Email обязательна для новых пользователей
+      enable_item_description: Включить описание %{item}
+      display_featured_items: Показывать рекомендованные %{items}
+      enable_navlinks: Включить NavLinks
+      item_approval_required: Требуется подтверждение
+      section_items: Вещи
+      allow_page_comments: Разрешить комментарии к страницам
+      enable_item_date: Включить описание %{item}
+      homepage_type: Тип главной страницы
+      allow_private_items: Разрешить приватные %{items}
+      allow_user_registration: Регистрация пользовавателей
+      item_name_plural: Множественное название вещей
+      allow_public_access: Разрешить публичный доступ
+      enable_contact_us: Включить форму Обратной связи
+      item_page_type: Тип Страницы Вещи
+      let_users_create_items: Позволить пользователям создавать %{items}
+      show_user_login: Показывать Вход для пользователей
+      display_help_sections: Показывать секции помощи
+      theme: Тема
+      setup_completed: "translation missing: en, setting, title, setup_completed"
+      display_popular_items: Показывать самые популярные %{items}
+      users_can_delete_items: Позволить пользователям удалять свои %{items}
+      item_name: Имя %{item}
+      new_user_notification: Оповещать администраторов о новых пользователях
+      list_type: Тип списка
+      items_per_page: %{items} на страницу
+      main_logo: Главный логотип
+      list_type_simple: Простой
+      list_type_detailed: Детальный
+      list_type_photo: Фото
+      list_type_small: Маленький
+      item_page_type_summarized: Итоговый    
+      item_page_type_expanded: Развернутый
+      item_page_type_tabs_horizontal: Вкладки - Горизонтальные 
+      item_page_type_tabs_vertical: Вкладки - Вертикальные
+      item_page_type_accordion: Аккордион
+      # Plugin Settings
+      slideshow_speed: Скорость Слайд-шоу
+      item_thumbnail_width: Ширина пиктограммы %{item}
+      item_thumbnail_height: Высота пиктограммы %{item}
+      resize_item_images: Изменять размер новых изображений
+      item_image_width: Стандартная ширина изображения
+      item_image_height: Стандартная высота изображения
+      login_required_for_download: Требовать вход для скачивания
+      log_downloads: Записывать историю скачек
+      review_type: Review Type
+      score_min: Minimum Score
+      score_max: Maximum Score            
+    description:
+      site_title: The Title of your Site. You would see this at the very top of your browser window.
+      site_description: The description for your site. Used in the title of your page(at the top of your browswer) and for search engine submission.
+      site_keywords: The Keywords Metatag for your site. Used for search engine submission. Seperated by commas.      
+      locale: The default language and time zone used by Opal. Users can also set their own unique locale.
+      display_item_views: Display the number of times an item has been viewed(visible on an item's page).
+      caching: This allows item pages to be cached to speed up performance. A flat file is stored on the server that visitors will see, instead of having the server generate a dynamic page every time.
+      new_item_notification: If enabled, all admins will be sent an email when a new item is created.
+      section_blog: Opal's Integrated Blog. If enabled, a blog link will show up in the main menu.
+      allow_item_list_type_changes: If enabled, this setting allows anyone(even the public) to change the Item list type that they see when visiting your Opal application. This only affects the visitor's browser.
+      allow_item_page_type_changes: If enabled, this setting allows anyone(even the public) to change the page type for items that they're looking at. This only affects the visitor's browser.
+      include_child_category_items: If enabled, all Child Category Items will be included in lists and number counts for the Parent Category. Enabling this creates a small performance drop.
+      max_items_per_user: This specifies the maximum number of items a user can create. Set to 0 for unlimited.
+      email_verification_required: If enabled, new users must click on an verification link that is sent to their email account before they can log in.
+      enable_item_description: Enable/Disable Item Description from item details and lists of items.
+      display_featured_items: Display featured items on the homepage.
+      enable_navlinks: NavLinks are simple navigation links shown at the top of item and item list pages. They show information about which category an item or category is in, and more.
+      item_approval_required: Enable this if you want to approve items created by users before they can be seen by the public. All unapproved items can viewed in the admin section. If disabled, all items will become approved upon creation.
+      section_items: If enabled, Items will be displayed and a  link will be shown in the main menu. If disabled, Opal will no longer display any items.
+      allow_page_comments: If enabled, people can leave comments for pages.
+      enable_item_date: Enable/Disable Item Date from item details and lists of items. This shows the date that the item was created.
+      homepage_type: This is what is shown on your homepage.
+      allow_private_items: If enabled, users can create private items that aren't visible to the public or other users. Only the owner of the item and admins can see private items. If disabled, all items will become public upon creation.
+      allow_user_registration: This specifies if users can register for a new account.
+      item_name_plural: This is the <b>plural</b> name of the items on your site, so if you want to show people homes, this would be <b>homes</b>.
+      allow_public_access: If disabled, users must log in to access the site or any items. If enabled, anyone can view the site and items normally.
+      enable_contact_us: Enable/Disable The Contact Us Form in the About section.
+      item_page_type: This is the visual layout of %{item} pages.
+      let_users_create_items: If disabled, regular users cannot create items...only admins can.
+      show_user_login: This specifies if the user login box is visible on the top menu bar. If disabled, users can login at site.example.com/browse/login
+      opal_version: This is the current version you're running.
+      display_help_sections: Shows Help Sections in various parts of your site to help users and admins with Opal.
+      theme: This is the visual theme for the entire system
+      setup_completed: "translation missing: en, setting, description, setup_completed"
+      display_popular_items: Display the most popular items on the homepage.
+      users_can_delete_items: This allows users to delete items that they've created. If disabled, only admins can delete items.
+      item_name: This is the <b>singular</b> name of the items on your site, so if you want to show people homes, this would be <b>home</b>.
+      new_user_notification: If enabled, all admins will be sent an email when a new user registers.
+      list_type: The visual layout of how your %{items} are listed.
+      items_per_page: This is the number of items to show per page.
+      list_type_simple: View %{items} in a simple format.
+      list_type_detailed: View %{items} in a simple format.
+      list_type_photo: View %{items} as thumbnails.
+      list_type_small: View %{items} in a table.
+      item_page_type_summarized: View %{item} details in a clean, summarized way.
+      item_page_type_expanded: View %{item} with expanded details.
+      item_page_type_tabs_horizontal:  View %{item} details in horizontal tabs.
+      item_page_type_tabs_vertical: View %{item} details in vertical tabs.
+      item_page_type_accordion: View %{item} details in an accordion.
+      # Plugin Settings
+      slideshow_speed: The speed of a slideshow, in milliseconds(ms). Default is 2500.
+      item_thumbnail_width: This is the default width(in pixels) of the thumbnails that are generated.
+      item_thumbnail_height: This is the default height(in pixels) of the thumbnails that are generated.
+      resize_item_images: Enable this if you would like all the images that are added to images resized to a particular size(you can choose the size below).
+      item_image_width: This is the width you want your images(in pixels) to be automatically resized to. 
+      item_image_height: This is the height you want your images(in pixels) to be automatically resized to. 
+      login_required_for_download: If enabled, only users who are logged in can download files. Visitors cannot download anything.
+      log_downloads: Log all downloads in the Item's activity log.
+      review_type: This determines the type of scoring that used for items.
+      score_min: The minimum value that can be used in review scores. This is not used in star ratings.
+      score_max: The maximum value that can be used in review scores.
+  # Plugins
+  plugin:
+    description:
+      image: Images for Items.
+      comment: Comments from Users or Visitors. Comments are small notes or feedback about an item.
+      file: Files uploaded for a particular item. Useful for Software, PDFs, Images, etc.
+      tag: Tags are like labels for an Item. This is another way to organize items besides by categories. All tags in the System are grouped together. You can add as many as you want.
+      feature: "These are shared atttributes that an several items might have. For example: a house would have a feature called price."
+      description: Large Text Descriptions For Items.      
+      link: A link for an item. This can be a link to a page for more information about the item, a website, or a file location.
+      discussion: Allows multiple people to have discussions about an item.   
+      review: Item Reviews from Users. Reviews have scores that are tallied up to rate the value of an item.
+  # Pages
+  page:
+    title:
+      terms_of_service: Terms of Service 
+      contact_us: Contact Us
+    description:
+      terms_of_service: Terms of service for users of this site.
+      contact_us: Get in touch with us.      
+  # System Records
+  record:
+    name:
+      page:        
+    description:
+      page:   
+  # ActiveRecord Models & Validations
+  activerecord:
+    models:
+      user: 
+        one: User 
+        other: Users        
+      user_info: Account Info
+      user_message: Message
+      user_verification: Verification Request
+      group: Group
+      category: Category
+      group_plugin_permission: Group Plugin Permission
+      image: Image
+      log: Activity
+      page: Page
+      public_page: Public Page # psuedo model
+      system_page: System Page # psuedo model
+      blog_page: Blog Post # psuedo model
+      page_comment: Comment
+      plugin: Plugin  
+      plugin_comment: Comment
+      plugin_discussion: Discussion     
+      plugin_discussion_post: Post
+      plugin_description: Description
+      plugin_feature: Feature
+      plugin_feature_value: Value
+      plugin_feature_value_option: Option
+      plugin_file: File
+      plugin_image: Image
+      plugin_link: Link
+      plugin_review: Review
+      plugin_tag: Tag
+      plugin_setting: Setting
+      setting: Setting            
+    attributes:
+      user:
+        username: Username
+        password: Password
+        password_confirmation: Confirm Password
+        first_name: First Name
+        last_name: Last Name
+        email: Email Address
+        created_at: Joined
+        is_admin: Admin?
+        locale: Locale
+        last_login: Latest Login
+        last_login_ip: Latest Login IP Address
+        registered_ip: Registered IP Address
+        is_verified: Verified
+      user_info:
+        location: My Location
+        description: More about Me
+        interests: My Interests
+        notify_of_new_messages: Email me when someone sends me a message
+        forgot_password_code: Password Recovery Code
+        use_gravatar: Use Gravatar?
+      user_message:
+        read: Read
+        unread: Unread      
+      group:
+        name: Name
+        description: Description
+        created_at: Created
+        updated_at: Last Updated
+      group_plugin_permission:
+        can_read: Read
+        can_create: Create
+        can_update: Update
+        can_delete: Delete
+        requires_approval: These actions require approval from owner 
+      category:
+        name: Name
+        description: Description
+        category_id: Parent Category
+        created_at: Created
+        categories: Subcategories
+      plugin:
+        title: Title
+        name: Name
+        description: Description
+        order_number: Order
+        is_builtin: Built In?
+        created_at: Creation Date
+        updated_at: Last Updated
+      plugin_feature:
+        listed: Listed
+        feature_type: Type
+        icon_url: Icon URL
+        min: Minimum Value(optional)
+        max: Maximum Value(optional)
+        search_type: Search Type
+      item:
+        id: ID
+        name: Name
+        description: Description
+        views: Views
+        created_at: Created
+        updated_at: Updated
+        user_id: Added by
+        featured: Featured
+        featured_description: If featured, this will be given special attention and shown on the homepage.        
+        locked: Locked
+        locked_description: If locked, no changes can be made to this.
+        is_public: Public
+        is_public_description: If this is public, it can be seen by others.
+        is_approved: Approved
+        is_approved_description: This must be approved to be seen by others.                
+      page: 
+        title: Title
+        description: Description
+        published: Published
+        page_id: Parent Page
+        created_at: Date Added
+        updated_at: Last Updated
+        user_id: Added by        
+        published_description: If this is published, it will be visible by others.        
+        redirect: Redirect to URL
+        locked_description: If locked, people cannot add comments to this.
+      page_comment:
+        anonymous_name: Name
+        anonymous_email: Email
+        comment: Comment
+      plugin_review:
+        review_score: Score
+        average: Average
+    errors: # you can find the list of validation error keys here: http://guides.rubyonrails.org/i18n.html 
+      template: 
+        header: 
+          one: "There's 1 thing wrong with this %{model}." 
+          other: "Whoa, there's %{count} things wrong with this %{model}." 
+        body: "There were problems with the following things:" 
+      messages:
+        blank: can't be blank!     
+        confirmation: does not match confirmation!    
+        taken: is taken!
+        invalid: is in an invalid format!
+        too_short: is too short!
+        not_a_number: is not a number!
+        out_of_range: is out of range!
+        too_long: is too long!     
+        range: must be between %{min} and %{max}
+        items_cannot_add_more: You can't add any more %{items}.    
+        item_must_be_owner: You must be the owner of this %{item} to do this.
+  # Locales
+  locales:
+    en: English
+    ru: Russian (русский)
+  # Date & Times 
+  date:
+    formats:
+      # Use the strftime parameters for formats.
+      # When no format has been given, it uses default.
+      # You can provide other formats here if you like!
+      default: "%d-%m-%Y"
+      short: "%b %d"
+      long: "%B %d, %Y"  
+    day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
+    abbr_day_names: [Sun, Mon, Tue, Wed, Thu, Fri, Sat]
+      
+    # Don't forget the nil at the beginning; there's no such thing as a 0th month
+    month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
+    abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+    # Used in date_select and datime_select.
+    order: [ :year, :month, :day ]     
+  time:
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"   
+      short: "%b %d at %H:%M %p" 
+      long: "%b %d, %Y at %I:%M %p"
+      yesterday: "Yesterday at %I:%M %p"
+      weekday: "%a at %I:%M %p"
+      month_year: "%B %Y"    
+    am: "am"
+    pm: "pm" 
+  datetime:
+    distance_in_words:
+      half_a_minute: "half a minute"
+      less_than_x_seconds:
+        one: "less than 1 second"
+        other: "less than %{count} seconds"
+      x_seconds:
+        one: "1 second"
+        other: "%{count} seconds"
+      less_than_x_minutes:
+        one: "less than a minute"
+        other: "less than %{count} minutes"
+      x_minutes:
+        one: "1 minute"
+        other: "%{count} minutes"
+      about_x_hours:
+        one: "about 1 hour"
+        other: "about %{count} hours"
+      x_days:
+        one: "1 day"
+        other: "%{count} days"
+      about_x_months:
+        one: "about 1 month"
+        other: "about %{count} months"
+      x_months:
+        one: "1 month"
+        other: "%{count} months"
+      about_x_years:
+        one: "about 1 year"
+        other: "about %{count} years"
+      over_x_years:
+        one: "over 1 year"
+        other: "over %{count} years"
+      almost_x_years:
+        one: "almost 1 year"
+        other: "almost %{count} years"        
+        
+        

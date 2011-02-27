@@ -2,8 +2,20 @@ class UsersController < ApplicationController
  before_filter :authenticate_user # must be logged in
  before_filter :find_user, :except => [:index, :create, :new]
  before_filter :authenticate_admin, :except => [:change_password, :change_avatar, :update, :edit] # make sure logged in user is an admin
-#before_filter :enable_user_menu, :only => [:edit, :update]   
+ #before_filter :enable_user_menu, :only => [:edit, :update]   
  before_filter :enable_admin_menu, :except => [:change_password, :change_avatar, :update, :edit]  # show admin menu 
+ before_filter :protect_against_self, :only => [:delete, :toggle_user_disabled, :toggle_user_verified] 
+
+  def protect_against_self # prevent logged in user from performing restrictive actions against themselves 
+    if defined?(@user)
+       if @user.id == @logged_in_user.id # selected user is same as logged in user
+          flash[:failure] = t("notice.invalid_permissions")
+          redirect_to :action => "index"
+       else # not the same user, proceed
+          # proceed
+       end 
+    end 
+  end 
 
    def find_user
     if @logged_in_user.is_admin?
@@ -49,7 +61,7 @@ class UsersController < ApplicationController
       
       if @logged_in_user.is_admin? 
          # Manually change protected attributes
-        @user.is_admin = params[:user][:is_admin]
+        @user.is_admin = params[:user][:is_admin] unless @logged_in_user.id == @user.id # let them change admin permission, unless they're doing it to themselves
         @user.group_id = params[:group_id]        
       else # User is not admin
         # Reset protected attributes  
@@ -77,13 +89,9 @@ class UsersController < ApplicationController
    end
   
    def delete 
-     if @user.id == @logged_in_user.id.to_i # trying to delete the user they're logged in as.
-       flash[:failure] = t("notice.invalid_permissions")
-     else
-       Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.item_delete", :item => User.model_name.human, :name => @user.username))
-       flash[:success] = t("notice.item_delete_success", :item => User.model_name.human) 
-       @user.destroy
-     end
+     Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.item_delete", :item => User.model_name.human, :name => @user.username))
+     flash[:success] = t("notice.item_delete_success", :item => User.model_name.human) 
+     @user.destroy
      redirect_to :action => 'index'
    end
    

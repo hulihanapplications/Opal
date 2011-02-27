@@ -216,7 +216,7 @@ ul#tabmenu {	list-style:none; 	margin:0 !important; 	padding:0;	height:25px;	mar
 .pagination a{border:1px solid #ccc;background:url(../images/bgs/white_trans_50.png) repeat;padding:10px;;text-decoration:none;-moz-border-radius: 3px;-webkit-border-radius: 3px;}
 .pagination a:hover{border:1px solid #aaa;background:url(../images/bgs/black_trans_05.png) repeat;padding:10px;text-decoration:none}
 .pagination .current, .pagination em{font-style:normal;border:1px solid #aaa;background:url(../images/bgs/black_trans_05.png) repeat;;padding:10px;-moz-border-radius: 3px;-webkit-border-radius: 3px;}
-.disabled{border:1px solid #ccc;background:url(../images/bgs/white_trans_50.png) repeat;padding:10px;filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity: 0.5;opacity: 0.5;-moz-border-radius: 3px;-webkit-border-radius: 3px;}
+.pagination .disabled{border:1px solid #ccc;background:url(../images/bgs/white_trans_50.png) repeat;padding:10px;filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity: 0.5;opacity: 0.5;-moz-border-radius: 3px;-webkit-border-radius: 3px;}
 
 /* SimpleCaptcha */
 .simple_captcha_image{padding:1.2px;border:1px solid #666;background:#fff;-moz-border-radius: 3px;-webkit-border-radius: 3px;}

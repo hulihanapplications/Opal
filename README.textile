@@ -1,6 +1,8 @@
 h1. Opal
  
-Opal is a powerful Item Listing Application built in Ruby on Rails. It allows you to list any kind of item, from houses to video games to hotdog vendors.
+Opal is a powerful Item Listing Application built in Ruby on Rails. It allows you to list any kind of item, from houses to video games to classifieds.
+
+h2. Features 
  
 Opal is powered By Rails 3 and a bunch of "other cool stuff":http://www.hulihanapplications.com/projects/opal. Here's some of the many features found in Opal:
 
@@ -15,6 +17,18 @@ Opal is powered By Rails 3 and a bunch of "other cool stuff":http://www.hulihana
     * Customizable Themes with easy uploader & installer
     * Upload Images with Special Effects(Rotate, Resize, Watermark, Stamp, B&W, etc.)
 
+h2. Uses
+
+Since Opal is highly customizable, you can use it for many different things:
+
+	* Content Management System(CMS)
+	* Blog
+	* E-Commerce Website/Web Store
+	* Image/Video Gallery 
+	* File Download System
+	* Forum/Disccusion Board
+	* Classifieds Website
+	* Review Website
 
 !https://github.com/hulihanapplications/Opal/raw/master/public/themes/fracture/screenshot.png(Opal's Default Theme - Fracture)!
 

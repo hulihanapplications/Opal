@@ -16,7 +16,7 @@
     options[:sortable]    		= false if options[:sortable].nil? # make these sortable?	
 %>
 <% if page.id != options[:id_to_ignore] %>
-	<div class="<%= options[:class] %>" style="<%= options[:style] %>">
+	<div class="<%= options[:class] %> <%= "disabled" if !page.published || !page.display_in_menu %>" style="<%= options[:style] %>">
 		<table style="width:100%">
 			<tr>
 				<td align=left>
@@ -39,6 +39,7 @@
 					<%= link_to icon("comments",  "#{page.page_comments.size} #{PageComment.model_name.human.pluralize}") + " #{page.page_comments.size}", {:action => "page", :controller => "pages", :id => page, :anchor => "comments"}, :title => "#{page.page_comments.size} #{PageComment.model_name.human.pluralize}" if page.is_blog_post? %>
 					
 					<%= icon("private", "#{t("single.not")} #{Page.human_attribute_name(:published)}", "icon help") if !page.published  %>
+					<%= icon("menu_off", "#{Page.human_attribute_name(:display_in_menu)}: #{t("single.disabled")}", "icon help") if !page.display_in_menu  %>					
 					<%= icon("help", page.description, "icon help") if !page.description.blank? %>
 									
 	 				<% if options[:admin_controls] %>				

@@ -423,11 +423,11 @@ ru:
   # Pages
   page:
     title:
-      terms_of_service: Terms of Service 
-      contact_us: Contact Us
+      terms_of_service: Пользовательское соглашение
+      contact_us: Обратная связь
     description:
-      terms_of_service: Terms of service for users of this site.
-      contact_us: Get in touch with us.      
+      terms_of_service: Условия использования для пользователей этого сайта.
+      contact_us: Общайтесь с нами.      
   # System Records
   record:
     name:
@@ -470,54 +470,54 @@ ru:
       setting: Setting            
     attributes:
       user:
-        username: Username
-        password: Password
-        password_confirmation: Confirm Password
-        first_name: First Name
-        last_name: Last Name
-        email: Email Address
-        created_at: Joined
-        is_admin: Admin?
-        locale: Locale
-        last_login: Latest Login
-        last_login_ip: Latest Login IP Address
-        registered_ip: Registered IP Address
-        is_verified: Verified
+        username: Имя пользователя
+        password: Пароль
+        password_confirmation: Подтвердите пароль
+        first_name: Имя
+        last_name: Фамилия
+        email: Адрес Email
+        created_at: Зарегистрирован
+        is_admin: Администратор?
+        locale: Локализация
+        last_login: Последний вход
+        last_login_ip: IP адрес при последнем входе
+        registered_ip: IP адрес при регистрации
+        is_verified: Подтвежден
       user_info:
-        location: My Location
-        description: More about Me
-        interests: My Interests
-        notify_of_new_messages: Email me when someone sends me a message
-        forgot_password_code: Password Recovery Code
-        use_gravatar: Use Gravatar?
+        location: Моё местоположение
+        description: Детали обо мне
+        interests: Мои интересы
+        notify_of_new_messages: Уведомлять по Email о новых сообщениях
+        forgot_password_code: Код восстановления пароля
+        use_gravatar: использовать Gravatar?
       user_message:
-        read: Read
-        unread: Unread      
+        read: Прочитанные
+        unread: Не прочитанные   
       group:
-        name: Name
-        description: Description
-        created_at: Created
-        updated_at: Last Updated
+        name: Название
+        description: Описание
+        created_at: Создан
+        updated_at: Обновлен
       group_plugin_permission:
-        can_read: Read
-        can_create: Create
-        can_update: Update
-        can_delete: Delete
-        requires_approval: These actions require approval from owner 
+        can_read: Чтение
+        can_create: Создание
+        can_update: Обновление
+        can_delete: Удаление
+        requires_approval: Эти действия требуют подтвеждения создателем 
       category:
-        name: Name
-        description: Description
-        category_id: Parent Category
-        created_at: Created
-        categories: Subcategories
+        name: Название
+        description: Описание
+        category_id: Родительская категория
+        created_at: Создана
+        categories: Подкатегории
       plugin:
-        title: Title
-        name: Name
-        description: Description
-        order_number: Order
-        is_builtin: Built In?
-        created_at: Creation Date
-        updated_at: Last Updated
+        title: Заглавие
+        name: Название
+        description: Описание
+        order_number: Порядковый номер
+        is_builtin: Встроенный?
+        created_at: Дата создания
+        updated_at: Последнее обновление
       plugin_feature:
         listed: Listed
         feature_type: Type
@@ -568,15 +568,15 @@ ru:
       messages:
         blank: can't be blank!     
         confirmation: does not match confirmation!    
-        taken: is taken!
-        invalid: is in an invalid format!
-        too_short: is too short!
-        not_a_number: is not a number!
-        out_of_range: is out of range!
-        too_long: is too long!     
-        range: must be between %{min} and %{max}
-        items_cannot_add_more: You can't add any more %{items}.    
-        item_must_be_owner: You must be the owner of this %{item} to do this.
+        taken: занято!
+        invalid: в неправильном формате!
+        too_short: слишком короткое!
+        not_a_number: не число!
+        out_of_range: вне диапазона!
+        too_long: слишком длинное!     
+        range: должно быть между %{min} и %{max}
+        items_cannot_add_more: Вы не можете добавить ещё %{items}.    
+        item_must_be_owner: Вы должны быть владельцем этого %{item} чтобы сделать это.
   # Locales
   locales:
     en: English
@@ -590,12 +590,12 @@ ru:
       default: "%d-%m-%Y"
       short: "%b %d"
       long: "%B %d, %Y"  
-    day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
-    abbr_day_names: [Sun, Mon, Tue, Wed, Thu, Fri, Sat]
+    day_names: [Воскресенье, Понедельник, Вторник, Среда, Четверг, Пятница, Суббота]
+    abbr_day_names: [Вс, Пн, Вт, Ср, Чт, Пт, Сб]
       
     # Don't forget the nil at the beginning; there's no such thing as a 0th month
-    month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
-    abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+    month_names: [~, Январь, Февраль, Март, Апрель, Май, Июнь, Июль, Август, Сентябрь, Октябрь, Ноябрь, Декабрь]
+    abbr_month_names: [~, Янв, Фев, Мар, Апр, Май, Июн, Июл, Авг, Сен, Окт, Ноя, Дек]
     # Used in date_select and datime_select.
     order: [ :year, :month, :day ]     
   time:
@@ -603,8 +603,8 @@ ru:
       default: "%a, %d %b %Y %H:%M:%S %z"   
       short: "%b %d at %H:%M %p" 
       long: "%b %d, %Y at %I:%M %p"
-      yesterday: "Yesterday at %I:%M %p"
-      weekday: "%a at %I:%M %p"
+      yesterday: "Вчера в %I:%M %p"
+      weekday: "%a в %I:%M %p"
       month_year: "%B %Y"    
     am: "am"
     pm: "pm" 

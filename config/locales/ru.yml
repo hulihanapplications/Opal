@@ -57,7 +57,7 @@ ru:
     not: Нет
     private: Личный
     options: Опции
-    popular: Популярный
+    popular: Популярные
     all: Все
     close: Закрыть
     open: Открыть
@@ -212,7 +212,7 @@ ru:
     item_new_child: Новый дочерний %{item}
     item_send_to: Послать %{item} для %{name}
     item_change: Изменить %{item}.
-    item_featured: Рекомендованный %{item}
+    item_featured: Рекомендованныe %{item}
     item_view_items: Просмотреть %{item}этого %{items}.
     item_recently_added: Этот %{item} был добавлен за последние 3 дня.
     item_mark_as: Отметить %{item} как %{name}
@@ -438,8 +438,10 @@ ru:
   activerecord:
     models:
       user: 
-        one: User 
-        other: Users        
+        one: Пользователь 
+        few: Пользователя
+        many: Пользователей
+        other: Пользователя 
       user_info: Account Info
       user_message: Message
       user_verification: Verification Request
@@ -489,7 +491,7 @@ ru:
         interests: Мои интересы
         notify_of_new_messages: Уведомлять по Email о новых сообщениях
         forgot_password_code: Код восстановления пароля
-        use_gravatar: использовать Gravatar?
+        use_gravatar: Использовать Gravatar?
       user_message:
         read: Прочитанные
         unread: Не прочитанные   
@@ -529,7 +531,7 @@ ru:
         id: ID
         name: Name
         description: Description
-        views: Views
+        views: Просмотры
         created_at: Created
         updated_at: Updated
         user_id: Added by
@@ -562,8 +564,9 @@ ru:
     errors: # you can find the list of validation error keys here: http://guides.rubyonrails.org/i18n.html 
       template: 
         header: 
-          one: "There's 1 thing wrong with this %{model}." 
-          other: "Whoa, there's %{count} things wrong with this %{model}." 
+          one: "Только 1 ошибка в %{model}."
+          few: "%{count} ошибки найдено в %{model}."
+          many: "%{count} ошибок найдено в %{model}." 
         body: "There were problems with the following things:" 
       messages:
         blank: can't be blank!     
@@ -610,39 +613,50 @@ ru:
     pm: "pm" 
   datetime:
     distance_in_words:
-      half_a_minute: "half a minute"
+      half_a_minute: "пол минуты"
       less_than_x_seconds:
-        one: "less than 1 second"
-        other: "less than %{count} seconds"
+        one: "меньше 1 секунды"
+        few: "меньше %{count} секунд"
+        many: "меньше %{count} секунд"
       x_seconds:
-        one: "1 second"
-        other: "%{count} seconds"
+        one: "1 секунда"
+        few: "%{count} секунды"
+        many: "%{count} секунд"
       less_than_x_minutes:
-        one: "less than a minute"
-        other: "less than %{count} minutes"
+        one: "меньше минуты"
+        few: "меньше %{count} минут"
+        many: "меньше %{count} минут"
       x_minutes:
-        one: "1 minute"
-        other: "%{count} minutes"
+        one: "1 минута"
+        few: "%{count} минуты"
+        many: "%{count} минут"
       about_x_hours:
-        one: "about 1 hour"
-        other: "about %{count} hours"
+        one: "около 1 часа"
+        few: "около %{count} часов"
+        many: "около %{count} часов"
       x_days:
-        one: "1 day"
-        other: "%{count} days"
+        one: "1 день"
+        few: "%{count} дня"
+        many: "%{count} дней"
       about_x_months:
-        one: "about 1 month"
-        other: "about %{count} months"
+        one: "около 1 месяца"
+        few: "около %{count} месяцев"
+        many: "около %{count} месяцев"
       x_months:
-        one: "1 month"
-        other: "%{count} months"
+        one: "1 месяц"
+        few: "%{count} месяца"
+        many: "%{count} месяцев"
       about_x_years:
-        one: "about 1 year"
-        other: "about %{count} years"
+        one: "около 1 года"
+        few: "около %{count} лет"
+        many: "около %{count} лет"
       over_x_years:
-        one: "over 1 year"
-        other: "over %{count} years"
+        one: "более 1 rода"
+        few: "более %{count} лет"
+        many: "более %{count} лет"
       almost_x_years:
-        one: "almost 1 year"
-        other: "almost %{count} years"        
+        one: "почти 1 год"
+        few: "почти %{count} года"
+        many: "почти %{count} лет"        
         
         

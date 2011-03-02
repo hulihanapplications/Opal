@@ -18,6 +18,7 @@ ru:
     ago: Ago
     by: By
     admin: Administration
+    cycle: Изменить
     save: Сохранить
     submit: Отправить
     search: Искать
@@ -211,7 +212,7 @@ ru:
     item_uninstall: Удален %{item}
     item_new_child: Новый дочерний %{item}
     item_send_to: Послать %{item} для %{name}
-    item_change: Изменить %{item}.
+    item_change: Изменить %{item}
     item_featured: Рекомендованныe %{item}
     item_view_items: Просмотреть %{item}этого %{items}.
     item_recently_added: Этот %{item} был добавлен за последние 3 дня.

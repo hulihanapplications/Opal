@@ -563,7 +563,7 @@ ru:
         comment: Comment
       plugin_review:
         review_score: Оценка
-        average: Средняя
+        average: Средняя оценка
     errors: # you can find the list of validation error keys here: http://guides.rubyonrails.org/i18n.html 
       template: 
         header: 

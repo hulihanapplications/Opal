@@ -12,7 +12,7 @@
 			</td>
 			<td align=right style="width:80px;">
 				<div class="indent">
-					<i><%= item.views %> <%= Item.human_attribute_name(:views) %></i>
+					<i><%= item.views %> <%= t('activerecord.attributes.item.views', :count => item.views) %><%#= Item.human_attribute_name(:views, :count => item.views) %></i>
 				</div>					
 			</td>
 		</tr>

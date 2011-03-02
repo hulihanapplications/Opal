@@ -9,15 +9,15 @@ ru:
       blog: Блог
       forum: Форум
       admin: Админ. панель
-      tools: Tools 
-      configure: Configure    
+      tools: Инструменты 
+      configure: Настройки    
       my_account: Мой профиль    
       my_settings: Мои настройки   
   # Single Words 
   single:
-    ago: Ago
+    ago: назад
     by: By
-    admin: Administration
+    admin: Админ. панель
     cycle: Изменить
     save: Сохранить
     submit: Отправить
@@ -100,6 +100,8 @@ ru:
     main: Главный
     or: Или
     mode: Режим
+    rss: RSS
+    spacer: "" # Spacer icon doesn't require a title
   # Flash Messages & Notices
   notice:
     save_success: Ваши изменения были успешно сохранены!

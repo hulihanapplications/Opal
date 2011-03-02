@@ -538,13 +538,13 @@ ru:
         created_at: Создан
         updated_at: Обновлен
         user_id: Добавлен
-        featured: Рекомендован
+        featured: Рекомендованный
         featured_description: If featured, this will be given special attention and shown on the homepage.        
-        locked: Заблокирован
+        locked: Заблокированный
         locked_description: If locked, no changes can be made to this.
         is_public: Публичный
         is_public_description: If this is public, it can be seen by others.
-        is_approved: Проверен
+        is_approved: Проверенный
         is_approved_description: This must be approved to be seen by others.                
       page: 
         title: Title
@@ -562,8 +562,8 @@ ru:
         anonymous_email: Email
         comment: Comment
       plugin_review:
-        review_score: Score
-        average: Average
+        review_score: Оценка
+        average: Средняя
     errors: # you can find the list of validation error keys here: http://guides.rubyonrails.org/i18n.html 
       template: 
         header: 

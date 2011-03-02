@@ -189,8 +189,20 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   
   #Create Unverified user
   User.create(:first_name => "Bill", :last_name => "McGrew", :username => "unverified", :password => "unverified", :email => "test2@test.com")
-  
-  #Create User Messages
+
+  # English locale user
+  @user = User.new(:first_name => "English", :last_name => "English", :username => "english", :password => "english", :email => "english@test.com", :group_id => admin_group.id, :is_admin => "1")
+  @user.is_verified = "1"
+  @user.locale = "en"
+  @user.save
+
+  # Russian locale user
+  @user = User.new(:first_name => "Russian", :last_name => "Русский", :username => "russian", :password => "russian", :email => "russian@test.com",  :group_id => admin_group.id, :is_admin => "1")
+  @user.is_verified = "1"
+  @user.locale = "ru"
+  @user.save
+
+   #Create User Messages
   msg = UserMessage.new(:message => "Test message(unread) to test from admin.")
   msg.from_user_id = @admin.id
   msg.user_id = @user.id

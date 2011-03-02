@@ -54,7 +54,7 @@ ru:
     all: Все
     back: Назад
     time: Время 
-    not: Нет
+    not: Не
     private: Личный
     options: Опции
     popular: Популярные
@@ -529,23 +529,22 @@ ru:
         search_type: Search Type
       item:
         id: ID
-        name: Name
-        description: Description
+        name: Название
+        description: Описание
         views:
           one: Просмотр
           few: Просмотра
           many: Просмотров
-          other: sdf
-        created_at: Created
-        updated_at: Updated
-        user_id: Added by
-        featured: Featured
+        created_at: Создан
+        updated_at: Обновлен
+        user_id: Добавлен
+        featured: Рекомендован
         featured_description: If featured, this will be given special attention and shown on the homepage.        
-        locked: Locked
+        locked: Заблокирован
         locked_description: If locked, no changes can be made to this.
-        is_public: Public
+        is_public: Публичный
         is_public_description: If this is public, it can be seen by others.
-        is_approved: Approved
+        is_approved: Проверен
         is_approved_description: This must be approved to be seen by others.                
       page: 
         title: Title

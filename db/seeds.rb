@@ -17,7 +17,12 @@ end
 # Required Data
 print "Installing Required Data..."
 
-
+# Defining locale 
+if ENV['LOCALE'].nil?
+	I18n.locale = "en"
+else
+	I18n.locale = ENV['LOCALE']		
+end
 
 # Create Global Settings
 Setting.create(:name => "item_name", :value => "Item", :setting_type => "Item", :item_type => "string")

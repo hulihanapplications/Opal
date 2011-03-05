@@ -21,14 +21,14 @@ print "Installing Required Data..."
 if ENV['LOCALE'].nil?
 	I18n.locale = "en"
 else
-	I18n.locale = ENV['LOCALE']		
+	I18n.locale = ENV['LOCALE']
 end
 
 # Create Global Settings
-Setting.create(:name => "item_name", :value => "Item", :setting_type => "Item", :item_type => "string")
-Setting.create(:name => "item_name_plural",  :value => "Items", :setting_type => "Item",  :item_type => "string")
-Setting.create(:name => "site_title",  :value => "My Opal Website", :setting_type => "Public",  :item_type => "string")
-Setting.create(:name => "site_description",  :value => "The Free, Open Source, Item Management System. List Anything!", :setting_type => "Public",  :item_type => "string")
+Setting.create(:name => "item_name", :value => I18n.t('seeds.setting.item_name'), :setting_type => "Item", :item_type => "string")
+Setting.create(:name => "item_name_plural",  :value => I18n.t('seeds.setting.item_name_plural'), :setting_type => "Item",  :item_type => "string")
+Setting.create(:name => "site_title",  :value => I18n.t('seeds.setting.site_title'), :setting_type => "Public",  :item_type => "string")
+Setting.create(:name => "site_description",  :value => I18n.t('seeds.setting.site_description'), :setting_type => "Public",  :item_type => "string")
 Setting.create(:name => "theme",  :value => "fracture", :setting_type => "Hidden",  :item_type => "string")
 Setting.create(:name => "max_items_per_user",  :value => "0", :setting_type => "Item", :item_type => "string")
 Setting.create(:name => "items_per_page",  :value => "10", :setting_type => "Item", :item_type => "string")
@@ -61,53 +61,53 @@ Setting.create(:name => "display_featured_items", :value => "1", :setting_type =
 Setting.create(:name => "homepage_type", :value => "new_items", :setting_type => "Hidden", :item_type => "string")
 Setting.create(:name => "item_page_type", :value => "summarized", :setting_type => "Hidden", :item_type => "string")
 Setting.create(:name => "setup_completed", :value => "0", :item_type => "bool", :setting_type => "Hidden")   
-Setting.create(:name => "locale", :value => "en", :item_type => "special", :setting_type => "Public")
+Setting.create(:name => "locale", :value => I18n.locale, :item_type => "special", :setting_type => "Public")
 Setting.create(:name => "allow_item_page_type_changes",  :value => "1", :setting_type => "Item", :item_type => "bool") 
 Setting.create(:name => "allow_item_page_type_changes",  :value => "1", :setting_type => "Item", :item_type => "bool") 
 Setting.create(:name => "opal_version", :value => "0.0.0", :setting_type => "Hidden", :item_type => "string")
 
 # Create Builtin Plugins
-plugin = Plugin.create(:name => "Image", :is_enabled => "1", :is_builtin => "1")
+plugin = Plugin.create(:name => I18n.t('seeds.plugin.image'), :is_enabled => "1", :is_builtin => "1")
     PluginSetting.create(:plugin_id => plugin.id, :name => "slideshow_speed",   :value => "2500", :setting_type => "System", :item_type => "string")
     PluginSetting.create(:plugin_id => plugin.id, :name => "item_thumbnail_width",  :value => "180", :setting_type => "Plugin",  :item_type => "string")
     PluginSetting.create(:plugin_id => plugin.id, :name => "item_thumbnail_height",   :value => "125", :setting_type => "Plugin",  :item_type => "string")           
     PluginSetting.create(:plugin_id => plugin.id, :name => "resize_item_images",   :value => "0", :setting_type => "Plugin",  :item_type => "bool")   
     PluginSetting.create(:plugin_id => plugin.id, :name => "item_image_width",   :value => "500", :setting_type => "Plugin",  :item_type => "string")
     PluginSetting.create(:plugin_id => plugin.id, :name => "item_image_height",  :value => "500", :setting_type => "Plugin", :item_type => "string")        
-plugin = Plugin.create(:name => "Description",    :is_enabled => "1", :is_builtin => "1")
-plugin = Plugin.create(:name => "Feature", :is_enabled => "1", :is_builtin => "1")
-plugin = Plugin.create(:name => "Link", :is_enabled => "1", :is_builtin => "1")    
-plugin = Plugin.create(:name => "Review",  :is_enabled => "1", :is_builtin => "1")
+plugin = Plugin.create(:name => I18n.t('seeds.plugin.description'),    :is_enabled => "1", :is_builtin => "1")
+plugin = Plugin.create(:name => I18n.t('seeds.plugin.feature'), :is_enabled => "1", :is_builtin => "1")
+plugin = Plugin.create(:name => I18n.t('seeds.plugin.link'), :is_enabled => "1", :is_builtin => "1")    
+plugin = Plugin.create(:name => I18n.t('seeds.plugin.review'),  :is_enabled => "1", :is_builtin => "1")
     PluginSetting.create(:plugin_id => plugin.id, :name => "review_type", :value => "Stars", :item_type => "option", :options => "Stars, Slider, Number")
     PluginSetting.create(:plugin_id => plugin.id, :name => "score_min",  :value => "0",  :item_type => "string")
     PluginSetting.create(:plugin_id => plugin.id, :name => "score_max",   :value => "5",  :item_type => "string")        
-plugin = Plugin.create(:name => "Comment", :is_enabled => "1", :is_builtin => "1")    
-plugin = Plugin.create(:name => "File",  :is_enabled => "1", :is_builtin => "1")
+plugin = Plugin.create(:name => I18n.t('seeds.plugin.comment'), :is_enabled => "1", :is_builtin => "1")    
+plugin = Plugin.create(:name => I18n.t('seeds.plugin.file'),  :is_enabled => "1", :is_builtin => "1")
     PluginSetting.create(:plugin_id => plugin.id, :name => "login_required_for_download",   :value => "0", :setting_type => "System",  :item_type => "bool")
     PluginSetting.create(:plugin_id => plugin.id, :name => "log_downloads",  :value => "0", :setting_type => "System", :item_type => "bool")    
-plugin = Plugin.create(:name => "Tag", :is_enabled => "1", :is_builtin => "1")              
-plugin = Plugin.create(:name => "Discussion", :order_number => Plugin.next_order_number, :is_enabled => "1", :is_builtin => "1")
+plugin = Plugin.create(:name => I18n.t('seeds.plugin.tag'), :is_enabled => "1", :is_builtin => "1")              
+plugin = Plugin.create(:name => I18n.t('seeds.plugin.discussion'), :order_number => Plugin.next_order_number, :is_enabled => "1", :is_builtin => "1")
 
 
 
 # Create Categories
-Category.create(:name => "Uncategorized", :category_id => 0, :description => "Things that are just too cool to fit into one category.")
+Category.create(:name => I18n.t('seeds.category.uncategorized.name'), :category_id => 0, :description => I18n.t('seeds.category.uncategorized.description'))
 
 # Create  Pages
 pages = Hash.new
 title = Setting.get_setting("title")
-Page.create(:title => "Banner Top", :description => "Any content added here will show at the top of your site. Useful for ad banners and javascript.", :page_type => "system")
-Page.create(:title => "Banner Bottom", :description => "Any content added here will show at the bottom of your site. Useful for ad banners and javascript.", :page_type => "system")
-#Page.create(:title => "Terms of Service", :description => "The Terms of Service for new users.", :page_type => "system", :content => "<h1>Terms of Service</h1>By joining this site, you agree not to add or submit any damaging or offensive content, including by not limited to: pornography, any malicious software or files, violent or hateful images, etc.<br><br>You also agree not to submit any content that is either stolen, plagiarized, or otherwise listed without the consent of the copyright holder.")
+Page.create(:title => I18n.t('seeds.page.banner_top.title'), :description => I18n.t('seeds.page.banner_top.description'), :page_type => "system", :content => I18n.t('seeds.page.banner_top.content'))
+Page.create(:title => I18n.t('seeds.page.banner_bottom.title'), :description => I18n.t('seeds.page.banner_bottom.description'), :page_type => "system", :content => I18n.t('seeds.page.banner_bottom.content'))
+#Page.create(:title => I18n.t('seeds.page.terms_of_service.title'), :description => I18n.t('seeds.page.terms_of_service.description'), :page_type => "system", :content => I18n.t('seeds.page.terms_of_service.content'))
 # Add a new page that will show when a user is creating a new item.
-Page.create(:title => "New Item", :description => "This page appears when a User is creating a new item.", :page_type => "system", :content => "")
+Page.create(:title => I18n.t('seeds.page.new_item.title'), :description => I18n.t('seeds.page.new_item.description'), :page_type => "system", :content => I18n.t('seeds.page.new_item.content'))
 # Create Email Footer Page
-Page.create(:title => "Email Footer", :description => "This appears at the bottom of any automated email.", :page_type => "system", :content => "This is an automated email sent to you by #{Setting.get_setting("site_title")}. Please do not reply.")
+Page.create(:title => I18n.t('seeds.page.email_footer.title'), :description => I18n.t('seeds.page.email_footer.description'), :page_type => "system", :content => I18n.t('seeds.page.email_footer.content'))
 # Create Homepage Sidebar Page
-Page.create(:title => "Home Page Sidebar", :description => "This page appears in the sidebar of the homepage.", :page_type => "system", :content => "<div class=\"box_2\" style=\"margin-bottom:5px\">\r\n<h1 class=\"title\">Getting Started</h1>To get started, Log in with the username: <strong>admin</strong> and the password: <strong>admin. </strong>\r\n<br><br><h2 class=\"title\">First things First</h2>\r\n <div class=\"spacer\"></div>To start, you might want to change the name of the items you're going to be listing. To do this, log in to your account, Click on the <b>admin</b> tab, then the <b>configure</b> tab. Under the <b>Items</b> subtab, you can change the name of the items you're listing by changing the <b>Item Name</b> and <b>Plural Item Name</b> values.<br><br><h2 class=\"title\">Change this Section</h2>\r\n<div class=\"spacer\"></div>After you log in, Click on the <strong>admin Tab</strong>, then Click on the <strong>Pages Tab</strong>. In the <strong>System Pages Section</strong>, click on the edit icon next to the page: <span style=\"text-decoration: underline;\">Home Page Sidebar</span>. That's all there is to it!<br><br><h2 class=\"title\">Need Any More Help?</h2><div class=\"spacer\"></div>If you need any more help with Opal, check out the <a href=\"http://www.hulihanapplications.com/projects/opal_guide\" onclick=\"window.open(&quot;http://dev.hulihanapplications.com/wiki/opal&quot;, &quot;&quot;, &quot;resizable=yes, location=no, width=400, height=640, menubar=no, status=no, scrollbars=yes&quot;); return false;\"><b>Opal User Guide</b></a> for help on using Opal.</div>")
-Page.create(:title => "Website Top", :description => "Shown at the very very top of the website.", :page_type => "system", :content => "")
-Page.create(:title => "Website Bottom", :description => "Shown at the very very bottom of the website.", :page_type => "system", :content => "")
-Page.create(:title => "Category Column", :description => "This page appears below the category menu.", :page_type => "system", :content => "")
+Page.create(:title => I18n.t('seeds.page.home_page_sidebar.title'), :description => I18n.t('seeds.page.home_page_sidebar.description'), :page_type => "system", :content => I18n.t('seeds.page.home_page_sidebar.content'))
+Page.create(:title => I18n.t('seeds.page.website_top.title'), :description => I18n.t('seeds.page.website_top.description'), :page_type => "system", :content => I18n.t('seeds.page.website_top.content'))
+Page.create(:title => I18n.t('seeds.page.website_bottom.title'), :description => I18n.t('seeds.page.website_bottom.description'), :page_type => "system", :content => I18n.t('seeds.page.website_bottom.content'))
+Page.create(:title => I18n.t('seeds.page.category_column.title'), :description => I18n.t('seeds.page.category_column.description'), :page_type => "system", :content => I18n.t('seeds.page.category_column.content')))
 
 pages[:home] = Page.new(:title => I18n.t("section.title.home"), :description => "The Main Home Page.", :page_type => "public", :content => "<div class=\"box_2\" style=\"margin-bottom:5px\">\r\n<h1 class=\"title\">Welcome!</h1>Welcome to Opal. First time using Opal? No problem. Start by reading the <b>Getting Started</b> section.<br><br><h2 class=\"title\">Change this Section</h2>\r\n<div class=\"spacer\"></div>After you log in, Click on the <strong>admin Tab</strong>, then Click on the <strong>Pages Tab</strong>. In the <strong>Public Pages Section</strong>, click on the edit icon next to the page: <span style=\"text-decoration: underline;\">Home</span>. That's all there is to it!</div>")
 pages[:home].name = "home"

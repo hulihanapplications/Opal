@@ -11,6 +11,7 @@ gem "sanitize"
 gem "will_paginate", ">= 3.0.pre2"
 gem "rmagick"
 gem "i18n", ">=0.5.0"
+gem "russian" # Gem specific for "ru" locale
 
 # Database Gems
 gem "mysql" 

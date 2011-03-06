@@ -24,53 +24,77 @@ ru:
           description: "Вещи которые слишком хороши чтобы поместиться в одной категории."
     page:
       banner_top:
-        title: "Banner Top"
-        description: "Any content added here will show at the top of your site. Useful for ad banners and javascript."
+        title: "Верхний баннер"
+        description: "Любое содержимое добавленое сюда будет показано вверху вашего сайта. Полезно для баннеров и javascript."
         content: ""
       banner_bottom:
-        title: "Banner Bottom"
-        description: "Any content added here will show at the bottom of your site. Useful for ad banners and javascript."
+        title: "Нижний баннер"
+        description: "Любое содержимое добавленое сюда будет показано внизу вашего сайта. Полезно для баннеров и javascript."
         content: ""
       terms_of_service:
-        title: "Terms of Service"
-        description: "The Terms of Service for new users."
-        content: "<h1>Terms of Service</h1>By joining this site, you agree not to add or submit any damaging or offensive content, including by not limited to: pornography, any malicious software or files, violent or hateful images, etc.<br><br>You also agree not to submit any content that is either stolen, plagiarized, or otherwise listed without the consent of the copyright holder."
+        title: "Условия использования"
+        description: "Условия использования для новых пользователей."
+        content: "<h1>Условия использования</h1>By joining this site, you agree not to add or submit any damaging or offensive content, including by not limited to: pornography, any malicious software or files, violent or hateful images, etc.<br><br>You also agree not to submit any content that is either stolen, plagiarized, or otherwise listed without the consent of the copyright holder."
       new_item:
-        title: "New Item"
-        description: "This page appears when a User is creating a new item."
+        title: "Новый товар"
+        description: "Эта страница появляется когда Пользователь будет создавать новый товар."
         content: ""
       email_footer:
-        title: "Email Footer"
-        description: "This appears at the bottom of any automated email."
-        content: 'This is an automated email sent to you by #{Setting.get_setting("site_title")}. Please do not reply.'
+        title: "Подпись Email"
+        description: "Это появляется в подписи автоматических email писем."
+        content: 'Это автоматическое email письмо посланное вам #{Setting.get_setting("site_title")}. Пожалуйста не отвечайте на него.'
       home_page_sidebar:
-        title: "Home Page Sidebar"
-        description: "This page appears in the sidebar of the homepage."
-        content: "<div class=\"box_2\" style=\"margin-bottom:5px\">\r\n<h1 class=\"title\">Getting Started</h1>To get started, Log in with the username: <strong>admin</strong> and the password: <strong>admin. </strong>\r\n<br><br><h2 class=\"title\">First things First</h2>\r\n <div class=\"spacer\"></div>To start, you might want to change the name of the items you\'re going to be listing. To do this, log in to your account, Click on the <b>admin</b> tab, then the <b>configure</b> tab. Under the <b>Items</b> subtab, you can change the name of the items you\'re listing by changing the <b>Item Name</b> and <b>Plural Item Name</b> values.<br><br><h2 class=\"title\">Change this Section</h2>\r\n<div class=\"spacer\"></div>After you log in, Click on the <strong>admin Tab</strong>, then Click on the <strong>Pages Tab</strong>. In the <strong>System Pages Section</strong>, click on the edit icon next to the page: <span style=\"text-decoration: underline;\">Home Page Sidebar</span>. That's all there is to it!<br><br><h2 class=\"title\">Need Any More Help?</h2><div class=\"spacer\"></div>If you need any more help with Opal, check out the <a href=\"http://www.hulihanapplications.com/projects/opal_guide\" onclick=\"window.open(&quot;http://dev.hulihanapplications.com/wiki/opal&quot;, &quot;&quot;, &quot;resizable=yes, location=no, width=400, height=640, menubar=no, status=no, scrollbars=yes&quot;); return false;\"><b>Opal User Guide</b></a> for help on using Opal.</div>"
+        title: "Боковой блок на Главной странице"
+        description: "Эта страница отображается в боковом блоке на Главной странице"
+        content: "<div class=\"box_2\" style=\"margin-bottom:5px\">\r\n<h1 class=\"title\">Введение</h1>Для начала, Войдите с именем пользователя: <strong>admin</strong> и паролем: <strong>admin. </strong>\r\n<br><br><h2 class=\"title\">Перво-наперво</h2>\r\n <div class=\"spacer\"></div>Сначала, вы наверное захотите изменить название вещей, который вы собираетесь размещать. Чтобы сделать это, войдите в ваш профиль, Нажмите на <b>вкладку Админ. панель</b>, потом на <b>вкладку configure</b>. Под <b>вкладкой Items</b>, вы сможете изменить название вещи в полях <b>Item Name</b> и <b>Plural Item Name</b>.<br><br><h2 class=\"title\">Измените этот раздел</h2>\r\n<div class=\"spacer\"></div>После входа, Нажмите на <strong>вкладку Админ. панель</strong>, затем нажмите на <strong>вкладку Страницы</strong>. В <strong>Разделе Системные Страницы</strong>, нажмите на иконку редактирования напротив страницы: <span style=\"text-decoration: underline;\">Боковой блок на Главной странице</span>. Вот и всё что нужно!<br><br><h2 class=\"title\">Нужна ещё помощь?</h2><div class=\"spacer\"></div>Если вам нужная ещё помощь с Opal, прочитайте <a href=\"http://www.hulihanapplications.com/projects/opal_guide\" onclick=\"window.open(&quot;http://dev.hulihanapplications.com/wiki/opal&quot;, &quot;&quot;, &quot;resizable=yes, location=no, width=400, height=640, menubar=no, status=no, scrollbars=yes&quot;); return false;\"><b>Пользовательское руководство Opal</b></a> для помощи в использовании Opal.</div>"
       website_top:
-        title: "Website Top"
-        description: "Shown at the very very top of the website."
+        title: "Верх Вебсайта"
+        description: "Показывается в самом верху сайта."
         content: ""
       website_bottom: 
-        title: "Website Bottom"
-        description: "Shown at the very very bottom of the website."
+        title: "Низ Вебсайта"
+        description: "Показывается в самом низу сайта."
         content: ""
       category_column:
-        title: "Category Column"
-        description: "This page appears below the category menu."
+        title: "Колонка Категорий"
+        description: "Эта страница появляется под меню с категориями."
         content: ""
+      contact_us:
+        title: "Обратная связь"
+        description: "Связывайтесь с нами."
+        content: "<div align=center style=\"margin-bottom:10px\">\r\n<h2 class=\"title\">#{I18n.t('seed.page.contact_us.title')}</h2><hr> #{I18n.t('seed.page.contact_us.description')}</div>"
+      home:
+        title: "Главная"
+        description: "Главная страница сайта."
+        content: "<div class=\"box_2\" style=\"margin-bottom:5px\">\r\n<h1 class=\"title\">Добро пожаловать!</h1>Добро пожаловать в Opal. Впервые используете Opal? Нет проблем. Начните читать раздел <b>Введение</b>.<br><br><h2 class=\"title\">Измените этот Раздел</h2>\r\n<div class=\"spacer\"></div>После входа, нажмите на <strong>вкладку Админ. панели</strong>, затем Нажмите на <strong>вкладку Страницы</strong>. В <strong>Разделе Публичных страниц</strong>, нажмите на иконку редактирования напротив страницы: <span style=\"text-decoration: underline;\">Главная</span>. Вот и все что нужно!</div>"
+      items:
+        title: "Товары"
+        description: ""
+        content: ""
+      blog:
+        title: "Блог"
+        description: ""
+        content: ""
+    group:
+      users:
+        name: "Обычные пользователи"
+        description: "Обычные пользователи которые совершили вход на вашем сайте."
+      admin:
+        name: "Admins"
+        description: "Верховные мастера. Имеют ко всему доступ и могут делать что угодно."
+      public:
+        name: "Публика"
+        description: "Посетители вашего сайта, которые не совершили вход."
   # Sections
   section:
     title: 
-      home: Главная
-      items: %{items}
-      blog: Блог
-      forum: Форум
-      admin: Админ. панель
-      tools: Инструменты 
-      configure: Настройки    
-      my_account: Мой профиль    
-      my_settings: Мои настройки   
+      items: "%{items}"
+      forum: "Форум"
+      admin: "Админ. панель"
+      tools: "Инструменты"
+      configure: "Настройки"
+      my_account: "Мой профиль"
+      my_settings: "Мои настройки"
   # Single Words 
   single:
     ago: назад
@@ -482,14 +506,6 @@ ru:
       link: A link for an item. This can be a link to a page for more information about the item, a website, or a file location.
       discussion: Allows multiple people to have discussions about an item.   
       review: Item Reviews from Users. Reviews have scores that are tallied up to rate the value of an item.
-  # Pages
-  page:
-    title:
-      terms_of_service: Пользовательское соглашение
-      contact_us: Обратная связь
-    description:
-      terms_of_service: Условия использования для пользователей этого сайта.
-      contact_us: Общайтесь с нами.      
   # System Records
   record:
     name:

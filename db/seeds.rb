@@ -109,46 +109,46 @@ Page.create(:title => I18n.t('seeds.page.website_top.title'), :description => I1
 Page.create(:title => I18n.t('seeds.page.website_bottom.title'), :description => I18n.t('seeds.page.website_bottom.description'), :page_type => "system", :content => I18n.t('seeds.page.website_bottom.content'))
 Page.create(:title => I18n.t('seeds.page.category_column.title'), :description => I18n.t('seeds.page.category_column.description'), :page_type => "system", :content => I18n.t('seeds.page.category_column.content'))
 
-pages[:home] = Page.new(:title => I18n.t("section.title.home"), :description => "The Main Home Page.", :page_type => "public", :content => "<div class=\"box_2\" style=\"margin-bottom:5px\">\r\n<h1 class=\"title\">Welcome!</h1>Welcome to Opal. First time using Opal? No problem. Start by reading the <b>Getting Started</b> section.<br><br><h2 class=\"title\">Change this Section</h2>\r\n<div class=\"spacer\"></div>After you log in, Click on the <strong>admin Tab</strong>, then Click on the <strong>Pages Tab</strong>. In the <strong>Public Pages Section</strong>, click on the edit icon next to the page: <span style=\"text-decoration: underline;\">Home</span>. That's all there is to it!</div>")
+pages[:home] = Page.new(:title => I18n.t('seeds.page.home.title'), :description => I18n.t('seeds.page.home.description'), :page_type => "public", :content => I18n.t('seeds.page.home.content'))
 pages[:home].name = "home"
 pages[:home].locked = true
 pages[:home].deletable = false
 pages[:home].save
 
 
-pages[:items] = Page.new(:title => "Items", :page_type => "public", :content => "")
+pages[:items] = Page.new(:title => I18n.t('seeds.page.items.title'), :description => I18n.t('seeds.page.items.description'), :page_type => "public", :content => I18n.t('seeds.page.items.content'))
 pages[:items].name = "items"
 pages[:items].locked = true
 pages[:items].title_editable = false
 pages[:items].deletable = false
 pages[:items].save
 
-pages[:blog] = Page.new(:title => I18n.t("section.title.blog"), :description => "", :page_type => "public", :content => "")
+pages[:blog] = Page.new(:title => I18n.t('seeds.page.blog.title'), :description => I18n.t('seeds.page.blog.description'), :page_type => "public", :content => I18n.t('seeds.page.blog.content'))
 pages[:blog].name = "blog"
 pages[:blog].locked = true
 pages[:blog].deletable = false
 pages[:blog].save
 
-pages[:tos] = Page.new(:name => "terms_of_service", :title => I18n.t("page.title.terms_of_service"), :description => I18n.t("page.description.terms_of_service"), :page_type => "public", :content => "<h1>#{I18n.t("page.title.terms_of_service")}</h1>")
+pages[:tos] = Page.new(:name => "terms_of_service", :title => I18n.t('seeds.page.terms_of_service.title'), :description => I18n.t('seeds.page.terms_of_service.description'), :page_type => "public", :content => I18n.t('seeds.page.terms_of_service.content'))
 pages[:tos].deletable = false
 pages[:tos].name = "terms_of_service"
 pages[:tos].display_in_menu = false
 pages[:tos].locked = true
 pages[:tos].save
 
-pages[:contact_us] = Page.new(:name => "contact_us", :title => I18n.t("page.title.contact_us"), :description => I18n.t("page.description.contact_us"), :page_type => "public", :content => "<div align=center style=\"margin-bottom:10px\">\r\n<h2 class=\"title\">#{I18n.t("page.title.contact_us")}</h2><hr> #{I18n.t("page.description.contact_us")}</div>")
+pages[:contact_us] = Page.new(:name => "contact_us", :title => I18n.t('seeds.page.contact_us.title'), :description => I18n.t('seeds.page.contact_us.description'), :page_type => "public", :content => I18n.t('seeds.page.contact_us.content'))
 pages[:contact_us].locked = true
 pages[:contact_us].deletable = false
 pages[:contact_us].save
 
 # Create Groups
-public_group = Group.new(:name => "The Public", :description => "People visiting your site that aren't logged in.")
+public_group = Group.new(:name => I18n.t('seeds.group.public.name'), :description => I18n.t('seeds.group.public.description'))
 public_group.is_deletable = "0"
 public_group.save     
-users_group = Group.new(:name => "Regular Users", :description => "Regular Users that have signed up at your site.")
+users_group = Group.new(:name => I18n.t('seeds.group.users.name'), :description => I18n.t('seeds.group.users.description'))
 users_group.is_deletable = "0"
 users_group.save   
-admin_group = Group.new(:name => "Admins", :description => "Supreme Masters. They can access and do anything.")
+admin_group = Group.new(:name => I18n.t('seeds.group.admin.name'), :description => I18n.t('seeds.group.admin.description'))
 admin_group.is_deletable = "0"
 admin_group.save  
 

@@ -25,7 +25,7 @@
  		<%= render :partial => "/browse/banner_bottom" %>		
 	</div>
 	<div id="footer">
-		<%= show_page Page.get_system_page("Website Bottom") %>
+		<%= show_page Page.get_system_page(I18n.t('seeds.page.website_bottom.title')) %>
 		<%= render :partial => "shared/footer" %>
 	</div>
 </div>

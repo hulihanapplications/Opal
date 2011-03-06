@@ -61,7 +61,7 @@ Setting.create(:name => "display_featured_items", :value => "1", :setting_type =
 Setting.create(:name => "homepage_type", :value => "new_items", :setting_type => "Hidden", :item_type => "string")
 Setting.create(:name => "item_page_type", :value => "summarized", :setting_type => "Hidden", :item_type => "string")
 Setting.create(:name => "setup_completed", :value => "0", :item_type => "bool", :setting_type => "Hidden")   
-Setting.create(:name => "locale", :value => I18n.locale, :item_type => "special", :setting_type => "Public")
+Setting.create(:name => "locale", :value => I18n.locale.to_s, :item_type => "special", :setting_type => "Public")
 Setting.create(:name => "allow_item_page_type_changes",  :value => "1", :setting_type => "Item", :item_type => "bool") 
 Setting.create(:name => "allow_item_page_type_changes",  :value => "1", :setting_type => "Item", :item_type => "bool") 
 Setting.create(:name => "opal_version", :value => "0.0.0", :setting_type => "Hidden", :item_type => "string")
@@ -129,7 +129,7 @@ pages[:blog].locked = true
 pages[:blog].deletable = false
 pages[:blog].save
 
-pages[:tos] = Page.new(:name => "terms_of_service", :title => I18n.t('seeds.page.terms_of_service.title'), :description => I18n.t('seeds.page.terms_of_service.description'), :page_type => "public", :content => I18n.t('seeds.page.terms_of_service.content'))
+pages[:tos] = Page.new(:title => I18n.t('seeds.page.terms_of_service.title'), :description => I18n.t('seeds.page.terms_of_service.description'), :page_type => "public", :content => I18n.t('seeds.page.terms_of_service.content'))
 pages[:tos].deletable = false
 pages[:tos].name = "terms_of_service"
 pages[:tos].display_in_menu = false
@@ -170,6 +170,7 @@ GroupPluginPermission.find(:first, :conditions => ["group_id = ? and plugin_id =
 @admin.group_id = admin_group.id
 @admin.is_admin = "1" 
 @admin.is_verified = "1"     
+@admin.locale = I18n.locale.to_s
 @admin.save
 
 

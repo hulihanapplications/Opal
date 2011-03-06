@@ -21,7 +21,7 @@
 	   <%= raw "<div class=\"spacer\"></div>" if @public_pages.size > 0 %> 
 	   <% if get_setting_bool("allow_user_registration") %>
 	   		<div class="indent"> 
-				<% page =  Page.get_system_page("Terms Of Service")%>
+				<% page =  Page.get_system_page(I18n.t('seeds.page.terms_of_service.title'))%>
 				<%= link_to_page(page)  %> 			
 			</div>
 	   <% end %>

@@ -17,7 +17,7 @@
   	<div class="box_1" id="category_menu">
    		<%= render :partial => "items/category_menu", :locals => {:options => {:category => @category}} %>
 	</div>
-	<%= show_page Page.get_system_page("Category Column") %>
+	<%= show_page Page.get_system_page(I18n.t('seeds.page.category_column.title')) %>
 </div>
 <div id="main">
 		<%= render :partial => "/items/list_items", :locals => {:items => @items } %>

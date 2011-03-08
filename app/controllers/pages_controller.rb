@@ -28,6 +28,7 @@ class PagesController < ApplicationController
       redirect_to :action => 'index', :type => @page.page_type.capitalize   
     else
       flash[:failure] = t("notice.item_create_failure", :item => Page.model_name.human)
+      params[:type] = @page.page_type.capitalize      
       render :action => "new"
     end
  end
@@ -66,13 +67,11 @@ class PagesController < ApplicationController
    @page = Page.find(params[:id])
    if simple_captcha_valid?
      if !@page.is_system_page? # only public pages can have comments
-       if (!@logged_in_user.anonymous?  && Setting.get_setting_bool("allow_page_comments")) || @logged_in_user.is_admin? # make sure the user is logged in and can leave page comments 
+       if Setting.get_setting_bool("allow_page_comments") || @logged_in_user.is_admin? # make sure the user is logged in and can leave page comments 
              @comment = PageComment.new(params[:comment])
              @comment.page_id = @page.id
              @comment.is_approved = "1" # force approval
-             if !@logged_in_user.anonymous? # if the user is not anonymous
-               @comment.user_id = @logged_in_user.id # set comment user id
-             end 
+             @comment.user_id = @logged_in_user.id if !@logged_in_user.anonymous? # set comment user id 
              if @comment.save
               Log.create(:user_id => @logged_in_user.id,  :log_type => "new", :log => t("log.item_create", :item => PageComment.model_name.human, :name => @page.title)) if !@logged_in_user.anonymous?
               Log.create(:log_type => "new", :log => t("log.item_create", :item => PageComment.model_name.human, :name => @page.title + " (#{t("single.visior")}: #{request.env["REMOTE_ADDR"]})")) if @logged_in_user.anonymous?
@@ -90,8 +89,8 @@ class PagesController < ApplicationController
    else # captcha failed'
         flash[:failure] = t("notice.invalid_captcha")
    end
-   
-   redirect_to :action => "page", :id => @page.id # go to page
+   redirect_to :back
+   #redirect_to :action => "page", :id => @page.id # go to page
  end 
 
  def delete_page_comment
@@ -99,7 +98,7 @@ class PagesController < ApplicationController
    Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_delete", :item => PageComment.model_name.human, :name => @page_comment.page.title))                        
    flash[:success] = t("notice.item_delete_success", :item => PageComment.model_name.human)
    @page_comment.destroy
-   redirect_to :action => "page", :id => @page_comment.page_id # go to page
+   redirect_to :back # go to page
  end  
 
   def new
@@ -140,10 +139,10 @@ class PagesController < ApplicationController
     if params[:item_id] # get images for item
       @item = Item.find(params[:item_id])
       check_item_edit_permissions
-      @images = PluginImage.find(:all, :conditions => ["item_id = ?", @item.id])
+      @images = PluginImage.find(:all, :conditions => ["item_id = ?", @item.id], :order => "created_at DESC")
     else # get images for system
       authenticate_admin # make sure they're an admin
-      @images = Image.find(:all)
+      @images = Image.find(:all, :order => "created_at DESC")
     end 
     render :layout => false 
   end

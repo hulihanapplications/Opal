@@ -6,28 +6,26 @@
 		<%= render :partial => "blog/list_page", :locals => {:page => @page} %>
    </div>
    
-   <div class="" align=left style="margin-bottom:10px" id="comments_section">
-   		<% if @page_comments.size > 0 && Setting.get_setting_bool("allow_page_comments") %>
-			<div class="box_2" style="margin-bottom:10px">
-				<h2 class="title"><%= pluralize(@page_comments.size, PageComment.model_name.human) %></h2>					
-				<%= page_entries_info @page_comments, :entry_name => PageComment.model_name.human %>
-	   			<%= render :partial =>  "pages/list_page_comments", :locals => {:comments => @page_comments} %>
-				<div align=center><%= will_paginate @page_comments %></div>																   			
-	   		</div>
-		<% end %>
-		<% if Setting.get_setting_bool("allow_page_comments")  && !@page.locked %>   
-		   <div class="box_2" align=left id="comment_form">			
-				<h3 class="title"><%= t("label.item_new", :item => PageComment.model_name.human) %></h3>
-			 	<% if !@setting[:allow_anonymous_comments] && @logged_in_user.anonymous? %>
-					<%= t("notice.user_not_logged_in") %>
-				<% else %>	
-					<%= form_tag  :action => 'create_page_comment', :controller => "pages", :id => @page.id  %>
-					   	<%= render :partial =>  "pages/page_comment_form" %>
-						<input type="submit" value="<%= t("label.item_create", :item => PageComment.model_name.human) %>" class="button_1">
-					</form>				
+   		<% if Setting.get_setting_bool("allow_page_comments") %>
+	   		<div class="" align=left style="margin-bottom:10px" id="comments_section">	   		
+				<% if @page_comments.size > 0 %>
+					<div class="box_2">
+						<h2 class="title"><%= @page_comments.size %> <%= PageComment.model_name.human.pluralize %></h2>	
+						<%= page_entries_info @page_comments, :entry_name => PageComment.model_name.human %>									
+						<%= render :partial =>  "pages/list_page_comments", :locals => {:comments => @page_comments}  %>
+						<div align=center><%= will_paginate @page_comments %></div>																   			
+					</div>												   			
+				<% end %>
+				<% if !@page.locked %>
+				 <div class="box_2">
+				 	<h3 class="title"><%= t("label.item_new", :item => PageComment.model_name.human) %></h3>			
+						<%= form_tag  :action => 'create_page_comment', :controller => "pages", :id => @page.id  %>
+						   	<%= render :partial =>  "pages/page_comment_form" %>
+							<input type="submit" value="<%= t("label.item_create", :item => PageComment.model_name.human) %>" class="button_1">
+						</form>
+				 </div>		
 				<% end %>	
-		   </div>
-		<% end %>				
-   </div>
+		   </div>				
+		<% end %>			
 
 </div>

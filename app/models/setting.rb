@@ -29,7 +29,7 @@ class Setting < ActiveRecord::Base
   
   
   def self.get_global_settings
-    logger.info "Reloading global settings."
+    logger.info "Retrieving global settings."
     setting = Hash.new
     setting[:item_name] = Setting.get_setting("item_name")
     setting[:item_name_plural] = Setting.get_setting("item_name_plural")

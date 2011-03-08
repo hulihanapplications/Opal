@@ -8,10 +8,9 @@
 		<% end %>
 	</div>
 	<div id="main">	
-<% end %>
-	   <%= render :partial => "pages/header", :locals => {:page => @page} %>
-	   
+<% end %>	   
 	   <div class="page">
+	   		<%= render :partial => "pages/header", :locals => {:page => @page} %>
 			<%= show_page(@page) %>
 	   
 	   		<%# Handle Special Pages %>
@@ -38,7 +37,7 @@
 				 </div>		
 				<% end %>			
 			<% end %>
-	    <% end %>  
+	   <% end %>  
 <% if subpages.size > 0 %>
 	</div>
 <% end %>

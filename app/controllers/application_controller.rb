@@ -17,21 +17,22 @@ class ApplicationController < ActionController::Base
   
   def layout_location
     # Load Theme & Layout
+    mobile_mode? ? layout_filename = "application.mobile.erb" : layout_filename = "application.html.erb"
     if ActiveRecord::Base.connection.tables.include?('settings') # check if settings table exists
       #theme = Setting.get_setting("theme") # get the theme name 
       theme = @setting[:theme]
-      layout_location = File.join(Rails.root.to_s, "public", "themes", theme, "layouts", "application.html.erb") # set path to theme layout
+      layout_location = File.join(RAILS_ROOT, "public", "themes", theme, "layouts", layout_filename) # set path to theme layout
       logger.info(layout_location)
       if !File.exists?(layout_location) # if the theme's layout file isn't present, use default layout. File.exists? requires absolute path.
         logger.info(layout_location)
-        layout_location = File.join("layouts", "application.html.erb") # Use the default layout, keep the global theme as it is.
+        layout_location = File.join("layouts", layout_filename) # Use the default layout, keep the global theme as it is.
       end
     else # if theme isn't set, use default theme
-      layout_location = File.join("layouts", "application.html.erb") # Use the default layout, keep the global theme as it is.
+      layout_location = File.join("layouts", layout_filename) # Use the default layout, keep the global theme as it is.
     end 
     
     return layout_location # Load the theme erb layout
-  end  
+  end   
 
   def set_locale # set language, local time, etc.
    if params[:locale] # set in url 
@@ -104,7 +105,7 @@ class ApplicationController < ActionController::Base
     if session[:user_id].nil? || @logged_in_user.anonymous? #There's definitely no user logged in(id 0 is public user)
       flash[:failure] = t("notice.failed_admin_access_attempt")
       session[:original_uri] = request.env["REQUEST_URI"] # store original request of where they wanted to go.
-      Log.create(:log_type => "warning", :log => t("log.failed_admin_access_attempt_visitor", :ip => request.env["REMOTE_ADDR"], :controller => params[:controller], :action => params[:action]))     
+      Log.create(:log_type => "warning", :log => I18n.t("log.failed_admin_access_attempt_visitor", :ip => request.env["REMOTE_ADDR"], :controller => params[:controller], :action => params[:action]))     
       redirect_to :action => "login", :controller => "browse"
     else #there's a user logged in, but what type is he?
       if(@logged_in_user.is_admin?) # make sure user is an admin
@@ -112,7 +113,7 @@ class ApplicationController < ActionController::Base
         @setting[:meta_title] << t("section.title.admin")
       else # a non-admin is trying to do someting
         flash[:failure] = t("notice.failed_admin_access_attempt")
-        Log.create(:log_type => "warning", :log => t("log.failed_admin_access_attempt_user", :username => @logged_in_user.username, :id => @logged_in_user.id, :controller => params[:controller], :action => params[:action]))        
+        Log.create(:log_type => "warning", :log => I18n.t("log.failed_admin_access_attempt_user", :username => @logged_in_user.username, :id => @logged_in_user.id, :controller => params[:controller], :action => params[:action]))        
         redirect_to :action => "index", :controller => "browse"
       end
     end
@@ -225,18 +226,25 @@ class ApplicationController < ActionController::Base
   
 
 private
-  def mobile_device?
-    if session[:mobile_param]
-      session[:mobile_param] == "1"
-    else
-      request.user_agent =~ /Mobile|webOS/
-    end
+  def mobile_device? # are they on a mobile device?
+    request.user_agent =~ /Mobile|webOS/
   end
   
+  def mobile_mode? # are they viewing the website in mobile mode?
+    if session[:mobile_mode]
+      session[:mobile_mode] == "1"
+    else
+      mobile_device?
+    end    
+  end 
+  
   helper_method :mobile_device?
+  helper_method :mobile_mode?
   
   def prepare_for_mobile
-    session[:mobile_param] = params[:mobile] if params[:mobile]
-    request.format = :mobile if mobile_device?
+    session[:mobile_mode] = params[:mobile] if params[:mobile]        
+    request.format = :mobile if mobile_mode?
   end  
 end
+
+#  Log.create(:log_type => "warning", :log => t("log.failed_admin_access_attempt_visitor", :ip => "1.1.1.1", :controller => "", :action => ""))     

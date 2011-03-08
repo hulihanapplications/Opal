@@ -1,0 +1,17 @@
+<table align=center width="100%" cellpadding=0 cellspacing=0>
+ <tr>
+  <td align=left style="vertical-align:bottom;">
+  	<div class="main_logo">
+  		<% if File.exists?(Rails.root.to_s + "/public/themes/#{@setting[:theme]}/images/logo.png") %>
+      		<%= link_to raw("<img src=\"/themes/#{@setting[:theme]}/images/logo.png\" border=0 alt=\"#{@setting[:title]}\" title=\"#{@setting[:title]}\">"), {:action => "index", :controller => "browse"} %>
+		<% else %>
+      		<div class="title"><h1><%= link_to @setting[:title], {:action => "index", :controller => "browse"} %></h1></div>
+			<div class="description"><%= @setting[:description] %> </div>					
+		<% end %>
+  	</div>
+  </td>
+  <td align=right valign=bottom style="text-align:right">
+      <%= render :partial => "browse/main_menu" %>
+  </td>
+ </tr>
+</table>

@@ -11,9 +11,9 @@
 					<%= icon("new") %>
 					<%= link_to t("label.item_new", :item => plugin.model_name.human), {:action => "new", :controller => "plugin_descriptions", :id => item.id }, :class => "plugin_title_link" %>
 			</div>
+			<div style="height:10px"></div>			
 		<% end %>
 		<% if descriptions.size > 0  %>				
-				<div style="height:10px"></div>
 				<div class="descriptions">
 					<% for description in descriptions %>
 						<div id="description_box_<%= description.id %>" class="description" align=left>

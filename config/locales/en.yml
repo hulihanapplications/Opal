@@ -100,7 +100,9 @@ en:
     or: Or
     mode: Mode
     effects: Effects    
-    advanced: Advanced
+    advanced: Advanced 
+    mobile: Mobile
+    full: Full   
   # Flash Messages & Notices
   notice:
     save_success: Your changes have been successfully saved!

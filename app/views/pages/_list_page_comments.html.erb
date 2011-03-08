@@ -2,14 +2,14 @@
 	<a name="comments"></a>
 	<div class="comments">
 	<% for comment in comments %>
+		<% comment_user = (comment.user_id.blank? || comment.user_id == 0) ? nil : User.find(comment.user_id) %>
 		<a name="comment_<%= comment.id %>"></a>
 		<div class="comment">
 			<table>
 				<tr> 
 					<td align=left class="user_column">
 						<div class="user_box">
-						 <% if !comment.user_id.nil? && comment.user_id != 0  %>
-							 <% comment_user = User.find(comment.user_id)%>
+						   <% if comment_user %>
 							 <%= user_avatar(comment_user, :size => "small") %>
 							 <br>
 							 <%= link_to comment_user.username, {:action => "user", :id => comment_user, :controller => "browse" }, :style => "font-weight:bold"   %>
@@ -27,13 +27,13 @@
 						</div>
 					</td>
 					<td align=left class="comment_column">
-						<% if comment.user.is_admin? %>
+						<% if comment_user && comment.user.is_admin? %>
 						<div class="comment_box_from_owner">
 						<% else %>
 						<div class="comment_box">
 						<% end %>
 							<div align=left>
-								<b><%= friendly_date comment.created_at %></b>
+								<b class="highlight_1"><%= friendly_date comment.created_at %></b>
 									<% if @logged_in_user.is_admin? %>
 								    <%= link_to icon("delete"), { :action => 'delete_page_comment', :controller => "pages", :id => comment.id, :comment_id => comment.id},  :confirm => t("confirm.item_delete", :item => PageComment.model_name.human) %>						
 								<% end %>

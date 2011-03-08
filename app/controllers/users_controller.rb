@@ -41,7 +41,6 @@ class UsersController < ApplicationController
       if @logged_in_user.is_admin? # handle protected attributes
         @user.is_admin = params[:user][:is_admin]
         @user.group_id = params[:group_id]        
-      else # User is not admin
       end
       
       @user.is_verified = "1"
@@ -60,7 +59,7 @@ class UsersController < ApplicationController
       @user_info = @user.user_info
       
       if @logged_in_user.is_admin? 
-         # Manually change protected attributes
+        # Manually change protected attributes
         @user.is_admin = params[:user][:is_admin] unless @logged_in_user.id == @user.id # let them change admin permission, unless they're doing it to themselves
         @user.group_id = params[:group_id]        
       else # User is not admin

@@ -25,7 +25,7 @@
 							<%= link_to t("label.item_new", :item => plugin.model_name.human), {:action => "new", :controller => "plugin_reviews", :id => item}%>
 						<% end %>			
 				</td>
-				<td align=right style="font-size:12px;vertical-align:middle">
+				<td align=right style="font-size:12px;vertical-align:middle;text-align:right">
 					<!-- Rich Snippet for Aggregate Review -->
 					<div itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
 							<meta itemprop="itemreviewed" content="<%= item.name %>" /> 

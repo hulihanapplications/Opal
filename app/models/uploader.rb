@@ -64,7 +64,7 @@ class Uploader #< ActiveRecord::Base
   def self.get_zip_contents(path_to_zipfile) # get the contents of a zip file
     require "zip/zip"
     require "zip/zipfilesystem"
-    zipfile = Zip::ZipFile.open(path_to_zipfile)
+    zipfile = ::Zip::ZipFile.open(path_to_zipfile)
     
     entry_array = Array.new # store entries in a array of strings
     for entry in zipfile
@@ -83,7 +83,7 @@ class Uploader #< ActiveRecord::Base
     FileUtils.rm_rf(extract_dir) if File.exists?(extract_dir)# delete the extraction dir if exists 
     FileUtils.mkdir_p(extract_dir) if !File.exists?(extract_dir)# make directory
  
-    zf = Zip::ZipFile.open(path_to_zipfile)
+    zf = ::Zip::ZipFile.open(path_to_zipfile)
     zf.each do |entry|
       entry_path = File.join(extract_dir, entry.name)
       FileUtils.mkdir_p(File.dirname(entry_path))

@@ -62,6 +62,8 @@ ul.sortable, ul.collapsed{margin:0px;padding:0px;list-style-type:none;}
 /* Notice Messages(Success and Failure Boxes) & Error Styles */
 .notice{text-align:center;} /* This is the div that contains all notice messages. */
 
+/* Pagination */
+.pagination{text-align:center;}
 
 /* Simple Captcha */
 input#captcha{font-size:24px;width:110px;}

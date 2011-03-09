@@ -35,7 +35,8 @@ module ApplicationHelper
 
   def show_page(page) # prints out page content
     if page && page.content 
-      return raw page.content  
+      #return raw page.content
+      return content_tag(:div, raw(page.content), :class => "page") unless page.content.blank?
     else # either no page found or no content for page.
       return nil
     end

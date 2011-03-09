@@ -94,8 +94,7 @@
 						<%= link_to raw("<img src=\"/themes/#{@setting[:theme]}/images/icons/item_page_type_expanded.png\" class=\"icon #{"selected" if @setting[:item_page_type] == "expanded"}\">"), { :action => 'set_item_page_type', :controller => "items", :item_page_type => "expanded"}, :class => "transparent", :title => t("setting.description.item_page_type_expanded", :item => @setting[:item_name] ) %>						
 					<% end %>
 				  		<%= auto_discovery_link_tag(:rss, {:action => "view", :controller => "items", :id => @item,  :format => "xml"}, :title => "#{t("label.rss_feed")} - #{@item.name}") %> 
-					    <%= link_to icon("rss", "#{t("label.rss_feed")} - #{@item.name}"),  {:action => "view", :controller => "items", :id => @item,  :format => "xml"}, :class => "transparent" %>
-					
+					    <%= link_to icon("rss", "#{t("label.rss_feed")} - #{@item.name}"),  {:action => "view", :controller => "items", :id => @item,  :format => "xml"}, :class => "transparent" %>					
 				<% end %>
 			</td>
 		</tr>

@@ -62,7 +62,7 @@ en:
       contact_us:
         title: "Contact Us"
         description: "Get in touch with us."
-        content: "<div align=center style=\"margin-bottom:10px\">\r\n<h2 class=\"title\">#{I18n.t('seed.page.contact_us.title')}</h2><hr> #{I18n.t('seed.page.contact_us.description')}</div>"
+        content: "<div align=center style=\"margin-bottom:10px\">\r\n<h2 class=\"title\">Contact Us</h2><hr>Get in touch with us.</div>"
       home:
         title: "Home"
         description: "The Main Home Page."

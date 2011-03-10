@@ -7,7 +7,7 @@ ru:
       item_name: "Товар"
       item_name_plural: "Товары"
       site_title: "Мой Opal Вебсайт"
-      site_description: "The Free, Open Source, Item Management System. List Anything!"
+      site_description: "Бесплатная, Открытая, Система Управления Вещами. Размещайте что угодно!"
     plugin:
       image: "Image"
       description: "Description"
@@ -34,14 +34,14 @@ ru:
       terms_of_service:
         title: "Условия использования"
         description: "Условия использования для новых пользователей."
-        content: "<h1>Условия использования</h1>By joining this site, you agree not to add or submit any damaging or offensive content, including by not limited to: pornography, any malicious software or files, violent or hateful images, etc.<br><br>You also agree not to submit any content that is either stolen, plagiarized, or otherwise listed without the consent of the copyright holder."
+        content: "<h1>Условия использования</h1>Используя этот сайт, Вы соглашаетесь не добавлять, не отправлять любое разрушающее или оскорбительное содержимое, включая но не ограничиваясь: порнографией, любыми вредоносными программами или файлами, насильственными или злобными изображениями, и т.д.<br><br>Вы также соглашаетесь не отправлять украденное содержимое, плагиат, или любое другое размещение без согласия законного владельца."
       new_item:
         title: "Новый товар"
         description: "Эта страница появляется когда Пользователь будет создавать новый товар."
         content: ""
       email_footer:
         title: "Подпись Email"
-        description: "Это появляется в подписи автоматических email писем."
+        description: "Появляется в подписи автоматических email писем."
         content: 'Это автоматическое email письмо посланное вам #{Setting.get_setting("site_title")}. Пожалуйста не отвечайте на него.'
       home_page_sidebar:
         title: "Боковой блок на Главной странице"
@@ -61,8 +61,8 @@ ru:
         content: ""
       contact_us:
         title: "Обратная связь"
-        description: "Связывайтесь с нами."
-        content: "<div align=center style=\"margin-bottom:10px\">\r\n<h2 class=\"title\">#{I18n.t('seed.page.contact_us.title')}</h2><hr> #{I18n.t('seed.page.contact_us.description')}</div>"
+        description: "Общайтесь с нами."
+        content: "<div align=center style=\"margin-bottom:10px\">\r\n<h2 class=\"title\">Обратная связь</h2><hr>Общайтесь с нами.</div>"
       home:
         title: "Главная"
         description: "Главная страница сайта."
@@ -80,7 +80,7 @@ ru:
         name: "Обычные пользователи"
         description: "Обычные пользователи которые совершили вход на вашем сайте."
       admin:
-        name: "Admins"
+        name: "Администраторы"
         description: "Верховные мастера. Имеют ко всему доступ и могут делать что угодно."
       public:
         name: "Публика"
@@ -98,7 +98,7 @@ ru:
   # Single Words 
   single:
     ago: назад
-    by: By
+    by: "" # No translation needed
     admin: Админ. панель
     cycle: Изменить
     save: Сохранить
@@ -118,10 +118,10 @@ ru:
     downloaded: Скачан
     download: Скачать
     upload: Загрузить
-    warning: Внимание    
+    warning: Внимание
     added: Добавлен
     language: Язык
-    locale: Локализация
+    locale: Локаль
     anonymous: Аноним
     visitor: Посетитель
     ip_address: IP адрес
@@ -131,7 +131,7 @@ ru:
     avatar: Аватар
     name: Название 
     description: Описание
-    archive: Архив  
+    archive: Архив
     send: Послать
     none: - Нет -
     all: Все
@@ -160,7 +160,7 @@ ru:
     text: Текст
     number: Число
     slider: Прокрутка 
-    date: Дата     
+    date: Дата
     stars: Звезды
     grouped: Группировка
     keyword: Ключевое слово
@@ -178,7 +178,7 @@ ru:
     information: Информация
     for: для
     watermark: Водяной знак
-    stamp: Марка    
+    stamp: Марка
     main: Главный
     or: Или
     mode: Режим
@@ -188,23 +188,23 @@ ru:
   notice:
     save_success: Ваши изменения были успешно сохранены!
     save_failure: Ваши изменения не могут быть сохранены!
-    item_save_success: Этот %{item} сохранен!
-    item_save_failure: Этот %{item} не может быть сохранен.
+    item_save_success: %{item} сохранен!
+    item_save_failure: %{item} не может быть сохранен.
     item_create_success: %{item} создан!
-    item_create_failure: %{item} не может быть создан.    
+    item_create_failure: %{item} не может быть создан.
     item_delete_success: %{item} удален!
     item_delete_failure: %{item} не может быть удален.
     item_install_success: %{item} установлен!
-    item_install_failure: Этот %{item} не может быть установлен. 
+    item_install_failure: %{item} не может быть установлен. 
     item_uninstall_success: %{item} удален!
-    item_uninstall_failure: Этот %{item} не может быть удален.
-    item_approve_success: Этот %{item} подтвержден! Спасибо!
-    item_unapprove_success: Этот %{item} был отмечен как неподтвержденный!
+    item_uninstall_failure: %{item} не может быть удален.
+    item_approve_success: %{item} подтвержден! Спасибо!
+    item_unapprove_success: %{item} был отмечен как неподтвержденный!
     item_import_success: Успешно импортировано %{count} %{items}.
     item_forgot_to_select: Вы забыли выбрать %{item}.
     item_not_found: %{item} не найден.
-    item_invalid: Извините, этот %{item} не верен.    
-    item_needs_approval: Этот %{item} все ещё нуждается в подтверждении.
+    item_invalid: Извините, %{item} не верен.
+    item_needs_approval: %{item} все ещё нуждается в подтверждении.
     items_disabled: Извините, %{items} не включены.
     items_cannot_add_any_more: Вы не можете добавить ещё %{items}.
     items_not_found: Не найдено %{items}.
@@ -213,18 +213,18 @@ ru:
     not_visible: Извините, вам нельзя это видеть.
     invalid_email: Извините, вы ввели неправильный email адрес.
     invalid_permissions: Извините, вам нельзя это сделать.
-    user_account_create_success: Ваш профиль создан!    
+    user_account_create_success: Ваш профиль создан!
     user_account_create_failure: Ваш профиль не может быть создан.
     user_account_needs_verification: Ваш профиль нуждается в активации, перед тем как вы сможете войти. Активационное письмо было выслано на Ваш email.
     user_account_verify_success: Ваш профиль был активирован!<br>Теперь вы можете войти. 
     user_account_verify_failure: Ваш профиль не может быть активирован. 
-    user_account_recover_password_instructions:  Инструкции по восстановлению пароля были высланы Вам на email.                     
+    user_account_recover_password_instructions:  Инструкции по восстановлению пароля были высланы Вам на email.
     user_account_recover_password_success: Ващ пароль был изменен на %{new_password}. Вы должны немедленно изменить пароль, потому что Ваш пароль - временный.
     user_account_recover_password_failure: Ваш пароль не может быть восстановлен.
     user_login_success: Вы успешно вошли. Добро пожаловать! 
-    user_login_failure: Ошибка входа. Извините.    
-    user_logout_success: Вы успешно вышли! Удачного дня.     
-    user_thanks: Спасибо %{name}!   
+    user_login_failure: Ошибка входа. Извините.
+    user_logout_success: Вы успешно вышли! Удачного дня.
+    user_thanks: Спасибо %{name}!
     user_thanks_for_voting: Спасибо за голосование, %{name}!
     user_not_logged_in: Вы должны войти чтобы сделать это.
     contact_thanks: Спасибо за связь с нами, %{name}. Мы постараемся поскорее вам ответить!
@@ -237,8 +237,8 @@ ru:
     delete_own_group_failure: Извините, вы не можете удалить свою собственную группу.
     search_results_left_blank: Я не знаю что искать!
     message_send_success: Ваш %{item} был послан %{to}. 
-    message_send_failure: Ваш %{item} %{to} не может быть послан! 
-    invalid_file_extensions: "Этот %{item} не может быть сохранен потому что имя файла не заканчивается следующим образом: %{acceptable_file_extensions}"
+    message_send_failure: Ваш %{item} для %{to} не может быть послан! 
+    invalid_file_extensions: "%{item} не может быть сохранен потому что имя файла не заканчивается следующим образом: %{acceptable_file_extensions}"
   # Logs 
   log: # call with t(:failed_admin_access_attempt_user, :scope => [:log]) or t("log.failed_admin_access_attempt_user") 
     item_create: "Создан %{item}: %{name}"
@@ -247,7 +247,7 @@ ru:
     item_install: "Установлен %{item}: %{name}"
     item_uninstall: "Удален %{item}: %{name}"
     item_enable: "Включен %{item}: %{name}"
-    item_disable: "Выключен %{item}: %{name}"    
+    item_disable: "Выключен %{item}: %{name}"
     item_approve: "Подтвержден %{item}: %{name}"
     item_verify: "Активирован %{item}: %{name}"
     item_unapprove: "Не подтвержден %{item}: %{name}"
@@ -256,8 +256,8 @@ ru:
     item_voted_for: "Проголосовал за %{item}: %{name}"
     item_voted_against: "Проголосовал против %{item}: %{name}"
     item_recovered: Восстановлен %{item}.
-    item_email_sent: %{item} email послан %{name}.    
-    user_account_item_save: Изменил мой %{item}.    
+    item_email_sent: %{item} email послан %{name}.
+    user_account_item_save: Изменил мой %{item}.
     user_account_create: "Создан профиль %{title}."
     user_account_verify: "Активировал мой аккаунт."
     items_imported: "%{count} %{items} импортировано."
@@ -271,14 +271,14 @@ ru:
       item_new_from_user: "%{title}: New %{item} от %{from} - %{name}"
       verification: "%{title}: Активации обязательна - %{name}"
     message:
-      item_new: "At %{title}, there's a new %{item} in town: %{name}. Check it out their profile here: \n\n%{url}\n\n"    
-      item_new_from_user: "At %{title}, %{from} has created a new %{item}: %{name}. Check it out here:\n\n%{url}\n\n"   
-      new_message_from_user: "At %{title}, you've received a new message from %{from}:\n\n%{message}\n\nYou can reply to this message or read your other messages here:\n\n%{url}\n\n"
-      password_recovery: "At %{title}, A password recovery request has been made for your account: %{name}.\n\nTo recover your password, go to the following address:\n\n%{url}\n\nIf you didn't make this request, please disregard this email. Feel free to contact %{title} if you have any questions or concerns."  
-      verification: "In order to log in to your account(%{name}) at %{title}, you must first verify your account by clicking on this verification link:\n\n%{url}"    
+      item_new: "На сайте \"%{title}\", появился новый %{item}: %{name}. Читайте подробнее по ссылке: \n\n%{url}\n\n"
+      item_new_from_user: "На сайте \"%{title}\", %{from} создал новый %{item}: %{name}. Читайте подробнее по ссылке:\n\n%{url}\n\n"
+      new_message_from_user: "На сайте \"%{title}\", Вы получили сообщение от %{from}:\n\n%{message}\n\nВы можете ответить на это сообщение или прочитать другие сообщения по ссылке:\n\n%{url}\n\n"
+      password_recovery: "На сайте \"%{title}\", для Вашего профиля (%{name}) был сделан запрос на восстановление пароля.\n\nTДля восстановление пароля, пройдите по следующей ссылке:\n\n%{url}\n\nЕсли вы не делали запроса, пожалуйста проигнорируйте этот email. Обращайтесь к администрации сайта \"%{title}\" по любым возникшим вопросам."  
+      verification: "Для того чтобы вайти в Ваш профиль (%{name}) на сайте \"%{title}\", вы сначала должны подтвердить Ваш профиль нажатием на следующую ссылку подтверждения:\n\n%{url}"
   # Labels & Sentences
   label:
-    app_name: Opal  
+    app_name: Opal
     create_account: Создать новый профиль
     password_mismatch: Ваши пароли не совпадают!
     username_available: Это имя пользователя свободно!
@@ -299,41 +299,41 @@ ru:
     item_change: Изменить %{item}
     item_featured: Рекомендованныe %{item}
     item_view_items: Просмотреть %{item}этого %{items}.
-    item_recently_added: Этот %{item} был добавлен за последние 3 дня.
+    item_recently_added: %{item} был добавлен за последние 3 дня.
     item_mark_as: Отметить %{item} как %{name}
-    item_unknown: "Неизвестный %{item}: %{name}"    
+    item_unknown: "Неизвестный %{item}: %{name}"
     items_from: %{items} от %{name}
     items_for: %{items} для %{name}
     items_more: Больше %{items}
     items_remaining: %{items} осталось
     items_found: Найдено %{count} %{items}.
-    items_latest: Последние %{items}    
+    items_latest: Последние %{items}
     items_none_added: %{items} не добавлено. 
     user_greeting: Привет, %{name}.
     user_by:  %{name}
     user_welcome_to_admin: Добро пожаловать в Админ. панель, всемогущий %{name}.
-    user_welcome_to_account:  Добро пожаловать в Ваш профиль. Здесь вы можете добавить новые %{items}, проверить сообщения, и многое другое! 
+    user_welcome_to_account: Добро пожаловать в Ваш профиль. Здесь вы можете добавить новые %{items}, проверить сообщения, и многое другое 
     user_logged_in_as: Вы вошли как
-    search_results_for: Результат поиска для %{query}    
+    search_results_for: Результат поиска для %{query}
     apology: Уупс!
     captcha: Код подтверждения
     rss_feed: RSS Лента
     search: Поиск
     advanced_search: Расширенный поиск
     register: Регистрация!
-    register_message: У вас нет профиля? 
+    register_message: У вас нет профиля?
     sort_asc: Отсортировано в возрастающем порядке.
-    sort_desc: Отсортировано в убывающем порядке. 
+    sort_desc: Отсортировано в убывающем порядке.
     log_in: Вход
     log_out: Выход
     log_in_forgot_password: Забыли пароль? Нет проблем!
     log_in_forgot_password_message: Пожалуйста введите email адрес вашего профиля.
     log_in_recover_password: Восстановить пароль
-    log_in_redirect_message: Предыдущая посещенная страница сохранена. Пожалуйста Войдите для продолжения.			
+    log_in_redirect_message: Предыдущая посещенная страница сохранена. Пожалуйста Войдите для продолжения.
     check_all: Отметить все
     additional_info: Дополнительная информация
     time_today: Сегодня
-    time_this_week: На этой неделе    
+    time_this_week: На этой неделе
     time_this_month: В этом месяце
     time_this_year: В этом году
     time_any: В любое время
@@ -358,7 +358,6 @@ ru:
     image_effect_resize: Измерить размер до %{width} x %{height} пикселей
     tag_example: "Например: веселый, смешной, странный"
     check_for_updates: Проверить обновления
-    item_name: 
   # General Information 
   info: 
     delete_main_logo: Удаление логотипа отобразит заголовок вашего сайта. 
@@ -376,7 +375,7 @@ ru:
       site_title: Заголовок Вашего сайта   
       site_description: Описание сайта
       site_keywords: Ключевые слова сайта      
-      locale: Локализация
+      locale: Локаль
       display_item_views: Показывать число просмотров %{item}
       caching: Кэширование страниц
       new_item_notification: Оповещать администраторов о новых %{items}
@@ -430,31 +429,32 @@ ru:
       item_image_height: Стандартная высота изображения
       login_required_for_download: Требовать вход для скачивания
       log_downloads: Записывать историю скачек
-      review_type: Review Type
-      score_min: Minimum Score
-      score_max: Maximum Score            
+      review_type: Тип обзора
+      score_min: Минимальный балл
+      score_max: Максимальный балл
     description:
-      site_title: The Title of your Site. You would see this at the very top of your browser window.
-      site_description: The description for your site. Used in the title of your page(at the top of your browswer) and for search engine submission.
-      site_keywords: The Keywords Metatag for your site. Used for search engine submission. Seperated by commas.      
-      locale: The default language and time zone used by Opal. Users can also set their own unique locale.
-      display_item_views: Display the number of times an item has been viewed(visible on an item's page).
-      caching: This allows item pages to be cached to speed up performance. A flat file is stored on the server that visitors will see, instead of having the server generate a dynamic page every time.
-      new_item_notification: If enabled, all admins will be sent an email when a new item is created.
-      section_blog: Opal's Integrated Blog. If enabled, a blog link will show up in the main menu.
-      allow_item_list_type_changes: If enabled, this setting allows anyone(even the public) to change the Item list type that they see when visiting your Opal application. This only affects the visitor's browser.
-      allow_item_page_type_changes: If enabled, this setting allows anyone(even the public) to change the page type for items that they're looking at. This only affects the visitor's browser.
-      include_child_category_items: If enabled, all Child Category Items will be included in lists and number counts for the Parent Category. Enabling this creates a small performance drop.
-      max_items_per_user: This specifies the maximum number of items a user can create. Set to 0 for unlimited.
-      email_verification_required: If enabled, new users must click on an verification link that is sent to their email account before they can log in.
-      enable_item_description: Enable/Disable Item Description from item details and lists of items.
-      display_featured_items: Display featured items on the homepage.
-      enable_navlinks: NavLinks are simple navigation links shown at the top of item and item list pages. They show information about which category an item or category is in, and more.
-      item_approval_required: Enable this if you want to approve items created by users before they can be seen by the public. All unapproved items can viewed in the admin section. If disabled, all items will become approved upon creation.
-      section_items: If enabled, Items will be displayed and a  link will be shown in the main menu. If disabled, Opal will no longer display any items.
-      allow_page_comments: If enabled, people can leave comments for pages.
-      enable_item_date: Enable/Disable Item Date from item details and lists of items. This shows the date that the item was created.
-      homepage_type: This is what is shown on your homepage.
+      site_title: Заголовок Вашего сайта. Вы увидите его в самом верху окна Вашего браузера.
+      site_description: Описание Вашего сайта. Используется в заголовке вашего сайта (вверху Вашего браузера) и поисковыми системами.
+      site_keywords: Ключевые слова (Мета-тег) вашего сайта. Используется поисковыми системами. Разделяйте их запятыми.
+      locale: Стандартный язык и временная зона используемая в Opal. Пользователи также могут изменять собственную локаль.
+      display_item_views: Отображать количество просмотров вещи (отображается на странице вещи).
+      caching: Это позволяет страницам вещей кешироваться для улучшения производительности. Файл со страницей вещи будет сгенерирован 1 раз, сохранен на сервере и показан всем пользователям, вместо генерирования страниц каждый раз заново.
+      new_item_notification: Если включена, всем администратором будет послан email после создания новой вещи.
+      section_blog: Блог встроенный в Opal. Если включена, ссылка на блог появится в главном меню.
+      allow_item_list_type_changes: Если включена, эта настройка позволит всем (даже публике) изменять тип отображения списка вещей который они видят посещая Ваш Opal сайт. Изменение затрагивает только браузер конкретного пользователя.
+      allow_item_page_type_changes: Если включена, эта настройка позволит всем (даже публике) изменять тип отображения страницы вещи на которую они смотрят. Изменение затрагивает только браузер конкретного пользователя.
+      include_child_category_items: Если включена, все вещи из дочерних категорий будет включены в списки и колчество вещей родительских категорий. Включений этой настройки немного ухудшает производительность.
+      max_items_per_user: Задает максимальное число вещей которые может создать пользователь. 0 значит неограниченное число.
+      email_verification_required: Если включена, новые пользователи должны будут нажать на ссылку посланную им на email до того как они смогут войти.
+      enable_item_description: Включение/Выключение Описания вещей показывает/убирает описание вещей из списка вещей и со страницы вещи.
+      display_featured_items: Показывать рекомендованные вещи на главной странице.
+      enable_navlinks: NavLinks это простые навигационные ссылки показанные вверху каждой страницы с вещью и списка вещей
+              - . Они показывают информацию в какой категории находится вещь, и т.п.
+      item_approval_required: Включите это если вы хотите подтверждать вещи добавленные пользователями перед показом их публике. Все неподтвежденные вещи могут быть просмотрены в Админ. панели. Если выключено, все вещи будут считаться подтвержденными при создании.
+      section_items: Если включена, секция с Вещами будет отображена на главной странице, а также ссылка будет отображена в главном меню. Если выключено, Opal больше не будет отображать каких либо вещей.
+      allow_page_comments: Если включена, люди смогут оставлять комментарии на страницах.
+      enable_item_date: Включение/Выключение Даты для вещей для отображения/скрытия из страницы вещи и списка вещей. Это показывает дату, когда была создана вещь.
+      homepage_type: Это то что показывается на Вашей главной странице.
       allow_private_items: If enabled, users can create private items that aren't visible to the public or other users. Only the owner of the item and admins can see private items. If disabled, all items will become public upon creation.
       allow_user_registration: This specifies if users can register for a new account.
       item_name_plural: This is the <b>plural</b> name of the items on your site, so if you want to show people homes, this would be <b>homes</b>.
@@ -520,34 +520,34 @@ ru:
         few: Пользователя
         many: Пользователей
         other: Пользователя 
-      user_info: Account Info
-      user_message: Message
-      user_verification: Verification Request
-      group: Group
-      category: Category
+      user_info: Информация о профиле
+      user_message: Сообщение
+      user_verification: Запрос подтверждения
+      group: Группа
+      category: Категория
       group_plugin_permission: Group Plugin Permission
-      image: Image
-      log: Activity
-      page: Page
-      public_page: Public Page # psuedo model
-      system_page: System Page # psuedo model
-      blog_page: Blog Post # psuedo model
-      page_comment: Comment
-      plugin: Plugin  
-      plugin_comment: Comment
-      plugin_discussion: Discussion     
-      plugin_discussion_post: Post
-      plugin_description: Description
-      plugin_feature: Feature
-      plugin_feature_value: Value
-      plugin_feature_value_option: Option
-      plugin_file: File
-      plugin_image: Image
-      plugin_link: Link
-      plugin_review: Review
-      plugin_tag: Tag
-      plugin_setting: Setting
-      setting: Setting            
+      image: Изображение
+      log: Активность
+      page: Страница
+      public_page: Публичная страница # psuedo model
+      system_page: Системная страница # psuedo model
+      blog_page: Сообщение блога # psuedo model
+      page_comment: Комментарий
+      plugin: Плагин  
+      plugin_comment: Комментарий
+      plugin_discussion: Дискуссия     
+      plugin_discussion_post: Сообщение
+      plugin_description: Описание
+      plugin_feature: Характеристика
+      plugin_feature_value: Значение
+      plugin_feature_value_option: Опция
+      plugin_file: Файл
+      plugin_image: Изображение
+      plugin_link: Ссылка
+      plugin_review: Обзор
+      plugin_tag: Тег
+      plugin_setting: Настройка
+      setting: Настройка
     attributes:
       user:
         username: Имя пользователя
@@ -558,7 +558,7 @@ ru:
         email: Адрес Email
         created_at: Зарегистрирован
         is_admin: Администратор?
-        locale: Локализация
+        locale: Локаль
         last_login: Последний вход
         last_login_ip: IP адрес при последнем входе
         registered_ip: IP адрес при регистрации
@@ -663,8 +663,8 @@ ru:
         item_must_be_owner: Вы должны быть владельцем этого %{item} чтобы сделать это.
   # Locales
   locales:
-    en: English
-    ru: Russian (русский)
+    en: Английская (English)
+    ru: Русская
   # Date & Times 
   date:
     formats:
@@ -703,6 +703,7 @@ ru:
         one: "1 секунда"
         few: "%{count} секунды"
         many: "%{count} секунд"
+        other: "%{count} привет"        
       less_than_x_minutes:
         one: "меньше минуты"
         few: "меньше %{count} минут"

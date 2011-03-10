@@ -5,7 +5,7 @@
 </head>
 
 <body>
-<%= show_page Page.get_system_page("Website Top") %>
+<%= show_page Page.get_system_page(I18n.t('seeds.page.website_top.title')) %>
 <div class="preloaded_images">
 	<img src="/themes/<%= @setting[:theme] %>/images/main_menu/main_menu_item_hover.png">
 </div>
@@ -79,7 +79,7 @@
 </table>
 
 
-<%= show_page Page.get_system_page("Website Bottom") %>
+<%= show_page Page.get_system_page(I18n.t('seeds.page.website_bottom.title')) %>
 </body>
 
 </html>

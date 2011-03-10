@@ -1,7 +1,3 @@
-
-
-
-
  <div id="status_box"><%# This is where the ajax output goes %>
  </div>
   
@@ -10,11 +6,11 @@
 </div>
 <div id="main">
 	<div class="header">
-		<h2 class="title"><%= t("label.item_my", :item => UserMessage.model_name.human.pluralize) %></h2>
+		<h2 class="title"><%= t("label.item_my", :item => UserMessage.model_name.human(:count => :other)) %></h2>
 	</div>
 	<div class="box_2">
 		<%= render :partial => "messages/list_messages", :locals => {:messages => @messages[params[:type].to_sym]}%>
-		<div align=center><%= page_entries_info @messages[params[:type].to_sym], :entry_name => UserMessage.model_name.human.pluralize %></div>								
+		<div align=center><%= page_entries_info @messages[params[:type].to_sym], :entry_name => UserMessage.model_name.human(:count => :other) %></div>								
 	</div>
 	<br>	
 	<div align=center>

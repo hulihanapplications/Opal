@@ -32,13 +32,12 @@
 					</h2>									
 				</td>
 				<td align=right>
-					<%= link_to icon("logs") + " " + t("single.all") + " " + Log.model_name.human.pluralize, {:controller => "logs"}%>														
+					<%= link_to icon("logs") + " " + t("single.all") + " " + Log.model_name.human(:count => :other), {:controller => "logs"}%>														
 				</td>
 			</tr>
 		</table>	
 		<hr>		
 		<%= render :partial => "logs/list_logs", :locals => {:logs => @latest_logs} %>
-
 	</div>
 	
 

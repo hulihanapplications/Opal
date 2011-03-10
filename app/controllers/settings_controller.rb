@@ -4,7 +4,7 @@ class SettingsController < ApplicationController
  after_filter :reload_settings, :only => [:update_settings]
  
  def index
-   @setting[:meta_title] << Setting.model_name.human.pluralize
+   @setting[:meta_title] << Setting.model_name.human(:count => :other)
    @logo_image_exists = File.exists?(Rails.root.to_s + "/public/themes/#{@setting[:theme]}/images/logo.png")    # check if an existing logo image exists
  end
 

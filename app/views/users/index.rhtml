@@ -25,8 +25,7 @@
 							<tr>
 								<td align=left>
 									<h2 class="title">
-										<a name="users"></a>
-										<%= @users.total_entries %> <%= User.model_name.human.pluralize %>
+										<a name="groups"><%= @users.total_entries %></a> <%= User.model_name.human(:count =>  @users.total_entries) %>
 									</h2>				
 								</td>
 								<td align=right >

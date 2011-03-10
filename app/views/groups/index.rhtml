@@ -9,7 +9,7 @@
 						<tr>
 							<td align=left>
 								<h2 class="title">
-									<a name="groups"></a><%= @groups.total_entries %> <%= Group.model_name.human.pluralize %>
+									<a name="groups"><%= @groups.total_entries %> <%= Group.model_name.human(:count => @groups.total_entries) %></a>
 								</h2>						
 							</td>
 							<td align=right >

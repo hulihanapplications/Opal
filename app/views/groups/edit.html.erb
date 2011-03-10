@@ -40,7 +40,7 @@
 				<div class="box_2" style="margin-bottom:5px;" align=center>
 					<h2 class="title">
 						<img src="/themes/<%= @setting[:theme] %>/images/icons/plugins.png" class="icon">
-						<%= GroupPluginPermission.model_name.human.pluralize %></b>
+						<%= GroupPluginPermission.model_name.human(:count => :other) %></b>
 						<a href="javascript:toggle_expanding_box('plugin_permissions_box','plugin_permissions_expand_link')" id="plugin_permissions_expand_link">
 							<%= icon("open") %>
 						</a>
@@ -67,42 +67,42 @@
 									<table cellpadding=0 cellspacing=0 style="width:100%;">
 								  		<tr> 
 								  			<td align=left >
-								  				<h2><%= plugin.model_name.human.pluralize %></h2>
+								  				<h2><%= plugin.model_name.human(:count => :other) %></h2>
 											</td>
 											<td align=right ">
 												<h3>
 													<%= GroupPluginPermission.human_attribute_name(:can_read) %>
 													<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_read]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :read) %> <%= "DISABLED" if @group.is_admin_group? %>>												
 												</h3>
-												<!--<i><%= @group.name %> can view <%= plugin.model_name.human.pluralize %> for any <%= @setting[:item_name] %>.</i>-->
+												<!--<i><%= @group.name %> can view <%= plugin.model_name.human(:count => :other) %> for any <%= @setting[:item_name] %>.</i>-->
 												<div class="spacer"></div>
 												
 												<h3>
 													<%= GroupPluginPermission.human_attribute_name(:can_create) %>
 													<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_create]" value="1" <%= "CHECKED" if @group.has_plugin_permission?(:plugin => plugin, :permission_type => :create) %> <%= "DISABLED" if @group.is_admin_group? %>> 
 												</h3>
-												<!--<i><%= @group.name %> can create <%= plugin.model_name.human.pluralize %> for any <%= @setting[:item_name] %>.</i>-->
+												<!--<i><%= @group.name %> can create <%= plugin.model_name.human(:count => :other) %> for any <%= @setting[:item_name] %>.</i>-->
 												<div class="spacer"></div>
 												
 												<h3>	
 													<%= GroupPluginPermission.human_attribute_name(:can_update) %>
 													<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_update]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :update) %> <%= "DISABLED" if @group.is_admin_group? %>> 
 												</h3>
-												<!--<i><%= @group.name %> can edit <%= plugin.model_name.human.pluralize %> for any <%= @setting[:item_name] %>.</i>-->
+												<!--<i><%= @group.name %> can edit <%= plugin.model_name.human(:count => :other) %> for any <%= @setting[:item_name] %>.</i>-->
 												<div class="spacer"></div>
 												
 												<h3>
 													<%= GroupPluginPermission.human_attribute_name(:can_delete) %>
 													<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_delete]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :delete) %> <%= "DISABLED" if @group.is_admin_group? %>>
 												</h3>
-												<!--<i><%= @group.name %> can delete <%= plugin.model_name.human.pluralize %> from any <%= @setting[:item_name] %>.</i>-->
+												<!--<i><%= @group.name %> can delete <%= plugin.model_name.human(:count => :other) %> from any <%= @setting[:item_name] %>.</i>-->
 												<div class="spacer"></div>
 												
 												<h3>
 													<%= GroupPluginPermission.human_attribute_name(:requires_approval) %>
 													<input type="checkbox" name="plugin_permission[<%= plugin.id %>][requires_approval]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :requires_approval) %> <%= "DISABLED" if @group.is_admin_group? %>> 
 												</h3>
-												<!--<i>New <%= plugin.model_name.human.pluralize %> created by <%= @group.name %> must be approved by the <%= @setting[:item_name] %> owner.</i>-->
+												<!--<i>New <%= plugin.model_name.human(:count => :other) %> created by <%= @group.name %> must be approved by the <%= @setting[:item_name] %> owner.</i>-->
 											
 																							 											 
 											</td>														

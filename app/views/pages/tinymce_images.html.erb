@@ -11,12 +11,12 @@
 	    <% if flash[:notice] %><div class="flash_notice"><%= flash[:notice] %></div><% end %> 		
 		<ul class="plugin_tabs_horizontal"> 
 				<li><a href="#<%= t("single.upload") %>"><%= t("single.upload") %> <%= @plugin.model_name.human %></a></li> 
-			    <li><a href="#<%= Image.model_name.human.pluralize %>"><%= @plugin.model_name.human.pluralize %></a></li>				
+			    <li><a href="#<%= Image.model_name.human(:count => :other) %>"><%= @plugin.model_name.human(:count => :other) %></a></li>				
 		</ul>			
 		<div class="plugin_panes_horizontal"> 					
 			<div id="Upload">								   
 			  <% if @item %>
-	   			<%= form_tag ({:action => 'create', :controller => "plugin_#{@plugin.model_name.human.pluralize}", :id => @item.id, :tinymce => "true"} , :multipart => true) %>			 
+	   			<%= form_tag ({:action => 'create', :controller => "plugin_images", :id => @item.id, :tinymce => "true"} , :multipart => true) %>			 
 			  <% else %>			
 				<%= form_tag ({:action => 'upload_image', :controller => "pages"} , :multipart => true) %>
 			  <% end %>				
@@ -50,7 +50,7 @@
 							<div style="clear:both"></div>
 						<% else %>	
 							<div style="padding:5px;" align=center>												
-								<%= t("notice.items_not_found", :items => @plugin.model_name.human.pluralize) %>
+								<%= t("notice.items_not_found", :items => @plugin.model_name.human(:count => :other)) %>
 							</div>
 						<% end %>
 					</div>

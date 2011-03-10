@@ -7,7 +7,7 @@ class PluginsController < ApplicationController
 
   
    def index
-     @setting[:meta_title] <<  Plugin.model_name.human.pluralize  
+     @setting[:meta_title] <<  Plugin.model_name.human(:count => :other)  
      @plugins = Plugin.find(:all, :order => "order_number ASC")
      @setting[:ui] = true
    end
@@ -25,10 +25,10 @@ class PluginsController < ApplicationController
       plugin = Plugin.find(params[:id])
       if plugin.is_enabled == "1"
         plugin.is_enabled = "0"
-        msg = t("log.item_disable", :item => Plugin.model_name.human, :name => plugin.model_name.human.pluralize) 
+        msg = t("log.item_disable", :item => Plugin.model_name.human, :name => plugin.model_name.human(:count => :other)) 
       elsif plugin.is_enabled == "0"
         plugin.is_enabled = "1"
-        msg = t("log.item_enable", :item => Plugin.model_name.human, :name => plugin.model_name.human.pluralize) 
+        msg = t("log.item_enable", :item => Plugin.model_name.human, :name => plugin.model_name.human(:count => :other)) 
       end
       plugin.save
       Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => msg)                                              

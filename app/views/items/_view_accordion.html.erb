@@ -6,7 +6,7 @@
 				<div id="accordion">
 					<%  for plugin in plugins  %>
 						<% if my_group_plugin_permissions[plugin.id].can_read? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?  %>
-							<h2 class="accordion_tab <%= "current"  if plugin.id == plugins.first.id %>" ><%= plugin.model_name.human.pluralize %></h2>
+							<h2 class="accordion_tab <%= "current"  if plugin.id == plugins.first.id %>" ><%= plugin.model_name.human(:count => :other) %></h2>
 							
 							<div class="pane" <%= "style=\"display:block\""  if plugin.id == plugins.first.id %>>
 								<%= render :partial => plugin.partial_path(:type => "view"), :locals => {:plugin => plugin, :item => item, :my_group_plugin_permissions => my_group_plugin_permissions } %>								

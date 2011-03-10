@@ -33,14 +33,14 @@ class PluginReviewsController < ApplicationController
         Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => @plugin.model_name.human,  :name => truncate(@review.review, :length => 10)))                                       
         flash[:success] = t("notice.item_create_success", :item => @plugin.model_name.human)
         flash[:success] += " " +  t("notice.user_thanks", :name => @review.user.first_name)
-        redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human.pluralize 
+        redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
        else # fail saved 
         flash[:failure] = t("notice.item_create_failure", :item => @plugin.model_name.human)
         render :action => "new"
        end         
    else # Improper Permissions  
         flash[:failure] = t("notice.invalid_permissions")
-        redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human.pluralize 
+        redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
    end       
  end
  
@@ -57,7 +57,7 @@ class PluginReviewsController < ApplicationController
    else # Improper Permissions  
         flash[:failure] = t("notice.invalid_permissions")            
    end  
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human.pluralize 
+   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
  end
 
 def update
@@ -75,7 +75,7 @@ def update
       render :action => "edit"
   else # Improper Permissions  
     flash[:failure] = t("notice.invalid_permissions")
-    redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human.pluralize 
+    redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
   end  
 end
  
@@ -96,7 +96,7 @@ end
     else
       flash[:failure] =  t("notice.item_save_failure", :item => @plugin.model_name.human)
     end
-    redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human.pluralize 
+    redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
   end 
   
   def new 
@@ -137,7 +137,7 @@ end
    else # Improper Permissions  
       flash[:failure] = t("notice.invalid_permissions")         
   end
-  redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human.pluralize               
+  redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other)               
  end                    
 
 

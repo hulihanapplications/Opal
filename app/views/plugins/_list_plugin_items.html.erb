@@ -1,11 +1,11 @@
 <%# plugin items are passed in via a hash called plugin_items, indexed by plugin id, ie: plugin_items[plugin.id] %>
 <% if plugin_items == 0 %>
-	<%= t("label.items_none_added", :items => Plugin.model_name.human.pluralize) %>
+	<%= t("label.items_none_added", :items => Plugin.model_name.human(:count => :other)) %>
 <% else %>
 	<% for plugin in plugins_to_look_for %>
 		<% if plugin.name != "Feature" && plugin.name != "FeatureValue" %> 			
 			<% if plugin_items[plugin.id].size > 0 %>
-				<h3><b><%= plugin.model_name.human.pluralize %></b></h3>		
+				<h3><b><%= plugin.model_name.human(:count => :other) %></b></h3>		
 				<div class="indent">
 					<% for plugin_item in plugin_items[plugin.id] %>
 						<table cellpadding=0 cellspacing=0 style="width:100%">

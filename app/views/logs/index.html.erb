@@ -5,7 +5,7 @@
 </div>
 <div id="main">
     <div class="header">
-    	<h2 class="title"><%= t("single.system") + " " + Log.model_name.human.pluralize %></h2>
+    	<h2 class="title"><%= t("single.system") + " " +  Log.model_name.human(:count => :other) %></h2>
     </div>
     <div class="box_2" align=left>
         <%= render :partial => "list_logs", :locals => {:logs => @logs} %>

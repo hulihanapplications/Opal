@@ -6,7 +6,7 @@
 		<div id="main">
 				<div class="header">					
 					<h2 class="title">
-						<%= @setting[:title] %> <%= Setting.model_name.human.pluralize %>
+						<%= @setting[:title] %> <%= Setting.model_name.human(:count => :other) %>
 					</h2>						
 				</div>		  	
 
@@ -15,8 +15,8 @@
 						<ul class="plugin_tabs_horizontal"> 
 							    <li><a href="#<%= t("single.public") %>"><%= t("single.public") %></a></li>
 							    <li><a href="#<%= t("single.system") %>"><%= t("single.system") %></a></li> 
-							    <li><a href="#<%= User.model_name.human.pluralize %>"><%= User.model_name.human.pluralize %></a></li> 	
-							    <li><a href="#<%= t("single.section").pluralize %>"><%= t("single.section").pluralize %></a></li> 													
+							    <li><a href="#<%= User.model_name.human(:count => :other) %>"><%= User.model_name.human(:count => :other) %></a></li> 	
+							    <li><a href="#<%= t("single.section", :count => :other) %>"><%= t("single.section", :count => :other) %></a></li> 													
 								<li><a href="#<%= t("setting.title.main_logo") %>"><%= t("setting.title.main_logo") %></a></li> 
 						</ul>			
 						<div class="plugin_panes_horizontal"> 					
@@ -32,7 +32,6 @@
 						    <div>	
 								 <%= render :partial => "/settings/list_settings", :locals => {:settings => Setting.find(:all, :conditions => ["setting_type = ?", "Section"]), :title => t("single.section")}%>
 							</div>		
-
 							<div>
 								<div class="section">
 
@@ -80,14 +79,6 @@
 				
 				<% end %>
 				<br><br>
-				
-	
-	
-	
-	
-	
-	
-	
-	
+
 	</div>
 </div>	

@@ -27,7 +27,7 @@ class PluginTagsController < ApplicationController
    else # Improper Permissions  
         flash[:failure] = t("notice.invalid_permissions")            
    end       
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human.pluralize 
+   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
   end
   
   def delete
@@ -42,7 +42,7 @@ class PluginTagsController < ApplicationController
    else # Improper Permissions  
         flash[:failure] = t("notice.invalid_permissions")            
    end       
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human.pluralize 
+   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
  end
 
  
@@ -62,6 +62,6 @@ class PluginTagsController < ApplicationController
     else
       flash[:failure] =  t("notice.item_save_failure", :item => @plugin.model_name.human) 
     end
-    redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human.pluralize 
+    redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
   end 
 end

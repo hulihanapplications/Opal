@@ -56,7 +56,7 @@ class PluginImagesController < ApplicationController
     if params[:tinymce] == "true" # redirect them back to the tinymce popup box
       redirect_to :action => "tinymce_images", :controller => "pages", :item_id => @item.id     
     else # redirect them back to item page
-      redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human.pluralize     
+      redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human(:count => :other)     
     end
   end 
 
@@ -76,7 +76,7 @@ class PluginImagesController < ApplicationController
     if params[:tinymce] == "true" # redirect them back to the tinymce popup box
       redirect_to :action => "tinymce_images", :controller => "pages", :item_id => @item.id     
     else # redirect them back to item page
-      redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human.pluralize     
+      redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human(:count => :other)     
     end
   end
 
@@ -92,7 +92,7 @@ class PluginImagesController < ApplicationController
     
     flash[:success] =  t("notice.save_success") 
     Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => t("log.item_save", :item => t("single.main") + " " + @plugin.model_name.human, :name => @new_main_image.filename))
-    redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human.pluralize 
+    redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human(:count => :other) 
   end
 
  
@@ -112,7 +112,7 @@ class PluginImagesController < ApplicationController
     else
       flash[:failure] =  t("notice.item_save_failure", :item => @plugin.model_name.human)
     end
-    redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human.pluralize 
+    redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human(:count => :other) 
   end  
 
   def tiny_mce_images # display images in tinymce  

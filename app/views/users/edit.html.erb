@@ -96,9 +96,9 @@
 						<a href="javascript:toggle_box('message_form')"><%= icon("mail") %> 
 							<%= t("label.item_send_to", :item =>  UserMessage.model_name.human, :name => h(@user.username)) %>
                         </a>	                    
-						<hr><%= link_to icon("logs") + " " + Log.model_name.human.pluralize, {:controller => "logs", :action => "for_user", :id => @user, :anchor => "activity"} %>
-	                    <hr><%= link_to icon("mail") + " " + UserMessage.model_name.human.pluralize, {:controller => "messages", :action => "for_user", :id => @user} %>
-	                    <% if @user.id != @logged_in_user.id %>
+						<hr><%= link_to icon("logs") + " " + Log.model_name.human(:count => :other), {:controller => "logs", :action => "for_user", :id => @user, :anchor => "activity"} %>
+	                    <hr><%= link_to icon("mail") + " " + UserMessage.model_name.human(:count => :other), {:controller => "messages", :action => "for_user", :id => @user} %>
+	                    <% if @user.id != @logged_in_user.id %>	                    
 						<hr><%= link_to icon("delete") + " " + t("label.item_delete", :item => User.model_name.human), {:controller => "users", :action => "delete", :id => @user}, :confirm => t("confirm.delete_user") %>
 						<% end %>
 	                </div>
@@ -130,9 +130,6 @@
 				<% end %>
 	</td>
 	<td valign=top align=left style="padding-left:5px;width:50%">
-						
-
-
             <div id="edit_user_box_<%= @user.id %>" class="box_2" style="margin-bottom:10px;" align=center>
                 <% form_for(@user,  :url => { :action => "update", :controller => "users", :id => @user.id}) do |f| %>
                     <div align=left><h3 class="title"><%= t("single.details") %></h3></div>

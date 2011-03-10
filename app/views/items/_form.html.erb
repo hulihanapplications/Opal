@@ -23,7 +23,7 @@
 						<tr>
 							<td>
 								<%= icon("tag") %>
-								<%= PluginTag.model_name.human.pluralize %>
+								<%= PluginTag.model_name.human(:count => :other) %>
 							</td>
 							<td>
 								<%= tags_field_tag(item, :tags) %>
@@ -40,10 +40,10 @@
 								<table style="width:100%" cellpadding=0 cellspacing=0>
 									<tr>
 										<td align=left>
-											<h3><%= Plugin.plugins[:feature].model_name.human.pluralize %></h3>	
+											<h3><%= Plugin.plugins[:feature].model_name.human(:count => :other) %></h3>	
 										</td>
 										<td align=right>
-											<%= link_to raw("#{icon("edit")} #{t("label.item_edit", :item => Plugin.plugins[:feature].model_name.human.pluralize)}"), {:action => "index", :controller => "plugin_features"} if @logged_in_user.is_admin?  %>
+											<%= link_to raw("#{icon("edit")} #{t("label.item_edit", :item => Plugin.plugins[:feature].model_name.human(:count => :other))}"), {:action => "index", :controller => "plugin_features"} if @logged_in_user.is_admin?  %>
 										</td>
 									</tr>
 								</table>
@@ -51,7 +51,7 @@
 								<% if features.size > 0 %>															
 									<%= render :partial => "plugin_features/form_for_item", :locals => {:item => item} %>	
 								<% else %>
-									<%= t("notice.items_not_found", :items => Plugin.plugins[:feature].model_name.human.pluralize) %>
+									<%= t("notice.items_not_found", :items => feature_plugin.model_name.human(:count => :other)) %>
 								<% end %>								
 							<% end %>
 							<div style="height:10px"></div>	

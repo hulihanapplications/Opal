@@ -60,11 +60,10 @@ h2. Install Opal
 Next, Run the following command(while in the Opal directory) to install Opal's database schema in production mode: 
 
 <pre>
-rake opal:install RAILS_ENV=production
+rake opal:install RAILS_ENV=production LOCALE=en
 </pre>
 
-This will install the database structure of Opal into the production database. If you leave out *RAILS_ENV=PRODUCTION*, everything will be installed into your development database instead. This command will also set up the default admin account, some sample items(you'll be asked if you want to install sample Data), and other stuff to help you get started with Opal.
-
+This will install the database structure of Opal into the production database. If you leave out *RAILS_ENV=PRODUCTION*, everything will be installed into your development database instead. This command will also set up the default admin account, some sample items(you'll be asked if you want to install sample Data), and other stuff to help you get started with Opal. Specify other *LOCALE* parameter for installing Greetings, Help Sections, etc. on specified language. 
   * If you want to automate an Opal installation, or if you just want to bypass prompts(that ask you if you want to install sample data and other stuff: run this command: _rake opal:install PROMPTS=FALSE_)
 
 h2. That's it! 

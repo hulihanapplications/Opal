@@ -1,6 +1,6 @@
 <% 
-	homepage =  Page.find_by_name("home")
-	homepage_sidebar =  Page.get_system_page("Home Page Sidebar") 
+	homepage =  Page.find_by_name(I18n.t('seeds.page.home.title'))
+	homepage_sidebar =  Page.get_system_page(I18n.t('seeds.page.home_page_sidebar.title')) 
 	homepage_subpages = homepage.pages.display_in_menu.published.in_order
 	show_sidebar = homepage_subpages.size > 0 || @setting[:section_items] || !homepage_sidebar.content.blank? 
 %>
@@ -9,14 +9,14 @@
 		<% if @setting[:section_items] %>
 				<% plugins = Plugin.enabled %>
 				<% for plugin in plugins %>
-							<%= render :partial => plugin.partial_path(:type => "home"), :locals => {:plugin => plugin } rescue nil %>
+					<%= render :partial => plugin.partial_path(:type => "home"), :locals => {:plugin => plugin } rescue nil %>
 				<% end %>												
 			  	<% if @setting[:homepage_type] != "categories" %>
 					<div class="box_1" id="category_menu" >
 				   		<%= render :partial => "items/category_menu", :locals => {:options => {:category => @category}} %>
 					</div>   
-					<%= show_page Page.get_system_page("Category Column") %>
-				<% end %>				
+					<%= show_page Page.get_system_page(I18n.t('seeds.page.category_column.title')) %>
+				<% end %>
 			   	<% if Setting.get_setting_bool("display_popular_items") %>
 					<div class="box_1" align=left > 
 						<%= render :partial => "items/popular_items" %>

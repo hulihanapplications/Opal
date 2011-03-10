@@ -8,7 +8,7 @@
 
 			<div class="header">					
 				<h2 class="title">
-					<%= PluginSetting.model_name.human.pluralize %> <%= t("single.for") %> <%= @plugin.model_name.human.pluralize %>
+					<%= PluginSetting.model_name.human(:count => :other) %> <%= t("single.for") %> <%= @plugin.model_name.human(:count => :other) %>
 				</h2>						
 			</div>
 
@@ -22,7 +22,7 @@
 					</div>
 				<% end %>
 			<% else %> 
-				<div align=center><%= t("notice.items_not_found", :items => PluginSetting.model_name.human.pluralize) %></div>
+				<div align=center><%= t("notice.items_not_found", :items => PluginSetting.model_name.human(:count => :other)) %></div>
 			<% end %>
 
 

@@ -402,7 +402,7 @@ module ApplicationHelper
          tags << link_to_tag(tag)
       end 
     end
-    return raw "#{icon("tag")} #{PluginTag.model_name.human.pluralize}: #{tags.join(", ")}" unless tags.size == 0 
+    return raw "#{icon("tag")} #{PluginTag.model_name.human(:count => :other)}: #{tags.join(", ")}" unless tags.size == 0 
   end
   
   def link_to_tag(tag)

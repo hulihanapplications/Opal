@@ -38,7 +38,7 @@ class PluginFeaturesController < ApplicationController
         flash[:failure] = t("notice.invalid_permissions")        
    end     
     
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human.pluralize 
+   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
   end
 
   def update_feature_value
@@ -55,7 +55,7 @@ class PluginFeaturesController < ApplicationController
    else # Improper Permissions  
         flash[:failure] = t("notice.invalid_permissions")       
    end    
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human.pluralize 
+   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
   end
  
   def delete_feature_value
@@ -70,7 +70,7 @@ class PluginFeaturesController < ApplicationController
    else # Improper Permissions  
         flash[:failure] = t("notice.invalid_permissions")        
    end      
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human.pluralize 
+   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
   end
 
  def change_approval
@@ -89,7 +89,7 @@ class PluginFeaturesController < ApplicationController
     else
       flash[:failure] = t("notice.item_save_failure", :item => @plugin.model_name.human) 
     end
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human.pluralize 
+   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
   end 
  
   def new
@@ -178,7 +178,7 @@ class PluginFeaturesController < ApplicationController
       # Update Feature Valuess
       approve = (!@my_group_plugin_permissions.requires_approval?  || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?) # check if these new values will be auto-approved 
       num_of_features_updated = PluginFeature.create_values_for_item(:item => @item, :features => params[:features], :user => @logged_in_user, :delete_existing => true, :approve => approve)  
-      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => t("log.item_save", :item => @plugin.model_name.human, :name => "#{pluralize(num_of_features_updated, @plugin.model_name.human)}" ))                    
+      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => t("log.item_save", :item => @plugin.model_name.human, :name => "#{@plugin.model_name.human(:count => num_of_features_updated)}" ))                    
       if approve
         flash[:success] = t("notice.item_save_success", :item => @plugin.model_name.human)
       else 
@@ -190,7 +190,7 @@ class PluginFeaturesController < ApplicationController
     redirect_to :action => "edit_values" , :id => @item    
    else # Improper Permissions  
     flash[:failure] = t("notice.invalid_permissions")    
-    redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human.pluralize     
+    redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other)     
    end         
   end
 end

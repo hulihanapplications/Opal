@@ -10,7 +10,7 @@ class LogsController < ApplicationController
   
   
   def index 
-    @setting[:meta_title] << Log.model_name.human.pluralize
+    @setting[:meta_title] << Log.model_name.human(:count => :other)
     @logs = Log.paginate :page => params[:page], :per_page => 25
   end
   

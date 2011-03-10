@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
    if params[:locale] # set in url 
     I18n.locale = params[:locale]
    else # not set in url
-    I18n.locale = @logged_in_user.locale # set to logged in user's locale
+    I18n.locale = @logged_in_user.locale.blank? ? Setting.get_setting("locale") : @logged_in_user.locale # set to logged in user's locale
    end 
   end
     

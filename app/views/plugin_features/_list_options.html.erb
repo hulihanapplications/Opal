@@ -18,6 +18,6 @@
 	</div>
 <% else %>
 	<div align=center>
-		<%= t("label.items_none_added", :items => PluginFeatureValueOption.model_name.human.pluralize) %>
+		<%= t("label.items_none_added", :items => PluginFeatureValueOption.model_name.human(:count => :other)) %>
 	</div>
 <% end %>		

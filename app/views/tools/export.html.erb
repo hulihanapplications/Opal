@@ -45,7 +45,7 @@
 								<!--<input type="radio" name="format" value="excel"> Excel <br>-->									
 							</div>
 				   			<div class="box_1">
-								<h2><%= Category.model_name.human.pluralize %></h2>
+								<h2><%= Category.model_name.human(:count => :other) %></h2>
 								<div class="indent">
 									<table cellpadding=0 cellspacing=0 style="width:100%"><tr><td style="width:100%;"><b><%= t("single.all") %></b></a></td><td align=right><input type="radio" name="item[category_id]" value="all" CHECKED></td></tr></table>
 								</div>

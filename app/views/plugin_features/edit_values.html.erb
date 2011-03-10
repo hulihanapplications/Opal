@@ -6,15 +6,15 @@
 	<div align=left class="box_2">
 		<% features_plugin = Plugin.find_by_name("Feature") %>
 		<% if features_plugin.is_enabled? || @logged_in_user.is_admin?  %>
-			<a name="<%= PluginFeature.model_name.human.pluralize %>"></a>
+			<a name="<%= PluginFeature.model_name.human(:count => :other) %>"></a>
 			<table style="width:100%" cellpadding=0 cellspacing=0>
 				<tr>
 					<td align=left>
-						<h3><%= features_plugin.model_name.human.pluralize %></h3>	
+						<h3><%= features_plugin.model_name.human(:count => :other) %></h3>	
 					</td>
 					<td align=right>
 						<%= icon("edit") %>
-						<%= link_to t("label.item_edit", :item => PluginFeature.model_name.human.pluralize), {:action => "index", :controller => "plugin_features"} if @logged_in_user.is_admin?  %>
+						<%= link_to t("label.item_edit", :item => PluginFeature.model_name.human(:count => :other)), {:action => "index", :controller => "plugin_features"} if @logged_in_user.is_admin?  %>
 					</td>
 				</tr>
 			</table>

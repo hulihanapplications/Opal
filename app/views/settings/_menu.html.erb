@@ -3,7 +3,7 @@
 	
 	<div class="box_<%= (params[:controller] == "settings" && params[:action] == "index") || params[:action] == "new_change_logo" ? "1" : "2" %>" style="margin-bottom:5px;">
 		<img src="/themes/<%= @setting[:theme] %>/images/icons/settings.png" class="icon"> 				
-		<%= link_to Setting.model_name.human.pluralize, {:action => "index", :controller => "settings"} %>				
+		<%= link_to Setting.model_name.human(:count => :other), {:action => "index", :controller => "settings"} %>				
 	</div>
 	
 	<div class="box_<%= (params[:controller] == "settings" && params[:action] == "items") ? "1" : "2" %>" style="margin-bottom:5px;">
@@ -13,12 +13,12 @@
 
 	<div class="box_<%= (params[:action] == "themes" || params[:action] == "new_theme_install") ? "1" : "2" %>" style="margin-bottom:5px;">
 		<img src="/themes/<%= @setting[:theme] %>/images/icons/themes.png" class="icon"> 				
-		<%= link_to t("single.theme").pluralize, {:action => "themes", :controller => "settings"} %>				
+		<%= link_to t("single.theme", :count => :other), {:action => "themes", :controller => "settings"} %>				
 	</div>
 	
 	<div class="box_<%= (params[:controller] == "plugins" || params[:controller] == "plugin_features") ? "1" : "2" %>" style="margin-bottom:0px;">
 		<img src="/themes/<%= @setting[:theme] %>/images/icons/plugins.png" class="icon"> 				
-		<%= link_to Plugin.model_name.human.pluralize, {:action => "index", :controller => "plugins"} %>				
+		<%= link_to Plugin.model_name.human(:count => :other), {:action => "index", :controller => "plugins"} %>				
 	</div>	
 		
 </div>

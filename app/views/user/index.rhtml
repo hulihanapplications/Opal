@@ -2,7 +2,7 @@
 			<div class="box_1" style="margin-bottom:5px" align=center>
 				<% num_of_new_messages = UserMessage.count(:all, :select => "id", :conditions => ["user_id = ? and is_read = '0' and to_user_id = ?", @logged_in_user.id, @logged_in_user.id]) %>
 				<%= icon("mail") %>
-				<%= link_to "#{num_of_new_messages} #{t("single.new")} #{UserMessage.model_name.human.pluralize}", {:action => "for_me", :controller => "messages"} %>				
+				<%= link_to "#{num_of_new_messages} #{t("single.new")} #{UserMessage.model_name.human(:count => :other)}", {:action => "for_me", :controller => "messages"} %>				
 			</div>
 			<%= render :partial => "items/unapproved_plugin_items", :locals => {:items => @items, :plugins => @plugins} %>
 
@@ -19,9 +19,9 @@
 
 				<div class="box_2" align=left style="margin-bottom:5px;">
 						<h2 class='title'>
-							<%= t("label.items_latest", :items => Log.model_name.human.pluralize) %>
+							<%= t("label.items_latest", :items => Log.model_name.human(:count => :other)) %>
 							<img src="/themes/<%= @setting[:theme] %>/images/icons/logs.png" class="icon">
-							<%= link_to "#{t("single.all")} #{Log.model_name.human.pluralize}", {:controller => "logs", :action => "for_me"}%>
+							<%= link_to "#{t("single.all")} #{Log.model_name.human(:count => :other)}", {:controller => "logs", :action => "for_me"}%>
 						</h2>
 						<%= render :partial => "logs/list_logs", :locals => {:logs => @latest_logs} %>								
 				</div>	

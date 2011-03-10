@@ -162,7 +162,7 @@ class ApplicationController < ActionController::Base
     if @plugin.is_enabled? # check to see if the plugin is enabled
      # Proceed
     else # Plugin Disabled 
-     flash[:failure] = t("notice.items_disabled", :items => @plugin.model_name.human.pluralize)
+     flash[:failure] = t("notice.items_disabled", :items => @plugin.model_name.human(:count => :other))
      if defined?(@item) # has an item already been looked up?
       redirect_to :action => "view", :controller => "items", :id => @item.id # redirect to item page
      else
@@ -170,7 +170,7 @@ class ApplicationController < ActionController::Base
      end  
     end
   rescue Exception => e  
-    flash[:failure] = t("notice.item_not_found", :item => @plugin.model_name.human.pluralize)
+    flash[:failure] = t("notice.item_not_found", :item => @plugin.model_name.human(:count => :other))
   end
   
   def check_item_view_permissions # can user view this item?

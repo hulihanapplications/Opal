@@ -17,7 +17,7 @@
 				</td>
 				<td align=right style="text-align:right">
 					<%= friendly_date @discussion.created_at %>
-					<%= link_to icon("rss", t("label.rss_feed") + " -  " + t("label.items_latest", :items => PluginDiscussionPost.model_name.human.pluralize)), {:action => "rss", :controller => "plugin_discussions", :id => @item.id, :discussion_id => @discussion.id} %>
+					<%= link_to icon("rss", t("label.rss_feed") + " -  " + t("label.items_latest", :items => PluginDiscussionPost.model_name.human(:count => :other))), {:action => "rss", :controller => "plugin_discussions", :id => @item.id, :discussion_id => @discussion.id} %>
 				<% if @logged_in_user.is_admin? || (my_group_plugin_permissions[@plugin.id].can_update? || @item.is_user_owner?(@logged_in_user))   %>									
 					<a href="javascript:replace_box('discussion_box_<%= @discussion.id %>','edit_discussion_box_<%= @discussion.id %>')">
 						<%= icon("edit") %>
@@ -35,7 +35,7 @@
 		<% if @posts.size > 0 %>
 			<%= render :partial => "plugin_discussions/list_posts", :locals => {:posts => @posts, :item => @item} %>
 		<% else %>
-			<h3><%= t("label.items_none_added", :items => PluginDiscussionPost.model_name.human.pluralize) %></h3>
+			<h3><%= t("label.items_none_added", :items => PluginDiscussionPost.model_name.human(:count => :other)) %></h3>
 		<% end %>
 	
 	</div>

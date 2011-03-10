@@ -32,7 +32,7 @@
 					<tr>
 						<td align=left>
 							<h2 class="title">
-								<%= Plugin.model_name.human.pluralize %>
+								<%= Plugin.model_name.human(:count => :other) %>
 							</h2>						
 						</td>
 						<td align=right >
@@ -70,7 +70,7 @@
 						  			<td align=left>
 						  				<div id="plugin_title_<%= plugin.id %>">
 						  			  		<h2>
-						  			  			<%= plugin.model_name.human.pluralize %> 											
+						  			  			<%= plugin.model_name.human(:count => :other) %> 											
 											</h2>
 						  				</div>
 										<div style="">
@@ -80,10 +80,10 @@
 									<td valign=middle align=center style="text-align:left;width:125px;padding-left:10px">
 									  	<div class="box_2">
 											<% if plugin.name == "Feature" %>
-						  			  			<%= link_to icon("edit") + " #{t("label.item_edit", :item => plugin.model_name.human.pluralize)}", {:action => "index", :controller => "plugin_features"} %>
+						  			  			<%= link_to icon("edit") + " #{t("label.item_edit", :item => plugin.model_name.human(:count => :other))}", {:action => "index", :controller => "plugin_features"} %>
 												<br>
 											<% end %>						  			  		
-											<%= link_to icon("settings") + raw(" #{PluginSetting.model_name.human.pluralize}<br>"), {:action => "settings", :controller => "plugins", :id => plugin.id} if plugin.plugin_settings.size > 0 %>											
+											<%= link_to icon("settings") + raw(" #{PluginSetting.model_name.human(:count => :other)}<br>"), {:action => "settings", :controller => "plugins", :id => plugin.id} if plugin.plugin_settings.size > 0 %>											
 											<input type="checkbox" name="enable_<%= plugin.model_name.human %>" value="1" <% if plugin.is_enabled? %>CHECKED<% end %> onchange="javascript:toggle_plugin('<%= plugin.id %>')" style="vertical-align:middle;padding:0px;margin:0px;width:16px;height:16px">
 									  		<%= t("single.enabled") %>
 											<%= link_to "(#{t("label.item_uninstall", :item => "")})", {:action => "uninstall", :controller => "plugins", :id => plugin.id}, :confirm => t("confirm.item_delete", :item => Plugin.model_name.human )  if !plugin.is_builtin? %>					

@@ -4,7 +4,7 @@ class PagesController < ApplicationController
  before_filter :uses_tiny_mce, :only => [:new, :edit]  # which actions to load tiny_mce, TinyMCE Config is done in Layout. 
  
  def index
-   @setting[:meta_title] << Page.model_name.human.pluralize 
+   @setting[:meta_title] << Page.model_name.human(:count => :other) 
    params[:type] ||= "public"
    if params[:type].downcase == "public"
       @pages = Page.all.root.public.in_order

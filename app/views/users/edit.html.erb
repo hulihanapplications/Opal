@@ -96,8 +96,8 @@
 						<a href="javascript:toggle_box('message_form')"><%= icon("mail") %> 
 							<%= t("label.item_send_to", :item =>  UserMessage.model_name.human, :name => h(@user.username)) %>
                         </a>	                    
-						<hr><%= link_to icon("logs") + " " + Log.model_name.human.pluralize, {:controller => "logs", :action => "for_user", :id => @user, :anchor => "activity"} %>
-	                    <hr><%= link_to icon("mail") + " " + UserMessage.model_name.human.pluralize, {:controller => "messages", :action => "for_user", :id => @user} %>
+						<hr><%= link_to icon("logs") + " " + Log.model_name.human(:count => :other), {:controller => "logs", :action => "for_user", :id => @user, :anchor => "activity"} %>
+	                    <hr><%= link_to icon("mail") + " " + UserMessage.model_name.human(:count => :other), {:controller => "messages", :action => "for_user", :id => @user} %>
 	                    <hr><%= link_to icon("delete") + " " + t("label.item_delete", :item => User.model_name.human), {:controller => "users", :action => "delete", :id => @user}, :confirm => t("confirm.delete_user") %>
 	                </div>
 	                <div class="box_1" align=left style="margin-bottom:10px;">

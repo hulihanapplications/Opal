@@ -2,7 +2,7 @@
 	<div class="header">					
 		
 		<% if defined?(title) %>
-			<h2 class="title"><%= title %> <%= Setting.model_name.human.pluralize %></h2>
+			<h2 class="title"><%= title %> <%= Setting.model_name.human(:count => :other) %></h2>
 		<% end %>					
 	</div>		
 

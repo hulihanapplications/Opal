@@ -1,5 +1,5 @@
 <h2 class="title">
-	<%= t("label.items_from", :items => Log.model_name.human.pluralize, :name => @user.username) %>
+	<%= t("label.items_from", :items => Log.model_name.human(:count => :other), :name => @user.username) %>
 </h2>
 
 <%= render :partial => "logs/logs_page", :locals => {:logs => @logs} %>

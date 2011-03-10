@@ -29,7 +29,7 @@
 						</td>
 						<td style="width:50%;padding-left:5px;" align=left>
 							<% if @plugin_feature.feature_type == "option" %>
-								<h3 class="title"><%= @plugin_feature.name %> <%= PluginFeatureValueOption.model_name.human.pluralize %></h3>
+								<h3 class="title"><%= @plugin_feature.name %> <%= PluginFeatureValueOption.model_name.human(:count => :other) %></h3>
 								<!--<i>Allows users to select a predefined value for <%= @plugin_feature.name %>.</i>-->
 																
 								<div class="box_2" style="margin-bottom:10px;">

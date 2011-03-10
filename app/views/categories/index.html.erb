@@ -5,7 +5,7 @@
 				<tr>
 					<td align=left>
 						<h2 class="title">
-							<a name="groups"><%= @categories.size %> <%= Category.model_name.human.pluralize %></a>
+							<a name="groups"><%= @categories.size %> <%= Category.model_name.human(:count => :other) %></a>
 						</h2>						
 					</td>
 					<td align=right >

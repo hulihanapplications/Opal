@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
 
    def index
         @groups = Group.paginate :page => params[:page], :per_page => 25, :order => "name ASC"
-        @setting[:meta_title] << Group.model_name.human.pluralize
+        @setting[:meta_title] << Group.model_name.human(:count => :other)
    end
    
     def create
@@ -60,7 +60,7 @@ class GroupsController < ApplicationController
         end
         Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log => t("log.item_save", :item => GroupPluginPermission.model_name.human, :name => @group.name))
       end
-      flash[:success] = t("notice.item_save_success", :item => GroupPluginPermission.model_name.human.pluralize)            
+      flash[:success] = t("notice.item_save_success", :item => GroupPluginPermission.model_name.human(:count => :other))            
       redirect_to :action => "edit", :id => @group.id
    end  
   

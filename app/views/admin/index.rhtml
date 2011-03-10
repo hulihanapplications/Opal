@@ -28,11 +28,11 @@
 			<tr>
 				<td align=left>
 					<h2 class='title'>
-						<%= t("label.items_latest", :items => Log.model_name.human.pluralize) %>
+						<%= t("label.items_latest", :items => Log.model_name.human(:count => :other)) %>
 					</h2>									
 				</td>
 				<td align=right>
-					<%= link_to icon("logs") + " " + t("single.all") + " " + Log.model_name.human(:count => :other), {:controller => "logs"}%>														
+					<%= link_to icon("logs") + " " + t("single.all") + " " + Log.model_name.human(:count => :other), {:controller => "logs"} %>														
 				</td>
 			</tr>
 		</table>	

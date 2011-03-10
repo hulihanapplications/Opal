@@ -90,7 +90,7 @@
 					<% if Plugin.plugins[:comment].is_enabled? %>
 						<div class="box_2">									
 							<span>	
-								<%= link_to_function raw("#{icon("comments")} #{item.plugin_comments.size} #{PluginComment.model_name.human(:count => :other)}"), "select_tab(\"#{Plugin.plugins[:comment].model_name.human(:count => :other)}\")" %>						
+								<%= link_to_function raw("#{icon("comments")} #{item.plugin_comments.size} #{PluginComment.model_name.human(:count => :other)}"), "select_tab(\"#{Plugin.plugins[:comment].model_name.human(:count => item.plugin_comments.size)}\")" %>						
 							</span>							
 						</div>
 					<% end %>	

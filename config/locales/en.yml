@@ -541,9 +541,15 @@ en:
       page:
         one: Page
         other: Pages
-      public_page: Public Page # psuedo model
-      system_page: System Page # psuedo model
-      blog_page: Blog Post # psuedo model
+      public_page: # psuedo model
+        one: Public Page
+        other: Public Pages 
+      system_page: # psuedo model
+        one: System Page
+        other: System Pages
+      blog_page:  # psuedo model
+        one: Blog Post
+        other: Blog Posts     
       page_comment:
         one: Comment
         other: Comments

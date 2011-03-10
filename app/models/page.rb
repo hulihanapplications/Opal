@@ -55,8 +55,8 @@ class Page < ActiveRecord::Base
     "#{id}-#{title.parameterize}" 
   end
   
-  def model_name # return human name of instance
-    I18n.t("activerecord.models.#{(self.page_type.capitalize + "Page").underscore}") 
+  def model_name(count = 1) # return human name of instance
+    I18n.t("activerecord.models.#{(self.page_type.capitalize + "Page").underscore}", :count => count, :default => Page.model_name) 
   end
   
   def self.public_pages
@@ -129,9 +129,6 @@ class Page < ActiveRecord::Base
     return Page.find(:all, :conditions => ["page_id = ?", self.id], :order => "title ASC")    
   end 
   
-  def model_name # get model name
-    I18n.t("activerecord.models.#{(self.page_type.capitalize + "Page").underscore}", :default => Page.model_name)
-  end
   
   def title # get pretty title
     if self.name # handle special pages

@@ -192,7 +192,7 @@ class PagesController < ApplicationController
     else # didn't select an image
       flash[:failure] =  t("notice.item_forgot_to_select", :item => @plugin.model_name.human)          
     end 
-    (defined?(result) && result) ? render(:layout => false) : redirect_to(:action => "tinymce_images", :anchor => Image.model_name.human.pluralize)
+    (defined?(result) && result) ? render(:layout => false) : redirect_to(:action => "tinymce_images", :anchor => Image.model_name.human(:count => :other))
   end
 
   def delete_image

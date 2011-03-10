@@ -10,12 +10,12 @@
 								<h2 class="title">
 									<% page_type = t("activerecord.models.#{(params[:type] + "Page").underscore}") %>
 									<a name="pages"></a>
-									<%= page_type.pluralize  %>
+									<%= t("activerecord.models.#{(params[:type] + "Page").underscore}", :count => :other)  %>
 								</h2>
 							</td>
 							<td align=right >
 								<% if params[:type] != "System" %>											
-									<%= link_to icon("new") + " " + t("label.item_new", :item => page_type), {:action => "new", :type => params[:type]}, :class=> "plugin_title_link" %>
+									<%= link_to icon("new") + " " + t("label.item_new", :item => t("activerecord.models.#{(params[:type] + "Page").underscore}", :count => 1)), {:action => "new", :type => params[:type]}, :class=> "plugin_title_link" %>
 								<% end %>										
 							</td>
 						</tr>

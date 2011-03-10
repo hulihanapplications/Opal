@@ -27,7 +27,6 @@ class SettingsController < ApplicationController
      #flash[:notice] << "<font color=grey>The Setting(#{name}) has not changed.<br></font>"
     end
    end
-   #flash[:failure] << t("notice.items_forgot_to_select", :items => Setting.model_name.human.pluralize) if counter == 0 # no items changed
    redirect_to :back
   end
  

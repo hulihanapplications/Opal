@@ -6,15 +6,15 @@
 	</div>
 		
 	<div class="box_<%= params[:controller] == "categories" ? "1" : "2" %>" style="margin-bottom:5px;">
-		<%= link_to icon("categories") + " " + Category.model_name.human.pluralize, {:action => "index", :controller => "categories"}  %>				
+		<%= link_to icon("categories") + " " + Category.model_name.human(:count => :other), {:action => "index", :controller => "categories"}  %>				
 	</div>	
 		
 	<div class="box_<%= (params[:action] == "settings" && params[:controller] == "items") ? "1" : "2" %>" style="margin-bottom:5px;">
-		<%= link_to icon("settings") + " " + Setting.model_name.human.pluralize, {:action => "settings", :controller => "items"} %>				
+		<%= link_to icon("settings") + " " + Setting.model_name.human(:count => :other), {:action => "settings", :controller => "items"} %>				
 	</div>	
 
 	<div class="box_<%= (params[:controller] == "plugins" || params[:controller] == "plugin_features") ? "1" : "2" %>" style="margin-bottom:5px;">
-		<%= link_to icon("plugins") + " " + Plugin.model_name.human.pluralize, {:action => "index", :controller => "plugins"} %>				
+		<%= link_to icon("plugins") + " " + Plugin.model_name.human(:count => :other), {:action => "index", :controller => "plugins"} %>				
 	</div>
 
 	<div class="box_<%= ( params[:action] == "import") ? "1" : "2" %>" style="margin-bottom:5px;">

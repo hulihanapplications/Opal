@@ -126,7 +126,7 @@
 						 <tr class="row_b">
 						  <!--<td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/homepage_type_categories.png" rel="colorbox" title="Categories"><img alt="" class="thumbnail" src="/images/examples/homepage_type_categories.png"  /></a></td>-->
 						  <td align=left style="padding-left:10px;vertical-align:middle">
-						  <h2><%= Category.model_name.human.pluralize %></h2>
+						  <h2><%= Category.model_name.human(:count => :other) %></h2>
 						 	 <!-- Categories for <%= @setting[:item_name_plural] %> are shown on the homepage. -->
 						  </td>
 						  <td align=right style="padding-right:20px;vertical-align:middle"><input type="radio" name="setting[homepage_type]" value="categories" <% if @setting[:homepage_type] == "categories" %>CHECKED<% end %>></td>		  

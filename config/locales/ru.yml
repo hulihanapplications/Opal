@@ -557,9 +557,21 @@ ru:
         few: Страницы
         many: Страниц
         other: Страницы
-      public_page: Публичная страница # psuedo model
-      system_page: Системная страница # psuedo model
-      blog_page: Сообщение блога # psuedo model
+      public_page: # psuedo model
+        one: Публичная страница
+        few: Публичная страница
+        many: Публичная страница       
+        other: Публичная страница 
+      system_page:  # psuedo model
+        one: Системная страница
+        few: Системная страница
+        many: Системная страница
+        other: Системная страница
+      blog_page:  # psuedo model
+        one: Сообщение блога
+        few: Сообщение блога
+        many: Сообщение блога
+        other: Сообщение блога       
       page_comment:
         one: Комментарий
         few: Комментария

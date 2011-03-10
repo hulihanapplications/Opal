@@ -514,37 +514,81 @@ en:
   # ActiveRecord Models & Validations
   activerecord:
     models:
-      user: 
+      user:
         one: User 
         other: Users        
       user_info: Account Info
-      user_message: Message
+      user_message: 
+        one: Message
+        other: Messages
       user_verification: Verification Request
-      group: Group
-      category: Category
+      group:
+        one: Group
+        other: Groups
+      category:
+        one: Category
+        other: Categories
       group_plugin_permission: Group Plugin Permission
-      image: Image
-      log: Activity
-      page: Page
+      image:
+        one: Image
+        other: Images
+      log:
+        one: Activity
+        other: Activities
+      page:
+        one: Page
+        other: Pages
       public_page: Public Page # psuedo model
       system_page: System Page # psuedo model
       blog_page: Blog Post # psuedo model
-      page_comment: Comment
-      plugin: Plugin  
-      plugin_comment: Comment
-      plugin_discussion: Discussion     
-      plugin_discussion_post: Post
-      plugin_description: Description
-      plugin_feature: Feature
-      plugin_feature_value: Value
-      plugin_feature_value_option: Option
-      plugin_file: File
-      plugin_image: Image
-      plugin_link: Link
-      plugin_review: Review
-      plugin_tag: Tag
-      plugin_setting: Setting
-      setting: Setting            
+      page_comment:
+        one: Comment
+        other: Comments
+      plugin:
+        one: Plugin
+        other: Plugins
+      plugin_comment:
+        one: Comment
+        other: Comments
+      plugin_discussion:
+        one: Discussion
+        other: Discussions
+      plugin_discussion_post:
+        one: Post
+        other: Posts
+      plugin_description:
+        one: Description
+        other: Descriptions
+      plugin_feature:
+        one: Feature
+        other: Features
+      plugin_feature_value:
+        one: Value
+        other: Values
+      plugin_feature_value_option:
+        one: Option
+        other: Options
+      plugin_file:
+        one: File
+        other: Files
+      plugin_image:
+        one: Image
+        other: Images
+      plugin_link:
+        one: Link
+        other: Links
+      plugin_review:
+        one: Review
+        other: Reviews
+      plugin_tag:
+        one: Tag
+        other: Tags
+      plugin_setting:
+        one: Setting
+        other: Settings
+      setting:
+        one: Setting
+        other: Settings
     attributes:
       user:
         username: Username

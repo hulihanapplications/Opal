@@ -515,39 +515,127 @@ ru:
   # ActiveRecord Models & Validations
   activerecord:
     models:
-      user: 
-        one: Пользователь 
+      user:
+        one: Пользователь
         few: Пользователя
         many: Пользователей
-        other: Пользователя 
+        other: Пользователи 
       user_info: Информация о профиле
-      user_message: Сообщение
+      user_message:
+        one: Сообщение
+        few: Сообщения
+        many: Сообщений
+        other: Сообщения
       user_verification: Запрос подтверждения
-      group: Группа
-      category: Категория
+      group:
+        one: Группа
+        few: Группы
+        many: Групп
+        other: Группы
+      category:
+        one: Категория
+        few: Категории
+        many: Категорий
+        other: Категории
       group_plugin_permission: Group Plugin Permission
-      image: Изображение
-      log: Активность
-      page: Страница
+      image:
+        one: Изображение
+        few: Изображения
+        many: Изображений
+        other: Изображения
+      log:
+        one: Активность
+        few: Активности
+        many: Активностей
+        other: Активности
+      page:
+        one: Страница
+        few: Страницы
+        many: Страниц
+        other: Страницы
       public_page: Публичная страница # psuedo model
       system_page: Системная страница # psuedo model
       blog_page: Сообщение блога # psuedo model
-      page_comment: Комментарий
-      plugin: Плагин  
-      plugin_comment: Комментарий
-      plugin_discussion: Дискуссия     
-      plugin_discussion_post: Сообщение
-      plugin_description: Описание
-      plugin_feature: Характеристика
-      plugin_feature_value: Значение
-      plugin_feature_value_option: Опция
-      plugin_file: Файл
-      plugin_image: Изображение
-      plugin_link: Ссылка
-      plugin_review: Обзор
-      plugin_tag: Тег
-      plugin_setting: Настройка
-      setting: Настройка
+      page_comment:
+        one: Комментарий
+        few: Комментария
+        many: Комментариев
+        other: Комментарии
+      plugin:
+        one: Плагин
+        few: Плагина
+        many: Плагинов
+        other: Плагины
+      plugin_comment:
+        one: Комментарий
+        few: Комментария
+        many: Комментариев
+        other: Комментарии
+      plugin_discussion:
+        one: Дискуссия
+        few: Дискуссии
+        many: Дискуссий
+        other: Дискуссии
+      plugin_discussion_post:
+        one: Сообщение
+        few: Сообщения
+        many: Сообщений
+        other: Сообщения
+      plugin_description:
+        one: Описание
+        few: Описания
+        many: Описаний
+        other: Описания
+      plugin_feature:
+        one: Характеристика
+        few: Характеристики
+        many: Характеристик
+        other: Характеристики
+      plugin_feature_value:
+        one: Значение
+        few: Значения
+        many: Значений
+        other: Значения
+      plugin_feature_value_option:
+        one: Опция
+        few: Опции
+        many: Опций
+        other: Опции
+      plugin_file:
+        one: Файл
+        few: Файла
+        many: Файлов
+        other: Файлы
+      plugin_image:
+        one: Изображение
+        few: Изображения
+        many: Изображений
+        other: Изображения
+      plugin_link:
+        one: Ссылка
+        few: Ссылки
+        many: Ссылок
+        other: Ссылки
+      plugin_review:
+        one: Обзор
+        few: Обзора
+        many: Обзоров
+        other: Обзоры
+      plugin_tag:
+        one: Тег
+        few: Тега
+        many: Тегов
+        other: Теги
+      plugin_setting:
+        one: Настройка
+        few: Настройки
+        many: Настроек
+        other: Настройки
+      setting:
+        one: Настройка
+        few: Настройки
+        many: Настроек
+        other: Настройки
     attributes:
       user:
         username: Имя пользователя

@@ -191,10 +191,10 @@ ru:
     main: Главный
     or: Или
     mode: Режим
-    effects: Effects    
-    advanced: Advanced 
-    mobile: Mobile
-    full: Full       
+    effects: Эффекты
+    advanced: Расширенный 
+    mobile: Мобильный
+    full: Полный
     rss: RSS
     spacer: "" # Spacer icon doesn't require a title
   # Flash Messages & Notices
@@ -371,6 +371,7 @@ ru:
     image_effect_resize: Измерить размер до %{width} x %{height} пикселей
     tag_example: "Например: веселый, смешной, странный"
     check_for_updates: Проверить обновления
+    installing: Идёт установка...
   # General Information 
   info: 
     delete_main_logo: Удаление логотипа отобразит заголовок вашего сайта. 
@@ -568,19 +569,19 @@ ru:
         other: Страницы
       public_page: # psuedo model
         one: Публичная страница
-        few: Публичная страница
-        many: Публичная страница       
-        other: Публичная страница 
+        few: Публичных страницы
+        many: Публичных страниц       
+        other: Публичные страницы 
       system_page:  # psuedo model
         one: Системная страница
-        few: Системная страница
-        many: Системная страница
-        other: Системная страница
+        few: Системных страницы
+        many: Системных страниц
+        other: Системные страницы
       blog_page:  # psuedo model
         one: Сообщение блога
-        few: Сообщение блога
-        many: Сообщение блога
-        other: Сообщение блога       
+        few: Сообщения блога
+        many: Сообщений блога
+        other: Сообщения блога       
       page_comment:
         one: Комментарий
         few: Комментария

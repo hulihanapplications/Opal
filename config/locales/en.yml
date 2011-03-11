@@ -8,16 +8,6 @@ en:
       item_name_plural: "Items"
       site_title: "My Opal Website"
       site_description: "The Free, Open Source, Item Management System. List Anything!"
-    plugin:
-      image: "Image"
-      description: "Description"
-      feature: "Feature"
-      link: "Link"
-      review: "Review"
-      comment: "Comment"
-      file: "File"
-      tag: "Tag"
-      discussion: "Discussion"
     category:
         uncategorized:
           name: "Uncategorized"

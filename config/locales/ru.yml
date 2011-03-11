@@ -8,16 +8,6 @@ ru:
       item_name_plural: "Товары"
       site_title: "Мой Opal Вебсайт"
       site_description: "Бесплатная, Открытая, Система Управления Вещами. Размещайте что угодно!"
-    plugin:
-      image: "Image"
-      description: "Description"
-      feature: "Feature"
-      link: "Link"
-      review: "Review"
-      comment: "Comment"
-      file: "File"
-      tag: "Tag"
-      discussion: "Discussion"
     category:
         uncategorized:
           name: "Без категории"

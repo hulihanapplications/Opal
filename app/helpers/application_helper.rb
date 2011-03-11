@@ -35,7 +35,8 @@ module ApplicationHelper
 
   def show_page(page) # prints out page content
     if page && page.content 
-      return raw page.content  
+      #return raw page.content
+      return content_tag(:div, raw(page.content), :class => "page") unless page.content.blank?
     else # either no page found or no content for page.
       return nil
     end
@@ -67,8 +68,9 @@ module ApplicationHelper
       end        
   end 
   
-  def gravatar_image(user, options = {:size => "normal"})
-    return raw "<img src='http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5.hexdigest(user.email.downcase)}?d=#{URI.escape(@setting[:url] + @setting[:theme_url] + "/images/default_avatar.png")}&s=100' class=\"avatar_#{options[:size]}\" title=\"#{user.username}\">"
+  def gravatar_image(object, options = {:size => "normal"})
+    email = object.class == User ? object.email.downcase : object.class == String ? object : nil 
+    return raw "<img src='http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5.hexdigest(email)}?d=#{URI.escape(@setting[:url] + @setting[:theme_url] + "/images/default_avatar.png")}&s=100' class=\"avatar_#{options[:size]}\" title=\"#{object.class == User ? object.username : nil}\">"
   end
 
 

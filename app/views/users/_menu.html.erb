@@ -1,5 +1,5 @@
 <div class="box_2" style="margin-bottom:5px;" align=center>
-	<h3 class="title" align=left>Users</h3>
+	<h3 class="title" align=left><%= User.model_name.human(:count => :other) %></h3>
 	
 	<div class="box_<%= params[:controller] == "users" ? "1" : "2" %>" style="margin-bottom:5px;">
 		<img src="/themes/<%= @setting[:theme] %>/images/icons/users.png" class="icon"> 				

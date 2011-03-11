@@ -1,7 +1,7 @@
 	<div id="side">
 		<%= render :partial => "menu" %>
 		<div class="box_1" style="margin-bottom:5px;" align=left>
-			<h3 class="title"><%= User.human_attribute_name(:latest_login).pluralize %></h3>
+			<h3 class="title"><%= User.human_attribute_name(:latest_login) %></h3>
 			<% for user in @latest_logins %>
 				<% if user.last_login %>
 					<table cellpadding=0 cellspacing=0 style="width:100%">
@@ -25,7 +25,7 @@
 							<tr>
 								<td align=left>
 									<h2 class="title">
-										<a name="groups"><%= @users.total_entries %> <%= User.model_name.human(:count => :other) %></a>
+										<a name="groups"><%= @users.total_entries %></a> <%= User.model_name.human(:count =>  @users.total_entries) %>
 									</h2>				
 								</td>
 								<td align=right >
@@ -42,7 +42,7 @@
 							<th style="width:20px;"></th>
 							<th><b><%= User.human_attribute_name(:username) %></b></th>
 							<th><b><%= t("single.name") %></b></th>
-							<th><b><%= User.human_attribute_name(:created_at) %></b></th>
+							<th><b><%= Group.model_name.human %></b></th>
 							<th><b><%= User.human_attribute_name(:latest_login) %></b></th>
 							<th style="width:20px;"></th>
 							<th style="width:20px;"></th>
@@ -58,7 +58,7 @@
 								</td>
 								<td><i><%= h user.first_name %> <%= h user.last_name %></i></td>
 								<td>
-									<%= friendly_date user.created_at %>
+									<%= user.group.name %>
 								</td>
 								<td>
 									<% if user.last_login%>

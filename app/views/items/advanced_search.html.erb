@@ -1,7 +1,8 @@
-<h2><%= t("label.items_found", :count => @items.size, :items => @setting[:item_name_plural]) %></h2>
-<br>
+
 <div id="side">
-	&nbsp;
+	<div align=center class="box_1">
+		<h2><%= t("label.items_found", :count => @items.size, :items => @setting[:item_name_plural]) %></h2>
+	</div>
 </div>
 <div id="main">
 	<%= render :partial => "items/list_items", :locals => {:items => @items } %>

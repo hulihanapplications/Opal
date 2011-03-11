@@ -7,7 +7,7 @@ class CreateUserMessages < ActiveRecord::Migration
       t.column :to_user_id, :integer, :default => nil
       t.column :reply_to_message_id, :integer, :default => 0 
       t.column :is_read, :string, :limit => 1, :default => "0"
-      t.column :is_deletable, :bool, :default => true
+      t.column :is_deletable, :boolean, :default => true
       t.column :created_at, :datetime#this will get populated automatically  
       t.column :updated_at, :datetime#this will get populated automatically 
     end

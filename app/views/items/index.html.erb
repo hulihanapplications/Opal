@@ -1,11 +1,9 @@
 <%= render :partial => "browse/main_content_top_bar" %>
 
 <div id="side">
-  	<% if @setting[:homepage_type] != "categories" %>
-		<div class="box_1" id="category_menu" style="margin-bottom:5px">
-	   		<%= render :partial => "items/category_menu", :locals => {:options => {:category => @category}} %>
-		</div>   
-	<% end %>
+	<div class="box_1" id="category_menu" style="margin-bottom:5px">
+   		<%= render :partial => "items/category_menu", :locals => {:options => {:category => @category}} %>
+	</div>   
    	<% if Setting.get_setting_bool("display_popular_items") %>
 		<div class="box_1" align=left style="margin-bottom:5px">
 			<%= render :partial => "items/popular_items" %>
@@ -19,7 +17,11 @@
 	<%= show_page Page.get_system_page(I18n.t('seeds.page.category_column.title')) %>	
 </div>
 <div id="main">
-	    <%= show_page Page.find_by_name("items") %>
+		<% items_page =  Page.find_by_name("items") %>
+		<% if items_page %>
+			<%= render :partial => "pages/header", :locals => {:page => items_page} %>
+			<%= show_page items_page  %>
+		<% end %>		
 		<%= render :partial => "/items/list_items", :locals => {:items => @items } %>
 		<div align="center" class="will_paginate">
 			<br>

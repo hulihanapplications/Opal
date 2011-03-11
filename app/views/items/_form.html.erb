@@ -52,7 +52,6 @@
 									<%= render :partial => "plugin_features/form_for_item", :locals => {:item => item} %>	
 								<% else %>
 									<%= t("notice.items_not_found", :items => feature_plugin.model_name.human(:count => :other)) %>
-									<!--No <%= feature_plugin.model_name.human(:count => :other) %> have been created yet.-->
 								<% end %>								
 							<% end %>
 							<div style="height:10px"></div>	

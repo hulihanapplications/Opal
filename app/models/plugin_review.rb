@@ -32,9 +32,9 @@ class PluginReview < ActiveRecord::Base
   
   def validate # custom validations
     @setting = Hash.new
-    @setting[:review_type] = self.plugin.get_setting("review_type")
-    @setting[:score_min] = self.plugin.get_setting("score_min").to_i     
-    @setting[:score_max] = self.plugin.get_setting("score_max").to_i   
+    @setting[:review_type] = PluginReview.get_setting("review_type")
+    @setting[:score_min] = PluginReview.get_setting("score_min").to_i     
+    @setting[:score_max] = PluginReview.get_setting("score_max").to_i   
            
     errors.add(:review_score, I18n.t("activerecord.errors.messages.range", :min => @setting[:score_min], :max => @setting[:score_max])) if !(self.review_score >=  @setting[:score_min] && self.review_score <= @setting[:score_max]) 
   end

@@ -3,17 +3,20 @@
 	options 					||= Hash.new
     options[:sortable]    		= false if options[:sortable].nil? # make these sortable?	
 %>
-<div class="pages" >
+<div class="pages">
 	<div id="event_box" style=";margin:5px 0px 5px 0px" align=center></div> 	
 	<%= sortable_list("pages", url_for(:action => "update_order", :controller => "pages"), "notice") if options[:sortable] %>	
 	<ul id="pages" class="tree <%= "sortable" if options[:sortable] %> collapsed">
 		<% if pages.size > 0 %>
 				<% for page in pages %>
-					<li id="<%= page.id %>" class="root <%= "hoverable" if options[:sortable] %>">
-						<div class="box_2">
-							<%= render :partial => "show", :locals => {:page => page, :options => {:admin_controls => true, :style => "font-size:16px", :spacer => false, :sortable => options[:sortable]}} %>							
-						</div>
-					</li>
+					<% show_page = (page.name == "items") ? @setting[:section_items] : page.name == "blog" ? @setting[:section_blog] : page.name == "terms_of_service" ? @setting[:allow_user_registration] : true %>
+					<% if show_page %>
+						<li id="<%= page.id %>" class="root <%= "hoverable" if options[:sortable] %>">
+							<div class="box_2">
+								<%= render :partial => "show", :locals => {:page => page, :options => {:admin_controls => true, :style => "font-size:16px", :spacer => false, :sortable => options[:sortable]}} %>							
+							</div>
+						</li>
+					<% end %>
 				<% end %>
 		<% else %>
 		<% end %>		

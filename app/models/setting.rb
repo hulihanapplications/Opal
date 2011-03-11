@@ -29,7 +29,7 @@ class Setting < ActiveRecord::Base
   
   
   def self.get_global_settings
-    logger.info "Reloading global settings."
+    logger.info "Retrieving global settings."
     setting = Hash.new
     setting[:item_name] = Setting.get_setting("item_name")
     setting[:item_name_plural] = Setting.get_setting("item_name_plural")
@@ -38,10 +38,12 @@ class Setting < ActiveRecord::Base
     setting[:theme] = Setting.get_setting("theme")
     setting[:items_per_page] = Setting.get_setting("items_per_page")
     setting[:include_child_category_items] = Setting.get_setting_bool("include_child_category_items")
-    setting[:theme_url] =  "/themes/#{setting[:theme]}" # url for theme directory 
-    setting[:theme_dir] =  File.join(Rails.root.to_s, "public", "themes", setting[:theme]) # system path for theme directory 
+    setting[:theme_url] =  "/themes/#{setting[:theme]}" # url for theme directory
+    setting[:themes_dir] =  File.join(Rails.root.to_s, "public", "themes") # system path for main themes directory 
+    setting[:theme_dir] =  File.join(setting[:themes_dir], setting[:theme]) # system path for current theme directory 
     setting[:section_blog] =  Setting.get_setting_bool("section_blog")
-    setting[:section_items] =  Setting.get_setting_bool("section_items")    
+    setting[:section_items] =  Setting.get_setting_bool("section_items")
+    setting[:allow_user_registration] =  Setting.get_setting_bool("allow_user_registration")
     return setting
   end
 

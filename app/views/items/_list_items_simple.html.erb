@@ -1,11 +1,4 @@
 <%# Grab Plugins to Display %>
-<% Plugin.plugins[:link] = Plugin.find(:first, :conditions => ["name = ?", "Link"])%>
-<% Plugin.plugins[:review] = Plugin.find(:first, :conditions => ["name = ?", "Review"])%>
-<% Plugin.plugins[:comment] = Plugin.find(:first, :conditions => ["name = ?", "Comment"])%>
-<% Plugin.plugins[:discussion] = Plugin.find(:first, :conditions => ["name = ?", "Discussion"])%>
-<% Plugin.plugins[:feature] = Plugin.find(:first, :conditions => ["name = ?", "Feature"])%>
-<% Plugin.plugins[:file] = Plugin.find(:first, :conditions => ["name = ?", "File"])%>
-<% Plugin.plugins[:image] = Plugin.find(:first, :conditions => ["name = ?", "image"])%>
 <% other_plugins = Plugin.find(:all, :conditions => ["is_builtin = '0'"], :order => "order_number ASC")%>
 
 <% for item in items %>

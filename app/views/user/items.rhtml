@@ -1,8 +1,5 @@
-<%= render :partial => "/browse/main_content_top_bar" %>
 
-<h2 class="title"><%= t("label.item_my", :item => @setting[:item_name_plural])  %></h2>
-<div class="spacer"></div>
-<br>
+
 <div id="side">
 
 		<%= render :partial => "items/unapproved_plugin_items", :locals => {:items => @items, :plugins => @plugins} %>
@@ -10,17 +7,26 @@
 			<%= render :partial => "items/items_remaining" %>
 		<% end %>
 </div>
-<div id="main">			
+<div id="main">		
+	<div class="header">
+					<table style="width:100%;" cellpadding=0 cellspacing=0>
+						<tr>
+							<td align=left>
+								<h2 class="title"><%= t("label.item_my", :item => @setting[:item_name_plural])  %></h2>						
+							</td>
+							<td align=right >
+								<%= render :partial => "/browse/main_content_top_bar" %>	
+							</td>
+						</tr>
+					</table>		
+	</div>
 	<%= render :partial => "/items/list_items", :locals => {:items => @items} %>
-	<br>
-
-
+	<div align="center" class="will_paginate">
+		<%= page_entries_info @items, :entry_name => @setting[:item_name] %>	
+		<%= will_paginate @items %>
+		<br>
+	</div>		
 </div>
 
-<div align="center" class="will_paginate">
-	<br>	
-	<%= page_entries_info @items, :entry_name => @setting[:item_name] %>	
-	<%= will_paginate @items %>
-	<br>
-</div>
+
 

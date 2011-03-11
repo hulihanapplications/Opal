@@ -4,16 +4,29 @@
 	<script type="text/javascript" src="/core/javascripts/tiny_mce/tiny_mce_popup.js"></script>
 	<script type="text/javascript" src="/core/javascripts/tiny_mce/plugins/opal_image/js/dialog.js"></script>
 	<%= render :partial => "shared/head" %>
-
 </head>
 <body>
+	<%= render :partial => "shared/flash", :locals => {:flash => flash} %>
 	<div style="padding:10px;min-height:465px;" id="tinymce_plugin_opal_image">
 	    <% if flash[:notice] %><div class="flash_notice"><%= flash[:notice] %></div><% end %> 		
 		<ul class="plugin_tabs_horizontal"> 
-			    <li><a href="#Images"><%= @plugin.model_name.human(:count => :other) %></a></li>				
-				<li><a href="#Upload"><%= t("single.upload") %> <%= @plugin.model_name.human %></a></li> 
+				<li><a href="#<%= t("single.upload") %>"><%= t("single.upload") %> <%= @plugin.model_name.human %></a></li> 
+			    <li><a href="#<%= Image.model_name.human(:count => :other) %>"><%= @plugin.model_name.human(:count => :other) %></a></li>				
 		</ul>			
 		<div class="plugin_panes_horizontal"> 					
+			<div id="Upload">								   
+			  <% if @item %>
+	   			<%= form_tag ({:action => 'create', :controller => "plugin_images", :id => @item.id, :tinymce => "true"} , :multipart => true) %>			 
+			  <% else %>			
+				<%= form_tag ({:action => 'upload_image', :controller => "pages"} , :multipart => true) %>
+			  <% end %>				
+				   <%= render :partial => "shared/image_upload_form" %>
+				   <br>
+				   <div align=center>
+				   		<input type="submit" value="<%= t("single.upload") %>" class="button_1">
+				   </div>
+			   </form>	
+			</div>
 			<div class="plugin_box">		
 			    <div id="Images">	
 					<div class="images" align=left>			
@@ -42,21 +55,8 @@
 						<% end %>
 					</div>
 				</div>
-			</div>
-			<div id="Upload">								   
-			  <% if @item %>
-	   			<%= form_tag ({:action => 'create', :controller => "plugin_#{@plugin.model_name.human(:count => :other)}", :id => @item.id, :tinymce => "true"} , :multipart => true) %>			 
-			  <% else %>			
-				<%= form_tag ({:action => 'upload_image', :controller => "pages"} , :multipart => true) %>
-			  <% end %>				
-				   <%= render :partial => "shared/image_upload_form" %>
-				   <br>
-				   <div align=center>
-				   		<input type="submit" value="<%= t("single.upload") %>" class="button_1">
-				   </div>
-			   </form>	
-			</div>
-		</div>
+			</div>			
+		</div>		
 	</div>
 </body>
 </html>

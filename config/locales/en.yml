@@ -75,6 +75,25 @@ en:
       public:
         name: "The Public"
         description: "People visiting your site that aren't logged in."
+    user:
+      admin:
+        username: admin
+        first_name: Bob 
+        last_name: Jones
+        email: admin@test.com
+        password: admin
+      test:
+        username: test
+        first_name: John 
+        last_name: Doe
+        email: test@test.com
+        password: test  
+      unverified:
+        username: unverified
+        first_name: Bill
+        last_name: McGrew
+        email: unverified@test.com
+        password: unverified            
   # Sections
   section:
     title: 
@@ -172,8 +191,13 @@ en:
     main: Main
     or: Or
     mode: Mode
+    effects: Effects    
+    advanced: Advanced 
+    mobile: Mobile
+    full: Full   
     rss: RSS
     spacer: "" # Spacer icon doesn't require a title
+    done: Done
   # Flash Messages & Notices
   notice:
     save_success: Your changes have been successfully saved!
@@ -252,7 +276,7 @@ en:
     user_account_verify: "Verified my account."
     items_imported: "%{count} %{items} imported."
     failed_admin_access_attempt_visitor: Someone at %{ip} attempted to access the Admin Area. %{controller} - %{action}
-    failed_admin_access_attempt_user: %{username}(%{id}) attempted to access the Admin Area. %{controller} - %{action}
+    failed_admin_access_attempt_user: %{username}(%{id}) attempted to access the Admin Area. %{controller} - %{action} 
   # Email
   email:
     subject:
@@ -309,7 +333,6 @@ en:
     captcha: Verification Code
     rss_feed: RSS Feed
     search: Search
-    advanced_search: Advanced Search
     register: Sign Up!
     register_message: Don't have an account? 
     sort_asc: Currently sorted in ascending order.
@@ -348,6 +371,7 @@ en:
     image_effect_resize: Resize to %{width} x %{height} pixels
     tag_example: "Example: cool, funny, weird"
     check_for_updates: Check for Updates
+    installing: Installing...
   # General Information 
   info: 
     delete_main_logo: Deleting your main logo will show the title of your site instead. 
@@ -358,7 +382,8 @@ en:
     general: Are you sure you want to do this?
     delete: Are you sure you want to delete this?
     delete_user: Are you sure you want to delete this user? Everything this user has ever created will be deleted also! If you don't want this to happen, you could disable their account instead.
-    item_delete: Are you sure you want to delete this %{item}? 
+    item_delete: Are you sure you want to delete this %{item}?
+    install_sample_data: "Install Sample Data? (Example Items, Categories, Users)"           
   # Settings
   setting:
     title:
@@ -393,7 +418,7 @@ en:
       show_user_login: Display User Login
       display_help_sections: Display Help Sections
       theme: Theme
-      setup_completed: "translation missing: en, setting, title, setup_completed"
+      setup_completed: Setup Completed!
       display_popular_items: Display Most Popular Items
       users_can_delete_items: Let Users Delete Their Items
       item_name: Item Name
@@ -426,7 +451,7 @@ en:
       site_title: The Title of your Site. You would see this at the very top of your browser window.
       site_description: The description for your site. Used in the title of your page(at the top of your browswer) and for search engine submission.
       site_keywords: The Keywords Metatag for your site. Used for search engine submission. Seperated by commas.      
-      locale: The default language and time zone used by Opal. Users can also set their own unique locale.
+      locale: The default language and time zone used by Opal. Since users can also set their own unique locale, this applies to visitors and new users.
       display_item_views: Display the number of times an item has been viewed(visible on an item's page).
       caching: This allows item pages to be cached to speed up performance. A flat file is stored on the server that visitors will see, instead of having the server generate a dynamic page every time.
       new_item_notification: If enabled, all admins will be sent an email when a new item is created.
@@ -528,9 +553,15 @@ en:
       page:
         one: Page
         other: Pages
-      public_page: Public Page # psuedo model
-      system_page: System Page # psuedo model
-      blog_page: Blog Post # psuedo model
+      public_page: # psuedo model
+        one: Public Page
+        other: Public Pages 
+      system_page: # psuedo model
+        one: System Page
+        other: System Pages
+      blog_page:  # psuedo model
+        one: Blog Post
+        other: Blog Posts     
       page_comment:
         one: Comment
         other: Comments

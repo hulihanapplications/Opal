@@ -178,7 +178,7 @@ class Item < ActiveRecord::Base
   end
   
   def self.popular_items # get the most popular items
-    return Item.find(:all, :order => "views DESC", :limit => 10)
+    return Item.find(:all, :order => "views DESC", :conditions => ["is_approved = ? and is_public = ?", "1", "1"], :limit => 10)
   end 
 
   def self.featured_items # get featured items
@@ -246,6 +246,9 @@ class Item < ActiveRecord::Base
   end 
  end 
  
+ def logs # get logs for item
+   Log.for_item(self).newest_first
+ end
 =begin
   # Create Dynamic Attributes from Features
   for feature in PluginFeature.find(:all)

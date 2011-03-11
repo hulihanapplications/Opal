@@ -30,7 +30,7 @@ class Plugin < ActiveRecord::Base
   def self.all_to_hash # return all plugins in an unordered hash
     plugin_hash = Hash.new
     for plugin in self.find(:all, :order => "order_number ASC")
-      plugin_hash[plugin.name.downcase.to_sym] = plugin
+      plugin_hash[plugin.name.underscore.to_sym] = plugin
     end
     return plugin_hash
   end
@@ -41,7 +41,7 @@ class Plugin < ActiveRecord::Base
   end
   
   def model_name # get human/translated name of plugin child 
-    return self.actual_model.model_name # get human name of actual model 
+    self.plugin_class.model_name # get human name of actual model 
   end
   
   def destroy_everything
@@ -93,7 +93,7 @@ class Plugin < ActiveRecord::Base
 
   def partial_path(options = {}) # returns the file location for the partial of a particular type
     options[:type] ||= "list" # set default
-    return "/plugin_#{self.name.downcase}s/#{options[:type]}"    
+    return "/plugin_#{self.name.underscore.pluralize}/#{options[:type]}"    
   end
 
   def permissions_for_group(group) # retrieve ONE plugin's permissions for a certain group    
@@ -128,5 +128,7 @@ class Plugin < ActiveRecord::Base
     end 
   end
   
-
+  def plugin_class # get the class that this plugin record is tied to
+    "Plugin#{self.name}".constantize
+  end
 end

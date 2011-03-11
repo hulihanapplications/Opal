@@ -67,8 +67,10 @@ class PluginsController < ApplicationController
       logger.info params[:file].path
       zipfile = Uploader.file_from_url_or_local(:local => params[:file], :url => params[:url]) 
       
-      if Uploader.check_file_extension(:filename => File.basename(zipfile.path), :extensions => ".zip, .ZIP") # make sure file is a zipped archive 
-        unzipped_plugin_dir = Uploader.extract_zip_to_tmp(zipfile.path) # extract zip file to tmp
+      if true #Uploader.check_file_extension(:filename => File.basename(zipfile.path), :extensions => ".zip, .ZIP") # make sure file is a zipped archive 
+        extract_dir = Uploader.extract_zip_to_tmp(zipfile.path) # extract zip file to tmp
+        extract_dir_entries = Dir.entries(extract_dir); extract_dir_entries.delete("."); extract_dir_entries.delete("..") # remove system/hidden dirs from entries list 
+        unzipped_plugin_dir = extract_dir_entries.size == 1 ? File.join(extract_dir, extract_dir_entries[0]) : extract_dir  # Get the dir that actually contains the plugin
         plugin_model_name = File.basename(unzipped_plugin_dir) # model name must be same as zipped file
         plugin = plugin_mode_name.constantize
         plugin_model_path = File.join(unzipped_plugin_dir, "app", "models", "#{plugin_model_name}.rb")

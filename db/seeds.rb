@@ -1,6 +1,5 @@
 # This file creates required & sample data for new installations. 
 
-ENV["PROMPTS"] ||= "TRUE" # turn prompts on by default    
 
 def prompt(msg, default_value = "") # prompt user and get value
   if default_value != ""
@@ -14,15 +13,15 @@ def prompt(msg, default_value = "") # prompt user and get value
   return entered_value
 end  
 
-# Required Data
-print "Installing Required Data..."
+ENV["PROMPTS"] ||= "TRUE" # turn prompts on by default    
 
-# Defining locale 
-if ENV['LOCALE'].nil?
-	I18n.locale = "en"
-else
-	I18n.locale = ENV['LOCALE']
-end
+I18n.locale = ENV['LOCALE'].nil? ? "en" : ENV['LOCALE']  # Define locale 
+
+# Required Data
+print I18n.t('label.installing') 
+
+
+
 
 # Create Global Settings
 Setting.create(:name => "item_name", :value => I18n.t('seeds.setting.item_name'), :setting_type => "Item", :item_type => "string")
@@ -66,7 +65,7 @@ Setting.create(:name => "allow_item_page_type_changes",  :value => "1", :setting
 Setting.create(:name => "allow_item_page_type_changes",  :value => "1", :setting_type => "Item", :item_type => "bool") 
 Setting.create(:name => "opal_version", :value => "0.0.0", :setting_type => "Hidden", :item_type => "string")
 
-# Create Builtin Plugins
+# Create Builtin Plugins, plugin.name is not displayed name, it is used for related Plugin Class lookup, ie: "Image" => PluginImage
 plugin = Plugin.create(:name => "Image", :is_enabled => "1", :is_builtin => "1")
     PluginSetting.create(:plugin_id => plugin.id, :name => "slideshow_speed",   :value => "2500", :setting_type => "System", :item_type => "string")
     PluginSetting.create(:plugin_id => plugin.id, :name => "item_thumbnail_width",  :value => "180", :setting_type => "Plugin",  :item_type => "string")
@@ -74,7 +73,7 @@ plugin = Plugin.create(:name => "Image", :is_enabled => "1", :is_builtin => "1")
     PluginSetting.create(:plugin_id => plugin.id, :name => "resize_item_images",   :value => "0", :setting_type => "Plugin",  :item_type => "bool")   
     PluginSetting.create(:plugin_id => plugin.id, :name => "item_image_width",   :value => "500", :setting_type => "Plugin",  :item_type => "string")
     PluginSetting.create(:plugin_id => plugin.id, :name => "item_image_height",  :value => "500", :setting_type => "Plugin", :item_type => "string")        
-plugin = Plugin.create(:name => "Description",    :is_enabled => "1", :is_builtin => "1")
+plugin = Plugin.create(:name => "Description", :is_enabled => "1", :is_builtin => "1")
 plugin = Plugin.create(:name => "Feature", :is_enabled => "1", :is_builtin => "1")
 plugin = Plugin.create(:name => "Link", :is_enabled => "1", :is_builtin => "1")    
 plugin = Plugin.create(:name => "Review",  :is_enabled => "1", :is_builtin => "1")
@@ -115,13 +114,12 @@ pages[:home].locked = true
 pages[:home].deletable = false
 pages[:home].save
 
-
 pages[:items] = Page.new(:title => I18n.t('seeds.page.items.title'), :description => I18n.t('seeds.page.items.description'), :page_type => "public", :content => I18n.t('seeds.page.items.content'))
 pages[:items].name = "items"
 pages[:items].locked = true
 pages[:items].title_editable = false
 pages[:items].deletable = false
-pages[:items].save
+pages[:items].save 
 
 pages[:blog] = Page.new(:title => I18n.t('seeds.page.blog.title'), :description => I18n.t('seeds.page.blog.description'), :page_type => "public", :content => I18n.t('seeds.page.blog.content'))
 pages[:blog].name = "blog"
@@ -166,7 +164,7 @@ GroupPluginPermission.find(:first, :conditions => ["group_id = ? and plugin_id =
 
 
 # Create Default Admin Account
-@admin = User.new(:first_name => "Bob", :last_name => "Jones", :username => "admin", :password => "admin", :is_admin => "1", :email => "admin@test.com")
+@admin = User.new(:first_name => I18n.t('seeds.user.admin.first_name'), :last_name => I18n.t('seeds.user.admin.last_name'), :username => I18n.t('seeds.user.admin.username'), :password => I18n.t('seeds.user.admin.password'), :is_admin => "1", :email => I18n.t('seeds.user.admin.email'))
 @admin.group_id = admin_group.id
 @admin.is_admin = "1" 
 @admin.is_verified = "1"     
@@ -183,30 +181,21 @@ if ENV["PROMPTS"].downcase == "false" # skip prompt
   puts "Skipping Prompt..." 
   install_sample_data = "y"
 else # show prompt    
-  install_sample_data = prompt("Install Sample Data? (Example Items, Categories, Users)", "Y").downcase 
+  install_sample_data = prompt(I18n.t('confirm.install_sample_data'), "Y").downcase 
 end
 
 if (install_sample_data == "y" || install_sample_data == "yes")   
-  print "Installing Sample Data..."
+  print I18n.t('label.installing') 
   #Create Verified user
-  @user = User.new(:first_name => "John", :last_name => "Doe", :username => "test", :password => "test", :email => "test@test.com")
+  @user = User.new(:first_name => I18n.t('seeds.user.test.first_name'), :last_name => I18n.t('seeds.user.test.last_name'), :username => I18n.t('seeds.user.test.username'), :password => I18n.t('seeds.user.test.password'), :email => I18n.t('seeds.user.test.email'))
   @user.is_verified = "1" # verify them(attr_protected otherwise)
   @user.save
   
   #Create Unverified user
-  User.create(:first_name => "Bill", :last_name => "McGrew", :username => "unverified", :password => "unverified", :email => "test2@test.com")
+  @unverified = User.create(:first_name => I18n.t('seeds.user.unverified.first_name'), :last_name => I18n.t('seeds.user.unverified.last_name'), :username => I18n.t('seeds.user.unverified.username'), :password => I18n.t('seeds.user.unverified.password'), :email => I18n.t('seeds.user.unverified.email'))
 
-  # English locale user
-  @user = User.new(:first_name => "English", :last_name => "English", :username => "english", :password => "english", :email => "english@test.com", :group_id => admin_group.id, :is_admin => "1")
-  @user.is_verified = "1"
-  @user.locale = "en"
-  @user.save
+  
 
-  # Russian locale user
-  @user = User.new(:first_name => "Russian", :last_name => "Русский", :username => "russian", :password => "russian", :email => "russian@test.com",  :group_id => admin_group.id, :is_admin => "1")
-  @user.is_verified = "1"
-  @user.locale = "ru"
-  @user.save
 
    #Create User Messages
   msg = UserMessage.new(:message => "Test message(unread) to test from admin.")
@@ -317,11 +306,11 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   tag.save
 
   # Sample Discussion
-  discussion = PluginDiscussion.new(:item_id => 1, :user_id => 1, :title => "Test Discussion", :description => "This is a test discussion. Feel free to delete this.")
+  discussion = PluginDiscussion.new(:item_id => 1, :user_id => @user.id, :title => "Test Discussion", :description => "This is a test discussion. Feel free to delete this.")
   discussion.is_approved = "1"
   discussion.save
 
-  discussion_post = PluginDiscussionPost.create(:item_id => 1, :user_id => 1, :plugin_discussion_id => discussion.id, :post => "This is a test post.")
+  discussion_post = PluginDiscussionPost.create(:item_id => 1, :user_id => @user.id, :plugin_discussion_id => discussion.id, :post => "This is a test post.")
     
   
   # Create Public Page
@@ -337,8 +326,8 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   Category.create(:name => "Uncategorized Child", :category_id => 1, :description => "Things that are just too cool to fit into one category.")
   Category.create(:name => "Uncategorized GrandChild", :category_id => 2, :description => "Things that are just too cool to fit into one category.")
   
-  puts "Done."
+  puts I18n.t("single.done")
 end 
 
 
-Setting.find_by_name("opal_version").update_attribute(:value, "0.7.1") # Update Version    
+Setting.find_by_name("opal_version").update_attribute(:value, "0.7.2") # Update Version    

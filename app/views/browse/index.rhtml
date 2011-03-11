@@ -1,9 +1,16 @@
-	<div id="side">
+<% 
+	homepage =  Page.find_by_name("home")
+	homepage_sidebar =  Page.get_system_page(I18n.t('seeds.page.home_page_sidebar.title')) 
+	homepage_subpages = homepage.pages.display_in_menu.published.in_order
+	show_sidebar = homepage_subpages.size > 0 || @setting[:section_items] || !homepage_sidebar.content.blank? 
+%>
+	<%= content_tag :div, :id => "side" do %>
+		<%= render :partial => "pages/menu_for_page", :locals => {:page => homepage, :subpages => homepage_subpages} if homepage_subpages.size > 0 %>	
 		<% if @setting[:section_items] %>
-			<% plugins = Plugin.enabled %>
+				<% plugins = Plugin.enabled %>
 				<% for plugin in plugins %>
-							<%= render :partial => plugin.partial_path(:type => "home"), :locals => {:plugin => plugin } rescue nil %>
-				<% end %>
+					<%= render :partial => plugin.partial_path(:type => "home"), :locals => {:plugin => plugin } rescue nil %>
+				<% end %>												
 			  	<% if @setting[:homepage_type] != "categories" %>
 					<div class="box_1" id="category_menu" >
 				   		<%= render :partial => "items/category_menu", :locals => {:options => {:category => @category}} %>
@@ -20,11 +27,17 @@
 						<%= render :partial => "items/featured_items" %>
 					</div>
 				<% end %>  	
-		<% end %>						  	
-		<%= show_page Page.get_system_page(I18n.t('seeds.page.home_page_sidebar.title')) %>
-	</div>
-	<div id="main">
-		<%= show_page Page.find_by_name("home") if !params[:page]  %>
+		<% end %>	
+		<% if homepage_sidebar %>
+			<%= render :partial => "pages/header", :locals => {:page => homepage_sidebar} %>
+			<%= show_page homepage_sidebar  %>
+		<% end %>		
+	<% end if show_sidebar %>		
+	<%= content_tag :div, :id => (show_sidebar ? "main" : nil) do  %>
+		<% if homepage %>
+			<%= render :partial => "pages/header", :locals => {:page => homepage, :options => {:navlinks => false}} %>
+			<%= show_page homepage  %>
+		<% end %>
 		<% if @setting[:homepage_type] == "new_items" && @setting[:section_items] %>
 			<%= render :partial => "browse/homepage_new_items" %>
 		<% elsif @setting[:homepage_type] == "categories" && @setting[:section_items] %>
@@ -32,5 +45,4 @@
 		<% else %>
 			<%# Display nothing %>
 		<% end %> 			
-	</div>
-
+	<% end %>

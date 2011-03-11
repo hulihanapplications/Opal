@@ -1,23 +1,16 @@
 <%= render :partial => "browse/main_content_top_bar" %>
-<div align=center>
-	<h1 class="title">
-		<%= @category.name %> <%#= @setting[:item_name_plural] %>
-		<% if !@logged_in_user.anonymous? %>
-			<%= link_to raw("#{icon("new")} #{t("label.item_new", :item => @setting[:item_name])}"), {:action => "new", :controller => "items", :id => @category} %>
-		<% end %>
-	</h1>
-	<h3><%= @category.description %></h3><br>
-		
-</div>
-
-
-
 
 <div id="side">
   	<div class="box_1" id="category_menu">
    		<%= render :partial => "items/category_menu", :locals => {:options => {:category => @category}} %>
 	</div>
+  	<div class="box_1" align=center>
+  		<%= auto_discovery_link_tag(:rss, {:action => "category", :controller => "items", :id => @category,  :format => "xml"}, {:title => "#{t("label.rss_feed")} - #{@category.name}"}) %> 
+	    <%= link_to icon("rss", "#{t("label.rss_feed")} - #{@category.name}") + " #{t("label.rss_feed")} - #{@category.name}",  {:action => "category", :controller => "items", :id => @category,  :format => "xml"} %>
+	</div>	
+
 	<%= show_page Page.get_system_page(I18n.t('seeds.page.category_column.title')) %>
+
 </div>
 <div id="main">
 		<%= render :partial => "/items/list_items", :locals => {:items => @items } %>
@@ -28,6 +21,13 @@
 			<br>
 		</div>		
 </div>
+
+
+
+
+
+
+
 
 
 

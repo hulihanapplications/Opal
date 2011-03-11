@@ -1,21 +1,9 @@
 <div class="box_2" style="margin-bottom:5px;" align=center>
-	<h3 class="title" align=left>Tools</h3>
+	<h3 class="title" align=left><%= t("section.title.tools")  %></h3>
 
-	<div class="box_<%= (params[:controller] == "logs" && params[:action] == "index") ? "1" : "2" %>" style="margin-bottom:5px;">
+	<div class="box_<%= (params[:controller] == "logs" && params[:action] == "index") ? "1" : "2" %>" style="margin-bottom:0px;">
 		<img src="/themes/<%= @setting[:theme] %>/images/icons/logs.png" class="icon"> 				
 		<%= link_to t("single.system") + " " + Log.model_name.human(:count => :other), {:action => "index", :controller => "logs"} %></a>				
 	</div>
-	
-	<div class="box_<%= ( params[:action] == "import") ? "1" : "2" %>" style="margin-bottom:5px;">
-		<img src="/themes/<%= @setting[:theme] %>/images/icons/arrow_left.png" class="icon"> 				
-		<%= link_to t("single.import") + " " + @setting[:item_name_plural], {:action => "import", :controller => "tools"} %></a>				
-	</div>
-
-	<div class="box_<%= params[:action] == "export" ? "1" : "2" %>" style="margin-bottom:5px;">
-		<img src="/themes/<%= @setting[:theme] %>/images/icons/arrow_right.png" class="icon"> 				
-		<%= link_to t("single.export") + " " + @setting[:item_name_plural], {:action => "export", :controller => "tools"} %></a>				
-	</div>
-	
-
 </div>
 

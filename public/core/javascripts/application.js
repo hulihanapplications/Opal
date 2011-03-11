@@ -76,13 +76,18 @@ function get_url_vars(){ // get url variables
     return vars;  
 }
 
-function submit(id) // submit a form with this particular id
-{
-	element = document.getElementById(id)
-	element.submit();
-}
+
 
 // JQuery Functions
+jQuery.fn.toggle = function(transition_time) { // hide object
+	if (transition_time == null){transition_time  = 400}
+	
+	 if(this.css("display") == "none") // The Element is currently Hidden
+	 	this.reveal();
+ 	 else // The Element is currently Visible	 
+ 		this.conceal();	
+}
+
 jQuery.fn.reveal = function(transition_time) { // hide object
 	if (transition_time == null){transition_time  = 400}
 	this.slideDown(transition_time)	  		      				
@@ -109,6 +114,5 @@ jQuery.fn.delayed_reveal = function(timeout) { // show object after time has pas
 		$this.reveal();	  		      				
     }, timeout);			      				
 }
-
 
 

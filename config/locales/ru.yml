@@ -75,6 +75,25 @@ ru:
       public:
         name: "Публика"
         description: "Посетители вашего сайта, которые не совершили вход."
+    user:
+      admin:
+        username: admin
+        first_name: Bob 
+        last_name: Jones
+        email: admin@test.com
+        password: admin
+      test:
+        username: test
+        first_name: John 
+        last_name: Doe
+        email: test@test.com
+        password: test  
+      unverified:
+        username: unverified
+        first_name: Bill
+        last_name: McGrew
+        email: unverified@test.com
+        password: unverified         
   # Sections
   section:
     title: 
@@ -172,6 +191,10 @@ ru:
     main: Главный
     or: Или
     mode: Режим
+    effects: Effects    
+    advanced: Advanced 
+    mobile: Mobile
+    full: Full       
     rss: RSS
     spacer: "" # Spacer icon doesn't require a title
   # Flash Messages & Notices
@@ -543,9 +566,21 @@ ru:
         few: Страницы
         many: Страниц
         other: Страницы
-      public_page: Публичная страница # psuedo model
-      system_page: Системная страница # psuedo model
-      blog_page: Сообщение блога # psuedo model
+      public_page: # psuedo model
+        one: Публичная страница
+        few: Публичная страница
+        many: Публичная страница       
+        other: Публичная страница 
+      system_page:  # psuedo model
+        one: Системная страница
+        few: Системная страница
+        many: Системная страница
+        other: Системная страница
+      blog_page:  # psuedo model
+        one: Сообщение блога
+        few: Сообщение блога
+        many: Сообщение блога
+        other: Сообщение блога       
       page_comment:
         one: Комментарий
         few: Комментария

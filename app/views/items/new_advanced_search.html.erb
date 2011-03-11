@@ -1,5 +1,5 @@
 <div align=center>
-	<h2><%= t("label.advanced_search")%></h2><br>
+	<h2><%= t("single.advanced") + " " + t("single.search") %></h2><br>
 
 
 	<%= form_tag (url_for(:controller => "items", :action => "advanced_search"), :remote => true, :id => "advanced_search_form") do |f|  %>

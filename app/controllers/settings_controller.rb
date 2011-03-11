@@ -27,8 +27,7 @@ class SettingsController < ApplicationController
      #flash[:notice] << "<font color=grey>The Setting(#{name}) has not changed.<br></font>"
     end
    end
-   #flash[:failure] << t("notice.items_forgot_to_select", :items => Setting.model_name.human(:count => :other)) if counter == 0 # no items changed
-   redirect_to :action => "index"
+   redirect_to :back
   end
  
   def edit
@@ -97,8 +96,7 @@ class SettingsController < ApplicationController
   
   def themes
    @themes = Array.new
-   themes_dir = File.join(@setting[:theme_dir], "..")  # the folder containing the themes
-   Dir.new(themes_dir).entries.each do |file|
+   Dir.new(@setting[:themes_dir]).entries.each do |file|
      if (file.to_s != ".") && (file != "..")
       @themes << file
      end 
@@ -108,10 +106,12 @@ class SettingsController < ApplicationController
   def install_theme # install a theme into opal 
     # Note: Theme zip files will be extracted into a directory with the same filename as the zipfile(ie: example_theme.zip -> public/themes/example_theme)
     zipfile = Uploader.file_from_url_or_local(:local => params[:file], :url => params[:url]) 
-    acceptable_file_extensions = ".zip, .ZIP"
-    if Uploader.check_file_extension(:filename => File.basename(zipfile.path), :extensions => acceptable_file_extensions) # make sure file is a zipped archive 
-      unzipped_theme_dir = Uploader.extract_zip_to_tmp(zipfile.path).entries[0].to_s # extract zip file to tmp
-      theme_config_file = File.join(unzipped_theme_dir, "theme.yml")
+    #acceptable_file_extensions = ".zip, .ZIP"
+    if true #Uploader.check_file_extension(:filename => File.basename(zipfile.path), :extensions => acceptable_file_extensions) # make sure file is a zipped archive 
+      extract_dir = Uploader.extract_zip_to_tmp(zipfile.path).entries[0].to_s # extract zip file to tmp
+      extract_dir_entries = Dir.entries(extract_dir); extract_dir_entries.delete("."); extract_dir_entries.delete("..") 
+      unzipped_theme_dir = extract_dir_entries.size == 1 ? File.join(extract_dir, extract_dir_entries[0]) : extract_dir  # Get the dir that actually contains the theme files
+      theme_config_file = File.expand_path(File.join(unzipped_theme_dir, "theme.yml"))
       if File.exists?(theme_config_file)
         theme_config = YAML::load(File.open(theme_config_file)) # get theme configuration          
         themes_dir = File.join(Rails.root.to_s, "public/themes") 
@@ -121,7 +121,7 @@ class SettingsController < ApplicationController
         end        
       else # no theme config file found 
         flash[:failure] = t("notice.item_install_failure", :item => t("single.theme"))
-        flash[:failure] += "<br>" + t("notice.file_not_found", :file => theme_config_file)        
+        flash[:failure] += "<br>" + t("notice.file_not_found", :file => theme_config_file)
       end
     else # bad file extension
       flash[:failure] = t("notice.item_install_failure", :item => t("single.theme"))
@@ -133,9 +133,9 @@ class SettingsController < ApplicationController
   end
  
   def delete_theme
-    theme = params[:theme]
+    theme = params[:theme_name]
     if theme == @setting[:theme] # they are trying to delete the active theme
-      flash[:failure] = t("notice.invalid_permissions")           
+      flash[:failure] = t("notice.invalid_permissions")          
       #flash[:failure] = "Sorry, you can't delete the active theme! Please change your theme first."     
     else 
       themes_dir = Rails.root.to_s + "/public/themes"
@@ -147,7 +147,7 @@ class SettingsController < ApplicationController
       theme_layout_dir = themes_layout_dir + "/" + theme 
       FileUtils.rm_rf(theme_dir) if File.exists?(theme_dir)# erase theme directory
       FileUtils.rm_rf(theme_layout_dir) if File.exists?(theme_layout_dir)# erase theme layout directory, if it exists      
-      flash[:failure] = t("notice.item_uninstall_success", :item => t("single.theme"))
+      flash[:success] = t("notice.item_uninstall_success", :item => t("single.theme"))
       Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("log.item_uninstall", :item => t("single.theme"), :name => theme_config["theme"]["name"])) # log it
     end
     

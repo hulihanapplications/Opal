@@ -6,7 +6,15 @@ module PluginSupport
     end    
     
     def plugin # get plugin record associated with plugin
-      return Plugin.find_by_name(self.to_s.gsub(/Plugin/, ""))
+      return Plugin.find_by_name(self.name.gsub(/Plugin/, ""))
+    end   
+    
+    def get_setting(name)
+      self.plugin.get_setting(name)  
+    end
+    
+    def get_setting_bool(name)
+      self.plugin.get_setting_bool(name)  
     end    
   end
   
@@ -16,8 +24,15 @@ module PluginSupport
     end 
     
     def plugin # get plugin record associated with plugin
-      return Plugin.find_by_name(self.class.to_s.gsub(/Plugin/, ""))
+      return Plugin.find_by_name(self.class.name.gsub(/Plugin/, ""))
+    end 
+
+    def get_setting(name)
+      self.plugin.get_setting(name)  
+    end
+    
+    def get_setting_bool(name)
+      self.plugin.get_setting_bool(name)  
     end     
   end
-
 end

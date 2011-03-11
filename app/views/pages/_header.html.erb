@@ -1,3 +1,7 @@
+<% 
+	options ||= Hash.new
+	options[:navlinks] = true if options[:navlinks].nil?
+%>
 <% if @logged_in_user.is_admin? %>
 	<div class="box_1" style="margin-bottom:5px" id="page_header_box">
 		<table style="width:100%" cellpadding=0 cellspacing=0>
@@ -10,7 +14,7 @@
 							<%= link_to icon("new") + " " + t("label.item_new_child", :item => Page.model_name.human), {:action => "new", :controller => "pages", :id => page} %>
 						<% end %>								
 						<%= link_to icon("edit") + " " + t("single.edit"), {:action => "edit", :controller => "pages", :id => page} %>
-						<% if !page.is_system_page? %>						
+						<% if !page.is_system_page? && page.deletable %>						
 							<%= link_to icon("delete") + " " + t("single.delete"), {:action => "delete", :controller => "pages", :id => page}, :confirm => t("confirm.item_delete", :item => Page.model_name.human) %>
 						<% end %>						
 				</td>
@@ -18,4 +22,4 @@
 		</table>		
 	</div>
 <% end %>
-<%= nav_link_page page %>
+<%= nav_link_page page if options[:navlinks] %>

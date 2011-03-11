@@ -16,7 +16,7 @@ class UserController < ApplicationController
 
  # Create a New account
  def create_account
-  if Setting.get_setting_bool("allow_user_registration")
+  if @setting[:allow_user_registration]
     if request.post?
      @user = User.new(params[:user]) # always remember that ANYONE can override bulk assignment
      if simple_captcha_valid?  
@@ -97,8 +97,12 @@ class UserController < ApplicationController
   end
  
   def register
-    @setting[:load_prototype] = true # load prototype js in layout
-    @user = User.new 
+    if @setting[:allow_user_registration]
+      @user = User.new
+    else # users not allowed to register
+      flash[:failure] =  t("notice.invalid_permissions")  
+      redirect_to :action => "index", :controller => "browse"    
+    end 
   end
  
   def verify

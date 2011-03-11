@@ -17,7 +17,6 @@
 							    <li><a href="#<%= t("single.system") %>"><%= t("single.system") %></a></li> 
 							    <li><a href="#<%= User.model_name.human(:count => :other) %>"><%= User.model_name.human(:count => :other) %></a></li> 	
 							    <li><a href="#<%= t("single.section", :count => :other) %>"><%= t("single.section", :count => :other) %></a></li> 													
-								<li><a href="#<%= t("setting.title.homepage_type") %>"><%= t("setting.title.homepage_type") %></a></li> 
 								<li><a href="#<%= t("setting.title.main_logo") %>"><%= t("setting.title.main_logo") %></a></li> 
 						</ul>			
 						<div class="plugin_panes_horizontal"> 					
@@ -33,44 +32,6 @@
 						    <div>	
 								 <%= render :partial => "/settings/list_settings", :locals => {:settings => Setting.find(:all, :conditions => ["setting_type = ?", "Section"]), :title => t("single.section")}%>
 							</div>		
-							<div>
-								<div class="section">
-									<div class="header">															
-											<h2 class="title"><%= t("setting.title.homepage_type") %></h2>
-											<div class="description"><%= t("setting.description.homepage_type") %></div>				
-									</div>		
-
-									<% @setting[:homepage_type] = Setting.get_setting("homepage_type") %>							
-									
-									<table width="100%" cellpadding=0 cellspacing=0  class="setting_table row_table">	
-									 <tr class="row_a">
-									  <!--<td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/homepage_type_new_items.png" rel="colorbox" title="New Items"><img alt="" class="thumbnail" src="/images/examples/homepage_type_new_items.png"  /></a></td>-->
-									  <td align=left style="padding-left:10px;vertical-align:middle">
-										  <h2><%= t("single.new") %> <%= @setting[:item_name_plural] %></h2>
-										  <!--Every <%= @setting[:item_name] %> in <%= @setting[:title] %> is shown on the homepage, starting with the newest first.-->
-									  </td>
-									  <td align=right style="padding-right:20px;vertical-align:middle"><input type="radio" name="setting[homepage_type]" value="new_items" <% if @setting[:homepage_type] == "new_items" %>CHECKED<% end %>></td>		  
-									 </tr>
-									 <tr class="row_b">
-									  <!--<td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/homepage_type_categories.png" rel="colorbox" title="Categories"><img alt="" class="thumbnail" src="/images/examples/homepage_type_categories.png"  /></a></td>-->
-									  <td align=left style="padding-left:10px;vertical-align:middle">
-									  <h2><%= Category.model_name.human(:count => :other) %></h2>
-									 	 <!-- Categories for <%= @setting[:item_name_plural] %> are shown on the homepage. -->
-									  </td>
-									  <td align=right style="padding-right:20px;vertical-align:middle"><input type="radio" name="setting[homepage_type]" value="categories" <% if @setting[:homepage_type] == "categories" %>CHECKED<% end %>></td>		  
-									 </tr>
-									 <tr class="row_a">
-									  <!--<td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/homepage_type_none.png" rel="colorbox" title="New Items"><img alt="" class="thumbnail" src="/images/examples/homepage_type_none.png"  /></a></td>-->
-									  <td align=left style="padding-left:10px;vertical-align:middle">
-									  	<h2><%= t("single.none") %></h2>
-									  	<!--Nothing special is shown on the homepage. This is a good option if you only want to show the <%= link_to "Main Home Page", {:action => "index", :controller => "pages", :type => "System"}, :class => "highlight"  %>. -->
-								      </td>
-									  <td align=right style="padding-right:20px;vertical-align:middle"><input type="radio" name="setting[homepage_type]" value="none" <% if @setting[:homepage_type] == "none" %>CHECKED<% end %>></td>		  
-									 </tr>
-									 							 	  											 	
-									</table>		
-								</div>																					
-							</div>
 							<div>
 								<div class="section">
 
@@ -118,14 +79,6 @@
 				
 				<% end %>
 				<br><br>
-				
-	
-	
-	
-	
-	
-	
-	
-	
+
 	</div>
 </div>	

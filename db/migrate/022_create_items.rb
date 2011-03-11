@@ -9,10 +9,10 @@ class CreateItems < ActiveRecord::Migration
       t.string :is_public, :limit => 1, :default => "1" 
       t.column :created_at, :datetime # this will get populated automatically  
       t.column :updated_at, :datetime # this will get populated automatically 
-      t.column :featured, :bool, :default => false
+      t.column :featured, :boolean, :default => false
       t.column :views, :integer, :default => 0     
       t.column :recent_views, :integer, :default => 0  
-      t.column :locked, :bool, :default => false   
+      t.column :locked, :boolean, :default => false   
     end
   end
 

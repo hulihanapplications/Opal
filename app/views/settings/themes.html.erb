@@ -53,7 +53,7 @@
 							<%= link_to t("single.preview"), {:action => params[:action], :theme => theme}, :target => "_blank"  %>
 							
 							<img src="/themes/<%= @setting[:theme] %>/images/icons/delete.png" class="icon" alt="" title="delete" >
-							<%= link_to t("single.delete"), {:action => "delete_theme", :controller => "settings", :theme => theme}, :confirm => t("confirm.general") %>							
+							<%= link_to t("single.delete"), {:action => "delete_theme", :controller => "settings", :theme_name => theme}, :confirm => t("confirm.general") %>							
 			
 							
 				  		<% else %>

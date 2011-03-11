@@ -1,6 +1,8 @@
 h1. Opal
  
-Opal is a powerful Item Listing Application built in Ruby on Rails. It allows you to list any kind of item, from houses to video games to hotdog vendors.
+Opal is a powerful Item Listing Application built in Ruby on Rails. It allows you to list any kind of item, from houses to video games to classifieds.
+
+h2. Features 
  
 Opal is powered By Rails 3 and a bunch of "other cool stuff":http://www.hulihanapplications.com/projects/opal. Here's some of the many features found in Opal:
 
@@ -15,6 +17,18 @@ Opal is powered By Rails 3 and a bunch of "other cool stuff":http://www.hulihana
     * Customizable Themes with easy uploader & installer
     * Upload Images with Special Effects(Rotate, Resize, Watermark, Stamp, B&W, etc.)
 
+h2. Uses
+
+Since Opal is highly customizable, you can use it for many different things:
+
+	* Content Management System(CMS)
+	* Blog
+	* E-Commerce Website/Web Store
+	* Image/Video Gallery 
+	* File Download System
+	* Forum/Disccusion Board
+	* Classifieds Website
+	* Review Website
 
 !https://github.com/hulihanapplications/Opal/raw/master/public/themes/fracture/screenshot.png(Opal's Default Theme - Fracture)!
 
@@ -49,7 +63,7 @@ Next, Run the following command(while in the Opal directory) to install Opal's d
 rake opal:install RAILS_ENV=production LOCALE=en
 </pre>
 
-This will install the database structure of Opal into the production database. If you leave out *RAILS_ENV=PRODUCTION*, everything will be installed into your development database instead. This command will also set up the default admin account, some sample items(you'll be asked if you want to install sample Data), and other stuff to help you get started with Opal. Specify other *LOCALE* parameter for installing Greetings, Help Sections, etc. on specified language. 
+This will install the database structure of Opal into the production database. If you leave out *RAILS_ENV=PRODUCTION*, everything will be installed into your development database instead. This command will also set up the default admin account, some sample items(you'll be asked if you want to install sample Data), and other stuff to help you get started with Opal. You can also specify the *LOCALE* parameter to install Opal in a language other than english. 
   * If you want to automate an Opal installation, or if you just want to bypass prompts(that ask you if you want to install sample data and other stuff: run this command: _rake opal:install PROMPTS=FALSE_)
 
 h2. That's it! 
@@ -86,6 +100,10 @@ production:
   :user_name: user
   :password: pass
 </pre>
+
+h2. Plugins & Themes
+
+You can easily extend and customize Opal with new plugins and themes. Check out "Opal's Project Page":http://hulihanapplications.com/projects/opal#5 to learn more. 
 
 h1. Troubleshooting
 

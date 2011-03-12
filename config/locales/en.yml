@@ -1,5 +1,6 @@
 # Schema: group by category(log, notice, etc.), use interpolation(ie: %{item}), anything from user perspective(ie: "My Account") should be labeled: user_account, all verbs must not use any tense(created_account = bad, create_account = good). 
 en:
+  name: Opal
   greeting: Hello %{name}! # call with t(:greeting, :name => "John")
   # Seeds
   seeds: 
@@ -93,7 +94,7 @@ en:
         first_name: Bill
         last_name: McGrew
         email: unverified@test.com
-        password: unverified            
+        password: unverified
   # Sections
   section:
     title: 
@@ -315,7 +316,8 @@ en:
     item_view_items: View this %{item}'s %{items}.
     item_recently_added: This %{item} was added within the last 3 days.
     item_mark_as: Mark %{item} as %{name}
-    item_unknown: "Unknown %{item}: %{name}"    
+    item_unknown: "Unknown %{item}: %{name}"
+    item_backup_success: %{item} backed up successfully!    
     items_from: %{items} from %{name}
     items_for: %{items} for %{name}
     items_more: More %{items}
@@ -372,6 +374,7 @@ en:
     tag_example: "Example: cool, funny, weird"
     check_for_updates: Check for Updates
     installing: Installing...
+    login_as: "You may now log in with the following username and password: %{username} / %{password}"                      
   # General Information 
   info: 
     delete_main_logo: Deleting your main logo will show the title of your site instead. 
@@ -412,13 +415,11 @@ en:
       allow_user_registration: User Registration
       item_name_plural: Plural Item Name
       allow_public_access: Allow Public Access
-      enable_contact_us: Enable Contact Us Form
       item_page_type: Item Page Type
       let_users_create_items: Let Users Create Items
       show_user_login: Display User Login
       display_help_sections: Display Help Sections
       theme: Theme
-      setup_completed: Setup Completed!
       display_popular_items: Display Most Popular Items
       users_can_delete_items: Let Users Delete Their Items
       item_name: Item Name
@@ -473,14 +474,12 @@ en:
       allow_user_registration: This specifies if users can register for a new account.
       item_name_plural: This is the <b>plural</b> name of the items on your site, so if you want to show people homes, this would be <b>homes</b>.
       allow_public_access: If disabled, users must log in to access the site or any items. If enabled, anyone can view the site and items normally.
-      enable_contact_us: Enable/Disable The Contact Us Form in the About section.
       item_page_type: This is the visual layout of %{item} pages.
       let_users_create_items: If disabled, regular users cannot create items...only admins can.
       show_user_login: This specifies if the user login box is visible on the top menu bar. If disabled, users can login at site.example.com/browse/login
       opal_version: This is the current version you're running.
       display_help_sections: Shows Help Sections in various parts of your site to help users and admins with Opal.
       theme: This is the visual theme for the entire system
-      setup_completed: "translation missing: en, setting, description, setup_completed"
       display_popular_items: Display the most popular items on the homepage.
       users_can_delete_items: This allows users to delete items that they've created. If disabled, only admins can delete items.
       item_name: This is the <b>singular</b> name of the items on your site, so if you want to show people homes, this would be <b>home</b>.

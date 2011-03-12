@@ -315,6 +315,7 @@ ru:
     item_recently_added: %{item} был добавлен за последние 3 дня.
     item_mark_as: Отметить %{item} как %{name}
     item_unknown: "Неизвестный %{item}: %{name}"
+    item_backup_success: %{item} backed up successfully!        
     items_from: %{items} от %{name}
     items_for: %{items} для %{name}
     items_more: Больше %{items}
@@ -371,6 +372,7 @@ ru:
     image_effect_resize: Измерить размер до %{width} x %{height} пикселей
     tag_example: "Например: веселый, смешной, странный"
     check_for_updates: Проверить обновления
+    login_as: "You may now log in with the following username and password: %{username} / %{password}"                      
   # General Information 
   info: 
     delete_main_logo: Удаление логотипа отобразит заголовок вашего сайта. 
@@ -410,13 +412,11 @@ ru:
       allow_user_registration: Регистрация пользовавателей
       item_name_plural: Множественное название вещей
       allow_public_access: Разрешить публичный доступ
-      enable_contact_us: Включить форму Обратной связи
       item_page_type: Тип Страницы Вещи
       let_users_create_items: Позволить пользователям создавать %{items}
       show_user_login: Показывать Вход для пользователей
       display_help_sections: Показывать секции помощи
       theme: Тема
-      setup_completed: "translation missing: en, setting, title, setup_completed"
       display_popular_items: Показывать самые популярные %{items}
       users_can_delete_items: Позволить пользователям удалять свои %{items}
       item_name: Имя %{item}
@@ -472,14 +472,12 @@ ru:
       allow_user_registration: This specifies if users can register for a new account.
       item_name_plural: This is the <b>plural</b> name of the items on your site, so if you want to show people homes, this would be <b>homes</b>.
       allow_public_access: If disabled, users must log in to access the site or any items. If enabled, anyone can view the site and items normally.
-      enable_contact_us: Enable/Disable The Contact Us Form in the About section.
       item_page_type: This is the visual layout of %{item} pages.
       let_users_create_items: If disabled, regular users cannot create items...only admins can.
       show_user_login: This specifies if the user login box is visible on the top menu bar. If disabled, users can login at site.example.com/browse/login
       opal_version: This is the current version you're running.
       display_help_sections: Shows Help Sections in various parts of your site to help users and admins with Opal.
       theme: This is the visual theme for the entire system
-      setup_completed: "translation missing: en, setting, description, setup_completed"
       display_popular_items: Display the most popular items on the homepage.
       users_can_delete_items: This allows users to delete items that they've created. If disabled, only admins can delete items.
       item_name: This is the <b>singular</b> name of the items on your site, so if you want to show people homes, this would be <b>home</b>.

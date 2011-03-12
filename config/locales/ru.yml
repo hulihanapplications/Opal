@@ -63,16 +63,7 @@ ru:
       blog:
         title: "Блог"
         description: ""
-        content: ""
-      about:
-        title: "About"
-        content: "<div class=\"box_2\"><h1>What is Opal?</h1>Opal is a Ruby on Rails Item Management Application. Well, what kind of items can you <b>manage</b>? Anything! Bicycles, homes for sale, banana vendors, etc. can all be managed and organized by Opal.</div>"
-      more_about:
-        title: "More About Us"
-        content: "Here's more info about us."
-      first_blog_post:
-        title: "First Blog Post"
-        content: "This is the first blog post. Welcome!"          
+        content: ""      
     group:
       users:
         name: "Обычные пользователи"
@@ -86,20 +77,20 @@ ru:
     user:
       admin:
         username: admin
-        first_name: Bob 
-        last_name: Jones
+        first_name: Вася
+        last_name: Иванов
         email: admin@test.com
         password: admin
       test:
         username: test
-        first_name: John 
-        last_name: Doe
+        first_name: Петя 
+        last_name: Сидоров
         email: test@test.com
         password: test  
       unverified:
         username: unverified
-        first_name: Bill
-        last_name: McGrew
+        first_name: Витя
+        last_name: Козлов
         email: unverified@test.com
         password: unverified         
   # Sections
@@ -119,7 +110,7 @@ ru:
     cycle: Изменить
     save: Сохранить
     submit: Отправить
-    search: Искать
+    search: Поиск
     cancel: Отменить
     delete: Удалить
     edit: Редактировать
@@ -149,7 +140,7 @@ ru:
     description: Описание
     archive: Архив
     send: Послать
-    none: - Нет -
+    none: -Пусто-
     all: Все
     back: Назад
     time: Время 
@@ -171,8 +162,8 @@ ru:
     approved: Подтвержден
     system: Система
     public: Публичный
-    import: Импорт
-    export: Экспорт
+    import: Импортировать
+    export: Экспортировать
     text: Текст
     number: Число
     slider: Прокрутка 
@@ -198,13 +189,15 @@ ru:
     main: Главный
     or: Или
     mode: Режим
-    effects: Effects    
-    advanced: Advanced 
-    mobile: Mobile
-    full: Full       
+    effects: Эффекты
+    advanced: Расширенный 
+    mobile: Мобильный
+    full: Полный
     rss: RSS
     spacer: "" # Spacer icon doesn't require a title
     tools: "Инструменты"    
+    done: Готово
+    default: по умолчанию
   # Flash Messages & Notices
   notice:
     save_success: Ваши изменения были успешно сохранены!
@@ -380,7 +373,9 @@ ru:
     image_effect_resize: Измерить размер до %{width} x %{height} пикселей
     tag_example: "Например: веселый, смешной, странный"
     check_for_updates: Проверить обновления
-    login_as: "You may now log in with the following username and password: %{username} / %{password}"                      
+    installing: Идёт установка...
+    login_as: "Теперь вы можете войти со следующими именем и паролем: %{username} / %{password}"
+    skipping_prompt: "Пропускаем запрос..."
   # General Information 
   info: 
     delete_main_logo: Удаление логотипа отобразит заголовок вашего сайта. 
@@ -392,6 +387,7 @@ ru:
     delete: Вы уверены что хотите удалить это?
     delete_user: Вы уверены что хотите удалить этого пользователя? Все что создал этот пользователь также будет удалено! Если вы не хотите чтобы это случилось, вы можете вместо этого заблокировать его профиль.
     item_delete: Вы действительно хотите удалить этот %{item}? 
+    install_sample_data: "Установить образцы данных? (Примеры Вещей, Категорий, Пользователей)"   
   # Settings
   setting:
     title:
@@ -399,42 +395,42 @@ ru:
       site_description: Описание сайта
       site_keywords: Ключевые слова сайта      
       locale: Локаль
-      display_item_views: Показывать число просмотров %{item}
+      display_item_views: Показывать число просмотров вещи
       caching: Кэширование страниц
-      new_item_notification: Оповещать администраторов о новых %{items}
+      new_item_notification: Оповещать администраторов о новых вещах
       section_blog: Блог
       allow_item_list_type_changes: Разрешить изменения вида списка
       allow_item_page_type_changes: Разрешить изменения вида страницы
-      include_child_category_items: Включать %{items} дочерней категории
-      max_items_per_user: Максимальное число %{items} для пользователя
+      include_child_category_items: Включать вещи дочерней категории
+      max_items_per_user: Максимальное число вещей для пользователя
       email_verification_required: Проверка Email обязательна для новых пользователей
-      enable_item_description: Включить описание %{item}
-      display_featured_items: Показывать рекомендованные %{items}
+      enable_item_description: Включить описание вещи
+      display_featured_items: Показывать рекомендованные вещи
       enable_navlinks: Включить NavLinks
       item_approval_required: Требуется подтверждение
       section_items: Вещи
       allow_page_comments: Разрешить комментарии к страницам
-      enable_item_date: Включить описание %{item}
+      enable_item_date: Включить описание вещи
       homepage_type: Тип главной страницы
-      allow_private_items: Разрешить приватные %{items}
-      allow_user_registration: Регистрация пользовавателей
+      allow_private_items: Разрешить приватные вещи
+      allow_user_registration: Регистрация пользователей
       allow_public_access: Разрешить публичный доступ
       item_page_type: Тип Страницы Вещи
-      let_users_create_items: Позволить пользователям создавать %{items}
+      let_users_create_items: Позволить пользователям создавать вещи
       show_user_login: Показывать Вход для пользователей
       display_help_sections: Показывать секции помощи
       theme: Тема
-      display_popular_items: Показывать самые популярные %{items}
-      users_can_delete_items: Позволить пользователям удалять свои %{items}
+      display_popular_items: Показывать самые популярные вещи
+      users_can_delete_items: Позволить пользователям удалять свои вещи
       new_user_notification: Оповещать администраторов о новых пользователях
       list_type: Тип списка
-      items_per_page: %{items} на страницу
+      items_per_page: "Вещей на страницу"
       main_logo: Главный логотип
       list_type_simple: Простой
       list_type_detailed: Детальный
-      list_type_photo: Фото
+      list_type_photo: Пиктограммы
       list_type_small: Маленький
-      item_page_type_summarized: Итоговый    
+      item_page_type_summarized: Обобщенный    
       item_page_type_expanded: Развернутый
       item_page_type_tabs_horizontal: Вкладки - Горизонтальные 
       item_page_type_tabs_vertical: Вкладки - Вертикальные
@@ -467,36 +463,36 @@ ru:
       email_verification_required: Если включена, новые пользователи должны будут нажать на ссылку посланную им на email до того как они смогут войти.
       enable_item_description: Включение/Выключение Описания вещей показывает/убирает описание вещей из списка вещей и со страницы вещи.
       display_featured_items: Показывать рекомендованные вещи на главной странице.
-      enable_navlinks: NavLinks это простые навигационные ссылки показанные вверху каждой страницы с вещью и списка вещей
-              - . Они показывают информацию в какой категории находится вещь, и т.п.
+      enable_navlinks: NavLinks это простые навигационные ссылки показанные вверху каждой страницы с вещью и списка вещей. Они показывают информацию в какой категории находится вещь, и т.п.
       item_approval_required: Включите это если вы хотите подтверждать вещи добавленные пользователями перед показом их публике. Все неподтвежденные вещи могут быть просмотрены в Админ. панели. Если выключено, все вещи будут считаться подтвержденными при создании.
       section_items: Если включена, секция с Вещами будет отображена на главной странице, а также ссылка будет отображена в главном меню. Если выключено, Opal больше не будет отображать каких либо вещей.
       allow_page_comments: Если включена, люди смогут оставлять комментарии на страницах.
       enable_item_date: Включение/Выключение Даты для вещей для отображения/скрытия из страницы вещи и списка вещей. Это показывает дату, когда была создана вещь.
-      homepage_type: Это то что показывается на Вашей главной странице.
-      allow_private_items: If enabled, users can create private items that aren't visible to the public or other users. Only the owner of the item and admins can see private items. If disabled, all items will become public upon creation.
-      allow_user_registration: This specifies if users can register for a new account.
-      allow_public_access: If disabled, users must log in to access the site or any items. If enabled, anyone can view the site and items normally.
-      item_page_type: This is the visual layout of %{item} pages.
-      let_users_create_items: If disabled, regular users cannot create items...only admins can.
-      show_user_login: This specifies if the user login box is visible on the top menu bar. If disabled, users can login at site.example.com/browse/login
-      opal_version: This is the current version you're running.
-      display_help_sections: Shows Help Sections in various parts of your site to help users and admins with Opal.
-      theme: This is the visual theme for the entire system
-      display_popular_items: Display the most popular items on the homepage.
-      users_can_delete_items: This allows users to delete items that they've created. If disabled, only admins can delete items.
-      new_user_notification: If enabled, all admins will be sent an email when a new user registers.
-      list_type: The visual layout of how your %{items} are listed.
-      items_per_page: This is the number of items to show per page.
-      list_type_simple: View %{items} in a simple format.
-      list_type_detailed: View %{items} in a simple format.
-      list_type_photo: View %{items} as thumbnails.
-      list_type_small: View %{items} in a table.
-      item_page_type_summarized: View %{item} details in a clean, summarized way.
-      item_page_type_expanded: View %{item} with expanded details.
-      item_page_type_tabs_horizontal:  View %{item} details in horizontal tabs.
-      item_page_type_tabs_vertical: View %{item} details in vertical tabs.
-      item_page_type_accordion: View %{item} details in an accordion.
+      homepage_type: То что отображается на Вашей главной странице.
+      allow_private_items: Если включена, пользователи смогут создавать приватные вещи, которые не будут видны публике или другим пользователям. Она будет видна только владельцу и администраторам. Если выключена, все вещи становятся публичными при создании.
+      allow_user_registration: Определяет могут ли пользователи создавать новые профили.
+      item_name_plural: Название вещей которые вы размещаете на сайте во <b>множественном числе</b>, поэтому если вы хотите размещать дома, здесь будет написано <b>дома</b>.
+      allow_public_access: Если выключена, пользователи должны войти чтобы получить доступ к сайту или каким либо вещам. Если включена, кто угодно может просматривать сайт и вещи.
+      item_page_type: Визуальное расположение страницы %{item}.
+      let_users_create_items: Если выключена, обычные пользователи не смогут создавать вещи... смогут только администраторы.
+      show_user_login: Определяет видна ли панель логина под меню сайта. Если выключено, пользователи могут войти по адресу site.example.com/browse/login
+      opal_version: Текущая версия с которой вы работаете.
+      display_help_sections: Показывает Секции Помощи в разных частях сайта для помощи пользователям и администраторам Opal.
+      theme: Визуальная тема для всей системы
+      display_popular_items: Показывать самые популярные вещи на главной странице.
+      users_can_delete_items: Позволяет пользователям удалять вещи которые они создали. Если выключена, только администраторы смогут удалять вещи.
+      new_user_notification: Если включена, все администраторы получат email при регистрации нового пользователя.
+      list_type: Визуальное размещение того как отображаются ваши %{items}.
+      items_per_page: Число вещей на страницу.
+      list_type_simple: Показать %{items} в простом формате.
+      list_type_detailed: Показать %{items} в детальном формате.
+      list_type_photo: Показать %{items} как пиктограммы.
+      list_type_small: Показать %{items} в табличном виде.
+      item_page_type_summarized: Показать %{item} в обобщенном виде.
+      item_page_type_expanded: Показать %{item} в развернутом виде.
+      item_page_type_tabs_horizontal:  Показать %{item} в виде горизонтальных вкладок.
+      item_page_type_tabs_vertical: Показать %{item} в виде вертикальных вкладок.
+      item_page_type_accordion: Показать %{item} в виде аккордиона.
       # Plugin Settings
       slideshow_speed: The speed of a slideshow, in milliseconds(ms). Default is 2500.
       item_thumbnail_width: This is the default width(in pixels) of the thumbnails that are generated.
@@ -526,7 +522,89 @@ ru:
     name:
       page:        
     description:
-      page:      
+      page:   
+  # Sample data
+  sample_data:
+    messages:
+      read:
+        text: "Тестовое сообщение(прочитанное) для test от admin."
+      unread:
+        text: "Тестовое сообщение(непрочитанное) для test от admin."
+      reply:
+        text: "Тестовое Сообщение для Test от Admin." 
+    items:
+      simple:
+        name: "Тестовая вещь А"
+        description: "Тестовое описание."
+      long_name:
+        name: "Тестовая вещь Б (с Очень Очень Очень Очень Очень Длинным названием)."
+        description: "Тестовое описание. Очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень длинное."
+      unapproved:
+        name: "Тестовая вещь В (Неподтвержденная)"
+        description: "Тестовое описание. Эта вещь ни публичная, ни подтвержденная."
+    plugins:
+      images:
+        simple:
+          description: "Тестовое изображение."
+      description:
+        simple:
+          title: "Чудесная вещь!"
+          content: "Эта вещь очень чудесная.<br><br>Написано процессе эзотерическая на тд, мы опа туда быстрее очередь. Об если отнимет предварительного миф. Всё руки филипа те, могут многие чем за. Это всего трудовой то, тем пока компанию за. Следующее содержимое до для, на получат заложенным биг. Код на шагов проходят, как всего палки времени до, то курице следующее конечного это. Плиты лучшему неодинаковые вот по, осколки значения ещё те. Определить программном нет от. Другие премирования разработчиков но так, голоса получаете дни об, но они ставить метеорного. Английском полвосьмого те все, программном электронной за не. Не но люсита автора, двигает работникам программистов нет на. От опять минуту следующее как. Их чем двигает инструменты, всё их распоряжения программистов. Над он этих периоды, это писать значения до, был их одну сэкономленного. То код закончить концентрируются. Для какие платформу ну. Бы новые люсита разные вас, действия закончить вы них, труда собой совершенно мы всю. То нью свою быстро успехов."
+      features:
+        price:
+          name: "Цена"
+          value: "200 рублей"
+        size:
+          name: "Размер"
+          option_small: "Маленький"
+          option_medium: "Средний"
+          option_large: "Большой"
+        date:
+          name: "Дата"
+        rank:
+          name: "Ранг"
+        score:
+          name: "Оценка"
+        is_this_awesome:
+          name: "Она классная?"
+      reviews:
+        simple:
+          text: "Она мне действительно нравится!"
+      comments:
+        simple:
+          text: "Спасибо что поделился этим с нами!"
+      links:
+        simple:
+          title: "Вебсайт вещи"
+      tags:
+        simple:
+          name: "Самая обычная"
+        cool:
+          name: "Классная"
+      discussions:
+        simple:
+          title: "Тестовое обсуждение"
+          description: "Это тестовое обсуждение. Не стесняйтесь удалить его."
+          post: "Это тестовое сообщение."
+      pages:
+        about:
+          title: "О нас"
+          description: "Всё про нас."
+          content: "<div class=\"box_2\"><h1>Что такое Opal?</h1>Opal это Система Управления Вещами созданная с помощью Ruby on Rails. Ну, какие типы вещей мы можем <b>размещать</b>? Любые! Велосипеды, дома на продажу, продавцов бананов, и т.д. могут быть размещены и организованы в Opal.</div>"
+        more_about:
+          title: "Больше о нас"
+          description: ""
+          content: "Здесь ещё больше информации о нас."
+        blog_post:
+          title: "Первое сообщение"
+          content: "Это первое сообщение в блоге!"
+    categories:
+      uncategorized_child:
+        name: "Дочерний Без категории"
+        description: "Вещи которые слишком хороши чтобы поместиться в одной категории."
+      uncategorized_grand_child:
+        name: "Дочерний Дочернего Без категории"
+        description: "Вещи которые слишком хороши чтобы поместиться в одной категории."
   # ActiveRecord Models & Validations
   activerecord:
     models:
@@ -575,19 +653,19 @@ ru:
         other: Страницы
       public_page: # psuedo model
         one: Публичная страница
-        few: Публичная страница
-        many: Публичная страница       
-        other: Публичная страница 
+        few: Публичных страницы
+        many: Публичных страниц       
+        other: Публичные страницы 
       system_page:  # psuedo model
         one: Системная страница
-        few: Системная страница
-        many: Системная страница
-        other: Системная страница
+        few: Системных страницы
+        many: Системных страниц
+        other: Системные страницы
       blog_page:  # psuedo model
         one: Сообщение блога
-        few: Сообщение блога
-        many: Сообщение блога
-        other: Сообщение блога       
+        few: Сообщения блога
+        many: Сообщений блога
+        other: Сообщения блога       
       page_comment:
         one: Комментарий
         few: Комментария

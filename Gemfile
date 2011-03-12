@@ -8,7 +8,7 @@ gem "simple_captcha", "0.1.1", :path => File.expand_path("#{File.dirname(__FILE_
 gem "rails", "= 3.0.3"#, :git => "http://github.com/rails/rails"
 gem "nokogiri"
 gem "sanitize"
-gem "will_paginate", ">= 3.0.pre2"
+gem "will_paginate", :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems")
 gem "rmagick"
 gem "i18n", ">=0.5.0"
 gem "rubyzip"

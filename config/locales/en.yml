@@ -63,16 +63,7 @@ en:
       blog:
         title: "Blog"
         description: ""
-        content: ""
-      about:
-        title: "About"
-        content: "<div class=\"box_2\"><h1>What is Opal?</h1>Opal is a Ruby on Rails Item Management Application. Well, what kind of items can you <b>manage</b>? Anything! Bicycles, homes for sale, banana vendors, etc. can all be managed and organized by Opal.</div>"
-      more_about:
-        title: "More About Us"
-        content: "Here's more info about us."
-      first_blog_post:
-        title: "First Blog Post"
-        content: "This is the first blog post. Welcome!"                        
+        content: ""                      
     group:
       users:
         name: "Regular Users"
@@ -205,6 +196,7 @@ en:
     rss: RSS
     spacer: "" # Spacer icon doesn't require a title
     done: Done
+    default: Default
     tools: Tools
   # Flash Messages & Notices
   notice:
@@ -381,7 +373,8 @@ en:
     tag_example: "Example: cool, funny, weird"
     check_for_updates: Check for Updates
     installing: Installing...
-    login_as: "You may now log in with the following username and password: %{username} / %{password}"                      
+    login_as: "You may now log in with the following username and password: %{username} / %{password}"
+    skipping_prompt: "Skipping Prompt..."
   # General Information 
   info: 
     delete_main_logo: Deleting your main logo will show the title of your site instead. 
@@ -479,7 +472,7 @@ en:
       allow_user_registration: This specifies if users can register for a new account.
       allow_public_access: If disabled, users must log in to access the site or any items. If enabled, anyone can view the site and items normally.
       item_page_type: This is the visual layout of %{item} pages.
-      let_users_create_items: If disabled, regular users cannot create items...only admins can.
+      let_users_create_items: If disabled, regular users cannot create items... only admins can.
       show_user_login: This specifies if the user login box is visible on the top menu bar. If disabled, users can login at site.example.com/browse/login
       opal_version: This is the current version you're running.
       display_help_sections: Shows Help Sections in various parts of your site to help users and admins with Opal.
@@ -490,7 +483,7 @@ en:
       list_type: The visual layout of how your %{items} are listed.
       items_per_page: This is the number of items to show per page.
       list_type_simple: View %{items} in a simple format.
-      list_type_detailed: View %{items} in a simple format.
+      list_type_detailed: View %{items} in a detailed format.
       list_type_photo: View %{items} as thumbnails.
       list_type_small: View %{items} in a table.
       item_page_type_summarized: View %{item} details in a clean, summarized way.
@@ -528,6 +521,88 @@ en:
       page:        
     description:
       page:   
+  # Sample data
+  sample_data:
+    messages:
+      read:
+        text: "Test message(read) to test from admin."
+      unread:
+        text: "Test message(unread) to test from admin."
+      reply:
+        text: "Test Message from Test to Admin."
+    items:
+      simple:
+        name: "Test Item A"
+        description: "This is a test description."
+      long_name:
+        name: "Test Item B(with a Really Really Really Really Really Long Name)."
+        description: "This is a test description. It is really really really really really really really really really really really really really really really really really really really really really really really really really really really really really really long."
+      unapproved:
+        name: "Test Item C (Unapproved)"
+        description: "This is a test description. This item is neither approved nor Public."
+    plugins:
+      images:
+        simple:
+          description: "A sample image."
+      description:
+        simple:
+          title: "A Wonderful Item!"
+          content: "This item is very wonderful.<br><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus pellentesque nibh. Cras suscipit, arcu at porttitor porttitor, neque ligula aliquam metus, sit amet egestas velit nulla et eros. Sed ac erat eget eros pellentesque feugiat. Nunc sagittis dolor sit amet velit. Nulla quam. Donec ultrices lacus at risus. Sed in diam eget tortor sagittis congue. Sed vel odio. Integer bibendum purus in nibh. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis neque dolor, posuere posuere, volutpat ultrices, sollicitudin elementum, nulla. Morbi interdum urna vitae purus. Suspendisse vitae quam eu diam hendrerit dictum. Maecenas dignissim, mi ut lacinia auctor, mauris sem porttitor lectus, vel consectetur nulla est non neque. Suspendisse hendrerit massa non nisl.<br><br>Cras tortor. Aenean sed tortor. Maecenas orci lectus, viverra nec, molestie nec, pharetra vitae, massa. Cras euismod vestibulum augue. Morbi viverra nisl in purus. Etiam rhoncus dignissim erat. Vivamus a lorem in metus molestie porta. Curabitur nibh. Cras mattis justo ac felis. Morbi commodo, nulla id eleifend eleifend, nisi ligula sollicitudin est, a interdum lorem massa in leo. Suspendisse sit amet enim id nunc feugiat feugiat. Ut euismod neque. Etiam convallis faucibus dui. Cras aliquam ligula eu mauris. Cras vestibulum neque vel nisl. In arcu risus, hendrerit ac, laoreet sit amet, blandit at, nisl. Ut elementum eleifend lectus.<br><br>Nunc molestie enim. Nulla nec diam. Maecenas vel mauris. Pellentesque sit amet sem ac metus egestas tempor. Integer nibh. Donec sed velit a justo posuere sodales. Vestibulum molestie porttitor metus. Ut eleifend enim a lacus. Aliquam pretium dignissim velit. Ut euismod eros nec justo. Mauris pharetra. Nunc imperdiet elementum dui. Nunc et urna. Mauris at odio."
+      features:
+        price:
+          name: "Price"
+          value: "$200.00 USD"
+        size:
+          name: "Size"
+          option_small: "Small"
+          option_medium: "Medium"
+          option_large: "Large"
+        date:
+          name: "Date"
+        rank:
+          name: "Rank"
+        score:
+          name: "Score"
+        is_this_awesome:
+          name: "Is this awesome?"
+      reviews:
+        simple:
+          text: "I really like this!"
+      comments:
+        simple:
+          text: "Thanks for sharing this with us!"
+      links:
+        simple:
+          title: "Item Website"
+      tags:
+        simple:
+          name: "Most Current"
+        cool:
+          name: "Cool"
+      discussions:
+        simple:
+          title: "Test Discussion"
+          description: "This is a test discussion. Feel free to delete this."
+          post: "This is a test post."
+      pages:
+        about:
+          title: "About"
+          description: "All about us."
+          content: "<div class=\"box_2\"><h1>What is Opal?</h1>Opal is a Ruby on Rails Item Management Application. Well, what kind of items can you <b>manage</b>? Anything! Bicycles, homes for sale, banana vendors, etc. can all be managed and organized by Opal.</div>"
+        more_about:
+          title: "More About Us"
+          description: ""
+          content: "Here's more info about us."
+        blog_post:
+          title: "First Post"
+          content: "This is the first blog post!"
+    categories:
+      uncategorized_child:
+        name: "Uncategorized Child"
+        description: "Things that are just too cool to fit into one category."
+      uncategorized_grand_child:
+        name: "Uncategorized GrandChild"
+        description: "Things that are just too cool to fit into one category."
   # ActiveRecord Models & Validations
   activerecord:
     models:
@@ -549,9 +624,6 @@ en:
       image:
         one: Image
         other: Images
-      item:
-        one: Item
-        other: Items
       log:
         one: Activity
         other: Activities
@@ -740,7 +812,8 @@ en:
       short: "%b %d"
       long: "%B %d, %Y"  
     day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
-    abbr_day_names: [Sun, Mon, Tue, Wed, Thu, Fri, Sat]      
+    abbr_day_names: [Sun, Mon, Tue, Wed, Thu, Fri, Sat]
+      
     # Don't forget the nil at the beginning; there's no such thing as a 0th month
     month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
     abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
@@ -797,4 +870,4 @@ en:
     plural:
       keys: # Actual Names/Descriptions of Pluralization Cases for your Language. Indexed by pluralization key(ie: one: Singular, other: Plural)
         one: Singular
-        other: Plural             
+        other: Plural           

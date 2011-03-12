@@ -179,12 +179,12 @@ end
 if (install_sample_data == "y" || install_sample_data == "yes")   
   print I18n.t('label.installing') 
   #Create Verified user
-  @user = User.new(:first_name => I18n.t('seeds.user.test.first_name'), :last_name => I18n.t('seeds.user.test.last_name'), :username => I18n.t('seeds.user.test.username'), :password => I18n.t('seeds.user.test.password'), :email => I18n.t('seeds.user.test.email'))
+  @user = User.new(:first_name => I18n.t('sample_data.users.test.first_name'), :last_name => I18n.t('sample_data.users.test.last_name'), :username => I18n.t('sample_data.users.test.username'), :password => I18n.t('sample_data.users.test.password'), :email => I18n.t('sample_data.users.test.email'))
   @user.is_verified = "1" # verify them(attr_protected otherwise)
   @user.save
   
   #Create Unverified user
-  @unverified = User.create(:first_name => I18n.t('seeds.user.unverified.first_name'), :last_name => I18n.t('seeds.user.unverified.last_name'), :username => I18n.t('seeds.user.unverified.username'), :password => I18n.t('seeds.user.unverified.password'), :email => I18n.t('seeds.user.unverified.email'))
+  @unverified = User.create(:first_name => I18n.t('sample_data.users.unverified.first_name'), :last_name => I18n.t('sample_data.users.unverified.last_name'), :username => I18n.t('sample_data.users.unverified.username'), :password => I18n.t('sample_data.users.unverified.password'), :email => I18n.t('sample_data.users.unverified.email'))
 
   #Create User Messages
   msg = UserMessage.new(:message => I18n.t('sample_data.messages.unread.text'))
@@ -302,12 +302,12 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   discussion_post = PluginDiscussionPost.create(:item_id => 1, :user_id => @user.id, :plugin_discussion_id => discussion.id, :post => I18n.t('sample_data.plugins.discussions.simple.post'))
 
   # Create Public Page
-  pages[:about] = Page.create(:title => I18n.t('sample_data.plugins.pages.about.title'), :description => I18n.t('sample_data.plugins.pages.about.description'), :page_type => "public", :content => I18n.t('sample_data.plugins.pages.about.content'))
-  pages[:more_about] = Page.create(:title => I18n.t('sample_data.plugins.pages.more_about.title'), :page_id => pages[:about].id, :description => I18n.t('sample_data.plugins.pages.more_about.description'), :page_type => "public", :content => I18n.t('sample_data.plugins.pages.more_about.content'))
+  pages[:about] = Page.create(:title => I18n.t('sample_data.pages.about.title'), :description => I18n.t('sample_data.pages.about.description'), :page_type => "public", :content => I18n.t('sample_data.pages.about.content'))
+  pages[:more_about] = Page.create(:title => I18n.t('sample_data.pages.more_about.title'), :page_id => pages[:about].id, :description => I18n.t('sample_data.pages.more_about.description'), :page_type => "public", :content => I18n.t('sample_data.pages.more_about.content'))
 
   
   # Create Blog Post
-  blog_page = Page.new(:title => I18n.t('sample_data.plugins.pages.blog_post.title'), :content => I18n.t('sample_data.plugins.pages.blog_post.content'), :page_type => "blog")
+  blog_page = Page.new(:title => I18n.t('sample_data.pages.blog_post.title'), :content => I18n.t('sample_data.pages.blog_post.content'), :page_type => "blog")
   blog_page.save
   
   # Extra Categories
@@ -317,10 +317,9 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   puts " #{I18n.t('single.done')}."
 end 
 
-Setting.find_by_name("opal_version").update_attribute(:value, "0.7.2") # Update Version    
-
 puts "\n" + I18n.t("notice.item_install_success", :item => I18n.t("name")) + "\n"
 puts I18n.t("label.login_as", :username => I18n.t('seeds.user.admin.username'), :password => I18n.t('seeds.user.admin.password'))
 Log.create(:log => I18n.t("notice.item_install_success", :item => I18n.t("name")), :log_type => "system") # Log Install
 
+Setting.find_by_name("opal_version").update_attribute(:value, "0.7.2") # Update Version    
 

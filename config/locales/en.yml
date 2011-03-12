@@ -81,6 +81,9 @@ en:
         last_name: Jones
         email: admin@test.com
         password: admin
+  # Sample data
+  sample_data:
+    users:
       test:
         username: test
         first_name: John 
@@ -92,7 +95,87 @@ en:
         first_name: Bill
         last_name: McGrew
         email: unverified@test.com
-        password: unverified
+        password: unverified  
+    messages:
+      read:
+        text: "Test message(read) to test from admin."
+      unread:
+        text: "Test message(unread) to test from admin."
+      reply:
+        text: "Test Message from Test to Admin."
+    items:
+      simple:
+        name: "Test Item A"
+        description: "This is a test description."
+      long_name:
+        name: "Test Item B(with a Really Really Really Really Really Long Name)."
+        description: "This is a test description. It is really really really really really really really really really really really really really really really really really really really really really really really really really really really really really really long."
+      unapproved:
+        name: "Test Item C (Unapproved)"
+        description: "This is a test description. This item is neither approved nor Public."
+    plugins:
+      images:
+        simple:
+          description: "A sample image."
+      description:
+        simple:
+          title: "A Wonderful Item!"
+          content: "This item is very wonderful.<br><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus pellentesque nibh. Cras suscipit, arcu at porttitor porttitor, neque ligula aliquam metus, sit amet egestas velit nulla et eros. Sed ac erat eget eros pellentesque feugiat. Nunc sagittis dolor sit amet velit. Nulla quam. Donec ultrices lacus at risus. Sed in diam eget tortor sagittis congue. Sed vel odio. Integer bibendum purus in nibh. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis neque dolor, posuere posuere, volutpat ultrices, sollicitudin elementum, nulla. Morbi interdum urna vitae purus. Suspendisse vitae quam eu diam hendrerit dictum. Maecenas dignissim, mi ut lacinia auctor, mauris sem porttitor lectus, vel consectetur nulla est non neque. Suspendisse hendrerit massa non nisl.<br><br>Cras tortor. Aenean sed tortor. Maecenas orci lectus, viverra nec, molestie nec, pharetra vitae, massa. Cras euismod vestibulum augue. Morbi viverra nisl in purus. Etiam rhoncus dignissim erat. Vivamus a lorem in metus molestie porta. Curabitur nibh. Cras mattis justo ac felis. Morbi commodo, nulla id eleifend eleifend, nisi ligula sollicitudin est, a interdum lorem massa in leo. Suspendisse sit amet enim id nunc feugiat feugiat. Ut euismod neque. Etiam convallis faucibus dui. Cras aliquam ligula eu mauris. Cras vestibulum neque vel nisl. In arcu risus, hendrerit ac, laoreet sit amet, blandit at, nisl. Ut elementum eleifend lectus.<br><br>Nunc molestie enim. Nulla nec diam. Maecenas vel mauris. Pellentesque sit amet sem ac metus egestas tempor. Integer nibh. Donec sed velit a justo posuere sodales. Vestibulum molestie porttitor metus. Ut eleifend enim a lacus. Aliquam pretium dignissim velit. Ut euismod eros nec justo. Mauris pharetra. Nunc imperdiet elementum dui. Nunc et urna. Mauris at odio."
+      features:
+        price:
+          name: "Price"
+          value: "$200.00 USD"
+        size:
+          name: "Size"
+          option_small: "Small"
+          option_medium: "Medium"
+          option_large: "Large"
+        date:
+          name: "Date"
+        rank:
+          name: "Rank"
+        score:
+          name: "Score"
+        is_this_awesome:
+          name: "Is this awesome?"
+      reviews:
+        simple:
+          text: "I really like this!"
+      comments:
+        simple:
+          text: "Thanks for sharing this with us!"
+      links:
+        simple:
+          title: "Item Website"
+      tags:
+        simple:
+          name: "Most Current"
+        cool:
+          name: "Cool"
+      discussions:
+        simple:
+          title: "Test Discussion"
+          description: "This is a test discussion. Feel free to delete this."
+          post: "This is a test post."
+    pages:
+      about:
+        title: "About"
+        description: "All about us."
+        content: "<div class=\"box_2\"><h1>What is Opal?</h1>Opal is a Ruby on Rails Item Management Application. Well, what kind of items can you <b>manage</b>? Anything! Bicycles, homes for sale, banana vendors, etc. can all be managed and organized by Opal.</div>"
+      more_about:
+        title: "More About Us"
+        description: ""
+        content: "Here's more info about us."
+      blog_post:
+        title: "First Post"
+        content: "This is the first blog post!"
+    categories:
+      uncategorized_child:
+        name: "Uncategorized Child"
+        description: "Things that are just too cool to fit into one category."
+      uncategorized_grand_child:
+        name: "Uncategorized GrandChild"
+        description: "Things that are just too cool to fit into one category."        
   # Sections
   section:
     title: 
@@ -521,88 +604,6 @@ en:
       page:        
     description:
       page:   
-  # Sample data
-  sample_data:
-    messages:
-      read:
-        text: "Test message(read) to test from admin."
-      unread:
-        text: "Test message(unread) to test from admin."
-      reply:
-        text: "Test Message from Test to Admin."
-    items:
-      simple:
-        name: "Test Item A"
-        description: "This is a test description."
-      long_name:
-        name: "Test Item B(with a Really Really Really Really Really Long Name)."
-        description: "This is a test description. It is really really really really really really really really really really really really really really really really really really really really really really really really really really really really really really long."
-      unapproved:
-        name: "Test Item C (Unapproved)"
-        description: "This is a test description. This item is neither approved nor Public."
-    plugins:
-      images:
-        simple:
-          description: "A sample image."
-      description:
-        simple:
-          title: "A Wonderful Item!"
-          content: "This item is very wonderful.<br><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus pellentesque nibh. Cras suscipit, arcu at porttitor porttitor, neque ligula aliquam metus, sit amet egestas velit nulla et eros. Sed ac erat eget eros pellentesque feugiat. Nunc sagittis dolor sit amet velit. Nulla quam. Donec ultrices lacus at risus. Sed in diam eget tortor sagittis congue. Sed vel odio. Integer bibendum purus in nibh. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis neque dolor, posuere posuere, volutpat ultrices, sollicitudin elementum, nulla. Morbi interdum urna vitae purus. Suspendisse vitae quam eu diam hendrerit dictum. Maecenas dignissim, mi ut lacinia auctor, mauris sem porttitor lectus, vel consectetur nulla est non neque. Suspendisse hendrerit massa non nisl.<br><br>Cras tortor. Aenean sed tortor. Maecenas orci lectus, viverra nec, molestie nec, pharetra vitae, massa. Cras euismod vestibulum augue. Morbi viverra nisl in purus. Etiam rhoncus dignissim erat. Vivamus a lorem in metus molestie porta. Curabitur nibh. Cras mattis justo ac felis. Morbi commodo, nulla id eleifend eleifend, nisi ligula sollicitudin est, a interdum lorem massa in leo. Suspendisse sit amet enim id nunc feugiat feugiat. Ut euismod neque. Etiam convallis faucibus dui. Cras aliquam ligula eu mauris. Cras vestibulum neque vel nisl. In arcu risus, hendrerit ac, laoreet sit amet, blandit at, nisl. Ut elementum eleifend lectus.<br><br>Nunc molestie enim. Nulla nec diam. Maecenas vel mauris. Pellentesque sit amet sem ac metus egestas tempor. Integer nibh. Donec sed velit a justo posuere sodales. Vestibulum molestie porttitor metus. Ut eleifend enim a lacus. Aliquam pretium dignissim velit. Ut euismod eros nec justo. Mauris pharetra. Nunc imperdiet elementum dui. Nunc et urna. Mauris at odio."
-      features:
-        price:
-          name: "Price"
-          value: "$200.00 USD"
-        size:
-          name: "Size"
-          option_small: "Small"
-          option_medium: "Medium"
-          option_large: "Large"
-        date:
-          name: "Date"
-        rank:
-          name: "Rank"
-        score:
-          name: "Score"
-        is_this_awesome:
-          name: "Is this awesome?"
-      reviews:
-        simple:
-          text: "I really like this!"
-      comments:
-        simple:
-          text: "Thanks for sharing this with us!"
-      links:
-        simple:
-          title: "Item Website"
-      tags:
-        simple:
-          name: "Most Current"
-        cool:
-          name: "Cool"
-      discussions:
-        simple:
-          title: "Test Discussion"
-          description: "This is a test discussion. Feel free to delete this."
-          post: "This is a test post."
-      pages:
-        about:
-          title: "About"
-          description: "All about us."
-          content: "<div class=\"box_2\"><h1>What is Opal?</h1>Opal is a Ruby on Rails Item Management Application. Well, what kind of items can you <b>manage</b>? Anything! Bicycles, homes for sale, banana vendors, etc. can all be managed and organized by Opal.</div>"
-        more_about:
-          title: "More About Us"
-          description: ""
-          content: "Here's more info about us."
-        blog_post:
-          title: "First Post"
-          content: "This is the first blog post!"
-    categories:
-      uncategorized_child:
-        name: "Uncategorized Child"
-        description: "Things that are just too cool to fit into one category."
-      uncategorized_grand_child:
-        name: "Uncategorized GrandChild"
-        description: "Things that are just too cool to fit into one category."
   # ActiveRecord Models & Validations
   activerecord:
     models:
@@ -621,6 +622,9 @@ en:
         one: Category
         other: Categories
       group_plugin_permission: Group Plugin Permission
+      item:
+        one: Item
+        other: Items
       image:
         one: Image
         other: Images

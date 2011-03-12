@@ -797,4 +797,4 @@ en:
     plural:
       keys: # Actual Names/Descriptions of Pluralization Cases for your Language. Indexed by pluralization key(ie: one: Singular, other: Plural)
         one: Singular
-        other: Plural               
+        other: Plural             

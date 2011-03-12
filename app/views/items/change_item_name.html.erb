@@ -11,7 +11,8 @@
 				<%#= @item_pluralization_cases.inspect %>
 				<% @item_pluralization_cases.each do |key, value|  %>
 					<div class="field">
-						<h3><%= label "key", key, t("i18n.plural.keys.#{key}") %></h3>							
+						<h3><%= label "key", key, t("i18n.plural.keys.#{key}") %></h3>
+						<%= content_tag(:div, t("i18n.plural.keys.#{key}_description", :default => "")) %>							
 						<%= text_field "key", key, :value => value  %>
 					</div>										
 				<% end %>

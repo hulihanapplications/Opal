@@ -308,19 +308,23 @@ class ItemsController < ApplicationController
  end
  
  def do_change_item_name # rewrite translation file with custom item name & pluralization case
-   $KCODE = 'UTF8' unless RUBY_VERSION >= '1.9'
+   $KCODE = 'UTF8' unless RUBY_VERSION >= '1.9' # for ya2yaml
    
    # Load & Modify Locale Hash
    current_locale_hash = YAML::load(File.open(Opal.current_locale_path)) #Opal.current_locale_hash # get full locale hash
-   current_locale_hash["en"]["activerecord"]["models"]["item"] = params[:key] #{:one => "A", :other => "As"} # modify entry of items
-   
-   # Write Changes to Locale File
-   FileUtils.cp(Opal.current_locale_path, Opal.current_locale_path + ".bak") # back up current locale
-   File.delete(Opal.current_locale_path) if File.exists?(Opal.current_locale_path)
-   File.open(Opal.current_locale_path, "w") { |f| f.write current_locale_hash.ya2yaml } # use ya2yaml instead of to_yaml, which hates utf-8
-
-   Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_save", :item => Item.model_name.human + " " + t("single.name"), :name => params[:key].values.join(", ")))       
-   flash[:success] = t("notice.save_success")
+   if current_locale_hash[I18n.locale.to_s]["activerecord"]["models"]["item"] 
+     current_locale_hash[I18n.locale.to_s]["activerecord"]["models"]["item"] = params[:key] #{:one => "A", :other => "As"} # modify entry of items
+     
+     # Write Changes to Locale File
+     FileUtils.cp(Opal.current_locale_path, Opal.current_locale_path + ".bak") # back up current locale
+     File.delete(Opal.current_locale_path) if File.exists?(Opal.current_locale_path)
+     File.open(Opal.current_locale_path, "w") { |f| f.write current_locale_hash.ya2yaml } # use ya2yaml instead of to_yaml, which hates utf-8
+  
+     Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_save", :item => Item.model_name.human + " " + t("single.name"), :name => params[:key].values.join(", ")))       
+     flash[:success] = t("notice.save_success")
+   else
+     flash[:success] = t("notice.item_not_found", :item => "#{I18n.locale.to_s}.activerecord.models.item")
+   end 
    redirect_to :action => "change_item_name"
  end
  

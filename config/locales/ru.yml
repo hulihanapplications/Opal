@@ -143,7 +143,7 @@ ru:
     description: Описание
     archive: Архив
     send: Послать
-    none: - Нет -
+    none: -Пусто-
     all: Все
     back: Назад
     time: Время 
@@ -397,44 +397,44 @@ ru:
       site_description: Описание сайта
       site_keywords: Ключевые слова сайта      
       locale: Локаль
-      display_item_views: Показывать число просмотров %{item}
+      display_item_views: Показывать число просмотров вещи
       caching: Кэширование страниц
-      new_item_notification: Оповещать администраторов о новых %{items}
+      new_item_notification: Оповещать администраторов о новых вещах
       section_blog: Блог
       allow_item_list_type_changes: Разрешить изменения вида списка
       allow_item_page_type_changes: Разрешить изменения вида страницы
-      include_child_category_items: Включать %{items} дочерней категории
-      max_items_per_user: Максимальное число %{items} для пользователя
+      include_child_category_items: Включать вещи дочерней категории
+      max_items_per_user: Максимальное число вещей для пользователя
       email_verification_required: Проверка Email обязательна для новых пользователей
-      enable_item_description: Включить описание %{item}
-      display_featured_items: Показывать рекомендованные %{items}
+      enable_item_description: Включить описание вещи
+      display_featured_items: Показывать рекомендованные вещи
       enable_navlinks: Включить NavLinks
       item_approval_required: Требуется подтверждение
       section_items: Вещи
       allow_page_comments: Разрешить комментарии к страницам
-      enable_item_date: Включить описание %{item}
+      enable_item_date: Включить описание вещи
       homepage_type: Тип главной страницы
-      allow_private_items: Разрешить приватные %{items}
+      allow_private_items: Разрешить приватные вещи
       allow_user_registration: Регистрация пользователей
       item_name_plural: Множественное название вещей
       allow_public_access: Разрешить публичный доступ
       item_page_type: Тип Страницы Вещи
-      let_users_create_items: Позволить пользователям создавать %{items}
+      let_users_create_items: Позволить пользователям создавать вещи
       show_user_login: Показывать Вход для пользователей
       display_help_sections: Показывать секции помощи
       theme: Тема
-      display_popular_items: Показывать самые популярные %{items}
-      users_can_delete_items: Позволить пользователям удалять свои %{items}
-      item_name: Имя %{item}
+      display_popular_items: Показывать самые популярные вещи
+      users_can_delete_items: Позволить пользователям удалять свои вещи
+      item_name: "Имя вещи"
       new_user_notification: Оповещать администраторов о новых пользователях
       list_type: Тип списка
-      items_per_page: %{items} на страницу
+      items_per_page: "Вещей на страницу"
       main_logo: Главный логотип
       list_type_simple: Простой
       list_type_detailed: Детальный
-      list_type_photo: Фото
+      list_type_photo: Пиктограммы
       list_type_small: Маленький
-      item_page_type_summarized: Обобщенные    
+      item_page_type_summarized: Обобщенный    
       item_page_type_expanded: Развернутый
       item_page_type_tabs_horizontal: Вкладки - Горизонтальные 
       item_page_type_tabs_vertical: Вкладки - Вертикальные
@@ -475,7 +475,7 @@ ru:
       homepage_type: То что отображается на Вашей главной странице.
       allow_private_items: Если включена, пользователи смогут создавать приватные вещи, которые не будут видны публике или другим пользователям. Она будет видна только владельцу и администраторам. Если выключена, все вещи становятся публичными при создании.
       allow_user_registration: Определяет могут ли пользователи создавать новые профили.
-      item_name_plural: Название вещей которые вы размещаете на сайте во <b>множественном числе/b>, поэтому если вы хотите размещать дома, здесь будет написано <b>дома</b>.
+      item_name_plural: Название вещей которые вы размещаете на сайте во <b>множественном числе</b>, поэтому если вы хотите размещать дома, здесь будет написано <b>дома</b>.
       allow_public_access: Если выключена, пользователи должны войти чтобы получить доступ к сайту или каким либо вещам. Если включена, кто угодно может просматривать сайт и вещи.
       item_page_type: Визуальное расположение страницы %{item}.
       let_users_create_items: Если выключена, обычные пользователи не смогут создавать вещи... смогут только администраторы.
@@ -485,7 +485,7 @@ ru:
       theme: Визуальная тема для всей системы
       display_popular_items: Показывать самые популярные вещи на главной странице.
       users_can_delete_items: Позволяет пользователям удалять вещи которые они создали. Если выключена, только администраторы смогут удалять вещи.
-      item_name: Название везей которые вы размещаете на сайте в <b>единственном числе</b>, поэтому если вы хотите размещать дома, здесь будет написано <b>дом</b>.
+      item_name: Название вещей которые вы размещаете на сайте в <b>единственном числе</b>, поэтому если вы хотите размещать дома, здесь будет написано <b>дом</b>.
       new_user_notification: Если включена, все администраторы получат email при регистрации нового пользователя.
       list_type: Визуальное размещение того как отображаются ваши %{items}.
       items_per_page: Число вещей на страницу.
@@ -493,11 +493,11 @@ ru:
       list_type_detailed: Показать %{items} в детальном формате.
       list_type_photo: Показать %{items} как пиктограммы.
       list_type_small: Показать %{items} в табличном виде.
-      item_page_type_summarized: Показать подробности %{item} в чистом, обобщенном виде.
-      item_page_type_expanded: View %{item} with expanded details.
-      item_page_type_tabs_horizontal:  View %{item} details in horizontal tabs.
-      item_page_type_tabs_vertical: View %{item} details in vertical tabs.
-      item_page_type_accordion: View %{item} details in an accordion.
+      item_page_type_summarized: Показать %{item} в обобщенном виде.
+      item_page_type_expanded: Показать %{item} в развернутом виде.
+      item_page_type_tabs_horizontal:  Показать %{item} в виде горизонтальных вкладок.
+      item_page_type_tabs_vertical: Показать %{item} в виде вертикальных вкладок.
+      item_page_type_accordion: Показать %{item} в виде аккордиона.
       # Plugin Settings
       slideshow_speed: The speed of a slideshow, in milliseconds(ms). Default is 2500.
       item_thumbnail_width: This is the default width(in pixels) of the thumbnails that are generated.

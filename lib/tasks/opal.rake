@@ -6,12 +6,7 @@ namespace app_name.downcase.to_sym do
     ENV["PROMPTS"] ||= "TRUE"    
     ENV["RAILS_ENV"] ||= "production"    
     Rake::Task["db:migrate"].invoke
-    Rake::Task["db:seed"].invoke
-    puts "\n\n#{app_name} Installed successfully!"
-    puts "You can now log in with the default admin account:\n\tusername: admin\n\tpassword: admin"
-    puts "Enjoy!"
-    # Log Install
-    Log.create(:log => "#{app_name} installed!", :log_type => "system")    
+    Rake::Task["db:seed"].invoke 
   end
 
   desc 'Uninstall #{app_name}'
@@ -51,7 +46,6 @@ namespace app_name.downcase.to_sym do
       db_config["host"] ||= "localhost"
       
       if db_config["adapter"] == "mysql"
-        puts "Backing Up Mysql Database..."
         command = "mysqldump -u #{db_config["username"]} -p'#{db_config["password"]}' #{db_config["database"]} -h #{db_config["host"]} # > #{backup_path}"
       end
       if defined?(command) && !command.nil?
@@ -59,7 +53,7 @@ namespace app_name.downcase.to_sym do
       else
         "No Command specified."
       end
-      puts "Backup saved to #{backup_path}"
+      puts I18n.t("label.item_backup_success", :item => I18n.t("name")) + "(#{backup_path})"
     end    
   end
 end

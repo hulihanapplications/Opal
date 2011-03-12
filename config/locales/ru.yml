@@ -1,5 +1,6 @@
 # Schema: group by category(log, notice, etc.), use interpolation(ie: %{item}), anything from user perspective(ie: "My Account") should be labeled: user_account, all verbs must not use any tense(created_account = bad, create_account = good). 
 ru:
+  name: Opal
   greeting: Привет %{name}! # call with t(:greeting, :name => "John")
   # Seeds
   seeds: 
@@ -315,6 +316,7 @@ ru:
     item_recently_added: %{item} был добавлен за последние 3 дня.
     item_mark_as: Отметить %{item} как %{name}
     item_unknown: "Неизвестный %{item}: %{name}"
+    item_backup_success: %{item} backed up successfully!        
     items_from: %{items} от %{name}
     items_for: %{items} для %{name}
     items_more: Больше %{items}
@@ -372,6 +374,7 @@ ru:
     tag_example: "Например: веселый, смешной, странный"
     check_for_updates: Проверить обновления
     installing: Идёт установка...
+    login_as: "Теперь вы можете войти со следующими именем и паролем: %{username} / %{password}"
   # General Information 
   info: 
     delete_main_logo: Удаление логотипа отобразит заголовок вашего сайта. 
@@ -411,13 +414,11 @@ ru:
       allow_user_registration: Регистрация пользователей
       item_name_plural: Множественное название вещей
       allow_public_access: Разрешить публичный доступ
-      enable_contact_us: Включить форму Обратной связи
       item_page_type: Тип Страницы Вещи
       let_users_create_items: Позволить пользователям создавать %{items}
       show_user_login: Показывать Вход для пользователей
       display_help_sections: Показывать секции помощи
       theme: Тема
-      setup_completed: "translation missing: en, setting, title, setup_completed"
       display_popular_items: Показывать самые популярные %{items}
       users_can_delete_items: Позволить пользователям удалять свои %{items}
       item_name: Имя %{item}
@@ -472,14 +473,12 @@ ru:
       allow_user_registration: Определяет могут ли пользователи создавать новые профили.
       item_name_plural: Название вещей которые вы размещаете на сайте во <b>множественном числе/b>, поэтому если вы хотите размещать дома, здесь будет написано <b>дома</b>.
       allow_public_access: Если выключена, пользователи должны войти чтобы получить доступ к сайту или каким либо вещам. Если включена, кто угодно может просматривать сайт и вещи.
-      enable_contact_us: Включение/Выключение Формы обратной связи  XXXXXXXX the About section XXXXXXXX.
       item_page_type: Визуальное расположение страницы %{item}.
       let_users_create_items: Если выключена, обычные пользователи не смогут создавать вещи... смогут только администраторы.
       show_user_login: Определяет видна ли панель логина под меню сайта. Если выключено, пользователи могут войти по адресу site.example.com/browse/login
       opal_version: Текущая версия с которой вы работаете.
       display_help_sections: Показывает Секции Помощи в разных частях сайта для помощи пользователям и администраторам Opal.
       theme: Визуальная тема для всей системы
-      setup_completed: "translation missing: en, setting, description, setup_completed"
       display_popular_items: Показывать самые популярные вещи на главной странице.
       users_can_delete_items: Позволяет пользователям удалять вещи которые они создали. Если выключена, только администраторы смогут удалять вещи.
       item_name: Название везей которые вы размещаете на сайте в <b>единственном числе</b>, поэтому если вы хотите размещать дома, здесь будет написано <b>дом</b>.

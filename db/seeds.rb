@@ -198,133 +198,133 @@ if (install_sample_data == "y" || install_sample_data == "yes")
 
 
    #Create User Messages
-  msg = UserMessage.new(:message => "Test message(unread) to test from admin.")
+  msg = UserMessage.new(:message => I18n.t('sample_data.messages.unread.text'))
   msg.from_user_id = @admin.id
   msg.user_id = @user.id
   msg.to_user_id = @user.id
   msg.save
-  msg = UserMessage.new(:message => "Test message(read) to test from admin.", :is_read => "1")
+  msg = UserMessage.new(:message => I18n.t('sample_data.messages.read.text'), :is_read => "1")
   msg.from_user_id = @admin.id
   msg.user_id = @user.id
   msg.to_user_id = @user.id
   msg.save    
-  msg = UserMessage.new(:message => "Test Message from Test to Admin.", :reply_to_message_id => 1)
+  msg = UserMessage.new(:message => I18n.t('sample_data.messages.reply.text'), :reply_to_message_id => 1)
   msg.from_user_id = @user.id
   msg.user_id = @admin.id
   msg.to_user_id = @admin.id  
   msg.save     
   
   # Create Test Item
-  item1 = Item.new(:name => "Test Item A", :description => "This is a test description.")
+  item1 = Item.new(:name => I18n.t('sample_data.items.simple.name'), :description => I18n.t('sample_data.items.simple.description'))
   item1.user_id = @admin.id
   item1.is_public = "1"
   item1.featured = true
   item1.is_approved = "1"
   item1.save
   
-  item2 = Item.new(:name => "Test Item B(with a Really Really Really Really Really Long Name).", :description => "This is a test description. It is really really really really really really really really really really really really really really really really really really really really really really really really really really really really really really long.")
+  item2 = Item.new(:name => I18n.t('sample_data.items.long_name.name'), :description => I18n.t('sample_data.items.long_name.description'))
   item2.user_id = @user.id
   item2.is_public = "1"
   item2.is_approved = "1"
   item2.save
   
-  item3 = Item.new(:name => "Test Item C (Unapproved)", :description => "This is a test description. This item is neither approved nor Public.")
+  item3 = Item.new(:name => I18n.t('sample_data.items.unapproved.name'), :description => I18n.t('sample_data.items.unapproved.description'))
   item3.user_id = @user.id
   item3.save
   
   
   # Create Plugins 
-  #plugin = PluginImage.new(:url => "/images/item_images/1/example_image_1.png", :thumb_url => "/images/item_images/1/thumb_example_image_1.png", :pinky_url => "/images/item_images/1/pinky_example_image_1.png", :description => "A sample image.")
+  #plugin = PluginImage.new(:url => "/images/item_images/1/example_image_1.png", :thumb_url => "/images/item_images/1/thumb_example_image_1.png", :pinky_url => "/images/item_images/1/pinky_example_image_1.png", :description => I18n.t('sample_data.plugins.images.simple.description'))
   #plugin.item_id = item1.id 
   #plugin.user_id = @user.id 
   #plugin.save
   
-  @plugin = PluginDescription.new(:title => "A Wonderful Item!", :content => "This item is very wonderful.<br><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus pellentesque nibh. Cras suscipit, arcu at porttitor porttitor, neque ligula aliquam metus, sit amet egestas velit nulla et eros. Sed ac erat eget eros pellentesque feugiat. Nunc sagittis dolor sit amet velit. Nulla quam. Donec ultrices lacus at risus. Sed in diam eget tortor sagittis congue. Sed vel odio. Integer bibendum purus in nibh. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis neque dolor, posuere posuere, volutpat ultrices, sollicitudin elementum, nulla. Morbi interdum urna vitae purus. Suspendisse vitae quam eu diam hendrerit dictum. Maecenas dignissim, mi ut lacinia auctor, mauris sem porttitor lectus, vel consectetur nulla est non neque. Suspendisse hendrerit massa non nisl.<br><br>Cras tortor. Aenean sed tortor. Maecenas orci lectus, viverra nec, molestie nec, pharetra vitae, massa. Cras euismod vestibulum augue. Morbi viverra nisl in purus. Etiam rhoncus dignissim erat. Vivamus a lorem in metus molestie porta. Curabitur nibh. Cras mattis justo ac felis. Morbi commodo, nulla id eleifend eleifend, nisi ligula sollicitudin est, a interdum lorem massa in leo. Suspendisse sit amet enim id nunc feugiat feugiat. Ut euismod neque. Etiam convallis faucibus dui. Cras aliquam ligula eu mauris. Cras vestibulum neque vel nisl. In arcu risus, hendrerit ac, laoreet sit amet, blandit at, nisl. Ut elementum eleifend lectus.<br><br>Nunc molestie enim. Nulla nec diam. Maecenas vel mauris. Pellentesque sit amet sem ac metus egestas tempor. Integer nibh. Donec sed velit a justo posuere sodales. Vestibulum molestie porttitor metus. Ut eleifend enim a lacus. Aliquam pretium dignissim velit. Ut euismod eros nec justo. Mauris pharetra. Nunc imperdiet elementum dui. Nunc et urna. Mauris at odio. ")
+  @plugin = PluginDescription.new(:title => I18n.t('sample_data.plugins.description.simple.title'), :content => I18n.t('sample_data.plugins.description.simple.content'))
   @plugin.item_id = item1.id 
   @plugin.is_approved = "1"    
   @plugin.user_id = @user.id 
   @plugin.save
   
   # Create  Features
-  @plugin = PluginFeature.new(:name => "Price", :order_number => 0)
+  @plugin = PluginFeature.new(:name => I18n.t('sample_data.plugins.features.price.name'), :order_number => 0)
   @plugin.save    
-      @plugin_feature_value = PluginFeatureValue.new(:value => "$200.00 USD")
+      @plugin_feature_value = PluginFeatureValue.new(:value => I18n.t('sample_data.plugins.features.price.value'))
       @plugin_feature_value.plugin_feature_id = @plugin.id
       @plugin_feature_value.is_approved = "1"        
       @plugin_feature_value.item_id = item1.id
       @plugin_feature_value.user_id = @user.id 
       @plugin_feature_value.save    
         
-  @plugin = PluginFeature.new(:name => "Size", :order_number => 1, :feature_type => "option")    
+  @plugin = PluginFeature.new(:name => I18n.t('sample_data.plugins.features.size.name'), :order_number => 1, :feature_type => "option")    
   @plugin.save
-  PluginFeatureValueOption.create(:value => "Small", :plugin_feature_id => @plugin.id)
-  PluginFeatureValueOption.create(:value => "Medium", :plugin_feature_id => @plugin.id)
-  PluginFeatureValueOption.create(:value => "Large", :plugin_feature_id => @plugin.id)  
-      @plugin_feature_value = PluginFeatureValue.new(:value => "Large")
+  PluginFeatureValueOption.create(:value => I18n.t('sample_data.plugins.features.size.option_small'), :plugin_feature_id => @plugin.id)
+  PluginFeatureValueOption.create(:value => I18n.t('sample_data.plugins.features.size.option_medium'), :plugin_feature_id => @plugin.id)
+  PluginFeatureValueOption.create(:value => I18n.t('sample_data.plugins.features.size.option_large'), :plugin_feature_id => @plugin.id)  
+      @plugin_feature_value = PluginFeatureValue.new(:value => I18n.t('sample_data.plugins.features.size.option_large'))
       @plugin_feature_value.plugin_feature_id = @plugin.id
       @plugin_feature_value.is_approved = "1"        
       @plugin_feature_value.item_id = item1.id
       @plugin_feature_value.user_id = @user.id 
       @plugin_feature_value.save        
   
-  @plugin = PluginFeature.create(:name => "Date", :order_number => 1, :feature_type => "date")    
-  @plugin = PluginFeature.create(:name => "Rank", :order_number => 1, :feature_type => "slider", :min => 1, :max => 10)    
-  @plugin = PluginFeature.create(:name => "Score", :order_number => 1, :feature_type => "stars", :max => 5)    
-  @plugin = PluginFeature.create(:name => "Is this awesome?", :order_number => 1, :feature_type => "yesno", :max => 5)    
+  @plugin = PluginFeature.create(:name => I18n.t('sample_data.plugins.features.date.name'), :order_number => 1, :feature_type => "date")    
+  @plugin = PluginFeature.create(:name => I18n.t('sample_data.plugins.features.rank.name'), :order_number => 1, :feature_type => "slider", :min => 1, :max => 10)    
+  @plugin = PluginFeature.create(:name => I18n.t('sample_data.plugins.features.score.name'), :order_number => 1, :feature_type => "stars", :max => 5)    
+  @plugin = PluginFeature.create(:name => I18n.t('sample_data.plugins.features.is_this_awesome.name'), :order_number => 1, :feature_type => "yesno", :max => 5)    
 
   
   
-  @plugin = PluginReview.new(:review_score => 5, :review => "I really like this!")
+  @plugin = PluginReview.new(:review_score => 5, :review => I18n.t('sample_data.plugins.reviews.simple.text'))
   @plugin.item_id = item1.id
   @plugin.is_approved = "1"    
   @plugin.user_id = @user.id 
   @plugin.save    
   
-  @plugin = PluginComment.new(:comment => "Thanks for sharing this with us!")
+  @plugin = PluginComment.new(:comment => I18n.t('sample_data.plugins.comments.simple.text'))
   @plugin.item_id = item1.id 
   @plugin.is_approved = "1"    
   @plugin.user_id = @user.id 
   @plugin.save    
   
-  @plugin = PluginLink.new(:title => "Item Website", :url => "http://www.hulihanapplications.com")
+  @plugin = PluginLink.new(:title => I18n.t('sample_data.plugins.links.simple.title'), :url => "http://www.hulihanapplications.com")
   @plugin.item_id = item1.id 
   @plugin.is_approved = "1"
   @plugin.user_id = @user.id 
   @plugin.save    
   
-  @plugin = PluginTag.new(:name => "Most Current")
+  @plugin = PluginTag.new(:name => I18n.t('sample_data.plugins.tags.simple.name'))
   @plugin.item_id = item1.id 
   @plugin.is_approved = "1"    
   @plugin.user_id = @user.id 
   @plugin.save   
  
-  tag = PluginTag.create(:name => "Cool", :item_id => item1.id)
+  tag = PluginTag.create(:name => I18n.t('sample_data.plugins.tags.cool.name'), :item_id => item1.id)
   tag.is_approved = "1"
   tag.save
-  tag = PluginTag.create(:name => "Cool", :item_id => item2.id)
+  tag = PluginTag.create(:name => I18n.t('sample_data.plugins.tags.cool.name'), :item_id => item2.id)
   tag.is_approved = "1"
   tag.save
 
   # Sample Discussion
-  discussion = PluginDiscussion.new(:item_id => 1, :user_id => @user.id, :title => "Test Discussion", :description => "This is a test discussion. Feel free to delete this.")
+  discussion = PluginDiscussion.new(:item_id => 1, :user_id => @user.id, :title => I18n.t('sample_data.plugins.discussions.simple.title'), :description => I18n.t('sample_data.plugins.discussions.simple.description'))
   discussion.is_approved = "1"
   discussion.save
 
-  discussion_post = PluginDiscussionPost.create(:item_id => 1, :user_id => @user.id, :plugin_discussion_id => discussion.id, :post => "This is a test post.")
+  discussion_post = PluginDiscussionPost.create(:item_id => 1, :user_id => @user.id, :plugin_discussion_id => discussion.id, :post => I18n.t('sample_data.plugins.discussions.simple.post'))
     
   
   # Create Public Page
-  pages[:about] = Page.create(:title => "About", :description => "All about us.", :page_type => "public", :content => "<div class=\"box_2\"><h1>What is Opal?</h1>Opal is a Ruby on Rails Item Management Application. Well, what kind of items can you <b>manage</b>? Anything! Bicycles, homes for sale, banana vendors, etc. can all be managed and organized by Opal.</div>")
-    pages[:more_about] = Page.create(:title => "More About Us", :page_id => pages[:about].id, :description => "", :page_type => "public", :content => "Here's more info about us.")
+  pages[:about] = Page.create(:title => I18n.t('sample_data.plugins.pages.about.title'), :description => I18n.t('sample_data.plugins.pages.about.description'), :page_type => "public", :content => I18n.t('sample_data.plugins.pages.about.content'))
+    pages[:more_about] = Page.create(:title => I18n.t('sample_data.plugins.pages.more_about.title'), :page_id => pages[:about].id, :description => I18n.t('sample_data.plugins.pages.more_about.description'), :page_type => "public", :content => I18n.t('sample_data.plugins.pages.more_about.content'))
 
   
   # Create Blog Post
-  blog_page = Page.new(:title => "First Post", :content => "This is the first blog post!", :page_type => "blog")
+  blog_page = Page.new(:title => I18n.t('sample_data.plugins.pages.blog_post.title'), :content => I18n.t('sample_data.plugins.pages.blog_post.content'), :page_type => "blog")
   blog_page.save
   
   # Extra Categories
-  Category.create(:name => "Uncategorized Child", :category_id => 1, :description => "Things that are just too cool to fit into one category.")
-  Category.create(:name => "Uncategorized GrandChild", :category_id => 2, :description => "Things that are just too cool to fit into one category.")
+  Category.create(:name => I18n.t('sample_data.categories.uncategorized_child.name'), :category_id => 1, :description => I18n.t('sample_data.categories.uncategorized_child.description'))
+  Category.create(:name => I18n.t('sample_data.categories.uncategorized_grand_child.name'), :category_id => 2, :description => I18n.t('sample_data.categories.uncategorized_grand_child.description'))
   
   puts " #{I18n.t('single.done')}."
 end 

@@ -475,7 +475,7 @@ en:
       allow_public_access: If disabled, users must log in to access the site or any items. If enabled, anyone can view the site and items normally.
       enable_contact_us: Enable/Disable The Contact Us Form in the About section.
       item_page_type: This is the visual layout of %{item} pages.
-      let_users_create_items: If disabled, regular users cannot create items...only admins can.
+      let_users_create_items: If disabled, regular users cannot create items... only admins can.
       show_user_login: This specifies if the user login box is visible on the top menu bar. If disabled, users can login at site.example.com/browse/login
       opal_version: This is the current version you're running.
       display_help_sections: Shows Help Sections in various parts of your site to help users and admins with Opal.
@@ -488,7 +488,7 @@ en:
       list_type: The visual layout of how your %{items} are listed.
       items_per_page: This is the number of items to show per page.
       list_type_simple: View %{items} in a simple format.
-      list_type_detailed: View %{items} in a simple format.
+      list_type_detailed: View %{items} in a detailed format.
       list_type_photo: View %{items} as thumbnails.
       list_type_small: View %{items} in a table.
       item_page_type_summarized: View %{item} details in a clean, summarized way.

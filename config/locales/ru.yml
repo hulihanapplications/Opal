@@ -108,7 +108,6 @@ ru:
       items: "%{items}"
       forum: "Форум"
       admin: "Админ. панель"
-      tools: "Инструменты"
       configure: "Настройки"
       my_account: "Мой профиль"
       my_settings: "Мои настройки"
@@ -205,6 +204,7 @@ ru:
     full: Full       
     rss: RSS
     spacer: "" # Spacer icon doesn't require a title
+    tools: "Инструменты"    
   # Flash Messages & Notices
   notice:
     save_success: Ваши изменения были успешно сохранены!
@@ -526,7 +526,7 @@ ru:
     name:
       page:        
     description:
-      page:   
+      page:      
   # ActiveRecord Models & Validations
   activerecord:
     models:
@@ -860,4 +860,11 @@ ru:
         one: "почти 1 год"
         few: "почти %{count} года"
         many: "почти %{count} лет"        
-        
+  # i18n Stuff
+  i18n:
+    plural:
+      keys: # Actual Names/Descriptions of Pluralization Cases for your Language. Indexed by pluralization key(ie: one: Singular, other: Plural)
+        one: Singular
+        few: Few
+        many: Many
+        other: Plural         

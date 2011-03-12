@@ -82,11 +82,11 @@ div.simple_captcha_image{}
 .field{margin:10px 0px}
 	.field input{vertical-align:middle}
 	.field .description{padding:0px 0px 0px 25px} 
-
+.buttons{text-align:center;margin:10px 0px}
 
 /* Other Stuff */
 .main_content_top_bar{height:25px;}
-.will_paginate{clear:both}
+.pagination{clear:both;}
 
 
 

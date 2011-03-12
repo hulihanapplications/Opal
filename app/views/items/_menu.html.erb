@@ -16,6 +16,10 @@
 	<div class="box_<%= (params[:controller] == "plugins" || params[:controller] == "plugin_features") ? "1" : "2" %>" style="margin-bottom:5px;">
 		<%= link_to icon("plugins") + " " + Plugin.model_name.human(:count => :other), {:action => "index", :controller => "plugins"} %>				
 	</div>
+						
+	<div class="box_<%= ( params[:action] == "change_item_name") ? "1" : "2" %>" style="margin-bottom:5px;">
+		<%= link_to icon("cycle") + " " + t("label.item_change", :item => Item.model_name.human + " " + t("single.name")), {:action => "change_item_name", :controller => "items"} %></a>				
+	</div>
 
 	<div class="box_<%= ( params[:action] == "import") ? "1" : "2" %>" style="margin-bottom:5px;">
 		<%= link_to icon("arrow_left") + " " + t("single.import") + " " + Item.model_name.human(:count => :other), {:action => "import", :controller => "tools"} %></a>				

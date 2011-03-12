@@ -1,6 +1,4 @@
 <%# Dynamically find which locales are stored in config/locales and present them as a selection %>
-<% locales_dir = File.join(Rails.root.to_s, "config", "locales") %>
-
 <%
  # Set Defaults
  options ||= Hash.new
@@ -8,7 +6,7 @@
  options[:select] 		||= Setting.get_setting("locale")  # the locale to select
 %>
 <select name="<%= options[:input_name] %>">
-<% Dir.new(locales_dir).entries.each do |file| %>
+<% Dir.new(Opal.locales_dir).entries.each do |file| %>
 	<% if (file.to_s != ".") && (file != "..") && file != "pluralize.rb"  %>
 	 <% locale = File.basename(file, ".yml") %>
      <option value="<%= locale %>" <%= "SELECTED" if locale == options[:select] %>><%= t("locales.#{locale}", :default => locale) %></option>

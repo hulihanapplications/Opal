@@ -1,0 +1,22 @@
+<div id="side">
+	<%= render :partial => "/items/menu" %>
+</div>
+<div id="main">
+	<div class="header">					
+		<h2 class="title">
+			<%= t("label.item_change", :item => Item.model_name.human + " " + t("single.name")) %>
+		</h2>					
+		<div class="box_2">
+			<% form_tag ({:action => "do_change_item_name"}) do %>	
+				<%#= @item_pluralization_cases.inspect %>
+				<% @item_pluralization_cases.each do |key, value|  %>
+					<div class="field">
+						<h3><%= label "key", key, t("i18n.plural.keys.#{key}") %></h3>							
+						<%= text_field "key", key, :value => value  %>
+					</div>										
+				<% end %>
+				<div class="buttons"><%= submit_tag t("single.save"), :class => "button_1", :confirm => t("confirm.general") %></div>																																											
+			<% end %>
+		</div>
+	</div>
+</div>		

@@ -2,8 +2,8 @@ class ItemsController < ApplicationController
  before_filter :authenticate_user, :only => [:edit, :update, :delete, :create, :new] 
  before_filter :enable_user_menu, :only =>  [:new, :edit, :create, :update] # show user menu 
  
- before_filter :authenticate_admin, :only =>  [:all_items, :settings] # check if user is admin 
- before_filter :enable_admin_menu, :only =>  [:all_items, :settings] # show admin menu 
+ before_filter :authenticate_admin, :only =>  [:all_items, :settings, :change_item_name, :do_change_item_name] # check if user is admin 
+ before_filter :enable_admin_menu, :only =>  [:all_items, :settings, :change_item_name, :do_change_item_name] # show admin menu 
  
  before_filter :find_item, :only => [:view, :edit, :update, :delete] # look up item  
  # before_filter :find_item, :except => [:index, :rss, :category, :all_items, :tag, :create, :new, :search, :new_advanced_search, :advanced_search, :set_list_type, :set_item_page_type, :settings] # look up item 
@@ -301,6 +301,27 @@ class ItemsController < ApplicationController
      flash[:failure] = t("notice.invalid_permissions")
    end 
    redirect_to request.env["HTTP_REFERER"]  # send them back to original request 
+ end
+ 
+ def change_item_name
+   @item_pluralization_cases = I18n.t("activerecord.models.item")
+ end
+ 
+ def do_change_item_name # rewrite translation file with custom item name & pluralization case
+   $KCODE = 'UTF8' unless RUBY_VERSION >= '1.9'
+   
+   # Load & Modify Locale Hash
+   current_locale_hash = YAML::load(File.open(Opal.current_locale_path)) #Opal.current_locale_hash # get full locale hash
+   current_locale_hash["en"]["activerecord"]["models"]["item"] = params[:key] #{:one => "A", :other => "As"} # modify entry of items
+   
+   # Write Changes to Locale File
+   FileUtils.cp(Opal.current_locale_path, Opal.current_locale_path + ".bak") # back up current locale
+   File.delete(Opal.current_locale_path) if File.exists?(Opal.current_locale_path)
+   File.open(Opal.current_locale_path, "w") { |f| f.write current_locale_hash.ya2yaml } # use ya2yaml instead of to_yaml, which hates utf-8
+
+   Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_save", :item => Item.model_name.human + " " + t("single.name"), :name => params[:key].values.join(", ")))       
+   flash[:success] = t("notice.save_success")
+   redirect_to :action => "change_item_name"
  end
  
 private 

@@ -18,6 +18,7 @@ vendor/bundle
 
 # Backups
 backup/
+*.bak
 
 # SQLite Databases
 db/*.sqlite3

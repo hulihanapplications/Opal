@@ -108,7 +108,6 @@ en:
       items: %{items}
       forum: Forum
       admin: Administration
-      tools: Tools 
       configure: Configure    
       my_account: My Account    
       my_settings: My Settings   
@@ -206,6 +205,7 @@ en:
     rss: RSS
     spacer: "" # Spacer icon doesn't require a title
     done: Done
+    tools: Tools
   # Flash Messages & Notices
   notice:
     save_success: Your changes have been successfully saved!
@@ -740,8 +740,7 @@ en:
       short: "%b %d"
       long: "%B %d, %Y"  
     day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
-    abbr_day_names: [Sun, Mon, Tue, Wed, Thu, Fri, Sat]
-      
+    abbr_day_names: [Sun, Mon, Tue, Wed, Thu, Fri, Sat]      
     # Don't forget the nil at the beginning; there's no such thing as a 0th month
     month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
     abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
@@ -793,4 +792,9 @@ en:
       almost_x_years:
         one: "almost 1 year"
         other: "almost %{count} years"        
-        
+  # i18n Stuff
+  i18n:
+    plural:
+      keys: # Actual Names/Descriptions of Pluralization Cases for your Language. Indexed by pluralization key(ie: one: Singular, other: Plural)
+        one: Singular
+        other: Plural               

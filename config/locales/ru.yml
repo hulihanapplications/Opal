@@ -1,5 +1,6 @@
 # Schema: group by category(log, notice, etc.), use interpolation(ie: %{item}), anything from user perspective(ie: "My Account") should be labeled: user_account, all verbs must not use any tense(created_account = bad, create_account = good). 
 ru:
+  name: Opal
   greeting: Привет %{name}! # call with t(:greeting, :name => "John")
   # Seeds
   seeds: 

@@ -199,6 +199,7 @@ en:
     rss: RSS
     spacer: "" # Spacer icon doesn't require a title
     done: Done
+    default: default
   # Flash Messages & Notices
   notice:
     save_success: Your changes have been successfully saved!
@@ -374,7 +375,8 @@ en:
     tag_example: "Example: cool, funny, weird"
     check_for_updates: Check for Updates
     installing: Installing...
-    login_as: "You may now log in with the following username and password: %{username} / %{password}"                      
+    login_as: "You may now log in with the following username and password: %{username} / %{password}"
+    skipping_prompt: "Skipping Prompt..."
   # General Information 
   info: 
     delete_main_logo: Deleting your main logo will show the title of your site instead. 

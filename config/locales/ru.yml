@@ -85,14 +85,14 @@ ru:
         password: admin
       test:
         username: test
-        first_name: John 
-        last_name: Doe
+        first_name: Петя 
+        last_name: Сидоров
         email: test@test.com
         password: test  
       unverified:
         username: unverified
-        first_name: Bill
-        last_name: McGrew
+        first_name: Витя
+        last_name: Козлов
         email: unverified@test.com
         password: unverified         
   # Sections
@@ -198,6 +198,8 @@ ru:
     full: Полный
     rss: RSS
     spacer: "" # Spacer icon doesn't require a title
+    done: Готово
+    default: по умолчанию
   # Flash Messages & Notices
   notice:
     save_success: Ваши изменения были успешно сохранены!
@@ -375,6 +377,7 @@ ru:
     check_for_updates: Проверить обновления
     installing: Идёт установка...
     login_as: "Теперь вы можете войти со следующими именем и паролем: %{username} / %{password}"
+    skipping_prompt: "Пропускаем запрос..."
   # General Information 
   info: 
     delete_main_logo: Удаление логотипа отобразит заголовок вашего сайта. 
@@ -386,6 +389,7 @@ ru:
     delete: Вы уверены что хотите удалить это?
     delete_user: Вы уверены что хотите удалить этого пользователя? Все что создал этот пользователь также будет удалено! Если вы не хотите чтобы это случилось, вы можете вместо этого заблокировать его профиль.
     item_delete: Вы действительно хотите удалить этот %{item}? 
+    install_sample_data: "Установить образцы данных? (Примеры Вещей, Категорий, Пользователей)"   
   # Settings
   setting:
     title:

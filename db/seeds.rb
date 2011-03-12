@@ -3,7 +3,7 @@
 
 def prompt(msg, default_value = "") # prompt user and get value
   if default_value != ""
-    print msg + " (default: #{default_value}) "
+    print msg + " (#{I18n.t('single.default')}: #{default_value}) "
   else
     print msg + " "
   end 
@@ -174,11 +174,11 @@ GroupPluginPermission.find(:first, :conditions => ["group_id = ? and plugin_id =
 
 
  
-puts "Done."
+puts " #{I18n.t('single.done')}."
 
 # Sample Data
 if ENV["PROMPTS"].downcase == "false" # skip prompt
-  puts "Skipping Prompt..." 
+  puts I18n.t('label.skipping_prompt') 
   install_sample_data = "y"
 else # show prompt    
   install_sample_data = prompt(I18n.t('confirm.install_sample_data'), "Y").downcase 
@@ -326,7 +326,7 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   Category.create(:name => "Uncategorized Child", :category_id => 1, :description => "Things that are just too cool to fit into one category.")
   Category.create(:name => "Uncategorized GrandChild", :category_id => 2, :description => "Things that are just too cool to fit into one category.")
   
-  puts I18n.t("single.done")
+  puts " #{I18n.t('single.done')}."
 end 
 
 Setting.find_by_name("opal_version").update_attribute(:value, "0.7.2") # Update Version    

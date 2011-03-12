@@ -12,7 +12,7 @@
 	<% end %>
 	<hr>
 	<% items_from_user = Item.find(:all, :select => "id", :conditions => ["user_id = ? and id != ?", item.user.id, item.id] ) %>
-	<%= link_to "#{t("label.items_from", :items => @setting[:item_name_plural], :name => item.user.username)} (#{items_from_user.size})", {:action => "user", :controller => "browse", :id => item.user}, :style => "font-weight:bold"  %><br>
+	<%= link_to "#{t("label.items_from", :items => Item.model_name.human(:count => :other), :name => item.user.username)} (#{items_from_user.size})", {:action => "user", :controller => "browse", :id => item.user}, :style => "font-weight:bold"  %><br>
 	<% if get_setting_bool("display_item_views") %>					
 		<b><%= @item.views %></b> <%= Item.human_attribute_name(:views) %> <br>
 	<% end %>								

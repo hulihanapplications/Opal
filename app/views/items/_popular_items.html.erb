@@ -1,4 +1,4 @@
-<h2 class="title"><%= t("single.popular") %> <%= @setting[:item_name_plural] %></h2>
+<h2 class="title"><%= t("single.popular") %> <%= Item.model_name.human(:count => :other) %></h2>
 <div class="spacer"></div>
 <% counter = 1 %>
 <table style="width:100%" cellpadding=0 cellspacing=1>		

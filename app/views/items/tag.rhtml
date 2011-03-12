@@ -1,8 +1,8 @@
 <%= render :partial => "browse/main_content_top_bar" %>
 
 <div align=center>
-	<h2><%=h @tag %> <%= @setting[:item_name_plural] %></h2>	
-	<%= @items.size %> <%= @setting[:item_name_plural] %>
+	<h2><%=h @tag %> <%= Item.model_name.human(:count => :other) %></h2>	
+	<%= @items.size %> <%= Item.model_name.human(:count => :other) %>
 </div>
 
 <%= render :partial => "items/list_items", :locals => {:items => @items } %>

@@ -150,11 +150,11 @@ class ApplicationController < ActionController::Base
     if params[:id] # is an item id set?    
       @item = Item.find(params[:id])
     else # no item id passed in
-      flash[:failure] = t("notice.item_not_found", :item => @setting[:item_name])
+      flash[:failure] = t("notice.item_not_found", :item => Item.model_name.human)
       redirect_to :action => "index", :controller => "user"
     end        
   rescue # catch any errors
-    flash[:failure] = t("notice.item_not_found", :item => @setting[:item_name])
+    flash[:failure] = t("notice.item_not_found", :item => Item.model_name.human)
     redirect_to :action => "index", :controller => "user"   
   end
   

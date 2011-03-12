@@ -31,8 +31,6 @@ class Setting < ActiveRecord::Base
   def self.get_global_settings
     logger.info "Retrieving global settings."
     setting = Hash.new
-    setting[:item_name] = Setting.get_setting("item_name")
-    setting[:item_name_plural] = Setting.get_setting("item_name_plural")
     setting[:title] = Setting.get_setting("site_title")
     setting[:description] = Setting.get_setting("site_description")
     setting[:theme] = Setting.get_setting("theme")

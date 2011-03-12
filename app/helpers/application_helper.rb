@@ -135,7 +135,7 @@ module ApplicationHelper
            return raw "<img src=\"/themes/#{@setting[:theme]}/images/default_item_image.png\" class=\"#{options[:class]}\">"
         end     
       else # item doesn't exist
-        return raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\" title=\"#{@setting[:item_name]} cannot be found.\">"      
+        return raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\" title=\"#{Item.model_name.human} cannot be found.\">"      
       end 
   end 
 
@@ -149,7 +149,7 @@ module ApplicationHelper
           return raw "<img src=\"#{image.thumb_url}\" class=\"#{options[:class]}\" title=\"#{h image.description}\">"            
          end     
       else # item doesn't exist
-        return raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\" title=\"#{@setting[:item_name]} cannot be found.\">"      
+        return raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\" title=\"#{Item.model_name.human} cannot be found.\">"      
       end       
  end
  
@@ -253,7 +253,7 @@ module ApplicationHelper
             html += "<td align=right class=\"icon_column\"><img src=\"/themes/#{@setting[:theme]}/images/icons/help.png\" class=\"icon help\" title=\"#{category.description}\"></td>" if category.description && category.description != ""            
             html += "<td align=right class=\"icon_column\">" + link_to(icon("new", "#{t("label.item_new_child", :item => Page.model_name.human)}"), {:action => "new", :controller => "categories", :id => category}, :class => "transparent") + "</td>"              
             html += "<td align=right class=\"icon_column\">" + link_to(icon("edit"), {:action => "edit", :controller => "categories", :id => category}, :class => "transparent") + "</td>"
-            html += "<td align=right class=\"icon_column\">" + link_to(icon("delete"), {:action => "delete", :controller => "categories", :id => category}, :confirm => "Are you sure you want to delete this category? All #{@setting[:item_name_plural]} in this category will be also be deleted.", :class => "transparent") + "</td>"
+            html += "<td align=right class=\"icon_column\">" + link_to(icon("delete"), {:action => "delete", :controller => "categories", :id => category}, :confirm => "Are you sure you want to delete this category? All #{Item.model_name.human(:count => :other)} in this category will be also be deleted.", :class => "transparent") + "</td>"
           end   
           
           html += "<td align=right><input type=\"checkbox\" name=\"category_id\" value=\"1\" #{checked_value} #{disabled_value}></td>" if options[:make_checkbox]                  

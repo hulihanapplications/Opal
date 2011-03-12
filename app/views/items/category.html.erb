@@ -16,7 +16,7 @@
 		<%= render :partial => "/items/list_items", :locals => {:items => @items } %>
 		<div align="center" class="will_paginate">
 			<br>
-			<%= page_entries_info @items, :entry_name => @setting[:item_name] %>	
+			<%= page_entries_info @items, :entry_name => Item.model_name.human %>	
 			<%= will_paginate @items %>
 			<br>
 		</div>		

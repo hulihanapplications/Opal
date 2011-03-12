@@ -24,7 +24,7 @@
 		<tr>
 			<td class="icon_column" align=right><input type="checkbox" name="item[is_public]" value="1" id="item_is_private" <%= "CHECKED" if item.is_public? %>></td>			
 			<td class="icon_column"><img src="/themes/<%= @setting[:theme] %>/images/icons/public.png" class="icon"  alt="" title="" ></td>
-			<td><b><%= Item.human_attribute_name(:is_public) %> <%= @setting[:item_name] %></b></td>
+			<td><b><%= Item.human_attribute_name(:is_public) %> <%= Item.model_name.human %></b></td>
 			<td class="icon_column"><img src="/themes/<%= @setting[:theme] %>/images/icons/help.png" class="help icon"  alt="" title="<%= Item.human_attribute_name(:is_public_description) %>" ></td>						
 		</tr>										
 	<% end %>

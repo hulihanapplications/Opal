@@ -11,7 +11,7 @@
 	<div id="main">				
 				<div class="box_2">
 				   <h2 class="title"><%= t("label.user_greeting", :name => h(@logged_in_user.first_name)) %></h2> 
-						<%= t("label.user_welcome_to_account", :items => @setting[:item_name_plural]) %>
+						<%= t("label.user_welcome_to_account", :items => Item.model_name.human(:count => :other)) %>
 
 				</div>
 

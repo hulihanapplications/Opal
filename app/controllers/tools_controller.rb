@@ -25,7 +25,7 @@ class ToolsController < ApplicationController
     @items = Item.find(:all, :conditions => ["category_id in (?)",  @options[:category_ids] ])
 
     # Export by Selected Format
-    filename = @setting[:item_name_plural] + "_#{Time.now.strftime("%Y%m%d_%H%M%S")}" 
+    filename = Item.model_name.human(:count => :other) + "_#{Time.now.strftime("%Y%m%d_%H%M%S")}" 
     if params[:format] == "csv" # Export to CSV
       csv_array = Array.new
       for item in @items # load item attributes into new array
@@ -71,13 +71,13 @@ class ToolsController < ApplicationController
         temp_item.is_approved = "1" # auto-approve
         linestring += line
         if temp_item.save
-          Log.create(:user_id => @logged_in_user.id, :item_id => temp_item.id,  :log_type => "new", :log => t("log.item_create", :item => @setting[:item_name], :name => temp_item.name + " (#{t("single.import")})"))
+          Log.create(:user_id => @logged_in_user.id, :item_id => temp_item.id,  :log_type => "new", :log => t("log.item_create", :item => Item.model_name.human, :name => temp_item.name + " (#{t("single.import")})"))
           item_counter += 1
         end
       end
       
-      flash[:success] = t("notice.save_success", :item => @setting[:item_name_pural], :count => item_counter)                 
-      #Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("notice.items_import", :item => @setting[:item_name_pural], :count => item_counter)) # log it
+      flash[:success] = t("notice.save_success", :item => Item.model_name.human(:count => :other), :count => item_counter)                 
+      #Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("notice.items_import", :item => Item.model_name.human(:count => :other), :count => item_counter)) # log it
       redirect_to :action => "category", :controller => "items", :id => @category      
     else # No Format Selected
       flash[:failure] = t("notice.item_forgot_to_select", :item => t("single.format"))                 

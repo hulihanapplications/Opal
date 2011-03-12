@@ -19,7 +19,7 @@
 				<tr>
 					<td align=left>
 						<h2 class="title">
-							<b class="highlight"><%= h params[:type].blank? ? nil : params[:type].downcase == "unapproved" ? "#{t("single.not")} #{t("single.approved")}" : params[:type].downcase == "private" ? t("single.private") : params[:type].downcase == "approved"  ? t("single.approved") : nil  %></b> <%= @setting[:item_name_plural] %>
+							<b class="highlight"><%= h params[:type].blank? ? nil : params[:type].downcase == "unapproved" ? "#{t("single.not")} #{t("single.approved")}" : params[:type].downcase == "private" ? t("single.private") : params[:type].downcase == "approved"  ? t("single.approved") : nil  %></b> <%= Item.model_name.human(:count => :other) %>
 						</h2>					
 					</td>
 					<td align=right >
@@ -33,7 +33,7 @@
 
 <div align="center" class="will_paginate">
 	<br>	
-	<%= page_entries_info @items, :entry_name => @setting[:item_name] %>	
+	<%= page_entries_info @items, :entry_name => Item.model_name.human %>	
 	<%= will_paginate @items %>
 	<br>
 </div>

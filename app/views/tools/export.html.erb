@@ -8,7 +8,7 @@
 					<tr>
 						<td align=left>
 							<h2 class="title">
-								<%= t("single.export") %> <%= @setting[:item_name_plural] %>
+								<%= t("single.export") %> <%= Item.model_name.human(:count => :other) %>
 							</h2>						
 						</td>
 						<td align=right >
@@ -17,7 +17,7 @@
 				</table>
 			</div>
 
-		<!--Export <%= @setting[:item_name_plural] %> from <%= @setting[:title] %> to other formats and software.-->
+		<!--Export <%= Item.model_name.human(:count => :other) %> from <%= @setting[:title] %> to other formats and software.-->
 		
 		<div class="box_2a" align=center>  
 			<% form_tag ({:action => "do_export", :controller => "tools"}) do %>
@@ -27,7 +27,7 @@
 							<div class="box_2" style="margin-bottom:5px">					   			
 								<h2><%= t("single.details") %></h2>
 								<div class="spacer"></div>
-								<!--Select each <%= @setting[:item_name] %> attribute you want to export. <br>-->
+								<!--Select each <%= Item.model_name.human %> attribute you want to export. <br>-->
 								
 								<h3><input type="checkbox" name="attributes[id]" value="1" > <%= Item.human_attribute_name(:id) %></h3>									
 								<h3><input type="checkbox" name="attributes[name]" value="1" CHECKED> <%= Item.human_attribute_name(:name) %></h3>
@@ -58,7 +58,7 @@
 				   	</tr>							
 				   </table>
 				   <br>
-				   <input type="submit" value="<%= t("single.export") %> <%= @setting[:item_name_plural] %>" class="button_1">					
+				   <input type="submit" value="<%= t("single.export") %> <%= Item.model_name.human(:count => :other) %>" class="button_1">					
 			<% end %>									
 		</div>			
 </div>

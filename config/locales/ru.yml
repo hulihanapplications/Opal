@@ -5,8 +5,6 @@ ru:
   # Seeds
   seeds: 
     setting:
-      item_name: "Товар"
-      item_name_plural: "Товары"
       site_title: "Мой Opal Вебсайт"
       site_description: "Бесплатная, Открытая, Система Управления Вещами. Размещайте что угодно!"
     category:
@@ -66,6 +64,15 @@ ru:
         title: "Блог"
         description: ""
         content: ""
+      about:
+        title: "About"
+        content: "<div class=\"box_2\"><h1>What is Opal?</h1>Opal is a Ruby on Rails Item Management Application. Well, what kind of items can you <b>manage</b>? Anything! Bicycles, homes for sale, banana vendors, etc. can all be managed and organized by Opal.</div>"
+      more_about:
+        title: "More About Us"
+        content: "Here's more info about us."
+      first_blog_post:
+        title: "First Blog Post"
+        content: "This is the first blog post. Welcome!"          
     group:
       users:
         name: "Обычные пользователи"
@@ -411,7 +418,6 @@ ru:
       homepage_type: Тип главной страницы
       allow_private_items: Разрешить приватные %{items}
       allow_user_registration: Регистрация пользовавателей
-      item_name_plural: Множественное название вещей
       allow_public_access: Разрешить публичный доступ
       item_page_type: Тип Страницы Вещи
       let_users_create_items: Позволить пользователям создавать %{items}
@@ -420,7 +426,6 @@ ru:
       theme: Тема
       display_popular_items: Показывать самые популярные %{items}
       users_can_delete_items: Позволить пользователям удалять свои %{items}
-      item_name: Имя %{item}
       new_user_notification: Оповещать администраторов о новых пользователях
       list_type: Тип списка
       items_per_page: %{items} на страницу
@@ -471,7 +476,6 @@ ru:
       homepage_type: Это то что показывается на Вашей главной странице.
       allow_private_items: If enabled, users can create private items that aren't visible to the public or other users. Only the owner of the item and admins can see private items. If disabled, all items will become public upon creation.
       allow_user_registration: This specifies if users can register for a new account.
-      item_name_plural: This is the <b>plural</b> name of the items on your site, so if you want to show people homes, this would be <b>homes</b>.
       allow_public_access: If disabled, users must log in to access the site or any items. If enabled, anyone can view the site and items normally.
       item_page_type: This is the visual layout of %{item} pages.
       let_users_create_items: If disabled, regular users cannot create items...only admins can.
@@ -481,7 +485,6 @@ ru:
       theme: This is the visual theme for the entire system
       display_popular_items: Display the most popular items on the homepage.
       users_can_delete_items: This allows users to delete items that they've created. If disabled, only admins can delete items.
-      item_name: This is the <b>singular</b> name of the items on your site, so if you want to show people homes, this would be <b>home</b>.
       new_user_notification: If enabled, all admins will be sent an email when a new user registers.
       list_type: The visual layout of how your %{items} are listed.
       items_per_page: This is the number of items to show per page.
@@ -555,6 +558,11 @@ ru:
         few: Изображения
         many: Изображений
         other: Изображения
+      item:
+        one: Товар
+        few: Товары
+        many: Товары
+        other: Товары        
       log:
         one: Активность
         few: Активности

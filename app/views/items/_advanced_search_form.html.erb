@@ -95,7 +95,7 @@
 																<% end %>
 															</select>
 														<% else %>
-															<%= t("notice.items_not_found", :items => @setting[:item_name_plural]) %>
+															<%= t("notice.items_not_found", :items => Item.model_name.human(:count => :other)) %>
 														<% end %>
 													<% else %>
 													<% end %>												

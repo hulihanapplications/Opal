@@ -1,4 +1,4 @@
-<%= auto_discovery_link_tag(:rss, {:action => "rss", :controller => "items"}, {:title => "#{t("label.rss_feed")} - #{t("single.new").capitalize} #{@setting[:item_name_plural]}"}) %> 
+<%= auto_discovery_link_tag(:rss, {:action => "rss", :controller => "items"}, {:title => "#{t("label.rss_feed")} - #{t("single.new").capitalize} #{Item.model_name.human(:count => :other)}"}) %> 
 
 <!-- Load Core Files -->
 

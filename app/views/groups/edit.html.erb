@@ -49,11 +49,11 @@
 						<!--
 						<div class="box_1" align=center style="margin-bottom:5px;">
 								<img src="/themes/<%= @setting[:theme] %>/images/icons/warning.png" class="icon">
-								These permissions affect <u>every <%= @setting[:item_name] %></u> in <%= @setting[:title] %>.
+								These permissions affect <u>every <%= Item.model_name.human %></u> in <%= @setting[:title] %>.
 						</div>					
 						<div class="box_1" align=center style="margin-bottom:5px;">
 								<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" class="icon">
-								These permissions will only affect users besides the <%= @setting[:item_name] %> owner and Admins, since <%= @setting[:item_name] %> owners always have full permissions for their own <%= @setting[:item_name] %>'s plugins.  
+								These permissions will only affect users besides the <%= Item.model_name.human %> owner and Admins, since <%= Item.model_name.human %> owners always have full permissions for their own <%= Item.model_name.human %>'s plugins.  
 						</div>
 						-->
 						<%= form_tag ( {:action => 'update_plugin_permissions', :controller => "/groups", :id => @group.id } , :id => "plugin_permissions_form") %>
@@ -74,35 +74,35 @@
 													<%= GroupPluginPermission.human_attribute_name(:can_read) %>
 													<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_read]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :read) %> <%= "DISABLED" if @group.is_admin_group? %>>												
 												</h3>
-												<!--<i><%= @group.name %> can view <%= plugin.model_name.human(:count => :other) %> for any <%= @setting[:item_name] %>.</i>-->
+												<!--<i><%= @group.name %> can view <%= plugin.model_name.human(:count => :other) %> for any <%= Item.model_name.human %>.</i>-->
 												<div class="spacer"></div>
 												
 												<h3>
 													<%= GroupPluginPermission.human_attribute_name(:can_create) %>
 													<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_create]" value="1" <%= "CHECKED" if @group.has_plugin_permission?(:plugin => plugin, :permission_type => :create) %> <%= "DISABLED" if @group.is_admin_group? %>> 
 												</h3>
-												<!--<i><%= @group.name %> can create <%= plugin.model_name.human(:count => :other) %> for any <%= @setting[:item_name] %>.</i>-->
+												<!--<i><%= @group.name %> can create <%= plugin.model_name.human(:count => :other) %> for any <%= Item.model_name.human %>.</i>-->
 												<div class="spacer"></div>
 												
 												<h3>	
 													<%= GroupPluginPermission.human_attribute_name(:can_update) %>
 													<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_update]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :update) %> <%= "DISABLED" if @group.is_admin_group? %>> 
 												</h3>
-												<!--<i><%= @group.name %> can edit <%= plugin.model_name.human(:count => :other) %> for any <%= @setting[:item_name] %>.</i>-->
+												<!--<i><%= @group.name %> can edit <%= plugin.model_name.human(:count => :other) %> for any <%= Item.model_name.human %>.</i>-->
 												<div class="spacer"></div>
 												
 												<h3>
 													<%= GroupPluginPermission.human_attribute_name(:can_delete) %>
 													<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_delete]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :delete) %> <%= "DISABLED" if @group.is_admin_group? %>>
 												</h3>
-												<!--<i><%= @group.name %> can delete <%= plugin.model_name.human(:count => :other) %> from any <%= @setting[:item_name] %>.</i>-->
+												<!--<i><%= @group.name %> can delete <%= plugin.model_name.human(:count => :other) %> from any <%= Item.model_name.human %>.</i>-->
 												<div class="spacer"></div>
 												
 												<h3>
 													<%= GroupPluginPermission.human_attribute_name(:requires_approval) %>
 													<input type="checkbox" name="plugin_permission[<%= plugin.id %>][requires_approval]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :requires_approval) %> <%= "DISABLED" if @group.is_admin_group? %>> 
 												</h3>
-												<!--<i>New <%= plugin.model_name.human(:count => :other) %> created by <%= @group.name %> must be approved by the <%= @setting[:item_name] %> owner.</i>-->
+												<!--<i>New <%= plugin.model_name.human(:count => :other) %> created by <%= @group.name %> must be approved by the <%= Item.model_name.human %> owner.</i>-->
 											
 																							 											 
 											</td>														

@@ -1,8 +1,8 @@
-<h2 class="title"> <%= @setting[:item_name_plural] %></h2>
+<h2 class="title"> <%= Item.model_name.human(:count => :other) %></h2>
 <div class="spacer"></div>		
-<%= link_to "#{Item.count(:all)} #{@setting[:item_name_plural]}", {:action => "all_items", :controller => "items"} %><br>
+<%= link_to "#{Item.count(:all)} #{Item.model_name.human(:count => :other)}", {:action => "all_items", :controller => "items"} %><br>
 <div class="indent">
-	<%= link_to "#{Item.count(:all, :conditions => ["is_approved = '1' and is_public = '1'"] )} #{Item.human_attribute_name(:is_public).downcase}, #{Item.human_attribute_name(:is_approved).downcase} #{@setting[:item_name_plural]}", {:action => "all_items", :controller => "items", :type => "approved"} %><br>
-	<%= link_to "#{Item.count(:all, :conditions => ["is_approved = '0' and is_public = '1'"] )} #{t("single.not").downcase} #{Item.human_attribute_name(:is_approved).downcase} #{@setting[:item_name_plural]}", {:action => "all_items", :controller => "items", :type => "unapproved"} %><br>					
-	<%= link_to "#{Item.count(:all, :conditions => ["is_public = '0'"] )} #{t("single.private").downcase} #{@setting[:item_name_plural]}", {:action => "all_items", :controller => "items", :type => "private"} %><br>					
+	<%= link_to "#{Item.count(:all, :conditions => ["is_approved = '1' and is_public = '1'"] )} #{Item.human_attribute_name(:is_public).downcase}, #{Item.human_attribute_name(:is_approved).downcase} #{Item.model_name.human(:count => :other)}", {:action => "all_items", :controller => "items", :type => "approved"} %><br>
+	<%= link_to "#{Item.count(:all, :conditions => ["is_approved = '0' and is_public = '1'"] )} #{t("single.not").downcase} #{Item.human_attribute_name(:is_approved).downcase} #{Item.model_name.human(:count => :other)}", {:action => "all_items", :controller => "items", :type => "unapproved"} %><br>					
+	<%= link_to "#{Item.count(:all, :conditions => ["is_public = '0'"] )} #{t("single.private").downcase} #{Item.model_name.human(:count => :other)}", {:action => "all_items", :controller => "items", :type => "private"} %><br>					
 </div>

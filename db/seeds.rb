@@ -24,8 +24,6 @@ print I18n.t('label.installing')
 
 
 # Create Global Settings
-Setting.create(:name => "item_name", :value => I18n.t('seeds.setting.item_name'), :setting_type => "Item", :item_type => "string")
-Setting.create(:name => "item_name_plural",  :value => I18n.t('seeds.setting.item_name_plural'), :setting_type => "Item",  :item_type => "string")
 Setting.create(:name => "site_title",  :value => I18n.t('seeds.setting.site_title'), :setting_type => "Public",  :item_type => "string")
 Setting.create(:name => "site_description",  :value => I18n.t('seeds.setting.site_description'), :setting_type => "Public",  :item_type => "string")
 Setting.create(:name => "theme",  :value => "fracture", :setting_type => "Hidden",  :item_type => "string")
@@ -313,14 +311,13 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   discussion_post = PluginDiscussionPost.create(:item_id => 1, :user_id => @user.id, :plugin_discussion_id => discussion.id, :post => "This is a test post.")
     
   
-  # Create Public Page
-  pages[:about] = Page.create(:title => "About", :description => "All about us.", :page_type => "public", :content => "<div class=\"box_2\"><h1>What is Opal?</h1>Opal is a Ruby on Rails Item Management Application. Well, what kind of items can you <b>manage</b>? Anything! Bicycles, homes for sale, banana vendors, etc. can all be managed and organized by Opal.</div>")
-    pages[:more_about] = Page.create(:title => "More About Us", :page_id => pages[:about].id, :description => "", :page_type => "public", :content => "Here's more info about us.")
-
+  # Create Sample Public Page
+  pages[:about] = Page.create(:title => I18n.t('seeds.page.about.title'), :page_type => "public", :content => I18n.t('seeds.page.about.content'))
+  pages[:more_about] = Page.create(:title => I18n.t('seeds.page.more_about.title'), :page_type => "public", :content => I18n.t('seeds.page.more_about.content'))
   
-  # Create Blog Post
-  blog_page = Page.new(:title => "First Post", :content => "This is the first blog post!", :page_type => "blog")
-  blog_page.save
+  # Create Sample Blog Post
+  pages[:first_blog_post] = Page.create(:title => I18n.t('seeds.page.first_blog_post.title'), :user_id => @admin.id, :page_type => "blog", :content => I18n.t('seeds.page.first_blog_post.content'))
+
   
   # Extra Categories
   Category.create(:name => "Uncategorized Child", :category_id => 1, :description => "Things that are just too cool to fit into one category.")

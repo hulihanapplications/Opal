@@ -1,5 +1,5 @@
 <div align=center>
-   <h2 class="title"><%= t("label.item_new", :item => @setting[:item_name]) %></h2>
+   <h2 class="title"><%= t("label.item_new", :item => Item.model_name.human) %></h2>
    <%= show_page Page.get_system_page(I18n.t('seeds.page.new_item.title')) %>	
 </div>
 
@@ -11,7 +11,7 @@
 	
 	<br>
 		<div align=center>
-			<%= f.submit t("label.item_create", :item => @setting[:item_name]), :class => "button_1" %>
+			<%= f.submit t("label.item_create", :item => Item.model_name.human), :class => "button_1" %>
 		</div>
 	<% end %>
 </div>

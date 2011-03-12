@@ -1,8 +1,8 @@
 <div class="box_2" style="" align=center>
-	<h3 class="title" align=left><%= @setting[:item_name_plural]  %></h3>
+	<h3 class="title" align=left><%= Item.model_name.human(:count => :other)  %></h3>
 
 	<div class="box_<%= params[:action] == "all_items" ? "1" : "2" %>" style="margin-bottom:5px;">
-		<%= link_to icon("items") + " " +  "#{@setting[:item_name_plural]}", {:action => "all_items", :controller => "items"} %></a>				
+		<%= link_to icon("items") + " " +  "#{Item.model_name.human(:count => :other)}", {:action => "all_items", :controller => "items"} %></a>				
 	</div>
 		
 	<div class="box_<%= params[:controller] == "categories" ? "1" : "2" %>" style="margin-bottom:5px;">
@@ -18,10 +18,10 @@
 	</div>
 
 	<div class="box_<%= ( params[:action] == "import") ? "1" : "2" %>" style="margin-bottom:5px;">
-		<%= link_to icon("arrow_left") + " " + t("single.import") + " " + @setting[:item_name_plural], {:action => "import", :controller => "tools"} %></a>				
+		<%= link_to icon("arrow_left") + " " + t("single.import") + " " + Item.model_name.human(:count => :other), {:action => "import", :controller => "tools"} %></a>				
 	</div>
 
 	<div class="box_<%= params[:action] == "export" ? "1" : "2" %>" style="margin-bottom:5px;">
-		<%= link_to icon("arrow_right") + " " + t("single.export") + " " + @setting[:item_name_plural], {:action => "export", :controller => "tools"} %></a>				
+		<%= link_to icon("arrow_right") + " " + t("single.export") + " " + Item.model_name.human(:count => :other), {:action => "export", :controller => "tools"} %></a>				
 	</div>					
 </div>

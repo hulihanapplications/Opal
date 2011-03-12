@@ -8,7 +8,7 @@ module Opal
         if some_object.class == Item 
           title_array << some_object.name
           title_array << some_object.description if some_object.description && !some_object.description.empty?
-          title_array << some_object.category.name + " " + @setting[:item_name_plural]
+          title_array << some_object.category.name + " " + Item.model_name.human(:count => :other)
           title_array << @setting[:meta_title]     
         end
         return title_array.join(" - ")

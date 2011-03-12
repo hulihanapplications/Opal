@@ -8,7 +8,7 @@
 <div id="main">	
 	<%= render :partial => "items/list_items", :locals => {:items => @items } %>
 	<div class="pagination">
-		<%= page_entries_info @items, :entry_name => @setting[:item_name] %>	
+		<%= page_entries_info @items, :entry_name => Item.model_name.human %>	
 		<%= will_paginate @items, :params => {:search_for => @search_for } %>		
 	</div>
 </div>

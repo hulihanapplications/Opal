@@ -22,7 +22,7 @@
 		<% @category = nil %>
 		<div class="categories" align=left>
 			<% for category in Category.get_parent_categories %>
-				<%= descend_category(category, :include_children => @setting[:include_child_category_items], :admin_controls => true , :theme => @setting[:theme], :item_name_plural => @setting[:item_name_plural], :truncate_length => 60, :show_spacer => true, :style => "font-size:16px")  %>		
+				<%= descend_category(category, :include_children => @setting[:include_child_category_items], :admin_controls => true , :theme => @setting[:theme], :item_name_plural => Item.model_name.human(:count => :other), :truncate_length => 60, :show_spacer => true, :style => "font-size:16px")  %>		
 			<% end %>
 		</div>
 	</div>

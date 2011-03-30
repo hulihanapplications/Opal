@@ -463,5 +463,26 @@ module ApplicationHelper
    options[:url] ||= :back
    raw "<div align=center class=\"back\">" + link_to(icon("arrow_left") + " #{I18n.t("single.back")}", options[:url]) + "</div>"
  end
+ 
+  def log_icon(log)
+    case log.log_type
+    when "download"
+       icon("file", t("single.downloaded"), "icon help")
+    when "create"
+       icon("new", t("single.created"), "icon help")
+    when "new"
+       icon("new", t("single.created"), "icon help")
+    when "update"
+      icon("edit", t("single.updated"), "icon help")
+    when "delete"
+      icon("delete", t("single.deleted"), "icon help")
+    when "system"
+      icon("success", t("single.system") + " " + Log.model_name.human)
+    when "warning"
+      icon("warning", t("single.warning"), "icon help")
+    else
+      icon("unknown", t("single.unknown"), "icon help")
+    end  
+  end 
 end
 

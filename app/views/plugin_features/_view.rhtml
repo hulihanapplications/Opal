@@ -11,22 +11,23 @@
 	end  
 %> 
 <div class="plugin_box">
+	<a name="<%= plugin.model_name.human(:count => :other) %>"></a>
 	<% if options[:show_title] || my_group_plugin_permissions[plugin.id].can_update? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
-	<div class="title">		
-		<table style="width:100%" cellpadding=0 cellspacing=0>
-			<tr>
-				<td align=left>
-						<a name="<%= plugin.model_name.human(:count => :other) %>"></a><%= plugin.model_name.human(:count => :other) %>
-				</td>
-				<td align=right style="text-align:right;font-size:12px;vertical-align:middle">
-					<% if my_group_plugin_permissions[plugin.id].can_update? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
-						<%= icon("edit") %>
-						<%= link_to "#{t("label.item_edit", :item => plugin.model_name.human(:count => :other))}", {:action => "edit_values", :controller => "plugin_features", :id => item.id} %>
-					<% end %>					
-				</td>
-			</tr>
-		</table>
-	</div>		
+		<div class="header title">
+			<table style="width:100%" cellpadding=0 cellspacing=0>
+				<tr>
+					<td align=left>
+						<h2 class="title"><%= plugin.model_name.human(:count => :other) %></h2>										
+					</td>
+					<td align=right>
+						<% if my_group_plugin_permissions[plugin.id].can_update? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
+							<%= icon("edit") %>
+							<%= link_to "#{t("label.item_edit", :item => plugin.model_name.human(:count => :other))}", {:action => "edit_values", :controller => "plugin_features", :id => item.id} %>
+						<% end %>					
+					</td>
+				</tr>
+			</table>				
+		</div>				
 	<% end %>
 	<% if feature_values.size > 0  %>		
 			<div class="features">

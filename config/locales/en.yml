@@ -281,6 +281,8 @@ en:
     done: Done
     default: Default
     tools: Tools
+    slideshow: Slideshow
+    start: Start
   # Flash Messages & Notices
   notice:
     save_success: Your changes have been successfully saved!

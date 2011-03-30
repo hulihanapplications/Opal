@@ -281,6 +281,8 @@ ru:
     tools: "Инструменты"    
     done: Готово
     default: по умолчанию
+    slideshow: Демонстрация слайдов
+    start: Начало    
   # Flash Messages & Notices
   notice:
     save_success: Ваши изменения были успешно сохранены!

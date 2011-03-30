@@ -8,47 +8,50 @@
 
 
 	<%= "<i>#{description}</i>" if defined?(description) %>
-	<table width="100%" cellpadding=0 cellspacing=0 class="setting_table row_table">
 	    <% for setting in settings %>
-	    <% @class = cycle("row_a", "row_b") %>
-	    <tr class="<%= @class %>">
-	        <td align=left>
-	            <h2><%= t("setting.title.#{setting.name}", :default => setting.name.humanize) %></h2>
-	        </td>
-	        <td align=right valign=middle>
-	        	<div align=right>
-		             <% if setting.item_type == "string" %>
-		            	<input type=text name="setting[<%= setting.name %>]" value="<%= setting.value %>" class="setting_item_string" id="setting_<%= setting.id %>" onfocus ="focus_input('setting_<%= setting.id %>')" onblur ="blur_input('setting_<%= setting.id %>')">
-					<% elsif setting.item_type == "bool" %>
-		           		<%= t("single.positive") %>
-						<input type="radio" value="1" name="setting[<%= setting.name %>]"<% if setting.value == "1" %>CHECKED<% end %>>
-		            	<%= t("single.negative") %>
-		            	<input type="radio" value="0" name="setting[<%= setting.name %>]"<% if setting.value == "0" %>CHECKED<% end %>>
-					<% elsif setting.item_type == "option" %>
-						<select name="setting[<%= setting.name %>]">
-							<% for option in setting.options.split(",") %>
-								<% option = option.gsub(/ /,'') %>
-								<option value="<%= option %>" <%= "SELECTED" if option == setting.value %>><%= option %></option>
-							<% end %> 
-						</select>
-				   <% elsif setting.item_type == "special" %>				
-						<%# Handle Special Settings %>
-						<% if setting.name == "locale" %>
-							<%= render :partial => "shared/select_locale", :locals => {:options => {:input_name => "setting[#{setting.name}]"}} %>
-						<% end%>									
-					<% else %>
-		            	<%= t("label.item_unknown", :item => Setting.model_name.human, :name => setting.item_type) %>
-		            <% end %>       		
-	        	</div>
-	        </td>
-	    </tr>
-	    <tr class="<%= @class %>">
-	        <td colspan=2 align=left>
-	            <div class="setting_description">
-	                <%= raw t("setting.description.#{setting.name}", :default => "") %>
-	            </div>
-	        </td>
-	    </tr>
+	    <% css_class = cycle("row_a", "row_b") %>
+			<div class="box_1">
+				<table width="100%" cellpadding=0 cellspacing=0 class="">		
+				    <tr class="<%#= css_class %>">
+				        <td align=left>
+				            <h2><%= t("setting.title.#{setting.name}", :default => setting.name.humanize) %></h2>
+				        </td>
+				        <td align=right valign=middle>
+				        	<div align=right>
+					             <% if setting.item_type == "string" %>
+					            	<input type=text name="setting[<%= setting.name %>]" value="<%= setting.value %>" class="setting_item_string" id="setting_<%= setting.id %>" onfocus ="focus_input('setting_<%= setting.id %>')" onblur ="blur_input('setting_<%= setting.id %>')">
+								<% elsif setting.item_type == "bool" %>
+					           		<%= t("single.positive") %>
+									<input type="radio" value="1" name="setting[<%= setting.name %>]"<% if setting.value == "1" %>CHECKED<% end %>>
+					            	<%= t("single.negative") %>
+					            	<input type="radio" value="0" name="setting[<%= setting.name %>]"<% if setting.value == "0" %>CHECKED<% end %>>
+								<% elsif setting.item_type == "option" %>
+									<select name="setting[<%= setting.name %>]">
+										<% for option in setting.options.split(",") %>
+											<% option = option.gsub(/ /,'') %>
+											<option value="<%= option %>" <%= "SELECTED" if option == setting.value %>><%= option %></option>
+										<% end %> 
+									</select>
+							   <% elsif setting.item_type == "special" %>				
+									<%# Handle Special Settings %>
+									<% if setting.name == "locale" %>
+										<%= render :partial => "shared/select_locale", :locals => {:options => {:input_name => "setting[#{setting.name}]"}} %>
+									<% end%>									
+								<% else %>
+					            	<%= t("label.item_unknown", :item => Setting.model_name.human, :name => setting.item_type) %>
+					            <% end %>       		
+				        	</div>
+				        </td>
+				    </tr>
+				    <tr class="<%= @class %>">
+				        <td colspan=2 align=left>
+				        	<hr />
+				            <div class="setting_description">
+				                <%= raw t("setting.description.#{setting.name}", :default => "") %>
+				            </div>
+				        </td>
+				    </tr>
+				</table>				
+			</div>
 	    <% end %>
-	</table>
 </div>

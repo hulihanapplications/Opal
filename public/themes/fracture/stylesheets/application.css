@@ -135,12 +135,11 @@
 
 	
 		
-	
 	.plugins{}
 	.plugins table{}
 	.plugins td{vertical-align:top;}
-	.plugins .plugin_box{margin-bottom:20px;}
-		.plugin_box div.title{font-size:24px;border-bottom:1px solid #ccc;;margin-bottom:5px;text-align:left}
+	.plugins .plugin_box{margin-bottom:20px;padding:5px;}
+		.plugin_box div.title{border-bottom:1px solid #ccc;;margin-bottom:5px;text-align:left}
 		.plugin_box div.images{}
 			.plugin_box div.images div.image{float:left;text-align:center;margin:5px;padding:2px;}
 		.plugin_box div.descriptions{}
@@ -153,7 +152,7 @@
 			.plugin_box div.reviews td{vertical-align:top;text-align:center}
 			.plugin_box div.reviews div.review_box{;text-align:center;}
 					.plugin_box div.reviews div.review_box div.review{background-position:left;min-height:107px;background:url(../images/comment_bg.png) no-repeat;padding-left:40px;padding-top:10px;text-align:left;}
-					.score{font-size:24px;}
+					.score{font-size:16px;}
 		.plugin_box div.comments{}
 		.plugin_box div.links{padding-left:20px;}
 		.plugin_box div.tags{padding-left:20px;}

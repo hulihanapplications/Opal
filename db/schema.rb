@@ -352,19 +352,27 @@ ActiveRecord::Schema.define(:version => 20110310183526) do
   create_table "users", :force => true do |t|
     t.string   "username"
     t.string   "email"
-    t.datetime "last_login"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "password_hash"
-    t.string   "is_verified",   :limit => 1, :default => "0"
-    t.string   "is_disabled",   :limit => 1, :default => "0"
-    t.string   "is_admin",      :limit => 1, :default => "0"
+    t.string   "is_verified",         :limit => 1, :default => "0"
+    t.string   "is_disabled",         :limit => 1, :default => "0"
+    t.string   "is_admin",            :limit => 1, :default => "0"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "registered_ip",              :default => "0.0.0.0"
-    t.string   "last_login_ip",              :default => "0.0.0.0"
-    t.integer  "group_id",                   :default => 2
+    t.string   "registered_ip",                    :default => "0.0.0.0"
+    t.string   "last_login_ip",                    :default => "0.0.0.0"
+    t.integer  "group_id",                         :default => 2
     t.string   "locale"
+    t.string   "persistence_token",                                       :null => false
+    t.string   "perishable_token",                                        :null => false
+    t.string   "single_access_token",                                     :null => false
+    t.integer  "login_count",                      :default => 0,         :null => false
+    t.integer  "failed_login_count",               :default => 0,         :null => false
+    t.datetime "last_request_at"
+    t.datetime "current_login_at"
+    t.datetime "last_login_at"
+    t.string   "current_login_ip"
   end
 
 end

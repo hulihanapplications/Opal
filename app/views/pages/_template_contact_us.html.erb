@@ -13,10 +13,10 @@
 		 	<td align=left><%= UserMessage.model_name.human %> </td>
 		 	<td align=left><textarea name="message" style="width:100%"></textarea></td>			 
 		 </tr>
-	         <tr>
+	     <tr>
 	         	<td align=left><%= t("label.captcha") %></td>
-	     	<td align=left><%= show_simple_captcha %></td>
-		</tr>
+	     		<td align=left><%= show_simple_captcha %></td>
+		 </tr>
 	     <tr><td align=center colspan=2><br><%= submit_tag  t("single.send"), :class => "button_1" %></td></tr>
 	 </table>
 	<% end %>	

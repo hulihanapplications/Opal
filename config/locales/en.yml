@@ -31,7 +31,7 @@ en:
       email_footer:
         title: "Email Footer"
         description: "This appears at the bottom of any automated email."
-        content: 'This is an automated email sent to you by #{Setting.get_setting("site_title")}. Please do not reply.'
+        content: "This is an automated email. Please do not reply."
       home_page_sidebar:
         title: "Home Page Sidebar"
         description: "This page appears in the sidebar of the homepage."
@@ -383,7 +383,7 @@ en:
     username_available: This username is available!
     username_taken: This username is taken! 
     agree_to_tos: By Creating an Account, you agree to the 
-    logged_in_as: Logged in as %{username}  
+    logged_in_as: Logged in as %{name}  
     item_create: Create %{item}
     item_edit: Edit %{item}
     item_save: Save %{item}
@@ -413,13 +413,12 @@ en:
     user_by: by %{name}
     user_welcome_to_admin: Welcome to the Administration section, all powerful %{name}.
     user_welcome_to_account:  Welcome to your account. Here you can add new %{items}, check your messages, and much more! 
-    user_logged_in_as: Logged in as
     search_results_for: Search Results for %{query}    
     apology: Whoops!
     captcha: Verification Code
     rss_feed: RSS Feed
     search: Search
-    register: Sign Up!
+    register: Register
     register_message: Don't have an account? 
     sort_asc: Currently sorted in ascending order.
     sort_desc: Currently sorted in descending order. 
@@ -460,6 +459,8 @@ en:
     installing: Installing...
     login_as: "You may now log in with the following username and password: %{username} / %{password}"
     skipping_prompt: "Skipping Prompt..."
+    remember_me: Remember Me
+    currently_logged_in: Currently Logged In 
   # General Information 
   info: 
     delete_main_logo: Deleting your main logo will show the title of your site instead. 
@@ -632,7 +633,7 @@ en:
         other: Images
       log:
         one: Activity
-        other: Activities
+        other: Activity
       page:
         one: Page
         other: Pages
@@ -704,10 +705,11 @@ en:
         created_at: Joined
         is_admin: Admin?
         locale: Locale
-        last_login: Latest Login
-        last_login_ip: Latest Login IP Address
+        current_login_at: Latest Login
+        current_login_ip: Latest Login IP Address
         registered_ip: Registered IP Address
         is_verified: Verified
+        last_request_at: Latest Activity
       user_info:
         location: My Location
         description: More about Me

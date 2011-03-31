@@ -48,6 +48,11 @@ Opal::Application.routes.draw do
   # Simple Captcha
   match '/simple_captcha/:id', :to => 'simple_captcha#show', :as => :simple_captcha
 
+  # User Authentication
+  match 'login', :controller => "user_sessions", :action => "new"
+  match "logout", :controller => "user_sessions", :action => "destroy"
+  resource :user_session
+  
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   match ':controller(/:action(/:id(.:format)))'

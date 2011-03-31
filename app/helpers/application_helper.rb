@@ -3,7 +3,7 @@ module ApplicationHelper
   
  def friendly_date(date)
   if date > Time.now.beginning_of_day and date < Time.now.end_of_day # sometime today
-   return distance_of_time_in_words_to_now(date).capitalize + " " + I18n.t("single.ago").downcase
+   return distance_of_time_in_words_to_now(date, :include_seconds => true).capitalize + " " + I18n.t("single.ago").downcase
   elsif (date < Time.now.beginning_of_day) and (date > Time.now.yesterday.beginning_of_day) # yesterday
    return I18n.l(date, :format => :yesterday) 
   elsif (date < Time.now.yesterday.beginning_of_day) and (date > Time.now.beginning_of_week) # This week, :shows => Monday

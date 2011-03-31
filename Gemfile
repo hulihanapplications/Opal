@@ -15,6 +15,7 @@ gem "rubyzip"
 gem "ya2yaml" 
 gem "russian", :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems/russian")  #, :git => "git://github.com/MrHant/russian.git" # Gem specific for "ru" locale
 #gem "ruby-openid", "=2.1.8"
+gem "authlogic", "=2.1.6"
 
 # Database Gems
 gem "mysql" 

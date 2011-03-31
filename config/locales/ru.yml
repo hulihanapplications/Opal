@@ -31,7 +31,7 @@ ru:
       email_footer:
         title: "Подпись Email"
         description: "Появляется в подписи автоматических email писем."
-        content: 'Это автоматическое email письмо посланное вам #{Setting.get_setting("site_title")}. Пожалуйста не отвечайте на него.'
+        content: 'Это автоматическое email. Пожалуйста не отвечайте на него.'
       home_page_sidebar:
         title: "Боковой блок на Главной странице"
         description: "Эта страница отображается в боковом блоке на Главной странице"
@@ -461,6 +461,8 @@ ru:
     installing: Идёт установка...
     login_as: "Теперь вы можете войти со следующими именем и паролем: %{username} / %{password}"
     skipping_prompt: "Пропускаем запрос..."
+    remember_me: Remember Me    
+    currently_logged_in: Currently Logged In 
   # General Information 
   info: 
     delete_main_logo: Удаление логотипа отобразит заголовок вашего сайта. 
@@ -760,10 +762,11 @@ ru:
         created_at: Зарегистрирован
         is_admin: Администратор?
         locale: Локаль
-        last_login: Последний вход
-        last_login_ip: IP адрес при последнем входе
+        current_login_at: Последний вход
+        current_login_ip: IP адрес при последнем входе
         registered_ip: IP адрес при регистрации
         is_verified: Подтвежден
+        last_request_at: Latest Activity
       user_info:
         location: Моё местоположение
         description: Детали обо мне

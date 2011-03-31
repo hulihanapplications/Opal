@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   helper "application" # include main application helper
   
   before_filter :load_settings, :set_user # load global settings and set logged in user
-  before_filter :set_locale
+  before_filter :set_locale, :check_public_access
   before_filter :prepare_for_mobile  
   layout :layout_location # using a symbol defers layout choice until after a request is processed 
   
@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
    if params[:locale] # set in url 
     I18n.locale = params[:locale]
    else # not set in url
-    I18n.locale = @logged_in_user.locale.blank? ? Setting.get_setting("locale") : @logged_in_user.locale # set to logged in user's locale
+    I18n.locale = @logged_in_user.locale.blank? ? Setting.global_settings[:locale] : @logged_in_user.locale # set to logged in user's locale
    end 
   end
     
@@ -62,51 +62,51 @@ class ApplicationController < ActionController::Base
   end    
   
   # Authentication Functions
-  def set_user # If user isn't logged in, log them in as Guest. Otherwise, check their account for any problems
+  def set_user
+    @logged_in_user = current_user ? current_user : User.anonymous
+  end
+  
+  def set_user_old # If user isn't logged in, log them in as Guest. Otherwise, check their account for any problems
     if session[:user_id] && session[:user_id] != 0 # if a session is already created, reset the logged in user.
       @logged_in_user = User.find(session[:user_id]) # retrieve the fresh user from DB, in case any changes are made on the db side that are different from visitor's session.
-      
+    else # user is not logged in, make them a guests
+      @logged_in_user = User.anonymous
+    end
+  end
+  
+  def check_public_access
+    authenticate_user if !@setting[:allow_public_access] # send user to login if public is not allowed to view the site
+  end
+  
+  def authenticate_user(msg = t("notice.user_not_logged_in"))
+    if @logged_in_user.anonymous? # There's definitely no user logged in
+      flash[:failure] = "#{msg}"
+      session[:original_uri] = request.env["REQUEST_URI"] # store original request of where they wanted to go.
+      redirect_to login_url
+    else #there's a user logged in, but what type is he?
       # Check if User Account is Okay.
       if @logged_in_user.is_enabled? 
         if @logged_in_user.is_verified?
           # Everything Ok, proceed.
         else # not verified!
           flash[:failure] = t("notice.account_not_verified")
-          session[:user_id] = nil # log out user
-          redirect_to :action => "index", :controller => "browse"
+          UserSession.find.destroy # log out
+          redirect_to root_url
         end
       else # not verified!
         flash[:failure] = t("notice.account_disabled")
-        session[:user_id] = nil # log out user
-        redirect_to :action => "index", :controller => "browse"         
+        UserSession.find.destroy # log out
+        redirect_to root_url     
       end 
-    else # user is not logged in, make them a guests
-      @logged_in_user = User.new(:username => "Guest", :first_name => "No", :last_name => "Name")
-      @logged_in_user.id = 0       
-      @logged_in_user.group_id = 1 # set for public group
-      @logged_in_user.locale = Setting.get_setting("locale") # set system default locale
-      if !Setting.get_setting_bool("allow_public_access") && (params[:action] != "login") # if public is not allowed to view the site
-        authenticate_user#("<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\"> You must be logged in to view this site.") # send them to login
-      end
-    end
-  end
-  
-  def authenticate_user(msg = t("notice.user_not_logged_in"))
-    if session[:user_id].nil? || @logged_in_user.anonymous? # There's definitely no user logged in
-      flash[:failure] = "#{msg}"
-      session[:original_uri] = request.env["REQUEST_URI"] # store original request of where they wanted to go.
-      redirect_to :action => "login", :controller => "browse"
-    else #there's a user logged in, but what type is he?
-      # proceed 
     end
   end
   
   def authenticate_admin
-    if session[:user_id].nil? || @logged_in_user.anonymous? #There's definitely no user logged in(id 0 is public user)
+    if @logged_in_user.anonymous? #There's definitely no user logged in(id 0 is public user)
       flash[:failure] = t("notice.failed_admin_access_attempt")
       session[:original_uri] = request.env["REQUEST_URI"] # store original request of where they wanted to go.
       Log.create(:log_type => "warning", :log => I18n.t("log.failed_admin_access_attempt_visitor", :ip => request.env["REMOTE_ADDR"], :controller => params[:controller], :action => params[:action]))     
-      redirect_to :action => "login", :controller => "browse"
+      redirect_to login_url
     else #there's a user logged in, but what type is he?
       if(@logged_in_user.is_admin?) # make sure user is an admin
         # Proceed
@@ -114,7 +114,7 @@ class ApplicationController < ActionController::Base
       else # a non-admin is trying to do someting
         flash[:failure] = t("notice.failed_admin_access_attempt")
         Log.create(:log_type => "warning", :log => I18n.t("log.failed_admin_access_attempt_user", :username => @logged_in_user.username, :id => @logged_in_user.id, :controller => params[:controller], :action => params[:action]))        
-        redirect_to :action => "index", :controller => "browse"
+        redirect_to root_url
       end
     end
   end
@@ -224,8 +224,20 @@ class ApplicationController < ActionController::Base
     proc.call(self) 
   end
   
+private  
+  def current_user_session
+    return @current_user_session if defined?(@current_user_session)
+    @current_user_session = UserSession.find
+  end
+  
+  helper_method :current_user
+  
+  def current_user
+    return @current_user if defined?(@current_user)
+    @current_user = current_user_session && current_user_session.record
+  end
 
-private
+
   def mobile_device? # are they on a mobile device?
     request.user_agent =~ /Mobile|webOS/
   end

@@ -104,9 +104,10 @@
 	                </div>
 	                <div class="box_1" align=left style="margin-bottom:10px;">
 	                    <h3 class="title"><%= t("label.additional_info") %></h3>
-	                    <%= User.human_attribute_name(:latest_login) %>: <b><%= @user.last_login ? "#{friendly_date @user.last_login}" : t("single.none") %></b>
+	                    <%= User.human_attribute_name(:current_login_at) %>: <b><%= @user.current_login_at ? "#{friendly_date @user.current_login_at}" : t("single.none") %></b>
 	                    <br>
-	                    <%= User.human_attribute_name(:latest_login_ip) %>: <b><%= @user.last_login_ip %></b>
+	                    <%= User.human_attribute_name(:current_login_ip) %>: <b><%= @user.current_login_ip ? @user.current_login_ip : t("single.none") %></b>
+						<%= content_tag(:div, "#{User.human_attribute_name(:last_request_at)}: #{friendly_date @user.last_request_at}") if @user.last_request_at %>
 	                    <hr>
 	                    <%= User.human_attribute_name(:updated_at) %>: <b><%= friendly_date @user.updated_at %></b>
 	                    <br>

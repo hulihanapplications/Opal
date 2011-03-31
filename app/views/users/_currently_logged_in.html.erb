@@ -1,0 +1,19 @@
+	<div class="box_1" align=left>
+		<h3 class="title"><%= t("label.currently_logged_in") %></h3>
+		<% for user in User.where(["last_request_at > ?", 5.minutes.ago]).order("last_request_at DESC") %>
+			<% if !user.last_request_at.blank? %>
+				<table cellpadding=0 cellspacing=0 style="width:100%">
+					<tr>
+						<td style="width:20px;" align=left>
+							<%= user_avatar(user, :size => "tiny") %>								
+						</td>
+						<td align=left style="padding-left:2px">
+							<h3><b><%= link_to user.username, {:action => "user", :controller => "browse", :id => user.id} %></b></h3>
+							<%= User.human_attribute_name(:last_request_at) %>: <i><%= friendly_date user.last_request_at if  user.last_request_at %></i>
+						</td>
+					</tr>
+				</table>
+				<hr />
+			<% end %>					
+		<% end %>			
+	</div>

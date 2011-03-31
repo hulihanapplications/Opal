@@ -42,6 +42,8 @@ class Setting < ActiveRecord::Base
     setting[:section_blog] =  Setting.get_setting_bool("section_blog")
     setting[:section_items] =  Setting.get_setting_bool("section_items")
     setting[:allow_user_registration] =  Setting.get_setting_bool("allow_user_registration")
+    setting[:allow_public_access] =  Setting.get_setting_bool("allow_public_access")    
+    setting[:locale] =  Setting.get_setting("locale")    
     return setting
   end
 

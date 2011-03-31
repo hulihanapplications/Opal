@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :username #this will comb through the database and make sure email is unique
   validates_uniqueness_of :email #this will comb through the database and make sure email is unique
   validates_presence_of :username, :first_name, :last_name, :email
-  validates_confirmation_of :password #this will confirm the password, but you have to have an html input called password_confirmation
+  validates_confirmation_of :password # this will confirm the password, but you have to have an html input called password_confirmation
   validates_length_of :username, :maximum => 255
   #validates_numericality_of :zip
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
@@ -24,6 +24,14 @@ class User < ActiveRecord::Base
   before_save :strip_html
   after_create :create_everything
   after_destroy :destroy_everything
+  
+  
+  # Enable Authlogic
+  acts_as_authentic do |c| 
+    c.validate_email_field     = false
+    c.validate_login_field     = false
+    c.validate_password_field  = false
+  end
   
   #------------Login Authentication---------------
   def self.authenticate(login, unhashed_pass)
@@ -47,6 +55,9 @@ class User < ActiveRecord::Base
   end
   #-------------------------------------------------
   
+  def valid_password?(password) # check if this password is the user's password
+   self.password_hash == Digest::SHA256.hexdigest(password)
+  end
   
   def self.search(search, page)
     paginate :per_page => 5, :page => page,
@@ -170,5 +181,12 @@ class User < ActiveRecord::Base
     (self.id == 0 || self.id.nil?)   
   end
   
+  def self.anonymous # generate anonymous user
+    u = User.new(:username => "Guest", :first_name => "No", :last_name => "Name")
+    u.id = 0       
+    u.group_id = 1 # set for public group
+    u.locale = Setting.global_settings[:locale] # set system default locale
+    return u     
+  end
   
 end

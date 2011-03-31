@@ -1,9 +1,9 @@
 	<div id="side">
 		<%= render :partial => "menu" %>
-		<div class="box_1" style="margin-bottom:5px;" align=left>
-			<h3 class="title"><%= User.human_attribute_name(:latest_login) %></h3>
+		<div class="box_1" align=left>
+			<h3 class="title"><%= User.human_attribute_name(:current_login_at) %></h3>
 			<% for user in @latest_logins %>
-				<% if user.last_login %>
+				<% if user.current_login_at %>
 					<table cellpadding=0 cellspacing=0 style="width:100%">
 						<tr>
 							<td style="width:20px;" align=left>
@@ -11,10 +11,11 @@
 							</td>
 							<td align=left style="padding-left:2px">
 								<h3><b><%= link_to user.username, {:action => "user", :controller => "browse", :id => user.id} %></b></h3>
-								<i><%= friendly_date user.last_login if  user.last_login %></i>
+								<i><%= friendly_date user.current_login_at if  user.current_login_at %></i>
 							</td>
 						</tr>
 					</table>
+					<hr />
 				<% end %>					
 			<% end %>			
 		</div>			
@@ -43,7 +44,7 @@
 							<th><b><%= User.human_attribute_name(:username) %></b></th>
 							<th><b><%= t("single.name") %></b></th>
 							<th><b><%= Group.model_name.human %></b></th>
-							<th><b><%= User.human_attribute_name(:latest_login) %></b></th>
+							<th><b><%= User.human_attribute_name(:current_login_at) %></b></th>
 							<th style="width:20px;"></th>
 							<th style="width:20px;"></th>
 						</tr>
@@ -61,8 +62,8 @@
 									<%= user.group.name %>
 								</td>
 								<td>
-									<% if user.last_login%>
-										<%= friendly_date user.last_login %>
+									<% if user.current_login_at %>
+										<%= friendly_date user.current_login_at  %>
 									<% else %>
 										<%= t("single.none") %>
 									<% end %>

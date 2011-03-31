@@ -1,0 +1,15 @@
+<% for user in users %>
+	<% if user.current_login_at %>
+		<table cellpadding=0 cellspacing=0 style="width:100%">
+			<tr>
+				<td style="width:20px;" align=left>
+					<%= user_avatar(user, :size => "tiny") %>								
+				</td>
+				<td align=left style="padding-left:2px">
+					<h3><b><%= link_to user.username, {:action => "user", :controller => "browse", :id => user.id} %></b></h3>
+					<i><%= friendly_date user.current_login_at if  user.current_login_at %></i>
+				</td>
+			</tr>
+		</table>
+	<% end %>					
+<% end %>	

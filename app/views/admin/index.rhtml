@@ -1,5 +1,5 @@
 <div id="side">
-	<div class="box_1" align=center style="margin-bottom:10px;">
+	<div class="box_1" align=center >
 		<div style="margin-bottom:5px;">
 			<%= link_to image_tag("opal.png"), "http://www.hulihanapplications.com/projects/opal", :class => "transparent", :target => "_blank" %>
 		</div>
@@ -11,6 +11,8 @@
 		<hr>
 		<%= t("single.system") %> <%= t("single.mode") %>: <b class="highlight_1"><%= Rails.env.capitalize %></b>
 	</div>	
+	<%= render :partial => "users/currently_logged_in" %>
+
 		
 </div>
 <div id="main">

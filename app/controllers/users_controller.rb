@@ -33,7 +33,7 @@ class UsersController < ApplicationController
         @users = User.paginate :page => params[:page], :per_page => 100, :order => "username ASC"
         #@users = User.find(:all, :order => "username ASC")
         
-        @latest_logins = User.find(:all, :limit => 5, :order => "last_login DESC")
+        @latest_logins = User.find(:all, :limit => 5, :order => "current_login_at DESC")
    end
    
     def create

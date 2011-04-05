@@ -37,6 +37,7 @@ files/item_files/*
 
 # Remove any Opal Plugins
 vendor/plugins/opal_*
+vendor/plugins/plugin_*
 
 #Aptana project file
 .project

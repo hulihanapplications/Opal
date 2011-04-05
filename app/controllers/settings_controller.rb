@@ -109,7 +109,7 @@ class SettingsController < ApplicationController
     #acceptable_file_extensions = ".zip, .ZIP"
     if true #Uploader.check_file_extension(:filename => File.basename(zipfile.path), :extensions => acceptable_file_extensions) # make sure file is a zipped archive 
       extract_dir = Uploader.extract_zip_to_tmp(zipfile.path).entries[0].to_s # extract zip file to tmp
-      extract_dir_entries = Dir.entries(extract_dir); extract_dir_entries.delete("."); extract_dir_entries.delete("..") 
+      extract_dir_entries = Dir.actual_entries(extract_dir)
       unzipped_theme_dir = extract_dir_entries.size == 1 ? File.join(extract_dir, extract_dir_entries[0]) : extract_dir  # Get the dir that actually contains the theme files
       theme_config_file = File.expand_path(File.join(unzipped_theme_dir, "theme.yml"))
       if File.exists?(theme_config_file)

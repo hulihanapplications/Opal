@@ -17,9 +17,9 @@
 	<% form_tag ({:action => "update_settings", :controller => "settings"}) do %>
 			<ul class="plugin_tabs_horizontal"> 
 				    <li><a href="#<%= Setting.model_name.human(:count => :other) %>"><%= Setting.model_name.human(:count => :other) %></a></li>				
-				    <li><a href="#<%= t("setting.title.list_type") %>"><%= t("setting.title.list_type") %></a></li> 
-				    <li><a href="#<%= t("setting.title.item_page_type") %>"><%= t("setting.title.item_page_type") %></a></li>
-					<li><a href="#<%= t("setting.title.homepage_type") %>"><%= t("setting.title.homepage_type") %></a></li> 													
+				    <li><a href="#<%= t("activerecord.records.setting.list_type.title") %>"><%= t("activerecord.records.setting.list_type.title") %></a></li> 
+				    <li><a href="#<%= t("activerecord.records.setting.item_page_type.title") %>"><%= t("activerecord.records.setting.item_page_type.title") %></a></li>
+					<li><a href="#<%= t("activerecord.records.setting.homepage_type.title") %>"><%= t("activerecord.records.setting.homepage_type.title") %></a></li> 													
 			</ul>			
 			<div class="plugin_panes_horizontal"> 					
 
@@ -32,28 +32,28 @@
 					 		<td>
 								 <div class="section">
 									<div class="header">
-										<h2 class="title"><%= t("setting.title.list_type") %></h2>
-										<div class="description"><%= t("setting.description.list_type", :items => Item.model_name.human(:count => :other).downcase) %></div>
+										<h2 class="title"><%= t("activerecord.records.setting.list_type.title") %></h2>
+										<div class="description"><%= t("activerecord.records.setting.list_type.description", :items => Item.model_name.human(:count => :other).downcase) %></div>
 									</div>		
 									<table width="100%" cellpadding=0 cellspacing=0 class="setting_table row_table">	
 									 <tr class="row_a">
-									  <td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/item_list_simple.png" rel="colorbox" ><img alt="Simple" class="thumbnail" src="/images/examples/thumbnail_item_list_simple.png"  /></a></td>
-									  <td align=left style="padding-left:10px;vertical-align:middle"><h2><%= t("setting.title.list_type_simple") %></h2><%= t("setting.description.list_type_simple", :items => Item.model_name.human(:count => :other).downcase) %></td>
+									  <td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/item_list_simple.png" rel="colorbox" ><img class="thumbnail" src="/images/examples/thumbnail_item_list_simple.png"  /></a></td>
+									  <td align=left style="padding-left:10px;vertical-align:middle"><h2><%= t("activerecord.records.setting.list_type_simple.title") %></h2><%= t("activerecord.records.setting.list_type_simple.description", :items => Item.model_name.human(:count => :other).downcase) %></td>
 									  <td align=right style="padding-right:20px;vertical-align:middle"><input type="radio" name="setting[list_type]" value="simple" <% if get_setting("list_type") == "simple" %>CHECKED<% end %>></td>		  
 									 </tr>
 									 <tr class="row_b">
-									  <td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/item_list_detailed.png" rel="colorbox" ><img alt="Detailed" class="thumbnail" src="/images/examples/thumbnail_item_list_detailed.png"  /></a></td>
-									  <td align=left style="padding-left:10px;vertical-align:middle"><h2><%= t("setting.title.list_type_detailed") %></h2><%= t("setting.description.list_type_detailed", :items => Item.model_name.human(:count => :other).downcase) %></td>
+									  <td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/item_list_detailed.png" rel="colorbox" ><img class="thumbnail" src="/images/examples/thumbnail_item_list_detailed.png"  /></a></td>
+									  <td align=left style="padding-left:10px;vertical-align:middle"><h2><%= t("activerecord.records.setting.list_type_detailed.title") %></h2><%= t("activerecord.records.setting.list_type_detailed.description", :items => Item.model_name.human(:count => :other).downcase) %></td>
 									  <td align=right style="padding-right:20px;vertical-align:middle"><input type="radio" name="setting[list_type]" value="detailed" <% if get_setting("list_type") == "detailed" %>CHECKED<% end %>></td>		  
 									 </tr>
 									 <tr class="row_a">
-									  <td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/item_list_photo.png" rel="colorbox" ><img alt="Photo" class="thumbnail" src="/images/examples/thumbnail_item_list_photo.png"  /></a></td>
-									  <td align=left style="padding-left:10px;vertical-align:middle"><h2><%= t("setting.title.list_type_photo") %></h2><%= t("setting.description.list_type_photo", :items => Item.model_name.human(:count => :other).downcase) %></td>
+									  <td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/item_list_photo.png" rel="colorbox" ><img class="thumbnail" src="/images/examples/thumbnail_item_list_photo.png"  /></a></td>
+									  <td align=left style="padding-left:10px;vertical-align:middle"><h2><%= t("activerecord.records.setting.list_type_photo.title") %></h2><%= t("activerecord.records.setting.list_type_photo.description", :items => Item.model_name.human(:count => :other).downcase) %></td>
 									  <td align=right style="padding-right:20px;vertical-align:middle"><input type="radio" name="setting[list_type]" value="photo" <% if get_setting("list_type") == "photo" %>CHECKED<% end %>></td>		  
 									 </tr>		 
 									 <tr class="row_b">
-									  <td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/item_list_small.png" rel="colorbox" ><img alt="Small" class="thumbnail" src="/images/examples/thumbnail_item_list_small.png"  /></a></td>
-									  <td align=left style="padding-left:10px;vertical-align:middle"><h2><%= t("setting.title.list_type_small") %></h2><%= t("setting.description.list_type_small", :items => Item.model_name.human(:count => :other).downcase) %></td>
+									  <td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/item_list_small.png" rel="colorbox" ><img class="thumbnail" src="/images/examples/thumbnail_item_list_small.png"  /></a></td>
+									  <td align=left style="padding-left:10px;vertical-align:middle"><h2><%= t("activerecord.records.setting.list_type_small.title") %></h2><%= t("activerecord.records.setting.list_type_small.description", :items => Item.model_name.human(:count => :other).downcase) %></td>
 									  <td align=right style="padding-right:20px;vertical-align:middle"><input type="radio" name="setting[list_type]" value="small" <% if get_setting("list_type") == "small" %>CHECKED<% end %>></td>		  
 									 </tr>											 	
 									</table>
@@ -69,33 +69,33 @@
 							<td >
 								 <div class="section">
 									<div class="header">
-										<h2 class="title"><%= t("setting.title.item_page_type") %></h2>
-										<div class="description"><%= t("setting.description.item_page_type", :item => Item.model_name.human.downcase) %></div>
+										<h2 class="title"><%= t("activerecord.records.setting.item_page_type.title") %></h2>
+										<div class="description"><%= t("activerecord.records.setting.item_page_type.description", :item => Item.model_name.human.downcase) %></div>
 									</div>		
 									<table width="100%" cellpadding=0 cellspacing=0  class="setting_table row_table">													 
 									 <tr class="row_b">
-									  <td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/item_page_type_summarized.png" rel="colorbox" title="Summarized"><img alt="" class="thumbnail" src="/images/examples/thumbnail_item_page_type_summarized.png"  /></a></td>
-									  <td align=left style="padding-left:10px;vertical-align:middle"><h2><%= t("setting.title.item_page_type_summarized") %></h2><%= t("setting.description.item_page_type_summarized", :item => Item.model_name.human.downcase) %></td>
+									  <td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/item_page_type_summarized.png" rel="colorbox" title="<%= t("activerecord.records.setting.item_page_type_summarized.title") %>"><img alt="" class="thumbnail" src="/images/examples/thumbnail_item_page_type_summarized.png"  /></a></td>
+									  <td align=left style="padding-left:10px;vertical-align:middle"><h2><%= t("activerecord.records.setting.item_page_type_summarized.title") %></h2><%= t("activerecord.records.setting.item_page_type_summarized.description", :item => Item.model_name.human.downcase) %></td>
 									  <td align=right style="padding-right:20px;vertical-align:middle"><input type="radio" name="setting[item_page_type]" value="summarized" <% if @setting[:item_page_type] == "summarized" %>CHECKED<% end %>></td>		  
 									 </tr>
 									 <tr class="row_a">
-									  <td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/item_page_type_expanded.png" rel="colorbox" title="Expanded"><img alt="" class="thumbnail" src="/images/examples/thumbnail_item_page_type_expanded.png"  /></a></td>
-									  <td align=left style="padding-left:10px;vertical-align:middle"><h2><%= t("setting.title.item_page_type_expanded") %></h2><%= t("setting.description.item_page_type_tabs_horizontal", :item => Item.model_name.human.downcase) %></td>
+									  <td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/item_page_type_expanded.png" rel="colorbox" title="<%= t("activerecord.records.setting.item_page_type_expanded.title") %>"><img alt="" class="thumbnail" src="/images/examples/thumbnail_item_page_type_expanded.png"  /></a></td>
+									  <td align=left style="padding-left:10px;vertical-align:middle"><h2><%= t("activerecord.records.setting.item_page_type_expanded.title") %></h2><%= t("activerecord.records.setting.item_page_type_expanded.description", :item => Item.model_name.human.downcase) %></td>
 									  <td align=right style="padding-right:20px;vertical-align:middle"><input type="radio" name="setting[item_page_type]" value="expanded" <% if @setting[:item_page_type] == "expanded" %>CHECKED<% end %>></td>		  
 									 </tr>
 									 <tr class="row_b">
-									  <td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/item_page_type_tabs_horizontal.png" rel="colorbox" title="Tabs - Horizontal"><img alt="" class="thumbnail" src="/images/examples/thumbnail_item_page_type_tabs_horizontal.png"  /></a></td>
-									  <td align=left style="padding-left:10px;vertical-align:middle"><h2><%= t("setting.title.item_page_type_tabs_horizontal") %></h2><%= t("setting.description.item_page_type_tabs_horizontal", :item => Item.model_name.human.downcase) %></td>
+									  <td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/item_page_type_tabs_horizontal.png" rel="colorbox" title="<%= t("activerecord.records.setting.item_page_type_tabs_horizontal.title") %>"><img alt="" class="thumbnail" src="/images/examples/thumbnail_item_page_type_tabs_horizontal.png"  /></a></td>
+									  <td align=left style="padding-left:10px;vertical-align:middle"><h2><%= t("activerecord.records.setting.item_page_type_tabs_horizontal.title") %></h2><%= t("activerecord.records.setting.item_page_type_tabs_horizontal.description", :item => Item.model_name.human.downcase) %></td>
 									  <td align=right style="padding-right:20px;vertical-align:middle"><input type="radio" name="setting[item_page_type]" value="tabs_horizontal" <% if @setting[:item_page_type] == "tabs_horizontal" %>CHECKED<% end %>></td>		  
 									 </tr>		
 									 <tr class="row_a">
-									  <td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/item_page_type_tabs_vertical.png" rel="colorbox" title="Tabs - Vertical"><img alt="" class="thumbnail" src="/images/examples/thumbnail_item_page_type_tabs_vertical.png"  /></a></td>
-									  <td align=left style="padding-left:10px;vertical-align:middle"><h2><%= t("setting.title.item_page_type_tabs_vertical") %></h2><%= t("setting.description.item_page_type_tabs_vertical", :item => Item.model_name.human.downcase) %></td>
+									  <td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/item_page_type_tabs_vertical.png" rel="colorbox" title="<%= t("activerecord.records.setting.item_page_type_tabs_vertical.title") %>"><img alt="" class="thumbnail" src="/images/examples/thumbnail_item_page_type_tabs_vertical.png"  /></a></td>
+									  <td align=left style="padding-left:10px;vertical-align:middle"><h2><%= t("activerecord.records.setting.item_page_type_tabs_vertical.title") %></h2><%= t("activerecord.records.setting.item_page_type_tabs_vertical.description", :item => Item.model_name.human.downcase) %></td>
 									  <td align=right style="padding-right:20px;vertical-align:middle"><input type="radio" name="setting[item_page_type]" value="tabs_vertical" <% if @setting[:item_page_type] == "tabs_vertical" %>CHECKED<% end %>></td>		  
 									 </tr>		  
 									 <tr class="row_b">
-									  <td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/item_page_type_accordion.png" rel="colorbox" title="Accordion"><img alt="" class="thumbnail" src="/images/examples/thumbnail_item_page_type_accordion.png"  /></a></td>
-									  <td align=left style="padding-left:10px;vertical-align:middle"><h2><%= t("setting.title.item_page_type_accordion") %></h2><%= t("setting.description.item_page_type_accordion", :item => Item.model_name.human.downcase) %></td>
+									  <td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/item_page_type_accordion.png" rel="colorbox" title="<%= t("activerecord.records.setting.item_page_type_accordion.title") %>"><img alt="" class="thumbnail" src="/images/examples/thumbnail_item_page_type_accordion.png"  /></a></td>
+									  <td align=left style="padding-left:10px;vertical-align:middle"><h2><%= t("activerecord.records.setting.item_page_type_accordion.title") %></h2><%= t("activerecord.records.setting.item_page_type_accordion.description", :item => Item.model_name.human.downcase) %></td>
 									  <td align=right style="padding-right:20px;vertical-align:middle"><input type="radio" name="setting[item_page_type]" value="accordion" <% if @setting[:item_page_type] == "accordion" %>CHECKED<% end %>></td>		  
 									 </tr>
 										 											 
@@ -108,8 +108,8 @@
 				<div>
 					<div class="section">
 						<div class="header">															
-								<h2 class="title"><%= t("setting.title.homepage_type") %></h2>
-								<div class="description"><%= t("setting.description.homepage_type") %></div>				
+								<h2 class="title"><%= t("activerecord.records.setting.homepage_type.title") %></h2>
+								<div class="description"><%= t("activerecord.records.setting.homepage_type.description") %></div>				
 						</div>		
 
 						<% @setting[:homepage_type] = Setting.get_setting("homepage_type") %>							

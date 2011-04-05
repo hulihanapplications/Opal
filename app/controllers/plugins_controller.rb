@@ -64,27 +64,25 @@ class PluginsController < ApplicationController
     end
     
     def install 
-      logger.info params[:file].path
+      #logger.info params[:file].path
       zipfile = Uploader.file_from_url_or_local(:local => params[:file], :url => params[:url]) 
       
       if true #Uploader.check_file_extension(:filename => File.basename(zipfile.path), :extensions => ".zip, .ZIP") # make sure file is a zipped archive 
         extract_dir = Uploader.extract_zip_to_tmp(zipfile.path) # extract zip file to tmp
-        extract_dir_entries = Dir.entries(extract_dir); extract_dir_entries.delete("."); extract_dir_entries.delete("..") # remove system/hidden dirs from entries list 
-        unzipped_plugin_dir = extract_dir_entries.size == 1 ? File.join(extract_dir, extract_dir_entries[0]) : extract_dir  # Get the dir that actually contains the plugin
-        plugin_model_name = File.basename(unzipped_plugin_dir) # model name must be same as zipped file
-        plugin = plugin_mode_name.constantize
-        plugin_model_path = File.join(unzipped_plugin_dir, "app", "models", "#{plugin_model_name}.rb")
+        extract_dir_entries = Dir.actual_entries(extract_dir)
+        unzipped_plugin_dir = extract_dir_entries.size == 1 ? File.join(extract_dir, extract_dir_entries[0]) : extract_dir  # Get the dir that actually contains the plugin        
+        plugin_dst_path = File.join(Rails.root.to_s, "vendor", "plugins", File.basename(unzipped_plugin_dir)) # destination path for plugin
+        FileUtils.rm_rf(plugin_dst_path) if File.directory?(plugin_dst_path)        
+        FileUtils.mv(unzipped_plugin_dir, plugin_dst_path) # move plugin directory to vendor/plugins
+        logger.info plugin_dst_path
+        plugin_model_name = File.basename(Dir.actual_entries(File.join(plugin_dst_path, "app", "models")).first, ".rb") # model name must be same as zipped file
+        plugin_model_path = File.join(plugin_dst_path, "app", "models", plugin_model_name + ".rb")
         if File.exists?(plugin_model_path) # if the .rb model file was found 
-          require plugin_model_path # load up new plugin's model/class 
-                     
-          if plugin.install # run new plugin model's install method
-            # Install files 
-            for file in  plugin.install.files 
-              FileUtils.mkdir_p(File.dirname(File.join(Rails.root.to_s, file))) if !File.exists?(File.dirname(File.join(Rails.root.to_s, file))) # create directory if it doesn't exist
-              FileUtils.cp_r(File.join(unzipped_plugin_dir, file), File.join(Rails.root.to_s, file)) # install file
-            end
+          require plugin_model_path # load up new plugin's model/class                      
+          plugin_class = plugin_model_name.camelize.constantize # store plugin class as variable
+          if plugin_class.install # run new plugin model's install method
             flash[:success] = t("notice.item_install_success", :item => Plugin.model_name.human) 
-            Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("notice.item_install", :item => Plugin.model_name.human, :name => plugin.model_name.human)) # log it
+            Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("notice.item_install", :item => Plugin.model_name.human, :name => plugin_class.model_name.human)) # log it
           else 
             flash[:failure] = t("notice.item_install_failure", :item => Plugin.model_name.human)                             
           end        
@@ -94,22 +92,19 @@ class PluginsController < ApplicationController
       else # bad file extension
         flash[:failure] = t("notice.item_install_failure", :item => Plugin.model_name.human) #"#{File.basename(zipfile.path)} upload failed! Please make sure that this is a zip file, and that it ends in .zip or .ZIP "           
       end 
-      redirect_to :action => "index"   
     ensure
-      FileUtils.rm_rf(zipfile.path) # delete tmp zipfile                                
-      FileUtils.rm_rf(unzipped_plugin_dir) # delete tmp extraction directory                          
+      FileUtils.rm_rf(zipfile.path) if zipfile && File.exists?(zipfile.path) # delete tmp zipfile                                
+      FileUtils.rm_rf(unzipped_plugin_dir) if unzipped_plugin_dir && File.exists?(unzipped_plugin_dir) # delete tmp extraction directory
+      redirect_to :action => "index"                             
     end
   
     def uninstall
       @plugin = Plugin.find(params[:id])
       if !@plugin.is_builtin? # make sure they're not trying to uninstall a builtin plugin
-        plugin =  ("Plugin" + @plugin.name.classify).constantize # get the class for this plugin 
-        if plugin.uninstall # call model's uninstall method
-          for file in plugin.files # uninstall files 
-            FileUtils.rm_rf(File.join(Rails.root.to_s, file)) if File.exists?(File.join(Rails.root.to_s, file)) # uninstall file
-          end         
+        plugin_class =  ("Plugin" + @plugin.name.classify).constantize # get the class for this plugin 
+        if plugin_class.uninstall # call model's uninstall method       
           flash[:success] = t("notice.item_uninstall_success", :item => Plugin.model_name.human)
-          Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("notice.item_uninstall", :item => Plugin.model_name.human, :name => plugin.model_name.human)) # log it
+          Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("notice.item_uninstall", :item => Plugin.model_name.human, :name => plugin_class.model_name.human)) # log it
         else 
           flash[:success] = t("notice.item_uninstall_failure", :item => Plugin.model_name.human)
         end

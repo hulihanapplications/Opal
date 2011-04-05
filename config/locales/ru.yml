@@ -475,143 +475,197 @@ ru:
     delete_user: Вы уверены что хотите удалить этого пользователя? Все что создал этот пользователь также будет удалено! Если вы не хотите чтобы это случилось, вы можете вместо этого заблокировать его профиль.
     item_delete: Вы действительно хотите удалить этот %{item}? 
     install_sample_data: "Установить образцы данных? (Примеры Вещей, Категорий, Пользователей)"   
-  # Settings
-  setting:
-    title:
-      site_title: Заголовок Вашего сайта   
-      site_description: Описание сайта
-      site_keywords: Ключевые слова сайта      
-      locale: Локаль
-      display_item_views: Показывать число просмотров вещи
-      caching: Кэширование страниц
-      new_item_notification: Оповещать администраторов о новых вещах
-      section_blog: Блог
-      allow_item_list_type_changes: Разрешить изменения вида списка
-      allow_item_page_type_changes: Разрешить изменения вида страницы
-      include_child_category_items: Включать вещи дочерней категории
-      max_items_per_user: Максимальное число вещей для пользователя
-      email_verification_required: Проверка Email обязательна для новых пользователей
-      enable_item_description: Включить описание вещи
-      display_featured_items: Показывать рекомендованные вещи
-      enable_navlinks: Включить NavLinks
-      item_approval_required: Требуется подтверждение
-      section_items: Вещи
-      allow_page_comments: Разрешить комментарии к страницам
-      enable_item_date: Включить описание вещи
-      homepage_type: Тип главной страницы
-      allow_private_items: Разрешить приватные вещи
-      allow_user_registration: Регистрация пользователей
-      allow_public_access: Разрешить публичный доступ
-      item_page_type: Тип Страницы Вещи
-      let_users_create_items: Позволить пользователям создавать вещи
-      show_user_login: Показывать Вход для пользователей
-      display_help_sections: Показывать секции помощи
-      theme: Тема
-      display_popular_items: Показывать самые популярные вещи
-      users_can_delete_items: Позволить пользователям удалять свои вещи
-      new_user_notification: Оповещать администраторов о новых пользователях
-      list_type: Тип списка
-      items_per_page: "Вещей на страницу"
-      main_logo: Главный логотип
-      list_type_simple: Простой
-      list_type_detailed: Детальный
-      list_type_photo: Пиктограммы
-      list_type_small: Маленький
-      item_page_type_summarized: Обобщенный    
-      item_page_type_expanded: Развернутый
-      item_page_type_tabs_horizontal: Вкладки - Горизонтальные 
-      item_page_type_tabs_vertical: Вкладки - Вертикальные
-      item_page_type_accordion: Аккордион
-      # Plugin Settings
-      slideshow_speed: Скорость Слайд-шоу
-      item_thumbnail_width: Ширина пиктограммы %{item}
-      item_thumbnail_height: Высота пиктограммы %{item}
-      resize_item_images: Изменять размер новых изображений
-      item_image_width: Стандартная ширина изображения
-      item_image_height: Стандартная высота изображения
-      login_required_for_download: Требовать вход для скачивания
-      log_downloads: Записывать историю скачек
-      review_type: Тип обзора
-      score_min: Минимальный балл
-      score_max: Максимальный балл
-    description:
-      site_title: Заголовок Вашего сайта. Вы увидите его в самом верху окна Вашего браузера.
-      site_description: Описание Вашего сайта. Используется в заголовке вашего сайта (вверху Вашего браузера) и поисковыми системами.
-      site_keywords: Ключевые слова (Мета-тег) вашего сайта. Используется поисковыми системами. Разделяйте их запятыми.
-      locale: Стандартный язык и временная зона используемая в Opal. Пользователи также могут изменять собственную локаль.
-      display_item_views: Отображать количество просмотров вещи (отображается на странице вещи).
-      caching: Это позволяет страницам вещей кешироваться для улучшения производительности. Файл со страницей вещи будет сгенерирован 1 раз, сохранен на сервере и показан всем пользователям, вместо генерирования страниц каждый раз заново.
-      new_item_notification: Если включена, всем администратором будет послан email после создания новой вещи.
-      section_blog: Блог встроенный в Opal. Если включена, ссылка на блог появится в главном меню.
-      allow_item_list_type_changes: Если включена, эта настройка позволит всем (даже публике) изменять тип отображения списка вещей который они видят посещая Ваш Opal сайт. Изменение затрагивает только браузер конкретного пользователя.
-      allow_item_page_type_changes: Если включена, эта настройка позволит всем (даже публике) изменять тип отображения страницы вещи на которую они смотрят. Изменение затрагивает только браузер конкретного пользователя.
-      include_child_category_items: Если включена, все вещи из дочерних категорий будет включены в списки и колчество вещей родительских категорий. Включений этой настройки немного ухудшает производительность.
-      max_items_per_user: Задает максимальное число вещей которые может создать пользователь. 0 значит неограниченное число.
-      email_verification_required: Если включена, новые пользователи должны будут нажать на ссылку посланную им на email до того как они смогут войти.
-      enable_item_description: Включение/Выключение Описания вещей показывает/убирает описание вещей из списка вещей и со страницы вещи.
-      display_featured_items: Показывать рекомендованные вещи на главной странице.
-      enable_navlinks: NavLinks это простые навигационные ссылки показанные вверху каждой страницы с вещью и списка вещей. Они показывают информацию в какой категории находится вещь, и т.п.
-      item_approval_required: Включите это если вы хотите подтверждать вещи добавленные пользователями перед показом их публике. Все неподтвежденные вещи могут быть просмотрены в Админ. панели. Если выключено, все вещи будут считаться подтвержденными при создании.
-      section_items: Если включена, секция с Вещами будет отображена на главной странице, а также ссылка будет отображена в главном меню. Если выключено, Opal больше не будет отображать каких либо вещей.
-      allow_page_comments: Если включена, люди смогут оставлять комментарии на страницах.
-      enable_item_date: Включение/Выключение Даты для вещей для отображения/скрытия из страницы вещи и списка вещей. Это показывает дату, когда была создана вещь.
-      homepage_type: То что отображается на Вашей главной странице.
-      allow_private_items: Если включена, пользователи смогут создавать приватные вещи, которые не будут видны публике или другим пользователям. Она будет видна только владельцу и администраторам. Если выключена, все вещи становятся публичными при создании.
-      allow_user_registration: Определяет могут ли пользователи создавать новые профили.
-      item_name_plural: Название вещей которые вы размещаете на сайте во <b>множественном числе</b>, поэтому если вы хотите размещать дома, здесь будет написано <b>дома</b>.
-      allow_public_access: Если выключена, пользователи должны войти чтобы получить доступ к сайту или каким либо вещам. Если включена, кто угодно может просматривать сайт и вещи.
-      item_page_type: Визуальное расположение страницы %{item}.
-      let_users_create_items: Если выключена, обычные пользователи не смогут создавать вещи... смогут только администраторы.
-      show_user_login: Определяет видна ли панель логина под меню сайта. Если выключено, пользователи могут войти по адресу site.example.com/browse/login
-      opal_version: Текущая версия с которой вы работаете.
-      display_help_sections: Показывает Секции Помощи в разных частях сайта для помощи пользователям и администраторам Opal.
-      theme: Визуальная тема для всей системы
-      display_popular_items: Показывать самые популярные вещи на главной странице.
-      users_can_delete_items: Позволяет пользователям удалять вещи которые они создали. Если выключена, только администраторы смогут удалять вещи.
-      new_user_notification: Если включена, все администраторы получат email при регистрации нового пользователя.
-      list_type: Визуальное размещение того как отображаются ваши %{items}.
-      items_per_page: Число вещей на страницу.
-      list_type_simple: Показать %{items} в простом формате.
-      list_type_detailed: Показать %{items} в детальном формате.
-      list_type_photo: Показать %{items} как пиктограммы.
-      list_type_small: Показать %{items} в табличном виде.
-      item_page_type_summarized: Показать %{item} в обобщенном виде.
-      item_page_type_expanded: Показать %{item} в развернутом виде.
-      item_page_type_tabs_horizontal:  Показать %{item} в виде горизонтальных вкладок.
-      item_page_type_tabs_vertical: Показать %{item} в виде вертикальных вкладок.
-      item_page_type_accordion: Показать %{item} в виде аккордиона.
-      # Plugin Settings
-      slideshow_speed: The speed of a slideshow, in milliseconds(ms). Default is 2500.
-      item_thumbnail_width: This is the default width(in pixels) of the thumbnails that are generated.
-      item_thumbnail_height: This is the default height(in pixels) of the thumbnails that are generated.
-      resize_item_images: Enable this if you would like all the images that are added to images resized to a particular size(you can choose the size below).
-      item_image_width: This is the width you want your images(in pixels) to be automatically resized to. 
-      item_image_height: This is the height you want your images(in pixels) to be automatically resized to. 
-      login_required_for_download: If enabled, only users who are logged in can download files. Visitors cannot download anything.
-      log_downloads: Log all downloads in the Item's activity log.
-      review_type: This determines the type of scoring that used for items.
-      score_min: The minimum value that can be used in review scores. This is not used in star ratings.
-      score_max: The maximum value that can be used in review scores.
-  # Plugins
-  plugin:
-    description:
-      image: Images for Items.
-      comment: Comments from Users or Visitors. Comments are small notes or feedback about an item.
-      file: Files uploaded for a particular item. Useful for Software, PDFs, Images, etc.
-      tag: Tags are like labels for an Item. This is another way to organize items besides by categories. All tags in the System are grouped together. You can add as many as you want.
-      feature: "These are shared atttributes that an several items might have. For example: a house would have a feature called price."
-      description: Large Text Descriptions For Items.      
-      link: A link for an item. This can be a link to a page for more information about the item, a website, or a file location.
-      discussion: Allows multiple people to have discussions about an item.   
-      review: Item Reviews from Users. Reviews have scores that are tallied up to rate the value of an item.
-  # System Records
-  record:
-    name:
-      page:        
-    description:
-      page:   
   # ActiveRecord Models & Validations
   activerecord:
+    # System Records/Objects
+    records: 
+      plugin:
+        image: 
+          description: Images for Items.
+        comment: 
+          description: Comments from Users or Visitors. Comments are small notes or feedback about an item.
+        file: 
+          description: Files uploaded for a particular item. Useful for Software, PDFs, Images, etc.
+        tag: 
+          description: Tags are like labels for an Item. This is another way to organize items besides by categories. All tags in the System are grouped together. You can add as many as you want.
+        feature:
+          description: "These are shared atttributes that an several items might have. For example: a house would have a feature called price."
+        description: 
+          description: Large Text Descriptions For Items.      
+        link: 
+          description: A link for an item. This can be a link to a page for more information about the item, a website, or a file location.
+        discussion: 
+          description: Allows multiple people to have discussions about an item.   
+        review:
+          description: Item Reviews from Users. Reviews have scores that are tallied up to rate the value of an item.
+      plugin_setting:   
+        slideshow_speed:
+          title: Скорость Слайд-шоу
+          description: The speed of a slideshow, in milliseconds(ms). Default is 2500.          
+        item_thumbnail_width:
+          title: Ширина пиктограммы %{item}
+          description: This is the default width(in pixels) of the thumbnails that are generated.          
+        item_thumbnail_height:
+          title: Высота пиктограммы %{item}
+          description: This is the default height(in pixels) of the thumbnails that are generated.          
+        resize_item_images:
+          title: Изменять размер новых изображений
+          description: Enable this if you would like all the images that are added to images resized to a particular size(you can choose the size below).          
+        item_image_width:
+          title: Стандартная ширина изображения
+          description: This is the width you want your images(in pixels) to be automatically resized to.           
+        item_image_height:
+          title: Стандартная высота изображения
+          description: This is the height you want your images(in pixels) to be automatically resized to.           
+        login_required_for_download:
+          title: Требовать вход для скачивания
+          description: If enabled, only users who are logged in can download files. Visitors cannot download anything.          
+        log_downloads:
+          title: Записывать историю скачек
+          description: Log all downloads in the Item's activity log.          
+        review_type:
+          title: Тип обзора
+          description: This determines the type of scoring that used for items.          
+        score_min:
+          title: Минимальный балл
+          description: The minimum value that can be used in review scores. This is not used in star ratings.          
+        score_max:
+          title: Максимальный балл          
+          description: The maximum value that can be used in review scores.           
+      setting:       
+        site_title:
+          title: Заголовок Вашего сайта
+          description: Заголовок Вашего сайта. Вы увидите его в самом верху окна Вашего браузера.                      
+        site_description:
+          title: Описание сайта
+          description: Описание Вашего сайта. Используется в заголовке вашего сайта (вверху Вашего браузера) и поисковыми системами.
+        site_keywords:
+          title: Ключевые слова сайта        
+          description: Ключевые слова (Мета-тег) вашего сайта. Используется поисковыми системами. Разделяйте их запятыми.        
+        locale:
+          title: Локаль
+          description: Стандартный язык и временная зона используемая в Opal. Пользователи также могут изменять собственную локаль.
+        display_item_views:
+          title: Показывать число просмотров вещи
+          description: Отображать количество просмотров вещи (отображается на странице вещи).          
+        caching:
+          title: Кэширование страниц
+          description: Это позволяет страницам вещей кешироваться для улучшения производительности. Файл со страницей вещи будет сгенерирован 1 раз, сохранен на сервере и показан всем пользователям, вместо генерирования страниц каждый раз заново.        
+        new_item_notification:
+          title: Оповещать администраторов о новых вещах
+          description: Если включена, всем администратором будет послан email после создания новой вещи.          
+        section_blog:
+          title: Блог
+          description: Блог встроенный в Opal. Если включена, ссылка на блог появится в главном меню.          
+        allow_item_list_type_changes:
+          title: Разрешить изменения вида списка
+          description: Если включена, эта настройка позволит всем (даже публике) изменять тип отображения списка вещей который они видят посещая Ваш Opal сайт. Изменение затрагивает только браузер конкретного пользователя.
+        allow_item_page_type_changes:
+          title: Разрешить изменения вида страницы
+          description: Если включена, эта настройка позволит всем (даже публике) изменять тип отображения страницы вещи на которую они смотрят. Изменение затрагивает только браузер конкретного пользователя.          
+        include_child_category_items:
+          title: Включать вещи дочерней категории
+          description: Если включена, все вещи из дочерних категорий будет включены в списки и колчество вещей родительских категорий. Включений этой настройки немного ухудшает производительность.          
+        max_items_per_user:
+          title: Максимальное число вещей для пользователя
+          description: Задает максимальное число вещей которые может создать пользователь. 0 значит неограниченное число.          
+        email_verification_required:
+          title: Проверка Email обязательна для новых пользователей
+          description: Если включена, новые пользователи должны будут нажать на ссылку посланную им на email до того как они смогут войти.          
+        enable_item_description:
+          title: Включить описание вещи
+          description: Включение/Выключение Описания вещей показывает/убирает описание вещей из списка вещей и со страницы вещи.          
+        display_featured_items:
+          title: Показывать рекомендованные вещи
+          description: Показывать рекомендованные вещи на главной странице.          
+        enable_navlinks:
+          title: Включить NavLinks
+          description: NavLinks это простые навигационные ссылки показанные вверху каждой страницы с вещью и списка вещей. Они показывают информацию в какой категории находится вещь, и т.п.          
+        item_approval_required:
+          title: Требуется подтверждение
+          description: Включите это если вы хотите подтверждать вещи добавленные пользователями перед показом их публике. Все неподтвежденные вещи могут быть просмотрены в Админ. панели. Если выключено, все вещи будут считаться подтвержденными при создании.          
+        section_items:
+          title: Вещи
+          description: Если включена, секция с Вещами будет отображена на главной странице, а также ссылка будет отображена в главном меню. Если выключено, Opal больше не будет отображать каких либо вещей.          
+        allow_page_comments:
+          title: Разрешить комментарии к страницам
+          description: Если включена, люди смогут оставлять комментарии на страницах.          
+        enable_item_date:
+          title: Включить описание вещи
+          description: Включение/Выключение Даты для вещей для отображения/скрытия из страницы вещи и списка вещей. Это показывает дату, когда была создана вещь.          
+        homepage_type:
+          title: Тип главной страницы
+          description: То что отображается на Вашей главной странице.          
+        allow_private_items:
+          title: Разрешить приватные вещи
+          description: Если включена, пользователи смогут создавать приватные вещи, которые не будут видны публике или другим пользователям. Она будет видна только владельцу и администраторам. Если выключена, все вещи становятся публичными при создании.          
+        allow_user_registration:
+          title: Регистрация пользователей
+          description: Определяет могут ли пользователи создавать новые профили.          
+        allow_public_access:
+          title: Разрешить публичный доступ
+          description: Если выключена, пользователи должны войти чтобы получить доступ к сайту или каким либо вещам. Если включена, кто угодно может просматривать сайт и вещи.          
+        item_page_type:
+          title: Тип Страницы Вещи
+          description: Визуальное расположение страницы %{item}.          
+        let_users_create_items:
+          title: Позволить пользователям создавать вещи
+          description: Если выключена, обычные пользователи не смогут создавать вещи... смогут только администраторы.          
+        show_user_login:
+          title: Показывать Вход для пользователей
+          description: Определяет видна ли панель логина под меню сайта. Если выключено, пользователи могут войти по адресу site.example.com/browse/login                    
+        display_help_sections:
+          title: Показывать секции помощи
+          description: Показывает Секции Помощи в разных частях сайта для помощи пользователям и администраторам Opal.
+        opal_version:
+          description: Текущая версия с которой вы работаете.                   
+        theme:
+          title: Тема
+          description: Визуальная тема для всей системы          
+        display_popular_items:
+          title: Показывать самые популярные вещи
+          description: Показывать самые популярные вещи на главной странице.          
+        users_can_delete_items:
+          title: Позволить пользователям удалять свои вещи
+          description: Позволяет пользователям удалять вещи которые они создали. Если выключена, только администраторы смогут удалять вещи.          
+        new_user_notification:
+          title: Оповещать администраторов о новых пользователях
+          description: Если включена, все администраторы получат email при регистрации нового пользователя.          
+        list_type:
+          title: Тип списка
+          description: Визуальное размещение того как отображаются ваши %{items}.          
+        items_per_page:
+          title: "Вещей на страницу"
+          description: Число вещей на страницу.          
+        main_logo:
+          title: Главный логотип
+        list_type_simple:
+          title: Простой
+          description: Показать %{items} в простом формате.          
+        list_type_detailed:
+          title: Детальный
+          description: Показать %{items} в детальном формате.                    
+        list_type_photo:
+          title: Пиктограммы
+          description: Показать %{items} как пиктограммы.          
+        list_type_small:
+          title: Маленький
+          description: Показать %{items} в табличном виде.          
+        item_page_type_summarized:
+          title: Обобщенный    
+          description: Показать %{item} в обобщенном виде.          
+        item_page_type_expanded:
+          title: Развернутый
+          description: Показать %{item} в развернутом виде.          
+        item_page_type_tabs_horizontal:
+          title: Вкладки - Горизонтальные
+          description:  Показать %{item} в виде горизонтальных вкладок.           
+        item_page_type_tabs_vertical:
+          title: Вкладки - Вертикальные
+          description: Показать %{item} в виде вертикальных вкладок.          
+        item_page_type_accordion:
+          title: Аккордион
+          description: Показать %{item} в виде аккордиона.          
     models:
       user:
         one: Пользователь

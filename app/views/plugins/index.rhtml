@@ -56,8 +56,6 @@
 				</div> 
 
 				<%= sortable_list("sortable_list", url_for(:action => "update_order", :controller => "plugins"), "event_box") %>
-				
-				
 
 				<div id="items" class="plugins">
 					<ul id="sortable_list" class="sortable">
@@ -74,7 +72,7 @@
 											</h2>
 						  				</div>
 										<div style="">
-											<%= raw t("plugin.description.#{plugin.name.underscore.downcase}", :default => "") %>
+											<%= raw t("activerecord.records.plugin.#{plugin.name.underscore.downcase}.description", :default => "") %>
 										</div>				
 						  			</td>
 									<td valign=middle align=center style="text-align:left;width:125px;padding-left:10px">
@@ -86,7 +84,7 @@
 												<br>
 											<% end %>						  			  		
 											<%= link_to icon("settings") + raw(" #{PluginSetting.model_name.human(:count => :other)}<br>"), {:action => "settings", :controller => "plugins", :id => plugin.id} if plugin.plugin_settings.size > 0 %>											
-											<%= link_to "(#{t("label.item_uninstall", :item => "")})", {:action => "uninstall", :controller => "plugins", :id => plugin.id}, :confirm => t("confirm.item_delete", :item => Plugin.model_name.human )  if !plugin.is_builtin? %>					
+											<%= link_to icon("delete") + " #{t("label.item_uninstall", :item => "")}", {:action => "uninstall", :controller => "plugins", :id => plugin.id}, :confirm => t("confirm.item_delete", :item => Plugin.model_name.human )  if !plugin.is_builtin? %>					
 																																							
 									  	</div>
 									</td>

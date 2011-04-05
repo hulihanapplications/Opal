@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     if ActiveRecord::Base.connection.tables.include?('settings') # check if settings table exists
       #theme = Setting.get_setting("theme") # get the theme name 
       theme = @setting[:theme]
-      layout_location = File.join(RAILS_ROOT, "public", "themes", theme, "layouts", layout_filename) # set path to theme layout
+      layout_location = File.join(Rails.root.to_s, "public", "themes", theme, "layouts", layout_filename) # set path to theme layout
       logger.info(layout_location)
       if !File.exists?(layout_location) # if the theme's layout file isn't present, use default layout. File.exists? requires absolute path.
         logger.info(layout_location)
@@ -198,6 +198,42 @@ class ApplicationController < ActionController::Base
   
   def get_my_group_plugin_permissions # initialize group plugin permissions for the plugin that is already looked up
     @my_group_plugin_permissions = @plugin.permissions_for_group(@logged_in_user.group) 
+  end    
+
+  def can_group_read_plugin # check if group permissions allows current user to create plugin records for this item
+    if @my_group_plugin_permissions.can_read? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
+      # ok, proceed
+    else # denied! 
+      flash[:failure] = t("notice.invalid_permissions")            
+      redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human(:count => :other)       
+    end
+  end  
+  
+  def can_group_create_plugin # check if group permissions allows current user to create plugin records for this item
+    if @my_group_plugin_permissions.can_create? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
+      # ok, proceed
+    else # denied! 
+      flash[:failure] = t("notice.invalid_permissions")            
+      redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human(:count => :other)       
+    end
+  end  
+
+  def can_group_update_plugin # check if group permissions allows current user to create plugin records for this item
+    if @my_group_plugin_permissions.can_update? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
+      # ok, proceed
+    else # denied! 
+      flash[:failure] = t("notice.invalid_permissions")            
+      redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human(:count => :other)       
+    end
+  end  
+  
+  def can_group_delete_plugin # check if group permissions allows current user to create plugin records for this item
+    if @my_group_plugin_permissions.can_delete? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
+      # ok, proceed
+    else # denied! 
+      flash[:failure] = t("notice.invalid_permissions")            
+      redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human(:count => :other)       
+    end
   end    
   
   def sanitize(data) # sanitize data

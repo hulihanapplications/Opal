@@ -15,7 +15,7 @@
 
 			<% if @plugin.plugin_settings.size > 0  %>
 				<% form_tag ({:action => "update_plugin_settings"}) do %>
-					<%= render :partial => "/settings/list_settings", :locals => {:settings => @plugin.plugin_settings}%>
+					<%= render :partial => "/settings/list_settings", :locals => {:settings => @plugin.plugin_settings} %>
 					 	<br>
 					<div align=center>
 						<%= submit_tag t("single.save"), :class => "button_1"  %>
@@ -28,7 +28,7 @@
 
 		
 	</div>
-	<br />
+	<br /><br />
 	<%= back %>
 		
 		

@@ -50,32 +50,15 @@ class Setting < ActiveRecord::Base
   self.global_settings = Setting.get_global_settings # load global settings into metaclass variable
 
   
-  def to_param # make custom parameter generator for seo urls
+  def to_param # make custom parameter generator for friendly urls
     "#{id}-#{name.gsub(/[^a-z0-9]+/i, '-')}"
   end
   
-
   def title
-    return I18n.t("setting.title.#{self[:name].downcase}", :default => self[:title])
+    return I18n.t("activerecord.records.setting.#{self.name.downcase}.title", :default => self.name.humanize)
   end
   
   def description
-    return I18n.t("setting.description.#{self[:name].downcase}", :default => self[:description])
-  end
-  
-  def self.to_yaml # convert setting names to yaml for translations
-    require "yaml"
-    
-    hash = Hash.new
-    hash[:titles] = Hash.new 
-    hash[:descriptions] = Hash.new
-    for setting in Setting.find(:all)
-      hash[:titles][setting.name.to_sym] = setting.title
-      hash[:descriptions][setting.name.to_sym] = setting.description  
-    end
-    
-    return YAML::dump hash
-  end
-  
-
+    return I18n.t("activerecord.records.setting.#{self.name}.description", :default => "")
+  end  
 end

@@ -472,143 +472,198 @@ en:
     delete: Are you sure you want to delete this?
     delete_user: Are you sure you want to delete this user? Everything this user has ever created will be deleted also! If you don't want this to happen, you could disable their account instead.
     item_delete: Are you sure you want to delete this %{item}?
-    install_sample_data: "Install Sample Data? (Example Items, Categories, Users)"           
-  # Settings
-  setting:
-    title:
-      site_title: Title of Your Site   
-      site_description: Site Description
-      site_keywords: Site Keywords      
-      locale: Locale
-      display_item_views: Display Number of Item Views
-      caching: Page Caching
-      new_item_notification: Notify Admins of New Items
-      section_blog: Blog
-      allow_item_list_type_changes: Allow Item List Type Changes
-      allow_item_page_type_changes: Allow Page Type Changes
-      include_child_category_items: Include Child Category Items
-      max_items_per_user: Maximum Items per User
-      email_verification_required: Email Verification Required for New Users
-      enable_item_description: Enable Item Description
-      display_featured_items: Display Featured Items
-      enable_navlinks: Enable NavLinks
-      item_approval_required: Approval Required
-      section_items: Items
-      allow_page_comments: Allow Page Comments
-      enable_item_date: Enable Item Date
-      homepage_type: Homepage Type
-      allow_private_items: Allow Private Items
-      allow_user_registration: User Registration
-      allow_public_access: Allow Public Access
-      item_page_type: Item Page Type
-      let_users_create_items: Let Users Create Items
-      show_user_login: Display User Login
-      display_help_sections: Display Help Sections
-      theme: Theme
-      display_popular_items: Display Most Popular Items
-      users_can_delete_items: Let Users Delete Their Items
-      new_user_notification: Notify Admins of New Users
-      list_type: List Type
-      items_per_page: Items Per Page
-      main_logo: Main Logo
-      list_type_simple: Simple
-      list_type_detailed: Detailed
-      list_type_photo: Photo
-      list_type_small: Small
-      item_page_type_summarized: Summarized    
-      item_page_type_expanded: Expanded
-      item_page_type_tabs_horizontal: Tabs - Horizontal 
-      item_page_type_tabs_vertical: Tabs - Vertical
-      item_page_type_accordion: Accordion
-      # Plugin Settings
-      slideshow_speed: Slideshow Speed
-      item_thumbnail_width: Item Thumbnail Width
-      item_thumbnail_height: Item Thumbnail Height
-      resize_item_images: Resize New Images
-      item_image_width: Default Image Width
-      item_image_height: Default Image Height
-      login_required_for_download: Require Login For Download
-      log_downloads: Log Downloads
-      review_type: Review Type
-      score_min: Minimum Score
-      score_max: Maximum Score            
-    description:
-      site_title: The Title of your Site. You would see this at the very top of your browser window.
-      site_description: The description for your site. Used in the title of your page(at the top of your browswer) and for search engine submission.
-      site_keywords: The Keywords Metatag for your site. Used for search engine submission. Seperated by commas.      
-      locale: The default language and time zone used by Opal. Since users can also set their own unique locale, this applies to visitors and new users.
-      display_item_views: Display the number of times an item has been viewed(visible on an item's page).
-      caching: This allows item pages to be cached to speed up performance. A flat file is stored on the server that visitors will see, instead of having the server generate a dynamic page every time.
-      new_item_notification: If enabled, all admins will be sent an email when a new item is created.
-      section_blog: Opal's Integrated Blog. If enabled, a blog link will show up in the main menu.
-      allow_item_list_type_changes: If enabled, this setting allows anyone(even the public) to change the Item list type that they see when visiting your Opal application. This only affects the visitor's browser.
-      allow_item_page_type_changes: If enabled, this setting allows anyone(even the public) to change the page type for items that they're looking at. This only affects the visitor's browser.
-      include_child_category_items: If enabled, all Child Category Items will be included in lists and number counts for the Parent Category. Enabling this creates a small performance drop.
-      max_items_per_user: This specifies the maximum number of items a user can create. Set to 0 for unlimited.
-      email_verification_required: If enabled, new users must click on an verification link that is sent to their email account before they can log in.
-      enable_item_description: Enable/Disable Item Description from item details and lists of items.
-      display_featured_items: Display featured items on the homepage.
-      enable_navlinks: NavLinks are simple navigation links shown at the top of item and item list pages. They show information about which category an item or category is in, and more.
-      item_approval_required: Enable this if you want to approve items created by users before they can be seen by the public. All unapproved items can viewed in the admin section. If disabled, all items will become approved upon creation.
-      section_items: If enabled, Items will be displayed and a  link will be shown in the main menu. If disabled, Opal will no longer display any items.
-      allow_page_comments: If enabled, people can leave comments for pages.
-      enable_item_date: Enable/Disable Item Date from item details and lists of items. This shows the date that the item was created.
-      homepage_type: This is what is shown on your homepage.
-      allow_private_items: If enabled, users can create private items that aren't visible to the public or other users. Only the owner of the item and admins can see private items. If disabled, all items will become public upon creation.
-      allow_user_registration: This specifies if users can register for a new account.
-      allow_public_access: If disabled, users must log in to access the site or any items. If enabled, anyone can view the site and items normally.
-      item_page_type: This is the visual layout of %{item} pages.
-      let_users_create_items: If disabled, regular users cannot create items... only admins can.
-      show_user_login: This specifies if the user login box is visible on the top menu bar. If disabled, users can login at site.example.com/browse/login
-      opal_version: This is the current version you're running.
-      display_help_sections: Shows Help Sections in various parts of your site to help users and admins with Opal.
-      theme: This is the visual theme for the entire system
-      display_popular_items: Display the most popular items on the homepage.
-      users_can_delete_items: This allows users to delete items that they've created. If disabled, only admins can delete items.
-      new_user_notification: If enabled, all admins will be sent an email when a new user registers.
-      list_type: The visual layout of how your %{items} are listed.
-      items_per_page: This is the number of items to show per page.
-      list_type_simple: View %{items} in a simple format.
-      list_type_detailed: View %{items} in a detailed format.
-      list_type_photo: View %{items} as thumbnails.
-      list_type_small: View %{items} in a table.
-      item_page_type_summarized: View %{item} details in a clean, summarized way.
-      item_page_type_expanded: View %{item} with expanded details.
-      item_page_type_tabs_horizontal:  View %{item} details in horizontal tabs.
-      item_page_type_tabs_vertical: View %{item} details in vertical tabs.
-      item_page_type_accordion: View %{item} details in an accordion.
-      # Plugin Settings
-      slideshow_speed: The speed of a slideshow, in milliseconds(ms). Default is 2500.
-      item_thumbnail_width: This is the default width(in pixels) of the thumbnails that are generated.
-      item_thumbnail_height: This is the default height(in pixels) of the thumbnails that are generated.
-      resize_item_images: Enable this if you would like all the images that are added to images resized to a particular size(you can choose the size below).
-      item_image_width: This is the width you want your images(in pixels) to be automatically resized to. 
-      item_image_height: This is the height you want your images(in pixels) to be automatically resized to. 
-      login_required_for_download: If enabled, only users who are logged in can download files. Visitors cannot download anything.
-      log_downloads: Log all downloads in the Item's activity log.
-      review_type: This determines the type of scoring that used for items.
-      score_min: The minimum value that can be used in review scores. This is not used in star ratings.
-      score_max: The maximum value that can be used in review scores.
-  # Plugins
-  plugin:
-    description:
-      image: Images for Items.
-      comment: Comments from Users or Visitors. Comments are small notes or feedback about an item.
-      file: Files uploaded for a particular item. Useful for Software, PDFs, Images, etc.
-      tag: Tags are like labels for an Item. This is another way to organize items besides by categories. All tags in the System are grouped together. You can add as many as you want.
-      feature: "These are shared atttributes that an several items might have. For example: a house would have a feature called price."
-      description: Large Text Descriptions For Items.      
-      link: A link for an item. This can be a link to a page for more information about the item, a website, or a file location.
-      discussion: Allows multiple people to have discussions about an item.   
-      review: Item Reviews from Users. Reviews have scores that are tallied up to rate the value of an item.
-  # System Records
-  record:
-    name:
-      page:        
-    description:
-      page:   
-  # ActiveRecord Models & Validations
+    install_sample_data: "Install Sample Data? (Example Items, Categories, Users)"                  
   activerecord:
+    # System Records/Objects
+    records: 
+      plugin:
+        image: 
+          description: Images for Items.
+        comment: 
+          description: Comments from Users or Visitors. Comments are small notes or feedback about an item.
+        file: 
+          description: Files uploaded for a particular item. Useful for Software, PDFs, Images, etc.
+        tag: 
+          description: Tags are like labels for an Item. This is another way to organize items besides by categories. All tags in the System are grouped together. You can add as many as you want.
+        feature:
+          description: "These are shared atttributes that an several items might have. For example: a house would have a feature called price."
+        description: 
+          description: Large Text Descriptions For Items.      
+        link: 
+          description: A link for an item. This can be a link to a page for more information about the item, a website, or a file location.
+        discussion: 
+          description: Allows multiple people to have discussions about an item.   
+        review:
+          description: Item Reviews from Users. Reviews have scores that are tallied up to rate the value of an item.
+      plugin_setting:   
+        slideshow_speed:
+          title: Slideshow Speed 
+          description: The speed of a slideshow, in milliseconds(ms). Default is 2500.
+        item_thumbnail_width:
+          title: Item Thumbnail Width         
+          description: This is the default width(in pixels) of the thumbnails that are generated.
+        item_thumbnail_height:
+          title: Item Thumbnail Height        
+          description: This is the default height(in pixels) of the thumbnails that are generated.
+        resize_item_images:
+          title: Resize New Images        
+          description: Enable this if you would like all the images that are added to images resized to a particular size(you can choose the size below).
+        item_image_width:
+          title: Default Image Width        
+          description: This is the width you want your images(in pixels) to be automatically resized to. 
+        item_image_height:
+          title: Default Image Height        
+          description: This is the height you want your images(in pixels) to be automatically resized to. 
+        login_required_for_download:
+          title: Require Login For Download        
+          description: If enabled, only users who are logged in can download files. Visitors cannot download anything.
+        log_downloads:
+          title: Log Downloads        
+          description: Log all downloads in the Item's activity log.
+        review_type:
+          title: Review Type        
+          description: This determines the type of scoring that used for items
+        score_min:
+          title: Minimum Score        
+          description: The minimum value that can be used in review scores. This is not used in star ratings.
+        score_max:
+          title: Maximum Score                 
+          description: The maximum value that can be used in review scores.            
+      setting:       
+        site_title: 
+          title: Title of Your Site           
+          description: The Title of your Site. You would see this at the very top of your browser window.
+        site_description: 
+          title: Site Description
+          description: The description for your site. Used in the title of your page(at the top of your browswer) and for search engine submission.
+        site_keywords: 
+          title: Site Keywords              
+          description: The Keywords Metatag for your site. Used for search engine submission. Seperated by commas.        
+        locale: 
+          title: Locale
+          description: The default language and time zone used by Opal. Since users can also set their own locale, this applies to visitors and new users.
+        display_item_views: 
+          title: Display Number of Item Views        
+          description: Display the number of times an item has been viewed(visible on an item's page).
+        caching: 
+          title: Page Caching        
+          description: This allows item pages to be cached to speed up performance. A flat file is stored on the server that visitors will see, instead of having the server generate a dynamic page every time.
+        new_item_notification: 
+          title: Notify Admins of New Items          
+          description: If enabled, all admins will be sent an email when a new item is created.
+        section_blog:
+          title: Blog                 
+          description: Opal's Integrated Blog. If enabled, a blog link will show up in the main menu.
+        allow_item_list_type_changes:
+          title: Allow Item List Type Changes         
+          description: If enabled, this setting allows anyone(even the public) to change the Item list type that they see when visiting your Opal application. This only affects the visitor's browser.
+        allow_item_page_type_changes:
+          title: Allow Page Type Changes         
+          description: If enabled, this setting allows anyone(even the public) to change the page type for items that they're looking at. This only affects the visitor's browser.
+        include_child_category_items:
+          title: Include Child Category Items         
+          description: If enabled, all Child Category Items will be included in lists and number counts for the Parent Category. Enabling this creates a small performance drop.
+        max_items_per_user:
+          title: Maximum Items per User         
+          description: This specifies the maximum number of items a user can create. Set to 0 for unlimited.
+        email_verification_required: 
+          title: Email Verification Required for New Users        
+          description: If enabled, new users must click on an verification link that is sent to their email account before they can log in.
+        enable_item_description: 
+          title: Enable Item Description        
+          description: Enable/Disable Item Description from item details and lists of items.
+        display_featured_items:
+          title: Display Featured Items         
+          description: Display featured items on the homepage.
+        enable_navlinks: 
+          title: Enable NavLinks        
+          description: NavLinks are simple navigation links shown at the top of item and item list pages. They show information about which category an item or category is in, and more.
+        item_approval_required:
+          title: Approval Required         
+          description: Enable this if you want to approve items created by users before they can be seen by the public. All unapproved items can viewed in the admin section. If disabled, all items will become approved upon creation.
+        section_items: 
+          title: Items        
+          description: If enabled, Items will be displayed and a  link will be shown in the main menu. If disabled, Opal will no longer display any items.
+        allow_page_comments:
+          title: Allow Page Comments         
+          description: If enabled, people can leave comments for pages.
+        enable_item_date: 
+          title: Enable Item Date        
+          description: Enable/Disable Item Date from item details and lists of items. This shows the date that the item was created.
+        homepage_type: 
+          title: Homepage Type        
+          description: This is what is shown on your homepage.
+        allow_private_items: 
+          title: Allow Private Items        
+          description: If enabled, users can create private items that aren't visible to the public or other users. Only the owner of the item and admins can see private items. If disabled, all items will become public upon creation.
+        allow_user_registration: 
+          title: User Registration        
+          description: This specifies if users can register for a new account.
+        allow_public_access: 
+          title: Allow Public Access        
+          description: If disabled, users must log in to access the site or any items. If enabled, anyone can view the site and items normally.
+        item_page_type: 
+          title: Item Page Type        
+          description: This is the visual layout of %{item} pages.
+        let_users_create_items:
+          title: Let Users Create Items         
+          description: If disabled, regular users cannot create items... only admins can.
+        show_user_login: 
+          title: Display User Login        
+          description: This specifies if the user login box is visible on the top menu bar. If disabled, users can login at site.example.com/browse/login
+        opal_version: 
+          description: This is the current version you're running.
+        display_help_sections:
+          title: Display Help Sections         
+          description: Shows Help Sections in various parts of your site to help users and admins with Opal.
+        theme: 
+          title: Theme        
+          description: This is the visual theme for the entire system
+        display_popular_items: 
+          title: Display Most Popular Items            
+          description: Display the most popular items on the homepage.
+        users_can_delete_items: 
+          title: Let Users Delete Their Items        
+          description: This allows users to delete items that they've created. If disabled, only admins can delete items.
+        new_user_notification: 
+          title: Notify Admins of New Users        
+          description: If enabled, all admins will be sent an email when a new user registers.
+        list_type: 
+          title: List Type        
+          description: The visual layout of how your %{items} are listed.
+        items_per_page: 
+          title: Items Per Page        
+          description: This is the number of items to show per page.
+        main_logo:
+          title: Main Logo               
+        list_type_simple: 
+          title: Simple        
+          description: View %{items} in a simple format.
+        list_type_detailed: 
+          title: Detailed        
+          description: View %{items} in a detailed format.
+        list_type_photo: 
+          title: Photo        
+          description: View %{items} as thumbnails.
+        list_type_small: 
+          title: Small        
+          description: View %{items} in a table.
+        item_page_type_summarized: 
+          title: Summarized            
+          description: View %{item} details in a clean, summarized way.
+        item_page_type_expanded: 
+          title: Expanded        
+          description: View %{item} with expanded details.
+        item_page_type_tabs_horizontal: 
+          title: Tabs - Horizontal         
+          description:  View %{item} details in horizontal tabs.
+        item_page_type_tabs_vertical: 
+          title: Tabs - Vertical        
+          description: View %{item} details in vertical tabs.
+        item_page_type_accordion: 
+          title: Accordion                           
+          description: View %{item} details in an accordion.
+    # ActiveRecord Models & Validations        
     models:
       user:
         one: User 

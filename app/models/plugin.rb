@@ -131,4 +131,5 @@ class Plugin < ActiveRecord::Base
   def plugin_class # get the class that this plugin record is tied to
     "Plugin#{self.name}".constantize
   end
+  
 end

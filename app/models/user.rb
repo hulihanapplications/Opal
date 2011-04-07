@@ -72,6 +72,10 @@ class User < ActiveRecord::Base
     "#{id}-#{username.parameterize}" 
   end
   
+  def to_s
+    self.username
+  end
+  
   def is_admin? 
    if self.is_admin == "1" || self.group.is_admin_group?
     return true

@@ -28,7 +28,7 @@
 			<div style="display:none;margin-bottom:10px;" id="new_link_box" class="box_1">
 			      <h2><%=  t("label.item_new", :item => plugin.model_name.human) %></h2>
 				   <div>
-   					   <%= form_tag  :action => 'create', :controller => "plugin_#{plugin.model_name.human(:count => :other)}", :id => item.id %>
+   					   <%= form_tag  :action => 'create', :controller => "plugin_links", :id => item.id %>
 						<%= icon("link") %>
 						<%= t("single.title") %>
 						<input name="link_title" type="text" id="new_link_title_input" onfocus = "focus_input('new_link_title_input')" onblur = "blur_input('new_link_title_input')">
@@ -60,7 +60,7 @@
 								</a>
 							<% end %>
 							<% if my_group_plugin_permissions[plugin.id].can_delete? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
-								<%= link_to icon("delete"), { :action => 'delete', :controller => "plugin_#{plugin.model_name.human(:count => :other)}", :id => item.id, :link_id => link.id}, :confirm => t("confirm.item_delete", :item => plugin.model_name.human) %>					
+								<%= link_to icon("delete"), { :action => 'delete', :controller => "plugin_links", :id => item.id, :link_id => link.id}, :confirm => t("confirm.item_delete", :item => plugin.model_name.human) %>					
 							<% end %>	
 							<%= render :partial => "plugins/approval_controls", :locals => { :plugin_item => link} if @item.is_editable_for_user?(@logged_in_user) %>											
 						
@@ -68,7 +68,7 @@
 							
 						</div>
 						<div id="edit_link_box_<%= link.id %>" style="display:none">
-							<%= form_tag :action => 'update', :controller => "plugin_#{plugin.model_name.human(:count => :other)}", :id => item.id  %>
+							<%= form_tag :action => 'update', :controller => "plugin_links", :id => item.id  %>
 								<img src="/themes/<%= @setting[:theme] %>/images/icons/link.png" class="icon"  title="<%= h link.title %>" alt="">
 								<input name="link_id" value="<%= link.id %>" type="hidden">
 								<%= t("single.title") %>

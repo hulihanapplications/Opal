@@ -8,11 +8,14 @@ class Plugin < ActiveRecord::Base
   
   after_create :create_everything
   after_destroy :destroy_everything
+  
   before_validation(:on => :create) do 
     self.assign_order_number
   end 
 
   default_scope :order => "order_number ASC" # override default find
+  
+  scope :third_party, where(:is_builtin => "0")
   
   def actual_model # returns the Class of plugin that this plugin object points to. Example: Plugin.find_by_name("Image").actual_model => PluginImage 
     return "Plugin#{self.name}".camelize.constantize
@@ -20,7 +23,7 @@ class Plugin < ActiveRecord::Base
     
   # Set plugins to metaclass
   class << self # open up metaclass  
-    attr_accessor :plugins # Plugin.plugins
+    attr_accessor :plugins, :third_party_plugins # Plugin.plugins
     
     def enabled      
       where(["enabled = ?", "1"]).order("order_number ASC")
@@ -36,6 +39,7 @@ class Plugin < ActiveRecord::Base
   end
   
   self.plugins = Plugin.all_to_hash # store all plugins in Plugin.plugins
+  self.third_party_plugins = Plugin.third_party
   
   def create_everything
   end

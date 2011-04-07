@@ -264,6 +264,7 @@ en:
     version: Version
     website: Website
     install: Install
+    uninstall: Uninstall
     security: Security
     information: Information
     for: For

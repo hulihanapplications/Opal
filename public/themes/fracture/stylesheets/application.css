@@ -149,7 +149,7 @@
 				.plugin_box div.descriptions div.description .author{font-size:12px;}
 		.plugin_box div.features{padding-left:20px;}
 		.plugin_box div.reviews{}
-			.plugin_box div.reviews td{vertical-align:top;text-align:center}
+			.plugin_box div.reviews td{vertical-align:top;}
 			.plugin_box div.reviews div.review_box{;text-align:center;}
 					.plugin_box div.reviews div.review_box div.review{background-position:left;min-height:107px;background:url(../images/comment_bg.png) no-repeat;padding-left:40px;padding-top:10px;text-align:left;}
 					.score{font-size:16px;}

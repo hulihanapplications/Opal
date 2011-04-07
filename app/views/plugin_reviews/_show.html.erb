@@ -55,7 +55,7 @@
 									<% end %>
 									
 									<% if my_group_plugin_permissions[plugin.id].can_delete? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
-									    <%= link_to icon("delete"), { :action => 'delete', :controller => "plugin_#{plugin.model_name.human(:count => :other)}", :id => item.id, :review_id => review.id}, :confirm => t("confirm.item_delete", :item => plugin.model_name.human) %>																
+									    <%= link_to icon("delete"), { :action => 'delete', :controller => "plugin_reviews", :id => item.id, :review_id => review.id}, :confirm => t("confirm.item_delete", :item => plugin.model_name.human) %>																
 									<% end %>
 									
 									<%= render :partial => "plugins/approval_controls", :locals => { :plugin_item => review} if @item.is_editable_for_user?(@logged_in_user) %>											

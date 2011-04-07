@@ -3,19 +3,18 @@
 class ApplicationController < ActionController::Base
     
   helper "application" # include main application helper
-  
   before_filter :load_settings, :set_user # load global settings and set logged in user
   before_filter :set_locale, :check_public_access
   before_filter :prepare_for_mobile  
   layout :layout_location # using a symbol defers layout choice until after a request is processed 
-  
+ 
   include SimpleCaptcha::ControllerHelpers
     
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery  #:secret => '271565d54852d3da3a489c27f69a31b1'
   
-  def layout_location
+  def layout_location # this will eventually be deprecated, in favor of prepend_view_path
     # Load Theme & Layout
     mobile_mode? ? layout_filename = "application.mobile.erb" : layout_filename = "application.html.erb"
     if ActiveRecord::Base.connection.tables.include?('settings') # check if settings table exists
@@ -45,6 +44,7 @@ class ApplicationController < ActionController::Base
   def load_settings
     @setting = Setting.global_settings 
     @setting[:theme] = params[:theme] if params[:theme] # preview theme if theme is specified in url
+    prepend_view_path(File.join(@setting[:theme_dir], "app", "views")) # add the curent theme's view path to view paths to load
     @setting[:url] = "http://" + request.env["HTTP_HOST"] + "" # root url for host/port, taken from request
     # Get Meta Settings Manually So they're not cached(which causes nested meta information)
     @setting[:meta_title] = Array.new
@@ -65,16 +65,8 @@ class ApplicationController < ActionController::Base
   def set_user
     @logged_in_user = current_user ? current_user : User.anonymous
   end
-  
-  def set_user_old # If user isn't logged in, log them in as Guest. Otherwise, check their account for any problems
-    if session[:user_id] && session[:user_id] != 0 # if a session is already created, reset the logged in user.
-      @logged_in_user = User.find(session[:user_id]) # retrieve the fresh user from DB, in case any changes are made on the db side that are different from visitor's session.
-    else # user is not logged in, make them a guests
-      @logged_in_user = User.anonymous
-    end
-  end
-  
-  def check_public_access
+    
+  def check_public_access # check if public access is allowed to the app
     authenticate_user if !@setting[:allow_public_access] # send user to login if public is not allowed to view the site
   end
   

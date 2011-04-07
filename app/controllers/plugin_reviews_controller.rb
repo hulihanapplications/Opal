@@ -101,7 +101,7 @@ end
   
   def new 
    if @my_group_plugin_permissions.can_create? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # check permissions
-      @review = PluginReview.new     
+      @review = PluginReview.new(:user => @logged_in_user)
    else # Improper Permissions  
         flash[:failure] = t("notice.invalid_permissions")    
         redirect_to :action => "view", :controller => "items", :id => @item.id     

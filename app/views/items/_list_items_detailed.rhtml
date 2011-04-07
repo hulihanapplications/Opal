@@ -66,8 +66,7 @@
 												<% if item.user %>
 													 <%= link_to t("label.user_by", :name => item.user.username), {:action => "user", :controller => "browse", :id => item.user}, :title => h(item.user.username) %>		
 													<%= link_to user_avatar(item.user, :size => "tiny"), {:action => "user", :controller => "browse", :id => item.user}, :title => h(item.user.username) %>
-												<% end %>
-																															
+												<% end %>																														
 											</td>
 										</tr>
 									</table>						
@@ -103,6 +102,8 @@
 										<% if Plugin.plugins[:feature].is_enabled? %>
 											<%= render :partial => Plugin.plugins[:feature].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:feature], :item => item, :my_group_plugin_permissions => my_group_plugin_permissions } %>
 										<% end %>
+
+									
 									</td>
 									<td align=right style="vertical-align:top;width:50%">
 										<% if Plugin.plugins[:tag].is_enabled? %>
@@ -119,7 +120,10 @@
 										<% end %>
 										<% if Plugin.plugins[:file].is_enabled? %>
 											<%= render :partial => Plugin.plugins[:file].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:file], :item => item, :my_group_plugin_permissions => my_group_plugin_permissions } %>
-										<% end %>																																	
+										<% end %>	
+										<% for plugin in Plugin.third_party_plugins %>
+											<%= render :partial => plugin.partial_path(:type => "list"), :locals => {:plugin => plugin, :item => item, :my_group_plugin_permissions => my_group_plugin_permissions } if plugin.is_enabled? %>
+										<% end %>																																											
 									</td>
 								</tr>
 							</table>										

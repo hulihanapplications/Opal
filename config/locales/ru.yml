@@ -264,6 +264,7 @@ ru:
     version: Версия
     website: Сайт
     install: Установка
+    uninstall: Деинсталлировать
     security: Безопасность
     information: Информация
     for: для

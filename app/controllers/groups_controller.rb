@@ -60,7 +60,7 @@ class GroupsController < ApplicationController
         end
         Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log => t("log.item_save", :item => GroupPluginPermission.model_name.human, :name => @group.name))
       end
-      flash[:success] = t("notice.item_save_success", :item => GroupPluginPermission.model_name.human(:count => :other))            
+      flash[:success] = t("notice.save_success")            
       redirect_to :action => "edit", :id => @group.id
    end  
   

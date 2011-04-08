@@ -3,7 +3,7 @@
 		<% files_count = PluginFile.count(:all, :conditions => ["item_id = ? and is_approved = '1'", item.id], :order => "created_at DESC", :limit => 5) %>
 		<% if files_count > 0 %>
 			<img src="/themes/<%= @setting[:theme] %>/images/icons/file.png" class="icon"   title="" alt="">
-			<%= link_to "#{files_count} #{plugin.model_name.human(:count => :other)}", {:action => "view", :controller => "items", :id => item.id, :anchor => "#{plugin.model_name.human(:count => :other)}"} %>			
+			<%= link_to "#{files_count} #{plugin.model_name.human(:count => files_count)}", {:action => "view", :controller => "items", :id => item.id, :anchor => "#{plugin.model_name.human(:count => :other)}"} %>			
 		<% end %>
 	</div>
 <% end %>

@@ -80,7 +80,7 @@ class Log < ActiveRecord::Base
   
   def to_s
     string = String.new
-    if self.user_id
+    if self.user
       string << self.user.username + " "
     end
     string << self.log

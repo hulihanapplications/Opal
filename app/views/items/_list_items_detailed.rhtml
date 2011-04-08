@@ -84,7 +84,7 @@
 									</td>
 									<td align=right style="vertical-align:middle">
 										<span>
-											<%= truncate("#{item.views} #{Item.human_attribute_name(:views)}", :length => 15) %>
+											<%= truncate("#{item.views} #{I18n.t("activerecord.attributes.item.views", :count => item.views)}", :length => 15) %>
 										</span>	
 										<% if Plugin.plugins[:comment].is_enabled? %>
 											<%= render :partial => Plugin.plugins[:comment].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:comment], :item => item, :my_group_plugin_permissions => my_group_plugin_permissions } %>

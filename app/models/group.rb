@@ -36,7 +36,19 @@ class Group < ActiveRecord::Base
       return false
     end    
   end  
-  
+
+  def self.public # get public group
+    Group.find(1)
+  end
+    
+  def self.user # get users group
+    Group.find(2)
+  end
+
+  def self.admin # get admins group
+    Group.find(3)
+  end  
+
   
    def has_plugin_permission?(options = {}) # check if Group can access a particular permission/area a certain way(permission_type - CRUD Based)
     # set defaults 

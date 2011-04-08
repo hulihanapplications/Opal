@@ -32,15 +32,15 @@
 					   <% form_for :item,  :url => { :action => "create", :id => item.id, :controller => "plugin_comments"} do |f| %>
 						 	<% if @logged_in_user.anonymous?  %>
 							<table >
-								 <tr><td style="width:135px" align=left><input name="comment[anonymous_name]" id="comment_anonymous_name"  onfocus = "focus_input('comment_anonymous_name')" onblur = "blur_input('comment_anonymous_name')" ></td><td align=left ><%= PluginComment.human_attribute_name(:anonymous_name) %></td>	</tr>
-								 <tr><td style="width:135px" align=left><input name="comment[anonymous_email]" id="comment_anonymous_email"  onfocus = "focus_input('comment_anonymous_email')" onblur = "blur_input('comment_anonymous_email')" ></td><td align=left ><%= PluginComment.human_attribute_name(:anonymous_email) %></td>			 </tr>								
+								 <tr><td align=left><input name="comment[anonymous_name]" id="comment_anonymous_name"> <%= PluginComment.human_attribute_name(:anonymous_name) %></td>	</tr>
+								 <tr><td align=left><input name="comment[anonymous_email]" id="comment_anonymous_email"> <%= PluginComment.human_attribute_name(:anonymous_email) %></td>			 </tr>								
 							</table>
 							<% end %>
 						 <table style="width:100%">							
-							 <tr><td colspan=2 align=center><textarea name="comment[comment]" style="width:100%" onfocus = "focus_input('comment_text')" onblur = "blur_input('comment_text')" id="comment_text"></textarea></td>			 </tr>
-				  	         <tr><td colspan=2 align=center><%= t("label.captcha") %></td></tr>
-							 <tr><td colspan=2 align=center><%= show_simple_captcha %></td></tr>
-						     <tr><td colspan=2 align=center><%= submit_tag  t("label.item_create", :item => plugin.model_name.human), :class => "button_1" %></td></tr>							 
+							 <tr><td align=center><textarea name="comment[comment]" style="width:100%" onfocus = "focus_input('comment_text')" onblur = "blur_input('comment_text')" id="comment_text"></textarea></td>			 </tr>
+				  	         <tr><td align=center><%= t("label.captcha") %></td></tr>
+							 <tr><td align=center><%= show_simple_captcha %></td></tr>
+						     <tr><td align=center><%= submit_tag  t("label.item_create", :item => plugin.model_name.human), :class => "button_1" %></td></tr>							 
 						 </table>
 					   <% end %>
 				   </div>

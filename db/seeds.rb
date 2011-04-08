@@ -60,6 +60,26 @@ Setting.create(:name => "allow_item_page_type_changes",  :value => "1", :setting
 Setting.create(:name => "allow_item_page_type_changes",  :value => "1", :setting_type => "Item", :item_type => "bool") 
 Setting.create(:name => "opal_version", :value => "0.0.0", :setting_type => "Hidden", :item_type => "string")
 
+# Create Groups
+public_group = Group.new(:name => I18n.t('seeds.group.public.name'), :description => I18n.t('seeds.group.public.description'))
+public_group.is_deletable = "0"
+public_group.save     
+users_group = Group.new(:name => I18n.t('seeds.group.users.name'), :description => I18n.t('seeds.group.users.description'))
+users_group.is_deletable = "0"
+users_group.save   
+admin_group = Group.new(:name => I18n.t('seeds.group.admin.name'), :description => I18n.t('seeds.group.admin.description'))
+admin_group.is_deletable = "0"
+admin_group.save  
+
+
+# Create Default Admin Account
+@admin = User.new(:first_name => I18n.t('seeds.user.admin.first_name'), :last_name => I18n.t('seeds.user.admin.last_name'), :username => I18n.t('seeds.user.admin.username'), :password => I18n.t('seeds.user.admin.password'), :is_admin => "1", :email => I18n.t('seeds.user.admin.email'))
+@admin.group_id = admin_group.id
+@admin.is_admin = "1" 
+@admin.is_verified = "1"     
+@admin.locale = I18n.locale.to_s
+@admin.save
+
 # Create Builtin Plugins, plugin.name is not displayed name, it is used for related Plugin Class lookup, ie: "Image" => PluginImage
 plugin = Plugin.create(:name => "Image", :is_enabled => "1", :is_builtin => "1")
     PluginSetting.create(:plugin_id => plugin.id, :name => "slideshow_speed",   :value => "2500", :setting_type => "System", :item_type => "string")
@@ -134,37 +154,14 @@ pages[:contact_us].locked = true
 pages[:contact_us].deletable = false
 pages[:contact_us].save
 
-# Create Groups
-public_group = Group.new(:name => I18n.t('seeds.group.public.name'), :description => I18n.t('seeds.group.public.description'))
-public_group.is_deletable = "0"
-public_group.save     
-users_group = Group.new(:name => I18n.t('seeds.group.users.name'), :description => I18n.t('seeds.group.users.description'))
-users_group.is_deletable = "0"
-users_group.save   
-admin_group = Group.new(:name => I18n.t('seeds.group.admin.name'), :description => I18n.t('seeds.group.admin.description'))
-admin_group.is_deletable = "0"
-admin_group.save  
-
-# Group Plugin Permissions 
-for plugin in Plugin.find(:all)
-  GroupPluginPermission.create(:group_id => users_group.id, :plugin_id => plugin.id, :can_read => "1") # turn on read permissions for users
-  GroupPluginPermission.create(:group_id => public_group.id, :plugin_id => plugin.id, :can_read => "1") # turn on read permissions for the public   
-end 
 
 
 # Create Default Group Plugin Permissions
-GroupPluginPermission.find(:first, :conditions => ["group_id = ? and plugin_id = ?", public_group.id, Plugin.find_by_name("Comment").id]).update_attribute(:can_create, "1")  
-GroupPluginPermission.find(:first, :conditions => ["group_id = ? and plugin_id = ?", users_group.id, Plugin.find_by_name("Comment").id]).update_attribute(:can_create, "1")  
-GroupPluginPermission.find(:first, :conditions => ["group_id = ? and plugin_id = ?", users_group.id, Plugin.find_by_name("Review").id]).update_attribute(:can_create, "1")  
+GroupPluginPermission.find(:first, :conditions => ["group_id = ? and plugin_id = ?", Group.public.id, Plugin.find_by_name("Comment").id]).update_attribute(:can_create, "1")  
+GroupPluginPermission.find(:first, :conditions => ["group_id = ? and plugin_id = ?", Group.user.id, Plugin.find_by_name("Comment").id]).update_attribute(:can_create, "1")  
+GroupPluginPermission.find(:first, :conditions => ["group_id = ? and plugin_id = ?", Group.user.id, Plugin.find_by_name("Review").id]).update_attribute(:can_create, "1")  
 
 
-# Create Default Admin Account
-@admin = User.new(:first_name => I18n.t('seeds.user.admin.first_name'), :last_name => I18n.t('seeds.user.admin.last_name'), :username => I18n.t('seeds.user.admin.username'), :password => I18n.t('seeds.user.admin.password'), :is_admin => "1", :email => I18n.t('seeds.user.admin.email'))
-@admin.group_id = admin_group.id
-@admin.is_admin = "1" 
-@admin.is_verified = "1"     
-@admin.locale = I18n.locale.to_s
-@admin.save
  
 puts " #{I18n.t('single.done')}."
 

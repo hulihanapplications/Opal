@@ -68,5 +68,5 @@ class PluginCommentsController < ApplicationController
       flash[:failure] = t("notice.item_save_failure", :item => @plugin.model_name.human)
     end
    redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
-  end
+ end
 end

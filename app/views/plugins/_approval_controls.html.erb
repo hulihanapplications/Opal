@@ -4,8 +4,8 @@
 		plugin_name = plugin_class.model_name.human		
 	%>
 	<span class="box_2" style="padding:2px;">									
-		<%= icon("approved", t("single.approved")) if plugin_item.is_approved? %> 
-		<%= icon("unapproved", "#{t("single.not")} #{t("single.approved")}") if !plugin_item.is_approved? %> 																				
+		<%= icon("approved", t("single.approved"), "icon help") if plugin_item.is_approved? %> 
+		<%= icon("unapproved", "#{t("single.not")} #{t("single.approved")}", "icon help") if !plugin_item.is_approved? %> 																				
 		<%= link_to icon("cycle"), {:action => "change_approval", :id => plugin_item.item_id, "#{plugin_name.downcase}_id".to_sym => plugin_item.id, :controller => plugin_class.name.pluralize.underscore}, :confirm => t("confirm.general"), :title => "#{t("label.item_change")}", :class => "transparent" %>
 	</span>
 <% end %>		

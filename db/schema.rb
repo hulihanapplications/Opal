@@ -164,13 +164,13 @@ ActiveRecord::Schema.define(:version => 20110310183526) do
   create_table "plugin_events", :force => true do |t|
     t.integer  "item_id"
     t.integer  "user_id"
-    t.string   "title",                    :default => ""
+    t.string   "title"
     t.text     "description"
     t.datetime "date"
     t.string   "price"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "is_approved", :limit => 1, :default => "0"
+    t.boolean  "approved",    :default => false
   end
 
   create_table "plugin_feature_value_options", :force => true do |t|

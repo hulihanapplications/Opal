@@ -857,6 +857,9 @@ ru:
         is_builtin: Встроенный?
         created_at: Дата создания
         updated_at: Последнее обновление
+      plugin_comment: 
+        anonymous_name: Name
+        anonymous_email: Email        
       plugin_feature:
         listed: Listed
         feature_type: Type

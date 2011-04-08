@@ -33,10 +33,7 @@
 									<td align=right style="text-align:right;vertical-align:bottom">
 										<div class="author">
 											<%= friendly_date description.created_at %>
-											<%= "#{t("single.by").downcase}" %>
-											<b><%= link_to  "#{h description.user.username}", {:action => "user", :controller => "browse", :id => description.user_id}, :title => "#{description.user.username}"  %></b>
-											<%= user_avatar(description.user, :size => "tiny") %>										
-										
+											<%= raw("#{t("single.by").downcase} " + link_to(description.user.to_s, {:action => "user", :controller => "browse", :id => description.user_id}, :title => "#{description.user.username}") + " " + user_avatar(description.user, :size => "tiny")) if description.user  %>								
 	
 											<% if my_group_plugin_permissions[plugin.id].can_update? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>											
 												<%= link_to icon("edit"), {:action => "edit", :controller => "plugin_descriptions", :id => item.id, :description_id => description.id} %>

@@ -63,51 +63,41 @@
 	
 	
 							<% for plugin in @plugins %>
-						   		<div id="plugin_<%= plugin.id %>" class="plugin_unselected" style="padding:5px;"  onmouseover = "change_class('plugin_<%= plugin.id %>','plugin_hover')" onmouseout="change_class('plugin_<%= plugin.id %>','plugin_unselected')"  align=left>
-									<table cellpadding=0 cellspacing=0 style="width:100%;">
-								  		<tr> 
-								  			<td align=left >
-								  				<h2><%= plugin.model_name.human(:count => :other) %></h2>
-											</td>
-											<td align=right ">
-												<h3>
-													<%= GroupPluginPermission.human_attribute_name(:can_read) %>
-													<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_read]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :read) %> <%= "DISABLED" if @group.is_admin_group? %>>												
-												</h3>
-												<!--<i><%= @group.name %> can view <%= plugin.model_name.human(:count => :other) %> for any <%= Item.model_name.human %>.</i>-->
-												<div class="spacer"></div>
-												
-												<h3>
-													<%= GroupPluginPermission.human_attribute_name(:can_create) %>
-													<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_create]" value="1" <%= "CHECKED" if @group.has_plugin_permission?(:plugin => plugin, :permission_type => :create) %> <%= "DISABLED" if @group.is_admin_group? %>> 
-												</h3>
-												<!--<i><%= @group.name %> can create <%= plugin.model_name.human(:count => :other) %> for any <%= Item.model_name.human %>.</i>-->
-												<div class="spacer"></div>
-												
-												<h3>	
-													<%= GroupPluginPermission.human_attribute_name(:can_update) %>
-													<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_update]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :update) %> <%= "DISABLED" if @group.is_admin_group? %>> 
-												</h3>
-												<!--<i><%= @group.name %> can edit <%= plugin.model_name.human(:count => :other) %> for any <%= Item.model_name.human %>.</i>-->
-												<div class="spacer"></div>
-												
-												<h3>
-													<%= GroupPluginPermission.human_attribute_name(:can_delete) %>
-													<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_delete]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :delete) %> <%= "DISABLED" if @group.is_admin_group? %>>
-												</h3>
-												<!--<i><%= @group.name %> can delete <%= plugin.model_name.human(:count => :other) %> from any <%= Item.model_name.human %>.</i>-->
-												<div class="spacer"></div>
-												
-												<h3>
-													<%= GroupPluginPermission.human_attribute_name(:requires_approval) %>
-													<input type="checkbox" name="plugin_permission[<%= plugin.id %>][requires_approval]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :requires_approval) %> <%= "DISABLED" if @group.is_admin_group? %>> 
-												</h3>
-												<!--<i>New <%= plugin.model_name.human(:count => :other) %> created by <%= @group.name %> must be approved by the <%= Item.model_name.human %> owner.</i>-->
-											
-																							 											 
-											</td>														
-										</tr>
-									</table>
+								<div class="hoverable">
+							   		<div id="plugin_<%= plugin.id %>"  class="box_2"  align=left>
+										<table cellpadding=0 cellspacing=0 style="width:100%;">
+									  		<tr> 
+									  			<td align=left>
+									  				<h2><%= plugin.model_name.human(:count => :other) %></h2>
+												</td>
+												<td align=right>
+													
+														<%= GroupPluginPermission.human_attribute_name(:can_read) %>
+														<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_read]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :read) %> <%= "DISABLED" if @group.is_admin_group? %>>												
+													
+													
+													
+														<%= GroupPluginPermission.human_attribute_name(:can_create) %>
+														<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_create]" value="1" <%= "CHECKED" if @group.has_plugin_permission?(:plugin => plugin, :permission_type => :create) %> <%= "DISABLED" if @group.is_admin_group? %>> 
+													
+													
+														
+														<%= GroupPluginPermission.human_attribute_name(:can_update) %>
+														<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_update]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :update) %> <%= "DISABLED" if @group.is_admin_group? %>> 
+													
+													
+													
+														<%= GroupPluginPermission.human_attribute_name(:can_delete) %>
+														<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_delete]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :delete) %> <%= "DISABLED" if @group.is_admin_group? %>>
+														<hr />
+													
+														<%= GroupPluginPermission.human_attribute_name(:requires_approval) %>
+														<input type="checkbox" name="plugin_permission[<%= plugin.id %>][requires_approval]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :requires_approval) %> <%= "DISABLED" if @group.is_admin_group? %>> 
+																																																	 											
+												</td>														
+											</tr>
+										</table>
+									</div>
 								</div>	  				
 							<% end %>
 	

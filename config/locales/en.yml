@@ -680,7 +680,9 @@ en:
       category:
         one: Category
         other: Categories
-      group_plugin_permission: Group Plugin Permission
+      group_plugin_permission: 
+        one: Plugin Permission
+        other: Plugin Permissions         
       item:
         one: Item
         other: Items
@@ -801,6 +803,9 @@ en:
         is_builtin: Built In?
         created_at: Creation Date
         updated_at: Last Updated
+      plugin_comment: 
+        anonymous_name: Name
+        anonymous_email: Email
       plugin_feature:
         listed: Listed
         feature_type: Type

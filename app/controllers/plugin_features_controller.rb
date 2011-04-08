@@ -1,75 +1,65 @@
 class PluginFeaturesController < ApplicationController
- #before_filter :authenticate_user
- before_filter :find_item, :except => [:new, :create, :delete, :index, :edit, :update, :create_option, :delete_option] # look up item 
- before_filter :find_plugin # look up plugin
- before_filter :get_my_group_plugin_permissions # get permissions for this plugin  
- before_filter :check_item_edit_permissions, :only => [:change_approval] # list of actions that don't require that the item is editable by the user
- before_filter :authenticate_admin, :enable_admin_menu, :only =>  [:create, :delete, :index, :new, :edit, :update, :create_option, :delete_option] # make sure logged in user is an admin  
-
- include ActionView::Helpers::TextHelper # for truncate, etc.
-
-
-
+  #before_filter :authenticate_user
+  before_filter :find_item, :except => [:new, :create, :delete, :index, :edit, :update, :create_option, :delete_option] # look up item 
+  before_filter :find_plugin # look up plugin
+  before_filter :get_my_group_plugin_permissions # get permissions for this plugin
+  before_filter :check_item_view_permissions # can user view item? 
+  before_filter :check_item_edit_permissions, :only => [:change_approval] # list of actions that don't require that the item is editable by the user
+  before_filter :authenticate_admin, :enable_admin_menu, :only =>  [:create, :delete, :index, :new, :edit, :update, :create_option, :delete_option] # make sure logged in user is an admin  
+  before_filter :can_group_create_plugin, :only => [:create_feature_values]
+  before_filter :can_group_update_plugin, :only => [:update_feature_value, :update_values] 
+  before_filter :can_group_delete_plugin, :only => [:delete_feature_value]  
+  include ActionView::Helpers::TextHelper # for truncate, etc.
   
   def create_feature_values
-   if @my_group_plugin_permissions.can_create? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # check permissions       
-     flash_msg = "" 
-     #for i in 0..params[:features].size  # for every feature available to add
-     params[:features].each do | id, feature |
-       if feature && feature[:value] != "" # if array item has something in it and at least value was filled out
-         feature_value = PluginFeatureValue.new(feature)
-         feature_value.user_id = @logged_in_user.id
-         feature_value.item_id = @item.id
-      
-         # Set Approval
-         feature_value.is_approved = "1" if !@my_group_plugin_permissions.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin 
-               
-         if feature_value.save
-            Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => PluginFeatureValue.model_name.human, :name => "#{feature_value.plugin_feature.name}: #{feature_value.value}")) 
-            flash[:success] = t("notice.item_create_success", :item => PluginFeatureValue.model_name.human + "(#{feature_value.plugin_feature.name})") + "<br>"
-            flash[:success] +=  t("notice.item_needs_approval", :item => @plugin.model_name.human) + "<br>"  if !feature_value.is_approved?             
-         else # fail saved 
-            flash_msg += t("notice.item_create_failure", :item => @plugin.model_name.human)
-         end 
+   flash_msg = "" 
+   #for i in 0..params[:features].size  # for every feature available to add
+   params[:features].each do | id, feature |
+     if feature && feature[:value] != "" # if array item has something in it and at least value was filled out
+       feature_value = PluginFeatureValue.new(feature)
+       feature_value.user_id = @logged_in_user.id
+       feature_value.item_id = @item.id
+    
+       # Set Approval
+       feature_value.is_approved = "1" if !@my_group_plugin_permissions.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin 
+             
+       if feature_value.save
+          Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => PluginFeatureValue.model_name.human, :name => "#{feature_value.plugin_feature.name}: #{feature_value.value}")) 
+          flash[:success] = t("notice.item_create_success", :item => PluginFeatureValue.model_name.human + "(#{feature_value.plugin_feature.name})") + "<br>"
+          flash[:success] +=  t("notice.item_needs_approval", :item => @plugin.model_name.human) + "<br>"  if !feature_value.is_approved?             
+       else # fail saved 
+          flash_msg += t("notice.item_create_failure", :item => @plugin.model_name.human)
        end 
-     end
-    flash[:notice] = flash_msg 
-   else # Improper Permissions  
-        flash[:failure] = t("notice.invalid_permissions")        
-   end     
+     end 
+   end
+   flash[:notice] = flash_msg 
+   
     
    redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
   end
 
   def update_feature_value
-   if @my_group_plugin_permissions.can_update? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?    
-     @plugin_feature_value = PluginFeatureValue.find(params[:feature_value_id])
-     @plugin_feature = PluginFeature.find(@plugin_feature_value.plugin_feature_id)
-     log_msg = t("log.item_save", :item => PluginFeatureValue.model_name.human, :name => "#{@plugin_feature_value.plugin_feature.name}: #{@plugin_feature_value.value}")
-     if @plugin_feature_value.update_attributes(:value => params[:feature_value][:value], :url => params[:feature_value][:url])
-      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => log_msg)        
-      flash[:success] = t("notice.item_save_success", :item => @plugin.model_name.human)
-     else # fail saved 
-      flash[:failure] = t("notice.item_save_failure", :item => @plugin.model_name.human)
-     end
-   else # Improper Permissions  
-        flash[:failure] = t("notice.invalid_permissions")       
+   @plugin_feature_value = PluginFeatureValue.find(params[:feature_value_id])
+   @plugin_feature = PluginFeature.find(@plugin_feature_value.plugin_feature_id)
+   log_msg = t("log.item_save", :item => PluginFeatureValue.model_name.human, :name => "#{@plugin_feature_value.plugin_feature.name}: #{@plugin_feature_value.value}")
+   if @plugin_feature_value.update_attributes(:value => params[:feature_value][:value], :url => params[:feature_value][:url])
+    Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => log_msg)        
+    flash[:success] = t("notice.item_save_success", :item => @plugin.model_name.human)
+   else # fail saved 
+    flash[:failure] = t("notice.item_save_failure", :item => @plugin.model_name.human)
    end    
    redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
   end
  
   def delete_feature_value
-   if @my_group_plugin_permissions.can_delete? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?       
-     @plugin_feature_value = PluginFeatureValue.find(params[:feature_value_id])
-     if @plugin_feature_value.destroy
-      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log_type => "new", :log => t("log.item_delete", :item => PluginFeatureValue.model_name.human, :name => "#{@plugin_feature_value.plugin_feature.name}: #{@plugin_feature_value.value}")) 
-      flash[:success] = t("notice.item_delete_success", :item => @plugin.model_name.human)
-     else # fail saved 
-         flash[:failure] = t("notice.item_delete_failure", :item => @plugin.model_name.human)
-     end
-   else # Improper Permissions  
-        flash[:failure] = t("notice.invalid_permissions")        
-   end      
+   @plugin_feature_value = PluginFeatureValue.find(params[:feature_value_id])
+   if @plugin_feature_value.destroy
+    Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log_type => "new", :log => t("log.item_delete", :item => PluginFeatureValue.model_name.human, :name => "#{@plugin_feature_value.plugin_feature.name}: #{@plugin_feature_value.value}")) 
+    flash[:success] = t("notice.item_delete_success", :item => @plugin.model_name.human)
+   else # fail saved 
+       flash[:failure] = t("notice.item_delete_failure", :item => @plugin.model_name.human)
+   end
+ 
    redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
   end
 
@@ -172,7 +162,6 @@ class PluginFeaturesController < ApplicationController
   end 
  
   def update_values
-   if @my_group_plugin_permissions.can_update? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?    # check plugin permissions    
     feature_errors = PluginFeature.check(:features => params[:features], :item => @item) # check if required features are present
     if feature_errors.size == 0 # make sure there's not required feature errors
       # Update Feature Valuess
@@ -187,10 +176,6 @@ class PluginFeaturesController < ApplicationController
     else # failed adding required features
       flash[:failure] = t("notice.item_save_failure", :item => @plugin.model_name.human)          
     end  
-    redirect_to :action => "edit_values" , :id => @item    
-   else # Improper Permissions  
-    flash[:failure] = t("notice.invalid_permissions")    
-    redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other)     
-   end         
+    redirect_to :action => "edit_values" , :id => @item            
   end
 end

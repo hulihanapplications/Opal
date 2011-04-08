@@ -25,8 +25,7 @@
 							<th><b><%= Group.human_attribute_name(:name) %></b></th>
 							<th><b><%= Group.human_attribute_name(:description) %></b></th>
 							<th><b><%= Group.human_attribute_name(:created_at) %></b></th>
-							<th style="width:20px;"></th>
-							<th style="width:20px;"></th>
+							<th></th>
 						</tr>
 						<% for group in @groups%>			
 							<tr class="<%= cycle("row_a", "row_b") %>">
@@ -36,10 +35,8 @@
 								<td>
 									<%= friendly_date group.created_at %>
 								</td>
-								<td>
+								<td align=right>
 									<%= link_to icon("edit"), { :action => 'edit', :controller => "groups", :id => group.id, :group_id => group.id} %>
-								</td>
-								<td>
 									<%= link_to icon("delete"), { :action => 'delete', :controller => "groups", :id => group.id, :group_id => group.id}, :confirm => t("confirm.delete") if group.is_deletable? %>
 								</td>
 							</tr> 

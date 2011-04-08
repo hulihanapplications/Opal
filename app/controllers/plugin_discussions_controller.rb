@@ -24,7 +24,7 @@ class PluginDiscussionsController < ApplicationController
    if @discussion.save
     Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => @plugin.model_name.human, :name => "#{@discussion.title}"))            
     flash[:success] = t("notice.item_create_success", :item => @plugin.model_name.human)
-    flash[:success] += t("notice.item_needs_approval", :item => @plugin.model_name.human) if !@discussion.is_approved?
+    flash[:success] += " " + t("notice.item_needs_approval", :item => @plugin.model_name.human) if !@discussion.is_approved?
    else # fail saved 
     flash[:failure] = t("notice.item_create_failure", :item => @plugin.model_name.human)
    end 

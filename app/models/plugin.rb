@@ -38,8 +38,10 @@ class Plugin < ActiveRecord::Base
     return plugin_hash
   end
   
-  self.plugins = Plugin.all_to_hash # store all plugins in Plugin.plugins
-  self.third_party_plugins = Plugin.third_party
+  if ActiveRecord::Base.connection.tables.include?('plugins') # check if table exists
+    self.plugins = Plugin.all_to_hash # store all plugins in Plugin.plugins
+    self.third_party_plugins = Plugin.third_party
+  end 
   
   def create_everything
     # Create Group Plugin Permissions

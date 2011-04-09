@@ -3,25 +3,27 @@
 	<% for log in logs %>
 		<tr>		
 
-			<td align=left style="vertical-align:middle">		
-				<% if log.user_id %>	
-					<% if log.user %>																					
-						<%= link_to  user_avatar(log.user, :size => "tiny"), {:action => "user", :controller => "browse", :id => log.user}, :title => "#{log.user.username}"  %>
-					<% else %>
-     					<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon help\" title=\"#{t("label.not_found")}\">" %>      						
-					<% end %>	
-				<% end %>				
+			<td align=left style="vertical-align:top">		
+				<%= log_icon(log) %>	
 				<% if log.item_id %>
 					<% if log.item %>
 						<%= link_to item_thumbnail(log.item, :class => "pinky"), {:action => "view", :controller => "items", :id => log.item}, :title => h(log.item.name) %>
 					<% else %>
 	     				<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon help\" title=\"#{t("label.not_found")}\">" %>      											
 					<% end %>		
-				<% end %>
-				<%= log_icon(log) %>
+				<% end %>							
+				<% if log.user_id && log.user_id != User.anonymous.id %>	
+					<% if log.user %>																					
+						<%= link_to  user_avatar(log.user, :size => "tiny"), {:action => "user", :controller => "browse", :id => log.user}, :title => "#{log.user.username}"  %>
+					<% else %>
+     					<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon help\" title=\"#{t("label.not_found")}\">" %>      						
+					<% end %>	
+				<% end %>				
+				<%= User.anonymous.to_s if log.user_id == User.anonymous.id %>
+				<%#= link_to_user(log.user) if log.user %>
 				<%= strip_tags(log.log) %>		
 			</td>			
-			<td align=right style="vertical-align:middle;width:175px;">		
+			<td align=right style="vertical-align:top;width:175px;">		
 				<%= friendly_date log.created_at %>
 			</td>
 		</tr>

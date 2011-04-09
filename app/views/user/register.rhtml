@@ -1,19 +1,114 @@
+<script type="text/javascript">
+	$(document).ready(function() {		
+		$('#user_username').blur(function() {
+			//alert($("#user_username").val())
+			
+			$.ajax({
+			  type: "POST",	
+			  url: '<%= url_for :action => "user_available", :controller => "user" %>',
+			  data: "username="+$("#user_username").val(),
+			  beforeSend: function(){
+			  	//$("#username_check_box").html('<%= loading %>')
+			  },
+			  success: function(data) {
+			  	//alert(data)
+				if(data) //available
+				{
+					$("#username_check_box").html('<%= icon("success") %>')
+				}
+				else // not available
+				{
+					$("#username_check_box").html('<%= icon("failure") %>')
+				} 
+			    //$("#username_check_box").html(data);
+			    //alert('Load was performed.');
+			  },
+		        error:function (xhr, ajaxOptions, thrownError){
+		            alert(xhr.status);
+		            alert(thrownError);
+		        }  		  
+			});	
+		});	
+	});			
+</script>
 <div class="box_1" style="width:500px;margin: 0px auto" align=center>	
 	<h2><%= t("label.create_account") %> </h2>
 	<div style="height:5px"></div>	
 	   <% form_for :user,  :url => { :action => "create_account", :controller => "user" } do |f| %>
 	    <%= f.error_messages %>
 	 	<table style="text-align:left">
-	     <tr><td><%= f.label :email %></td><td> <%= f.text_field :email  %></td></tr>
-	     <tr><td><%= f.label :first_name %></td><td> <%= f.text_field :first_name  %></td></tr>
-	     <tr><td><%= f.label :last_name %></td><td> <%= f.text_field :last_name  %></td></tr>
-	
-	     <tr><td colspan=2 style="height:33px" align=center valign=middle><div id="username_search_box"></div></td></tr>
-	     <tr><td><%= f.label :username %></td><td> <%= f.text_field :username %></td></tr>		
-	     <tr><td><%= f.label :password %></td><td> <%= f.password_field :password %></td></tr>
-	     <tr><td><%= f.label :password_confirmation %></td><td > <%= f.password_field :password_confirmation %></td></tr>
-	     <tr><td><%= f.label :locale %></td><td > <%= render :partial => "shared/select_locale", :locals => {:options => {:input_name => "user[locale]"}}  %></td></tr>
-	     <tr><td><%= t("label.captcha") %></td><td align=left><%= show_simple_captcha %></td></tr>
+         <tr>
+             <td>
+                 <%= f.label :username %>
+             </td>
+             <td>
+                 <%= f.text_field :username %>
+				 <span id="username_check_box">&nbsp;</span>
+             </td>
+         </tr>
+         <tr>
+             <td>
+                 <%= f.label :password %>
+             </td>
+             <td>
+                 <%= f.password_field :password %>
+             </td>
+         </tr>
+         <tr>
+             <td>
+                 <%= f.label :password_confirmation %>
+             </td>
+             <td>
+                 <%= f.password_field :password_confirmation %>
+             </td>
+         </tr>	 
+		 <tr>
+		 	<td colspan=2>
+		 		<div style="height:20px"></div>
+		 	</td>		
+		 </tr>
+         <tr>
+             <td>
+                 <%= f.label :email %>
+             </td>
+             <td>
+                 <%= f.text_field :email %>
+             </td>
+         </tr>
+         <tr>
+             <td>
+                 <%= f.label :first_name %>
+             </td>
+             <td>
+                 <%= f.text_field :first_name %>
+             </td>
+         </tr>
+         <tr>
+             <td>
+                 <%= f.label :last_name %>
+             </td>
+             <td>
+                 <%= f.text_field :last_name %>
+             </td>
+         </tr>
+
+
+         <tr>
+             <td>
+                 <%= f.label :locale %>
+             </td>
+             <td>
+                 <%= render :partial => "shared/select_locale", :locals => {:options => {:input_name => "user[locale]"}} %>
+             </td>
+         </tr>
+         <tr>
+             <td>
+                 <%= t("label.captcha") %>
+             </td>
+             <td align=left>
+                 <%= show_simple_captcha %>
+             </td>
+         </tr>
 		 <% page = Page.find_by_name("terms_of_service") %>
 	     <tr><td colspan=2 align=center>
 	     	<div style="height:20px"></div>	
@@ -25,10 +120,3 @@
 	   <% end %>
 	<br>
 </div>
-<%#= observe_field("user_username",
-  :frequency => 1,
-  :update => "username_search_box",
-  :url => {:action => "check_username"},
-  :with => "'username='+escape(value)") 
-  #:with => "'values='+escape(value) + ' ' + $F('field2')") 
-%>

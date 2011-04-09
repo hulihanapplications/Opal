@@ -154,11 +154,7 @@ class User < ActiveRecord::Base
  end
 
   def use_gravatar?
-    if self.user_info.use_gravatar == "1"
-      return true
-    else 
-      return false
-    end
+    self.user_info ? self.user_info.use_gravatar == "1" : false
   end
 
   def is_enabled?

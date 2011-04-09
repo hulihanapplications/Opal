@@ -484,5 +484,13 @@ module ApplicationHelper
       icon("unknown", t("single.unknown"), "icon help")
     end  
   end 
+  
+  def link_to_user(user)
+    link_to user.to_s,{:action => "user", :controller => "browse", :id => user}
+  end
+  
+  def loading #show loading box
+    theme_image_tag("loading.gif", :class => "loading")
+  end
 end
 

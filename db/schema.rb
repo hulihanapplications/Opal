@@ -82,6 +82,8 @@ ActiveRecord::Schema.define(:version => 20110310183526) do
     t.string   "log_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "target_type"
+    t.integer  "target_id"
   end
 
   create_table "page_comments", :force => true do |t|
@@ -170,7 +172,7 @@ ActiveRecord::Schema.define(:version => 20110310183526) do
     t.string   "price"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "approved",    :default => false
+    t.string   "is_approved", :limit => 1, :default => "0"
   end
 
   create_table "plugin_feature_value_options", :force => true do |t|

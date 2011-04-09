@@ -1,6 +1,6 @@
 class UserController < ApplicationController
  # this controller may/may not contain anything, but each controller under app/controllers/user/* inherits from this.
- before_filter :authenticate_user, :except =>  [:login, :create_account, :register, :check_username, :create_comment, :forgot_password, :recover_password]
+ before_filter :authenticate_user, :except =>  [:login, :create_account, :register, :user_available, :create_comment, :forgot_password, :recover_password]
  before_filter :enable_user_menu, :except => [:register, :create_account]  # show_user_menu
  before_filter :enable_sorting, :only => [:items] # prepare sort variables & defaults for sorting
 
@@ -123,14 +123,9 @@ class UserController < ApplicationController
     redirect_to  :action => "index", :controller => "/browse"    
   end
  
-  def check_username
+  def user_available
    username_found = User.find(:first, :conditions => ["username = ?", params[:username]], :select => :username)
-   if username_found # username taken
-    render :text => "<div class=\"notice\"><div class=\"failure\">#{t("label.username_taken")}</div></div>"
-   else # username not taken
-    render :text => "<div class=\"notice\"><div class=\"success\">#{t("label.username_available")}</div></div>"
-   end
-   #render :layout => false
+   render :json => username_found.nil?
   end
 
 

@@ -21,7 +21,10 @@ class ZeroSevenTwo < ActiveRecord::Migration
     add_column :users, :last_login_at, :datetime
     add_column :users, :current_login_ip, :string    
     # add_column :users, :last_login_ip, :string # already present
-     
+    
+    # Add Log Targeting 
+    add_column :logs, :target_type, :string
+    add_column :logs, :target_id, :integer
   end
 
   def self.down

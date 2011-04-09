@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   # Replace this with your real tests.
@@ -6,3 +6,4 @@ class UserTest < ActiveSupport::TestCase
     assert true
   end
 end
+ 

@@ -3,7 +3,7 @@ class PluginFeaturesController < ApplicationController
   before_filter :find_item, :except => [:new, :create, :delete, :index, :edit, :update, :create_option, :delete_option] # look up item 
   before_filter :find_plugin # look up plugin
   before_filter :get_my_group_plugin_permissions # get permissions for this plugin
-  before_filter :check_item_view_permissions # can user view item? 
+  before_filter :check_item_view_permissions, :only => [:create_feature_values, :update_feature_value, :update_values, :delete_feature_values] # can user view item? 
   before_filter :check_item_edit_permissions, :only => [:change_approval] # list of actions that don't require that the item is editable by the user
   before_filter :authenticate_admin, :enable_admin_menu, :only =>  [:create, :delete, :index, :new, :edit, :update, :create_option, :delete_option] # make sure logged in user is an admin  
   before_filter :can_group_create_plugin, :only => [:create_feature_values]

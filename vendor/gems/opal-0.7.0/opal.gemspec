@@ -16,6 +16,5 @@ Gem::Specification.new do |s|
   #s.executables = [""]
   s.require_path = "lib"
   #s.autorequire = "opal"
-  s.has_rdoc = false
   #s.add_dependency "rmagick", ">=2.12.2"
 end

@@ -378,11 +378,11 @@ ActiveRecord::Schema.define(:version => 20110310183526) do
     t.string   "last_login_ip",                    :default => "0.0.0.0"
     t.integer  "group_id",                         :default => 2
     t.string   "locale"
-    t.string   "persistence_token",                                       :null => false
-    t.string   "perishable_token",                                        :null => false
-    t.string   "single_access_token",                                     :null => false
-    t.integer  "login_count",                      :default => 0,         :null => false
-    t.integer  "failed_login_count",               :default => 0,         :null => false
+    t.string   "persistence_token"
+    t.string   "perishable_token"
+    t.string   "single_access_token"
+    t.integer  "login_count",                      :default => 0
+    t.integer  "failed_login_count",               :default => 0
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"

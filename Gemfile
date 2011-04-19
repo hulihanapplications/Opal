@@ -5,11 +5,11 @@ gem "opal", "0.7.0", :path => File.expand_path("#{File.dirname(__FILE__)}/vendor
 gem "simple_captcha", "0.1.1", :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems") # use galetahub's simple_captcha instead of rubygems
 
 # Regular Gems
-gem "rails", "= 3.0.3"#, :git => "http://github.com/rails/rails"
+gem "rails", "= 3.0.7"#, :git => "http://github.com/rails/rails"
 gem "nokogiri"
 gem "sanitize"
 gem "will_paginate", ">= 3.0.pre2"#, :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems")
-gem "rmagick"
+gem "rmagick", "2.12.2"
 gem "i18n", ">=0.5.0"
 gem "rubyzip"
 gem "ya2yaml" 

@@ -14,7 +14,7 @@
 
 
 			<% if @plugin.plugin_settings.size > 0  %>
-				<% form_tag ({:action => "update_plugin_settings"}) do %>
+				<% form_tag({:action => "update_plugin_settings"}) do %>
 					<%= render :partial => "/settings/list_settings", :locals => {:settings => @plugin.plugin_settings} %>
 					 	<br>
 					<div align=center>

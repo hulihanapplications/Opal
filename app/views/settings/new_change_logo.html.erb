@@ -24,7 +24,7 @@
 				</table>
 			</div>	  		
 			<div align="center" class="box_1" style="margin-bottom:5px;" id="upload_logo_box">
-				<%= form_tag ({:action => 'change_logo', :controller => "settings"} , :multipart => true)  %>
+				<%= form_tag({:action => 'change_logo', :controller => "settings"} , :multipart => true)  %>
 					<%= render :partial => "shared/upload_form" %>
 					<br>
 					<%= submit_tag t("single.upload"), :class => "button_1" %>

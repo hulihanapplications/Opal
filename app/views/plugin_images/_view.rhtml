@@ -48,7 +48,7 @@
 				<div style="display:none" id="new_image_box" class="box_1">
 				      <h2><%=  t("label.item_new", :item => plugin.model_name.human) %></h2>
 					   <div>
-	   					   <%= form_tag ({:action => 'create', :controller => "plugin_images", :id => item.id} , :multipart => true) %>
+	   					   <%= form_tag({:action => 'create', :controller => "plugin_images", :id => item.id} , :multipart => true) %>
 							   <%= render :partial => "shared/image_upload_form" %>
 							   <br>
 							   <div align=center>

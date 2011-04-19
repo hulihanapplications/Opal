@@ -27,7 +27,7 @@
 			<div style="display:none" id="new_file_box" class="box_1">
 		      <h2><%=  t("label.item_new", :item => plugin.model_name.human) %></h2>
 			   <div>
-					   <%= form_tag ({:action => 'create', :controller => "plugin_files", :id => item.id} , :multipart => true) %>
+					   <%= form_tag({:action => 'create', :controller => "plugin_files", :id => item.id} , :multipart => true) %>
 					<img src="/themes/<%= @setting[:theme] %>/images/icons/file.png" class="icon"  title="" alt="">					   
 					<%= PluginFile.human_attribute_name(:title) %>
 					<input name="file_title" type="text" id="new_file_title" onfocus = "focus_input('new_file_title')" onblur = "blur_input('new_file_title')">

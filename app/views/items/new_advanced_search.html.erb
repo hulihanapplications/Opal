@@ -2,7 +2,7 @@
 	<h2><%= t("single.advanced") + " " + t("single.search") %></h2><br>
 
 
-	<%= form_tag (url_for(:controller => "items", :action => "advanced_search"), :remote => true, :id => "advanced_search_form") do |f|  %>
+	<%= form_tag(url_for(:controller => "items", :action => "advanced_search"), :remote => true, :id => "advanced_search_form") do |f|  %>
 		<%= render :partial => "advanced_search_form" %>
 		<div style="height:10px;clear:both"></div>
 		<input type="submit" value="<%= t("single.search") %>" class="button_1" id="advanced_search_button">			

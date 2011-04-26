@@ -19,7 +19,8 @@ class PluginReview < ActiveRecord::Base
 
   
   before_destroy :delete_everything
-   validates_presence_of :review_score, :message => "You forgot to select a score!"
+  validates_presence_of :review_score
+  validates_presence_of :item_id, :user_id
    #validates_length_of :review, :minimum => 10, :message => "This review is too short! It must have at least 10 characters."
    #validates_length_of :review, :maximum => 255, :message => "This review is too long! It must be 255 characters or less."
 

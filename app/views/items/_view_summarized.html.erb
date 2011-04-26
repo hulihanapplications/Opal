@@ -51,8 +51,8 @@
 					<div class="description">
 						<%= simple_format item.description unless item.description.blank? %>	
 					</div>													
-					<div style="width:300px;" id="features">
-						<% if Plugin.plugins[:review].is_enabled? %>
+					<div id="features">
+						<% if Plugin.plugins[:feature].is_enabled? %>
 							<% 
 								features = PluginFeature.find(:all, :order => "order_number ASC") 
 								if item.is_editable_for_user?(@logged_in_user)

@@ -22,7 +22,7 @@
 	/* Main Menu */
 	ul.main_menu{list-style:none;text-align:right;margin-top:100px;}
 		ul.main_menu li{display:inline;}
-			ul.main_menu li a{padding:5px 12px 5px 12px;margin:0px 0px 0px 10px;text-align:center;text-shadow:1px 1px 4px black;font-size:18px;}
+			ul.main_menu li a{padding:5px 12px 7px 12px;margin:0px 0px 0px 10px;text-align:center;text-shadow:1px 1px 4px black;font-size:18px;}
 			ul.main_menu li a:visited, ul.main_menu li a:link{color:#ccc;}
 			ul.main_menu li a:hover{color:white;}
 			ul.main_menu li a.selected{color:#333;text-shadow:1px 1px 0px #aaa;background:#ECECEC; -moz-border-radius-topleft:5px;-webkit-border-top-left-radius:5px; -moz-border-radius-topright:5px;-webkit-border-top-right-radius:5px}

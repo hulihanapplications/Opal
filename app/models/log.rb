@@ -85,4 +85,6 @@ class Log < ActiveRecord::Base
     end
     string << self.log
   end
+  
+
 end

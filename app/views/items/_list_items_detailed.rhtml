@@ -101,9 +101,7 @@
 									<td align=left style="width:50%">										
 										<% if Plugin.plugins[:feature].is_enabled? %>
 											<%= render :partial => Plugin.plugins[:feature].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:feature], :item => item, :my_group_plugin_permissions => my_group_plugin_permissions } %>
-										<% end %>
-
-									
+										<% end %>									
 									</td>
 									<td align=right style="vertical-align:top;width:50%">
 										<% if Plugin.plugins[:tag].is_enabled? %>

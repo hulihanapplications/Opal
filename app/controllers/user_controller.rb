@@ -60,42 +60,8 @@ class UserController < ApplicationController
     flash[:failure] =  t("notice.invalid_permissions")  
     redirect_to :action => "index", :controller => "/browse"
   end 
- end
+end
 
-
- # Authentication Functions
-  def login
-    if request.post?
-       # User ID will return valid if they log in correctly, if not, nil is returned 
-       session[:user_id] = User.authenticate(params[:user][:username], params[:user][:password])
-       if session[:user_id] # if login successful
-         @logged_in_user = User.find(session[:user_id]) # retrieve the fresh user from DB, so we can update login stats
-         @logged_in_user.user_info.update_attribute(:forgot_password_code, nil) # clear password recovery code
-         flash[:success] = t("notice.user_login_success")
-         @logged_in_user.update_attribute(:last_login, Time.now.strftime("%Y-%m-%d %H:%M:%S")) # update last login time
-         @logged_in_user.update_attribute(:last_login_ip, Time.now.strftime(request.env["REMOTE_ADDR"])) # update last login ip
-
-         if session[:original_uri] # go back to the user's original destination
-           redirect_to session[:original_uri]
-           session[:original_uri] = nil # clear out original destination
-         else # no original destination set, go to user home
-           redirect_to :action => "index", :controller => "user"
-         end         
-       else # authentication failed!
-         flash[:failure] = t("notice.user_login_failure")
-         redirect_to :action => "login", :controller => "browse"     
-       end
-    end
-  end
-
-  def logout
-    session[:user_id] = nil
-    @logged_in_user = nil
-    reset_session
-    flash[:success] = t("notice.user_logout_success")
-    redirect_to  :action => "index", :controller => "browse"
-  end
- 
   def register
     if @setting[:allow_user_registration]
       @user = User.new

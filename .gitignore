@@ -1,3 +1,6 @@
+# RVM
+.rvmrc
+
 # Rails
 .bundle
 *.log

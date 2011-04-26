@@ -4,13 +4,13 @@
 	options[:truncate_length] = 255 if options[:truncate_length].nil? 
 	options[:only_listed] = false if options[:only_listed].nil? # show only listed features 
 %>
-<table  cellpadding=1 cellspacing=1>
+<table  cellpadding=0 cellspacing=0>
 	<% for feature_value in feature_values %>
 			<% feature = feature_value.plugin_feature %>
 			<% if !feature.nil?  %>
 				<% if (options[:only_listed] && feature.listed) || !options[:only_listed] %>
 					<tr>
-						<td style="text-align:left;padding:0px;">
+						<td style="text-align:left;padding:0px;;white-space: nowrap;">
 								<% if item.is_editable_for_user?(@logged_in_user) && options[:show_controls]  %>
 									<span class="" >									
 							 			<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/approved.png\" title=\"#{t("single.approved")}\" class=\"icon\">" if feature_value.is_approved? %> 										
@@ -21,8 +21,7 @@
 								<%= feature_icon feature %>
 								<%= feature.name %>:
 						</td>
-						<td style="width:10px"></td>
-						<td style="text-align:left;padding:0px;">
+						<td style="text-align:left;padding-left:10px;">
 								<span id="feature_value_<%= feature_value.id %>">
 									<b>
 										<% if !feature_value.url.nil? && feature_value.url != "" %>

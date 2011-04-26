@@ -2,7 +2,7 @@
 class UserSessionsController < ApplicationController 
   # before_filter :require_no_user, :only => [:new, :create]
   # before_filter :require_user, :only => :destroy
-  skip_before_filter :check_public_access, :only => [:new]
+  skip_before_filter :check_public_access, :only => [:new, :create]
   
   def new
     @user_session = UserSession.new
@@ -17,7 +17,7 @@ class UserSessionsController < ApplicationController
       flash[:success] = t("notice.user_login_success") 
       
       if session[:original_uri] # is there a saved url? 
-        redirect_to session[:original_uri]
+        session[:original_uri].include?("user_session") ? redirect_to(:action => "index", :controller => "user") : redirect_to(session[:original_uri]) # redirect to saved uri as long as its not to a session controller
         session[:original_uri] = nil
       else # no saved url
         redirect_to :action => "index", :controller => "user"

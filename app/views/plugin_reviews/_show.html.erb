@@ -10,7 +10,7 @@
 		<tr>
 			<td style="vertical-align:top;"  class="user_column">
 				  <div class="user_box" align=center >
-				 <% review_user = User.find(review.user_id)%>
+				 <% review_user = User.find(review.user_id)  %>
 				 <%= link_to user_avatar(review_user, :size => "small"), {:action => "user", :id => review_user, :controller => "browse"}   %>
 				 <br>
 				 <%= link_to content_tag(:span, review_user.username, :itemprop => "reviewer"), {:action => "user", :id => review_user, :controller => "browse"}   %>

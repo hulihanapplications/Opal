@@ -7,6 +7,14 @@ xml.rss(:version=>"2.0"){
     @setting[:meta_description].shift
     xml.description(@setting[:meta_description].join(" - "))
     xml.language("#{I18n.locale}")
+
+    if @item.main_image 
+      xml.image do
+        xml.url(URI.join(@setting[:url], @item.main_image.thumb_url))
+        xml.title(@item.main_image.description.blank? ? @item.main_image.filename : @item.main_image.description)
+        xml.link(URI.join(@setting[:url], @item.main_image.url))
+      end 
+    end 
     
     for log in @item.logs
       xml.item do        

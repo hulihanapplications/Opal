@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
     @setting = Setting.global_settings 
     @setting[:theme] = params[:theme] if params[:theme] # preview theme if theme is specified in url
     prepend_view_path(File.join(@setting[:theme_dir], "app", "views")) # add the curent theme's view path to view paths to load
-    @setting[:url] = "http://" + request.env["HTTP_HOST"] + "" # root url for host/port, taken from request
+    @setting[:url] = request.protocol + request.host_with_port # root url for host/port, taken from request
     # Get Meta Settings Manually So they're not cached(which causes nested meta information)
     @setting[:meta_title] = Array.new
     @setting[:meta_title] <<  @setting[:description] if !@setting[:description].blank?

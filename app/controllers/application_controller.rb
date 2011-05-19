@@ -13,6 +13,8 @@ class ApplicationController < ActionController::Base
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery  #:secret => '271565d54852d3da3a489c27f69a31b1'
+
+  helper_method :current_user  
   
   def layout_location # this will eventually be deprecated, in favor of prepend_view_path
     # Load Theme & Layout
@@ -44,7 +46,7 @@ class ApplicationController < ActionController::Base
   def load_settings
     @setting = Setting.global_settings 
     @setting[:theme] = params[:theme] if params[:theme] # preview theme if theme is specified in url
-    prepend_view_path(File.join(@setting[:theme_dir], "app", "views")) # add the curent theme's view path to view paths to load
+    prepend_view_path(File.join(@setting[:themes_dir], @setting[:theme],  "app", "views")) # add the curent theme's view path to view paths to load
     @setting[:url] = request.protocol + request.host_with_port # root url for host/port, taken from request
     # Get Meta Settings Manually So they're not cached(which causes nested meta information)
     @setting[:meta_title] = Array.new
@@ -257,9 +259,7 @@ private
     return @current_user_session if defined?(@current_user_session)
     @current_user_session = UserSession.find
   end
-  
-  helper_method :current_user
-  
+    
   def current_user
     return @current_user if defined?(@current_user)
     @current_user = current_user_session && current_user_session.record

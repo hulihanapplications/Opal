@@ -4,7 +4,6 @@ class PluginImage < ActiveRecord::Base
   belongs_to :user
   
   before_destroy :delete_files
-
   
   validates_uniqueness_of :url, :scope => :item_id, :message => "There is already an image with this filename!"
   

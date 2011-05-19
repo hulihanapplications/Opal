@@ -5,7 +5,7 @@ class UserSession < Authlogic::Session::Base
   
   # Custom Configuration
   find_by_login_method :find_by_username # User lookup method
-  verify_password_method :valid_password? # User password verification method
+  verify_password_method :password? # User password verification method
   
   def to_key # rails3 fix
     new_record? ? nil : [ self.send(self.class.primary_key) ]

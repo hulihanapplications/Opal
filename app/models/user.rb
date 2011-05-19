@@ -25,47 +25,51 @@ class User < ActiveRecord::Base
   after_create :create_everything
   after_destroy :destroy_everything
   
-  
-  # Enable Authlogic
-  acts_as_authentic do |c| 
-    c.validate_email_field     = false
-    c.validate_login_field     = false
-    c.validate_password_field  = false
-  end
-  
-  #------------Login Authentication---------------
-  def self.authenticate(login, unhashed_pass)
-    u = self.find(:first, :conditions => ["username = ? and password_hash = ?", login, Digest::SHA256.hexdigest(unhashed_pass) ] )# check username column with the hashed pass arg
-    if u 
-      return u.id
-    else
-      nil
-    end
-  end  
-  #----------------------------------------------- 
-  
   attr_accessor :password_confirmation, :password # virtual attributes
-  attr_protected :is_admin, :is_verified, :is_disabled # protect from bulk assignment
+  attr_protected :is_admin, :is_verified, :is_disabled, :title # protect from bulk assignment  
   
-  #--------Encrypt Password-------------------------
-  # make sure you're doing attr_accessor before this
-  def password=(pass)
-    @password = pass 
-    self.password_hash = Digest::SHA256.hexdigest(pass)
-  end
-  #-------------------------------------------------
+  # Authentication! 
+    # Enable Authlogic
+    acts_as_authentic do |c| 
+      c.validate_email_field     = false
+      c.validate_login_field     = false
+      c.validate_password_field  = false
+    end
+    
+    def password?(password) # check if this password is the user's password
+     self.password_hash == hash_password(password)
+   end
+   
+    def self.authenticate(login, password)
+      u = self.find(:first, :conditions => ["username = ? and password_hash = ?", login, hash_password(password) ] )# check username column with the hashed pass arg
+      return u
+    end     
+    
+    def password=(pass) # set password, encrypt password on assignment
+      @password = pass 
+      self.salt = User.generate_salt # generate new salt
+      self.password_hash = hash_password(pass)
+    end
+    
+    def hash_password(pass) # hash that password
+      Digest::SHA256.hexdigest(pass + (salt.blank? ? "" : salt))
+    end
   
-  def valid_password?(password) # check if this password is the user's password
-   self.password_hash == Digest::SHA256.hexdigest(password)
-  end
-  
+    def self.generate_salt
+      salt = String.new
+      64.times { salt << (i = Kernel.rand(62); i += ((i < 10) ? 48 : ((i < 36) ? 55 : 61 ))).chr }
+      return salt
+    end
+   
+    def assign_salt # assign a salt if it don't exist.
+      self.salt = User.generate_salt
+    end 
+    
   def self.search(search, page)
     paginate :per_page => 5, :page => page,
              :conditions => ['username like ?', "%#{search}%"],
              :order => 'username'
   end
-  # call with @products = Product.search(params[:search], params[:page])
-  #------------------------------------------------- 
 
   def to_param # make custom parameter generator for seo urls, to use: pass actual object(not id) into id ie: :id => object
     # this is also backwards compatible with id lookups, since .to_i gets only contiguous numbers, ie: "4-some-string-here".to_i # => 4    

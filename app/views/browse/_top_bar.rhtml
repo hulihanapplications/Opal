@@ -25,25 +25,25 @@
 			</td>
 			<td>
 				<div align=right class="login_box">
-				<% if !@logged_in_user.anonymous? %>
-				 <%= user_avatar(@logged_in_user, :size => "tiny") %>
-				 <%= t("label.logged_in_as", :name => @logged_in_user.username) %> 
-				 <%= icon("spacer") %>
-				 <%= link_to t("section.title.my_account"), {:action => "index", :controller => "user"} %>
-				 <% if @logged_in_user.is_admin? %>
-				 	<%= icon("spacer") %>
-				 	<%= link_to t("section.title.admin"), {:action => "index", :controller => "admin"} %>
-				 <% end %>
-				 <%= icon("spacer") %>
-				 <%= link_to t("label.log_out"), logout_path %>
-				 <%= render :partial => "shared/help" if Setting.get_setting_bool("display_help_sections")  %>
-	  			<% else %>
-			   		<%= link_to(t("label.log_in"), login_path) if Setting.get_setting_bool("show_user_login") %>
-			   		<% if @setting[:allow_user_registration] %>
-				 	  	<%= icon("spacer") %>
-						<%= link_to t("label.register"), {:action => "register", :controller => "user"} %>
-					<% end %>		 
-				<% end %>
+					<% if !@logged_in_user.anonymous? %>
+					 <%= user_avatar(@logged_in_user, :size => "tiny") %>
+					 <%= t("label.logged_in_as", :name => @logged_in_user.username) %> 
+					 <%= icon("spacer") %>
+					 <%= link_to t("section.title.my_account"), {:action => "index", :controller => "user"} %>
+					 <% if @logged_in_user.is_admin? %>
+					 	<%= icon("spacer") %>
+					 	<%= link_to t("section.title.admin"), {:action => "index", :controller => "admin"} %>
+					 <% end %>
+					 <%= icon("spacer") %>
+					 <%= link_to t("label.log_out"), logout_path %>
+					 <%= render :partial => "shared/help" if Setting.get_setting_bool("display_help_sections")  %>
+		  			<% else %>
+				   		<%= link_to(t("label.log_in"), login_path) if Setting.get_setting_bool("show_user_login") %>
+				   		<% if @setting[:allow_user_registration] %>
+					 	  	<%= icon("spacer") %>
+							<%= link_to t("label.register"), {:action => "register", :controller => "user"} %>
+						<% end %>		 
+					<% end %>
 				</div>
 			</td>
 		</tr>

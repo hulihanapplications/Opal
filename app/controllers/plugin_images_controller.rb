@@ -10,7 +10,7 @@ class PluginImagesController < ApplicationController
   
 
 
-  def create
+  def create       
     require "RMagick"
       
     acceptable_file_extensions = ".png, .jpg, .jpeg, .gif, .bmp, .tiff, .PNG, .JPG, .JPEG, .GIF, .BMP, .TIFF"

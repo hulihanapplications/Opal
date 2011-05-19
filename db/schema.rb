@@ -387,6 +387,7 @@ ActiveRecord::Schema.define(:version => 20110410001043) do
     t.datetime "current_login_at"
     t.datetime "last_login_at"
     t.string   "current_login_ip"
+    t.string   "salt"
   end
 
 end

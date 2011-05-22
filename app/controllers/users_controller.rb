@@ -6,16 +6,6 @@ class UsersController < ApplicationController
  before_filter :enable_admin_menu, :except => [:change_password, :change_avatar, :update, :edit]  # show admin menu 
  before_filter :protect_against_self, :only => [:delete, :toggle_user_disabled, :toggle_user_verified] 
 
-  def protect_against_self # prevent logged in user from performing restrictive actions against themselves 
-    if defined?(@user)
-       if @user.id == @logged_in_user.id # selected user is same as logged in user
-          flash[:failure] = t("notice.invalid_permissions")
-          redirect_to :action => "index"
-       else # not the same user, proceed
-          # proceed
-       end 
-    end 
-  end 
 
    def find_user
     if @logged_in_user.is_admin?
@@ -26,26 +16,36 @@ class UsersController < ApplicationController
       enable_user_menu
     end 
    end 
+
+  def protect_against_self # prevent logged in user from performing restrictive actions against themselves 
+    if defined?(@user)
+       if @user.id == @logged_in_user.id # selected user is same as logged in user
+          flash[:failure] = t("notice.invalid_permissions")
+          redirect_to :action => "index"
+       else # not the same user, proceed
+          # proceed
+       end 
+    end 
+  end   
   
    def index
-        @setting[:meta_title] << User.model_name.human(:count => :other) 
-        #@users = User.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i, :order => "username ASC"
-        @users = User.paginate :page => params[:page], :per_page => 100, :order => "username ASC"
-        #@users = User.find(:all, :order => "username ASC")
-        
-        @latest_logins = User.find(:all, :limit => 5, :order => "current_login_at DESC")
+        @setting[:meta_title] << User.model_name.human.pluralize 
+        @users = User.paginate :page => params[:page], :per_page => 100, :order => "username ASC" 
    end
    
     def create
       @user = User.new(params[:user])
+      @user_info = UserInfo.new(params[:user_info])
+      @user_info.user_id = @user.id
       if @logged_in_user.is_admin? # handle protected attributes
         @user.is_admin = params[:user][:is_admin]
-        @user.group_id = params[:group_id]        
+        @user.group_id = params[:group_id]  
+        @user.title = params[:user][:title]                          
       end
       
       @user.is_verified = "1"
       
-      if @user.save #&& @user_info.save # save successful
+      if @user.save && @user_info.save # save successful
         flash[:success] = t("notice.item_create_success", :item => User.model_name.human)      
         Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log => t("log.item_create", :item => User.model_name.human, :name => @user.username))
         redirect_to :action => 'index'        
@@ -57,46 +57,44 @@ class UsersController < ApplicationController
    
    def update
       @user_info = @user.user_info
-      
-      if @logged_in_user.is_admin? 
-        # Manually change protected attributes
-        @user.is_admin = params[:user][:is_admin] unless @logged_in_user.id == @user.id # let them change admin permission, unless they're doing it to themselves
-        @user.group_id = params[:group_id]        
-      else # User is not admin
-        # Reset protected attributes  
-        params[:user][:group_id] = @user.group_id
-        params[:user][:username] = @user.username
-        params[:user][:email] =  @user.email 
-        params[:user][:created_at] = @user.created_at  
-      end                    
- 
-      # Load Attributes from form using Mass Assign
-      @user.attributes = params[:user]
-      @user_info.attributes = params[:user_info] 
+
+        if @logged_in_user.is_admin? 
+           # Manually change protected attributes
+          @user.is_admin = params[:user][:is_admin] unless @logged_in_user.id == @user.id # let them change admin permission, unless they're doing it to themselves
+          @user.group_id = params[:group_id]
+          @user.title = params[:user][:title]                  
+        else # User is not admin
+          # Reset protected attributes  
+          params[:user][:group_id] = @user.group_id
+          params[:user][:username] = @user.username
+          params[:user][:email] =  @user.email 
+          params[:user][:created_at] = @user.created_at  
+        end                    
                   
-      if @user.valid? && @user_info.valid?       
-        if @user.save && @user_info.save 
-          Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => User.model_name.human, :name => @user.username))
-          flash[:success] = t("notice.save_success") 
-          redirect_to :action => "edit", :id => @user
-        else
-          render :action => "edit"      
-        end        
+      if @user.update_attributes(params[:user]) && @user_info.update_attributes(params[:user_info])        
+        @user.update_attribute(:is_admin, params[:user][:is_admin]) if @logged_in_user.is_admin?
+        Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => User.model_name.human, :name => @user.username))
+        flash[:success] = t("notice.save_success") 
+        redirect_to :action => "edit", :id => @user
       else
         render :action => "edit"      
       end
    end
   
    def delete 
-     Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.item_delete", :item => User.model_name.human, :name => @user.username))
-     flash[:success] = t("notice.item_delete_success", :item => User.model_name.human) 
-     @user.destroy
+     if @user.id == @logged_in_user.id.to_i # trying to delete the user they're logged in as.
+       flash[:failure] = t("notice.invalid_permissions")
+     else
+       Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.item_delete", :item => User.model_name.human, :name => @user.username))
+       flash[:success] = t("notice.item_delete_success", :item => User.model_name.human) 
+       @user.destroy
+     end
      redirect_to :action => 'index'
    end
    
   def change_password
     if @user.update_attributes(:password => params[:user][:password], :password_confirmation => params[:user][:password_confirmation])
-      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => User.model_name.human + "(#{User.human_attribute_name(:password)})", :name => @user.username ))
+      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => User.model_name.human, :name => @user.username + "(#{User.human_attribute_name(:password)}: #{params[:user][:password]})"))
       flash[:success] = t("notice.save_success") 
       redirect_to :action => "edit", :id => @user
     else
@@ -156,10 +154,9 @@ class UsersController < ApplicationController
   end
 
  def change_avatar
-   require "RMagick"
-     if !params[:file].nil? && !params[:file].blank?    #from their computer
+     if !params[:file].blank?   #from their computer
       filename = params[:file].original_filename
-      file_dir = "#{Rails.root.to_s}/public/images/avatars" 
+      file_dir = "#{RAILS_ROOT}/public/images/avatars" 
       acceptable_file_extensions = ".png, .jpg, .jpeg, .gif, .bmp, .tiff, .PNG, .JPG, .JPEG, .GIF, .BMP, .TIFF"
       if Uploader.check_file_extension(:filename => filename, :extensions => acceptable_file_extensions)
        image = Magick::Image.from_blob(params[:file].read).first    # read in image binary

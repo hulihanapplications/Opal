@@ -2,7 +2,7 @@
 		<%= render :partial => "menu" %>
 		<div class="box_1" align=left>
 			<h3 class="title"><%= User.human_attribute_name(:current_login_at) %></h3>
-			<% for user in @latest_logins %>
+			<% for user in User.latest_logins %>
 				<% if user.current_login_at %>
 					<table cellpadding=0 cellspacing=0 style="width:100%">
 						<tr>

@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
   attr_accessor :password_confirmation, :password # virtual attributes
   attr_protected :is_admin, :is_verified, :is_disabled, :title # protect from bulk assignment  
   
+  scope :latest_logins, :limit => 5, :order => "last_login_at DESC"
+  
   # Authentication! 
     # Enable Authlogic
     acts_as_authentic do |c| 

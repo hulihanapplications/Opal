@@ -16,8 +16,10 @@ Opal::Application.routes.draw do
   match '/page/:id', :controller => "pages", :action => "page"
 
   if (Setting.get_setting('locale').to_s == 'en')
-    match "/#{Item.model_name.human(:count => :other)}/:action/:id", :controller => "items" # use plural item name in url for anything in the items controller 
+    match "/#{Item.model_name.human(:count => :other).downcase}", :controller => "items", :action => "index" # use plural item name in url for anything in the items controller     
+    match "/#{Item.model_name.human(:count => :other).downcase}/:action/:id", :controller => "items" # use plural item name in url for anything in the items controller 
   elsif (Setting.get_setting('locale').to_s == 'ru')
+    match "/#{Russian.translit(Item.model_name.human(:count => :other)).downcase}", :controller => "items", :action => "index" # use plural item name in url for anything in the items controller         
     match "/#{Russian.translit(Item.model_name.human(:count => :other)).downcase}/:action/:id", :controller => "items" # Russian variant uses transliteration to avoid encoding troubles 
   end
 

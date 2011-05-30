@@ -115,7 +115,7 @@ If Opal is having trouble loading any of its required gems, you can always store
 bundle install --deployment
 </pre> 
 
-This will store all required gems in vendor/bundle, which Bundler knows to look for automatically.
+This will store all required gems in vendor/bundle, which Bundler knows to look for automatically. Bundling your gems locally is helpful when running Opal on shared hosting accounts, or when your user account uses different gems than the system.
 
 h1. Community & Additional Help
 

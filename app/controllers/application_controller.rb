@@ -229,13 +229,7 @@ class ApplicationController < ActionController::Base
       redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human(:count => :other)       
     end
   end    
-  
-  def sanitize(data) # sanitize data
-    html_whitelist = YAML::load(File.open(Rails.root.to_s + "/config/whitelist_html.yml")) # load html whitelist from file
-    #return Sanitize.clean(data, Sanitize::Config::RELAXED)
-    return Sanitize.clean(data, :elements => html_whitelist["elements"], :attributes => html_whitelist["attributes"])    
-  end
-  
+    
   def enable_sorting # convert sort url GET variables into nice hashes for use in model sort functions(which also sanitize). This is a prefilter method.
     # Set default sort variables
     params[:sort_by] ||= Item.human_attribute_name(:created_at)

@@ -491,6 +491,6 @@ module ApplicationHelper
   
   def loading #show loading box
     theme_image_tag("loading.gif", :class => "loading")
-  end
+  end  
 end
 

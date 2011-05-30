@@ -14,7 +14,7 @@ class PluginDescriptionsController < ApplicationController
   def create
    @description = PluginDescription.new
    @description.title = params[:description][:title]
-   @description.content = sanitize(params[:description][:content])
+   @description.content = Opal.sanitize(params[:description][:content])
    @description.user_id = @logged_in_user.id
    @description.item_id = @item.id
    
@@ -34,7 +34,7 @@ class PluginDescriptionsController < ApplicationController
   def update
    @description = PluginDescription.find(params[:description_id])
    @description.title = params[:description][:title]
-   @description.content = sanitize(params[:description][:content])
+   @description.content = Opal.sanitize(params[:description][:content])
    if @description.save
     Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => t("log.item_save", :item => @plugin.model_name.human, :name => @description.title))                    
     flash[:success] =  t("notice.item_save_success", :item => @plugin.model_name.human)

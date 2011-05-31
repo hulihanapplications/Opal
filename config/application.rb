@@ -45,11 +45,9 @@ module Opal
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]    
-  end
-  
-  def self.sanitize(data) # sanitize/clean data
-    html_whitelist = YAML::load(File.open(RAILS_ROOT + "/config/whitelist_html.yml")) # load html whitelist from file
-    clean_data = ::Sanitize.clean(data, :elements => html_whitelist["elements"], :attributes => html_whitelist["attributes"])
-    return clean_data
-  end   
+    
+    # Customize Sanitation
+    config.action_view.sanitized_allowed_tags = %w{img a table tr td th br b u i strong p span embed object param ul ol li blockquote pre div sub sup h1 h2 h3 h4 h5 h6 iframe}           
+    config.action_view.sanitized_allowed_attributes = %w{href title style width height allowfullscreen frameborder allowscriptaccess src type data name value align}    
+  end 
 end

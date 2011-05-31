@@ -8,8 +8,6 @@ gem "russian", :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems/
 	
 # Regular Gems
 gem "rails", "= 3.0.7"#, :git => "http://github.com/rails/rails"
-gem "nokogiri"
-gem "sanitize"
 gem "rmagick", "2.12.2"
 gem "i18n", ">=0.5.0"
 gem "rubyzip"

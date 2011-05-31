@@ -1,14 +1,18 @@
 require File.expand_path(File.join("..", "..", "..", "config", "environment"), __FILE__) # load rails environment & initalizers
-
 namespace I18n.t("name").downcase.to_sym do
 
   desc "Install #{I18n.t("name")} - Database, Default Data, and optional Example Data"
-  task :install => :environment do
-    check_for_required_files
+  task :install => :environment do    
+    # Install Bundler Gems
+    Bundler.with_clean_env do
+      sh "bundle install"
+    end
+    
     ENV["PROMPTS"] ||= "TRUE"    
     ENV["RAILS_ENV"] ||= "production"    
     Rake::Task["db:migrate"].invoke
     Rake::Task["db:seed"].invoke 
+    
   end
 
   desc 'Uninstall #{I18n.t("name")}'
@@ -63,21 +67,5 @@ namespace I18n.t("name").downcase.to_sym do
   end
 end
 
-def check_for_required_filescd 
-  if !File.exists?(File.join(Rails.root.to_s, "Gemfile")) && File.exists?(File.join(Rails.root.to_s, "Gemfile.default")) # check for Gemfile
-    FileUtils.cp(File.join(Rails.root.to_s, "Gemfile.default"), File.join(Rails.root.to_s, "Gemfile"))
-    puts File.join("Gemfile.default") + " -> " + File.join("Gemfile")
-  end   
-  
-  if !File.exists?(File.join(Rails.root.to_s, "config", "database.yml")) && File.exists?(File.join(Rails.root.to_s, "config", "database.yml.default")) # check for database.yml
-    FileUtils.cp(File.join(Rails.root.to_s, "config", "database.yml.default"), File.join(Rails.root.to_s, "config", "database.yml"))
-    puts File.join("config", "database.yml.default") + " -> " + File.join("config", "database.yml")
-  end 
-  
-  if !File.exists?(File.join(Rails.root.to_s, "config", "environment.rb")) && File.exists?(File.join(Rails.root.to_s, "config", "environment.rb.default")) # check for environment.rb
-    FileUtils.cp(File.join(Rails.root.to_s, "config", "environment.rb.default"), File.join(Rails.root.to_s, "config", "environment.rb"))
-    puts File.join("config", "environment.rb.default") + " -> " + File.join("config", "environment.rb")
-  end       
-end
 
 

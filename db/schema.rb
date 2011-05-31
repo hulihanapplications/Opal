@@ -54,12 +54,6 @@ ActiveRecord::Schema.define(:version => 20110410001043) do
     t.datetime "updated_at"
   end
 
-  create_table "item_statistics", :force => true do |t|
-    t.integer  "item_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "items", :force => true do |t|
     t.string   "name"
     t.string   "description"
@@ -163,18 +157,6 @@ ActiveRecord::Schema.define(:version => 20110410001043) do
     t.datetime "updated_at"
   end
 
-  create_table "plugin_events", :force => true do |t|
-    t.integer  "item_id"
-    t.integer  "user_id"
-    t.string   "title"
-    t.text     "description"
-    t.datetime "date"
-    t.string   "price"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "is_approved", :limit => 1, :default => "0"
-  end
-
   create_table "plugin_feature_value_options", :force => true do |t|
     t.integer  "plugin_feature_id"
     t.integer  "user_id"
@@ -209,6 +191,7 @@ ActiveRecord::Schema.define(:version => 20110410001043) do
     t.float    "min"
     t.float    "max"
     t.boolean  "listed",        :default => true
+    t.integer  "category_id"
   end
 
   create_table "plugin_files", :force => true do |t|

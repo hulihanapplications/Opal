@@ -1,3 +1,6 @@
+# Check for required files
+load(File.join(File.dirname(__FILE__), "..", "lib", "check_for_required_files.rb"))
+
 require 'rubygems'
 
 # Set up gems listed in the Gemfile.

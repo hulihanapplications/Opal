@@ -1,20 +1,18 @@
-
-
 <div id="side">
-		<%= render :partial => "menu" %>
+	<%= render :partial => "menu" %>
 </div>
 <div id="main">
 	<div align=center>
-		 <h2 class="title"><%= l(@date, :format => :month_year)  %></h2>
+		 <%= content_tag(:h2, l(@date, :format => !params[:month].blank? ? :month_year : "%Y"), :class => "title")  %>
 	</div>
 	<br>	
-   <div>
+	<div>
 		<%= render :partial => "blog/list_pages", :locals => {:pages => @pages} %>
-   </div>
-   <div align=center>
- 	 		<%= page_entries_info @pages, :entry_name => "Pages" %>							
-			<br>
-			<%= will_paginate @pages %>	  	
-   </div>
+	</div>
+	<div align=center>
+ 		<%= page_entries_info @pages, :entry_name => t("activerecord.models.blog_page", :count => :other)  %>							
+		<br>
+		<%= will_paginate @pages %>	  	
+	</div>
 	   
 </div>

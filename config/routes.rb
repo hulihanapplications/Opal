@@ -23,11 +23,12 @@ Opal::Application.routes.draw do
     match "/#{Russian.translit(Item.model_name.human(:count => :other)).downcase}/:action/:id", :controller => "items" # Russian variant uses transliteration to avoid encoding troubles 
   end
 
-  match '/blog/:year/:month/:day',
+  match '/blog/:year(/:month(/:day))',
                :controller => 'blog',
                :action     => 'archive',
                :month => nil, :day => nil,
-               :requirements => {:year => /\d{4}/, :month => /\d{1,2}/,:day => /\d{1,2}/ }
+               :constraints  => {:year => /\d{4}/, :month => /\d{1,2}/,:day => /\d{1,2}/},
+               :as => :blog_archive
 
 
   

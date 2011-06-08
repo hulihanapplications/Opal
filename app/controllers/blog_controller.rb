@@ -21,12 +21,13 @@ class BlogController < ApplicationController
   end
 
   def archive
-   # Set Range Defaults
-   params[:month] ||= Time.now.strftime("%m") # default month
-   params[:year] ||= Time.now.strftime("%Y") # default year 
-   params[:day] ||= Time.now.strftime("%d") # default day    
-   @date = Time.parse("#{params[:year]}/#{params[:month]}/") # date to search(by month)
-   @pages = Page.all.blog.published.newest_first.paginate :page => params[:page], :per_page => 5, :conditions => ["created_at > ? and created_at < ?", @date.beginning_of_month, @date.end_of_month]
+   # Compute Time based on parameters, should we look to beginning of day, month, or year? 
+   time_string = params[:year].blank? ? "" : params[:year] + (params[:month].blank? ? "" : "-" + params[:month] + (params[:day].blank? ? "" : "-" + params[:day]))
+   format_string = params[:month].blank? ? "" : "%Y" + (params[:month].blank? ? "" : "-%m" + (params[:day].blank? ? "" : "-%d"))  
+   @date = Time.strptime(time_string, format_string)
+   range_start = !params[:day].blank? ? @date.beginning_of_day : (!params[:month].blank? ? @date.beginning_of_month : !params[:year].blank? ? @date.beginning_of_year : 10.years.ago.beginning_of_year) 
+   range_end =  !params[:day].blank? ? @date.end_of_day : (!params[:month].blank? ? @date.end_of_month : !params[:year].blank? ? @date.end_of_year : Time.now)    
+   @pages = Page.all.blog.published.newest_first.paginate :page => params[:page], :per_page => 5, :conditions => ["created_at > ? and created_at < ?", range_start, range_end]
   end  
   
 end

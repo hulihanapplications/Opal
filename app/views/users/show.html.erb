@@ -1,0 +1,99 @@
+
+<div id="side">
+			<div class="box_3" align=center>
+			   <h1 class="title"><%= h @user.username %></h1>
+			   <div class="user_avatar" align=center style="margin-bottom:5px">
+				 <%= user_avatar(@user) %>
+			   </div>		
+			   <%= User.human_attribute_name(:created_at) %> <%= friendly_date @user.created_at %>	<br>
+			   <hr>
+			   <div id="message_box">
+			   		<a href="javascript:toggle_box('message_form')">
+						<%= icon("mail") %> <%= t("label.item_send_to", :item =>  UserMessage.model_name.human, :name => h(@user.username)) %>
+					</a>	
+			   </div>
+	
+		 	</div>
+		    <% if @logged_in_user.is_admin? %>
+			   	<div class="box_2" align=left style="text-align:center">
+			   		<h2 class="title" align=left><%= t("single.admin") %></h2>
+			   		<hr>
+					
+					<%= link_to icon("edit") + " " + t("label.item_edit", :item => User.model_name.human), edit_user_path(@user) %>		   
+			   		<hr>					
+					<%= link_to icon("logs") + " " + Log.model_name.human(:count => :other), {:controller => "logs", :action => "for_user", :id => @user, :anchor => "activity"}%>
+			   		<hr>
+					<%= link_to icon("mail") + " " + UserMessage.model_name.human(:count => :other), {:controller => "messages", :action => "for_user", :id => @user}%>
+			   		<hr>
+					<%= link_to icon("delete") + " " + t("label.item_delete", :item => User.model_name.human), @user, :method => :delete, :confirm => t("confirm.delete_user")%>		   					
+				</div>								
+		    <% end %>
+</div>
+<div id="main">
+				   <div id="message_form" style="display:none" align=center>
+				   		<% if !@logged_in_user.anonymous? %>
+				 			<div class="box_2" align=left>
+				 				<div id="send_message_notice"></div>
+				 				<h2 class="title"><%= t("label.item_send_to", :item =>  UserMessage.model_name.human, :name => h(@user.username)) %></h2>								   	
+					   			<%= form_tag({ :action => 'send_message', :controller => "messages", :id => @user.id}) %>
+									<table style="width:100%">
+										<tr>
+											<td align=center><textarea  style="width:400px;" name="message" id="message" onfocus = "focus_input('message')" onblur = "blur_input('message')"></textarea></td>
+										</tr>
+										<tr>
+											<td align=center><input type="submit" value="<%= t("label.item_send_to", :item =>  UserMessage.model_name.human, :name => h(@user.username)) %>" class="button_2"></td>
+										</tr>
+									</table>	
+								</form>
+							</div>
+						<% else %>
+							<div class="notice"><div class="failure"><%= t("notice.user_not_logged_in") %></div></div>
+						<% end %>
+						
+				   		<a href="javascript:toggle_box('message_form')">
+							<%= icon("cancel", t("single.cancel")) %>
+						</a>	
+						<br><br>						
+				   </div>		
+			<div class="box_1" align=left>	
+				<% if !@user.user_info.location.blank? %>
+					<h2 class="title"><%= UserInfo.human_attribute_name(:location) %></h2>
+					<%= h @user.user_info.location  %>	
+					<hr>
+				<% end %>
+				<% if !@user.user_info.description.blank? %>				
+					<h2 class="title"><%= UserInfo.human_attribute_name(:description) %></h2>
+					<%= h @user.user_info.description %>
+					<hr>
+				<% end %>
+				<% if !@user.user_info.interests.blank? %>
+					<h2 class="title"><%= UserInfo.human_attribute_name(:interests) %></h2>
+					<%= h @user.user_info.interests %>
+					<hr>
+				<% end %>	
+				<% if @logged_in_user.is_admin? %>							
+					<h2 class="title"><%= Group.model_name.human %></h2>
+					<%= h @user.group.name %>
+				<% end %>								
+			</div>
+			<br>
+			
+			<% if @setting[:section_items] %>
+				<%= render :partial => "browse/main_content_top_bar" %>
+				<br>
+	
+				
+				<div align=center>				
+					<h1 class="title"><%= t("label.items_from", :items =>  Item.model_name.human(:count => :other), :name => h(@user.username)) %></h1>
+					<%= page_entries_info @items, :entry_name => Item.model_name.human %>				
+				</div>
+				<br>
+				<%= render :partial => "items/list_items", :locals => {:items => @items } %>
+				<div align=center>			
+					<%= will_paginate @items %>			
+				</div>
+			<% end %>
+</div>
+
+
+<br>

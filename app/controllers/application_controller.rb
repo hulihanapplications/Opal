@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale, :check_public_access
   before_filter :prepare_for_mobile  
   layout :layout_location # using a symbol defers layout choice until after a request is processed 
- 
+  
   include SimpleCaptcha::ControllerHelpers
     
   # See ActionController::RequestForgeryProtection for details

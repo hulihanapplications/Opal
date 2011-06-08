@@ -145,8 +145,8 @@ class User < ActiveRecord::Base
   end
   
   def create_everything
-    # Dave: This is called after a user account is created. Makes Public Info, etc.
-    user_info = UserInfo.new(:description => "No Description.")
+    # Create User Info
+    user_info = UserInfo.new
     user_info.user_id = self.id
     user_info.save    
   end

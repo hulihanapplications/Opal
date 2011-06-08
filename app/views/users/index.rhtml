@@ -10,7 +10,7 @@
 								<%= user_avatar(user, :size => "tiny") %>								
 							</td>
 							<td align=left style="padding-left:2px">
-								<h3><b><%= link_to user.username, {:action => "user", :controller => "browse", :id => user.id} %></b></h3>
+								<h3><b><%= link_to user.username, user %></b></h3>
 								<i><%= friendly_date user.current_login_at if  user.current_login_at %></i>
 							</td>
 						</tr>
@@ -30,7 +30,7 @@
 									</h2>				
 								</td>
 								<td align=right >
-										<%= link_to icon("new") + " " + t("label.item_new", :item => User.model_name.human), {:action => "new"} %>						
+										<%= link_to icon("new") + " " + t("label.item_new", :item => User.model_name.human), new_user_path %>						
 								</td>
 							</tr>
 						</table>
@@ -51,11 +51,11 @@
 						<% for user in @users%>			
 							<tr class="<%= cycle("row_a", "row_b") %>">
 								<td>	
-								<%= link_to  user_avatar(user, :size => "tiny"), {:action => "user", :controller => "browse", :id => user}, :title => "#{h user.username}"  %>
+								<%= link_to  user_avatar(user, :size => "tiny"), user, :title => "#{h user.username}"  %>
 								</td>
 								<td>
 									<%= icon("admin") if user.is_admin? %>									
-									<b><%= link_to "#{h user.username}", {:action => "user", :controller => "browse", :id => user} %></b>
+									<b><%= link_to "#{h user.username}", user %></b>
 								</td>
 								<td><i><%= h user.first_name %> <%= h user.last_name %></i></td>
 								<td>
@@ -69,10 +69,10 @@
 									<% end %>
 								</td>
 								<td>
-									<%= link_to icon("edit"), { :action => 'edit', :controller => "users", :id => user.id, :user_id => user.id}, :class => "transparent" %>
+									<%= link_to icon("edit"), edit_user_path(user), :class => "transparent" %>
 								</td>
 								<td>
-									<%= link_to icon("delete"), { :action => 'delete', :controller => "users", :id => user.id, :user_id => user.id}, :confirm => t("confirm.delete_user"), :class => "transparent" %>
+									<%= link_to icon("delete"), user, :confirm => t("confirm.delete_user"), :method => :delete, :class => "transparent" %>
 								</td>
 							</tr> 
 						<% end %>

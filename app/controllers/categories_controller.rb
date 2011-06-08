@@ -2,6 +2,8 @@ class CategoriesController < ApplicationController
   before_filter :authenticate_admin # make sure logged in user is an admin   
   before_filter :enable_admin_menu
   
+  alias delete destroy
+  
   def index 
     @setting[:meta_title] << Category.model_name.human(:count => :other)
     @categories = Category.find(:all, :conditions =>["category_id = 0"], :order => "name ASC")

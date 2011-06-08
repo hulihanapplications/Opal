@@ -30,18 +30,6 @@ Opal::Application.routes.draw do
                :requirements => {:year => /\d{4}/, :month => /\d{1,2}/,:day => /\d{1,2}/ }
 
 
-  # Load Custom Plugin Routes 
-  #Dir["#{Rails.root.to_s}/vendor/plugins/*"].each do |plugin| 
-  #  if File.exists?("#{plugin}/routes.rb") 
-  #    File.open("#{plugin}/routes.rb").each do |line|
-  #      eval "#{line}" 
-  #    end
-  #  end
-  #end
-  
-  #Dir["#{Rails.root.to_s}/vendor/plugins/*"].each do |plugin_dir|
-    #map.from_plugin(File.basename(plugin_dir))
-  #end  
   
   # Resources
 
@@ -52,8 +40,10 @@ Opal::Application.routes.draw do
 
   # User Authentication
   match 'login', :controller => "user_sessions", :action => "new"
-  match "logout", :controller => "user_sessions", :action => "destroy"
+  match 'logout', :controller => "user_sessions", :action => "destroy"
   resource :user_session
+  
+  resources :users
   
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.

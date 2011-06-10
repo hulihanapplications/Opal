@@ -311,17 +311,17 @@ class ItemsController < ApplicationController
    $KCODE = 'UTF8' unless RUBY_VERSION >= '1.9' # for ya2yaml
    
    # Load & Modify Locale Hash
-   current_locale_hash = YAML::load(File.open(Opal.current_locale_path)) #Opal.current_locale_hash # get full locale hash
-   if current_locale_hash[I18n.locale.to_s]["activerecord"]["models"]["item"] 
-     current_locale_hash[I18n.locale.to_s]["activerecord"]["models"]["item"] = params[:key] #{:one => "A", :other => "As"} # modify entry of items
+   current_locale_hash = YAML::load(File.open(Opal.current_locale_path)) # get full locale hash
+   if current_locale_hash[I18n.locale.to_s]["activerecord"]["models"]["item"]      
+     # Write Changes to Separate File
+     item_name_file = File.join(Rails.root.to_s, "config", "locales", "item.yml")
+     item_name_hash = {I18n.locale.to_s => {"activerecord" => {"models" => {"item" => params[:key].to_hash}}}} # to_hash converts ActiveSupport::HashWithIndifferentAccess to regular hash for proper yaml conversion          
+     File.open(item_name_file, "w") { |f| f.write item_name_hash.to_yaml } # you can also use ya2yaml instead of to_yaml, which hates utf-8
      
-     # Write Changes to Locale File
-     FileUtils.cp(Opal.current_locale_path, Opal.current_locale_path + ".bak") # back up current locale
-     File.delete(Opal.current_locale_path) if File.exists?(Opal.current_locale_path)
-     File.open(Opal.current_locale_path, "w") { |f| f.write current_locale_hash.ya2yaml } # use ya2yaml instead of to_yaml, which hates utf-8
-  
      Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_save", :item => Item.model_name.human + " " + t("single.name"), :name => params[:key].values.join(", ")))       
      flash[:success] = t("notice.save_success")
+     I18n.load_path.push(item_name_file) # add item_name_file onto load_path 
+     I18n.reload! # reload I18n to see our new changes
    else
      flash[:success] = t("notice.item_not_found", :item => "#{I18n.locale.to_s}.activerecord.models.item")
    end 

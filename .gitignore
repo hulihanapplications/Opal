@@ -5,13 +5,16 @@
 .bundle
 *.log
 tmp/**/*
-Gemfile 
+Gemfile
 Gemfile.lock
 db/schema.rb
 
 # Config Files
 config/database.yml
 config/email.yml
+
+# Application Specific Stuff
+config/locales/item.yml
 
 # Don't Include Rails or Gems
 vendor/rails

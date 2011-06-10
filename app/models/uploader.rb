@@ -17,9 +17,7 @@ class Uploader #< ActiveRecord::Base
 
   def self.convert_tempfile_to_file(tempfile) # convert a TempFile Object(uploaded by rails) into a File Object
     filename = Uploader.clean_filename(tempfile.original_filename) # filename of TempFile    
-    tmp_path = File.join(Dir::tmpdir, "opal") # location of the tmp folder
-    FileUtils.mkdir_p(tmp_path) if !File.exists?(tmp_path) # create the tmp folder if it doesn't exist             
-    new_file_path = File.join(tmp_path, filename)      
+    new_file_path = File.join(Opal::tmpdir, filename) # Save file in tmp dir    
     File.open(new_file_path, "wb") { |f| f.write(tempfile.read) } # write contents of TempFile to File
     file = File.open(new_file_path) # reopen file
     return file # return File       

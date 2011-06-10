@@ -4,7 +4,7 @@
 # Rails
 .bundle
 *.log
-tmp/**/*
+tmp/*
 Gemfile
 Gemfile.lock
 db/schema.rb

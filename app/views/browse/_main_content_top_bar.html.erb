@@ -17,7 +17,8 @@
 						<%= link_to raw("<img src=\"/themes/#{@setting[:theme]}/images/icons/list_type_simple.png\" class=\"icon #{"selected" if @setting[:list_type] == "simple"}\">"), { :action => 'set_list_type', :controller => "items", :list_type => "simple"}, :class => "transparent", :title => t("activerecord.records.setting.list_type_simple.description", :items => Item.model_name.human(:count => :other) ) %>						
 						<%= link_to raw("<img src=\"/themes/#{@setting[:theme]}/images/icons/list_type_detailed.png\" class=\"icon #{"selected" if @setting[:list_type] == "detailed"}\">"), { :action => 'set_list_type', :controller => "items", :list_type => "detailed"}, :class => "transparent", :title => t("activerecord.records.setting.list_type_detailed.description", :items => Item.model_name.human(:count => :other))  %>
 						<%= link_to raw("<img src=\"/themes/#{@setting[:theme]}/images/icons/list_type_photo.png\" class=\"icon #{"selected" if @setting[:list_type] == "photo"}\">"), { :action => 'set_list_type', :controller => "items", :list_type => "photo"}, :class => "transparent", :title => t("activerecord.records.setting.list_type_photo.description", :items => Item.model_name.human(:count => :other))   %>
-						<%= link_to raw("<img src=\"/themes/#{@setting[:theme]}/images/icons/list_type_small.png\" class=\"icon #{"selected" if @setting[:list_type] == "small"}\">"), { :action => 'set_list_type', :controller => "items", :list_type => "small"}, :class => "transparent", :title => t("activerecord.records.setting.list_type_small.description", :items => Item.model_name.human(:count => :other))   %>													
+						<%= link_to raw("<img src=\"/themes/#{@setting[:theme]}/images/icons/list_type_small.png\" class=\"icon #{"selected" if @setting[:list_type] == "small"}\">"), { :action => 'set_list_type', :controller => "items", :list_type => "small"}, :class => "transparent", :title => t("activerecord.records.setting.list_type_small.description", :items => Item.model_name.human(:count => :other))   %>
+						<%= icon("bullet") if params[:sort] %>																		
 					<% end %>
 					<% if params[:sort] %>		
 						<% 
@@ -32,7 +33,6 @@
 						%>
 														
 						<span id="sort_by_box">	
-							<%= icon("bullet") %>					
 							Sort By 
 							<span class="box_1 pointer" id="sort_by" >
 								<%# params[:sort] = Hash.new %>

@@ -6,7 +6,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env) if defined?(Bundler)
 
-module Opal
+module Opal  
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -48,6 +48,17 @@ module Opal
     
     # Customize Sanitation
     config.action_view.sanitized_allowed_tags = %w{img a table tr td th br b u i strong p span embed object param ul ol li blockquote pre div sub sup h1 h2 h3 h4 h5 h6 iframe}           
-    config.action_view.sanitized_allowed_attributes = %w{href title style width height allowfullscreen frameborder allowscriptaccess src type data name value align}    
-  end 
+    config.action_view.sanitized_allowed_attributes = %w{href title style width height allowfullscreen frameborder allowscriptaccess src type data name value align}
+    
+    # Application Name
+    def name
+      I18n.t("name", :default => String.new)
+    end
+  end
+  
+  def self.tmpdir # tmp dir for Opal
+    tmpdir = File.writable?(File.join(Dir::tmpdir)) ? File.join(Dir::tmpdir, Rails.application.name) : File.join(Rails.root.to_s, "tmp") # location of the tmp directory for file uploads, etc.
+    FileUtils.mkdir_p(tmpdir) if !File.exists?(tmpdir) # create the tmp folder if it doesn't exist
+    tmpdir                 
+  end
 end

@@ -1,7 +1,6 @@
 class Image < ActiveRecord::Base
   belongs_to :user
 
-  before_create :generate_image
   before_destroy :delete_files
 
   

@@ -73,7 +73,8 @@ admin_group.save
 
 
 # Create Default Admin Account
-@admin = User.new(:first_name => I18n.t('seeds.user.admin.first_name'), :last_name => I18n.t('seeds.user.admin.last_name'), :username => I18n.t('seeds.user.admin.username'), :password => I18n.t('seeds.user.admin.password'), :is_admin => "1", :email => I18n.t('seeds.user.admin.email'))
+
+@admin = User.new(:first_name => I18n.t('seeds.user.admin.first_name'), :last_name => I18n.t('seeds.user.admin.last_name'), :username => I18n.t('seeds.user.admin.username'), :password => I18n.t('seeds.user.admin.password'), :password_confirmation => I18n.t('seeds.user.admin.password'), :is_admin => "1", :email => I18n.t('seeds.user.admin.email'))
 @admin.group_id = admin_group.id
 @admin.is_admin = "1" 
 @admin.is_verified = "1"     
@@ -176,12 +177,12 @@ end
 if (install_sample_data == "y" || install_sample_data == "yes")   
   print I18n.t('label.installing') 
   #Create Verified user
-  @user = User.new(:first_name => I18n.t('sample_data.users.test.first_name'), :last_name => I18n.t('sample_data.users.test.last_name'), :username => I18n.t('sample_data.users.test.username'), :password => I18n.t('sample_data.users.test.password'), :email => I18n.t('sample_data.users.test.email'))
+  @user = User.new(:first_name => I18n.t('sample_data.users.test.first_name'), :last_name => I18n.t('sample_data.users.test.last_name'), :username => I18n.t('sample_data.users.test.username'), :password => I18n.t('sample_data.users.test.password'), :password_confirmation => I18n.t('sample_data.users.test.password'), :email => I18n.t('sample_data.users.test.email'))
   @user.is_verified = "1" # verify them(attr_protected otherwise)
   @user.save
   
   #Create Unverified user
-  @unverified = User.create(:first_name => I18n.t('sample_data.users.unverified.first_name'), :last_name => I18n.t('sample_data.users.unverified.last_name'), :username => I18n.t('sample_data.users.unverified.username'), :password => I18n.t('sample_data.users.unverified.password'), :email => I18n.t('sample_data.users.unverified.email'))
+  @unverified = User.create(:first_name => I18n.t('sample_data.users.unverified.first_name'), :last_name => I18n.t('sample_data.users.unverified.last_name'), :username => I18n.t('sample_data.users.unverified.username'), :password => I18n.t('sample_data.users.unverified.password'), :password_confirmation => I18n.t('sample_data.users.unverified.password'), :email => I18n.t('sample_data.users.unverified.email'))
 
   #Create User Messages
   msg = UserMessage.new(:message => I18n.t('sample_data.messages.unread.text'))

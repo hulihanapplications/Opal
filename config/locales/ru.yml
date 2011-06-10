@@ -936,6 +936,7 @@ ru:
       default: "%d-%m-%Y"
       short: "%b %d"
       long: "%B %d, %Y"  
+      month_year: "%B %Y"    
     day_names: [Воскресенье, Понедельник, Вторник, Среда, Четверг, Пятница, Суббота]
     abbr_day_names: [Вс, Пн, Вт, Ср, Чт, Пт, Сб]
       
@@ -951,7 +952,6 @@ ru:
       long: "%b %d, %Y at %I:%M %p"
       yesterday: "Вчера в %I:%M %p"
       weekday: "%a в %I:%M %p"
-      month_year: "%B %Y"    
     am: "am"
     pm: "pm" 
   datetime:

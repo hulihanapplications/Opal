@@ -3,7 +3,7 @@
 </div>
 <div id="main">
 	<div align=center>
-		 <%= content_tag(:h2, l(@date, :format => !params[:month].blank? ? :month_year : "%Y"), :class => "title")  %>
+		 <%= content_tag(:h2, l(@date.to_date, :format =>  !params[:day].blank? ? :long : !params[:month].blank? ? :month_year : "%Y"), :class => "title")  %>
 	</div>
 	<br>	
 	<div>

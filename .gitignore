@@ -5,7 +5,9 @@
 .bundle
 *.log
 tmp/**/*
+Gemfile 
 Gemfile.lock
+db/schema.rb
 
 # Config Files
 config/database.yml

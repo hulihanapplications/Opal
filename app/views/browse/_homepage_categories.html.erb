@@ -16,7 +16,7 @@
 	<% for category in Category.get_parent_categories %>
 		<div style="float:left;width:195px;margin:5px 0px;padding:2px;">
 			<h3 class="spacer">				
-				<%= link_to category.name, {:action => "category", :controller => "browse", :id => category}, :title => category.description   %>								
+				<%= link_to category.name, {:action => "category", :controller => "items", :id => category}, :title => category.description   %>								
 			</h3>	
 			<% for subcategory in category.child_categories %>
 				<%= descend_category(subcategory, :include_children => @setting[:include_child_category_items], :show_item_count => false, :depth => 1, :truncate_length => 27)  %>

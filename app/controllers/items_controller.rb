@@ -309,14 +309,14 @@ class ItemsController < ApplicationController
  
  def do_change_item_name # rewrite translation file with custom item name & pluralization case
    $KCODE = 'UTF8' unless RUBY_VERSION >= '1.9' # for ya2yaml
-   
+
    # Load & Modify Locale Hash
    current_locale_hash = YAML::load(File.open(Opal.current_locale_path)) # get full locale hash
    if current_locale_hash[I18n.locale.to_s]["activerecord"]["models"]["item"]      
      # Write Changes to Separate File
      item_name_file = File.join(Rails.root.to_s, "config", "locales", "item.yml")
-     item_name_hash = {I18n.locale.to_s => {"activerecord" => {"models" => {"item" => params[:key].to_hash}}}} # to_hash converts ActiveSupport::HashWithIndifferentAccess to regular hash for proper yaml conversion          
-     File.open(item_name_file, "w") { |f| f.write item_name_hash.to_yaml } # you can also use ya2yaml instead of to_yaml, which hates utf-8
+     item_name_hash = {I18n.locale.to_s => {"activerecord" => {"models" => {"item" => utf8_hash(params[:key].to_hash)}}}} # to_hash converts ActiveSupport::HashWithIndifferentAccess to regular hash for proper yaml conversion          
+     File.open(item_name_file, "w") { |f| f.write item_name_hash.ya2yaml } # you can also use ya2yaml instead of to_yaml, which hates utf-8
      
      Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_save", :item => Item.model_name.human + " " + t("single.name"), :name => params[:key].values.join(", ")))       
      flash[:success] = t("notice.save_success")
@@ -329,7 +329,14 @@ class ItemsController < ApplicationController
  end
  
 private 
-
+  def utf8_hash(some_hash) # convert hash key & values to utf-8 for proper translation
+    new_hash = Hash.new
+    some_hash.each do |key, value|
+      new_hash[key.encode(Encoding::UTF_8)] = value.to_s.encode(Encoding::UTF_8)
+    end    
+    new_hash
+  end
+ 
   def get_common_elements_for_hash_of_arrays(hash) # get an array of common elements contained in a hash of arrays, for every array in the hash.
     #hash = {:item_0 => [1,2,3], :item_1 => [2,4,5], :item_2 => [2,5,6] } # for testing
     return hash.values.inject{|acc,elem| acc & elem} # inject & operator into hash values.

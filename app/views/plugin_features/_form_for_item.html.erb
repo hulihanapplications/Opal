@@ -1,16 +1,15 @@
 <% 	features = PluginFeature.find(:all, :order => "order_number ASC") %>
-<table>						   						  
    <% for feature in features %>
-   		<tr>
-   			<td style="vertical-align:middle" align=left>
+		<div class="field">
+			<input name="features[<%= feature.id %>][plugin_feature_id]" value="<%= feature.id %>" type="hidden">														   								
+			<h3>
 				<%= feature_icon feature %>
 				<%= feature.name %>
-				<% if feature.is_required %>
-					<img src="/themes/<%= @setting[:theme] %>/images/icons/required.png" class="icon"  alt="" title="<%= t("single.required") %>">
-				<% end %>					
-				<input name="features[<%= feature.id %>][plugin_feature_id]" value="<%= feature.id %>" type="hidden">														   				
-   			</td>								
-   			<td align=left>
+				<%= icon("required") if feature.is_required %>								
+			</h3>
+			<%= content_tag(:div, feature.description, :class => "description") if feature.description.blank? %>										
+
+
    				<% existing_value_for_item = PluginFeatureValue.find(:first, :conditions => ["plugin_feature_id = ? and item_id = ?", feature.id, item.id]) %>
 				<% 
 					if existing_value_for_item
@@ -43,34 +42,17 @@
 				<% elsif feature.feature_type == "stars" %>
 					<%= star_field_tag("features_#{feature.id}", :value, :value => value.to_i, :max => feature.max, :input_name => "features[#{feature.id}][value]") %>																																												
 				<% else %>
-	   				<input name="features[<%= feature.id %>][value]" type="text" id="feature_input_<%= feature.id %>" onfocus = "focus_input('feature_input_<%= feature.id %>')" onblur = "blur_input('feature_input_<%= feature.id %>')" value="<%= h value %>">								
+	   				<input name="features[<%= feature.id %>][value]" type="text" id="feature_input_<%= feature.id %>" value="<%= h value %>">								
 				<% end %>			
-   			</td>
-			<td style="" align=left>
-				<a href="javascript:toggle_box('feature_value_link_box_<%= feature.id %>')" class="transparent">
+
+				<a href="javascript:toggle_box('feature_value_link_box_<%= feature.id %>')" class="transparent" style="padding-left:2px;">
 					<img src="/themes/<%= @setting[:theme] %>/images/icons/link.png" class="icon"  title="<%= t("label.make_link") %>">					
 				</a>
-				<% if feature.description && feature.description != "" %>			
-					<img src="/themes/<%= @setting[:theme] %>/images/icons/help.png" class="help icon"  alt="" title="<%= feature.description %>" >	
-				<% end %>
-				<% if (feature.feature_type == "slider" || feature.feature_type == "number")  %>			
-					<% if feature.min %>
-						<!--<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" class="help icon"  alt="" title="This must be greater than or equal to <%= feature.min %>" >-->
-					<% end %>	
-					<% if feature.max %>
-						<!--<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" class="help icon"  alt="" title="This must be less than or equal to <%= feature.max %>" >-->
-					<% end %>						
-				<% end %>									
-			</td>																																
-		</tr>
-		<tr>
-			<td colspan=3 style="">
-				<div id="feature_value_link_box_<%= feature.id %>" style="display:none">					
-					<input style="width:100%" name="features[<%= feature.id %>][url]" type="text" id="feature_url_<%= feature.id %>" onfocus = "focus_input('feature_url_<%= feature.id %>')" onblur = "blur_input('feature_url_<%= feature.id %>')">								
-				</div>
-			</td>
-		</tr>		
+				
 
-		
+				<div id="feature_value_link_box_<%= feature.id %>" style="display:none;margin-top:2px">					
+					<input name="features[<%= feature.id %>][url]" type="text" id="feature_url_<%= feature.id %>">								
+				</div>
+
+		</div>		
    <% end %>	
-</table>	

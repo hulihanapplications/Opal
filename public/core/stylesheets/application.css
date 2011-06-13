@@ -2,7 +2,8 @@
 
 /* HTML  */
 html,body {height: 100%;margin:0px;padding:0px;}
-textarea{overflow:auto;}
+input, option, textarea{padding:2px}
+textarea{width:100%;height:100px;margin:0;padding:0}
 td{vertical-align:top;}
 p{margin:0px 0px 20px 0px;}
 
@@ -13,6 +14,8 @@ p{margin:0px 0px 20px 0px;}
 		#wrapper > #content #main, div.main{width:660px;float:left;}
 		#wrapper > #content #side, div.side{width:230px;float:left;padding-right:10px}
 #wrapper > #footer{position:absolute;bottom:0;width:100%;padding:5px 0px 0px 0px;;text-align:center;}
+
+#wrapper > #content #tabcontent #main, .tabcontent .main{width:640px;}
 
 
 /* Links */
@@ -30,8 +33,8 @@ img.help{cursor:help;}
 
 /* Tables & Cells */
 td.icon_column{width:20px;vertical-align:middle;text-align:center}
-td.left{padding-right:10px}
-td.right{padding-left:10px}
+td.left{padding-right:5px}
+td.right{padding-left:5px}
 
 /* Interaction States(Selection, Hovering, Sorting, Etc.) */
 .hoverable{opacity:0.90;filter:alpha(opacity=90);-moz-opacity:0.9;-khtml-opacity: 0.9;}
@@ -78,10 +81,8 @@ div.simple_captcha_image{}
 
 
 /* Forms, Fields & Inputs */
-.form_box input, .form_box select, .form_box textarea{margin-bottom:12px;}
-.field{margin:10px 0px}
-	.field input{vertical-align:middle}
-	.field .description{padding:0px 0px 0px 25px} 
+.field{margin-bottom:10px;}
+	.field .description{padding:0px 0px 0px 0px} 
 .buttons{text-align:center;margin:10px 0px}
 
 /* Other Stuff */

@@ -17,10 +17,8 @@
 						</tr>
 					</table>					
 				</div>
-				<div class="spacer"></div>			
-				<% for subcategory in Category.get_parent_categories  %>
-					<%= descend_category(subcategory, :include_children => @setting[:include_child_category_items], :make_radio_button => true, :id_to_check => category.category_id, :id_to_ignore => category.id, :truncate_length => 35, :input_name => "category[category_id]")  %>
-				<% end %>								
+				<div class="spacer"></div>	
+				<%= category_select_tag("category[category_id]", category.category_id, :id_to_ignore => category.id)%>																					
 			</div>
 			
 </div>

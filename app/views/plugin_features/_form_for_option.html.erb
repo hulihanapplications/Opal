@@ -1,12 +1,14 @@
-<div class="form_box">
-	<%= f.error_messages %>
+<%= f.error_messages %>
+<div class="field">
 	<h3><%= f.label :value %></h3>
 	<!--<i>What a user will select for <%= option.plugin_feature.name %>.</i>-->
-	<%= f.text_field :value, :style => "width:100%" %>
-	
+	<%= f.text_field :value %>		
+</div>
+
+<div class="field">	
 	<h3><%= f.label :description , t("single.description") %></h3>
 	<!--<i>A short message describing this option.</i>-->
-	<%= f.text_field :description, :style => "width:100%" %>	
-</div>							
+	<%= f.text_field :description %>	
+</div>
 
 

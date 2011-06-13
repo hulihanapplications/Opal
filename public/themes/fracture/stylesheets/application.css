@@ -208,7 +208,6 @@ ul#tabmenu {	list-style:none; 	margin:0 !important; 	padding:0;	height:25px;	mar
 #tabmenu a:hover {;border:0px;	background: url(../images/bgs/user_tab_bg_selected.png) no-repeat;}
 #tabmenu a.active:hover{}/* active tab uses a class name "current". it's highlight is also done by moving the background image. */
 #tabcontent {	background: url(../images/bgs/user_tab_pane_bg.png) repeat-x;	padding:10px;padding-top:10px;	min-height:300px;}
-#wrapper > #content #tabcontent #main{width:640px;}
 
 /* Pagination */
 .pagination{margin-top:20px;margin-bottom:20px;text-align:center;}

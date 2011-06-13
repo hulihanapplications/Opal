@@ -1,18 +1,22 @@
-<div align=center>
-  <h2 class="title"><%= t("label.item_edit", :item => Item.model_name.human) %></h2>
-  <%#= show_page Page.get_system_page(I18n.t('seeds.page.new_item.title')) %>	
-</div>      
-
-	   
-<div style="margin-top:5px;">
-    <% form_for(@item, :url => { :action => 'update', :controller => "items", :id => @item.id }, :method => "post") do |f| %>
-	<%= render :partial => "form", :locals => {:item => @item, :f => f} %>
-		<br>
-		<div align=center>
-			<%= f.submit t("label.item_save", :item => Item.model_name.human), :class => "button_1" %>
-		</div>
-	<% end %>
+<div class="header">
+	<table style="width:100%">
+		<tr>
+			<td align="left">
+				<h2 class="title"><%= t("label.item_edit", :item => Item.model_name.human) %></h2>
+			</td>
+			<td align=right>
+				<%= link_to raw("#{icon("edit")} #{t("label.item_edit", :item => Plugin.plugins[:feature].model_name.human(:count => :other))}"), {:action => "index", :controller => "plugin_features"} if @logged_in_user.is_admin?  %>			
+			</td>		
+		</tr>	
+	</table>	
 </div>
+<% form_for(@item, :url => { :action => 'update', :controller => "items", :id => @item.id }, :method => "post") do |f| %>
+	<%= render :partial => "form", :locals => {:item => @item, :f => f} %>
+	<br>
+	<div align=center>
+		<%= f.submit t("label.item_save", :item => Item.model_name.human), :class => "button_1" %>
+	</div>
+<% end %>
 
 <br>
 

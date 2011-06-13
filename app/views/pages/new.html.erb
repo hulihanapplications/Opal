@@ -3,15 +3,13 @@
 				<%= render :partial => "pages/menu" %>													  		  
 </div>
 <div id="main">
-				<div class="box_2" style="margin-bottom:5px">
-					<h2 class="title">
-						<%= t("label.item_new", :item => @page.model_name) %>
-					</h2>
-					<hr>
-						<input type="hidden" name="page[page_type]" value="<%= params[:type].downcase %>">
-						<%= render :partial => "form", :locals => {:page => @page}  %>
-						<div align=center><%= submit_tag t("label.item_create", :item => @page.model_name), :class => "button_1" %></div>	
-				</div>
+		<h2 class="title">
+			<%= t("label.item_new", :item => @page.model_name) %>
+		</h2>
+		<hr>
+		<input type="hidden" name="page[page_type]" value="<%= params[:type].downcase %>">
+		<%= render :partial => "form", :locals => {:page => @page}  %>
+		<div align=center><%= submit_tag t("label.item_create", :item => @page.model_name), :class => "button_1" %></div>	
 </div>	
 </form>
 		

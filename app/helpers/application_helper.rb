@@ -492,5 +492,14 @@ module ApplicationHelper
   def loading #show loading box
     theme_image_tag("loading.gif", :class => "loading")
   end  
+  
+  def category_select_tag(name, value = nil, options = {})   
+    options[:id_to_ignore] ||= nil 
+    html = String.new
+     for category in Category.get_parent_categories  
+       html += descend_category(category, :input_name => name, :include_children => @setting[:include_child_category_items], :make_radio_button => true, :id_to_check => value, :id_to_ignore => options[:id_to_ignore], :truncate_length => 35)  
+   end
+   raw html
+  end
 end
 

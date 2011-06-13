@@ -132,8 +132,7 @@ class ItemsController < ApplicationController
     @item.user_id = @logged_in_user.is_admin? ? params[:item][:user_id] : @logged_in_user.id
     @item.locked = params[:item][:locked] if @logged_in_user.is_admin?
     @item.featured = params[:item][:featured] if @logged_in_user.is_admin?
-    
-    
+        
     @item.is_public = "0" if (!params[:item][:is_public] && (get_setting_bool("allow_private_items") || @logged_in_user.is_admin?))  # make private if is_public checkbox not checked
     if (@logged_in_user.is_admin? && params[:item][:is_approved]) || (!@logged_in_user.is_admin? && !get_setting_bool("item_approval_required"))   
       @item.is_approved = "1" # make approved if admin or if item approval isn't required

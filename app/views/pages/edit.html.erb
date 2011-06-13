@@ -4,7 +4,6 @@
 	</div>
 	<div id="main">
 		<input type="hidden" name="page[page_type]" value="<%= @page.page_type.downcase %>">
-		<div class="box_2" style="margin-bottom:5px" align=left>
 			<h2 class="title">
 				<%= t("label.item_edit", :item => @page.model_name) %>
 			</h2>
@@ -12,9 +11,7 @@
 			<%= render :partial => "form", :locals => {:page => @page} %>
 			<div align=center>
 				<%= submit_tag t("single.save"), :class => "button_1" %>
-			</div>					
-		</div>
-	
+			</div>						
 	</div>	
 </form>
 

@@ -21,7 +21,7 @@ class Item < ActiveRecord::Base
   after_save :save_tags
   
   attr_accessor :tags 
-  attr_protected :user_id, :is_approved, :featured
+  attr_protected :user_id, :is_approved, :featured, :locked
 
   
   def to_param # make custom parameter generator for seo urls, to use: pass actual object(not id) into id ie: :id => object

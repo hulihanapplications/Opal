@@ -92,6 +92,7 @@ class ItemsController < ApplicationController
     
     @item.attributes = params[:item] # mass assign any new attributes, but don't save.
     if @logged_in_user.is_admin? # save protected attributes
+      @item.user_id = params[:item][:user_id]
       @item.is_approved = params[:item][:is_approved]
       @item.featured = params[:item][:featured]
     end 
@@ -101,7 +102,7 @@ class ItemsController < ApplicationController
         num_of_features_updated = PluginFeature.create_values_for_item(:item => @item, :features => params[:features], :user => @logged_in_user, :delete_existing => true, :approve => true)  
         Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log =>  t("log.item_save", :item => Item.model_name.human, :name => @item.name))                    
         flash[:success] = t("notice.item_save_success", :item => Item.model_name.human)
-        redirect_to :action => "" , :id => @item        
+        redirect_to :action => "view" , :id => @item        
     else # failed adding required features
       flash[:failure] = t("notice.item_save_failure", :item => Item.model_name.human)
       render :action => "edit"
@@ -128,7 +129,10 @@ class ItemsController < ApplicationController
     end
     
     @item = Item.new(params[:item])
-    @item.user_id = @logged_in_user.id
+    @item.user_id = @logged_in_user.is_admin? ? params[:item][:user_id] : @logged_in_user.id
+    @item.locked = params[:item][:locked] if @logged_in_user.is_admin?
+    @item.featured = params[:item][:featured] if @logged_in_user.is_admin?
+    
     
     @item.is_public = "0" if (!params[:item][:is_public] && (get_setting_bool("allow_private_items") || @logged_in_user.is_admin?))  # make private if is_public checkbox not checked
     if (@logged_in_user.is_admin? && params[:item][:is_approved]) || (!@logged_in_user.is_admin? && !get_setting_bool("item_approval_required"))   
@@ -140,7 +144,7 @@ class ItemsController < ApplicationController
    params[:item][:category_id] ||= Category.find(:first).id # assign the first category's id if not selected.
    @feature_errors = PluginFeature.check(:features => params[:features], :item => @item) # check if required features are present        
 
-   if proceed 
+   if proceed            
       if @item.save && @feature_errors.size == 0 # item creation failed
          Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => Item.model_name.human, :name => @item.name))
   
@@ -332,7 +336,7 @@ private
   def utf8_hash(some_hash) # convert hash key & values to utf-8 for proper translation
     new_hash = Hash.new
     some_hash.each do |key, value|
-      new_hash[key.encode(Encoding::UTF_8)] = value.to_s.encode(Encoding::UTF_8)
+      new_hash[key.to_s.encode(Encoding::UTF_8)] = value.to_s.encode(Encoding::UTF_8)
     end    
     new_hash
   end

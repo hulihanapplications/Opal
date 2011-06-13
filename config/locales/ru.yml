@@ -384,7 +384,7 @@ ru:
     username_available: Это имя пользователя свободно!
     username_taken: Это имя пользователя уже занято! 
     agree_to_tos: Создавая профиль вы соглашаетесь с 
-    logged_in_as: Вы вошли как %{username}  
+    logged_in_as: Вы вошли как %{name}  
     item_create: Создать %{item}
     item_edit: Редактировать %{item}
     item_save: Сохранить %{item}

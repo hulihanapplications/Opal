@@ -47,7 +47,7 @@
 										</td>
 									</tr>
 								</table>
-								<div class="spacer"></div>
+								<hr />
 								<% if features.size > 0 %>															
 									<%= render :partial => "plugin_features/form_for_item", :locals => {:item => item} %>	
 								<% else %>
@@ -55,6 +55,51 @@
 								<% end %>								
 							<% end %>
 							<div style="height:10px"></div>	
+								<%= link_to_function content_tag(:h3, link_to_function(raw("#{icon("options")} #{t("single.advanced")} #{t("single.options")}"), "$('#advanced_options').toggle()"))  %>
+								<div id="advanced_options"  style="display:none;">
+									<hr />									
+										<% if get_setting_bool("allow_private_items") %>
+											<div class="field">
+													<h3>
+														<%= f.check_box :is_public %>
+														<%= icon("public") %> 
+														<%= f.label :is_public %>
+													</h3>					
+													<%= Item.human_attribute_name(:is_public_description) %>			
+											</div>																				
+										<% end %>									
+										<% if @logged_in_user.is_admin? %>	
+											<div class="field">
+													<h3>
+														<%= f.check_box :is_approved %>
+														<%= icon("approved") %> 
+														<%= f.label :is_approved %>
+													</h3>					
+													<%= Item.human_attribute_name(:is_approved_description) %>			
+											</div>
+											<div class="field">
+													<h3>
+														<%= f.check_box :locked %>
+														<%= icon("locked") %> 
+														<%= f.label :locked %>
+													</h3>					
+													<%= Item.human_attribute_name(:locked_description) %>			
+											</div>
+											<div class="field">
+													<h3>
+														<%= f.check_box :featured %>
+														<%= icon("featured") %> 
+														<%= f.label :featured %>
+													</h3>					
+													<%= Item.human_attribute_name(:featured_description) %>			
+											</div>	
+											<div class="field">
+													<h3><%= icon("user") %> <%= label "item", "user_id" %></h3>								
+													<%= f.collection_select 'user_id', User.all, :id, :to_s %>
+											</div>		
+										<% end %>									
+									</table>		
+								</div>
 						</td>
 					</tr>				
 				</table>				
@@ -62,28 +107,16 @@
 
 	</div>
 	<div id="side">
-				<div class="box_0" style="margin-bottom:5px" align=left>
-					<h2 class="title">
-						<img src="/themes/<%= @setting[:theme] %>/images/icons/options.png" class="icon" > 				
-						<%= t("single.options") %>
-					</h2>
-					<div class="spacer"></div>
-					<div style="padding-left:5px;">
-						<%= render :partial => "items/form_item_options", :locals => {:item => item, :f => f} %>						
-					</div>
-				
-				</div>		
-				<div style="height:10px"></div>				
-				<div class="box_0" align=left>
-					<h2 class="title">
-						<img src="/themes/<%= @setting[:theme] %>/images/icons/categories.png" class="icon" > 				
-						<%= Category.model_name.human %>
-					</h2>
-					<div class="spacer"></div>
-					<% for category in Category.get_parent_categories  %>
-						<%= descend_category(category, :include_children => @setting[:include_child_category_items], :make_radio_button => true, :id_to_check => item.category_id, :truncate_length => 35)  %>
-					<% end %>								
-				</div>
+		<div class="box_0" align=left>
+			<h2 class="title">
+				<img src="/themes/<%= @setting[:theme] %>/images/icons/categories.png" class="icon" > 				
+				<%= Category.model_name.human %>
+			</h2>
+			<div class="spacer"></div>
+			<% for category in Category.get_parent_categories  %>
+				<%= descend_category(category, :include_children => @setting[:include_child_category_items], :make_radio_button => true, :id_to_check => item.category_id, :truncate_length => 35)  %>
+			<% end %>								
+		</div>
 	</div>	
 	<div style="clear:both"></div>
 </div>

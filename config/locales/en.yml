@@ -826,7 +826,7 @@ en:
         featured: Featured
         featured_description: If featured, this will be given special attention and shown on the homepage.        
         locked: Locked
-        locked_description: If locked, no changes can be made to this.
+        locked_description: If locked, no more changes can be made to this.
         is_public: Public
         is_public_description: If this is public, it can be seen by others.
         is_approved: Approved

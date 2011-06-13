@@ -1,5 +1,5 @@
 # Check for Required Files before Rails is Loaded
-
+require 'fileutils'
 rails_root = File.join(File.dirname(__FILE__), "..")
 if !File.exists?(File.join(rails_root, "Gemfile")) && File.exists?(File.join(rails_root, "Gemfile.default")) # check for Gemfile
   FileUtils.cp(File.join(rails_root, "Gemfile.default"), File.join(rails_root, "Gemfile"))

@@ -10,13 +10,12 @@
 	<div id="main">
 			<div class="box_2" style="margin-bottom:5px">
 				<h2 class="title"><%= t("label.item_edit", :item => @plugin.model_name.human) %></h2>
-				<div class="spacer"></div>
-				<%= form_tag :action => 'update', :controller => "plugin_videos", :id => @item.id  %>
-					<input name="video_id" value="<%= @video.id %>" type="hidden">
-					<%= render :partial => "form", :locals => {:video => @video} %>
+				<hr />
+                <% form_for(@video, :url => { :action => "update", :controller => "plugin_videos", :id => @item.id, :video_id => @video.id}) do |f| %>
+					<%= render :partial => "form", :locals => {:f => f} %>
 					<br>
 					<div align=center><%= submit_tag t("label.item_save", :item => @plugin.model_name.human), :class => "button_1" %></div>
-				</form>
+				<% end %>
 			</div>
 	</div>		
 	

@@ -1,14 +1,27 @@
+<%= f.error_messages %>
 
 <div class="field">
-		<h3><%= PluginVideo.human_attribute_name(:title) %></h3>							
+		<%= content_tag(:h3, f.label(:title)) %></h3>							
 		<%= text_field 'video', 'title' %>
 </div>
 
-<div align=right>
-	<a href="javascript:toggleEditor('<%= "form_content_box_#{video.id}" %>');"><%= t("label.toggle_editor") %></a>
-</div> 
-<b><%= text_area 'video', 'content', :style => "width:100%;height:500px", :class => "mceEditor", :id => "form_content_box_#{video.id}",  :onfocus => "focus_input('form_content_box_#{video.id}')", :onblur => "blur_input('form_content_box_#{video.id}')" %></b></p>
+<div class="field">
+		<%= content_tag(:h3, f.label(:description)) %>							
+		<%= text_field 'video', 'description' %>
+</div>
 
-
+<div class="field">
+		<table style="width:100%" cellpadding=0 cellspacing=0>
+			<tr>
+				<td align=left>
+					<%= content_tag(:h3, f.label(:code)) %>							
+				</td>
+				<td align=right>
+					<a href="javascript:toggleEditor('video_code');"><%= t("label.toggle_editor") %></a>
+				</td>
+			</tr>
+		</table>
+		<%= text_area 'video', 'code', :style => "width:100%;height:500px", :class => "mceEditor" %>
+</div>
 
 													

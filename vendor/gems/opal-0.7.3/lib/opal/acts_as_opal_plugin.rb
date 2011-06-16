@@ -1,9 +1,18 @@
 # Support class & instance methods for Plugin Classes(Not the Actual Plugin Class) like PluginImage, PluginComment, etc.=
 module Opal
   module ActsAsOpalPlugin       
-    module ClassMethods  
+    module ClassMethods        
+      # Scopes
+      def item(item)
+        where("item_id = ?", item.id)
+      end
+      
+      def approved
+         where("is_approved = ?", "1")
+      end
+      
       def plugin # get plugin record for this class
-        Plugin.where("name = ?", system_name) 
+        Plugin.where("name = ?", system_name).first
       end
       
       def system_name # the plain, system name of the plugin, ie: Image

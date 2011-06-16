@@ -1,4 +1,7 @@
 class PluginVideosController < PluginController
+  before_filter :uses_tiny_mce, :only => [:new, :edit, :create, :update]  # which actions to load tiny_mce, TinyMCE Config is done in Layout.
+
+  
   def create
    @video = PluginVideo.new(params[:video])
    @video.user_id = @logged_in_user.id
@@ -11,10 +14,11 @@ class PluginVideosController < PluginController
     Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "create", :log => t("log.item_create", :item => @plugin.model_name.human, :name => @video.title))             
     flash[:success] = t("notice.item_create_success", :item => @plugin.model_name.human)
     flash[:success] += t("notice.item_needs_approval", :item => @plugin.model_name.human) if !@video.is_approved?
+    redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other)     
    else # fail saved 
     flash[:failure] = t("notice.item_create_failure", :item => @plugin.model_name.human)
+    render :action => "new"
    end  
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
   end
  
   def update
@@ -23,10 +27,11 @@ class PluginVideosController < PluginController
    if @video.save
     Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => t("log.item_save", :item => @plugin.model_name.human, :name => @video.title))                    
     flash[:success] =  t("notice.item_save_success", :item => @plugin.model_name.human)
+    redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human(:count => :other) 
    else # fail saved 
      flash[:success] = t("notice.item_save_failure", :item => @plugin.model_name.human)
+     render :action => "edit"
    end    
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
   end
   
   def delete

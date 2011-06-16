@@ -161,7 +161,7 @@ en:
         sample:
           title: "Sample Video"
           description: "This is a sample video"
-          code: '<iframe width="560" height="349" src="http://www.youtube.com/embed/4kIKynSUbJw" frameborder="0" allowfullscreen></iframe>' 
+          code: '<div style="text-align: center;"><iframe width="560" height="349" src="http://www.youtube.com/embed/4kIKynSUbJw" frameborder="0" allowfullscreen></iframe></div>' 
     pages:
       about:
         title: "About"
@@ -413,7 +413,7 @@ en:
     items_for: %{items} for %{name}
     items_more: More %{items}
     items_remaining: %{items} remaining
-    items_found: %{count} %{items} found.
+    items_found: %{count} %{items} found
     items_latest: Latest %{items}    
     items_none_added: No %{items} have been added. 
     user_greeting: Hello, %{name}.
@@ -537,7 +537,10 @@ en:
           description: The minimum value that can be used in review scores. This is not used in star ratings.
         score_max:
           title: Maximum Score                 
-          description: The maximum value that can be used in review scores.            
+          description: The maximum value that can be used in review scores.      
+        video_display_mode:
+          title: Display Mode
+          description: How videos are displayed.              
       setting:       
         site_title: 
           title: Title of Your Site           

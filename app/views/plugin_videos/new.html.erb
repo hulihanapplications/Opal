@@ -1,5 +1,4 @@
 <div class="item">
-	
 	<%= render :partial => "items/item_header", :locals => {:item => @item, :options => {:show_item_info => true, :show_item_title => true}} %>
 	
 	<div id="side">
@@ -10,12 +9,12 @@
 	<div id="main">
 			<div class="box_2" style="margin-bottom:5px">
 				<h2 class="title"><%= t("label.item_new", :item => @plugin.model_name.human) %></h2>
-				<div class="spacer"></div>		
-				<%= form_tag  :action => 'create', :controller => "plugin_videos", :id => @item.id %>
-					<%= render :partial => "form", :locals => {:video => @video, :plugin => @plugin} %>
+				<hr />
+                <% form_for(@video, :url => { :action => "create", :controller => "plugin_videos", :id => @item.id}) do |f| %>
+					<%= render :partial => "form", :locals => {:f => f} %>
 					<br>
-					<div align=center><%= submit_tag t("label.item_create", :item => @plugin.model_name.human), :class => "button_1" %></div>
-				</form>
+					<div align=center><%= submit_tag t("label.item_save", :item => @plugin.model_name.human), :class => "button_1" %></div>
+				<% end %>
 				
 			</div>
 	</div>				

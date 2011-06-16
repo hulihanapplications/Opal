@@ -1,0 +1,4 @@
+<% if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_read? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
+	<% video_count = PluginVideo.item(item).approved.count %>
+	<%= link_to raw("#{icon("video")} #{video_count} #{PluginVideo.model_name.human(:count => video_count)}"), {:action => "view", :controller => "items", :id => item, :anchor => PluginVideo.model_name.human(:count => :other) } if video_count > 0 %>
+<% end %>

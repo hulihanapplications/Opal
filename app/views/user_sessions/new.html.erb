@@ -14,10 +14,10 @@
 		<% form_for @user_session do |f| %>
 			 <table>
 			  <tr>
-			   	<td><%= User.human_attribute_name(:username) %></td><td > <%= f.text_field :username %></td>
+			   	<td><%= f.label :username %></td><td > <%= f.text_field :username %></td>
 			  </tr>
 			  <tr>
-			  	<td><%= User.human_attribute_name(:password) %></td><td > <%= f.password_field :password %></td>
+			  	<td><%= f.label :password %></td><td > <%= f.password_field :password %></td>
 			  </tr>
 			  <tr>
 				<td><%= f.label :remember_me, t("label.remember_me") %></td>			  	

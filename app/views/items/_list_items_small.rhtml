@@ -33,11 +33,11 @@
 	
 								<td align=right > 
 									<% if Plugin.plugins[:review].is_enabled? %>
-										<%= render :partial => Plugin.plugins[:review].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:review], :item => item, :my_group_plugin_permissions => my_group_plugin_permissions  } %>
+										<%= render :partial => Plugin.plugins[:review].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:review], :item => item} %>
 									<% end %>	
 																
 									<% if Plugin.plugins[:comment].is_enabled? %>
-										<%= render :partial => Plugin.plugins[:comment].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:comment], :item => item, :my_group_plugin_permissions => my_group_plugin_permissions  } %>
+										<%= render :partial => Plugin.plugins[:comment].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:comment], :item => item } %>
 									<% end %>	
 								</td>			
 							</tr>

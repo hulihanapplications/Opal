@@ -1,7 +1,7 @@
 
 <div id="side">
 	<div align=center class="box_1">
-		<h2><%= t("label.items_found", :count => @items.size, :items => Item.model_name.human(:count => :other)) %></h2>
+		<h2><%= t("label.items_found", :count => @items.size, :items => Item.model_name.human(:count => @items.size)) %></h2>
 	</div>
 </div>
 <div id="main">

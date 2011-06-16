@@ -29,7 +29,7 @@
 									<select name="setting[<%= setting.name %>]">
 										<% for option in setting.options.split(",") %>
 											<% option = option.gsub(/ /,'') %>
-											<option value="<%= option %>" <%= "SELECTED" if option == setting.value %>><%= option %></option>
+											<option value="<%= option %>" <%= "SELECTED" if option == setting.value %>><%= t("single.#{option.downcase}", :default => option) %></option>
 										<% end %> 
 									</select>
 							   <% elsif setting.item_type == "special" %>				

@@ -1,6 +1,6 @@
 class PluginFeature < ActiveRecord::Base
-  # A Bullet is just the template of the bullet, users ONLY have control of the bullet value, The Admin adds the actual bullet template.
-  # This is a special type of item object.
+  acts_as_opal_plugin
+  
   has_many :plugin_feature_values
   has_many :plugin_feature_value_options  
   belongs_to :plugin
@@ -49,9 +49,7 @@ class PluginFeature < ActiveRecord::Base
            if feature.max # check if above max
                errors[feature.name] = "must be less than #{feature.max}" if entered_value.to_f > feature.max  # add requirement error            
            end         
-         end  
-         
-
+         end           
       end
      else # they did not enter a value for this feature
        if feature.is_required # this is a required feature?

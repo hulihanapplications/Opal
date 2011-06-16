@@ -18,7 +18,12 @@ module Opal
         
         def test
           "Testing..."
-        end
+        end   
+    
+        def acts_as_opal_plugin(options = {}) # for use in plugins
+          self.send :include, Opal::ActsAsOpalPlugin::InstanceMethods
+          self.send :extend, Opal::ActsAsOpalPlugin::ClassMethods
+        end        
       end
     end 
   end

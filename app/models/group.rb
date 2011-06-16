@@ -6,10 +6,19 @@ class Group < ActiveRecord::Base
   validates_presence_of :name
   
   after_destroy :destroy_everything
-  
+  after_create :create_everything
   attr_protected :is_deletable 
   
   default_scope :order => "name ASC"
+  
+  attr_accessor :plugin_permissions # stores a hash of ALL plugin Permissions
+  
+  def create_everything
+    # Create Group Plugin Permissions
+    for plugin in Plugin.all
+      GroupPluginPermission.create(:group_id => self.id, :plugin_id => plugin.id, :can_read => "1") # turn on read permissions for users
+    end      
+  end
   
   def destroy_everything
     for item in self.users # delete users

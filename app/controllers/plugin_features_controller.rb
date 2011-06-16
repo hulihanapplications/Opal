@@ -2,7 +2,7 @@ class PluginFeaturesController < ApplicationController
   #before_filter :authenticate_user
   before_filter :find_item, :except => [:new, :create, :delete, :index, :edit, :update, :create_option, :delete_option] # look up item 
   before_filter :find_plugin # look up plugin
-  before_filter :get_my_group_plugin_permissions # get permissions for this plugin
+  before_filter :get_group_permissions_for_plugin # get permissions for this plugin
   before_filter :check_item_view_permissions, :only => [:create_feature_values, :update_feature_value, :update_values, :delete_feature_values] # can user view item? 
   before_filter :check_item_edit_permissions, :only => [:change_approval] # list of actions that don't require that the item is editable by the user
   before_filter :authenticate_admin, :enable_admin_menu, :only =>  [:create, :delete, :index, :new, :edit, :update, :create_option, :delete_option] # make sure logged in user is an admin  
@@ -21,7 +21,7 @@ class PluginFeaturesController < ApplicationController
        feature_value.item_id = @item.id
     
        # Set Approval
-       feature_value.is_approved = "1" if !@my_group_plugin_permissions.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin 
+       feature_value.is_approved = "1" if !@group_permissions_for_plugin.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin 
              
        if feature_value.save
           Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => PluginFeatureValue.model_name.human, :name => "#{feature_value.plugin_feature.name}: #{feature_value.value}")) 
@@ -165,7 +165,7 @@ class PluginFeaturesController < ApplicationController
     feature_errors = PluginFeature.check(:features => params[:features], :item => @item) # check if required features are present
     if feature_errors.size == 0 # make sure there's not required feature errors
       # Update Feature Valuess
-      approve = (!@my_group_plugin_permissions.requires_approval?  || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?) # check if these new values will be auto-approved 
+      approve = (!@group_permissions_for_plugin.requires_approval?  || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?) # check if these new values will be auto-approved 
       num_of_features_updated = PluginFeature.create_values_for_item(:item => @item, :features => params[:features], :user => @logged_in_user, :delete_existing => true, :approve => approve)  
       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => t("log.item_save", :item => @plugin.model_name.human, :name => "#{@plugin.model_name.human(:count => num_of_features_updated)}" ))                    
       if approve

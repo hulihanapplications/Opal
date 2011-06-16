@@ -60,26 +60,7 @@ Setting.create(:name => "allow_item_page_type_changes",  :value => "1", :setting
 Setting.create(:name => "allow_item_page_type_changes",  :value => "1", :setting_type => "Item", :item_type => "bool") 
 Setting.create(:name => "opal_version", :value => "0.0.0", :setting_type => "Hidden", :item_type => "string")
 
-# Create Groups
-public_group = Group.new(:name => I18n.t('seeds.group.public.name'), :description => I18n.t('seeds.group.public.description'))
-public_group.is_deletable = "0"
-public_group.save     
-users_group = Group.new(:name => I18n.t('seeds.group.users.name'), :description => I18n.t('seeds.group.users.description'))
-users_group.is_deletable = "0"
-users_group.save   
-admin_group = Group.new(:name => I18n.t('seeds.group.admin.name'), :description => I18n.t('seeds.group.admin.description'))
-admin_group.is_deletable = "0"
-admin_group.save  
 
-
-# Create Default Admin Account
-
-@admin = User.new(:first_name => I18n.t('seeds.user.admin.first_name'), :last_name => I18n.t('seeds.user.admin.last_name'), :username => I18n.t('seeds.user.admin.username'), :password => I18n.t('seeds.user.admin.password'), :password_confirmation => I18n.t('seeds.user.admin.password'), :is_admin => "1", :email => I18n.t('seeds.user.admin.email'))
-@admin.group_id = admin_group.id
-@admin.is_admin = "1" 
-@admin.is_verified = "1"     
-@admin.locale = I18n.locale.to_s
-@admin.save
 
 # Create Builtin Plugins, plugin.name is not displayed name, it is used for related Plugin Class lookup, ie: "Image" => PluginImage
 plugin = Plugin.create(:name => "Image", :is_enabled => "1", :is_builtin => "1")
@@ -103,7 +84,25 @@ plugin = Plugin.create(:name => "File",  :is_enabled => "1", :is_builtin => "1")
 plugin = Plugin.create(:name => "Tag", :is_enabled => "1", :is_builtin => "1")              
 plugin = Plugin.create(:name => "Discussion", :order_number => Plugin.next_order_number, :is_enabled => "1", :is_builtin => "1")
 
+# Create Groups
+public_group = Group.new(:name => I18n.t('seeds.group.public.name'), :description => I18n.t('seeds.group.public.description'))
+public_group.is_deletable = "0"
+public_group.save     
+users_group = Group.new(:name => I18n.t('seeds.group.users.name'), :description => I18n.t('seeds.group.users.description'))
+users_group.is_deletable = "0"
+users_group.save   
+admin_group = Group.new(:name => I18n.t('seeds.group.admin.name'), :description => I18n.t('seeds.group.admin.description'))
+admin_group.is_deletable = "0"
+admin_group.save  
 
+
+# Create Default Admin Account
+@admin = User.new(:first_name => I18n.t('seeds.user.admin.first_name'), :last_name => I18n.t('seeds.user.admin.last_name'), :username => I18n.t('seeds.user.admin.username'), :password => I18n.t('seeds.user.admin.password'), :password_confirmation => I18n.t('seeds.user.admin.password'), :is_admin => "1", :email => I18n.t('seeds.user.admin.email'))
+@admin.group_id = admin_group.id
+@admin.is_admin = "1" 
+@admin.is_verified = "1"     
+@admin.locale = I18n.locale.to_s
+@admin.save
 
 # Create Categories
 Category.create(:name => I18n.t('seeds.category.uncategorized.name'), :category_id => 0, :description => I18n.t('seeds.category.uncategorized.description'))
@@ -202,7 +201,7 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   msg.save     
   
   # Create Test Item
-  item1 = Item.new(:name => I18n.t('sample_data.items.simple.name'), :description => I18n.t('sample_data.items.simple.description'))
+  item1 = Item.new(:name => I18n.t('sample_data.items.sample.name'), :description => I18n.t('sample_data.items.sample.description'))
   item1.user_id = @admin.id
   item1.is_public = "1"
   item1.featured = true
@@ -221,12 +220,12 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   
   
   # Create Plugins 
-  #plugin = PluginImage.new(:url => "/images/item_images/1/example_image_1.png", :thumb_url => "/images/item_images/1/thumb_example_image_1.png", :pinky_url => "/images/item_images/1/pinky_example_image_1.png", :description => I18n.t('sample_data.plugins.images.simple.description'))
+  #plugin = PluginImage.new(:url => "/images/item_images/1/example_image_1.png", :thumb_url => "/images/item_images/1/thumb_example_image_1.png", :pinky_url => "/images/item_images/1/pinky_example_image_1.png", :description => I18n.t('sample_data.plugins.images.sample.description'))
   #plugin.item_id = item1.id 
   #plugin.user_id = @user.id 
   #plugin.save
   
-  @plugin = PluginDescription.new(:title => I18n.t('sample_data.plugins.description.simple.title'), :content => I18n.t('sample_data.plugins.description.simple.content'))
+  @plugin = PluginDescription.new(:title => I18n.t('sample_data.plugins.description.sample.title'), :content => I18n.t('sample_data.plugins.description.sample.content'))
   @plugin.item_id = item1.id 
   @plugin.is_approved = "1"    
   @plugin.user_id = @user.id 
@@ -261,25 +260,20 @@ if (install_sample_data == "y" || install_sample_data == "yes")
 
   
   
-  @plugin = PluginReview.new(:review_score => 5, :review => I18n.t('sample_data.plugins.reviews.simple.text'))
+  @plugin = PluginReview.new(:review_score => 5, :review => I18n.t('sample_data.plugins.reviews.sample.text'))
   @plugin.item_id = item1.id
   @plugin.is_approved = "1"    
   @plugin.user_id = @user.id 
   @plugin.save    
   
-  @plugin = PluginComment.new(:comment => I18n.t('sample_data.plugins.comments.simple.text'))
-  @plugin.item_id = item1.id 
-  @plugin.is_approved = "1"    
-  @plugin.user_id = @user.id 
-  @plugin.save    
   
-  @plugin = PluginLink.new(:title => I18n.t('sample_data.plugins.links.simple.title'), :url => "http://www.hulihanapplications.com")
+  @plugin = PluginLink.new(:title => I18n.t('sample_data.plugins.links.sample.title'), :url => "http://www.hulihanapplications.com")
   @plugin.item_id = item1.id 
   @plugin.is_approved = "1"
   @plugin.user_id = @user.id 
   @plugin.save    
   
-  @plugin = PluginTag.new(:name => I18n.t('sample_data.plugins.tags.simple.name'))
+  @plugin = PluginTag.new(:name => I18n.t('sample_data.plugins.tags.sample.name'))
   @plugin.item_id = item1.id 
   @plugin.is_approved = "1"    
   @plugin.user_id = @user.id 
@@ -293,11 +287,18 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   tag.save
 
   # Sample Discussion
-  discussion = PluginDiscussion.new(:item_id => 1, :user_id => @user.id, :title => I18n.t('sample_data.plugins.discussions.simple.title'), :description => I18n.t('sample_data.plugins.discussions.simple.description'))
+  discussion = PluginDiscussion.new(:item_id => 1, :user_id => @user.id, :title => I18n.t('sample_data.plugins.discussions.sample.title'), :description => I18n.t('sample_data.plugins.discussions.sample.description'))
   discussion.is_approved = "1"
   discussion.save
 
-  discussion_post = PluginDiscussionPost.create(:item_id => 1, :user_id => @user.id, :plugin_discussion_id => discussion.id, :post => I18n.t('sample_data.plugins.discussions.simple.post'))
+  discussion_post = PluginDiscussionPost.create(:item_id => 1, :user_id => @user.id, :plugin_discussion_id => discussion.id, :post => I18n.t('sample_data.plugins.discussions.sample.post'))
+
+  
+  @plugin = PluginVideo.new(:title => I18n.t('sample_data.plugins.videos.sample.title'), :description => I18n.t('sample_data.plugins.videos.sample.description'), :code => I18n.t('sample_data.plugins.videos.sample.code'))
+  @plugin.item_id = item1.id
+  @plugin.is_approved = "1"    
+  @plugin.user_id = @user.id 
+  @plugin.save    
 
   # Create Public Page
   pages[:about] = Page.create(:title => I18n.t('sample_data.pages.about.title'), :description => I18n.t('sample_data.pages.about.description'), :page_type => "public", :content => I18n.t('sample_data.pages.about.content'))
@@ -319,5 +320,5 @@ puts "\n" + I18n.t("notice.item_install_success", :item => I18n.t("name")) + "\n
 puts I18n.t("label.login_as", :username => I18n.t('seeds.user.admin.username'), :password => I18n.t('seeds.user.admin.password'))
 Log.create(:log => I18n.t("notice.item_install_success", :item => I18n.t("name")), :log_type => "system") # Log Install
 
-Setting.find_by_name("opal_version").update_attribute(:value, "0.7.2") # Update Version    
+Setting.find_by_name("opal_version").update_attribute(:value, "0.7.3") # Update Version    
 

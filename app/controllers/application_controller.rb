@@ -189,12 +189,16 @@ class ApplicationController < ActionController::Base
     end
   end 
   
-  def get_my_group_plugin_permissions # initialize group plugin permissions for the plugin that is already looked up
-    @my_group_plugin_permissions = @plugin.permissions_for_group(@logged_in_user.group) 
+  def get_all_group_plugin_permissions # get ALL plugin permissions for user's group
+    @logged_in_user.group.plugin_permissions = GroupPluginPermission.all_plugin_permissions_for_group(@logged_in_user.group) 
+  end
+  
+  def get_group_permissions_for_plugin # initialize group plugin permissions for the plugin that is already looked up
+    @group_permissions_for_plugin = @plugin.permissions_for_group(@logged_in_user.group) 
   end    
 
   def can_group_read_plugin # check if group permissions allows current user to create plugin records for this item
-    if @my_group_plugin_permissions.can_read? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
+    if @group_permissions_for_plugin.can_read? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
       # ok, proceed
     else # denied! 
       flash[:failure] = t("notice.invalid_permissions")            
@@ -203,7 +207,7 @@ class ApplicationController < ActionController::Base
   end  
   
   def can_group_create_plugin # check if group permissions allows current user to create plugin records for this item
-    if @my_group_plugin_permissions.can_create? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
+    if @group_permissions_for_plugin.can_create? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
       # ok, proceed
     else # denied! 
       flash[:failure] = t("notice.invalid_permissions")            
@@ -212,7 +216,7 @@ class ApplicationController < ActionController::Base
   end  
 
   def can_group_update_plugin # check if group permissions allows current user to create plugin records for this item
-    if @my_group_plugin_permissions.can_update? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
+    if @group_permissions_for_plugin.can_update? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
       # ok, proceed
     else # denied! 
       flash[:failure] = t("notice.invalid_permissions")            
@@ -221,7 +225,7 @@ class ApplicationController < ActionController::Base
   end  
   
   def can_group_delete_plugin # check if group permissions allows current user to create plugin records for this item
-    if @my_group_plugin_permissions.can_delete? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
+    if @group_permissions_for_plugin.can_delete? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
       # ok, proceed
     else # denied! 
       flash[:failure] = t("notice.invalid_permissions")            

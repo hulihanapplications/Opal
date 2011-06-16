@@ -2,7 +2,7 @@ class PluginTagsController < ApplicationController
  # before_filter :authenticate_user # check if user is logged in and not a public user  
  before_filter :find_item # look up item 
  before_filter :find_plugin # find plugin
- before_filter :get_my_group_plugin_permissions # get permissions for this plugin  
+ before_filter :get_group_permissions_for_plugin # get permissions for this plugin  
  before_filter :check_item_view_permissions # can user view item? 
  before_filter :check_item_edit_permissions, :only => [:change_approval] # list of actions that don't require that the item is editable by the user
  before_filter :can_group_create_plugin, :only => [:create]
@@ -15,7 +15,7 @@ class PluginTagsController < ApplicationController
      @tag.name = params[:tag_name]
      @tag.user_id = @logged_in_user.id
      @tag.item_id = @item.id
-     @tag.is_approved = "1" if !@my_group_plugin_permissions.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin 
+     @tag.is_approved = "1" if !@group_permissions_for_plugin.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin 
      
      if @tag.save
        Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => @plugin.model_name.human, :name => @tag.name))                                              

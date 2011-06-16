@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "opal"
-  s.version = "0.7.0"
+  s.version = "0.7.3"
   s.author = "Hulihan Applications"
   s.email = "dave@hulihanapplications.com"
   s.homepage = "http://www.hulihanapplications.com/projects/opal"

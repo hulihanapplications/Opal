@@ -11,8 +11,8 @@ class GroupPluginPermission < ActiveRecord::Base
     group_plugin_permissions = Hash.new # create plugins permissions hash to lighten load on db. This prevents us from having to make a db query for every permission(creation, reading, deleting, etc.) for each plugin. This adds up to a lot of queries!
     
     for plugin in plugins
-      group_plugin_permissions[plugin.id] = GroupPluginPermission.find(:first, :conditions => ["plugin_id = ? and group_id = ?", plugin.id, group.id])
-      group_plugin_permissions[plugin.id] ||= GroupPluginPermission.new(:plugin_id => plugin.id, :group_id => group.id) # initialize default permissions if no records are found.
+      group_plugin_permissions[plugin.plugin_class.name] = GroupPluginPermission.find(:first, :conditions => ["plugin_id = ? and group_id = ?", plugin.id, group.id])
+      group_plugin_permissions[plugin.plugin_class.name] ||= GroupPluginPermission.new(:plugin_id => plugin.id, :group_id => group.id) # initialize default permissions if no records are found.
     end
     
     return group_plugin_permissions    

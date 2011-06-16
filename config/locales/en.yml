@@ -104,7 +104,7 @@ en:
       reply:
         text: "Test Message from Test to Admin."
     items:
-      simple:
+      sample:
         name: "Test Item A"
         description: "This is a test description."
       long_name:
@@ -115,10 +115,10 @@ en:
         description: "This is a test description. This item is neither approved nor Public."
     plugins:
       images:
-        simple:
+        sample:
           description: "A sample image."
       description:
-        simple:
+        sample:
           title: "A Wonderful Item!"
           content: "This item is very wonderful.<br><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus pellentesque nibh. Cras suscipit, arcu at porttitor porttitor, neque ligula aliquam metus, sit amet egestas velit nulla et eros. Sed ac erat eget eros pellentesque feugiat. Nunc sagittis dolor sit amet velit. Nulla quam. Donec ultrices lacus at risus. Sed in diam eget tortor sagittis congue. Sed vel odio. Integer bibendum purus in nibh. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis neque dolor, posuere posuere, volutpat ultrices, sollicitudin elementum, nulla. Morbi interdum urna vitae purus. Suspendisse vitae quam eu diam hendrerit dictum. Maecenas dignissim, mi ut lacinia auctor, mauris sem porttitor lectus, vel consectetur nulla est non neque. Suspendisse hendrerit massa non nisl.<br><br>Cras tortor. Aenean sed tortor. Maecenas orci lectus, viverra nec, molestie nec, pharetra vitae, massa. Cras euismod vestibulum augue. Morbi viverra nisl in purus. Etiam rhoncus dignissim erat. Vivamus a lorem in metus molestie porta. Curabitur nibh. Cras mattis justo ac felis. Morbi commodo, nulla id eleifend eleifend, nisi ligula sollicitudin est, a interdum lorem massa in leo. Suspendisse sit amet enim id nunc feugiat feugiat. Ut euismod neque. Etiam convallis faucibus dui. Cras aliquam ligula eu mauris. Cras vestibulum neque vel nisl. In arcu risus, hendrerit ac, laoreet sit amet, blandit at, nisl. Ut elementum eleifend lectus.<br><br>Nunc molestie enim. Nulla nec diam. Maecenas vel mauris. Pellentesque sit amet sem ac metus egestas tempor. Integer nibh. Donec sed velit a justo posuere sodales. Vestibulum molestie porttitor metus. Ut eleifend enim a lacus. Aliquam pretium dignissim velit. Ut euismod eros nec justo. Mauris pharetra. Nunc imperdiet elementum dui. Nunc et urna. Mauris at odio."
       features:
@@ -139,24 +139,29 @@ en:
         is_this_awesome:
           name: "Is this awesome?"
       reviews:
-        simple:
+        sample:
           text: "I really like this!"
       comments:
-        simple:
+        sample:
           text: "Thanks for sharing this with us!"
       links:
-        simple:
+        sample:
           title: "Item Website"
       tags:
-        simple:
+        sample:
           name: "Most Current"
         cool:
           name: "Cool"
       discussions:
-        simple:
+        sample:
           title: "Test Discussion"
           description: "This is a test discussion. Feel free to delete this."
           post: "This is a test post."
+      videos:
+        sample:
+          title: "Sample Video"
+          description: "This is a sample video"
+          code: '<iframe width="560" height="349" src="http://www.youtube.com/embed/4kIKynSUbJw" frameborder="0" allowfullscreen></iframe>' 
     pages:
       about:
         title: "About"
@@ -284,6 +289,7 @@ en:
     tools: Tools
     slideshow: Slideshow
     start: Start
+    approval: Approval
   # Flash Messages & Notices
   notice:
     save_success: Your changes have been successfully saved!
@@ -496,6 +502,8 @@ en:
           description: Allows multiple people to have discussions about an item.   
         review:
           description: Item Reviews from Users. Reviews have scores that are tallied up to rate the value of an item.
+        video:
+          description: Embed videos from any popular video hosting site like YouTube, Vimeo, etc.            
       plugin_setting:   
         slideshow_speed:
           title: Slideshow Speed 
@@ -749,6 +757,9 @@ en:
       plugin_setting:
         one: Setting
         other: Settings
+      plugin_video:
+        one: Video
+        other: Videos
       setting:
         one: Setting
         other: Settings

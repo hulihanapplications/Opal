@@ -3,7 +3,7 @@ class PluginDiscussionsController < ApplicationController
  before_filter :find_item # look up item 
  before_filter :find_plugin # look up item  
  
- before_filter :get_my_group_plugin_permissions # get permissions for this plugin  
+ before_filter :get_group_permissions_for_plugin # get permissions for this plugin  
  before_filter :check_item_view_permissions # can user view item? 
  before_filter :check_item_edit_permissions, :only => [:change_approval] # list of actions that don't require that the item is editable by the user
  before_filter :uses_tiny_mce, :only => [:new, :edit, :create, :update]  # which actions to load tiny_mce, TinyMCE Config is done in Layout. 
@@ -18,7 +18,7 @@ class PluginDiscussionsController < ApplicationController
    @discussion = PluginDiscussion.new(params[:discussion])
 
    # Set Approval
-   @discussion.is_approved = "1" if !@my_group_plugin_permissions.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin 
+   @discussion.is_approved = "1" if !@group_permissions_for_plugin.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin 
          
    @discussion.item_id = @item.id
    if @discussion.save

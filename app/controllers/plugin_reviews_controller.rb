@@ -3,7 +3,7 @@ class PluginReviewsController < ApplicationController
  before_filter :find_item # look up item 
  before_filter :find_plugin
  before_filter :get_plugin_settings
- before_filter :get_my_group_plugin_permissions # get permissions for this plugin  
+ before_filter :get_group_permissions_for_plugin # get permissions for this plugin  
  before_filter :check_item_view_permissions, :only => [:show] # can user view item?
  before_filter :check_item_edit_permissions, :only => [:change_approval] # list of actions that don't require that the item is editable by the user 
  before_filter :can_group_read_plugin, :only => [:show]
@@ -30,7 +30,7 @@ class PluginReviewsController < ApplicationController
     @review.item_id = @item.id      
     
     #if @item.is_viewable_for_user?(@logged_in_user) && ( && @logged_in_user.id == @item.user_id) || !@plugin.get_setting_bool("only_creator_can_review") || @logged_in_user.is_admin?)
-     @review.is_approved = "1" if !@my_group_plugin_permissions.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin       
+     @review.is_approved = "1" if !@group_permissions_for_plugin.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin       
      if @review.save
       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => @plugin.model_name.human,  :name => truncate(@review.review, :length => 10)))                                       
       flash[:success] = t("notice.item_create_success", :item => @plugin.model_name.human)

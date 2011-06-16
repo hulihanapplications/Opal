@@ -1,0 +1,46 @@
+<% if item.is_editable_for_user?(@logged_in_user) %>
+	<% videos = PluginVideo.find(:all, :conditions => ["item_id = ?", item.id])%>
+<% else %>
+	<% videos = PluginVideo.find(:all, :conditions => ["item_id = ? and is_approved = '1'", item.id])%>
+<% end %>
+
+	<div class="plugin_box">
+		<a name="<%= plugin.model_name.human(:count => :other) %>"></a>		
+			<div class="header title">
+				<table style="width:100%" cellpadding=0 cellspacing=0>
+					<tr>
+						<td align=left>
+							<h2 class="title"><%= videos.size %> <%= plugin.model_name.human(:count => videos.size) %> </h2>										
+						</td>
+						<td align=right>
+							<% if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_create? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
+								<%= link_to icon("new") + " " + t("label.item_new", :item => plugin.model_name.human), {:action => "new", :controller => "plugin_videos", :id => item.id }, :class => "plugin_title_link" %>
+							<% end %>							
+						</td>
+					</tr>
+				</table>				
+			</div>	
+		<% if videos.size > 0  %>				
+				<div class="videos">
+					<% for video in videos %>
+						<div id="video_box_<%= video.id %>" class="video">
+							<table style="width:100%" cellpadding=0 cellspacing=0>
+								<tr>
+									<td align=left>
+										<h3 class="title"><%= h video.title %></h3>																
+									</td>
+									<td align=right>
+										<%= render :partial => "plugins/plugin_item_controls", :locals => {:record => video} %>
+									</td>
+								</tr>
+							</table>
+							<%= content_tag(:div, video.description, :class => "description") unless video.description.blank? %>
+							<br />
+							<%= content_tag(:div, raw(video.code), :style => "text-align:center", :class => "code")  %>							
+						</div>														
+					<% end %>
+				</div>		
+		<% else %>
+			<%= t("label.items_none_added", :items => plugin.model_name.human(:count => :other)) %>
+		<% end %>
+	</div>

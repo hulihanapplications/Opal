@@ -1,4 +1,6 @@
 class PluginFile < ActiveRecord::Base
+  acts_as_opal_plugin
+  
   belongs_to :plugin
   belongs_to :item
   belongs_to :user
@@ -33,13 +35,5 @@ class PluginFile < ActiveRecord::Base
   
   def path # the path to the file
     return Rails.root.to_s + "/files/item_files/#{self.item_id}/#{self.filename}"
-  end
-
-  def is_approved?
-     if self.is_approved == "1"
-       return true
-     else # not approved
-       return false
-     end
-  end  
+  end 
 end

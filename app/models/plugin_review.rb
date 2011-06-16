@@ -1,4 +1,6 @@
 class PluginReview < ActiveRecord::Base
+  acts_as_opal_plugin
+
   extend PluginSupport::ClassMethods # get shared plugin support methods
   include PluginSupport::InstanceMethods # get shared plugin support methods
 
@@ -55,13 +57,4 @@ class PluginReview < ActiveRecord::Base
     end    
   end
      
-  def is_approved?
-     if self.is_approved == "1"
-       return true
-     else # not approved
-       return false
-     end
-  end
- 
-
 end

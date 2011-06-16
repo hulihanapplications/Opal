@@ -223,6 +223,7 @@ module ApplicationHelper
  def descend_category(category, options = {})    # recursive print out  category name and other information 
     # initialize default values for options
     options[:include_children] ||= false  # needed to get the item counts for a category
+    options[:include_blank]    ||= false  # include a blank option? 
     options[:depth]            ||= 10      # how many levels to descend
     options[:truncate_length]  ||= 30     # Truncate name after this amount of characters
     options[:show_item_count]  ||= false   # show the item count
@@ -485,8 +486,9 @@ module ApplicationHelper
     end  
   end 
   
-  def link_to_user(user)
-    link_to user.to_s,{:action => "user", :controller => "browse", :id => user}
+  def link_to_user(user, options = {})
+    options[:avatar] = false if options[:avatar].nil?
+    link_to(options[:avatar] ? user_avatar(user, :size => "small") + " " : "" + user.to_s,{:action => "user", :controller => "browse", :id => user})
   end
   
   def loading #show loading box
@@ -494,8 +496,11 @@ module ApplicationHelper
   end  
   
   def category_select_tag(name, value = nil, options = {})   
-    options[:id_to_ignore] ||= nil 
+    options[:id_to_ignore]    ||= nil 
+    options[:include_blank]   = false unless options[:include_blank]  
+    
     html = String.new
+    html += content_tag(:div, content_tag(:table, content_tag(:tr) do ; content_tag(:td, I18n.t("single.none"), :align => "left") + content_tag(:td, radio_button_tag(name, nil, (value.blank? || value.to_s == "0")), :align => "right") ; end, :style => "width:100%", :cellpadding => "0", :cellspacing => "0"), :class => "indent") + tag(:hr) if options[:include_blank]
      for category in Category.get_parent_categories  
        html += descend_category(category, :input_name => name, :include_children => @setting[:include_child_category_items], :make_radio_button => true, :id_to_check => value, :id_to_ignore => options[:id_to_ignore], :truncate_length => 35)  
    end

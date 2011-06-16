@@ -104,7 +104,7 @@ ru:
       reply:
         text: "Тестовое Сообщение для Test от Admin." 
     items:
-      simple:
+      sample:
         name: "Тестовая вещь А"
         description: "Тестовое описание."
       long_name:
@@ -115,10 +115,10 @@ ru:
         description: "Тестовое описание. Эта вещь ни публичная, ни подтвержденная."
     plugins:
       images:
-        simple:
+        sample:
           description: "Тестовое изображение."
       description:
-        simple:
+        sample:
           title: "Чудесная вещь!"
           content: "Эта вещь очень чудесная.<br><br>Написано процессе эзотерическая на тд, мы опа туда быстрее очередь. Об если отнимет предварительного миф. Всё руки филипа те, могут многие чем за. Это всего трудовой то, тем пока компанию за. Следующее содержимое до для, на получат заложенным биг. Код на шагов проходят, как всего палки времени до, то курице следующее конечного это. Плиты лучшему неодинаковые вот по, осколки значения ещё те. Определить программном нет от. Другие премирования разработчиков но так, голоса получаете дни об, но они ставить метеорного. Английском полвосьмого те все, программном электронной за не. Не но люсита автора, двигает работникам программистов нет на. От опять минуту следующее как. Их чем двигает инструменты, всё их распоряжения программистов. Над он этих периоды, это писать значения до, был их одну сэкономленного. То код закончить концентрируются. Для какие платформу ну. Бы новые люсита разные вас, действия закончить вы них, труда собой совершенно мы всю. То нью свою быстро успехов."
       features:
@@ -139,21 +139,21 @@ ru:
         is_this_awesome:
           name: "Она классная?"
       reviews:
-        simple:
+        sample:
           text: "Она мне действительно нравится!"
       comments:
-        simple:
+        sample:
           text: "Спасибо что поделился этим с нами!"
       links:
-        simple:
+        sample:
           title: "Вебсайт вещи"
       tags:
-        simple:
+        sample:
           name: "Самая обычная"
         cool:
           name: "Классная"
       discussions:
-        simple:
+        sample:
           title: "Тестовое обсуждение"
           description: "Это тестовое обсуждение. Не стесняйтесь удалить его."
           post: "Это тестовое сообщение."
@@ -283,7 +283,8 @@ ru:
     done: Готово
     default: по умолчанию
     slideshow: Демонстрация слайдов
-    start: Начало    
+    start: Начало  
+    approval: утверждение       
   # Flash Messages & Notices
   notice:
     save_success: Ваши изменения были успешно сохранены!
@@ -499,6 +500,8 @@ ru:
           description: Allows multiple people to have discussions about an item.   
         review:
           description: Item Reviews from Users. Reviews have scores that are tallied up to rate the value of an item.
+        video:
+          description: Embed videos from any popular video hosting site like youtube, vimeo, etc.          
       plugin_setting:   
         slideshow_speed:
           title: Скорость Слайд-шоу
@@ -801,6 +804,11 @@ ru:
         few: Настройки
         many: Настроек
         other: Настройки
+      plugin_video:
+        one: видео
+        few: видео
+        many: видео
+        other: видео        
       setting:
         one: Настройка
         few: Настройки

@@ -43,10 +43,11 @@ class Plugin < ActiveRecord::Base
     self.third_party_plugins = Plugin.third_party
   end 
   
-  def create_everything
+  def create_everything   
     # Create Group Plugin Permissions
-    GroupPluginPermission.create(:group_id => Group.user.id, :plugin_id => self.id, :can_read => "1") # turn on read permissions for users
-    GroupPluginPermission.create(:group_id => Group.public.id, :plugin_id => self.id, :can_read => "1") # turn on read permissions for the public    
+    for group in Group.all
+      GroupPluginPermission.create(:group_id => group.id, :plugin_id => self.id, :can_read => "1") # turn on read permissions for users
+    end     
   end
   
   def model_name # get human/translated name of plugin child 

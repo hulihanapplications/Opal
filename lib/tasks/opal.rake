@@ -24,7 +24,12 @@ namespace I18n.t("name").downcase.to_sym do
   end
 
   desc "Update #{I18n.t("name")}"
-  task :install => :environment do
+  task :update => :environment do
+    # Install Any Additional Bundler Gems
+    Bundler.with_clean_env do
+      sh "bundle install"
+    end
+    
     ENV["PROMPTS"] ||= "TRUE"    
     ENV["RAILS_ENV"] ||= "production"    
     Rake::Task["db:migrate"].invoke

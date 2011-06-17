@@ -3,6 +3,7 @@
 
 # Rails
 .bundle
+.rspec
 *.log
 tmp/*
 Gemfile

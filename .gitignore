@@ -6,7 +6,7 @@
 .rspec
 *.log
 tmp/*
-Gemfile
+#Gemfile
 Gemfile.lock
 db/schema.rb
 

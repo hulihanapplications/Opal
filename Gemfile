@@ -1,7 +1,7 @@
 source "http://rubygems.org/"
 
 # Locally Stored Gems
-gem "opal", "0.7.0", :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems")
+gem "opal", "0.7.3", :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems")
 gem "simple_captcha", "0.1.1", :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems") # use galetahub's simple_captcha instead of rubygems
 gem "will_paginate", ">= 3.0.pre2"#, :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems")
 gem "russian", :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems/russian")  #, :git => "git://github.com/MrHant/russian.git" # Gem specific for "ru" locale
@@ -19,6 +19,8 @@ gem "authlogic", "=2.1.6"
 gem "mysql" 
 gem 'sqlite3'
 
+
 group :test do
+ gem "rspec-rails"
  # no test gems 
 end 

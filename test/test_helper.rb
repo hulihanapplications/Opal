@@ -11,3 +11,15 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 end
+
+class ActionController::TestCase
+  def login_as_admin
+    #puts "Logging in..."
+    @logged_in_user = User.find_by_username("admin")
+    if @logged_in_user
+      
+    else
+      puts "Admin Not Found!" unless @logged_in_user
+    end
+  end
+end

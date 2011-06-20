@@ -2,7 +2,6 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
@@ -24,4 +23,14 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
+  
+  config.before(:each, :as_admin => true) do 
+    puts "Logging in as Admin..."
+    post "/user_sessions/create", :user_session => {:username => "admin", :password => "admin"}   
+  end
+
+  config.before(:each, :as_user => true) do 
+    puts "Logging in as Regular User..."
+    post "/user_sessions/create", :user_session => {:username => "test", :password => "test"} 
+  end  
 end

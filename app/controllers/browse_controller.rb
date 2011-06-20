@@ -10,9 +10,6 @@ class BrowseController < ApplicationController
     end  
   end
   
-  def login
-  end
-  
   def lost # they're lost   
   end
   

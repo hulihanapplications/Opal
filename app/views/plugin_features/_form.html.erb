@@ -99,7 +99,8 @@
 									<%= icon("categories") %>
 									<%= f.label :category_id %>
 								</h3>
-								<%= category_select_tag(:plugin_feature, :category_id) %>	
+								<%= content_tag(:div, PluginFeature.human_attribute_name(:category_id_description), :class => "description") %>
+								<%= category_select_tag(:plugin_feature, :category_id, :include_blank => true) %>	
 							</div>									
 						</div>
 					</div>					

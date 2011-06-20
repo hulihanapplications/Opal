@@ -878,6 +878,7 @@ ru:
         min: Minimum Value(optional)
         max: Maximum Value(optional)
         search_type: Search Type
+        category_id_description: Only items that belong to this category(or one of its children) will display this.        
       item:
         id: ID
         name: Название

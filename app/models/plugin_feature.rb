@@ -5,6 +5,7 @@ class PluginFeature < ActiveRecord::Base
   has_many :plugin_feature_value_options  
   belongs_to :plugin
   belongs_to :user
+  belongs_to :category
   
   after_destroy :destroy_values
 
@@ -88,5 +89,13 @@ class PluginFeature < ActiveRecord::Base
      counter += 1 if feature_value.save     
    end   
    return counter
+ end
+ 
+ def visible_for_category?(category) 
+   if self.category_id.blank?
+     return true
+   else 
+     self.category.ancestors.include?(category)
+   end
  end
 end

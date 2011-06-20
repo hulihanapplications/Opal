@@ -27,7 +27,7 @@ class UsersController < ApplicationController
   
   def index
     @setting[:meta_title] << User.model_name.human.pluralize 
-    @users = User.paginate :page => params[:page], :per_page => 100, :order => "username ASC" 
+    @users = User.paginate :page => params[:page], :per_page => 100, :order => "username ASC"
   end
   
   def create

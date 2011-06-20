@@ -9,7 +9,7 @@ class PluginCommentsController < ApplicationController
  before_filter :can_group_delete_plugin, :only => [:delete]   
  
  include ActionView::Helpers::TextHelper # for truncate, etc.
-    
+ 
  def create # this is the only create action that doesn't require that the item is editable by the user
    if simple_captcha_valid?
      @item = Item.find(params[:id])

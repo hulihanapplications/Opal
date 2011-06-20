@@ -1,6 +1,7 @@
 class BrowseController < ApplicationController
   before_filter :enable_sorting, :only => [:index, :user] # prepare sort variables & defaults for sorting
- 
+  before_filter :get_all_group_plugin_permissions, :only => [:index]
+
   def index
     @categories = Category.find(:all, :select => "name, id", :limit => 1000, :order => "name asc")
     @setting[:homepage_type] = Setting.get_setting("homepage_type")

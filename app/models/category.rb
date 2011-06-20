@@ -1,8 +1,6 @@
 class Category < ActiveRecord::Base
  include ActionView::Helpers::TextHelper # include text helper for truncate and other options
  
- acts_as_category :foreign_key => "category_id", :order_by => "name DESC"
- 
  has_many :items
  #belongs_to :category
  has_many :categories
@@ -70,4 +68,10 @@ class Category < ActiveRecord::Base
   def child_categories # get the children of this category
     return Category.find(:all, :conditions => ["category_id = ?", self.id], :order => "name ASC")    
   end
+  
+  def descendant_of?(some_category)    
+    self.id == some_category.id ? true : self.category ? self.category.descendant_of?(some_category) : false  
+  end  
+  
+
 end

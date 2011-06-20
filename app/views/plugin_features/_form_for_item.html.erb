@@ -1,5 +1,6 @@
 <% 	features = PluginFeature.find(:all, :order => "order_number ASC") %>
-   <% for feature in features %>
+<% for feature in features %>
+		<% if feature.visible_for_category?(item.category) %>
 		<div class="field">
 			<input name="features[<%= feature.id %>][plugin_feature_id]" value="<%= feature.id %>" type="hidden">														   								
 			<h3>
@@ -55,4 +56,5 @@
 				</div>
 
 		</div>		
-   <% end %>	
+	<% end %>
+<% end %>	

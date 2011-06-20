@@ -100,7 +100,7 @@
 									<%= f.label :category_id %>
 								</h3>
 								<%= content_tag(:div, PluginFeature.human_attribute_name(:category_id_description), :class => "description") %>
-								<%= category_select_tag(:plugin_feature, :category_id, :include_blank => true) %>	
+								<%= category_select_tag("plugin_feature[category_id]",  f.object.category_id, :include_blank => true) %>	
 							</div>									
 						</div>
 					</div>					

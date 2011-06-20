@@ -35,7 +35,7 @@ class PluginFeature < ActiveRecord::Base
    
    features = PluginFeature.find(:all)
    for feature in features
-     entered_value = options[:features][feature.id.to_s]["value"]
+     entered_value = options[:features][feature.id.to_s] && options[:features][feature.id.to_s]["value"]
      if entered_value && entered_value != "" # they entered a value for this feature
        if feature.feature_type == "number" || feature.feature_type == "slider"  # make sure they entered a number 
          if entered_value !~ /^\s*[+-]?((\d+_?)*\d+(\.(\d+_?)*\d+)?|\.(\d+_?)*\d+)(\s*|([eE][+-]?(\d+_?)*\d+)\s*)$/ # is this a float?
@@ -91,11 +91,11 @@ class PluginFeature < ActiveRecord::Base
    return counter
  end
  
- def visible_for_category?(category) 
+ def visible_for_category?(some_category) # can this category display this feature?
    if self.category_id.blank?
      return true
    else 
-     self.category.ancestors.include?(category)
+     self.category ? self.category == some_category || some_category.descendant_of?(self.category) : true 
    end
  end
 end

@@ -7,8 +7,8 @@
 <table cellpadding=0 cellspacing=0 style="width:auto">
 	<% for feature_value in feature_values %>
 			<% feature = feature_value.plugin_feature %>
-			<% if !feature.nil?  %>
-				<% if (options[:only_listed] && feature.listed) || !options[:only_listed] %>
+			<% if !feature.nil? %>
+				<% if ((options[:only_listed] && feature.listed) || !options[:only_listed]) && feature.visible_for_category?(feature_value.item.category) %>
 					<tr>
 						<td style="text-align:left;white-space: nowrap;">
 								<% if item.is_editable_for_user?(@logged_in_user) && options[:show_controls]  %>

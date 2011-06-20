@@ -1,21 +1,10 @@
-<div class="box_1" style="margin-bottom:5px">
-	<h3 class="title">
-		<img src="/themes/<%= @setting[:theme] %>/images/icons/items.png"  class="icon" >
-		<%= t("label.items_remaining", :items => Item.model_name.human(:count => :other)) %> remaining
-	</h3>
-	
-	<% max_items = Setting.get_setting("max_items_per_user") %>
-	<% items_remaining = max_items.to_i - @items.size  %>
-	<% if max_items.to_i == 0 || @logged_in_user.is_admin? %> 
-		You can create unlimited <%= Item.model_name.human(:count => :other) %>.
-	<% else %>
-		<% items_remaining = 0 if items_remaining < 0 %>
-		You can create <b><%= items_remaining %></b> more <%= Item.model_name.human(:count => :other) %>.					
-	<% end %>
-	<% if ((items_remaining > 0 || max_items.to_i == 0) && params[:action] != "new") || @logged_in_user.is_admin? %>
-		<div align=center>
-			<div class="spacer"></div>
-			<%= link_to icon("new") + " " + t("label.item_new", :item => Item.model_name.human), :action => "new", :controller => "items" %>
-		</div>
-	<% end %>	
-</div>
+<% items_remaining = @logged_in_user.items_remaining %>
+<% if !items_remaining.nil? && items_remaining > 0 %>
+	<div>
+		<h3 class="title">
+			<%= icon("items") %>
+			<%= t("label.items_remaining", :items => Item.model_name.human(:count => :other), :count => items_remaining) %> 
+		</h3>
+		<hr />
+	</div>
+<% end %>	

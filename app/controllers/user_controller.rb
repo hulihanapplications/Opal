@@ -92,19 +92,7 @@ end
   def user_available
    username_found = User.find(:first, :conditions => ["username = ?", params[:username]], :select => :username)
    render :json => username_found.nil?
-  end
-
-
-
-
- 
- 
-
-  def items
-    #render :layout => false
-    @items = Item.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i, :order => Item.sort_order(params[:sort]) , :conditions => ["user_id = ?", @logged_in_user.id]
-    @plugins = Plugin.enabled 
-  end  
+  end 
 
   def settings
     @user = @logged_in_user

@@ -1,16 +1,16 @@
 class ItemsController < ApplicationController
  before_filter :authenticate_user, :only => [:edit, :update, :delete, :create, :new] 
- before_filter :enable_user_menu, :only =>  [:new, :edit, :create, :update] # show user menu 
+ before_filter :enable_user_menu, :only =>  [:new, :edit, :create, :update, :my] # show user menu 
  
  before_filter :authenticate_admin, :only =>  [:all_items, :settings, :change_item_name, :do_change_item_name] # check if user is admin 
  before_filter :enable_admin_menu, :only =>  [:all_items, :settings, :change_item_name, :do_change_item_name] # show admin menu 
  
  before_filter :find_item, :only => [:view, :edit, :update, :delete] # look up item  
- before_filter :get_all_group_plugin_permissions, :only => [:view, :category, :tag, :search, :advanced_search, :index, :all_items]
+ before_filter :get_all_group_plugin_permissions, :only => [:view, :category, :tag, :search, :advanced_search, :index, :all_items, :my]
  # before_filter :find_item, :except => [:index, :rss, :category, :all_items, :tag, :create, :new, :search, :new_advanced_search, :advanced_search, :set_list_type, :set_item_page_type, :settings] # look up item 
  before_filter :check_item_view_permissions, :only => [:view] # check item view permissions
  before_filter :check_item_edit_permissions, :only => [:edit, :update, :delete] # check if item is editable by user 
- before_filter :enable_sorting, :only => [:index, :category, :all_items, :search] # prepare sort variables & defaults for sorting
+ before_filter :enable_sorting, :only => [:index, :category, :all_items, :search, :my] # prepare sort variables & defaults for sorting
 
  
   def index # show all items to user
@@ -331,6 +331,11 @@ class ItemsController < ApplicationController
    end 
    redirect_to :action => "change_item_name"
  end
+ 
+  def my # get items for logged in user
+    @items = Item.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i, :order => Item.sort_order(params[:sort]) , :conditions => ["user_id = ?", @logged_in_user.id]
+    @plugins = Plugin.enabled 
+  end  
  
 private 
   def utf8_hash(some_hash) # convert hash key & values to utf-8 for proper translation

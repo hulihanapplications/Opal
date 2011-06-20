@@ -407,7 +407,7 @@ ru:
     items_from: %{items} от %{name}
     items_for: %{items} для %{name}
     items_more: Больше %{items}
-    items_remaining: %{items} осталось
+    items_remaining: %{count} %{items} осталось
     items_found: Найдено %{count} %{items}.
     items_latest: Последние %{items}
     items_none_added: %{items} не добавлено. 

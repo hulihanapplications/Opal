@@ -1,0 +1,11 @@
+<div class="box_2 menu" style="" align=center>
+	<% if @logged_in_user.can_create_more_items? %>
+		<div class="box_<%= (params[:action] == "settings" && params[:controller] == "items") ? "1" : "2" %>">
+			<%= render :partial => "items/items_remaining" %>	
+			<%= link_to icon("new") + " " + t("label.item_new", :item => Item.model_name.human), {:action => "new", :controller => "items"} %>
+		</div>	
+	<% end %>
+	<div class="box_<%= (params[:action] == "my") ? "1" : "2" %> last">
+		<%= link_to icon("items") + " " + t("label.item_my", :item => Item.model_name.human(:count => :other)), {:action => "my", :controller => "items"} %>
+	</div>	
+</div>

@@ -412,7 +412,7 @@ en:
     items_from: %{items} from %{name}
     items_for: %{items} for %{name}
     items_more: More %{items}
-    items_remaining: %{items} remaining
+    items_remaining: %{count} %{items} remaining
     items_found: %{count} %{items} found
     items_latest: Latest %{items}    
     items_none_added: No %{items} have been added. 

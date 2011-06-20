@@ -1,4 +1,4 @@
-<div class="box_2 menu" style="" align=center>
+<div class="box_2 menu" align=center>
 	<% if @logged_in_user.can_create_more_items? %>
 		<div class="box_<%= (params[:action] == "settings" && params[:controller] == "items") ? "1" : "2" %>">
 			<%= render :partial => "items/items_remaining" %>	

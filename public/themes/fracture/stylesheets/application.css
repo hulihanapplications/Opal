@@ -202,7 +202,7 @@
 /* Tabs Section */
 ul#tabmenu {	list-style:none; 	margin:0 !important; 	padding:0;	height:25px;	margin-bottom:0px;}
 #tabmenu li  { 	float:left;	 	text-indent:0;	padding:0;	margin:0 !important;	list-style-image:none !important; }/* single tab */
-#tabmenu a, a.active { color:#333;	background: url(../images/bgs/user_tab_bg_unselected.png) no-repeat;;	font-size:12px;	display:block;	height: 20px;  	width: 115px;	text-align:center;		text-decoration:none;	padding:4px 0px 1px 0px;	margin:0px 2px 0px 0px;		position:relative;}/* link inside the tab. uses a background image */
+#tabmenu a, #tabmenu a.active { color:#333;	background: url(../images/bgs/user_tab_bg_unselected.png) no-repeat;;	font-size:12px;	display:block;	height: 20px;  	width: 115px;	text-align:center;		text-decoration:none;	padding:4px 0px 1px 0px;	margin:0px 2px 0px 0px;		position:relative;}/* link inside the tab. uses a background image */
 #tabmenu a.active {	border:0px;	background: url(../images/bgs/user_tab_bg_selected.png) no-repeat;}
 #tabmenu a:visited, #tabmenu a:link {}
 #tabmenu a:hover {;border:0px;	background: url(../images/bgs/user_tab_bg_selected.png) no-repeat;}

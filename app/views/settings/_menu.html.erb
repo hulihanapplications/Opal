@@ -1,12 +1,12 @@
-<div class="box_2" style="margin-bottom:5px;" align=center>
+<div class="box_2 menu">
 	<h3 class="title" align=left><%= t("section.title.configure") %></h3>
 	
-	<div class="box_<%= (params[:controller] == "settings" && params[:action] == "index") || params[:action] == "new_change_logo" ? "1" : "2" %>" style="margin-bottom:5px;">
+	<div class="box_<%= (params[:controller] == "settings" && params[:action] == "index") || params[:action] == "new_change_logo" ? "1" : "2" %>">
 		<img src="/themes/<%= @setting[:theme] %>/images/icons/settings.png" class="icon"> 				
 		<%= link_to Setting.model_name.human(:count => :other), {:action => "index", :controller => "settings"} %>				
 	</div>	
 
-	<div class="box_<%= (params[:action] == "themes" || params[:action] == "new_theme_install") ? "1" : "2" %>" style="margin-bottom:5px;">
+	<div class="box_<%= (params[:action] == "themes" || params[:action] == "new_theme_install") ? "1" : "2" %> last">
 		<img src="/themes/<%= @setting[:theme] %>/images/icons/themes.png" class="icon"> 				
 		<%= link_to t("single.theme", :count => :other), {:action => "themes", :controller => "settings"} %>				
 	</div>			

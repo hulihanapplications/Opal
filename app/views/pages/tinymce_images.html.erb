@@ -16,9 +16,9 @@
 		<div class="plugin_panes_horizontal"> 					
 			<div id="Upload">								   
 			  <% if @item %>
-	   			<%= form_tag({:action => 'create', :controller => "plugin_images", :id => @item.id, :tinymce => "true"} , :multipart => true) %>			 
+	   			<%= form_tag({:action => 'create', :controller => "plugin_images", :id => @item.id, :tinymce => "true"}, :multipart => true) %>			 
 			  <% else %>			
-				<%= form_tag({:action => 'upload_image', :controller => "pages"} , :multipart => true) %>
+				<%= form_tag({:action => 'upload_image', :controller => "pages"}, :multipart => true) %>
 			  <% end %>				
 				   <%= render :partial => "shared/image_upload_form" %>
 				   <br>

@@ -4,7 +4,6 @@ class AdminController < ApplicationController
 
 
  def index
-    logger.info "\n\n\nLogged in User: " + @logged_in_user.inspect
     @latest_logs = Log.find(:all, :limit => 5)
  end  
 

@@ -23,14 +23,29 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
-  
-  config.before(:each, :as_admin => true) do 
-    puts "Logging in as Admin..."
-    post "/user_sessions/create", :user_session => {:username => "admin", :password => "admin"}   
-  end
+end
 
-  config.before(:each, :as_user => true) do 
-    puts "Logging in as Regular User..."
-    post "/user_sessions/create", :user_session => {:username => "test", :password => "test"} 
-  end  
+module RSpec
+  module Core    
+   class ExampleGroup
+      def wrap_with_controller( new_controller = UserSessionsController )
+        old_controller = @controller # Store current controller temporarily
+        @controller = new_controller.new # set current controller as something else 
+        yield
+        @controller = old_controller # switch back
+      end
+      
+      def login_admin
+        wrap_with_controller do
+          post(:create, {:user_session => {:username => 'admin', :password => 'admin'}})
+        end
+      end
+      
+      def login_regular
+        wrap_with_controller do
+          post(:create, {:user_session => {:username => 'test', :password => 'test'}})
+        end
+      end  
+    end 
+  end 
 end

@@ -11,7 +11,7 @@
 				</div>
 			</div>
 		<% end %>
-		<% form_for @user_session do |f| %>
+		<%= form_for @user_session do |f| %>
 			 <table>
 			  <tr>
 			   	<td><%= f.label :username %></td><td > <%= f.text_field :username %></td>

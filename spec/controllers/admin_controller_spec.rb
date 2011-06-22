@@ -1,10 +1,12 @@
 require 'spec_helper'
 
 describe AdminController do  
+  render_views
+  
   describe "as visitor" do
-    it "GET index redirects" do
+    it "GET index redirects to login" do
       get :index
-      response.code.should eq("302")
+      response.code.should redirect_to(login_path)
     end
   end
   

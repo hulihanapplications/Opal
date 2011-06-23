@@ -5,6 +5,7 @@ Factory.define :user do |u|
   u.password   'test'
   u.email      'test@test.com'
   u.is_admin   '0'  
+  u.locale     'en'
 end
 
 Factory.define :admin, :class => User do |u|
@@ -14,4 +15,9 @@ Factory.define :admin, :class => User do |u|
   u.password   'admin'
   u.email      'admin@test.com'
   u.is_admin   '1'  
+  u.locale     'en'
+end
+
+Factory.define :category do |o|
+  o.sequence(:name) { |n| "Test Category #{n}" }  
 end

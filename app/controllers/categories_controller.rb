@@ -38,7 +38,6 @@ class CategoriesController < ApplicationController
   def create # creates a new Feature, not a Feature Value
     #category = Category.find(params[:id])   
     category = Category.new(params[:category])
-    
     if category.save
       Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_create", :item => Category.model_name.human, :name => category.name))
       flash[:success] = t("notice.item_create_success", :item => Category.model_name.human)

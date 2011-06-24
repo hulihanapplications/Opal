@@ -20,6 +20,13 @@ describe CategoriesController do
       end      
     end
 
+    describe "edit" do
+      it "returns 200" do
+        get :edit, {:id => Factory(:category).id}
+        response.code.should eq("200")
+      end      
+    end
+    
     describe "create" do
       it "adds a category" do
         expect{
@@ -39,6 +46,15 @@ describe CategoriesController do
         flash[:success].should_not be_nil
         @response.should redirect_to(:action => "index")
       end      
-    end    
+    end   
+    
+    describe "update" do
+      it "saves changes" do
+        category = Factory(:category)       
+        post(:update, {:id => category.id, :category => {:name => "New Name"}})
+        flash[:success].should_not be_nil
+        Category.find(category.id).name.should == "New Name" 
+      end      
+    end
   end
 end

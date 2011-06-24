@@ -68,7 +68,7 @@ class Emailer < ActionMailer::Base
     recipients = Emailer.admin_emails
     @item = item
     @url = url           
-    subject = I18n.t("email.subject.item_new_from_user", :item => Item.model_name.human, :name => @item.name, :title => @setting[:title], :from => @item.user.username)
+    subject = I18n.t("email.subject.item_new_from_user", :item => Item.model_name.human, :name => @item.name, :title => @setting[:title], :from => @item.user ? @item.user.username : nil)
     mail(:to => nil, :bcc => recipients, :subject => subject, :date => Time.now, :content_type => "text/plain")        
   end
   

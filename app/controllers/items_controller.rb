@@ -172,7 +172,7 @@ class ItemsController < ApplicationController
    else # The user can't delete this item
      flash[:failure] = t("notice.invalid_permissions")
    end 
-   redirect_to :action => "items", :controller => "/user"
+   redirect_to :action => "my"
   end
 
  def rss

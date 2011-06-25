@@ -3,17 +3,9 @@ class PluginDiscussion < ActiveRecord::Base
 
   belongs_to :item
   belongs_to :user
-  has_many :plugin_discussion_posts
+  has_many :plugin_discussion_posts, :dependent => :destroy
    
-  after_destroy :destroy_everything
-
   default_scope :order => "title ASC"
   
-  validates_presence_of :title 
-  
-  def destroy_everything
-    for item in self.plugin_discussion_posts
-      item.destroy
-    end
-  end
+  validates_presence_of :title   
 end

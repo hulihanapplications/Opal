@@ -26,8 +26,8 @@ module Opal
         plugin.get_setting_bool(name)
       end 
       
-      def activate_has_many # create has_many relationship for this plugin
-       
+      def installed? # has this plugin been installed?
+        table_exists?
       end
     end
     

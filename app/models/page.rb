@@ -1,6 +1,6 @@
 class Page < ActiveRecord::Base
   has_many :pages
-  has_many :page_comments
+  has_many :page_comments, :dependent => :destroy
   belongs_to :page
   belongs_to :user
   
@@ -36,10 +36,6 @@ class Page < ActiveRecord::Base
       else 
         subpage.destroy
       end 
-    end
-    
-    for item in self.page_comments # delete all comments
-      item.destroy
     end
   end 
 

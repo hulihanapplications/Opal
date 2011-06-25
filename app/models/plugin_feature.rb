@@ -1,26 +1,14 @@
 class PluginFeature < ActiveRecord::Base
   acts_as_opal_plugin
   
-  has_many :plugin_feature_values
-  has_many :plugin_feature_value_options  
+  has_many :plugin_feature_values, :dependent => :destroy
+  has_many :plugin_feature_value_options, :dependent => :destroy  
   belongs_to :plugin
   belongs_to :user
   belongs_to :category
   
-  after_destroy :destroy_values
-
   validates_presence_of :name
   validates_numericality_of :min, :max, :allow_nil => true 
-
-  def destroy_values # destroy all values for this feature
-    for item in self.plugin_feature_values
-      item.destroy
-    end
-    
-    for item in self.plugin_feature_value_options
-      item.destroy
-    end    
-  end
 
   def is_approved?
     return self.is_approved == "1"

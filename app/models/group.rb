@@ -1,11 +1,10 @@
 class Group < ActiveRecord::Base
-  has_many :users
-  has_many :group_plugin_permissions
+  has_many :users, :dependent => :destroy
+  has_many :group_plugin_permissions, :dependent => :destroy
   
   validates_uniqueness_of :name
   validates_presence_of :name
   
-  after_destroy :destroy_everything
   after_create :create_everything
   attr_protected :is_deletable 
   
@@ -20,15 +19,6 @@ class Group < ActiveRecord::Base
     end      
   end
   
-  def destroy_everything
-    for item in self.users # delete users
-      item.destroy
-    end    
-    
-    for item in self.group_plugin_permissions
-      item.destroy
-    end   
-  end
   
   def is_admin_group? # if this the admins group 
     if self.id == 3

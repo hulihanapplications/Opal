@@ -51,7 +51,17 @@ end
 
 Factory.define :item_with_plugins, :parent => :item do |o|
   o.after_build do |o|
-    o.plugin_images = [Factory(:plugin_image, :item => o)]
+    o.plugin_comments = [Factory(:plugin_comment, :item => o)]
+    o.plugin_descriptions = [Factory(:plugin_description, :item => o)]
+    o.plugin_discussions = [Factory(:plugin_discussion, :item => o)]
+    o.plugin_discussion_posts = [Factory(:plugin_discussion_post, :item => o)]
+    o.plugin_feature_values = [Factory(:plugin_feature_value, :item => o)]    
+    o.plugin_files = [Factory(:plugin_file, :item => o)]
+    o.plugin_images = [Factory(:plugin_image, :item => o)]    
+    o.plugin_links = [Factory(:plugin_link, :item => o)]    
+    o.plugin_reviews = [Factory(:plugin_review, :item => o)]    
+    o.plugin_tags = [Factory(:plugin_tag, :item => o)]    
+    o.plugin_videos = [Factory(:plugin_video, :item => o)]        
   end
 end
 
@@ -81,20 +91,15 @@ end
 Factory.define :plugin_discussion_post do |o|
   o.association   :item, :factory => :item
   o.association   :user, :factory => :new_user
-  o.is_approved   "1"
-  o.plugin_discussion_id
-  o.user_id
-  o.item_id
-  o.post
-  o.is_sticky
-  o.is_enabled "1"
+  o.association   :plugin_discussion, :factory => :plugin_discussion
+  o.post          "This is a test post."
 end
 
 Factory.define :plugin_discussion do |o|
   o.association   :item, :factory => :item
   o.association   :user, :factory => :new_user
   o.is_approved   "1"
-  o.title
+  o.title         "Test Discussion"
   o.description
   o.is_sticky
   o.is_closed
@@ -116,9 +121,7 @@ Factory.define :plugin_feature_value do |o|
 end
 
 Factory.define :plugin_feature do |o|
-  o.association   :item, :factory => :item
   o.association   :user, :factory => :new_user
-  o.is_approved   "1"
   o.name          "Test Feature"
   o.feature_type  "Text"
 end
@@ -127,17 +130,17 @@ Factory.define :plugin_file do |o|
   o.association   :item, :factory => :item
   o.association   :user, :factory => :new_user
   o.is_approved   "1"
-  o.title    "Test Title"
-  o.filename "testfilename.txt"
-  o.downloads 0
+  o.title         "Test Title"
+  o.filename      "testfilename.txt"
+  o.downloads     0
 end
 
 Factory.define :plugin_link do |o|
   o.association   :item, :factory => :item
   o.association   :user, :factory => :new_user
   o.is_approved   "1"
-  o.title "Test Link"
-  o.url "http://localhost"
+  o.title         "Test Link"
+  o.url           "http://localhost"
 end
 
 Factory.define :plugin_review_vote do |o|
@@ -162,7 +165,7 @@ Factory.define :plugin_tag do |o|
   o.association   :item, :factory => :item
   o.association   :user, :factory => :new_user
   o.is_approved   "1"
-  o.name          "Test Tag"
+  o.name          "Tag"
 end
 
 Factory.define :plugin_video do |o|

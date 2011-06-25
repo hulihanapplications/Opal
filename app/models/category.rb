@@ -1,11 +1,9 @@
 class Category < ActiveRecord::Base
  include ActionView::Helpers::TextHelper # include text helper for truncate and other options
  
- has_many :items
- #belongs_to :category
- has_many :categories
+ has_many :items, :dependent => :destroy
+ has_many :categories, :dependent => :destroy
  belongs_to :category
- after_destroy :destroy_everything
  
  validates_presence_of :name, :message => "This field is required!"
 
@@ -54,16 +52,6 @@ class Category < ActiveRecord::Base
     end 
     return string
   end 
-
-  def destroy_everything
-    for item in self.items # delete items
-      item.destroy 
-    end
-    
-    for item in self.categories # delete subcategories
-      item.destroy 
-    end
-  end
  
   def child_categories # get the children of this category
     return Category.find(:all, :conditions => ["category_id = ?", self.id], :order => "name ASC")    

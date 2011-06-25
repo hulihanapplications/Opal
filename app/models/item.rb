@@ -2,14 +2,16 @@ class Item < ActiveRecord::Base
   has_one :item_statistic
   belongs_to :user
   belongs_to :category
-  has_many :plugin_images, :dependent => :destroy
-  has_many :plugin_descriptions, :dependent => :destroy
-  has_many :plugin_feature_values, :dependent => :destroy
   has_many :plugin_comments, :dependent => :destroy
-  has_many :plugin_reviews, :dependent => :destroy
-  has_many :plugin_links, :dependent => :destroy
-  has_many :plugin_tags, :dependent => :destroy
+  has_many :plugin_descriptions, :dependent => :destroy
+  has_many :plugin_discussions, :dependent => :destroy
+  has_many :plugin_discussion_posts, :dependent => :destroy  
+  has_many :plugin_feature_values, :dependent => :destroy
   has_many :plugin_files, :dependent => :destroy
+  has_many :plugin_images, :dependent => :destroy
+  has_many :plugin_links, :dependent => :destroy
+  has_many :plugin_reviews, :dependent => :destroy
+  has_many :plugin_tags, :dependent => :destroy
   has_many :plugin_videos, :dependent => :destroy
   has_many :logs
   

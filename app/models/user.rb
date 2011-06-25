@@ -1,16 +1,27 @@
 class User < ActiveRecord::Base
   require 'digest/sha2'
-  #Relationships
-  has_many :items
-  has_many :user_messages
-  has_many :pages
-  has_many :page_comments
-  has_one :user_info
-  has_many :user_verifications
+
+  has_one :user_info, :dependent => :destroy
+  has_many :user_messages, :dependent => :destroy
+  has_many :pages, :dependent => :nullify
+  has_many :page_comments, :dependent => :destroy
+  has_many :user_verifications, :dependent => :destroy
   has_many :logs
+  has_many :items, :dependent => :destroy  
+  has_many :plugin_comments, :dependent => :destroy
+  has_many :plugin_descriptions, :dependent => :destroy
+  has_many :plugin_discussions, :dependent => :destroy
+  has_many :plugin_discussion_posts, :dependent => :destroy  
+  has_many :plugin_feature_values, :dependent => :destroy
+  has_many :plugin_files, :dependent => :destroy
+  has_many :plugin_images, :dependent => :destroy
+  has_many :plugin_links, :dependent => :destroy
+  has_many :plugin_reviews, :dependent => :destroy
+  has_many :plugin_review_votes, :dependent => :destroy
+  has_many :plugin_tags, :dependent => :destroy
+  has_many :plugin_videos, :dependent => :destroy  
   belongs_to :group
   
-  #-------------validations-----------------------
   validates_uniqueness_of :username #this will comb through the database and make sure email is unique
   validates_uniqueness_of :email #this will comb through the database and make sure email is unique
   validates_presence_of :username, :first_name, :last_name, :email
@@ -19,8 +30,6 @@ class User < ActiveRecord::Base
   #validates_numericality_of :zip
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
   
-  
-  #-----------------------------------------------
   before_save :strip_html
   after_create :create_everything
   after_destroy :destroy_everything
@@ -96,52 +105,6 @@ class User < ActiveRecord::Base
     if File.exists?(avatar_path) # check if avatar exists
       FileUtils.rm(avatar_path) # delete!
     end
-    
-    for item in self.items
-      item.destroy
-    end
-  
-    self.user_info.destroy if self.user_info # delete user info(descriptions, avatar, etc.)
-    
-    for item in self.user_messages # delete messages
-      item.destroy 
-    end
-    
-    #for item in UserMessage.messages_from_user(self) # delete messages from user
-      #item.destroy 
-    #end    
-    
-    for item in self.pages # delete pages
-      item.destroy 
-    end
-
-    page_comments = PageComment.find(:all, :conditions => ["user_id = ?", self.id] )
-    for item in page_comments # delete all page comments
-      item.destroy 
-    end      
-    
-    for item in self.user_verifications # delete verification emails
-      item.destroy 
-    end  
-    
-    reviews = PluginReview.find(:all, :conditions => ["user_id = ?", self.id] )
-    for item in reviews # delete reviews
-      item.destroy 
-    end   
-    
-    comments = PluginComment.find(:all, :conditions => ["user_id = ?", self.id] )
-    for item in comments # delete comments
-      item.destroy 
-    end  
-    
-    discussion_posts = PluginDiscussionPost.find(:all, :conditions => ["user_id = ?", self.id] )
-    for item in discussion_posts # delete comments
-      item.destroy 
-    end    
-
-    for item in PluginDescription.find(:all, :conditions => ["user_id = ?", self.id] )# delete descriptions
-      item.destroy 
-    end       
   end
   
   def create_everything

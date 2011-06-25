@@ -57,8 +57,20 @@ describe ItemsController do
       end      
     end
     
-    pending "all_items"
-    pending "change_item_name"
+    describe "all_items" do
+      it "should return 200" do 
+        get :all_items
+        @response.code.should eq("200")
+      end
+    end
+        
+    describe "change_item_name" do
+      it "should return 200" do 
+        get :change_item_name
+        @response.code.should eq("200")
+      end
+    end
+    
     pending "do_change_item_name"
   end
   
@@ -72,19 +84,33 @@ describe ItemsController do
 
     describe "view" do
       it "should return 200" do 
-        item = Factory(:item_with_plugins)
-        puts item.inspect
-        puts item.plugin_images
-        get :view, {:id =>  item}
+        get :view, {:id =>  Factory(:item_with_plugins)}
         @response.code.should eq("200")
       end
     end
         
+    describe "rss" do
+      it "should return 200" do 
+        get :rss, {:id =>  Factory(:item_with_plugins)}
+        @response.code.should eq("200")
+      end
+    end   
+
+    describe "tag" do
+      it "should return 200" do 
+        item = Factory(:item_with_plugins)
+        get :tag, {:tag =>  PluginTag.first.name}
+        @response.code.should eq("200")
+      end
+    end       
+
+    describe "new_advanced_search" do
+      it "should return 200" do 
+        get :new_advanced_search
+        @response.code.should eq("200")
+      end
+    end     
     
-    pending "rss"
-    pending "tag"
-    pending "view"
-    pending "new_advanced_search"
     pending "advanced_search"
     pending "set_list_type"
     pending "set_item_page_type"   

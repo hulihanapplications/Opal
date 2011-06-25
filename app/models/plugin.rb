@@ -3,8 +3,8 @@ class Plugin < ActiveRecord::Base
   
   validates_presence_of :name
   validates_uniqueness_of :name
-  has_many :plugin_settings
-  has_many :group_plugin_permissions
+  has_many :plugin_settings, :dependent => :destroy
+  has_many :group_plugin_permissions, :dependent => :destroy
   
   after_create :create_everything
   after_destroy :destroy_everything
@@ -54,15 +54,7 @@ class Plugin < ActiveRecord::Base
     self.plugin_class.model_name # get human name of actual model 
   end
   
-  def destroy_everything
-    for item in self.plugin_settings # Delete plugin_settings
-      item.destroy
-    end
-    
-    for item in self.group_plugin_permissions
-      item.destroy
-    end
-    
+  def destroy_everything    
     # Delete Plugin Objects for Items
     for item in self.actual_model.find(:all)
       item.destroy

@@ -1,13 +1,10 @@
 class PluginReview < ActiveRecord::Base
   acts_as_opal_plugin
-
-  extend PluginSupport::ClassMethods # get shared plugin support methods
-  include PluginSupport::InstanceMethods # get shared plugin support methods
-
+  
   #belongs_to :plugin
   belongs_to :item
   belongs_to :user
-  has_many :plugin_review_votes
+  has_many :plugin_review_votes, :dependent => :destroy
   
   scope :with_total_vote_score, lambda{   # computes vote score of reviews by summing all associated plugin_review_vote records
     group("plugin_reviews.id").
@@ -20,18 +17,10 @@ class PluginReview < ActiveRecord::Base
   scope :newest_first, order("created_at DESC")
 
   
-  before_destroy :delete_everything
   validates_presence_of :review_score
   validates_presence_of :item_id, :user_id
-   #validates_length_of :review, :minimum => 10, :message => "This review is too short! It must have at least 10 characters."
-   #validates_length_of :review, :maximum => 255, :message => "This review is too long! It must be 255 characters or less."
-
-  def delete_everything
-    for item in self.plugin_review_votes # delete all votes
-      item.destroy
-    end
-  end
-
+  #validates_length_of :review, :minimum => 10, :message => "This review is too short! It must have at least 10 characters."
+  #validates_length_of :review, :maximum => 255, :message => "This review is too long! It must be 255 characters or less."
   
   def validate # custom validations
     @setting = Hash.new

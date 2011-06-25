@@ -40,9 +40,6 @@ module Opal
     def self.included(base) # automatically called when included
       base.send(:extend, ClassMethods)
       base.send(:include, InstanceMethods)
-      
-      # Create has_many associations
-      Item.send(:has_many,  base.name.underscore.pluralize.to_sym, :dependent => :destroy) # automatically create a has_many association for Item
     end
   end
 end 

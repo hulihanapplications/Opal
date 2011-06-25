@@ -11,7 +11,6 @@ class Item < ActiveRecord::Base
   has_many :plugin_tags, :dependent => :destroy
   has_many :plugin_files, :dependent => :destroy
   has_many :plugin_videos, :dependent => :destroy
-  has_one :item_statistic, :dependent => :destroy
   has_many :logs
   
   validates_presence_of :name

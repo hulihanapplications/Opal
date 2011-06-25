@@ -72,8 +72,9 @@ describe ItemsController do
 
     describe "view" do
       it "should return 200" do 
-        item = Factory(:item)
+        item = Factory(:item_with_plugins)
         puts item.inspect
+        puts item.plugin_images
         get :view, {:id =>  item}
         @response.code.should eq("200")
       end

@@ -2,16 +2,16 @@ class Item < ActiveRecord::Base
   has_one :item_statistic
   belongs_to :user
   belongs_to :category
-  
-  has_many :plugin_images
-  has_many :plugin_descriptions
-  has_many :plugin_feature_values
-  has_many :plugin_comments
-  has_many :plugin_reviews
-  has_many :plugin_links
-  has_many :plugin_tags
-  has_many :plugin_files
-  has_one :item_statistic
+  has_many :plugin_images, :dependent => :destroy
+  has_many :plugin_descriptions, :dependent => :destroy
+  has_many :plugin_feature_values, :dependent => :destroy
+  has_many :plugin_comments, :dependent => :destroy
+  has_many :plugin_reviews, :dependent => :destroy
+  has_many :plugin_links, :dependent => :destroy
+  has_many :plugin_tags, :dependent => :destroy
+  has_many :plugin_files, :dependent => :destroy
+  has_many :plugin_videos, :dependent => :destroy
+  has_one :item_statistic, :dependent => :destroy
   has_many :logs
   
   validates_presence_of :name
@@ -39,61 +39,7 @@ class Item < ActiveRecord::Base
     FileUtils.mkdir_p(files_path) if !File.exist?(files_path) # create the folder if it doesn't exist
   end
 
-  def destroy_everything
-    # Destroy Images
-    plugins = PluginImage.find(:all, :conditions => ["item_id = ?", self.id])
-    for item in plugins
-      item.destroy
-    end
-
-    # Destroy Description
-    plugins = PluginDescription.find(:all, :conditions => ["item_id = ?", self.id])
-    for item in plugins
-      item.destroy
-    end
-    
-    # Destroy Feature Values
-    plugins = PluginFeatureValue.find(:all, :conditions => ["item_id = ?", self.id])
-    for item in plugins
-      item.destroy
-    end
-    
-    # Destroy Reviews
-    plugins = PluginReview.find(:all, :conditions => ["item_id = ?", self.id])
-    for item in plugins
-      item.destroy
-    end    
-    
-    # Destroy Comments
-    plugins = PluginComment.find(:all, :conditions => ["item_id = ?", self.id])
-    for item in plugins
-      item.destroy
-    end
-    
-    # Destroy Links
-    plugins = PluginLink.find(:all, :conditions => ["item_id = ?", self.id])
-    for item in plugins
-      item.destroy
-    end
-    
-    # Destroy Tags
-    plugins = PluginTag.find(:all, :conditions => ["item_id = ?", self.id])
-    for item in plugins
-      item.destroy
-    end
-    
-    # Destroy Files
-    plugins = PluginFile.find(:all, :conditions => ["item_id = ?", self.id])
-    for item in plugins
-      item.destroy
-    end
-
-    # Destroy Discussions
-    discussions = PluginDiscussion.find(:all, :conditions => ["item_id = ?", self.id])
-    for item in discussions
-      item.destroy
-    end
-    
+  def destroy_everything    
     # Remove Images Folder
     images_path = "#{Rails.root.to_s}/public/images/item_images/#{self.id}"
     FileUtils.rm_rf(images_path) if File.exist?(images_path) # remove the folder if it exists 
@@ -101,8 +47,6 @@ class Item < ActiveRecord::Base
     # Remove Files Folder
     files_path = "#{Rails.root.to_s}/files/item_files/#{self.id}"
     FileUtils.rm_rf(files_path) if File.exist?(files_path) # remove the folder if it exists 
-    
-    #require "#{Rails.root.to_s}/print_id.rb"
   end
   
   
@@ -249,6 +193,7 @@ class Item < ActiveRecord::Base
  def logs # get logs for item
    Log.for_item(self).newest_first
  end
+ 
 =begin
   # Create Dynamic Attributes from Features
   for feature in PluginFeature.find(:all)
@@ -270,4 +215,5 @@ class Item < ActiveRecord::Base
     puts "No Method Found.\nYou tried to run: #{method_id}\nWith the arguments: #{arguments_you_tried_to_pass_in.inspect}" 
   end
 =end
+
 end

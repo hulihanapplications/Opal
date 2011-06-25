@@ -69,11 +69,20 @@ describe ItemsController do
         @response.code.should eq("200")
       end
     end
+
+    describe "view" do
+      it "should return 200" do 
+        item = Factory(:item)
+        puts item.inspect
+        get :view, {:id =>  item}
+        @response.code.should eq("200")
+      end
+    end
+        
     
     pending "rss"
     pending "tag"
     pending "view"
-    pending "search"
     pending "new_advanced_search"
     pending "advanced_search"
     pending "set_list_type"

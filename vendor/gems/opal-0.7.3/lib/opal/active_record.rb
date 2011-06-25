@@ -21,8 +21,7 @@ module Opal
         end   
     
         def acts_as_opal_plugin(options = {}) # for use in plugins
-          self.send :include, Opal::ActsAsOpalPlugin::InstanceMethods
-          self.send :extend, Opal::ActsAsOpalPlugin::ClassMethods
+          include Opal::ActsAsOpalPlugin
         end        
       end
     end 

@@ -20,8 +20,11 @@ namespace I18n.t("name").downcase.to_sym do
     ENV["PROMPTS"] ||= "TRUE"    
     ENV['VERSION']= '0'
     Rake::Task['db:migrate'].invoke
-    item_name_file = File.join(Rails.root.to_s, "config", "locales", "item.yml") # delete item.yaml if it exists
-    File.delete(item_name_file) if File.exists?(item_name_file)
+    item_name_file = File.join(Rails.root.to_s, "config", "locales", "item.yml") 
+    if File.exists?(item_name_file)
+      File.delete(item_name_file) # delete item.yml if it exists
+      I18n.reload! # reload I18n any time we delete a translation file
+    end
   end
 
   desc "Update #{I18n.t("name")}"

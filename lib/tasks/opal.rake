@@ -5,14 +5,13 @@ namespace I18n.t("name").downcase.to_sym do
   task :install => :environment do    
     # Install Bundler Gems
     Bundler.with_clean_env do
-      sh "bundle install"
+      system "bundle install"
     end
     
     ENV["PROMPTS"] ||= "TRUE"    
     ENV["RAILS_ENV"] ||= "production"    
     Rake::Task["db:migrate"].invoke
-    Rake::Task["db:seed"].invoke 
-    
+    Rake::Task["db:seed"].invoke     
   end
 
   desc 'Uninstall #{I18n.t("name")}'
@@ -21,6 +20,8 @@ namespace I18n.t("name").downcase.to_sym do
     ENV["PROMPTS"] ||= "TRUE"    
     ENV['VERSION']= '0'
     Rake::Task['db:migrate'].invoke
+    item_name_file = File.join(Rails.root.to_s, "config", "locales", "item.yml") # delete item.yaml if it exists
+    File.delete(item_name_file) if File.exists?(item_name_file)
   end
 
   desc "Update #{I18n.t("name")}"

@@ -3,14 +3,14 @@ require 'spec_helper'
 describe AdminController do  
   render_views
   
-  describe "as visitor" do
+  context "as visitor" do
     it "GET index redirects to login" do
       get :index
       response.code.should redirect_to(login_path)
     end
   end
   
-  describe "as admin" do
+  context "as admin" do
     before(:each) do
       login_admin
     end 

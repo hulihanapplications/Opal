@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ApplicationController do
-  describe "as visitor" do
+  context "as visitor" do
     describe "set_user" do
       pending "returns User.anonymous"          
     end
@@ -14,13 +14,13 @@ describe ApplicationController do
     end
   end
   
-  describe "as admin" do
+  context "as admin" do
     before(:each) do
       login_admin
     end 
   end
   
-  describe "as user" do 
+  context "as user" do 
     before(:each) do
       login_user
     end       

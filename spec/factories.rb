@@ -65,6 +65,14 @@ Factory.define :item_with_plugins, :parent => :item do |o|
   end
 end
 
+Factory.define :page do |o|
+  o.association   :user, :factory => :new_user
+  o.published     true
+  o.title         "Test Page"
+  o.description   "This is a test description"
+  o.content       '<div style="text-align: center;">This is some test content!</div>' 
+end
+
 Factory.define :plugin_image do |o|
   o.association   :item, :factory => :item
   o.association   :user, :factory => :new_user

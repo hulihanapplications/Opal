@@ -35,6 +35,14 @@ describe ItemsController do
         flash[:success].should_not be_nil
         @response.should redirect_to(:action => "view", :id => assigns[:item])
       end      
+      
+      it "renders new when name is missing" do
+        expect{
+          post(:create, {:item => Factory.attributes_for(:item, :name => nil)})
+        }.to change(Item, :count).by(0)
+        flash[:failure].should_not be_nil
+        @response.should render_template("new")
+      end
     end
     
     describe "destroy" do

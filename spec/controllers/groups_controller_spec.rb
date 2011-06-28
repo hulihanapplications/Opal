@@ -3,7 +3,7 @@ require 'spec_helper'
 describe GroupsController do  
   render_views
   
-  describe "as admin" do
+  context "as admin" do
     before(:each) do
       login_admin
     end 

@@ -1,0 +1,125 @@
+PATH
+  remote: vendor/gems
+  specs:
+    opal (0.7.3)
+
+PATH
+  remote: vendor/gems
+  specs:
+    simple_captcha (0.1.1)
+
+PATH
+  remote: vendor/gems/russian
+  specs:
+    russian (0.2.8.pre)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    abstract (1.0.0)
+    actionmailer (3.0.7)
+      actionpack (= 3.0.7)
+      mail (~> 2.2.15)
+    actionpack (3.0.7)
+      activemodel (= 3.0.7)
+      activesupport (= 3.0.7)
+      builder (~> 2.1.2)
+      erubis (~> 2.6.6)
+      i18n (~> 0.5.0)
+      rack (~> 1.2.1)
+      rack-mount (~> 0.6.14)
+      rack-test (~> 0.5.7)
+      tzinfo (~> 0.3.23)
+    activemodel (3.0.7)
+      activesupport (= 3.0.7)
+      builder (~> 2.1.2)
+      i18n (~> 0.5.0)
+    activerecord (3.0.7)
+      activemodel (= 3.0.7)
+      activesupport (= 3.0.7)
+      arel (~> 2.0.2)
+      tzinfo (~> 0.3.23)
+    activeresource (3.0.7)
+      activemodel (= 3.0.7)
+      activesupport (= 3.0.7)
+    activesupport (3.0.7)
+    arel (2.0.9)
+    authlogic (2.1.6)
+      activesupport
+    builder (2.1.2)
+    diff-lcs (1.1.2)
+    erubis (2.6.6)
+      abstract (>= 1.0.0)
+    factory_girl (1.3.3)
+    factory_girl_rails (1.0.1)
+      factory_girl (~> 1.3)
+      railties (>= 3.0.0)
+    i18n (0.5.0)
+    mail (2.2.17)
+      activesupport (>= 2.3.6)
+      i18n (>= 0.4.0)
+      mime-types (~> 1.16)
+      treetop (~> 1.4.8)
+    mime-types (1.16)
+    mysql (2.8.1)
+    polyglot (0.3.1)
+    rack (1.2.2)
+    rack-mount (0.6.14)
+      rack (>= 1.0.0)
+    rack-test (0.5.7)
+      rack (>= 1.0)
+    rails (3.0.7)
+      actionmailer (= 3.0.7)
+      actionpack (= 3.0.7)
+      activerecord (= 3.0.7)
+      activeresource (= 3.0.7)
+      activesupport (= 3.0.7)
+      bundler (~> 1.0)
+      railties (= 3.0.7)
+    railties (3.0.7)
+      actionpack (= 3.0.7)
+      activesupport (= 3.0.7)
+      rake (>= 0.8.7)
+      thor (~> 0.14.4)
+    rake (0.8.7)
+    rmagick (2.12.2)
+    rspec (2.6.0)
+      rspec-core (~> 2.6.0)
+      rspec-expectations (~> 2.6.0)
+      rspec-mocks (~> 2.6.0)
+    rspec-core (2.6.4)
+    rspec-expectations (2.6.0)
+      diff-lcs (~> 1.1.2)
+    rspec-mocks (2.6.0)
+    rspec-rails (2.6.1)
+      actionpack (~> 3.0)
+      activesupport (~> 3.0)
+      railties (~> 3.0)
+      rspec (~> 2.6.0)
+    rubyzip (0.9.4)
+    sqlite3 (1.3.3)
+    thor (0.14.6)
+    treetop (1.4.9)
+      polyglot (>= 0.3.1)
+    tzinfo (0.3.26)
+    will_paginate (3.0.pre2)
+    ya2yaml (0.30)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  authlogic (= 2.1.6)
+  factory_girl_rails
+  i18n (>= 0.5.0)
+  mysql
+  opal (= 0.7.3)!
+  rails (= 3.0.7)
+  rmagick
+  rspec-rails
+  rubyzip
+  russian!
+  simple_captcha (= 0.1.1)!
+  sqlite3
+  will_paginate (>= 3.0.pre2)
+  ya2yaml

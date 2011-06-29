@@ -339,11 +339,15 @@ class ItemsController < ApplicationController
  
 private 
   def utf8_hash(some_hash) # convert hash key & values to utf-8 for proper translation
-    new_hash = Hash.new
-    some_hash.each do |key, value|
-      new_hash[key.to_s.encode(Encoding::UTF_8)] = value.to_s.encode(Encoding::UTF_8)
-    end    
-    new_hash
+    if RUBY_VERSION < "1.9" # are they using an old version of Ruby? 
+      some_hash
+    else
+      new_hash = Hash.new
+      some_hash.each do |key, value|
+        new_hash[key.to_s.encode(::Encoding::UTF_8)] = value.to_s.encode(::Encoding::UTF_8) 
+      end   
+      new_hash  
+    end
   end
  
   def get_common_elements_for_hash_of_arrays(hash) # get an array of common elements contained in a hash of arrays, for every array in the hash.

@@ -13,7 +13,7 @@ db/schema.rb
 # Config Files
 config/database.yml
 config/email.yml
-config/setup_load_paths.rb # for ruby 1.9.2/rvm
+config/setup_load_paths.rb
 
 # Application Specific Stuff
 config/locales/item.yml

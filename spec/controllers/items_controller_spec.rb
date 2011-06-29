@@ -7,11 +7,6 @@ describe ItemsController do
     before(:each) do
       login_admin
     end 
-
-    it "GET index returns 200" do
-      get :index
-      response.code.should eq("200")
-    end  
     
     describe "new" do
       it "returns 200" do
@@ -83,6 +78,13 @@ describe ItemsController do
   end
   
   context "as visitor" do 
+    describe "index"
+      it "GET index returns 200" do
+        get :index
+        response.code.should eq("200")
+      end      
+    end
+    
     describe "category" do
       it "should return 200" do 
         get :category, {:id =>  Factory(:category)}

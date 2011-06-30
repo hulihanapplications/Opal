@@ -1,6 +1,6 @@
 class PluginFeaturesController < ApplicationController
   #before_filter :authenticate_user
-  before_filter :find_item, :except => [:new, :create, :delete, :index, :edit, :update, :create_option, :delete_option] # look up item 
+  before_filter :find_item, :except => [:new, :create, :delete, :index, :edit, :update, :create_option, :delete_option, :options] # look up item 
   before_filter :find_plugin # look up plugin
   before_filter :get_group_permissions_for_plugin # get permissions for this plugin
   before_filter :check_item_view_permissions, :only => [:create_feature_values, :update_feature_value, :update_values, :delete_feature_values] # can user view item? 

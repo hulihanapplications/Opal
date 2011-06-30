@@ -1,0 +1,35 @@
+<div class="section">
+	<div id="side">
+		<%= render :partial => "/items/menu" %>
+	</div>
+	<div id="main">
+		<table style="width:100%" cellpadding=0 cellspacing=0 class="">
+			<tr>
+				<td class="left" style="width:50%">		
+					<h3 class="title"><%= @plugin_feature.name %> <%= PluginFeatureValueOption.model_name.human(:count => :other) %></h3>
+					<div class="box_2" style="margin-bottom:10px;">
+					   <div>					   	
+							<%= render :partial => "plugin_features/list_options", :locals => {:feature => @plugin_feature} %>		
+					   </div>
+					</div>								
+				</td>
+				<td class="right" style="width:50%">
+				   <h3 class="title"><%= t("label.item_new", :item =>  @plugin_feature.name + " " + PluginFeatureValueOption.model_name.human) %> </h3>	
+			    	   <% form_for(@plugin_feature_value_option, :url => { :action => 'create_option', :controller => "plugin_features", :id => @plugin_feature.id }, :method => "post") do |f| %>
+							<div class="box_2">																			   			
+								<%= render :partial => "plugin_features/form_for_option", :locals => {:option => PluginFeatureValueOption.new(:plugin_feature_id => @plugin_feature.id), :f => f} %>
+							</div>														  
+							<div align=center>
+								<%= submit_tag t("label.item_create", :item => PluginFeatureValueOption.model_name.human), :class => "button_1" %>
+							</div>						   
+					   <% end %>															   				
+				</td>		
+			</tr>	
+		</table>	
+		
+		<%= back %>																					
+	</div>	
+</div>	
+
+
+

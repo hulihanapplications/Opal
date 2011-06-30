@@ -5,7 +5,7 @@ class PluginFeaturesController < ApplicationController
   before_filter :get_group_permissions_for_plugin # get permissions for this plugin
   before_filter :check_item_view_permissions, :only => [:create_feature_values, :update_feature_value, :update_values, :delete_feature_values] # can user view item? 
   before_filter :check_item_edit_permissions, :only => [:change_approval] # list of actions that don't require that the item is editable by the user
-  before_filter :authenticate_admin, :enable_admin_menu, :only =>  [:create, :delete, :index, :new, :edit, :update, :create_option, :delete_option] # make sure logged in user is an admin  
+  before_filter :authenticate_admin, :enable_admin_menu, :only =>  [:create, :delete, :index, :new, :edit, :update, :create_option, :delete_option, :options] # make sure logged in user is an admin  
   before_filter :can_group_create_plugin, :only => [:create_feature_values]
   before_filter :can_group_update_plugin, :only => [:update_feature_value, :update_values] 
   before_filter :can_group_delete_plugin, :only => [:delete_feature_value]  
@@ -141,10 +141,10 @@ class PluginFeaturesController < ApplicationController
     if @plugin_feature_value_option.save
       Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("log.item_create", :item => PluginFeatureValueOption.model_name.human, :name => "#{@plugin_feature_value_option.value}")) 
       flash[:success] = t("notice.item_create_success", :item =>  PluginFeatureValueOption.model_name.human)
-      redirect_to :action => "edit", :controller => "plugin_features", :id => @plugin_feature_value_option.plugin_feature_id
+      redirect_to :action => "options", :controller => "plugin_features", :id => @plugin_feature_value_option.plugin_feature_id
      else
       flash[:failure] = t("notice.item_create_failure", :item =>  PluginFeatureValueOption.model_name.human)
-      render :action => "edit"
+      render :action => "options"
     end
     
   end
@@ -158,7 +158,7 @@ class PluginFeaturesController < ApplicationController
       flash[:failure] = t("notice.item_delete_failure", :item =>  PluginFeatureValueOption.model_name.human)
     end
     
-    redirect_to :action => "edit", :controller => "plugin_features", :id => @plugin_feature_value_option.plugin_feature_id
+    redirect_to :action => "options", :controller => "plugin_features", :id => @plugin_feature_value_option.plugin_feature_id
   end 
  
   def update_values
@@ -177,5 +177,10 @@ class PluginFeaturesController < ApplicationController
       flash[:failure] = t("notice.item_save_failure", :item => @plugin.model_name.human)          
     end  
     redirect_to :action => "edit_values" , :id => @item            
+  end
+  
+  def options 
+    @plugin_feature = PluginFeature.find(params[:id])
+    @plugin_feature_value_option = PluginFeatureValueOption.new
   end
 end

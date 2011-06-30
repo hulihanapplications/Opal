@@ -7,9 +7,7 @@
 					<h2 class="title">
 						<%= t("label.item_edit", :item => PluginFeature.model_name.human) %>
 					</h2>
-			</div>
-			
-
+			</div>			
 			<div class="box_2a" style="margin-bottom:5px">
 		    	<% form_for(@plugin_feature, :url => { :action => 'update',  :controller => "plugin_features",:id => @plugin_feature.id  }, :method => "post") do |f| %>	
 					<%= render :partial => "plugin_features/form", :locals => {:feature => @plugin_feature, :f => f} %>								 						
@@ -18,10 +16,34 @@
 					</div>
 				<% end %>									
 			</div>
-
 		
 			<div align=center style="margin-top:10px;">
 				<%= link_to icon("arrow_left") + " " + t("single.back"), {:action => "index"}  %>
 			</div>
 	</div>	
 </div>	
+
+
+
+<script type="text/javascript">
+	function extra_details()
+	{
+		feature_types = document.getElementById('feature_types'); // get selected option
+		//selected_feature_type = feature_types.options[feature_types.selectedIndex].text; // get option text
+		selected_feature_type = feature_types.options[feature_types.selectedIndex].value; // get option value
+		//alert(selected_feature_type)
+		if(selected_feature_type == "slider" || selected_feature_type == "number" || selected_feature_type == "stars")
+		{
+			//alert("You selected a slider or number.")
+			show_box('minmax_box')
+		}
+		else
+		{
+			hide_box('minmax_box')
+		}
+	}
+</script>
+				
+
+			
+

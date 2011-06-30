@@ -47,8 +47,8 @@
 															</td>
 															<td align=right>													
 																<% if feature.feature_type == "option" %>
-																	<%= link_to "#{feature.plugin_feature_value_options.size} #{PluginFeatureValueOption.model_name.human(:count => :other)}", { :action => 'edit', :controller => "plugin_features", :id => feature.id, :anchor => "options"} %>																									
-																	<%= link_to icon("new") + " " + t("label.item_new", :item =>  PluginFeatureValueOption.model_name.human), { :action => 'edit', :controller => "plugin_features", :id => feature.id, :anchor => "options"} %>
+																	<%= link_to "#{feature.plugin_feature_value_options.size} #{PluginFeatureValueOption.model_name.human(:count => :other)}", { :action => 'options', :controller => "plugin_features", :id => feature.id} %>																									
+																	<%= link_to icon("new") + " " + t("label.item_new", :item =>  PluginFeatureValueOption.model_name.human), { :action => 'options', :controller => "plugin_features", :id => feature.id} %>
 																<% end %>
 																<%  if feature.description && feature.description != "" %>
 																	<%= icon("help", "#{feature.description}", "help") %>

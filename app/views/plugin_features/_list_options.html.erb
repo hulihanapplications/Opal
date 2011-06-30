@@ -5,7 +5,7 @@
 						<tr>
 							<td align=left>
 								<h3><%= option.value %></h3>
-								<%= "<i>#{option.description}</i>" if option.description && option.description != "" %>	
+								<%= option.description unless option.description.blank? %>	
 							</td>
 							<td align=right>
 								<%= link_to icon("delete"), { :action => 'delete_option', :controller => "plugin_features", :id => option.id}, :confirm =>  t("confirm.general") %>										

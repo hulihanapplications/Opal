@@ -16,125 +16,90 @@
 		}
 	}
 </script>
-<%= f.error_messages %>	
-		<table style="width:100%" cellpadding=0 cellspacing=0 class="">
-			<tr>
-				<td class="left" style="width:50%">
-					<div class="box_2">	
-						<div class="field">						
-							<h3><%= f.label :name, t("single.name") %></h3>
-							<!--<i>The name of this  <%= @plugin.model_name.human.downcase %>. Example: <b>Price</b>.</i>-->
-							<%= f.text_field :name %>
-						</div>
-						<div class="field">						
-							<h3><%= f.label :description, t("single.description") %></h3>
-							<!--<i>A short message describing this  <%= @plugin.model_name.human.downcase %>. Example: <b>How much this costs</b>.</i>-->
-							<%= f.text_field :description %>
-						</div>
-												
-						<div class="field">						
-							<h3><%= f.label :feature_type %></h3>
-							<!--<i>This is the type of information that a <%= @plugin.model_name.human.downcase %> will contain. </i>-->						
-							<select name="plugin_feature[feature_type]" id="feature_types" onchange="extra_details();">
-								<option value="text" <%= "SELECTED" if feature.feature_type == "text" %>><%= t("single.text") %></option>
-								<option value="option" <%= "SELECTED" if feature.feature_type == "option" %>><%= PluginFeatureValueOption.model_name.human %></option>
-								<option value="yesno" <%= "SELECTED" if feature.feature_type == "yesno" %>><%= t("single.positive") %>/<%= t("single.negative") %></option>
-								<option value="slider" <%= "SELECTED" if feature.feature_type == "slider" %>><%= t("single.slider")%></option>															
-								<option value="date" <%= "SELECTED" if feature.feature_type == "date" %>><%= t("single.date") %></option>										
-								<option value="number" <%= "SELECTED" if feature.feature_type == "number" %>><%= t("single.number")%></option>
-								<option value="stars" <%= "SELECTED" if feature.feature_type == "stars" %>><%= t("single.stars")%></option>							
-							</select>		
-						</div>
-						
-						<div class="box_2a" style="<%= "display:none;" if feature.feature_type != "slider" && feature.feature_type != "number" && feature.feature_type != "stars"  %>" id="minmax_box">		
-							<div class="field">
-								<h3><%= f.label :min %></h3>																						
-								<!--<i>The entered value must be greater than or equal to this number.</i>-->
-							</div>								
-								<%= f.text_field :min, :style => "width:100%" %>
-							<div class="field">							
-								<h3><%= f.label :max %></h3>																						
-								<!--<i>The entered value must be less than or equal to this number.</i>	-->
-								<%= f.text_field :max, :style => "width:100%" %>
-							</div>								
-						</div>
-						
-						<div class="field">						
-							<h3><%= f.label :required, t("single.required") %></h3>
-							<!--<i>If checked, every <%= Item.model_name.human %> must have a value for this <%= @plugin.model_name.human.downcase %>. </i>-->
-							<%= f.radio_button :is_required, true %> <%= t("single.positive") %>
-							<%= f.radio_button :is_required, false %> <%= t("single.negative") %>
-							<%#= check_box "feature", "is_required" %>
-						</div>
-													 
-						<div class="field">							
-							<h3><%= f.label :listed %></h3>
-							<!--<i>If checked, this <%= @plugin.model_name.human.downcase %> will be shown on <b><%= Item.model_name.human %> lists</b>. </i>-->
-							<%= f.radio_button :listed, true %> <%= t("single.positive") %>
-							<%= f.radio_button :listed, false %> <%= t("single.negative") %>
-						</div>																									
-						<hr />
-						<%= link_to_function content_tag(:h3, link_to_function(raw("#{icon("dropdown")} #{t("single.advanced")} #{t("single.options")}"), "$('#advanced_options').toggle()"))  %>
-						<div id="advanced_options"  style="display:none;">
-							<br />									
-							<div class="field">							
-								<h3><%= feature_icon feature %> <%= f.label :icon_url %></h3>
-								<!--<i>If you have a specific icon in mind for this <%= @plugin.model_name.human.downcase %>, enter its URL here. Not Sure? Leave this blank.</i> --> 
-								<%= f.text_field :icon_url %>
-							</div>
+<%= f.error_messages %>	 
+
+<div class="box_2">	
+	<div class="field">						
+		<h3><%= f.label :name, t("single.name") %></h3>
+		<!--<i>The name of this  <%= @plugin.model_name.human.downcase %>. Example: <b>Price</b>.</i>-->
+		<%= f.text_field :name %>
+	</div>
+	<div class="field">						
+		<h3><%= f.label :description, t("single.description") %></h3>
+		<!--<i>A short message describing this  <%= @plugin.model_name.human.downcase %>. Example: <b>How much this costs</b>.</i>-->
+		<%= f.text_field :description %>
+	</div>
 							
-							<div class="field">											
-								<h3><%= f.label :search_type %></h3>
-								<!--<i>This is the type of information that a <%= @plugin.model_name.human.downcase %> will contain. </i>-->						
-								<select name="plugin_feature[search_type]" id="search_types">
-									<option value="Grouped" <%= "SELECTED" if feature.search_type == "Grouped" %>><%= t("single.grouped")%></option>
-									<option value="Keyword" <%= "SELECTED" if feature.search_type == "Keyword" %>><%= t("single.keyword")%></option>
-									<option value="Number" <%= "SELECTED" if feature.search_type == "Number" %>><%= t("single.number")%></option>
-									<option value="None" <%= "SELECTED" if feature.search_type == "None" %>><%= t("single.none") %></option>															
-								</select>	
-							</div>	
-
-							<div class="field">											
-								<h3>
-									<%= icon("categories") %>
-									<%= f.label :category_id %>
-								</h3>
-								<%= content_tag(:div, PluginFeature.human_attribute_name(:category_id_description), :class => "description") %>
-								<%= category_select_tag("plugin_feature[category_id]",  f.object.category_id, :include_blank => true) %>	
-							</div>									
-						</div>
-					</div>					
-				</td>
-				<td class="right" style="width:50%">
-
-						<% if @plugin_feature.feature_type == "option" && (params[:action] == "edit" || params[:action] == "update")  %>
-							<h3 class="title"><%= @plugin_feature.name %> <%= PluginFeatureValueOption.model_name.human(:count => :other) %></h3>
-							<!--<i>Allows users to select a predefined value for <%= @plugin_feature.name %>.</i>-->
-															
-							<div class="box_2" style="margin-bottom:10px;">
-							   <div>					   	
-			   						<%= render :partial => "plugin_features/list_options", :locals => {:feature => @plugin_feature} %>		
-							   </div>
-							</div>									
+	<div class="field">						
+		<h3><%= f.label :feature_type %></h3>
+		<!--<i>This is the type of information that a <%= @plugin.model_name.human.downcase %> will contain. </i>-->						
+		<select name="plugin_feature[feature_type]" id="feature_types" onchange="extra_details();">
+			<option value="text" <%= "SELECTED" if feature.feature_type == "text" %>><%= t("single.text") %></option>
+			<option value="option" <%= "SELECTED" if feature.feature_type == "option" %>><%= PluginFeatureValueOption.model_name.human %></option>
+			<option value="yesno" <%= "SELECTED" if feature.feature_type == "yesno" %>><%= t("single.positive") %>/<%= t("single.negative") %></option>
+			<option value="slider" <%= "SELECTED" if feature.feature_type == "slider" %>><%= t("single.slider")%></option>															
+			<option value="date" <%= "SELECTED" if feature.feature_type == "date" %>><%= t("single.date") %></option>										
+			<option value="number" <%= "SELECTED" if feature.feature_type == "number" %>><%= t("single.number")%></option>
+			<option value="stars" <%= "SELECTED" if feature.feature_type == "stars" %>><%= t("single.stars")%></option>							
+		</select>		
+		<%= link_to icon("new") + " " + t("label.item_new", :item =>  PluginFeatureValueOption.model_name.human), { :action => 'options', :controller => "plugin_features", :id => feature.id} if (params[:action] == "edit" || params[:action] == "update") && f.object.feature_type == "option" %>
+	</div>
 	
-						   <h3 class="title"><%= t("label.item_new", :item =>  @plugin_feature.name + " " + PluginFeatureValueOption.model_name.human) %> </h3>	
-							<div class="box_2" style="margin-bottom:5px">
-																					   			
-					    		<% form_for(@plugin_feature_value_option, :url => { :action => 'create_option', :controller => "plugin_features", :id => @plugin_feature.id }, :method => "post") do |f| %>
-									<%= render :partial => "plugin_features/form_for_option", :locals => {:option => PluginFeatureValueOption.new(:plugin_feature_id => @plugin_feature.id), :f => f} %>
-								
-									<div align=center>
-										<%= submit_tag t("label.item_create", :item => PluginFeatureValueOption.model_name.human), :class => "button_1" %>
-									</div>									   
-							   <% end %>										
-							</div>								
-						<% end %>					
+	<div class="box_2a" style="<%= "display:none;" if feature.feature_type != "slider" && feature.feature_type != "number" && feature.feature_type != "stars"  %>" id="minmax_box">		
+		<div class="field">
+			<h3><%= f.label :min %></h3>																						
+			<!--<i>The entered value must be greater than or equal to this number.</i>-->
+		</div>								
+			<%= f.text_field :min, :style => "width:100%" %>
+		<div class="field">							
+			<h3><%= f.label :max %></h3>																						
+			<!--<i>The entered value must be less than or equal to this number.</i>	-->
+			<%= f.text_field :max, :style => "width:100%" %>
+		</div>								
+	</div>
+	
+	<div class="field">						
+		<h3><%= f.label :required, t("single.required") %></h3>
+		<!--<i>If checked, every <%= Item.model_name.human %> must have a value for this <%= @plugin.model_name.human.downcase %>. </i>-->
+		<%= f.radio_button :is_required, true %> <%= t("single.positive") %>
+		<%= f.radio_button :is_required, false %> <%= t("single.negative") %>
+		<%#= check_box "feature", "is_required" %>
+	</div>
+								 
+	<div class="field">							
+		<h3><%= f.label :listed %></h3>
+		<!--<i>If checked, this <%= @plugin.model_name.human.downcase %> will be shown on <b><%= Item.model_name.human %> lists</b>. </i>-->
+		<%= f.radio_button :listed, true %> <%= t("single.positive") %>
+		<%= f.radio_button :listed, false %> <%= t("single.negative") %>
+	</div>																									
+	<hr />
+	<%= link_to_function content_tag(:h3, link_to_function(raw("#{icon("dropdown")} #{t("single.advanced")} #{t("single.options")}"), "$('#advanced_options').toggle()"))  %>
+	<div id="advanced_options"  style="display:none;">
+		<br />									
+		<div class="field">							
+			<h3><%= feature_icon feature %> <%= f.label :icon_url %></h3>
+			<!--<i>If you have a specific icon in mind for this <%= @plugin.model_name.human.downcase %>, enter its URL here. Not Sure? Leave this blank.</i> --> 
+			<%= f.text_field :icon_url %>
+		</div>
+		
+		<div class="field">											
+			<h3><%= f.label :search_type %></h3>
+			<!--<i>This is the type of information that a <%= @plugin.model_name.human.downcase %> will contain. </i>-->						
+			<select name="plugin_feature[search_type]" id="search_types">
+				<option value="Grouped" <%= "SELECTED" if feature.search_type == "Grouped" %>><%= t("single.grouped")%></option>
+				<option value="Keyword" <%= "SELECTED" if feature.search_type == "Keyword" %>><%= t("single.keyword")%></option>
+				<option value="Number" <%= "SELECTED" if feature.search_type == "Number" %>><%= t("single.number")%></option>
+				<option value="None" <%= "SELECTED" if feature.search_type == "None" %>><%= t("single.none") %></option>															
+			</select>	
+		</div>	
 
-
-					
-				</td>		
-			</tr>	
-		</table>																					
-
-			
-
+		<div class="field">											
+			<h3>
+				<%= icon("categories") %>
+				<%= f.label :category_id %>
+			</h3>
+			<%= content_tag(:div, PluginFeature.human_attribute_name(:category_id_description), :class => "description") %>
+			<%= category_select_tag("plugin_feature[category_id]",  f.object.category_id, :include_blank => true) %>	
+		</div>									
+	</div>
+</div>					

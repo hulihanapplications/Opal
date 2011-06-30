@@ -78,11 +78,17 @@ describe ItemsController do
   end
   
   context "as visitor" do 
-    describe "index"
+    describe "index" do
       it "GET index returns 200" do
         get :index
         response.code.should eq("200")
       end      
+      
+      it "should work with detailed items list" do
+        Setting.find_by_name("list_type").update_attribute(:value, "detailed")
+        get :index
+        response.code.should eq("200")
+      end       
     end
     
     describe "category" do

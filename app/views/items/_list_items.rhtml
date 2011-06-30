@@ -1,6 +1,2 @@
-<% 
-	my_group_plugin_permissions = GroupPluginPermission.all_plugin_permissions_for_group(@logged_in_user.group) 
-%>
-
 <% @setting[:list_type] = get_setting("list_type") if !@setting[:list_type]  %><%# get default list type if not set. %>
-<%= render :partial => "/items/list_items_#{@setting[:list_type]}" ,:locals => {:items => items, :my_group_plugin_permissions => my_group_plugin_permissions} %>    
+<%= render :partial => "/items/list_items_#{@setting[:list_type]}" ,:locals => {:items => items} %>    

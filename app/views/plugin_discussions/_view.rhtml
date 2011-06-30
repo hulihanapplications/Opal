@@ -54,7 +54,7 @@
 						<tr>
 							<td align=left style="text-align:left">
 								<h2 class="title">
-									<img src="/themes/<%= @setting[:theme] %>/images/icons/discussion.png" class="icon">
+									<%= discussion.user ? link_to_user(discussion.user, :avatar => true, :name => false) : icon("discussion") %>
 									<%= link_to "#{discussion.title}", {:action => "view", :controller => "plugin_discussions", :id => item.id, :discussion_id => discussion.id}%>
 								</h2>
 								<i><%= h discussion.description if discussion.description %></i>

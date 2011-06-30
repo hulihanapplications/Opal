@@ -1,8 +1,7 @@
 <%
 	record ||= nil
 %>
-
-<% link_to_user(record.user, :avatar => true) if record.respond_to?(:user_id) && record.user_id != @logged_in_user.id? && record.user_id != @item.user_id %>
+<%= link_to_user(record.user, :avatar => true, :name => false) if record.respond_to?(:user_id) && record.user_id != @logged_in_user.id? && record.user_id != @item.user_id %>
 
 <% if record.respond_to?(:is_approved?) && @item.is_editable_for_user?(@logged_in_user) %>
 	<%= icon("approved", t("single.approved"), "icon help") if record.is_approved? %> 

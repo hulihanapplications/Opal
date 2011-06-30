@@ -7,6 +7,7 @@ h2. Features
 Opal is powered By Rails 3 and a bunch of "other cool stuff":http://www.hulihanapplications.com/projects/opal. Here's some of the many features found in Opal:
 
 * List Any Type of Item(Products, Video Games, Locations, Events, Classifieds, etc.)
+* Add extra stuff to your Items like Images, Videos, Reviews, Comments, Discussions, Custom Fields, and more.
 * Ruby On Rails 3 Compatible
 * State-of-the-Art Interface powered by HTML5, CSS3, jQuery, and jQuery TOOLS
 * Multiple-User Login System with Secure Admin Section

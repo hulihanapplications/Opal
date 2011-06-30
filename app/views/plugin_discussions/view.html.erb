@@ -1,9 +1,5 @@
 <div class="item">
 	<%= render :partial => "items/item_header", :locals => {:item => @item, :options => {:show_item_info => true, :show_item_title => true}} %>
-
-	<% 
-		my_group_plugin_permissions = GroupPluginPermission.all_plugin_permissions_for_group(@logged_in_user.group) 
-	%>
 	
 	<div class="box_2" style="margin-bottom:5px">
 		<table cellpadding=0 cellspacing=0 style="width:100%">
@@ -17,6 +13,8 @@
 				</td>
 				<td align=right style="text-align:right">
 					<%= friendly_date @discussion.created_at %>
+					<%= raw(t("single.by").downcase + " " + link_to_user(@discussion.user, :avatar => true)) if @discussion.user %>
+				
 					<%= link_to icon("rss", t("label.rss_feed") + " -  " + t("label.items_latest", :items => PluginDiscussionPost.model_name.human(:count => :other))), {:action => "rss", :controller => "plugin_discussions", :id => @item.id, :discussion_id => @discussion.id} %>
 				<% if @logged_in_user.is_admin? || (@group_permissions_for_plugin.can_update? || @item.is_user_owner?(@logged_in_user))   %>									
 					<a href="javascript:replace_box('discussion_box_<%= @discussion.id %>','edit_discussion_box_<%= @discussion.id %>')">

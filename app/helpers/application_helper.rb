@@ -488,7 +488,9 @@ module ApplicationHelper
   
   def link_to_user(user, options = {})
     options[:avatar] = false if options[:avatar].nil?
-    link_to(options[:avatar] ? user_avatar(user, :size => "small") + " " : "" + user.to_s,{:action => "user", :controller => "browse", :id => user})
+    options[:name] = true if options[:name].nil?
+    options[:avatar_class] ||= "tiny"
+    link_to((options[:avatar] ? user_avatar(user, :size => options[:avatar_class]) + " " : "") + (options[:name] ? user.to_s : ""),{:action => "user", :controller => "browse", :id => user})
   end
   
   def loading #show loading box

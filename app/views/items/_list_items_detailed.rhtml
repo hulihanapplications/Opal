@@ -12,7 +12,7 @@
 		<div class="item">
 			<table cellpadding=0 cellspacing=0 style="width:100%">
 				<tr>
-					<% if Plugin.plugins[:image].is_enabled? %>
+					<% if Plugin.plugins[:image] && Plugin.plugins[:image].is_enabled? %>
 					<td class="thumbnail">
 						<div class="thumbnail">
 							<%= link_to item_thumbnail(item,  :preview => true), {:action => "view", :controller => "items", :id => item, :anchor => Plugin.plugins[:image].model_name.human(:count => :other)}, :title => "#{h item.name}" %>
@@ -80,7 +80,7 @@
 							<table cellpadding=0 cellspacing=0 style="width:100%">
 								<tr>
 									<td align=left style="vertical-align:middle">										
-										<% if Plugin.plugins[:review].is_enabled? %>									
+										<% if Plugin.plugins[:review] && Plugin.plugins[:review].is_enabled? %>									
 											<%= render :partial => Plugin.plugins[:review].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:review], :item => item} %>
 										<% end %>
 									</td>
@@ -88,7 +88,7 @@
 										<span>
 											<%= truncate("#{item.views} #{I18n.t("activerecord.attributes.item.views", :count => item.views)}", :length => 15) %>
 										</span>	
-										<% if Plugin.plugins[:comment].is_enabled? %>
+										<% if Plugin.plugins[:comment] && Plugin.plugins[:comment].is_enabled? %>
 											<%= render :partial => Plugin.plugins[:comment].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:comment], :item => item} %>
 										<% end %>	
 																													
@@ -101,27 +101,27 @@
 							<table cellpadding=0 cellspacing=0 style="width:100%">
 								<tr>
 									<td align=left style="width:50%">										
-										<% if Plugin.plugins[:feature].is_enabled? %>
+										<% if Plugin.plugins[:feature] && Plugin.plugins[:feature].is_enabled? %>
 											<%= render :partial => Plugin.plugins[:feature].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:feature], :item => item} %>
 										<% end %>									
 									</td>
 									<td align=left style="vertical-align:top;width:50%">
-										<% if Plugin.plugins[:tag].is_enabled? %>
+										<% if Plugin.plugins[:tag] && Plugin.plugins[:tag].is_enabled? %>
 											<%= render :partial => Plugin.plugins[:tag].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:tag], :item => item} %>							
 										<% end %>						
-										<% if Plugin.plugins[:discussion].is_enabled? %>
+										<% if Plugin.plugins[:discussion] && Plugin.plugins[:discussion].is_enabled? %>
 											<%= render :partial => Plugin.plugins[:discussion].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:discussion], :item => item} %>
 										<% end %>									
-										<% if Plugin.plugins[:link].is_enabled? %>
+										<% if Plugin.plugins[:link] && Plugin.plugins[:link].is_enabled? %>
 											<%= render :partial => Plugin.plugins[:link].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:link], :item => item} %>
 										<% end %>	
-										<% if Plugin.plugins[:image].is_enabled? %>
+										<% if Plugin.plugins[:image] && Plugin.plugins[:image].is_enabled? %>
 											<%= render :partial => Plugin.plugins[:image].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:image], :item => item} %>
 										<% end %>
-										<% if Plugin.plugins[:file].is_enabled? %>
+										<% if Plugin.plugins[:file] && Plugin.plugins[:file].is_enabled? %>
 											<%= render :partial => Plugin.plugins[:file].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:file], :item => item} %>
 										<% end %>	
-										<% if Plugin.plugins[:video].is_enabled? %>
+										<% if Plugin.plugins[:video] && Plugin.plugins[:video].is_enabled? %>
 											<%= render :partial => Plugin.plugins[:video].partial_path(:type => "list"), :locals => {:plugin => Plugin.plugins[:video], :item => item} %>							
 										<% end %>												
 										<% for plugin in Plugin.third_party_plugins %>

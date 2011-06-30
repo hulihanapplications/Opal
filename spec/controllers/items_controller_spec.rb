@@ -84,11 +84,29 @@ describe ItemsController do
         response.code.should eq("200")
       end      
       
-      it "should work with detailed items list" do
+      it "should work with detailed item list" do
         Setting.find_by_name("list_type").update_attribute(:value, "detailed")
         get :index
         response.code.should eq("200")
-      end       
+      end      
+      
+      it "should work with simple item list" do
+        Setting.find_by_name("list_type").update_attribute(:value, "simple")
+        get :index
+        response.code.should eq("200")
+      end     
+      
+      it "should work with photo item list" do
+        Setting.find_by_name("list_type").update_attribute(:value, "photo")
+        get :index
+        response.code.should eq("200")
+      end        
+      
+      it "should work with small item list" do
+        Setting.find_by_name("list_type").update_attribute(:value, "small")
+        get :index
+        response.code.should eq("200")
+      end        
     end
     
     describe "category" do

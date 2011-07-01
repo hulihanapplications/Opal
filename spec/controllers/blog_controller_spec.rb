@@ -25,6 +25,11 @@ describe BlogController do
       get :archive, {:year => Time.now.strftime("%Y"), :month => Time.now.strftime("%m")}
       @response.code.should eq("200")
     end    
+
+    it "works with month and year and day" do
+      get :archive, {:year => Time.now.strftime("%Y"), :month => Time.now.strftime("%m"), :day => Time.now.strftime("%d")}
+      @response.code.should eq("200")
+    end      
   end  
   
   describe "post" do 

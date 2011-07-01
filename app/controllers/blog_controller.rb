@@ -21,7 +21,7 @@ class BlogController < ApplicationController
   end
 
   def archive
-   @date = Time.mktime(params[:year], params[:month], params[:day]) 
+   @date = Time.mktime(params[:year].blank? ? 10.years.ago.strftime("%Y") : params[:year], params[:month], params[:day]) 
    # Compute Time Range based on parameters, should we look to beginning of day, month, or year? 
    range_start = !params[:day].blank? ? @date.beginning_of_day : (!params[:month].blank? ? @date.beginning_of_month : !params[:year].blank? ? @date.beginning_of_year : 10.years.ago.beginning_of_year) 
    range_end =  !params[:day].blank? ? @date.end_of_day : (!params[:month].blank? ? @date.end_of_month : !params[:year].blank? ? @date.end_of_year : Time.now)    

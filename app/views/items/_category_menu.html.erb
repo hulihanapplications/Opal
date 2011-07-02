@@ -17,7 +17,6 @@
 		</tr>			
 	</table>
 	<%= @category.description unless @category.description.blank? %>		
-	<div class="spacer"></div>
 	<% for category in @category.child_categories %>
 		<%= descend_category(category, :include_children => @setting[:include_child_category_items], :show_item_count => true, :depth => 0)  %>
 	<% end %>			
@@ -35,7 +34,6 @@
 			<% end %>												
 		</tr>			
 	</table>	
-	<div class="spacer"></div>		
 	<% for category in Category.get_parent_categories %>
 		<%= descend_category(category, :include_children => @setting[:include_child_category_items], :show_item_count => true, :depth => 0)  %>		
 	<% end %>	

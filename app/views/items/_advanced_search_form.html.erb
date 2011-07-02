@@ -9,46 +9,33 @@
 	//add_feature_input('features_section'); // add first field
 </script>
 <div id="side">
-				<div class="box_1" align=left>					
-					<h3>Category</h3>
-					<div class="indent">
-						<table cellpadding=0 cellspacing=0 style="width:100%"><tr><td style="width:100%;"><b><%= t("single.all") %></b></td><td align=right><input type="radio" name="item[category_id]" value="all" CHECKED></td></tr></table>
-					</div>
-					<div class="spacer"></div>
-					<% for category in Category.get_parent_categories  %>
-						<%= descend_category(category, :include_children => @setting[:include_child_category_items], :make_radio_button => true, :truncate_length => 35, :depth => 1)  %>
-					<% end %>
+				<div class="box_1">					
+					<h3><%= Category.model_name.human %></h3>
+					<%= category_select_tag("item[category_id]", nil, :include_blank => t("single.all")) %>	
 				</div>
-				<br>
-				<div class="box_1">										
-					<table style="width:100%">
-						<tr>
-							<td><b><%= Item.human_attribute_name(:created_at) %></b></td>
-							<td align=right>
-								<select name="created_at">
-									<option value="whenever" SELECTED><%= t("label.time_any") %></option>						
-									<option value="today"><%= t("label.time_today") %></option>
-									<option value="this_week"><%= t("label.time_this_week") %></option>
-									<option value="this_month"><%= t("label.time_this_month") %></option>
-									<option value="this_year"><%= t("label.time_this_year") %></option>												
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td><b><%= Item.human_attribute_name(:updated_at) %></b></td>
-							<td align=right>
-								<select name="updated_at">
-									<option value="whenever" SELECTED><%= t("label.time_any") %></option>						
-									<option value="today"><%= t("label.time_today") %></option>
-									<option value="this_week"><%= t("label.time_this_week") %></option>
-									<option value="this_month"><%= t("label.time_this_month") %></option>
-									<option value="this_year"><%= t("label.time_this_year") %></option>												
-								</select>
-							</td>
-						</tr>							
-					</table>
-
+				<br />
+				<div class="box_1">
+					<div class="field">
+						<h3><%= label :item, :created_at %></h3>
+						<select name="created_at">
+							<option value="whenever" SELECTED><%= t("label.time_any") %></option>						
+							<option value="today"><%= t("label.time_today") %></option>
+							<option value="this_week"><%= t("label.time_this_week") %></option>
+							<option value="this_month"><%= t("label.time_this_month") %></option>
+							<option value="this_year"><%= t("label.time_this_year") %></option>												
+						</select>						
+					</div>	
 					
+					<div class="field">
+						<h3><%= label :item, :updated_at %></h3>
+						<select name="updated_at">
+							<option value="whenever" SELECTED><%= t("label.time_any") %></option>						
+							<option value="today"><%= t("label.time_today") %></option>
+							<option value="this_week"><%= t("label.time_this_week") %></option>
+							<option value="this_month"><%= t("label.time_this_month") %></option>
+							<option value="this_year"><%= t("label.time_this_year") %></option>												
+						</select>					
+					</div>																				
 				</div>				
 			</div>
 <div id="main">

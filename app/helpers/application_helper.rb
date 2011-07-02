@@ -89,7 +89,7 @@ module ApplicationHelper
         navlinks << (link_to  content_tag(:span, (Page.public.with_name("home").first).title, :itemprop => "title"), {:action => "index", :controller => "browse"}, :itemprop => "url")
     end
     navlinks = navlinks.reverse # reverse items 
-    return raw "<div class=\"navlinks\"><b>" + navlinks.collect{|navlink| ("<span itemscope item_type=\"http://data-vocabulary.org/Breadcrumb\">#{navlink}</span>")}.join(" &raquo; ") + "</b></div>"
+    return raw "<div class=\"navlinks\">" + navlinks.collect{|navlink| ("<span itemscope item_type=\"http://data-vocabulary.org/Breadcrumb\">#{navlink}</span>")}.join(" &raquo; ") + "</div>"
   end
   
   def nav_link_item(item) # prints out a nav link for an category, ie: Home > General > Test Item
@@ -102,7 +102,7 @@ module ApplicationHelper
       navlinks << (link_to content_tag(:span, (Page.public.with_name("home").first).title, :itemprop => "title"), {:action => "index", :controller => "browse"}, :itemprop => "url") 
     end
     navlinks = navlinks.reverse
-    return raw "<div class=\"navlinks\"><b>" + navlinks.collect{|navlink| ("<span itemscope item_type=\"http://data-vocabulary.org/Breadcrumb\">#{navlink}</span>")}.join(" &raquo; ") + "</b></div>"
+    return raw "<div class=\"navlinks\">" + navlinks.collect{|navlink| ("<span itemscope item_type=\"http://data-vocabulary.org/Breadcrumb\">#{navlink}</span>")}.join(" &raquo; ") + "</div>"
   end  
   
   def nav_link_page(page) 
@@ -116,7 +116,7 @@ module ApplicationHelper
     end 
     
     if navlinks.size > 0 # if there are any navlinks...
-      return raw "<div class=\"navlinks\"><b>" + navlinks.join(" &raquo; ") + "</b></div>"
+      return raw "<div class=\"navlinks\">" + navlinks.join(" &raquo; ") + "</div>"
     else # no navlinks shown
       return ""
     end
@@ -239,8 +239,8 @@ module ApplicationHelper
     if category.id != options[:id_to_ignore]     
       html = "<div class=\"#{options[:class]}\" style=\"#{options[:style]}\"><div class=\"indent\">\n"              
         html += "<table cellpadding=0 cellspacing=0 style=\"width:100%\"><tr>" 
-          html += "<td style=\"\">" + link_to(truncate(category.name, :length => options[:truncate_length]), {:action => "category",  :controller => "items", :id => category}, :class => "category_link", :title => category.description) + "</td>"
-          html += "<td align=right><b>#{category.get_item_count(:include_children => options[:include_children])}</b></td>"  if options[:show_item_count]
+          html += "<td>" + link_to(truncate(category.name, :length => options[:truncate_length]), {:action => "category",  :controller => "items", :id => category}, :class => "category_link", :title => category.description) + "</td>"
+          html += "<td align=right>#{category.get_item_count(:include_children => options[:include_children])}</td>"  if options[:show_item_count]
 
           options[:id_to_check] == category.id ? checked_value = "CHECKED" : checked_value = ""
           options[:id_to_disable] == category.id ? disabled_value = "DISABLED" : disabled_value = ""          
@@ -499,10 +499,10 @@ module ApplicationHelper
   
   def category_select_tag(name, value = nil, options = {})   
     options[:id_to_ignore]    ||= nil 
-    options[:include_blank]   = false unless options[:include_blank]  
-    
+    options[:include_blank]   = false if options[:include_blank].nil?  
+
     html = String.new
-    html += content_tag(:div, content_tag(:table, content_tag(:tr) do ; content_tag(:td, I18n.t("single.none"), :align => "left") + content_tag(:td, radio_button_tag(name, nil, (value.blank? || value.to_s == "0")), :align => "right") ; end, :style => "width:100%", :cellpadding => "0", :cellspacing => "0"), :class => "indent") + tag(:hr) if options[:include_blank]
+    html += content_tag(:div, content_tag(:table, content_tag(:tr) do ; content_tag(:td, options[:include_blank].is_a?(String) ? options[:include_blank] : I18n.t("single.none"), :align => "left") + content_tag(:td, radio_button_tag(name, nil, (value.blank? || value.to_s == "0")), :align => "right") ; end, :style => "width:100%", :cellpadding => "0", :cellspacing => "0"), :class => "indent") + tag(:hr) if options[:include_blank]
      for category in Category.get_parent_categories  
        html += descend_category(category, :input_name => name, :include_children => @setting[:include_child_category_items], :make_radio_button => true, :id_to_check => value, :id_to_ignore => options[:id_to_ignore], :truncate_length => 35)  
    end

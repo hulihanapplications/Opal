@@ -97,7 +97,7 @@
 					<% if item.user %>
 						<div class="box_1">
 							 <%= link_to user_avatar(item.user, :size => "tiny"), {:action => "user", :controller => "browse", :id => item.user } %>
-							 <%= Item.human_attribute_name(:user_id) %>  <%= link_to item.user.username, {:action => "user", :controller => "browse", :id => item.user }, :style => "font-weight:bold"   %><br>
+							 <%= Item.human_attribute_name(:user_id) %>  <%= link_to item.user.username, {:action => "user", :controller => "browse", :id => item.user }  %><br>
 						</div>
 					<% end %>										
 				</div>

@@ -1,7 +1,6 @@
 <% featured_items = Item.featured_items %>
 <% featured_item = featured_items[rand(featured_items.size)]%>
 <h2 class="title"><%= t("label.item_featured", :item => Item.model_name.human(:count => :other)) %></h2>
-<div class="spacer"></div>
 
 <div align=center style="padding-top:2px;">
 	<% if featured_items.size > 0 %>

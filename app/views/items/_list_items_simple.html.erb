@@ -29,8 +29,7 @@
 							<tr>
 								<td align=left>
 									<div class="name">
-										<%= link_to "#{h truncate(item.name,  :length => 35)}", {:action => "view", :controller => "items", :id => item }, :title => "#{h item.name}" %>
-										
+										<h1><%= link_to "#{h truncate(item.name,  :length => 35)}", {:action => "view", :controller => "items", :id => item }, :title => "#{h item.name}" %></h1>										
 									</div>
 								</td>
 								<td align=right>

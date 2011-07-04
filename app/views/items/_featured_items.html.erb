@@ -4,7 +4,7 @@
 
 <div align=center style="padding-top:2px;">
 	<% if featured_items.size > 0 %>
-		<%= link_to item_thumbnail(featured_item), {:action => "view", :controller => "items", :id => featured_item}, :title => h(featured_item.name) %>
+		<%= preview(featured_item) %>
 		<h3 class="title">
 			<%= link_to truncate(h(featured_item.name), :length => 30), {:action => "view", :controller => "items", :id => featured_item}, :title => h(featured_item.name) %>
 		</h3>

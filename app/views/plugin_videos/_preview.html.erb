@@ -7,7 +7,7 @@
             });
           </script>
         HTML
-        html << link_to(theme_image_tag("preview_video.png", :class => "thumbnail"), "#", :id => "preview_link_#{item.id}")
+        html << link_to(theme_image_tag("preview_video.png", :class => "thumbnail"), "#", :id => "preview_link_#{item.id}", :title => item.name)
         html << content_tag(:div, content_tag(:div, record.code.html_safe, :id => "preview_content_#{item.id}"), :style => "display:none")        
 %>
 <%= html.html_safe %>

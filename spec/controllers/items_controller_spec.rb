@@ -71,15 +71,15 @@ describe ItemsController do
       it "should return 200" do 
         get :change_item_name
         @response.code.should eq("200")
-      end
+      end 
     end
-    
+     
     pending "do_change_item_name"
     
     describe "set_preview" do
-      it "should work with the right params"
+      it "should work with the right params" do
         item = Factory(:item)
-        post :set_preview, {:id => item, :preview_id => Factory(:plugin_image).id, :preview_class => PluginImage.name}
+        post :set_preview, {:id => item, :preview_id => Factory(:plugin_image, :item => item).id, :preview_class => PluginImage.name}
         flash[:success].should_not be_nil
         item.preview_class.should == PluginImage.name
         @response.code.should eq("302")

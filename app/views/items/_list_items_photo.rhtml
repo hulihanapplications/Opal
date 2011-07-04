@@ -6,9 +6,9 @@
 					<table cellpadding=0 cellspacing=0 align=center  style="width:100%">
 						<tr>
 							<td align=center>
-								<div class="thumbnail_box">
-									<%= link_to item_thumbnail(item, :preview => true), {:action => "view", :controller => "items", :id => item}, :title => "#{h item.name}" %>
-								</div>
+								<div class="thumbnail_box preview" >
+									<%= preview(item) %>
+								</div>						
 								<div class="name">
 									<%= link_to h(truncate(item.name, :length => 24)), {:action => "view", :controller => "items", :id => item}, :title => "#{h item.name}" %>								
 								</div>

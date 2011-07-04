@@ -7,4 +7,9 @@ class PluginController < ApplicationController
  before_filter :can_group_create_plugin, :only => [:new, :create]
  before_filter :can_group_update_plugin, :only => [:edit, :update] 
  before_filter :can_group_delete_plugin, :only => [:delete]  
+ 
+ 
+ def vote
+   
+ end
 end

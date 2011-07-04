@@ -33,13 +33,13 @@
 		.main_logo a:visited, .main_logo a:link{color:#ddd;;text-shadow:2px 2px 4px black;text-decoration:none;} .main_logo a:hover{color:white;text-shadow:2px 2px 4px black;text-decoration:none;}	 
 
 	/* Boxes */
-	.box_1{text-align:left;border:1px solid #aaa;background:#E9E9E9;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:5px;}
+	.box_1{border:1px solid #aaa;background:#E9E9E9;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:5px;}
 		.box_1 h1.title, .box_1 h2.title, .box_1 h3.title{text-shadow: 0px 0px 0px black;}
 		.box_1 hr, .box_1 div.spacer{width: 100%; margin: 5px 0px 5px 0px; height: 1px; background: #ccc; border: 0; }
-	.box_2{text-align:left;border:1px solid #ccc;background:url(../images/bgs/white_trans_50.png) repeat;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:5px;}
+	.box_2{border:1px solid #ccc;background:url(../images/bgs/white_trans_50.png) repeat;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:5px;}
 		.box_2 h1.title, .box_2 h2.title, .box_2 h3.title{;}
 		.hover .box_2{border:1px solid #999}
-	.box_3{text-align:left;background:url(../images/bgs/white_trans_50.png) repeat;border:1px solid #ccc;;padding:10px;text-align:center;;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-right:0px;margin-bottom:10px;}
+	.box_3{background:url(../images/bgs/white_trans_50.png) repeat;border:1px solid #ccc;;padding:10px;text-align:center;;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-right:0px;margin-bottom:10px;}
 	
 	/* Titles */
 	h1.title, h2.title, h3.title{text-shadow:1px 1px 2px #ccc;}
@@ -282,19 +282,7 @@ div.star-rating-hover a{background:url(../images/icons/star_hover.png) no-repeat
 div.star-rating-readonly a{cursor:default !important}
 div.star-rating{background:transparent!important;overflow:hidden!important}
 
-
-
 /* ColorBox Image Gallery CSS */
-#colorbox, #cboxOverlay, #cboxWrapper{position:absolute; top:0; left:0; z-index:9999; overflow:hidden;}
-#cboxOverlay{position:fixed; width:100%; height:100%;}
-#cboxMiddleLeft, #cboxBottomLeft{clear:left;}
-#cboxContent{position:relative; overflow:hidden;}
-#cboxLoadedContent{overflow:auto;}
-#cboxLoadedContent iframe{display:block; width:100%; height:100%; border:0;}
-#cboxTitle{margin:0;font-size:10px;}
-#cboxLoadingOverlay, #cboxLoadingGraphic{position:absolute; top:0; left:0; width:100%;}
-#cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow{cursor:pointer;}
-
 #cboxOverlay{background:url(../images/colorbox/overlay.png) 0 0 repeat;}
 #colorbox{}
     #cboxTopLeft{width:21px; height:21px; background:url(../images/colorbox/controls.png) -100px 0 no-repeat;}

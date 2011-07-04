@@ -319,6 +319,3 @@ end
 puts "\n" + I18n.t("notice.item_install_success", :item => I18n.t("name")) + "\n"
 puts I18n.t("label.login_as", :username => I18n.t('seeds.user.admin.username'), :password => I18n.t('seeds.user.admin.password'))
 Log.create(:log => I18n.t("notice.item_install_success", :item => I18n.t("name")), :log_type => "system") # Log Install
-
-Setting.find_by_name("opal_version").update_attribute(:value, "0.7.3") # Update Version    
-

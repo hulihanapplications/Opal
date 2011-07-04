@@ -1,6 +1,11 @@
 <%
-	record ||= nil
+	record  ||= nil
+	options ||= Hash.new
+	options[:preview] = true if options[:preview].blank?
+	options[:edit] = true if options[:edit].blank?
+	options[:delete] = true if options[:delete].blank?
 %>
+
 <%= link_to_user(record.user, :avatar => true, :name => false) if record.respond_to?(:user_id) && record.user_id != @logged_in_user.id? && record.user_id != @item.user_id %>
 
 <% if record.respond_to?(:is_approved?) && @item.is_editable_for_user?(@logged_in_user) %>
@@ -10,10 +15,18 @@
 	<%= icon("spacer") %>
 <% end %>		
 
-<% if @logged_in_user.group.plugin_permissions[record.class.name].can_create? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
+<% if options[:preview] && @item.is_editable_for_user?(@logged_in_user) %>
+	<% if @item.is_record_preview?(record) %>
+		<%= icon("star_selected", t("single.preview"), "help") %>
+	<% else %>
+		<%= link_to icon("star_empty", t("label.item_mark_as", :item => record.class.model_name.human, :name => Item.model_name.human + " " + t("single.preview"))), {:controller => "items", :action => "set_preview", :id => record.item.id, :preview_id => record.id, :preview_class => record.class.name}, :method => :post  %>	
+	<% end %>
+<% end %>
+
+<% if options[:edit] && (@logged_in_user.group.plugin_permissions[record.class.name].can_update? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?) %>
 	<%= link_to icon("edit"), {:action => "edit", :controller => record.class.name.pluralize.underscore, :id => @item.id, "#{record.class.system_name.underscore}_id".to_sym => record.id} %>
 <% end %>
 
-<% if @logged_in_user.group.plugin_permissions[record.class.name].can_delete? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
+<% if options[:delete] && (@logged_in_user.group.plugin_permissions[record.class.name].can_delete? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?) %>
     <%= link_to icon("delete"), { :action => 'delete', :controller => record.class.name.pluralize.underscore, :id => @item.id, "#{record.class.system_name.underscore}_id".to_sym => record.id}, :confirm => t("confirm.item_delete", :item => record.class.model_name.human) %>																
 <% end %>

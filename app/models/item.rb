@@ -217,4 +217,15 @@ class Item < ActiveRecord::Base
   end
 =end
 
+  def preview # get the preview record for this item
+    preview? ? preview_class.constantize.find(preview_id) : nil
+  end
+
+  def preview? # does this item have a preview?
+    !preview_id.blank? && !preview_class.blank? 
+  end
+  
+  def is_record_preview?(some_object) # is this object the preview for this item?
+    preview? ? some_object.is_a?(preview_class.constantize) && some_object.id == preview_id : false
+  end
 end

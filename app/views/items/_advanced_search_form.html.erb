@@ -9,12 +9,11 @@
 	//add_feature_input('features_section'); // add first field
 </script>
 <div id="side">
-				<div class="box_1">					
+				<div class="box_1" align=left>					
 					<h3><%= Category.model_name.human %></h3>
 					<%= category_select_tag("item[category_id]", nil, :include_blank => t("single.all")) %>	
 				</div>
-				<br />
-				<div class="box_1">
+				<div class="box_1" align=left>
 					<div class="field">
 						<h3><%= label :item, :created_at %></h3>
 						<select name="created_at">
@@ -39,17 +38,17 @@
 				</div>				
 			</div>
 <div id="main">
-	<div class="box_2" align=center>
-
+	<div class="box_2" align=left>
+		<div class="field">
 			<h3><%= "#{t("single.name")} #{t("single.or").downcase} #{t("single.description")}" %></h3>
 			<input name="[search]keywords" type="text">
-		<br>
+		</div>
+
 
 		<% @plugin = Plugin.find_by_name("Feature") %>
 		<% if @plugin.is_enabled? && features.size > 0 %>
-			<br>
 			<% counter = 0 %>
-			<div id="features_section">
+			<div id="features_section" class="field">
 				<h3><%= @plugin.model_name.human(:count => :other) %></h3>					
 		    	<table cellpadding=0 cellspacing=0 style="width:100%">
 			        <tr>

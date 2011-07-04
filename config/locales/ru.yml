@@ -379,7 +379,6 @@ ru:
       verification: "Для того чтобы вайти в Ваш профиль (%{name}) на сайте \"%{title}\", вы сначала должны подтвердить Ваш профиль нажатием на следующую ссылку подтверждения:\n\n%{url}"
   # Labels & Sentences
   label:
-    app_name: Opal
     create_account: Создать новый профиль
     password_mismatch: Ваши пароли не совпадают!
     username_available: Это имя пользователя свободно!

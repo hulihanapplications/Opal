@@ -75,6 +75,16 @@ describe ItemsController do
     end
     
     pending "do_change_item_name"
+    
+    describe "set_preview" do
+      it "should work with the right params"
+        item = Factory(:item)
+        post :set_preview, {:id => item, :preview_id => Factory(:plugin_image).id, :preview_class => PluginImage.name}
+        flash[:success].should_not be_nil
+        item.preview_class.should == PluginImage.name
+        @response.code.should eq("302")
+      end 
+    end
   end
   
   context "as visitor" do 

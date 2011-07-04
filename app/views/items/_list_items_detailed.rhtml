@@ -9,27 +9,16 @@
 <% for item in items %>
  <% if item.is_viewable_for_user?(@logged_in_user) %>
 	<div class="item_box_detailed">
-		<div class="item">
+		<div class="item">		
+			
 			<table cellpadding=0 cellspacing=0 style="width:100%">
 				<tr>
-					<% if Plugin.plugins[:image] && Plugin.plugins[:image].is_enabled? %>
-					<td class="thumbnail">
-						<div class="thumbnail">
-							<%= link_to item_thumbnail(item,  :preview => true), {:action => "view", :controller => "items", :id => item, :anchor => Plugin.plugins[:image].model_name.human(:count => :other)}, :title => "#{h item.name}" %>
-						</div>
-						<div align=center>
-							<% if item.is_editable_for_user?(@logged_in_user) %>
-								<%= link_to icon("edit") , {:action => "edit", :controller => "items", :id => item}, :title => t("label.item_edit", :item => Item.model_name.human) %>
-							<% end %>
-							<% if item.is_deletable_for_user?(@logged_in_user) %>
-								<%= link_to icon("delete"), {:action => "delete", :controller => "items", :id => item}, :title => t("label.item_delete", :item => Item.model_name.human), :confirm => t("confirm.item_delete", :item => Item.model_name.human) %>
-							<% end %>					
-						 	<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/private.png\" title=\"#{t("single.not")} #{t("single.approved")}\" class=\"icon help\">" if !item.is_public? %> 										
-			 				<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/unapproved.png\" title=\"#{t("single.not")} #{t("single.approved")}\" class=\"icon help\">" if !item.is_approved? %> 																								
-						</div>
+					<td class="thumbnail preview">
+						<div class="thumbnail preview" >
+							<%= preview(item) %>
+						</div>						
 					</td>
-					<% end %>
-					<td class="details">
+					<td class="details">										
 						<table style="width:100%" cellpadding=0 cellspacing=0>
 							<tr>
 								<td align=left>
@@ -38,7 +27,7 @@
 									</div>
 								</td>
 								<td align=right>
-									<div style="position:relative;bottom:0px;left:0px;">
+									<div class="new">
 										<%= raw "<b class=\"highlight\"><sup title=\"#{t("label.item_recently_added", :item => Item.model_name.human)}\">#{t("single.new")}</sup></b>" if item.is_new? %>
 									</div>
 								</td>

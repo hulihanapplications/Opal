@@ -384,7 +384,6 @@ en:
       verification: "In order to log in to your account(%{name}) at %{title}, you must first verify your account by clicking on this verification link:\n\n%{url}"    
   # Labels & Sentences
   label:
-    app_name: Opal  
     create_account: Create New Account
     password_mismatch: Your passwords don't match!
     username_available: This username is available!

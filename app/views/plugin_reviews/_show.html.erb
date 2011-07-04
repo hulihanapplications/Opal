@@ -50,15 +50,7 @@
 									</time>	
 									<%#= link_to icon("link"), {:action => "show", :controller => "plugin_reviews", :id => item.id, :review_id => review.id}, :class => "transparent" %>
 
-									<% if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_update? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
-										<%= link_to icon("edit"), {:action => "edit", :controller => "plugin_reviews", :id => item.id, :review_id => review.id} %>
-									<% end %>
-									
-									<% if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_delete? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
-									    <%= link_to icon("delete"), { :action => 'delete', :controller => "plugin_reviews", :id => item.id, :review_id => review.id}, :confirm => t("confirm.item_delete", :item => plugin.model_name.human) %>																
-									<% end %>
-									
-									<%= render :partial => "plugins/approval_controls", :locals => { :plugin_item => review} if @item.is_editable_for_user?(@logged_in_user) %>											
+									<%= render :partial => "plugins/plugin_item_controls", :locals => {:record => review, :options => {:user => false}} %>
 								</td>											
 							</tr>
 						</table>		

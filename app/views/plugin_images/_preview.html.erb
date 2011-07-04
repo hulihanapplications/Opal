@@ -1,0 +1,1 @@
+<%= link_to thumbnail(record,  :preview => true), {:action => "view", :controller => "items", :id => item, :anchor => Plugin.plugins[:image].model_name.human(:count => :other)}, :title => item.name %>

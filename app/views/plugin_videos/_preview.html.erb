@@ -1,0 +1,13 @@
+<% 
+        # Store Video Content in Colorbox
+        html = <<-HTML
+          <script>
+            $(document).ready(function(){
+                $("#preview_link_#{item.id}").colorbox({width:"50%", inline:true, href:"#preview_content_#{item.id}"});              
+            });
+          </script>
+        HTML
+        html << link_to(theme_image_tag("preview_video.png", :class => "thumbnail"), "#", :id => "preview_link_#{item.id}")
+        html << content_tag(:div, content_tag(:div, record.code.html_safe, :id => "preview_content_#{item.id}"), :style => "display:none")        
+%>
+<%= html.html_safe %>

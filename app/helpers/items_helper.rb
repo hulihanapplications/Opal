@@ -6,7 +6,5 @@ module ItemsHelper
     else # no preview found
         link_to theme_image_tag("default_item_image.png", :class => "thumbnail"), {:action => "view", :controller => "items", :id => item}, :title => item.name      
     end
-  end
-  
- 
+  end  
 end 

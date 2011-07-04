@@ -674,6 +674,9 @@ en:
         item_page_type_accordion: 
           title: Accordion                           
           description: View %{item} details in an accordion.
+        default_preview_class:
+          title: Default Preview Plugin
+          description: If an item doesn't have a preview, the first created plugin item of this type will become its new preview.  
     # ActiveRecord Models & Validations        
     models:
       user:

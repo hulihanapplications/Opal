@@ -222,10 +222,8 @@ ul#tabmenu {	list-style:none; 	margin:0 !important; 	padding:0;	height:25px;	mar
 /* jQuery TOOLS - Horizontal Tabs CSS */
 ul.plugin_tabs_horizontal {	list-style:none; 	margin:0 !important; 	padding:0;	height:25px;	margin-bottom:0px;}
 ul.plugin_tabs_horizontal li { 	float:left;	 	text-indent:0;	padding:0;	margin:0 !important;	list-style-image:none !important; }/* single tab */
-ul.plugin_tabs_horizontal a {color:#333;background: url(../images/bgs/plugin_tab_bg_unselected.png) no-repeat;;	font-size:11px;	display:block;	height: 20px;  	width: 85px;	text-align:center;		text-decoration:none;	padding:5px 0px 0px 0px;	margin:0px 2px 0px 0px;		position:relative;}/* link inside the tab. uses a background image */
-ul.plugin_tabs_horizontal a.current {color:black;	border:0px;	background: url(../images/bgs/plugin_tab_bg_selected.png) no-repeat;-moz-border-radius: 0px;-webkit-border-radius: 0px;}
-ul.plugin_tabs_horizontal a:hover{color:black;background: url(../images/bgs/plugin_tab_bg_selected.png) no-repeat;}
-ul.plugin_tabs_horizontal a.current, ul.plugin_tabs_horizontal a.current:hover, ul.plugin_tabs_horizontal li.current a {color:black;	border:0px;	background: url(../images/bgs/plugin_tab_bg_selected.png) no-repeat;-moz-border-radius: 0px;-webkit-border-radius: 0px;	cursor:default !important; 	}/* active tab uses a class name "current". it's highlight is also done by moving the background image. */
+ul.plugin_tabs_horizontal a {color:#333;background: url(../images/bgs/black_trans_25.png) repeat;	display:block;	height: 20px; 	text-align:center;		text-decoration:none;	padding:5px 10px 0px 10px;	margin:0px 2px 0px 0px;		position:relative;-moz-border-radius-topleft:5px;-webkit-border-top-left-radius:5px; -moz-border-radius-topright:5px;-webkit-border-top-right-radius:5px}/* link inside the tab. uses a background image */
+ul.plugin_tabs_horizontal a.current, ul.plugin_tabs_horizontal a:hover {color:black;	border:0px;	background: url(../images/bgs/black_trans_10.png) repeat;}
 div.plugin_panes_horizontal {	background: url(../images/bgs/plugin_tab_pane_bg.png) repeat-x;	padding:5px;	min-height:300px;}
 div.plugin_panes_horizontal div.pane {	display:none;}/* initially all panes are hidden */ 
 

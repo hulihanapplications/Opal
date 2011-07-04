@@ -671,7 +671,10 @@ ru:
           description: Показать %{item} в виде вертикальных вкладок.          
         item_page_type_accordion:
           title: Аккордион
-          description: Показать %{item} в виде аккордиона.          
+          description: Показать %{item} в виде аккордиона.
+        default_preview_class:
+          title: Default Preview for Item
+          description: If an %{item} doesn't have a preview, the first created plugin item of this type will become its preview.                      
     models:
       user:
         one: Пользователь

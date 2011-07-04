@@ -20,6 +20,7 @@
 				    <li><a href="#<%= t("activerecord.records.setting.list_type.title") %>"><%= t("activerecord.records.setting.list_type.title") %></a></li> 
 				    <li><a href="#<%= t("activerecord.records.setting.item_page_type.title") %>"><%= t("activerecord.records.setting.item_page_type.title") %></a></li>
 					<li><a href="#<%= t("activerecord.records.setting.homepage_type.title") %>"><%= t("activerecord.records.setting.homepage_type.title") %></a></li> 													
+					<li><a href="#<%= t("activerecord.records.setting.default_preview_class.title") %>"><%= t("activerecord.records.setting.default_preview_class.title") %></a></li> 													
 			</ul>			
 			<div class="plugin_panes_horizontal"> 					
 
@@ -136,7 +137,16 @@
 						 							 	  											 	
 						</table>		
 					</div>																					
-				</div>										
+				</div>	
+				<div>
+					<div class="section">
+						<div class="header">															
+							<h2 class="title"><%= t("activerecord.records.setting.default_preview_class.title") %></h2>
+							<div class="description"><%= t("activerecord.records.setting.default_preview_class.description") %></div>				
+						</div>		
+						<%= select_tag "setting[default_preview_class]", options_from_collection_for_select(Plugin.all, :plugin_class, :name, @setting[:default_preview_class].name) %>
+					</div>																					
+				</div>														
 		</div>
 
 		<div align=center><%= submit_tag t("single.save"), :class => "button_1" %></div>													

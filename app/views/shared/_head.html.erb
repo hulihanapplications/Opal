@@ -107,6 +107,48 @@
 		$(":input").blur(function(){
 			$(this).removeClass('selected');
 		});			
-		
+			
 	});
+
+	function vote(record_type, item_id, record_id, direction){
+	  var votes_element = $("#votes_" + record_type + "_" + record_id)
+	  var up_vote_link = $("#up_vote_" + record_type + "_" + record_id)
+      var down_vote_link = $("#down_vote_" + record_type + "_" + record_id)	  	  
+	  
+	  $.ajax({
+	    type: "POST",  
+	    url: '<%= url_for :action => "vote", :controller => "plugin" %>',
+	    data: {id: item_id, record_id: record_id, record_type: record_type, direction: direction},
+	    beforeSend: function(){
+			//if(votes_element)
+			  //votes_element.loading()
+	    },
+	    success: function(data) {
+			//alert(data)
+	        var json = JSON.parse(data);
+			votes_element.html(json["votes"])
+			if(json["notice"] == "voted_up" ){
+				down_vote_link.attr('disabled', true);
+				up_vote_link.attr('disabled', true);
+				up_vote_link.html('<%= icon("voted_up") %>')				
+			}							
+			else if(json["notice"] == "voted_down" ){
+				down_vote_link.attr('disabled', true);
+				up_vote_link.attr('disabled', true);		
+				down_vote_link.html('<%= icon("voted_down") %>')				
+			}
+			
+			if(json["notice"] == "unvoted_down" || json["notice"] == "unvoted_up"){
+				up_vote_link.html('<%= icon("vote_up") %>')				
+				down_vote_link.html('<%= icon("vote_down") %>')				
+				up_vote_link.attr('disabled', '');	
+				down_vote_link.attr('disabled', '');								   			
+			}									
+	  	},
+	  	error:function (jqXHR, textStatus, errorThrown){
+	    	var error_message = textStatus + ": " + errorThrown
+	        alert(error_message)			
+	  	}       
+	  }); 	
+	}		
 </script>

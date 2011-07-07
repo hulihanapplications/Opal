@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/medihack/make_voteable
+  revision: 106adecfad30175ce0ecd741ed4a9ee02f7cfa91
+  specs:
+    make_voteable (0.1.0)
+      activerecord (~> 3.0)
+
 PATH
   remote: vendor/gems
   specs:
@@ -43,6 +50,8 @@ GEM
       activemodel (= 3.0.7)
       activesupport (= 3.0.7)
     activesupport (3.0.7)
+    ancestry (1.2.4)
+      activerecord (>= 2.2.2)
     arel (2.0.9)
     authlogic (2.1.6)
       activesupport
@@ -109,9 +118,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ancestry
   authlogic (= 2.1.6)
   factory_girl_rails
   i18n (>= 0.5.0)
+  make_voteable!
   mysql
   opal (= 0.7.3)!
   rails (= 3.0.7)

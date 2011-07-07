@@ -1,9 +1,7 @@
 <% if item.is_editable_for_user?(@logged_in_user) %>
-	<% reviews = PluginReview.for_item(item).newest_first %>
-	<% top_review = PluginReview.for_item(item).with_total_vote_score.order("total_vote_score DESC").first %>
+	<% reviews = PluginReview.for_item(item).most_votes_first.newest_first %>
 <% else %>
-	<% reviews = PluginReview.for_item(item).newest_first.approved %>
-	<% top_review = PluginReview.for_item(item).with_total_vote_score.order("total_vote_score DESC").approved.first %>
+	<% reviews = PluginReview.for_item(item).most_votes_first.newest_first.approved %>
 <% end %>
 
 <% @setting[:review_type] = plugin.get_setting("review_type") %>
@@ -26,8 +24,7 @@
 					<div itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
 							<meta itemprop="itemreviewed" content="<%= item.name %>" /> 
  							<meta itemprop="reviewer" content="<%= @setting[:title] %>" /> 						
-							<meta itemprop="count" content="<%= reviews.size %>" /> 						
-							
+							<meta itemprop="count" content="<%= reviews.size %>" /> 													
 						<% review_score = reviews.approved.average(:review_score) %>
 						<% review_score ||= 0 %>										
 						<span itemprop="rating" itemscope itemtype="http://data-vocabulary.org/Rating">					
@@ -49,12 +46,9 @@
 		</table>				
 	</div>		
 	<% if reviews.size > 0 %>
-		<div class="reviews">
-			<% if top_review %>
-		    	<%= render :partial => "plugin_reviews/show", :locals => {:review => top_review, :item => item, :plugin => plugin, :my_group_plugin_permissions => my_group_plugin_permissions}  %>
-			<% end %>						
+		<div class="reviews">					
 			<% for review in reviews  %>
-		      <%= render :partial => "plugin_reviews/show", :locals => {:review => review, :item => item, :plugin => plugin, :my_group_plugin_permissions => my_group_plugin_permissions} if review != top_review %>			
+		      <%= render :partial => "plugin_reviews/show", :locals => {:review => review, :item => item, :plugin => plugin, :my_group_plugin_permissions => my_group_plugin_permissions}  %>			
 			<% end %>
 		</div>
 	<% else %>

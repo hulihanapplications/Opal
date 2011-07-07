@@ -29,28 +29,15 @@
 										 <%= raw "<meta itemprop=\"best\" content=\"#{@setting[:score_max].to_i}\" />" if options[:rich_snippets] %>																 						
 										 <%= raw "<meta itemprop=\"value\" content=\"#{review.review_score.to_i}\" />" if options[:rich_snippets] %>
 
-									 	<%= link_to score(:type => @setting[:review_type], :min => @setting[:score_min].to_i, :max => @setting[:score_max], :value => review.review_score.to_i), {:action => "show", :controller => "plugin_reviews", :id => item.id, :review_id => review.id} %>
-										
+									 	<%= link_to score(:type => @setting[:review_type], :min => @setting[:score_min].to_i, :max => @setting[:score_max], :value => review.review_score.to_i), {:action => "show", :controller => "plugin_reviews", :id => item.id, :review_id => review.id} %>										
 								</td>
-								<td style="vertical-align:middle;text-align:right">																			
-									 <span title="The score for this <%= plugin.model_name.human %>." class="box_2" style="padding:2px;margin-right:5px" >												 	
-										<b><%= review.vote_score >= 0 ? icon("vote_up") : icon("vote_down") %> <%= review.vote_score %> </b>
-									 </span>
-									 <% if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_create? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>												 	
-									 		<% if review.can_user_vote?(@logged_in_user) %>
-												<%= link_to icon("vote_up", "Vote for this #{plugin.model_name.human}."), {:action => "vote", :controller => "plugin_reviews", :id => item.id, :review_id => review.id, :direction => "up"}, :class => "transparent" %>
-												<%= link_to icon("vote_down", "Vote against this #{plugin.model_name.human}."), {:action => "vote", :controller => "plugin_reviews", :id => item.id, :review_id => review.id, :direction => "down"}, :class => "transparent" %>
-									 			<%= icon("bullet") %>																								
-											<% end %>
-									 <% end %>
-									 													
-										
+								<td style="vertical-align:middle;text-align:right">																									 																							
     								<time itemprop="dtreviewed" datetime="<%= review.created_at.strftime("%Y-%m-%d") %>">
     									<b><%= friendly_date review.created_at %></b>
 									</time>	
 									<%#= link_to icon("link"), {:action => "show", :controller => "plugin_reviews", :id => item.id, :review_id => review.id}, :class => "transparent" %>
 
-									<%= render :partial => "plugins/plugin_item_controls", :locals => {:record => review, :options => {:user => false}} %>
+									<%= render :partial => "plugins/plugin_item_controls", :locals => {:record => review, :options => {:votes => true, :user => false, :date => false}} %>
 								</td>											
 							</tr>
 						</table>		

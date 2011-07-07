@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   require 'digest/sha2'
 
+  make_voter
+
   has_one :user_info, :dependent => :destroy
   has_many :user_messages, :dependent => :destroy
   has_many :pages, :dependent => :nullify
@@ -105,6 +107,10 @@ class User < ActiveRecord::Base
     if File.exists?(avatar_path) # check if avatar exists
       FileUtils.rm(avatar_path) # delete!
     end
+    
+    for vote in votings # destroy make_voteable votes
+      vote.destroy
+    end    
   end
   
   def create_everything

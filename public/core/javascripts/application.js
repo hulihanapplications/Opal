@@ -77,7 +77,6 @@ function get_url_vars(){ // get url variables
 }
 
 
-
 // JQuery Functions
 jQuery.fn.toggle = function(transition_time) { // hide object
 	if (transition_time == null){transition_time  = 400}
@@ -114,5 +113,4 @@ jQuery.fn.delayed_reveal = function(timeout) { // show object after time has pas
 		$this.reveal();	  		      				
     }, timeout);			      				
 }
-
 

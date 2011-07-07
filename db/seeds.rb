@@ -57,7 +57,6 @@ Setting.create(:name => "item_page_type", :value => "summarized", :setting_type 
 Setting.create(:name => "setup_completed", :value => "0", :item_type => "bool", :setting_type => "Hidden")   
 Setting.create(:name => "locale", :value => I18n.locale.to_s, :item_type => "special", :setting_type => "Public")
 Setting.create(:name => "allow_item_page_type_changes",  :value => "1", :setting_type => "Item", :item_type => "bool") 
-Setting.create(:name => "allow_item_page_type_changes",  :value => "1", :setting_type => "Item", :item_type => "bool") 
 Setting.create(:name => "opal_version", :value => "0.0.0", :setting_type => "Hidden", :item_type => "string")
 
 

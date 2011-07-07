@@ -1,11 +1,15 @@
 class PluginReview < ActiveRecord::Base
   acts_as_opal_plugin
   
+  make_voteable
+  
   #belongs_to :plugin
   belongs_to :item
   belongs_to :user
   has_many :plugin_review_votes, :dependent => :destroy
   
+  before_destroy :destroy_votes
+   
   scope :with_total_vote_score, lambda{   # computes vote score of reviews by summing all associated plugin_review_vote records
     group("plugin_reviews.id").
     joins(:plugin_review_votes).
@@ -15,6 +19,7 @@ class PluginReview < ActiveRecord::Base
   scope :approved, where("is_approved = ?", "1")
   scope :for_item, lambda{|item| where("item_id = ?", item.id)}
   scope :newest_first, order("created_at DESC")
+  scope :most_votes_first, order("up_votes - down_votes DESC")
 
   
   validates_presence_of :review_score
@@ -36,14 +41,11 @@ class PluginReview < ActiveRecord::Base
      errors.add(:base, I18n.t("activerecord.errors.messages.items_cannot_add_more", :items => self.class.model_name.human(:count => :other))) if PluginReview.find(:all, :conditions => ["user_id = ? and item_id = ?", self.user_id, self.item_id]).size > 0
      errors.add(:base, I18n.t("activerecord.errors.messages.item_must_be_owner", :item => self.class.model_name.human)) if Setting.get_setting_bool("only_creator_can_review") && self.user_id != self.item.user_id    
   end
-  
-  def can_user_vote?(user) # check if user voted or not
-    vote = PluginReviewVote.find(:first, :conditions => ["plugin_review_id = ? and user_id = ?", self.id, user.id])
-    if vote || self.user_id == user.id # if they've voted or they created the review
-      return false
-    else 
-      return true 
-    end    
-  end
+
+  def destroy_votes # destroy make_voteable votes
+    for vote in votings
+      vote.destroy
+    end
+  end     
      
 end

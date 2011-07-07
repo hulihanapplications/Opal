@@ -153,7 +153,7 @@ class ApplicationController < ActionController::Base
   
   def find_plugin(options = {}) # look up a plugin 
     # Look up plugin based on controller name, ie: PluginCommentsController
-    plugin_name = self.controller_name.split("_") # "PluginComments" -> "plugin_comments" -> ["plugin", "comments"]
+    plugin_name = params[:record_type].blank? ? self.controller_name.split("_") : params[:record_type].underscore.split("_") # "PluginComments" -> "plugin_comments" -> ["plugin", "comments"]
     plugin_name = plugin_name[1].capitalize.singularize # get the second part of the controller name
     @plugin = Plugin.find_by_name(plugin_name)
     if @plugin.is_enabled? # check to see if the plugin is enabled

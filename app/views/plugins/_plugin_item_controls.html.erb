@@ -6,7 +6,25 @@
 	options[:delete] = true if options[:delete].nil?
 	options[:user] = true if options[:user].nil?
 	options[:approval] = true if options[:approval].nil?
+	options[:votes] = false if options[:votes].nil?
+	options[:date] = false if options[:date].nil?
 %>
+
+<% if options[:date] %>
+	<%= friendly_date record.created_at %>
+<% end %>
+
+<% if options[:votes] && !@logged_in_user.anonymous?  %>
+	 <span class="box_2" style="padding:2px;margin-right:5px" >												 	
+		 <% if @logged_in_user.group.plugin_permissions[record.class.name].can_create? || @item.is_editable_for_user?(@logged_in_user) %>												 	
+	 		<% up_voted, down_voted = @logged_in_user.up_voted?(record), @logged_in_user.down_voted?(record)  %>
+			<%= link_to_function icon("vote#{up_voted ? "d" : ""}_up", t("label.item_upvote", :item => record.class.model_name.human)), "vote('#{record.class.name.underscore}', #{@item.id}, #{record.id}, 'up')", :class => "transparent", :disabled => down_voted, :id => "up_vote_#{record.class.name.underscore}_#{record.id}" %>
+			<%#= link_to_function icon("vote_down", t("label.item_downvote", :item => record.class.model_name.human)), "vote('#{record.class.name.underscore}', #{@item.id}, #{record.id}, 'down')", :class => "transparent" %>
+			<%= content_tag(:span, record.votes, :id => "votes_#{record.class.name.underscore}_#{record.id}") %>
+			<%= link_to_function icon("vote#{down_voted ? "d" : ""}_down", t("label.item_downvote", :item => record.class.model_name.human)), "vote('#{record.class.name.underscore}', #{@item.id}, #{record.id}, 'down')", :class => "transparent", :disabled => up_voted, :id => "down_vote_#{record.class.name.underscore}_#{record.id}" %>			
+		 <% end %>
+	</span>	 	 
+<% end %>
 
 <% if options[:user] %>
 	<%= link_to_user(record.user, :avatar => true, :name => false) if record.respond_to?(:user_id) && record.user_id != @logged_in_user.id? && record.user_id != @item.user_id %>
@@ -25,14 +43,14 @@
 	<% if @item.is_record_preview?(record) %>
 		<%= icon("star_selected", t("single.preview"), "help") %>
 	<% else %>
-		<%= link_to icon("star_empty", t("label.item_mark_as", :item => record.class.model_name.human, :name => Item.model_name.human + " " + t("single.preview"))), {:controller => "items", :action => "set_preview", :id => record.item.id, :preview_id => record.id, :preview_class => record.class.name}, :method => :post  %>	
+		<%= link_to icon("star_empty", t("label.item_mark_as", :item => record.class.model_name.human, :name => Item.model_name.human + " " + t("single.preview"))), {:controller => "items", :action => "set_preview", :id => record.item.id, :preview_id => record.id, :preview_class => record.class.name}, :method => :post, :class => "transparent"  %>	
 	<% end %>
 <% end %>
 
-<% if options[:edit] && (@logged_in_user.group.plugin_permissions[record.class.name].can_update? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?) %>
-	<%= link_to icon("edit"), {:action => "edit", :controller => record.class.name.pluralize.underscore, :id => @item.id, "#{record.class.system_name.underscore}_id".to_sym => record.id} %>
+<% if options[:edit] && (@logged_in_user.group.plugin_permissions[record.class.name].can_update? || @item.is_editable_for_user?(@logged_in_user)) %>
+	<%= link_to icon("edit"), {:action => "edit", :controller => record.class.name.pluralize.underscore, :id => @item.id, "#{record.class.system_name.underscore}_id".to_sym => record.id}, :class => "transparent" %>
 <% end %>
 
-<% if options[:delete] && (@logged_in_user.group.plugin_permissions[record.class.name].can_delete? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?) %>
-    <%= link_to icon("delete"), { :action => 'delete', :controller => record.class.name.pluralize.underscore, :id => @item.id, "#{record.class.system_name.underscore}_id".to_sym => record.id}, :confirm => t("confirm.item_delete", :item => record.class.model_name.human) %>																
+<% if options[:delete] && (@logged_in_user.group.plugin_permissions[record.class.name].can_delete? || @item.is_editable_for_user?(@logged_in_user)) %>
+    <%= link_to icon("delete"), { :action => 'delete', :controller => record.class.name.pluralize.underscore, :id => @item.id, "#{record.class.system_name.underscore}_id".to_sym => record.id}, :confirm => t("confirm.item_delete", :item => record.class.model_name.human), :class => "transparent" %>																
 <% end %>

@@ -77,8 +77,8 @@ en:
     user:
       admin:
         username: admin
-        first_name: Bob 
-        last_name: Jones
+        first_name: Admin 
+        last_name: None
         email: admin@test.com
         password: admin
   # Sample data
@@ -92,8 +92,8 @@ en:
         password: test  
       unverified:
         username: unverified
-        first_name: Bill
-        last_name: McGrew
+        first_name: Unverified
+        last_name: User
         email: unverified@test.com
         password: unverified  
     messages:
@@ -408,6 +408,8 @@ en:
     item_mark_as: Mark %{item} as %{name}
     item_unknown: "Unknown %{item}: %{name}"
     item_backup_success: %{item} backed up successfully!    
+    item_upvote: Vote for this %{item}.
+    item_downvote: Vote against this %{item}.
     items_from: %{items} from %{name}
     items_for: %{items} for %{name}
     items_more: More %{items}

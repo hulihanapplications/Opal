@@ -402,7 +402,9 @@ ru:
     item_recently_added: %{item} был добавлен за последние 3 дня.
     item_mark_as: Отметить %{item} как %{name}
     item_unknown: "Неизвестный %{item}: %{name}"
-    item_backup_success: %{item} backed up successfully!        
+    item_backup_success: %{item} backed up successfully!    
+    item_upvote: Vote for this %{item}.
+    item_downvote: Vote against this %{item}.        
     items_from: %{items} от %{name}
     items_for: %{items} для %{name}
     items_more: Больше %{items}

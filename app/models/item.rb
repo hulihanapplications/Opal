@@ -1,5 +1,5 @@
 class Item < ActiveRecord::Base
-  has_one :item_statistic
+  has_one :item_statistic 
   belongs_to :user
   belongs_to :category
   has_many :plugin_comments, :dependent => :destroy
@@ -218,14 +218,14 @@ class Item < ActiveRecord::Base
 =end
 
   def preview # get the preview record for this item
-    preview? ? preview_class.constantize.find_by_id(preview_id) : nil
+    preview? ? preview_type.constantize.find_by_id(preview_id) : nil
   end
 
   def preview? # does this item have a preview?
-    !preview_id.blank? && !preview_class.blank? 
+    !preview_id.blank? && !preview_type.blank? 
   end
   
   def is_record_preview?(some_object) # is this object the preview for this item?
-    preview? ? some_object.is_a?(preview_class.constantize) && some_object.id == preview_id : false
+    preview? ? some_object.is_a?(preview_type.constantize) && some_object.id == preview_id : false
   end
 end

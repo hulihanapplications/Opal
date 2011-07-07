@@ -43,7 +43,7 @@
 	<% if @item.is_record_preview?(record) %>
 		<%= icon("star_selected", t("single.preview"), "help") %>
 	<% else %>
-		<%= link_to icon("star_empty", t("label.item_mark_as", :item => record.class.model_name.human, :name => Item.model_name.human + " " + t("single.preview"))), {:controller => "items", :action => "set_preview", :id => record.item.id, :preview_id => record.id, :preview_class => record.class.name}, :method => :post, :class => "transparent"  %>	
+		<%= link_to icon("star_empty", t("label.item_mark_as", :item => record.class.model_name.human, :name => Item.model_name.human + " " + t("single.preview"))), {:controller => "items", :action => "set_preview", :id => record.item.id, :preview_id => record.id, :preview_type => record.class.name}, :method => :post, :class => "transparent"  %>	
 	<% end %>
 <% end %>
 

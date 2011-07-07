@@ -34,8 +34,8 @@ module Opal
     
     module InstanceMethods
       def after_create # called after a plugin record/item is created
-        if self.class == Setting.global_settings[:default_preview_class] # if this plugin is set as the default preview class...
-            item.update_attributes(:preview_class => self.class.name, :preview_id => id) if !item.preview? # set self as preview if no preview exists
+        if self.class == Setting.global_settings[:default_preview_type] # if this plugin is set as the default preview class...
+            item.update_attributes(:preview_type => self.class.name, :preview_id => id) if !item.preview? # set self as preview if no preview exists
         end 
       end
       

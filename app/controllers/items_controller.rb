@@ -338,7 +338,7 @@ class ItemsController < ApplicationController
   end  
  
   def set_preview
-    if @item.update_attributes(:preview_class => params[:preview_class], :preview_id => params[:preview_id])
+    if @item.update_attributes(:preview_type => params[:preview_type], :preview_id => params[:preview_id])
       flash[:success] = t("notice.save_success")
     else
       flash[:failure] = t("notice.save_failure")

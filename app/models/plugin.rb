@@ -3,8 +3,11 @@ class Plugin < ActiveRecord::Base
   
   validates_presence_of :name
   validates_uniqueness_of :name
+  
+  has_many :settings, :as => :record, :dependent => :destroy
   has_many :plugin_settings, :dependent => :destroy
   has_many :group_plugin_permissions, :dependent => :destroy
+  
   
   after_create :create_everything
   after_destroy :destroy_everything

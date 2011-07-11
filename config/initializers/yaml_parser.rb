@@ -1,3 +1,5 @@
 # Switch YAML Parser
 require 'yaml'
-YAML::ENGINE.yamler = 'syck'
+if defined?(YAML::ENGINE)
+	YAML::ENGINE.yamler = 'syck'
+end

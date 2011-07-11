@@ -48,6 +48,15 @@ If you have git installed on your server, you can install it directly from Githu
 git clone git://github.com/hulihanapplications/Opal.git
 </pre>
 
+h2. Install Gems
+
+Install all of Opal's required gems using bundler:
+
+<pre>
+cd Opal
+bundle install 
+</pre>
+
 h2. Install Opal 
 
 Next, Run the following command(while in the Opal directory) to install Opal's database schema in production mode: 

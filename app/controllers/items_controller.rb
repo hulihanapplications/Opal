@@ -295,7 +295,7 @@ class ItemsController < ApplicationController
    else # not allowed to change list type
      flash[:failure] = t("notice.invalid_permissions")
    end 
-   redirect_to request.env["HTTP_REFERER"]  # send them back to original request 
+   redirect_to request.env["HTTP_REFERER"] ? request.env["HTTP_REFERER"] : :action => "index"  # send them back to original request 
  end
 
  def set_item_page_type # change the item list type 
@@ -304,7 +304,7 @@ class ItemsController < ApplicationController
    else # not allowed to change list type
      flash[:failure] = t("notice.invalid_permissions")
    end 
-   redirect_to request.env["HTTP_REFERER"]  # send them back to original request 
+   redirect_to request.env["HTTP_REFERER"] ? request.env["HTTP_REFERER"] : :action => "index"  # send them back to original request 
  end
  
  def change_item_name

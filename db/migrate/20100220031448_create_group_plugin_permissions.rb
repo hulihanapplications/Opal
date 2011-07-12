@@ -11,6 +11,16 @@ class CreateGroupPluginPermissions < ActiveRecord::Migration
       t.string :requires_approval, :limit => 1, :default => "0" # requires approval from owner/admin         
       t.timestamps
     end
+    
+	# Create Default Group Plugin Permissions
+	for plugin in Plugin.all
+		GroupPluginPermission.create(:group_id => Group.public.id, :plugin_id => plugin.id, :can_read => "1")
+		GroupPluginPermission.create(:group_id => Group.user.id, :plugin_id => plugin.id, :can_read => "1")						
+	end
+	
+	GroupPluginPermission.create(:group_id => Group.public.id, :plugin_id => Plugin.find_by_name("Comment").id, :can_create => "1")
+	GroupPluginPermission.create(:group_id => Group.user.id, :plugin_id => Plugin.find_by_name("Comment").id, :can_create => "1")
+	GroupPluginPermission.create(:group_id => Group.user.id, :plugin_id => Plugin.find_by_name("Review").id, :can_create => "1")
   end
 
   def self.down

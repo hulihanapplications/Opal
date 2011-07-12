@@ -1,19 +1,17 @@
 class ZeroSevenFour < ActiveRecord::Migration
-  def self.up
+  def self.up   
     add_column :items, :preview_type, :string
     add_column :items, :preview_id, :integer 
-    
     add_column :settings, :record_type, :string
-    add_column :settings, :record_id, :integer
-    
-    add_column :plugin_reviews, :plugin_review_category_id, :integer
-    Setting.create(:name => "default_preview_type",  :value => "PluginImage", :setting_type => "Hidden", :item_type => "string") # when a plugin record is created for an item, its preview will be set to this
-
+    add_column :settings, :record_id, :integer   
     add_column :plugin_reviews, :up_votes, :integer, :default => 0 
     add_column :plugin_reviews, :down_votes, :integer, :default => 0
+    add_column :plugin_reviews, :plugin_review_category_id, :integer
     add_column :plugin_comments, :up_votes, :integer, :default => 0 
-    add_column :plugin_comments, :down_votes, :integer, :default => 0    
+    add_column :plugin_comments, :down_votes, :integer, :default => 0         
 
+    Setting.create(:name => "default_preview_type",  :value => "PluginImage", :setting_type => "Hidden", :item_type => "string") # when a plugin record is created for an item, its preview will be set to this
+        
     # convert old votes
     for vote in PluginReviewVote.all
       new_vote = MakeVotable::Voting.new(:voter_id => vote.user_id, :voter_type => "User", :voteable_id => vote.plugin_review_id, :voteable_type => "PluginReview", :up_vote => (vote.score > 0 ? true : false), :down_vote => (vote.score <= 0 ? true : false))
@@ -22,5 +20,18 @@ class ZeroSevenFour < ActiveRecord::Migration
   end
 
   def self.down
+    remove_column :items, :preview_type
+    remove_column :items, :preview_id 
+    Item.reset_column_information
+    remove_column :settings, :record_type
+    remove_column :settings, :record_id   
+    Setting.reset_column_information
+    remove_column :plugin_reviews, :up_votes
+    remove_column :plugin_reviews, :down_votes
+    remove_column :plugin_reviews, :plugin_review_category_id  	
+    PluginReview.reset_column_information
+    remove_column :plugin_comments, :up_votes
+    remove_column :plugin_comments, :down_votes
+	PluginComment.reset_column_information               
   end
 end

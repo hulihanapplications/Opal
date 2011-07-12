@@ -68,5 +68,5 @@ class Setting < ActiveRecord::Base
   	item_type == "bool" ? to_bool : to_s 
   end 
   	
-  self.global_settings = Setting.get_global_settings if table_exists? # load global settings into metaclass variable  
+  self.global_settings = table_exists? ? Setting.get_global_settings : Hash.new # load global settings into metaclass variable  
 end

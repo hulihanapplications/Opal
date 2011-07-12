@@ -8,11 +8,7 @@ GIT
 PATH
   remote: vendor/gems
   specs:
-    opal (0.7.3)
-
-PATH
-  remote: vendor/gems
-  specs:
+    opal (0.7.4)
     simple_captcha (0.1.1)
 
 PATH
@@ -119,18 +115,18 @@ PLATFORMS
 
 DEPENDENCIES
   ancestry
-  authlogic (= 2.1.6)
+  authlogic
   factory_girl_rails
   i18n (>= 0.5.0)
   make_voteable!
   mysql
-  opal (= 0.7.3)!
+  opal!
   rails (= 3.0.7)
   rmagick
   rspec-rails
   rubyzip
   russian!
-  simple_captcha (= 0.1.1)!
+  simple_captcha!
   sqlite3
   will_paginate (>= 3.0.pre2)
   ya2yaml

@@ -4,7 +4,7 @@
 			<%= link_to image_tag("opal.png"), "http://www.hulihanapplications.com/projects/opal", :class => "transparent", :target => "_blank" %>
 		</div>
 		<div>
-			<%= t("name") %> <%= t("single.version") %>: <b><%= Setting.get_setting("opal_version") %></b>
+			<%= t("name") %> <%= t("single.version") %>: <b><%= Opal::VERSION %></b>
 			<br>
 			<%= link_to icon("update") + " #{t("label.check_for_updates")}", "http://www.hulihanapplications.com/projects/opal", :target => "_blank" %>			
 		</div>

@@ -2,7 +2,7 @@ require "opal/active_record"
 require "opal/action_view"
 require "opal/action_controller"
 require "opal/acts_as_opal_plugin"
-
+require "opal/version"
 
 ActiveRecord::Base.send :include, Opal::ActiveRecord::Base::InstanceMethods
 ActiveRecord::Base.send :extend, Opal::ActiveRecord::Base::ClassMethods

@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+require 'opal'
+
+begin
+  puts "Placeholder..."
+rescue Interrupt => e
+  puts "\nQuitting..."
+  puts e.backtrace.join("\n")
+  exit 1
+end

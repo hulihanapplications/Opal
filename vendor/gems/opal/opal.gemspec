@@ -1,6 +1,12 @@
+#load relative lib
+lib = File.expand_path('../lib/', __FILE__)
+$:.unshift lib unless $:.include?(lib)
+
+require "opal/version"
+
 Gem::Specification.new do |s|
   s.name = "opal"
-  s.version = "0.7.4"
+  s.version = Opal::VERSION
   s.author = "Hulihan Applications"
   s.email = "dave@hulihanapplications.com"
   s.homepage = "http://www.hulihanapplications.com/projects/opal"

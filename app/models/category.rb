@@ -1,5 +1,6 @@
 class Category < ActiveRecord::Base
  include ActionView::Helpers::TextHelper # include text helper for truncate and other options
+ has_ancestry if column_names.include?("ancestry")
  
  has_many :items, :dependent => :destroy
  has_many :categories, :dependent => :destroy

@@ -1,10 +1,11 @@
 class PluginComment < ActiveRecord::Base
   acts_as_opal_plugin
   make_voteable
+  has_ancestry if column_names.include?("ancestry")
 
   belongs_to :plugin
   belongs_to :item
-  belongs_to :user
+  belongs_to :user  
   
   default_scope :order => "created_at DESC"
 

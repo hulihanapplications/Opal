@@ -9,7 +9,13 @@ class ZeroSevenFour < ActiveRecord::Migration
     add_column :plugin_reviews, :plugin_review_category_id, :integer
     add_column :plugin_comments, :up_votes, :integer, :default => 0 
     add_column :plugin_comments, :down_votes, :integer, :default => 0         
-
+    add_column :plugin_comments, :ancestry, :string
+    add_index :plugin_comments, :ancestry
+    add_column :categories, :ancestry, :string
+    add_index :categories, :ancestry
+    add_column :pages, :ancestry, :string
+    add_index :pages, :ancestry
+        
     Setting.create(:name => "default_preview_type",  :value => "PluginImage", :setting_type => "Hidden", :item_type => "string") # when a plugin record is created for an item, its preview will be set to this
         
     # convert old votes
@@ -32,6 +38,14 @@ class ZeroSevenFour < ActiveRecord::Migration
     PluginReview.reset_column_information
     remove_column :plugin_comments, :up_votes
     remove_column :plugin_comments, :down_votes
-	PluginComment.reset_column_information               
+    remove_index :plugin_comments, :ancestry  
+    remove_column :plugin_comments, :ancestry      
+    PluginComment.reset_column_information         
+    remove_index :categories, :ancestry  
+    remove_column :categories, :ancestry  
+    Category.reset_column_information
+    remove_index :pages, :ancestry  
+    remove_column :pages, :ancestry
+    Page.reset_column_information                
   end
 end

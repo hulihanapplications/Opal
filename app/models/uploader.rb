@@ -5,7 +5,7 @@ class Uploader #< ActiveRecord::Base
     options[:local]   ||= nil # file uploaded locally
     options[:url]     ||= nil   # file from a url
 
-    return "Both Used" if (!options[:local].blank? && !options[:url].blank?) # return nil if they did both
+    options[:url] = nil if (!options[:local].blank? && !options[:url].blank?) # if they did both
     if !options[:local].blank? # local upload, convert TempFile to real File  
       return Uploader.convert_tempfile_to_file(options[:local]) # return file from url      
     elsif !options[:url].blank? # from url
@@ -124,20 +124,20 @@ class Uploader #< ActiveRecord::Base
     FileUtils.mkdir_p(File.dirname(options[:path])) if !File.exist?(File.dirname(options[:path]))  
   
     # Resize Main Image
-    if options[:resize_image] || options[:effects][:resize_image] == "yes" # resize image?
+    if options[:resize_image] || options[:effects][:resize_image] == "1" # resize image?
       options[:image].crop_resized!( options[:image_width], options[:image_height] )    
     end
   
-    if options[:effects][:monochrome] == "yes"
+    if options[:effects][:monochrome] == "1"
       options[:image] = options[:image].quantize(256, Magick::GRAYColorspace)
     end
   
-    if options[:effects][:sepia] == "yes"
+    if options[:effects][:sepia] == "1"
       options[:image]= options[:image].quantize(256, Magick::GRAYColorspace)
       options[:image] = options[:image].colorize(0.30, 0.30, 0.30, '#cc9933')
     end
   
-    if options[:effects][:watermark] == "yes" # Watermark 
+    if options[:effects][:watermark] == "1" # Watermark 
      watermark_path = Rails.root.to_s + "/public/themes/#{@setting[:theme]}/images/watermark.png"
      if File.exists?(watermark_path) # use existing watermark image
        watermark_image = Magick::Image.from_blob( File.read(watermark_path)).first 
@@ -170,7 +170,7 @@ class Uploader #< ActiveRecord::Base
      end
     end
 
-    if options[:effects][:stamp] == "yes" # Stamp 
+    if options[:effects][:stamp] == "1" # Stamp 
      stamp_path = Rails.root.to_s + "/public/themes/#{@setting[:theme]}/images/stamp.png"
      if File.exists?(stamp_path) # use existing stamp image
        stamp_image = Magick::Image.from_blob( File.read(stamp_path)).first 
@@ -180,16 +180,16 @@ class Uploader #< ActiveRecord::Base
      end
     end
    
-    options[:image] = options[:image].rotate!(90) if options[:effects][:rotate_90_cw] == "yes"      
-    options[:image] = options[:image].rotate!(-90) if options[:effects][:rotate_90_ccw] == "yes"     
-    options[:image] = options[:image].rotate!(180) if options[:effects][:rotate_180] == "yes"
-    #options[:image].resize!(75) if options[:effects][:reduce_25] == "yes"    
-    #options[:image].resize!(50) if options[:effects][:reduce_50] == "yes"      
-    #options[:image].resize!(25) if options[:effects][:reduce_75] == "yes"          
-    options[:image] = options[:image].gaussian_blur(0.0, 3.0) if options[:effects][:gaussian_blur] == "yes"     
-    options[:image] = options[:image].negate if options[:effects][:negate] == "yes"
+    options[:image] = options[:image].rotate!(90) if options[:effects][:rotate_90_cw] == "1"      
+    options[:image] = options[:image].rotate!(-90) if options[:effects][:rotate_90_ccw] == "1"     
+    options[:image] = options[:image].rotate!(180) if options[:effects][:rotate_180] == "1"
+    #options[:image].resize!(75) if options[:effects][:reduce_25] == "1"    
+    #options[:image].resize!(50) if options[:effects][:reduce_50] == "1"      
+    #options[:image].resize!(25) if options[:effects][:reduce_75] == "1"          
+    options[:image] = options[:image].gaussian_blur(0.0, 3.0) if options[:effects][:gaussian_blur] == "1"     
+    options[:image] = options[:image].negate if options[:effects][:negate] == "1"
 
-    if options[:effects][:polaroid] == "yes"
+    if options[:effects][:polaroid] == "1"
       options[:image].border!(10, 10, "#f0f0ff")    
       # Bend the image
       options[:image].background_color = "none"    

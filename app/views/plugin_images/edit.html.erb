@@ -1,0 +1,16 @@
+<div class="item">
+	<%= render :partial => "items/item_header", :locals => {:item => @item, :options => {:show_item_info => true, :show_item_title => true}} %>
+		
+	<h2>
+		<%= icon("image") + " " + t("label.item_edit", :item => PluginImage.model_name.human) %> <%= t("single.for").downcase %> <%= h(@item.name) %>
+	</h2>
+	<br />	
+	<%= form_for(@image,  :url => { :action => "update", :controller => "plugin_images", :id => @item.id, :image_id => @image.id}, :html => {:multipart => true}) do |f| %>
+		<%= render :partial => "plugin_images/form", :locals => {:f => f} %>
+		<br />
+		<div align=center style="clear:both">
+			<%= submit_tag  t("label.item_save", :item => PluginImage.model_name.human), :class => "button_1" %>
+		</div>
+	<% end %>		    			    			
+</div>
+<%= back %>

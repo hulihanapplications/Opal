@@ -10,13 +10,17 @@ label{font-size:16px;}
 
 /*  Layout */
 #wrapper{height:auto !important; height:100%; min-height:100%;position:relative;}
-#wrapper > #header{width: 900px ; margin: 0 auto ;;}
-#wrapper > #content{width: 900px ;margin: 0 auto ;height:100%}
-		#wrapper > #content #main, div.main{width:660px;float:left;}
-		#wrapper > #content #side, div.side{width:230px;float:left;padding-right:10px}
-#wrapper > #footer{position:absolute;bottom:0;width:100%;padding:5px 0px 0px 0px;;text-align:center;}
-
-#wrapper > #content #tabcontent #main, .tabcontent .main{width:640px;}
+	#wrapper > #header{width: 900px ; margin: 0 auto ;;}
+	#wrapper > #content{width: 900px ;margin: 0 auto ;height:100%}
+			#wrapper > #content #main, .main{width:660px;}
+			#wrapper > #content #main, div.main{float:left;}
+			#wrapper > #content #side, div.side, .side_right, .side_left{width:230px;}
+			#wrapper > #content #side, div.side, div.side_right, div.side_left{float:left;}
+			#wrapper > #content #side, div.side, .side_left{padding-right:10px}
+			div.side_right{float:right}
+			.side_right{padding-left:10px}			
+	#wrapper > #footer{position:absolute;bottom:0;width:100%;padding:5px 0px 0px 0px;;text-align:center;}
+	#wrapper > #content #tabcontent #main, .tabcontent .main{width:640px;}
 
 
 /* Links */
@@ -97,7 +101,7 @@ div.simple_captcha_image{}
 /* Other Stuff */
 .main_content_top_bar{height:25px;}
 .pagination{clear:both;}
-
+.back{padding:10px;}
 /* Colorbox */
 #colorbox, #cboxOverlay, #cboxWrapper{position:absolute; top:0; left:0; z-index:9999; overflow:hidden;}
 #cboxOverlay{position:fixed; width:100%; height:100%;}

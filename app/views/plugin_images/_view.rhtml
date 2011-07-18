@@ -34,36 +34,11 @@
 									<% end %>
 								<% end %>				
 							<% end %>
-							<% if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_create? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
-								<a href="javascript:toggle_box('new_image_box')" class="plugin_title_link">
-									<%= icon("new") %>
-									<%=  t("label.item_new", :item => plugin.model_name.human) %>
-								</a>
-							<% end %>							
+							<%= link_to(icon("new") + " " + t("label.item_new", :item => PluginImage.model_name.human), {:action => "new", :controller => "plugin_images", :id => @item.id}) if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_create? || item.is_editable_for_user?(@logged_in_user) %>
 						</td>
 					</tr>
 				</table>				
 			</div>
-			<% if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_create? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
-				<div style="display:none" id="new_image_box" class="box_1">
-				      <h2><%=  t("label.item_new", :item => plugin.model_name.human) %></h2>
-					   <div>
-	   					   <%= form_tag({:action => 'create', :controller => "plugin_images", :id => item.id}, :multipart => true) %>
-							   <%= render :partial => "shared/image_upload_form" %>
-							   <br>
-							   <div align=center>
-							   		<%= submit_tag  t("label.item_create", :item => plugin.model_name.human), :class => "button_1" %>
-							   </div>
-						   </form>
-						 </div>
-						 <br>
-						 <div align="center">
-		   						<a href="javascript:toggle_box('new_image_box')">
-		   							<%= icon("cancel") %>
-								</a>
-					     </div>
-				</div>
-			<% end %>
 		<% end %>
 			
 		
@@ -74,7 +49,7 @@
 							<div class="image">
 								<%= thumbnail(image, :preview => true) %>														
 								<div style="margin:5px;">
-									<%= render :partial => "plugins/plugin_item_controls", :locals => {:record => image, :options => {:edit => false}} %> 									   																
+									<%= render :partial => "plugins/plugin_item_controls", :locals => {:record => image} %> 									   																
 								</div>
 							</div>					
 						<% end %>

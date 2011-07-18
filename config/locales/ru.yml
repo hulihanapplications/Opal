@@ -339,7 +339,6 @@ ru:
     search_results_left_blank: Я не знаю что искать!
     message_send_success: Ваш %{item} был послан %{to}. 
     message_send_failure: Ваш %{item} для %{to} не может быть послан! 
-    invalid_file_extensions: "%{item} не может быть сохранен потому что имя файла не заканчивается следующим образом: %{acceptable_file_extensions}"
   # Logs 
   log: # call with t(:failed_admin_access_attempt_user, :scope => [:log]) or t("log.failed_admin_access_attempt_user") 
     item_create: "Создан %{item}: %{name}"
@@ -939,6 +938,7 @@ ru:
         range: должно быть между %{min} и %{max}
         items_cannot_add_more: Вы не можете добавить ещё %{items}.    
         item_must_be_owner: Вы должны быть владельцем этого %{item} чтобы сделать это.
+    	invalid_file_extension: "не может быть сохранен потому что имя файла не заканчивается следующим образом: %{valid_extensions}"        
   # Locales
   locales:
     en: Английская (English)

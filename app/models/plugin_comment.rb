@@ -1,7 +1,7 @@
 class PluginComment < ActiveRecord::Base
   acts_as_opal_plugin
   make_voteable
-  has_ancestry if column_names.include?("ancestry")
+  has_ancestry if PluginComment.table_exists? && column_names.include?("ancestry")
 
   belongs_to :plugin
   belongs_to :item

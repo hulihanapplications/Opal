@@ -1,5 +1,5 @@
 class Page < ActiveRecord::Base
-  has_ancestry if column_names.include?("ancestry")
+  has_ancestry if Page.table_exists? && column_names.include?("ancestry")
 
   has_many :pages
   has_many :page_comments, :dependent => :destroy

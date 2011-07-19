@@ -2,7 +2,6 @@ class PluginReviewsController < ApplicationController
  # before_filter :authenticate_user # check if user is logged in and not a public user  
  before_filter :find_item # look up item 
  before_filter :find_plugin
- before_filter :get_plugin_settings
  before_filter :get_group_permissions_for_plugin # get permissions for this plugin  
  before_filter :check_item_view_permissions, :only => [:show] # can user view item?
  before_filter :check_item_edit_permissions, :only => [:change_approval] # list of actions that don't require that the item is editable by the user 
@@ -13,13 +12,6 @@ class PluginReviewsController < ApplicationController
  before_filter :uses_tiny_mce, :only => [:new, :edit, :create, :update]  # which actions to load tiny_mce, TinyMCE Config is done in Layout.
 
  include ActionView::Helpers::TextHelper # for truncate, etc.
-
-
- def get_plugin_settings # get settings just for this plugin
-   @setting[:review_type] = @plugin.get_setting("review_type")
-   @setting[:score_min] = @plugin.get_setting("score_min").to_i     
-   @setting[:score_max] = @plugin.get_setting("score_max").to_i   
- end 
  
   def create   
     @item = Item.find(params[:id])

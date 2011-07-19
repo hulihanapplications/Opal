@@ -78,7 +78,7 @@
 		<% if params[:action] == "view" %>	
 			<% plugin = Plugin.find_by_name("Image") %>
 			<% if plugin.is_enabled? %>
-				$("a[rel='colorbox_slideshow']").colorbox({slideshow:true, slideshowSpeed:<%= plugin.get_setting("slideshow_speed") %>});
+				$("a[rel='colorbox_slideshow']").colorbox({slideshow:true, slideshowSpeed:<%= @setting[:image][:slideshow_speed].to_i %>});
 			<% end %>
 		<% end %>
 

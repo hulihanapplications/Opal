@@ -1,7 +1,5 @@
 <%= error_messages_for :review %>
 
-
-
 <div class="plugin_box">
 	<div class="reviews">
 		<div class="review_box">
@@ -26,24 +24,24 @@
 											     		<h3><%= label "review", "review_score", PluginReview.human_attribute_name(:score) %></h3>	
 											     	</td>
 											     	<td align=left style="vertical-align:middle">
-														 <% if @setting[:review_type] == "Stars"  %>							
-															<%= star_field_tag("review", "review_score", :value => review.review_score, :max => @setting[:score_max]) %>
-														 <% elsif @setting[:review_type] == "Slider"  %>
+														 <% if @setting[:review][:review_type] == "Stars"  %>							
+															<%= star_field_tag("review", "review_score", :value => review.review_score, :max => @setting[:review][:score_max].to_i) %>
+														 <% elsif @setting[:review][:review_type] == "Slider"  %>
 														 	<table cellpadding=0 cellspacing=0>
 														 		<tr>
 														 			<td style="vertical-align:middle">						 				
-																		<%= slider_field_tag("review", "review_score", :value => review.review_score, :min => @setting[:score_min], :max => @setting[:score_max]) %>
+																		<%= slider_field_tag("review", "review_score", :value => review.review_score, :min => @setting[:review][:score_min].to_i, :max => @setting[:review][:score_max].to_i) %>
 														 			</td>
 																	<td style="padding-left:5px;vertical-align:middle">
-																		<span><%= t("label.out_of") %> <b><%= @setting[:score_max] %></b></span>																							
+																		<span><%= t("label.out_of") %> <b><%= @setting[:review][:score_max] %></b></span>																							
 																	</td>
 														 		</tr>
 															</table>						 		 
-														 <% elsif @setting[:review_type] == "Number" %>
+														 <% elsif @setting[:review][:review_type] == "Number" %>
 															<input name="review[review_score]" type="text" id="review_score" value="<%= review.review_score.to_i %>" style="width:50px;text-align:center" />
-															<span><%= t("label.out_of") %> <b><%= @setting[:score_max] %></b></span>
+															<span><%= t("label.out_of") %> <b><%= @setting[:review][:score_max] %></b></span>
 														 <% else %>
-														 	Unknown Review type: <b><%= t("label.item_unknown", :item => t("plugin_settings.review_type"), :name => @setting[:review_type]) %></b>										 
+														 	Unknown Review type: <b><%= t("label.item_unknown", :item => t("plugin_settings.review_type"), :name => @setting[:review][:review_type]) %></b>										 
 														 <% end %>				     		
 											     	</td>					
 												</tr>

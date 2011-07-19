@@ -56,15 +56,11 @@
 				</div>				
 				<div id="side">
 					<% if Plugin.plugins[:review].is_enabled? %>
-						<% @setting[:review_type] = Plugin.plugins[:review].get_setting("review_type") %>
-						<% @setting[:score_min] = Plugin.plugins[:review].get_setting("score_min") %>
-						<% @setting[:score_max] = Plugin.plugins[:review].get_setting("score_max") %>
-
 						<div class="box_2">
 							<% review_score = PluginReview.average(:review_score, :conditions => ["item_id = ?", item.id]) %>
 							<% review_score ||= 0 %>										
 							<span>	
-								<%= link_to_function score(:type => @setting[:review_type], :min => @setting[:score_min].to_i, :max => @setting[:score_max].to_i, :value => review_score),  "select_tab(\"#{Plugin.plugins[:review].model_name.human(:count => :other)}\")"  %>																			
+								<%= link_to_function score(:type => @setting[:review][:review_type], :min => @setting[:review][:score_min].to_i, :max => @setting[:review][:score_max].to_i, :value => review_score),  "select_tab(\"#{Plugin.plugins[:review].model_name.human(:count => :other)}\")"  %>																			
 							</span>							
 						</div>
 					<% end %>

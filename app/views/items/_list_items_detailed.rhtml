@@ -1,11 +1,4 @@
-<%# Grab Plugins to Display %>
-
-<% if Plugin.plugins[:review].is_enabled? %>
-	<% @setting[:review_type] = Plugin.plugins[:review].get_setting("review_type") %>
-	<% @setting[:score_min] = Plugin.plugins[:review].get_setting("score_min") %>
-	<% @setting[:score_max] = Plugin.plugins[:review].get_setting("score_max") %>
-<% end %>	
-	
+<%# Grab Plugins to Display %>	
 <% for item in items %>
  <% if item.is_viewable_for_user?(@logged_in_user) %>
 	<div class="item_box_detailed">

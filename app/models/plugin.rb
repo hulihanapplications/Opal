@@ -4,7 +4,7 @@ class Plugin < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name
   
-  has_many :settings, :as => :record, :dependent => :destroy
+  has_many :settings, :as => :record, :dependent => :destroy # polymorphic
   has_many :plugin_settings, :dependent => :destroy
   has_many :group_plugin_permissions, :dependent => :destroy
   
@@ -24,14 +24,16 @@ class Plugin < ActiveRecord::Base
     return "Plugin#{self.name}".camelize.constantize
   end
     
-  # Set plugins to metaclass
-  class << self # open up metaclass  
-    attr_accessor :plugins, :third_party_plugins # Plugin.plugins
-    
-    def enabled      
-      where(["enabled = ?", "1"]).order("order_number ASC")
-    end
-  end    
+  # Set plugins as class accessor 
+  cattr_accessor :plugins, :third_party_plugins # Plugin.plugins
+  
+  def self.enabled      
+      where(["enabled = ?", "1"]).in_order
+  end
+  
+  def self.in_order;
+    order("order_number ASC")
+  end
 
   def self.all_to_hash # return all plugins in an unordered hash
     plugin_hash = Hash.new

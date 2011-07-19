@@ -27,16 +27,10 @@ class PluginReview < ActiveRecord::Base
   #validates_length_of :review, :minimum => 10, :message => "This review is too short! It must have at least 10 characters."
   #validates_length_of :review, :maximum => 255, :message => "This review is too long! It must be 255 characters or less."
   
-  def validate # custom validations
-    @setting = Hash.new
-    @setting[:review_type] = PluginReview.get_setting("review_type")
-    @setting[:score_min] = PluginReview.get_setting("score_min").to_i     
-    @setting[:score_max] = PluginReview.get_setting("score_max").to_i   
-           
-    errors.add(:review_score, I18n.t("activerecord.errors.messages.range", :min => @setting[:score_min], :max => @setting[:score_max])) if !(self.review_score >=  @setting[:score_min] && self.review_score <= @setting[:score_max]) 
+  def validate # custom validations          
+    errors.add(:review_score, I18n.t("activerecord.errors.messages.range", :min => Setting.global_settings[:review][:score_min].to_i, :max => Setting.global_settings[:review][:score_max])) if !(self.review_score.to_i >= Setting.global_settings[:review][:score_min].to_i && self.review_score.to_i <= Setting.global_settings[:review][:score_max].to_i) 
   end
-  
-  
+    
   def validate_on_create
      errors.add(:base, I18n.t("activerecord.errors.messages.items_cannot_add_more", :items => self.class.model_name.human(:count => :other))) if PluginReview.find(:all, :conditions => ["user_id = ? and item_id = ?", self.user_id, self.item_id]).size > 0
      errors.add(:base, I18n.t("activerecord.errors.messages.item_must_be_owner", :item => self.class.model_name.human)) if Setting.get_setting_bool("only_creator_can_review") && self.user_id != self.item.user_id    

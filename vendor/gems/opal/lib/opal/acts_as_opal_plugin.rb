@@ -39,11 +39,7 @@ module Opal
         end 
       end
 
-      def reset_preview 
-        logger.info self.inspect
-        logger.info item.preview.inspect
-        
-        
+      def reset_preview         
         if self == item.preview
         	item.update_attributes(:preview_type => nil, :preview_id => nil)  # reset item preview to nil
    			  preview_successor = Setting.global_settings[:default_preview_type].item(item).first # look for a successor preview 

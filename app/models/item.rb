@@ -218,11 +218,11 @@ class Item < ActiveRecord::Base
 =end
 
   def preview # get the preview record for this item
-    preview? ? preview_type.constantize.find_by_id(preview_id) : nil
+    (!preview_id.blank? && !preview_type.blank?) ? preview_type.constantize.find_by_id(preview_id) : nil
   end
 
   def preview? # does this item have a preview?
-    !preview_id.blank? && !preview_type.blank? 
+   !preview.nil?
   end
   
   def is_record_preview?(some_object) # is this object the preview for this item?

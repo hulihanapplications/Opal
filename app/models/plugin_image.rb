@@ -48,8 +48,8 @@ class PluginImage < ActiveRecord::Base
   end  
   
   def delete_files
-    image_path = "#{Rails.root.to_s}/public" + "#{self.url}"
-    thumb_path = "#{Rails.root.to_s}/public" + "#{self.thumb_url}"
+    image_path = File.join(Rails.root.to_s, "public", self.url)
+    thumb_path = File.join(Rails.root.to_s, "public", self.thumb_url)
 
     if File.exists?(image_path) # does the file exist?
      FileUtils.rm(image_path) # delete the file

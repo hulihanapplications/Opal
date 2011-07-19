@@ -919,6 +919,9 @@ ru:
       plugin_review:
         review_score: Оценка
         average: Средняя оценка
+      plugin_image:
+        local_file: С вашего компьютера
+        remote_file: URL           
     errors: # you can find the list of validation error keys here: http://guides.rubyonrails.org/i18n.html 
       template: 
         header: 
@@ -938,7 +941,8 @@ ru:
         range: должно быть между %{min} и %{max}
         items_cannot_add_more: Вы не можете добавить ещё %{items}.    
         item_must_be_owner: Вы должны быть владельцем этого %{item} чтобы сделать это.
-    	invalid_file_extension: "не может быть сохранен потому что имя файла не заканчивается следующим образом: %{valid_extensions}"        
+    	invalid_file_extension: "не может быть сохранен потому что имя файла не заканчивается следующим образом: %{valid_extensions}"
+    	unresponsive: "is not responding"        
   # Locales
   locales:
     en: Английская (English)

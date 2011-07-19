@@ -7,7 +7,7 @@ class PluginImage < ActiveRecord::Base
   
   validates_uniqueness_of :url, :scope => :item_id
   validate :validate_source
-  validates :remote_file, :uri => { :format => /(^$)|(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix }, :if => lambda{|o|o.local_file.blank?} 
+  validates :remote_file, :format => /(^$)|(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix, :uri_response => true, :if => lambda{|o|o.local_file.blank?} 
   before_create :generate_image
   before_destroy :delete_files
  

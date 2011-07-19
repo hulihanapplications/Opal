@@ -1,7 +1,7 @@
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
 class ApplicationController < ActionController::Base    
-  helper "application" # include main application helper
+  helper :all
   before_filter :load_settings, :set_user # load global settings and set logged in user
   before_filter :set_locale, :check_public_access
   before_filter :prepare_for_mobile  

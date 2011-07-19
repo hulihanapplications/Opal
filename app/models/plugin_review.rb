@@ -1,6 +1,5 @@
 class PluginReview < ActiveRecord::Base
   acts_as_opal_plugin
-  
   make_voteable
   
   #belongs_to :plugin
@@ -10,7 +9,7 @@ class PluginReview < ActiveRecord::Base
   
   before_destroy :destroy_votes
    
-  scope :with_total_vote_score, lambda{   # computes vote score of reviews by summing all associated plugin_review_vote records
+  scope :with_total_vote_score, lambda{   # computes vote score of reviews by summing all associated plugin_review_vote records(deprecated as of 0.7.4)
     group("plugin_reviews.id").
     joins(:plugin_review_votes).
     select("plugin_reviews.*").
@@ -20,15 +19,15 @@ class PluginReview < ActiveRecord::Base
   scope :for_item, lambda{|item| where("item_id = ?", item.id)}
   scope :newest_first, order("created_at DESC")
   scope :most_votes_first, order("up_votes - down_votes DESC")
-
   
   validates_presence_of :review_score
   validates_presence_of :item_id, :user_id
-  #validates_length_of :review, :minimum => 10, :message => "This review is too short! It must have at least 10 characters."
-  #validates_length_of :review, :maximum => 255, :message => "This review is too long! It must be 255 characters or less."
+  validates_length_of :review, :minimum => 16
   
   def validate # custom validations          
-    errors.add(:review_score, I18n.t("activerecord.errors.messages.range", :min => Setting.global_settings[:review][:score_min].to_i, :max => Setting.global_settings[:review][:score_max])) if !(self.review_score.to_i >= Setting.global_settings[:review][:score_min].to_i && self.review_score.to_i <= Setting.global_settings[:review][:score_max].to_i) 
+    min = PluginReview.get_setting("score_min").to_i
+    max = PluginReview.get_setting("score_max").to_i
+    errors.add(:review_score, I18n.t("activerecord.errors.messages.range", :min => min, :max => max)) if !(self.review_score.to_i >= min && self.review_score.to_i <= max) 
   end
     
   def validate_on_create

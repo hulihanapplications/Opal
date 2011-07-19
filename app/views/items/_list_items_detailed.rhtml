@@ -47,10 +47,7 @@
 												<% end %>
 											</td>
 											<td align=right style="vertical-align:middle">
-												<% if item.user %>
-													 <%= link_to t("label.user_by", :name => item.user.username), {:action => "user", :controller => "browse", :id => item.user}, :title => h(item.user.username) %>		
-													<%= link_to user_avatar(item.user, :size => "tiny"), {:action => "user", :controller => "browse", :id => item.user}, :title => h(item.user.username) %>
-												<% end %>																														
+												<%= raw(I18n.t("single.by") + " " + link_to_user(item.user, :avatar => true)) if item.user %>																													
 											</td>
 										</tr>
 									</table>						

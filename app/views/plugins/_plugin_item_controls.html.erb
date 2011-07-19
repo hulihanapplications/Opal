@@ -5,6 +5,7 @@
 	options[:edit] = true if options[:edit].nil?
 	options[:delete] = true if options[:delete].nil?
 	options[:user] = true if options[:user].nil?
+	options[:byline] = true if options[:byline].nil?
 	options[:approval] = true if options[:approval].nil?
 	options[:votes] = false if options[:votes].nil?
 	options[:date] = false if options[:date].nil?
@@ -27,7 +28,8 @@
 <% end %>
 
 <% if options[:user] %>
-	<%= link_to_user(record.user, :avatar => true, :name => false) if record.respond_to?(:user_id) && record.user_id != @logged_in_user.id? && record.user_id != @item.user_id %>
+	<%= options[:byline] ? I18n.t("single.by") : nil %>
+	<%= link_to_user(record.user, :avatar => true, :name => options[:byline]) if record.respond_to?(:user_id) && record.user_id != @logged_in_user.id? && record.user_id != @item.user_id %>
 <% end %>
 
 <% if options[:approval] %>

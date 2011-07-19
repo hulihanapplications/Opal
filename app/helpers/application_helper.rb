@@ -490,7 +490,7 @@ module ApplicationHelper
     options[:avatar] = false if options[:avatar].nil?
     options[:name] = true if options[:name].nil?
     options[:avatar_class] ||= "tiny"
-    link_to((options[:avatar] ? user_avatar(user, :size => options[:avatar_class]) + " " : "") + (options[:name] ? user.to_s : ""),{:action => "user", :controller => "browse", :id => user})
+    link_to raw((options[:name] ? user.to_s : "") + " " + (options[:avatar] ? user_avatar(user, :size => options[:avatar_class]) : "")), {:action => "user", :controller => "browse", :id => user}
   end
   
   def loading #show loading box

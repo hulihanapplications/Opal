@@ -16,9 +16,7 @@ class ZeroSevenFour < ActiveRecord::Migration
     add_column :pages, :ancestry, :string
     add_index :pages, :ancestry
         
-    Setting.create(:name => "default_preview_type",  :value => "PluginImage", :setting_type => "Hidden", :item_type => "string") # when a plugin record is created for an item, its preview will be set to this
-    
-
+    Setting.create(:name => "default_preview_type",  :value => "PluginImage", :setting_type => "Hidden", :item_type => "string") # when a plugin record is created for an item, its preview will be set to this   
         
     # convert old votes
     for vote in PluginReviewVote.all

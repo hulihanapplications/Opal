@@ -35,7 +35,6 @@ describe PluginReviewsController do
         expect{
           post(:create, {:id => item.id, :plugin_review => Factory.attributes_for(:plugin_review)})
         }.to change(PluginReview, :count).by(+1)
-        puts assigns[:review].errors.inspect
         flash[:success].should_not be_nil
       end     
     end
@@ -49,7 +48,8 @@ describe PluginReviewsController do
   context "as visitor" do 
     describe "show" do
       it "should return 200" do 
-        get :show, {:id =>  Factory(:plugin_review)}
+        review = Factory(:plugin_review)
+        get :show, {:id =>  review.item.id, :review_id => review.id}
         @response.code.should eq("200")
       end
     end    

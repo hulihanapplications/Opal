@@ -1,4 +1,4 @@
-class PluginReviewsController < ApplicationController
+class PluginReviewsController < PluginController
  before_filter :check_item_view_permissions, :only => [:show] # can user view item?
  before_filter :can_group_read_plugin, :only => [:show]
  before_filter :can_group_create_plugin, :only => [:create, :new]

@@ -10,6 +10,8 @@ class PluginVideo < ActiveRecord::Base
   
   before_validation :sanitize_code 
   
+  attr_accessible :code, :title, :description
+  
   default_scope :order => "title ASC"
 
   def sanitize_code

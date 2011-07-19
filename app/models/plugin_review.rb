@@ -24,6 +24,8 @@ class PluginReview < ActiveRecord::Base
   validates_presence_of :item_id, :user_id
   validates_length_of :review, :minimum => 16
   
+  attr_accessible :review, :review_score 
+  
   def validate # custom validations          
     min = PluginReview.get_setting("score_min").to_i
     max = PluginReview.get_setting("score_max").to_i

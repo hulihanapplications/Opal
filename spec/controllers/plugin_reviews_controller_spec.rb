@@ -11,47 +11,62 @@ describe PluginReviewsController do
   
   context "as user" do
     before(:each) do
-      login_user
+      login_user 
+      @item = Factory(:item, :user => @controller.set_user)
+      @review = Factory(:plugin_review, :item => @item)   
     end 
         
     describe "new" do
       it "should return 200" do 
-        get :new, {:id =>  Factory(:plugin_review)}
+        get :new, {:id => @item.id}
         @response.code.should eq("200")
       end
     end
 
     describe "edit" do
       it "should return 200" do
-        review = Factory(:plugin_review) 
-        get :edit, {:id =>  review.item.id, :review_id => review.id}
+        get :edit, {:id =>  @review.item.id, :review_id => @review.id}
         @response.code.should eq("200")
       end
     end  
     
     describe "create" do 
-      it "should increment count" do
-        item = Factory(:item)
+      it "should work normally" do
         expect{
-          post(:create, {:id => item.id, :plugin_review => Factory.attributes_for(:plugin_review)})
+          post(:create, { :id => @item.id, :review => Factory.attributes_for(:plugin_review)})
         }.to change(PluginReview, :count).by(+1)
-        flash[:success].should_not be_nil
-      end     
+        flash[:success].should_not be_nil     
+      end   
+      
+      it "should not work when trying to add to another user's item" do 
+         expect{
+          item = Factory(:item)
+          post(:create, { :id => item.id, :review => Factory.attributes_for(:plugin_review)})
+        }.to change(PluginReview, :count).by(0)
+        flash[:failure].should_not be_nil      	
+      end  
     end
     
-    pending :update
-    pending :delete
+    describe :update do 
+      it "should work normally" do
+      	new_content = random_content
+        post(:update, { :id => @review.item.id, :review_id => @review.id, :review => {:review => new_content, :review_score => @review.review_score}})
+        PluginReview.find(@review.id).review == new_content
+        flash[:success].should_not be_nil     
+      end      	
+    end
+    
+    describe :destroy do
+      it "decrements count" do
+        expect{
+          post(:delete, {:id => @review.item.id, :review_id => @review.id})
+        }.to change(PluginReview, :count).by(-1)
+        flash[:success].should_not be_nil
+      end     	
+    end
+    
     pending :vote
     pending :change_approval
   end
-  
-  context "as visitor" do 
-    describe "show" do
-      it "should return 200" do 
-        review = Factory(:plugin_review)
-        get :show, {:id =>  review.item.id, :review_id => review.id}
-        @response.code.should eq("200")
-      end
-    end    
-  end
+
 end

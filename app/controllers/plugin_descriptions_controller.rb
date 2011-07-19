@@ -2,7 +2,8 @@ class PluginDescriptionsController < PluginController
  before_filter :can_group_create_plugin, :only => [:new, :create]
  before_filter :can_group_update_plugin, :only => [:edit, :update] 
  before_filter :uses_tiny_mce, :only => [:new, :edit, :create, :update]  # which actions to load tiny_mce, TinyMCE Config is done in Layout.
- 
+ include ActionView::Helpers::TextHelper # for truncate, sanitize, etc.
+
   def create
    @description = PluginDescription.new
    @description.title = params[:description][:title]

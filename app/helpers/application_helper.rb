@@ -283,7 +283,7 @@ module ApplicationHelper
  
  
  def score(options = {}) # print out a score
-   options[:type]   ||= "Number" # type of score to show
+   options[:type]   ||= Setting.global_settings[:plugin_review][:review_type] # type of score to show
    options[:min]    ||= 1 # minimum number to create
    options[:max]    ||= 5 # maximum number to create
    options[:value]  ||= 0 # num of stars to fill in  

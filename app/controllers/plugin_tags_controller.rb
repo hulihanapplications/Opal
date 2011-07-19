@@ -1,15 +1,4 @@
 class PluginTagsController < ApplicationController
- # before_filter :authenticate_user # check if user is logged in and not a public user  
- before_filter :find_item # look up item 
- before_filter :find_plugin # find plugin
- before_filter :get_group_permissions_for_plugin # get permissions for this plugin  
- before_filter :check_item_view_permissions # can user view item? 
- before_filter :check_item_edit_permissions, :only => [:change_approval] # list of actions that don't require that the item is editable by the user
- before_filter :can_group_create_plugin, :only => [:create]
- before_filter :can_group_delete_plugin, :only => [:delete]   
-
- 
- 
   def create
      @tag = PluginTag.new
      @tag.name = params[:tag_name]

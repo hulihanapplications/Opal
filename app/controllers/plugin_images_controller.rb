@@ -1,14 +1,4 @@
-class PluginImagesController < ApplicationController
-  # before_filter :authenticate_user # check if user is logged in and not a public user  
-  before_filter :find_item # look up item 
-  before_filter :find_plugin # look up item  
-  before_filter :get_group_permissions_for_plugin # get permissions for this plugin  
-  before_filter :check_item_view_permissions # can user view item?  
-  before_filter :check_item_edit_permissions, :only => [:change_approval] # list of actions that don't require that the item is editable by the user
-  before_filter :can_group_create_plugin, :only => [:create, :new]
-  before_filter :can_group_update_plugin, :only => [:edit, :update]  
-  before_filter :can_group_delete_plugin, :only => [:delete]   
-
+class PluginImagesController < PluginController
   def new
     @image = PluginImage.new(:item_id => @item.id)
   end
@@ -73,25 +63,6 @@ class PluginImagesController < ApplicationController
     end 
     render :action => "edit"
   end
- 
- def change_approval
-    @image = PluginImage.find(params[:image_id])    
-    if  @image.is_approved?
-      approval = "0" # set to unapproved if approved already    
-      log_msg = t("log.item_unapprove", :item => @plugin.model_name.human, :name => @image.filename) 
-    else
-      approval = "1" # set to approved if unapproved already    
-      log_msg =  t("log.item_approve", :item => @plugin.model_name.human, :name => @image.filename) 
-    end
-    
-    if @image.update_attribute(:is_approved, approval)
-      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => log_msg)      
-      flash[:success] = t("notice.item_#{"un" if approval == "0"}approve_success", :item => @plugin.model_name.human)  
-    else
-      flash[:failure] =  t("notice.item_save_failure", :item => @plugin.model_name.human)
-    end
-    redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human(:count => :other) 
-  end  
 
   def tiny_mce_images # display images in tinymce  
   end

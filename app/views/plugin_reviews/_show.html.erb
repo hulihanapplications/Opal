@@ -25,11 +25,11 @@
 								<td style="vertical-align:middle;text-align:left">		
 									<span <%= raw "itemprop=\"rating\" itemscope itemtype=\"http://data-vocabulary.org/Rating\"" if options[:rich_snippets] %>>					
 									
-										 <%= raw "<meta itemprop=\"worst\" content=\"#{@setting[:review][:score_min].to_i}\" />" if options[:rich_snippets] %>
-										 <%= raw "<meta itemprop=\"best\" content=\"#{@setting[:review][:score_max].to_i}\" />" if options[:rich_snippets] %>																 						
+										 <%= raw "<meta itemprop=\"worst\" content=\"#{@setting[:plugin_review][:score_min].to_i}\" />" if options[:rich_snippets] %>
+										 <%= raw "<meta itemprop=\"best\" content=\"#{@setting[:plugin_review][:score_max].to_i}\" />" if options[:rich_snippets] %>																 						
 										 <%= raw "<meta itemprop=\"value\" content=\"#{review.review_score.to_i}\" />" if options[:rich_snippets] %>
 
-									 	<%= link_to score(:type => @setting[:review][:review_type], :min => @setting[:review][:score_min].to_i, :max => @setting[:review][:score_max], :value => review.review_score.to_i), {:action => "show", :controller => "plugin_reviews", :id => item.id, :review_id => review.id} %>										
+									 	<%= link_to score(:type => @setting[:plugin_review][:review_type], :min => @setting[:plugin_review][:score_min].to_i, :max => @setting[:plugin_review][:score_max], :value => review.review_score.to_i), {:action => "show", :controller => "plugin_reviews", :id => item.id, :review_id => review.id} %>										
 								</td>
 								<td style="vertical-align:middle;text-align:right">																									 																							
     								<time itemprop="dtreviewed" datetime="<%= review.created_at.strftime("%Y-%m-%d") %>">

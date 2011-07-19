@@ -1,7 +1,7 @@
 <% if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_read? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
 	<% review_score = PluginReview.for_item(item).approved.average(:review_score) %>
 	<% review_score ||= 0 %>
-	<% if review_score > 0 || @setting[:review][:review_type] == "Stars" %>
-		<span title="<%= PluginReview.human_attribute_name(:average)%>"><%= score(:type => @setting[:review][:review_type], :max => @setting[:review][:score_max].to_i, :value => review_score) %></span>
+	<% if review_score > 0 || @setting[:plugin_review][:review_type] == "Stars" %>
+		<span title="<%= PluginReview.human_attribute_name(:average)%>"><%= score(:type => @setting[:plugin_review][:review_type], :max => @setting[:plugin_review][:score_max].to_i, :value => review_score) %></span>
 	<% end %>
 <% end %>

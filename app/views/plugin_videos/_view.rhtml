@@ -3,7 +3,6 @@
 <% else %>
 	<% videos = PluginVideo.find(:all, :conditions => ["item_id = ? and is_approved = '1'", item.id])%>
 <% end %>
-<% @setting[:video_display_mode] = PluginVideo.get_setting("video_display_mode") %>
 
 	<div class="plugin_box">
 		<a name="<%= plugin.model_name.human(:count => :other) %>"></a>		
@@ -22,7 +21,7 @@
 				</table>				
 			</div>	
 		<% if videos.size > 0  %>			
-			<% if @setting[:video_display_mode] == "List" %>
+			<% if @setting[:plugin_video][:video_display_mode] == "List" %>
 				<div class="videos">
 					<% for video in videos %>				
 						<div id="video_box_<%= video.id %>" class="video box_2">	

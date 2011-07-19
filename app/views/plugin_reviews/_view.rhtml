@@ -23,12 +23,12 @@
 						<% review_score = reviews.approved.average(:review_score) %>
 						<% review_score ||= 0 %>										
 						<span itemprop="rating" itemscope itemtype="http://data-vocabulary.org/Rating">					
-							<meta itemprop="worst" content="<%= @setting[:review][:score_min]  %>" /> 
-							<meta itemprop="best" content="<%= @setting[:review][:score_max] %>" /> 
+							<meta itemprop="worst" content="<%= @setting[:plugin_review][:score_min]  %>" /> 
+							<meta itemprop="best" content="<%= @setting[:plugin_review][:score_max] %>" /> 
 							<meta itemprop="average" content="<%= review_score %>" /> 	
 												
 							<%= PluginReview.human_attribute_name(:average) %>: 							
-							<span title="<%= PluginReview.human_attribute_name(:average)%>"><%= score(:type => @setting[:review][:review_type], :min => @setting[:review][:score_min].to_i, :max => @setting[:review][:score_max].to_i, :value => review_score) %></span>
+							<span title="<%= PluginReview.human_attribute_name(:average)%>"><%= score(:type => @setting[:plugin_review][:review_type], :min => @setting[:plugin_review][:score_min].to_i, :max => @setting[:plugin_review][:score_max].to_i, :value => review_score) %></span>
 						</span>
 						
 						<% if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_create? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>

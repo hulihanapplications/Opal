@@ -38,7 +38,7 @@ class Setting < ActiveRecord::Base
   	  
   	  # Autoload plugin settings
   	  Plugin.plugins.each do |name, plugin|  	    
-  	    setting[name] = PluginSetting.plugin(plugin).all.hash_by(:name, :to_value) 
+  	    setting[plugin.plugin_class.name.underscore.to_sym] = PluginSetting.plugin(plugin).all.hash_by(:name, :to_value) 
   	  end  	  
     rescue Exception => e
       logger.info e

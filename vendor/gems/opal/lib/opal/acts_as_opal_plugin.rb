@@ -40,12 +40,10 @@ module Opal
       end
 
       def reset_preview 
-        #item.update_attributes(:preview_type => nil, :preview_id => nil) if self == item.preview # set self as preview if no preview exists
-        # set some other record as item's preview
         if self == item.preview
-        	item.update_attributes(:preview_type => nil, :preview_id => nil)  # reset item preview
-   			preview_successor = Setting.global_settings[:default_preview_type].item(item).first
-        	item.update_attributes(:preview_type => preview_successor.class.name, :preview_id => preview_successor.id) if preview_successor 
+        	item.update_attributes(:preview_type => nil, :preview_id => nil)  # reset item preview to nil
+   			preview_successor = Setting.global_settings[:default_preview_type].item(item).first # look for a successor preview 
+        	item.update_attributes(:preview_type => preview_successor.class.name, :preview_id => preview_successor.id) if preview_successor # set some other record as item's preview
 		end 
       end
       

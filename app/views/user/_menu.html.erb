@@ -15,10 +15,5 @@
    <li>
 		<%= link_to icon("settings") + " " + t("section.title.my_settings"), {:action => "edit", :controller => "users", :id => @logged_in_user}, :class => ((params[:action] == "edit" && params[:controller] == "users") || (params[:action] == "update" && params[:controller] == "users") || params[:action] == "change_password"  ? "active" : "") %>
    </li>
-   <% if @logged_in_user.is_admin? %>
-    <li>
-		<%= link_to icon("admin") + " " + t("section.title.admin").capitalize, {:action => "index", :controller => "admin"} %>
-	</li>
-   <% end %>
  </ul>
  <div id="tabcontent" class="tabcontent">

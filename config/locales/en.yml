@@ -867,6 +867,9 @@ en:
       plugin_review:
         review_score: Score
         average: Average
+      plugin_image:
+        local_file: Local File 
+        remote_file: URL        
     errors: # you can find the list of validation error keys here: http://guides.rubyonrails.org/i18n.html 
       template: 
         header: 

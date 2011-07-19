@@ -22,13 +22,13 @@ $(function() {
 				<% if params[:action] == "new" || params[:action] == "create"%>
 				<div class="field">
 					<h3>						
-						<%= f.radio_button(:source, :local, :checked => true) %> <%= f.label :source_local,  t("label.from_local") %> 
-						<%= f.radio_button(:source, :remote) %> <%= f.label :source_remote,  t("label.from_web") %>
+						<%= f.radio_button(:source, :local, :checked => f.object.remote_file.blank?) %> <%= f.label :source_local,  t("label.from_local") %> 
+						<%= f.radio_button(:source, :remote, :checked => !f.object.remote_file.blank?) %> <%= f.label :source_remote,  t("label.from_web") %>
 				 	</h3>	
-					<div id="local_file" class="field">
+					<div id="local_file" class="field" style="<%= f.object.remote_file.blank? ? nil : "display:none" %>">
 						<%= f.file_field :local_file %>								
 					</div>					
-					<div id="remote_file" class="field" style="display:none">
+					<div id="remote_file" class="field" style="<%= f.object.remote_file.blank? ? "display:none" : nil %>">
 						<%= f.text_field :remote_file %>							
 					</div>		
 				</div>

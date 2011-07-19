@@ -150,11 +150,11 @@ class PagesController < ApplicationController
   def upload_image  
       require "RMagick"
       @plugin = Plugin.find_by_name("Image") # use Images Plugin for title and thumbnail settings
-      acceptable_file_extensions = ".png, .jpg, .jpeg, .gif, .bmp, .tiff, .PNG, .JPG, .JPEG, .GIF, .BMP, .TIFF"
+      valid_extensions = ".png, .jpg, .jpeg, .gif, .bmp, .tiff, .PNG, .JPG, .JPEG, .GIF, .BMP, .TIFF"
       uploaded_file = Uploader.file_from_url_or_local(:local => params[:file], :url => params[:url])
       if uploaded_file
         filename = File.basename(uploaded_file.path)
-        if Uploader.check_file_extension(:filename => filename, :extensions => acceptable_file_extensions)
+        if Uploader.check_file_extension(:filename => filename, :extensions => valid_extensions)
          image = Magick::Image.from_blob(File.open(uploaded_file.path).read)[0] # read in image binary, from_blob returns an array of images, grab first item                  
           @image = Image.new(params[:image])
           @image.description = params[:description]
@@ -187,10 +187,10 @@ class PagesController < ApplicationController
             flash[:failure] = t("notice.item_create_failure", :item => PluginImage.model_name.human) 
           end
         else
-          flash[:failure] = t("notice.invalid_file_extensions", :item => PluginImage.model_name.human, :acceptable_file_extensions => acceptable_file_extensions)    
+          flash[:failure] = I18n.t("activerecord.errors.messages.invalid_file_extension", :valid_extensions => valid_extensions)
         end
     else # didn't select an image
-      flash[:failure] =  t("notice.item_forgot_to_select", :item => @plugin.model_name.human)          
+      flash[:failure] =  Image.model_name.human + " " + t("notice.item_forgot_to_select", :item => @plugin.model_name.human)          
     end 
     (defined?(result) && result) ? render(:layout => false) : redirect_to(:action => "tinymce_images", :anchor => Image.model_name.human(:count => :other))
   end

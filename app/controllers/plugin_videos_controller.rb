@@ -1,7 +1,6 @@
 class PluginVideosController < PluginController
   before_filter :uses_tiny_mce, :only => [:new, :edit, :create, :update]  # which actions to load tiny_mce, TinyMCE Config is done in Layout.
 
-  
   def create
    @video = PluginVideo.new(params[:video])
    @video.user_id = @logged_in_user.id
@@ -45,25 +44,6 @@ class PluginVideosController < PluginController
   
    redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
  end  
-
- def change_approval
-    @video = PluginVideo.find(params[:video_id])    
-    if  @video.is_approved?
-      approval = "0" # set to unapproved if approved already    
-      log_msg = t("log.item_unapprove", :item => @plugin.model_name.human, :name => truncate(@video.content, :length => 20))
-    else
-      approval = "1" # set to approved if unapproved already    
-      log_msg = t("log.item_approve", :item => @plugin.model_name.human, :name => truncate(@video.content, :length => 20))
-    end
-    
-    if @video.update_attribute(:is_approved, approval)
-      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => log_msg)      
-      flash[:success] = t("notice.item_#{"un" if approval == "0"}approve_success", :item => @plugin.model_name.human)  
-    else
-      flash[:failure] = t("notice.item_save_failure", :item => @plugin.model_name.human)
-    end
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
-  end
  
   def new 
     @video = PluginVideo.new    

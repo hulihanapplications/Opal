@@ -54,7 +54,6 @@
 						<tr>
 							<td align=left style="text-align:left">
 								<h2 class="title">
-									<%= discussion.user ? link_to_user(discussion.user, :avatar => true, :name => false) : icon("discussion") %>
 									<%= link_to "#{discussion.title}", {:action => "view", :controller => "plugin_discussions", :id => item.id, :discussion_id => discussion.id}%>
 								</h2>
 								<i><%= h discussion.description if discussion.description %></i>
@@ -67,16 +66,7 @@
 								<% end %>
 								<%= link_to icon("rss", t("label.rss_feed") + " - " + t("label.items_latest", :items => PluginDiscussionPost.model_name.human(:count => :other))), {:action => "rss", :controller => "plugin_discussions", :id => @item.id, :discussion_id => discussion.id} %>
 
-								<% if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_update? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>									
-									<a href="javascript:replace_box('discussion_box_<%= discussion.id %>','edit_discussion_box_<%= discussion.id %>')">
-										<%= icon("edit") %>
-									</a>
-								<% end %>									
-								<% if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_delete? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>									
-									<%= link_to icon("delete"), { :action => 'delete', :controller => "plugin_discussions", :id => item.id, :discussion_id => discussion.id}, :confirm => t("confirm.item_delete", :item => plugin.model_name.human) %>
-								<% end %>
-								<%= render :partial => "plugins/approval_controls", :locals => { :plugin_item => discussion} if @item.is_editable_for_user?(@logged_in_user) %>											
-						
+								<%= render :partial => "plugins/plugin_item_controls", :locals => {:record => discussion, :options => {:preview => false, :byline => false}} %>
 							</td>							
 						</tr>
 					</table>

@@ -1,16 +1,7 @@
-class PluginDiscussionsController < ApplicationController
- # before_filter :authenticate_user # check if user is logged in and not a public user  
- before_filter :find_item # look up item 
- before_filter :find_plugin # look up item  
- 
- before_filter :get_group_permissions_for_plugin # get permissions for this plugin  
- before_filter :check_item_view_permissions # can user view item? 
- before_filter :check_item_edit_permissions, :only => [:change_approval] # list of actions that don't require that the item is editable by the user
+class PluginDiscussionsController < PluginController
  before_filter :uses_tiny_mce, :only => [:new, :edit, :create, :update]  # which actions to load tiny_mce, TinyMCE Config is done in Layout. 
  before_filter :can_group_read_plugin, :only => [:view, :create_post, :rss]
- before_filter :can_group_create_plugin, :only => [:create]
  before_filter :can_group_update_plugin, :only => [:delete_post] 
- before_filter :can_group_delete_plugin, :only => [:delete] 
  
  include ActionView::Helpers::TextHelper # for truncate, etc.
 
@@ -87,24 +78,4 @@ class PluginDiscussionsController < ApplicationController
      redirect_to :action => "index", :category => "browse"
    end    
  end   
-
- def change_approval
-    @discussion = PluginDiscussion.find(params[:discussion_id])    
-    if  @discussion.is_approved?
-      approval = "0" # set to unapproved if approved already    
-      log_msg = t("log.item_unapprove", :item => @plugin.model_name.human, :name => @discussion.title)  
-    else
-      approval = "1" # set to approved if unapproved already    
-      log_msg = t("log.item_approve", :item => @plugin.model_name.human, :name => @discussion.title) 
-    end
-    
-    if @discussion.update_attribute(:is_approved, approval)
-      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => log_msg)      
-      flash[:success] = t("notice.item_#{"un" if approval == "0"}approve_success", :item => @plugin.model_name.human)  
-    else
-      flash[:failure] = t("notice.item_save_failure", :item => @plugin.model_name.human) 
-    end
-    redirect_to :action => "view", :controller => "items", :id => @item
-  end
-
 end

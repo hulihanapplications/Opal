@@ -23,6 +23,7 @@ class ZeroSevenFour < ActiveRecord::Migration
       new_vote = MakeVotable::Voting.new(:voter_id => vote.user_id, :voter_type => "User", :voteable_id => vote.plugin_review_id, :voteable_type => "PluginReview", :up_vote => (vote.score > 0 ? true : false), :down_vote => (vote.score <= 0 ? true : false))
       vote.destroy if new_vote.save
     end
+    
   end
 
   def self.down

@@ -12,6 +12,7 @@
 			</div>
 		<% end %>
 		<%= form_for @user_session do |f| %>
+			 <%= hidden_field_tag(:redirect_to, params[:redirect_to]) %>
 			 <table>
 			  <tr>
 			   	<td><%= f.label :username %></td><td > <%= f.text_field :username %></td>

@@ -16,12 +16,7 @@ class UserSessionsController < ApplicationController
       @user_session.record.user_info.update_attribute(:forgot_password_code, nil) # clear password recovery code      
       flash[:success] = t("notice.user_login_success") 
       
-      if session[:original_uri] # is there a saved url? 
-        session[:original_uri].include?("user_session") ? redirect_to(:action => "index", :controller => "user") : redirect_to(session[:original_uri]) # redirect to saved uri as long as its not to a session controller
-        session[:original_uri] = nil
-      else # no saved url
-        redirect_to :action => "index", :controller => "user"
-      end 
+      redirect_to !params[:redirect_to].blank? ? CGI::unescape(params[:redirect_to]) : {:action => "index", :controller => "user"}  # send them back to original request 
     else
       flash[:failure] = t("notice.user_login_failure") 
       render :action => 'new'

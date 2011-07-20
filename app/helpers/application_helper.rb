@@ -508,5 +508,9 @@ module ApplicationHelper
    end
    raw html
   end
+  
+  def current_url
+    CGI::escape(request.url)
+  end
 end
 

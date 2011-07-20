@@ -46,11 +46,8 @@
 						<div id="tag_box_<%= tag.id %>">
 							<%= icon("tag") %>
 							<%= link_to_tag tag %>
-							<% if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_delete? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
-								<%= link_to icon("delete"),  { :action => 'delete', :controller => "plugin_tags", :id => item.id, :tag_id => tag.id}, :confirm => t("confirm.item_delete", :item => plugin.model_name.human) %>
-							<% end %>
-							<%= render :partial => "plugins/approval_controls", :locals => { :plugin_item => tag} if @item.is_editable_for_user?(@logged_in_user) %>											
-				
+							<%= render :partial => "plugins/plugin_item_controls", :locals => {:record => tag, :options => {:preview => false, :byline => false, :edit => false}} %>
+
 						</div>
 					<% end %>
 				</div>

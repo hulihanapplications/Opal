@@ -15,7 +15,7 @@
 				<% end %>
 				<%= link_to icon("rss", t("label.rss_feed") + " - " + t("label.items_latest", :items => PluginDiscussionPost.model_name.human(:count => :other))), {:action => "rss", :controller => "plugin_discussions", :id => @item.id, :discussion_id => plugin_discussion.id} %>
 
-				<%= render :partial => "plugins/plugin_item_controls", :locals => {:record => plugin_discussion, :options => {:preview => false, :byline => false}} %>
+				<%= render :partial => "plugins/plugin_item_controls", :locals => {:record => plugin_discussion, :options => {:preview => false, :byline => false, :edit => false}} %>
 			</td>							
 		</tr>
 	</table>

@@ -55,7 +55,8 @@ ul.sortable, ul.collapsed{margin:0px;padding:0px;list-style-type:none;}
 
 /* Items */
 	.item .new{position:relative;bottom:0px;left:0px;}
-
+	.item .preview_not_found{width:180px;height:125px;text-align:center;position: relative;display:table}
+		.item .preview_not_found h2{position:absolute: top:50%;display:table-cell;vertical-align:middle}
 	/* Item Lists */
 	
 	/* Item Page */

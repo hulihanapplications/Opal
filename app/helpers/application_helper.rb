@@ -132,7 +132,7 @@ module ApplicationHelper
         if image           
           thumbnail(image, options)
         else                
-           theme_image_tag("default_item_image.png", :class => options[:class])
+           theme_image_tag("preview.png", :class => options[:class])
         end     
       else # item doesn't exist
         return raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\" title=\"#{Item.model_name.human} cannot be found.\">"      

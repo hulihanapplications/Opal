@@ -65,7 +65,7 @@
 	
 /* Opal CSS */
 	/* Images */
-	img.thumbnail{background:white;padding:3px;margin:3px;border:0px solid #aaa;opacity:0.80;filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity: 0.8; box-shadow: 0px 2px 5px #333;-moz-box-shadow: 0px 2px 5px #333;  -webkit-box-shadow: 0px 2px 5px #333;}
+	img.thumbnail, div.preview_not_found{background:white;padding:3px;margin:3px;border:0px solid #aaa;opacity:0.80;filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity: 0.8; box-shadow: 0px 2px 5px #333;-moz-box-shadow: 0px 2px 5px #333;  -webkit-box-shadow: 0px 2px 5px #333;}
 	img.thumbnail:hover{;opacity:1.00;filter:alpha(opacity=100);-moz-opacity:1.0;-khtml-opacity: 1.0}
 	img.pinky{border:0px solid #999;opacity:0.80;filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity: 0.8;}
 	img.pinky:hover{;opacity:1.00;filter:alpha(opacity=100);-moz-opacity:1.0;-khtml-opacity: 1.0}
@@ -82,7 +82,7 @@
 		.item input.name, .item .name a, .item .name{font-size:24px;;text-align:left;}
 		.item .name a:visited, .item .name a:link{}
 		.item .name a:hover{}
-		.item input.name{width:400px;}
+		.item .preview_not_found{;background:url(../images/preview.png) no-repeat center center;}
 		.item .description{font-size:16px;;text-align:left;}
 		.item textarea.description{width:400px;height:100px;}
 		

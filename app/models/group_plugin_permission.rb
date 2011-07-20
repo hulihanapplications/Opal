@@ -8,16 +8,30 @@ class GroupPluginPermission < ActiveRecord::Base
   def self.all_plugin_permissions_for_group(group) # retrieve plugin permissions for a certain group
     plugins = Plugin.find(:all, :conditions => ["is_enabled = '1'"])
     
-    group_plugin_permissions = Hash.new # create plugins permissions hash to lighten load on db. This prevents us from having to make a db query for every permission(creation, reading, deleting, etc.) for each plugin. This adds up to a lot of queries!
+    gpp_hash = Hash.new # create plugins permissions hash to lighten load on db. This prevents us from having to make a db query for every permission(creation, reading, deleting, etc.) for each plugin. This adds up to a lot of queries!
     
     for plugin in plugins
-      group_plugin_permissions[plugin.plugin_class.name] = GroupPluginPermission.find(:first, :conditions => ["plugin_id = ? and group_id = ?", plugin.id, group.id])
-      group_plugin_permissions[plugin.plugin_class.name] ||= GroupPluginPermission.new(:plugin_id => plugin.id, :group_id => group.id) # initialize default permissions if no records are found.
+      gpp_hash[plugin.plugin_class.name] = GroupPluginPermission.for_plugin_and_group(plugin, group)
     end
     
-    return group_plugin_permissions    
+    return gpp_hash    
   end
   
+  def self.group(group)
+    where("group_id = ?", group.id)
+  end
+
+  
+  def self.plugin(plugin)
+    where("plugin_id = ?", plugin.id)
+  end
+  
+  def self.for_plugin_and_group(plugin, group)
+    gpp = GroupPluginPermission.group(group).plugin(plugin).first
+    gpp ||= GroupPluginPermission.new(:plugin_id => plugin.id, :group_id => group.id) # initialize default permissions if no records are found.
+    return gpp
+  end
+    
   def can_create?
     if self.can_create == "1"
       return true

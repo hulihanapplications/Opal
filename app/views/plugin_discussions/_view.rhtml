@@ -49,34 +49,7 @@
 	<% if discussions.size > 0 %>
 		<div class="discussions">
 			<% for discussion in discussions %>
-				<div class="box_2" style="margin-bottom:5px">
-					<table cellpadding=0 cellspacing=0 style="width:100%">
-						<tr>
-							<td align=left style="text-align:left">
-								<h2 class="title">
-									<%= link_to "#{discussion.title}", {:action => "view", :controller => "plugin_discussions", :id => item.id, :discussion_id => discussion.id}%>
-								</h2>
-								<i><%= h discussion.description if discussion.description %></i>
-							</td>
-							<td align=right style="text-align:right">
-								<%= link_to "#{discussion.plugin_discussion_posts.size} #{PluginDiscussionPost.model_name.human(:count => :other)}", {:action => "view", :controller => "plugin_discussions", :id => @item.id, :discussion_id => discussion.id}%>
-								<% if !@logged_in_user.anonymous? %>
-									<img src="/themes/<%= @setting[:theme] %>/images/icons/new.png" class="icon" alt="New" title="New">
-									<%= link_to t("label.item_new", :item => PluginDiscussionPost.model_name.human), {:action => "view", :controller => "plugin_discussions", :id => @item.id, :discussion_id => discussion.id, :anchor => "new_post"}%>
-								<% end %>
-								<%= link_to icon("rss", t("label.rss_feed") + " - " + t("label.items_latest", :items => PluginDiscussionPost.model_name.human(:count => :other))), {:action => "rss", :controller => "plugin_discussions", :id => @item.id, :discussion_id => discussion.id} %>
-
-								<%= render :partial => "plugins/plugin_item_controls", :locals => {:record => discussion, :options => {:preview => false, :byline => false}} %>
-							</td>							
-						</tr>
-					</table>
-					<% latest_posts = PluginDiscussionPost.find(:all, :conditions => ["plugin_discussion_id = ?", discussion.id], :limit => 3) %>
-					<% if latest_posts.size > 0 %>
-						<div class="spacer"></div>					
-						<h3><%= t("label.items_latest", :items => PluginDiscussionPost.model_name.human(:count => :other)) %></h3>
-						<%= render :partial => "plugin_discussions/list_posts", :locals => {:posts => latest_posts, :item => item, :options => {:size => "small"}} %>
-					<% end %>
-				</div>
+				<%= render discussion %>
 			<% end %>
 		</div>
 	<% else %>

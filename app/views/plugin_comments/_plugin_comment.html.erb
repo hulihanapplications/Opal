@@ -1,0 +1,43 @@
+<table>
+	<tr>
+		<td align=left class="user_column">
+			<div class="user_box">
+			 <% if !plugin_comment.user_id.nil? && plugin_comment.user_id != 0  %>
+				 <% comment_user = User.find(plugin_comment.user_id)%>
+				 <%= user_avatar(comment_user, :size => "small") %>
+				 <br>
+				 <%= link_to "#{truncate(comment_user.username, :length => 10)}", {:action => "user", :id => comment_user.id, :controller => "browse" }, :style => "font-weight:bold", :title => "#{h comment_user.username}"   %>
+				 <br>
+			   <% else %><%# an anonymous comment %>
+			   	 <% if !plugin_comment.anonymous_email.nil? %>
+					 <%= gravatar_image(plugin_comment.anonymous_email, :size => "small") %>
+				 <% else %>
+		 	         <img src="/images/default_avatar.png" class="avatar_small">
+				 <% end %>
+				 <br>
+				 <%= h plugin_comment.anonymous_name %>
+				 <br>							   
+			   <% end %>
+			</div>
+		</td>
+		<td align=left class="comment_column">
+			<div class="comment_box <%= "comment_box_from_owner" if plugin_comment.user_id == plugin_comment.item.user_id %>">
+				<div align=left>
+					<table style="width:100%" cellpadding=0 cellspacing=0>
+						<tr>
+							<td align=left>
+								<b class="highlight_1"><%= friendly_date plugin_comment.created_at %></b>							
+							</td>
+							<td align=right>
+								<%= link_to icon("reply") + " " + t("single.reply"), "" %>
+								<%= render :partial => "plugins/plugin_item_controls", :locals => { :record => plugin_comment, :options => {:votes => true, :edit => false, :preview => false, :user => false}} %>											
+							</td>
+						</tr>
+					</table>
+		
+					<%= simple_format(plugin_comment.comment) %>
+				</div>
+			</div>
+		</td>
+	</tr>
+</table>

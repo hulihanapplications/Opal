@@ -62,49 +62,7 @@
 	<% if comments.size > 0 %>
 		<div class="comments">
 			<% for comment in comments %>
-				<table>
-					<tr>
-						<td align=left class="user_column">
-							<div class="user_box">
-							 <% if !comment.user_id.nil? && comment.user_id != 0  %>
-								 <% comment_user = User.find(comment.user_id)%>
-								 <%= user_avatar(comment_user, :size => "small") %>
-								 <br>
-								 <%= link_to "#{truncate(comment_user.username, :length => 10)}", {:action => "user", :id => comment_user.id, :controller => "browse" }, :style => "font-weight:bold", :title => "#{h comment_user.username}"   %>
-								 <br>
-							   <% else %><%# an anonymous comment %>
-							   	 <% if !comment.anonymous_email.nil? %>
-	 								 <%= gravatar_image(comment.anonymous_email, :size => "small") %>
-								 <% else %>
-						 	         <img src="/images/default_avatar.png" class="avatar_small">
-								 <% end %>
-								 <br>
-								 <%= h comment.anonymous_name %>
-								 <br>							   
-							   <% end %>
-							</div>
-						</td>
-						<td align=left class="comment_column">
-							<% if comment.user_id == item.user.id %>
-							<div class="comment_box_from_owner">
-							<% else %>
-							<div class="comment_box">
-							<% end %>
-								<div align=left>
-									<b class="highlight_1"><%= friendly_date comment.created_at %></b>
-	  								<% if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_delete? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>									
-									    <%= link_to icon("delete"), { :action => 'delete', :controller => "plugin_comments", :id => item.id, :comment_id => comment.id}, :confirm => t("confirm.item_delete", :item => plugin.model_name.human) %>						
-									<% end %>
-									<%= render :partial => "plugins/approval_controls", :locals => { :plugin_item => comment} if @item.is_editable_for_user?(@logged_in_user) %>											
-	
-									<br>
-									<%= simple_format h comment.comment %>
-								</div>
-							</div>
-						</td>
-					</tr>
-				</table>
-
+				<%= render comment %>
 			<% end %>
 		</div>
 	<% else %>	

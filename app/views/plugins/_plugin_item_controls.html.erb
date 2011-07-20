@@ -16,15 +16,14 @@
 <% end %>
 
 <% if options[:votes] && !@logged_in_user.anonymous?  %>
-	 <span class="box_2" style="padding:2px;margin-right:5px" >												 	
 		 <% if @logged_in_user.group.plugin_permissions[record.class.name].can_create? || @item.is_editable_for_user?(@logged_in_user) %>												 	
-	 		<% up_voted, down_voted = @logged_in_user.up_voted?(record), @logged_in_user.down_voted?(record)  %>
-			<%= link_to_function icon("vote#{up_voted ? "d" : ""}_up", t("label.item_upvote", :item => record.class.model_name.human)), "vote('#{record.class.name.underscore}', #{@item.id}, #{record.id}, 'up')", :class => "transparent", :disabled => down_voted, :id => "up_vote_#{record.class.name.underscore}_#{record.id}" %>
-			<%#= link_to_function icon("vote_down", t("label.item_downvote", :item => record.class.model_name.human)), "vote('#{record.class.name.underscore}', #{@item.id}, #{record.id}, 'down')", :class => "transparent" %>
-			<%= content_tag(:span, record.votes, :id => "votes_#{record.class.name.underscore}_#{record.id}") %>
-			<%= link_to_function icon("vote#{down_voted ? "d" : ""}_down", t("label.item_downvote", :item => record.class.model_name.human)), "vote('#{record.class.name.underscore}', #{@item.id}, #{record.id}, 'down')", :class => "transparent", :disabled => up_voted, :id => "down_vote_#{record.class.name.underscore}_#{record.id}" %>			
+	 		<span class="box_2" style="padding:2px;margin-right:5px" >												 	
+		 		<% up_voted, down_voted = @logged_in_user.up_voted?(record), @logged_in_user.down_voted?(record)  %>
+				<%= link_to_function icon("vote#{up_voted ? "d" : ""}_up", t("label.item_upvote", :item => record.class.model_name.human)), "vote('#{record.class.name.underscore}', #{@item.id}, #{record.id}, 'up')", :class => "transparent", :disabled => down_voted, :id => "up_vote_#{record.class.name.underscore}_#{record.id}" %>
+				<%= content_tag(:span, record.votes, :id => "votes_#{record.class.name.underscore}_#{record.id}") %>
+				<%= link_to_function icon("vote#{down_voted ? "d" : ""}_down", t("label.item_downvote", :item => record.class.model_name.human)), "vote('#{record.class.name.underscore}', #{@item.id}, #{record.id}, 'down')", :class => "transparent", :disabled => up_voted, :id => "down_vote_#{record.class.name.underscore}_#{record.id}" %>			
+			</span>	 	 
 		 <% end %>
-	</span>	 	 
 <% end %>
 
 <% if options[:user] && record.respond_to?(:user_id) && record.user_id != @logged_in_user.id? && record.user_id != @item.user_id %>

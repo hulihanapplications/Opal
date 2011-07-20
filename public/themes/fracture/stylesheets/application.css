@@ -155,17 +155,11 @@
 		
 	
 	/* Comments & Posts */
-	div.comments
-	div.comments table{width:100%}
-	div.comments td{vertical-align:top;text-align:center}
+	div.comments td{vertical-align:top;}
 		div.comments td.comment_column{width:100%;}		
-			div.comments div.comment_box_from_owner{background-position:left;min-height:107px;background:url(../images/comment_bg_from_owner.png) no-repeat;padding-left:5px;padding-top:10px;text-align:center;}
-				div.comments div.comment_box_from_owner div{padding:0px 15px 0px 36px;}	
+				div.comments div.comment_box div{padding:0px 0px 0px 36px;}	
 			div.comments div.comment_box{background-position:left;min-height:107px;background:url(../images/comment_bg.png) no-repeat;padding-left:5px;padding-top:10px;text-align:center;}
-				div.comments div.comment_box div{padding:0px 15px 0px 36px;}		
-	div#new_comment_box a:visited, div.new_comment_box a:link{color:white}
-	div#new_comment_box a:hover{text-decoration:none;color:#D6EBF2}
-
+			div.comments div.comment_box_from_owner{background-position:left;min-height:107px;background:url(../images/comment_bg_from_owner.png) no-repeat;padding-left:5px;padding-top:10px;text-align:center;}
 	/* Interactions(Hovering, Selections,  etc.) */
 	input.selected, select.selected, textarea.selected{border:1px solid #888;background:url(../images/bgs/white_trans_05.png) repeat;font-family:Trebuchet MS;;-moz-border-radius: 3px;-webkit-border-radius: 3px}
 

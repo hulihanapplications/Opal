@@ -4,6 +4,7 @@ class PluginReviewsController < PluginController
  before_filter :can_group_create_plugin, :only => [:create, :new]
  before_filter :can_group_update_plugin, :only => [:update, :edit] 
  before_filter :uses_tiny_mce, :only => [:new, :edit, :create, :update]  # which actions to load tiny_mce, TinyMCE Config is done in Layout.
+ before_filter :get_all_group_plugin_permissions, :only => [:show]
  include ActionView::Helpers::TextHelper # for truncate, etc.
  
   def create   

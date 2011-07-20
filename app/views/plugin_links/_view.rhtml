@@ -54,33 +54,7 @@
 							<span id="link_<%= link.id %>">
 								<a href="<%= h link.url %>" target="_blank"><%= h link.title %></a>
 							</span>
-							<% if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_update? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>									
-								<a href="javascript:replace_box('link_box_<%= link.id %>','edit_link_box_<%= link.id %>')">
-									<%= icon('edit') %>
-								</a>
-							<% end %>
-							<% if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_delete? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
-								<%= link_to icon("delete"), { :action => 'delete', :controller => "plugin_links", :id => item.id, :link_id => link.id}, :confirm => t("confirm.item_delete", :item => plugin.model_name.human) %>					
-							<% end %>	
-							<%= render :partial => "plugins/approval_controls", :locals => { :plugin_item => link} if @item.is_editable_for_user?(@logged_in_user) %>											
-						
-												
-							
-						</div>
-						<div id="edit_link_box_<%= link.id %>" style="display:none">
-							<%= form_tag :action => 'update', :controller => "plugin_links", :id => item.id  %>
-								<img src="/themes/<%= @setting[:theme] %>/images/icons/link.png" class="icon"  title="<%= h link.title %>" alt="">
-								<input name="link_id" value="<%= link.id %>" type="hidden">
-								<%= t("single.title") %>
-								<input name="link_title" value="<%= h link.title %>" id="link_title_input_<%= link.id %>" onfocus = "focus_input('link_title_input_<%= link.id %>')" onblur = "blur_input('link_title_input_<%= link.id %>')">
-								&nbsp;
-								<%= t("single.url") %>
-								<input name="link_url" value="<%= link.url %>"  id="link_url_input_<%= link.id %>" onfocus="focus_input('link_url_input_<%= link.id %>')" onblur="blur_input('link_url_input_<%= link.id %>')">
-								<input type="submit" value="Update">
-								<a href="javascript:replace_box('edit_link_box_<%= link.id %>','link_box_<%= link.id %>')">
-									<img src="/themes/<%= @setting[:theme] %>/images/icons/cancel.png" alt="Cancel" title="Cancel" border=0 class="icon" >
-								</a>
-							</form>
+							<%= render :partial => "plugins/plugin_item_controls", :locals => { :record => link, :options => {:edit => false, :preview => false, :user => false}} %>																					
 						</div>
 					<% end %>
 				</div>

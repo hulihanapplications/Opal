@@ -190,11 +190,12 @@ class ApplicationController < ActionController::Base
   end 
   
   def get_all_group_plugin_permissions # get ALL plugin permissions for user's group
-    @logged_in_user.group.plugin_permissions = GroupPluginPermission.all_plugin_permissions_for_group(@logged_in_user.group) 
+    @logged_in_user.group.plugin_permissions = GroupPluginPermission.all_plugin_permissions_for_group(@logged_in_user.group)
   end
   
   def get_group_permissions_for_plugin # initialize group plugin permissions for the plugin that is already looked up
-    @group_permissions_for_plugin = @plugin.permissions_for_group(@logged_in_user.group) 
+    @group_permissions_for_plugin = GroupPluginPermission.for_plugin_and_group(@plugin, @logged_in_user.group)
+    raise I18n.t("notice.item_not_found", :item => @plugin.klass.model_name.human) unless @group_permissions_for_plugin
   end    
 
   def can_group_read_plugin # check if group permissions allows current user to create plugin records for this item

@@ -1,0 +1,28 @@
+<div class="box_2">
+	<table cellpadding=0 cellspacing=0 style="width:100%">
+		<tr>
+			<td align=left style="text-align:left">
+				<h2 class="title">
+					<%= link_to "#{plugin_discussion.title}", {:action => "view", :controller => "plugin_discussions", :id => @item.id, :discussion_id => plugin_discussion.id}%>
+				</h2>
+				<i><%= h plugin_discussion.description if plugin_discussion.description %></i>
+			</td>
+			<td align=right style="text-align:right">
+				<%= link_to "#{plugin_discussion.plugin_discussion_posts.size} #{PluginDiscussionPost.model_name.human(:count => :other)}", {:action => "view", :controller => "plugin_discussions", :id => @item.id, :discussion_id => plugin_discussion.id}%>
+				<% if !@logged_in_user.anonymous? %>
+					<%= icon("new") %>
+					<%= link_to t("label.item_new", :item => PluginDiscussionPost.model_name.human), {:action => "view", :controller => "plugin_discussions", :id => @item.id, :discussion_id => plugin_discussion.id, :anchor => "new_post"}%>
+				<% end %>
+				<%= link_to icon("rss", t("label.rss_feed") + " - " + t("label.items_latest", :items => PluginDiscussionPost.model_name.human(:count => :other))), {:action => "rss", :controller => "plugin_discussions", :id => @item.id, :discussion_id => plugin_discussion.id} %>
+
+				<%= render :partial => "plugins/plugin_item_controls", :locals => {:record => plugin_discussion, :options => {:preview => false, :byline => false}} %>
+			</td>							
+		</tr>
+	</table>
+	<% latest_posts = PluginDiscussionPost.find(:all, :conditions => ["plugin_discussion_id = ?", plugin_discussion.id], :limit => 3) %>
+	<% if latest_posts.size > 0 %>
+		<div class="spacer"></div>					
+		<h3><%= t("label.items_latest", :items => PluginDiscussionPost.model_name.human(:count => :other)) %></h3>
+		<%= render :partial => "plugin_discussions/list_posts", :locals => {:posts => latest_posts, :item => @item, :options => {:size => "small"}} %>
+	<% end %>
+</div>

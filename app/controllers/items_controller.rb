@@ -295,7 +295,7 @@ class ItemsController < ApplicationController
    else # not allowed to change list type
      flash[:failure] = t("notice.invalid_permissions")
    end 
-   redirect_to params[:redirect_to].blank? ? CGI::unescape(params[:redirect_to]) : :action => "index"  # send them back to original request 
+   redirect_to !params[:redirect_to].blank? ? CGI::unescape(params[:redirect_to]) : :action => "index"  # send them back to original request 
  end
 
  def set_item_page_type # change the item list type 
@@ -304,7 +304,7 @@ class ItemsController < ApplicationController
    else # not allowed to change list type
      flash[:failure] = t("notice.invalid_permissions")
    end 
-   redirect_to params[:redirect_to].blank? ? CGI::unescape(params[:redirect_to]) : :action => "index"  # send them back to original request 
+   redirect_to !params[:redirect_to].blank? ? CGI::unescape(params[:redirect_to]) : :action => "index"  # send them back to original request 
  end
  
  def change_item_name

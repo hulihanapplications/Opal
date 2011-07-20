@@ -103,12 +103,6 @@ class Plugin < ActiveRecord::Base
     return "/plugin_#{self.name.underscore.pluralize}/#{options[:type]}"    
   end
 
-  def permissions_for_group(group) # retrieve ONE plugin's permissions for a certain group    
-    group_plugin_permissions = GroupPluginPermission.find(:first, :conditions => ["plugin_id = ? and group_id = ?", self.id, group.id])
-    group_plugin_permissions ||= GroupPluginPermission.new(:plugin_id => self.id, :group_id => group.id) # initialize default permissions if no records are found. 
-    return group_plugin_permissions    
-  end
-
   # Deprecated as of Opal 0.6.0
   def child_find(*args) # accesses associated Plugin Child(ie: PluginImages)
     child_name = "plugin_" + self.name # create child name, ie: plugin_images
@@ -139,4 +133,5 @@ class Plugin < ActiveRecord::Base
     "Plugin#{self.name}".constantize
   end
   
+  alias :klass :plugin_class
 end

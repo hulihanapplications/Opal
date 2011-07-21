@@ -14,13 +14,13 @@ class CreateGroupPluginPermissions < ActiveRecord::Migration
     
 	# Create Default Group Plugin Permissions
 	for plugin in Plugin.all
-		GroupPluginPermission.create(:group_id => Group.public.id, :plugin_id => plugin.id, :can_read => "1")
-		GroupPluginPermission.create(:group_id => Group.user.id, :plugin_id => plugin.id, :can_read => "1")						
+		GroupPluginPermission.create(:group_id => Group.public.id, :plugin_id => plugin.id, :can_read => "1") unless (plugin.name == "Comment")
+		GroupPluginPermission.create(:group_id => Group.user.id, :plugin_id => plugin.id, :can_read => "1")	unless (plugin.name == "Review" || plugin.name == "Comment")					
 	end
 	
-	GroupPluginPermission.create(:group_id => Group.public.id, :plugin_id => Plugin.find_by_name("Comment").id, :can_create => "1")
-	GroupPluginPermission.create(:group_id => Group.user.id, :plugin_id => Plugin.find_by_name("Comment").id, :can_create => "1")
-	GroupPluginPermission.create(:group_id => Group.user.id, :plugin_id => Plugin.find_by_name("Review").id, :can_create => "1")
+	GroupPluginPermission.create(:group_id => Group.public.id, :plugin_id => Plugin.find_by_name("Comment").id, :can_create => "1", :can_read => "1")
+	GroupPluginPermission.create(:group_id => Group.user.id, :plugin_id => Plugin.find_by_name("Comment").id, :can_create => "1", :can_read => "1")
+	GroupPluginPermission.create(:group_id => Group.user.id, :plugin_id => Plugin.find_by_name("Review").id, :can_create => "1", :can_read => "1")
   end
 
   def self.down

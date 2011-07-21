@@ -43,23 +43,4 @@ class PluginLinksController < PluginController
  
     redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
   end  
- 
- def change_approval
-    @link = PluginLink.find(params[:link_id])    
-    if  @link.is_approved?
-      approval = "0" # set to unapproved if approved already    
-      log_msg = t("log.item_unapprove", :item => @plugin.model_name.human, :name => @link.title)
-    else
-      approval = "1" # set to approved if unapproved already    
-      log_msg = t("log.item_approve", :item => @plugin.model_name.human, :name => @link.title)
-    end
-    
-    if @link.update_attribute(:is_approved, approval)
-      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => log_msg)      
-      flash[:success] = t("notice.item_#{"un" if approval == "0"}approve_success", :item => @plugin.model_name.human)  
-    else
-      flash[:failure] =  t("notice.item_save_failure", :item => @plugin.model_name.human)
-    end
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
-  end  
 end

@@ -9,7 +9,15 @@ module Opal
       def approved
          where("is_approved = ?", "1")
       end
+
+      def newest_first 
+         order("created_at DESC")
+      end
       
+      def oldest_first 
+         order("created_at ASC")
+      end
+            
       def plugin # get plugin record for this class
         Plugin.where("name = ?", system_name).first
       end

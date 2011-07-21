@@ -50,6 +50,7 @@
 				element.trigger('ajax:complete', [xhr, status]);
 			},
 			error: function(xhr, status, error) {
+				alert(xhr.status + ": " + xhr.statusText)
 				element.trigger('ajax:error', [xhr, status, error]);
 			}
 		});

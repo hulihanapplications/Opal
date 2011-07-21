@@ -1,7 +1,7 @@
 <% if item.is_editable_for_user?(@logged_in_user) %>
-	<% comments = PluginComment.find(:all, :conditions => ["item_id = ?", item.id], :order => "created_at DESC" )%>
+	<% comments = PluginComment.item(item).roots.most_votes_first.newest_first %>
 <% else %>
-	<% comments = PluginComment.find(:all, :conditions => ["item_id = ? and is_approved = '1'", item.id], :order => "created_at DESC" )%>
+	<% comments = PluginComment.item(item).roots.most_votes_first.newest_first.approved %>
 <% end %>
 <div class="plugin_box">
 	<div class="header title">
@@ -13,52 +13,26 @@
 				</td>
 				<td align=right>
 					<% if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_create? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
-						<%= icon("new") %>
-						<a href="javascript:toggle_box('new_comment_box')" class="plugin_title_link">
-							<%= t("label.item_new", :item => PluginComment.model_name.human) %>
-						</a>
+						<%= link_to icon("new") + " " + t("label.item_new", :item => PluginComment.model_name.human), {:action => "new", :controller => "plugin_comments", :id => @item.id}, :remote => true, :id => "new_plugin_comment_link" %>
 					<% end %>						
 				</td>
 			</tr>
 		</table>				
 	</div>	
-	<div style="display:none" id="new_comment_box" class="box_1">
-		<% if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_create? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
-			   <table width="100%" cellpadding=0 cellspacing=0>
-			    <tr>
-			     <td valign=top align=left>
-			      <h2><%= t("label.item_new", :item => PluginComment.model_name.human) %></h2>
-				   <div>
-					   <% form_for :item,  :url => { :action => "create", :id => item.id, :controller => "plugin_comments"} do |f| %>
-						 	<% if @logged_in_user.anonymous?  %>
-							<table >
-								 <tr><td align=left><input name="comment[anonymous_name]" id="comment_anonymous_name"> <%= PluginComment.human_attribute_name(:anonymous_name) %></td>	</tr>
-								 <tr><td align=left><input name="comment[anonymous_email]" id="comment_anonymous_email"> <%= PluginComment.human_attribute_name(:anonymous_email) %></td>			 </tr>								
-							</table>
-							<% end %>
-						 <table style="width:100%">							
-							 <tr><td align=center><textarea name="comment[comment]" style="width:100%" onfocus = "focus_input('comment_text')" onblur = "blur_input('comment_text')" id="comment_text"></textarea></td>			 </tr>
-				  	         <tr><td align=center><%= t("label.captcha") %></td></tr>
-							 <tr><td align=center><%= show_simple_captcha %></td></tr>
-						     <tr><td align=center><%= submit_tag  t("label.item_create", :item => plugin.model_name.human), :class => "button_1" %></td></tr>							 
-						 </table>
-					   <% end %>
-				   </div>
-				 </td>
-				</tr>
-			   </table>
-		<% else %>
-			<div class="failure">
-				<%= t("notice.invalid_permissions") %>
-			</div>
-		<% end %>
-		<br>
- 	    <div align="center">
-	   			<a href="javascript:toggle_box('new_comment_box')">
-	   				<%= icon("cancel") %>
-				</a>
-	    </div>
-	</div>
+	<script type="text/javascript">
+		$(function(){
+			$("#new_plugin_comment_link").bind({			
+				'ajax:beforeSend': function(){
+					$("#new_plugin_comment").html('<%= content_tag(:div, loading, :style => "text-align:center") %>')				
+				},	
+				'ajax:success': function(event, data, status, xhr){
+					$("#new_plugin_comment").html(data)
+				},			
+			});				
+		});			
+	</script>	
+	<div id="new_plugin_comment">
+	</div>	
 	<% if comments.size > 0 %>
 		<div class="comments">
 			<% for comment in comments %>

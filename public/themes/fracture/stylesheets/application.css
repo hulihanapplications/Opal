@@ -85,18 +85,18 @@
 	/* Item Lists */
 	.item_box_simple{margin-bottom:15px;padding-bottom:15px;padding-left:5px;border-bottom:1px solid #ddd;}
 			.item_box_simple td.thumbnail{width:185px;}
-				.item_box_simple div.thumbnail{margin-right:5px;}				
+				.item_box_simple div.thumbnail{margin-right:10px;}				
 		.item_box_simple div.item_details{display:none}
 	
 	.item_box_detailed{;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:5px;text-align:left;margin-bottom:11px;padding-left:5px;padding-bottom:15px;border-bottom:1px solid #ddd;}
 		.item_box_detailed table{margin:0px 0px 0px 0px;padding-top:0px;}
 			.item_box_detailed td.thumbnail{width:185px;}
-				.item_box_detailed div.thumbnail{margin-right:5px;}	
+				.item_box_detailed div.thumbnail{margin-right:10px;}	
 			.item_box_detailed td.details{}
 				.item_box_detailed div.date{font-size:12px;text-align:right;margin-left:0px;width:100%;font-weight:bold}
 				.item_box_detailed div.spacer{border-bottom:1px solid #ccc;margin-bottom:2px;margin-top:2px;}
 		
-	.item_box_photo{margin:0px 2px 20px 2px;width:196px;text-align:center;float:left} /* Used in Photo List */
+	.item_box_photo{margin:0px 5px 20px 5px;text-align:center;float:left} /* Used in Photo List */
 		.item_box_photo .item .name, .item_box_photo .item .name a{font-size:16px;text-align:center}
 		.item_box_photo .thumbnail_box{text-align:center;}
 		

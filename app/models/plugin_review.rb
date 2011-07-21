@@ -15,9 +15,6 @@ class PluginReview < ActiveRecord::Base
     select("plugin_reviews.*").
     select("sum(plugin_review_votes.score) as total_vote_score")
   }
-  scope :approved, where("is_approved = ?", "1")
-  scope :for_item, lambda{|item| where("item_id = ?", item.id)}
-  scope :newest_first, order("created_at DESC")
   scope :most_votes_first, order("up_votes - down_votes DESC")
   
   validates_presence_of :review_score

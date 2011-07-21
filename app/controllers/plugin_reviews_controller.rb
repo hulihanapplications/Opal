@@ -53,26 +53,6 @@ class PluginReviewsController < PluginController
     end
     render :action => "edit"
   end
- 
- 
-  def change_approval
-    @review = PluginReview.find(params[:review_id])    
-    if  @review.is_approved?
-      approval = "0" # set to unapproved if approved already    
-      log_msg = t("log.item_unapprove", :item => @plugin.model_name.human,  :name => "#{@review.user.username} - " + truncate(@review.review, :length => 10))
-    else
-      approval = "1" # set to approved if unapproved already    
-      log_msg = t("log.item_approve", :item => @plugin.model_name.human,  :name => "#{@review.user.username} - " + truncate(@review.review, :length =>  10))
-    end
-    
-    if @review.update_attribute(:is_approved, approval)
-      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => log_msg)      
-      flash[:success] = t("notice.item_#{"un" if approval == "0"}approve_success", :item => @plugin.model_name.human)  
-    else
-      flash[:failure] =  t("notice.item_save_failure", :item => @plugin.model_name.human)
-    end
-    redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
-  end 
   
   def new 
     @review = PluginReview.new(:user => @logged_in_user)  
@@ -81,25 +61,6 @@ class PluginReviewsController < PluginController
   def edit
     @review = PluginReview.find(params[:review_id])   
   end 
- 
-  def vote
-    @review = PluginReview.find(params[:review_id])    
-    @vote = PluginReviewVote.new(:plugin_review_id => @review.id, :user_id => @logged_in_user.id)
-    if params[:direction] == "up"
-      @vote.score = 1 # vote score 
-      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => t("log.item_voted_for", :item => @plugin.model_name.human, :name => "#{@review.user.username} - " + truncate(@review.review, :length =>  10)))              
-    elsif params[:direction] == "down"
-      @vote.score = -1 # vote score 
-      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => t("log.item_voted_against", :item => @plugin.model_name.human, :name => "#{@review.user.username} - " + truncate(@review.review, :length => 10)))      
-    end
-    if @vote.save && @review.update_attribute(:vote_score, @review.vote_score + @vote.score)  # save record of vote and increment/decrement review's score
-      flash[:success] = t("notice.user_thanks_for_voting", :name => @vote.user.first_name)             
-    else # save failed 
-      flash[:failure] = t("notice.item_save_failure", :item => PluginReviewVote.model_name.human)
-    end
-    redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other)               
-  end                    
-
 
   def show  
     @review = PluginReview.find(params[:review_id])

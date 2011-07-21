@@ -1,0 +1,27 @@
+<%= error_messages_for :plugin_comment %>
+
+
+<%= f.hidden_field :parent_id %>
+
+<% if @logged_in_user.anonymous? || (params[:action] == "edit" || params[:action] == "update")  %>
+	<div class="field">
+		<%= f.label :anonymous_name %>
+		<%= f.text_field :anonymous_name %>	
+	</div>
+	<div class="field">
+		<%= f.label :anonymous_email %>
+		<%= f.text_field :anonymous_email %>	
+	</div>	
+<% end %>
+
+<div class="field">
+	<%#= f.label :comment %>
+	<%= f.text_area :comment %>	
+</div>
+
+<% if @logged_in_user.anonymous?  %>
+	<div class="field">
+		<%= f.label :captcha, t("label.captcha") %>
+		<%= show_simple_captcha %>	
+	</div>
+<% end %>

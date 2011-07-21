@@ -70,6 +70,10 @@ ul.sortable, ul.collapsed{margin:0px;padding:0px;list-style-type:none;}
 .menu{text-align:center}
 	.menu .last{margin-bottom:0px}
 
+/* Comments & Posts */
+.comment .comment{margin-left:40px;}
+.comment .comment .comment .comment .comment{margin-left:0px}
+
 /* Other Stuff */
 .indent{padding-left:7px;}
 	.indent td{padding:2px 0px 2px 0px;}

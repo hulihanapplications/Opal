@@ -1,0 +1,8 @@
+	<h2 class="title">
+		<%= icon("new") + " " + t("label.item_new", :item => PluginComment.model_name.human) %>
+	</h2>
+	
+	<%= form_for @plugin_comment, :url => {:action => "create", :controller => "plugin_comments", :id => @item.id} do |f| %>
+		<%= render :partial => "form", :locals => {:f => f} %>	
+		<%= submit_tag  t("label.item_create", :item => PluginComment.model_name.human), :class => "button_1" %>
+	<% end %>

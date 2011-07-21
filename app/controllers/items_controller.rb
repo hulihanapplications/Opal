@@ -272,11 +272,8 @@ class ItemsController < ApplicationController
           # render regular action
         end
       end
-    end
-   
+    end  
  end 
- 
-
  
  def tag
    @tag = CGI::unescape(params[:tag])

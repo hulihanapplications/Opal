@@ -4,7 +4,7 @@
 	<h2 class="title">
 		<%= t("label.item_edit", :item => PluginComment.model_name.human) %>
 	</h2>
-	<%= form_for @plugin_comment, :url => {:action => "create", :controller => "plugin_comments", :id => @item.id} do |f| %>
+	<%= form_for @plugin_comment, :url => {:action => "update", :controller => "plugin_comments", :id => @item.id, :comment_id => @plugin_comment.id} do |f| %>
 		<%= render :partial => "form", :locals => {:f => f} %>	
 		<%= submit_tag  t("label.item_save", :item => PluginComment.model_name.human), :class => "button_1" %>
 	<% end %>

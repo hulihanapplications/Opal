@@ -38,12 +38,12 @@ describe PluginReviewsController do
         flash[:success].should_not be_nil     
       end   
       
-      it "should not work when trying to add to another user's item" do 
+      it "should work when trying to add to another user's item" do 
          expect{
           item = Factory(:item)
           post(:create, { :id => item.id, :review => Factory.attributes_for(:plugin_review)})
-        }.to change(PluginReview, :count).by(0)
-        flash[:failure].should_not be_nil      	
+        }.to change(PluginReview, :count).by(+1)
+        flash[:success].should_not be_nil      	
       end  
     end
     

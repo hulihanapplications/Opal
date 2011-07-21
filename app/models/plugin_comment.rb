@@ -13,7 +13,7 @@ class PluginComment < ActiveRecord::Base
   
   validates_presence_of :comment
   #validates_length_of :comment, :maximum => 255, :message => "This comment is too long! It must be 255 characters or less."
-  attr_protected :user_id, :item_id
+  attr_accessible :parent_id, :comment, :anonymous_name, :anonymous_email
 
   scope :most_votes_first, order("up_votes - down_votes DESC")
   

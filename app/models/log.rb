@@ -3,7 +3,7 @@ class Log < ActiveRecord::Base
   belongs_to :item
   
   default_scope :order => "created_at DESC" # override default find
-  scope :for_item, lambda{|item| where("item_id = ?", item.id)}
+  scope :item, lambda{|item| where("item_id = ?", item.id)}
   scope :newest_first, order("created_at DESC")
 
 

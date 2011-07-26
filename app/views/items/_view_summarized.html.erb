@@ -54,29 +54,27 @@
 						<%= tags_links(item) %>
 					<% end %>														
 				</div>				
-				<div id="side">
-					<% if Plugin.plugins[:review].is_enabled? %>
-						<div class="box_2">
-							<% review_score = PluginReview.average(:review_score, :conditions => ["item_id = ?", item.id]) %>
-							<% review_score ||= 0 %>										
-							<span>	
-								<%= link_to_function score(:type => @setting[:plugin_review][:review_type], :min => @setting[:plugin_review][:score_min].to_i, :max => @setting[:plugin_review][:score_max].to_i, :value => review_score),  "select_tab(\"#{Plugin.plugins[:review].model_name.human(:count => :other)}\")"  %>																			
-							</span>							
-						</div>
-					<% end %>
-					<% if Plugin.plugins[:comment].is_enabled? %>
-						<div class="box_2">									
-							<span>	
-								<%= link_to_function raw("#{icon("comments")} #{item.plugin_comments.size} #{PluginComment.model_name.human(:count => :other)}"), "select_tab(\"#{Plugin.plugins[:comment].model_name.human(:count => item.plugin_comments.size)}\")" %>						
-							</span>							
-						</div>
-					<% end %>	
-					<% if item.user %>
-						<div class="box_1">
-							 <%= link_to user_avatar(item.user, :size => "tiny"), {:action => "user", :controller => "browse", :id => item.user } %>
-							 <%= Item.human_attribute_name(:user_id) %>  <%= link_to item.user.username, {:action => "user", :controller => "browse", :id => item.user }  %><br>
-						</div>
-					<% end %>										
+				<div id="side">					
+					<%= content_tag :div, :class => "box_2" do %>
+						<% if Plugin.plugins[:review].is_enabled? %>
+								<% review_score = PluginReview.average(:review_score, :conditions => ["item_id = ?", item.id]) %>
+								<% review_score ||= 0 %>										
+								<span>	
+									<%= link_to_function score(:type => @setting[:plugin_review][:review_type], :min => @setting[:plugin_review][:score_min].to_i, :max => @setting[:plugin_review][:score_max].to_i, :value => review_score),  "select_tab(\"#{Plugin.plugins[:review].model_name.human(:count => :other)}\")"  %>																			
+								</span>							
+						<% end %>
+						<% if Plugin.plugins[:comment].is_enabled? %>
+							<hr />									
+								<span>	
+									<%= link_to_function raw("#{icon("comments")} #{item.plugin_comments.size} #{PluginComment.model_name.human(:count => :other)}"), "select_tab(\"#{Plugin.plugins[:comment].model_name.human(:count => item.plugin_comments.size)}\")" %>						
+								</span>							
+						<% end %>							
+					<% end if Plugin.plugins[:review].is_enabled? || Plugin.plugins[:comment].is_enabled? %>			
+					<%= content_tag :div, :class => "box_2" do %>
+						<% if Plugin.plugins[:link].is_enabled? %>
+						<% end %>
+						<%= Item.human_attribute_name(:user_id) %>  <%= link_to_user(item.user, :avatar => true) %><br>
+					<% end %>												
 				</div>
 	</div>
 	<div style="clear:both;"></div>

@@ -14,6 +14,7 @@ db/schema.rb
 config/database.yml
 config/email.yml
 config/setup_load_paths.rb
+config/deploy.rb
 
 # Application Specific Stuff
 config/locales/item.yml

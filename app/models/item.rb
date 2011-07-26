@@ -192,7 +192,7 @@ class Item < ActiveRecord::Base
  end 
  
  def logs # get logs for item
-   Log.for_item(self).newest_first
+   Log.item(self).newest_first
  end
  
 =begin

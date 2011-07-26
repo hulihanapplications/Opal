@@ -161,7 +161,7 @@ en:
         sample:
           title: "Sample Video"
           description: "This is a sample video"
-          code: '<div style="text-align: center;"><iframe width="560" height="349" src="http://www.youtube.com/embed/4kIKynSUbJw" frameborder="0" allowfullscreen></iframe></div>' 
+          code: '<div style="text-align: center;"><iframe width="560" height="349" src="http://www.youtube.com/embed/SIJsCy-LB0g" frameborder="0" allowfullscreen></iframe></div>' 
     pages:
       about:
         title: "About"

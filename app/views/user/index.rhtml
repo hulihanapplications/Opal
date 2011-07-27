@@ -3,10 +3,7 @@
 				<% num_of_new_messages = UserMessage.count(:all, :select => "id", :conditions => ["user_id = ? and is_read = '0' and to_user_id = ?", @logged_in_user.id, @logged_in_user.id]) %>
 				<%= icon("mail") %>
 				<%= link_to "#{num_of_new_messages} #{t("single.new")} #{UserMessage.model_name.human(:count => num_of_new_messages)}", {:action => "for_me", :controller => "messages"} %>				
-			</div>
-			<%= render :partial => "items/unapproved_plugin_items", :locals => {:items => @items, :plugins => @plugins} %>
-
-							
+			</div>							
 	</div>
 	<div id="main">				
 				<div class="box_2">

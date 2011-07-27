@@ -4,12 +4,6 @@
   		<%= render :partial => "items/all_items_menu" %>	
   	</div>
 	<div class="box_1">
-		<h2 class="title"><%= t("label.recently_added") %></h2>
-		<div class="spacer"></div>		
-		<%= render :partial => "plugins/list_plugin_items", :locals => {:plugin_items => Plugin.find_plugin_items(:all, :conditions => ["created_at > ? and created_at < ?", Time.now.to_time.advance(:days => -3),  Time.now], :limit => 5, :order => "created_at DESC"), :plugins_to_look_for => Plugin.plugins.values} %>
-	
-	</div>
-	<div class="box_1">
 		<%= render :partial => "items/popular_items" %>
 	</div>
 </div>

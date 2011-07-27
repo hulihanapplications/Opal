@@ -19,13 +19,8 @@ class Group < ActiveRecord::Base
     end      
   end
   
-  
   def is_admin_group? # if this the admins group 
-    if self.id == 3
-      return true
-    else 
-      return false
-    end         
+    self == Group.admin 
   end
   
   def is_deletable? # can this group be deleted

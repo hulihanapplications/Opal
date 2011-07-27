@@ -18,7 +18,7 @@ class Setting < ActiveRecord::Base
   
   def self.get_setting_bool(name) # get a setting from the database return true or false depending on "1" or "0"
     setting = Setting.find_by_name(name)
-	setting.to_bool
+	  setting.to_bool
   rescue # ActiveRecord not found
     return false
   end
@@ -34,7 +34,7 @@ class Setting < ActiveRecord::Base
   	  setting[:theme_url] =  "/themes/#{setting[:theme]}" # url for theme directory
   	  setting[:themes_dir] =  File.join(Rails.root.to_s, "public", "themes") # system path for main themes directory 
   	  setting[:theme_dir] =  File.join(setting[:themes_dir], setting[:theme]) # system path for current theme directory 
-  	  setting[:default_preview_type] =  setting[:default_preview_type].constantize
+  	  setting[:default_preview_type] =  setting[:default_preview_type].constantize if setting[:default_preview_type]
   	  
   	  # Autoload plugin settings
   	  Plugin.plugins.each do |name, plugin|  	    

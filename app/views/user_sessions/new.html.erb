@@ -3,7 +3,7 @@
 <br>
 
 	<div class="box_2" style="margin-bottom:5px;" align=center>
-		 <% if session[:original_uri] %>
+		 <% if !params[:redirect_to].blank? %>
 			<div class="notice">
 				<div class="success" style="margin:0px 0px 5px 0px">
 						<%= icon("success") %>

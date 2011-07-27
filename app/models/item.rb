@@ -17,7 +17,7 @@ class Item < ActiveRecord::Base
   
   validates_presence_of :name
   
-  after_create :create_everything
+  after_create :create_everything  
   after_destroy :destroy_everything
   after_save :save_tags
   

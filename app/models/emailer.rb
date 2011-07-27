@@ -72,6 +72,12 @@ class Emailer < ActionMailer::Base
     mail(:to => nil, :bcc => recipients, :subject => subject, :date => Time.now, :content_type => "text/plain")        
   end
   
+  def new_plugin_record_notification(record)
+    recipients = Emailer.admin_emails       
+    subject = I18n.t("email.subject.item_new_from_user", :item => record.class.model_name.human, :name => record.to_s, :title => Setting.global_settings[:title], :from => record.user ? record.user.to_s : nil)
+    mail(:to => nil, :bcc => recipients, :subject => subject, :date => Time.now)        
+  end
+   
   private 
   
   def self.admin_emails # get all admin email addresses 

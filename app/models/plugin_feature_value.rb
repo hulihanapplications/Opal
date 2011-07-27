@@ -11,13 +11,7 @@ class PluginFeatureValue < ActiveRecord::Base
   validates_uniqueness_of  :item_id, :scope => :plugin_feature_id
   attr_protected :item_id
 
-  def is_approved?
-     if self.is_approved == "1"
-       return true
-     else # not approved
-       return false
-     end
- end
+  acts_as_opal_plugin
 =begin 
  def validate # run validations for value
    if self.feature.feature_type == "number" || self.feature.feature_type == "slider" 

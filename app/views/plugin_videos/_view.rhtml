@@ -1,7 +1,7 @@
 <% if item.is_editable_for_user?(@logged_in_user) %>
-	<% videos = PluginVideo.find(:all, :conditions => ["item_id = ?", item.id])%>
+	<% videos = PluginVideo.item(item) %>
 <% else %>
-	<% videos = PluginVideo.find(:all, :conditions => ["item_id = ? and is_approved = '1'", item.id])%>
+	<% videos = PluginVideo.item(item).approved %>
 <% end %>
 
 	<div class="plugin_box">

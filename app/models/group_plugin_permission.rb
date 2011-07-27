@@ -33,42 +33,22 @@ class GroupPluginPermission < ActiveRecord::Base
   end
     
   def can_create?
-    if self.can_create == "1"
-      return true
-    else 
-      return false
-    end
+    self.can_create == "1"
   end
 
   def can_read?
-    if self.can_read == "1"
-      return true
-    else 
-      return false
-    end
+    self.can_read == "1"
   end
   
   def can_update?
-    if self.can_update == "1"
-      return true
-    else 
-      return false
-    end
+    self.can_update == "1"
   end
 
   def can_delete?
-    if self.can_delete == "1"
-      return true
-    else 
-      return false
-    end
+    self.can_delete == "1"
   end
   
   def requires_approval?
-    if self.requires_approval == "1"
-      return true
-    else 
-      return false
-    end    
+    self.requires_approval == "1"  
   end
 end

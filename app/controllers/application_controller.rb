@@ -74,8 +74,7 @@ class ApplicationController < ActionController::Base
   def authenticate_user(msg = t("notice.user_not_logged_in"))
     if @logged_in_user.anonymous? # There's definitely no user logged in
       flash[:failure] = "#{msg}"
-      session[:original_uri] = request.env["REQUEST_URI"] # store original request of where they wanted to go.
-      redirect_to login_url
+      redirect_to login_url(:redirect_to => request.env["REQUEST_URI"]) # store original request of where they wanted to go.
     else #there's a user logged in, but what type is he?
       # Check if User Account is Okay.
       if @logged_in_user.is_enabled? 
@@ -97,9 +96,8 @@ class ApplicationController < ActionController::Base
   def authenticate_admin
     if @logged_in_user.anonymous? #There's definitely no user logged in(id 0 is public user)
       flash[:failure] = t("notice.failed_admin_access_attempt")
-      session[:original_uri] = request.env["REQUEST_URI"] # store original request of where they wanted to go.
       Log.create(:log_type => "warning", :log => I18n.t("log.failed_admin_access_attempt_visitor", :ip => request.env["REMOTE_ADDR"], :controller => params[:controller], :action => params[:action]))     
-      redirect_to login_url
+      redirect_to login_url(:redirect_to => request.env["REQUEST_URI"]) # store original request of where they wanted to go.
     else #there's a user logged in, but what type is he?
       if(@logged_in_user.is_admin?) # make sure user is an admin
         # Proceed

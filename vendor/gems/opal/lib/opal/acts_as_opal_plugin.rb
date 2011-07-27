@@ -38,6 +38,9 @@ module Opal
         table_exists?
       end
       
+      def send_notification
+      	Email.deliver_new_plugin_record_notification(self)
+      end
     end
     
     module InstanceMethods
@@ -49,11 +52,11 @@ module Opal
 
       def reset_preview         
         if self == item.preview
-        	item.update_attributes(:preview_type => nil, :preview_id => nil)  # reset item preview to nil
-   			  preview_successor = Setting.global_settings[:default_preview_type].item(item).first # look for a successor preview 
-   			  logger.info preview_successor.inspect
-        	item.update_attributes(:preview_type => preview_successor.class.name, :preview_id => preview_successor.id) if preview_successor # set some other record as item's preview
-		    end 
+	    	item.update_attributes(:preview_type => nil, :preview_id => nil)  # reset item preview to nil
+			  preview_successor = Setting.global_settings[:default_preview_type].item(item).first # look for a successor preview 
+			  logger.info preview_successor.inspect
+	    	item.update_attributes(:preview_type => preview_successor.class.name, :preview_id => preview_successor.id) if preview_successor # set some other record as item's preview
+	    end 
       end
       
       def is_approved?

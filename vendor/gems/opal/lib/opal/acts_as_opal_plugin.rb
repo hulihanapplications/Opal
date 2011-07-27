@@ -37,10 +37,6 @@ module Opal
       def installed? # has this plugin been installed?
         table_exists?
       end
-      
-      def send_notification
-      	Email.deliver_new_plugin_record_notification(self)
-      end
     end
     
     module InstanceMethods
@@ -62,13 +58,18 @@ module Opal
       def is_approved?
          self.is_approved == "1" if respond_to?(:is_approved) 
       end   
+
+      def send_new_plugin_record_notification
+      	Emailer.deliver_new_plugin_record_notification(self) if self.item.user.user_info.notify_of_item_changes
+      end      
     end
     
     def self.included(base) # automatically called when included
       base.send(:extend, ClassMethods)
       base.send(:include, InstanceMethods)
       base.send(:after_create, :after_create)
-      base.send(:before_destroy, :reset_preview)      
+      base.send(:before_destroy, :reset_preview)
+      base.send(:after_create, :send_new_plugin_record_notification)                  
     end
   end
 end 

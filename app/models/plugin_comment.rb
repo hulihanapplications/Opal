@@ -10,7 +10,7 @@ class PluginComment < ActiveRecord::Base
   default_scope :order => "created_at DESC"
 
   before_destroy :destroy_votes  
-  after_create :send_notification
+  #after_create :send_notification
   
   validates_presence_of :comment
   #validates_length_of :comment, :maximum => 255, :message => "This comment is too long! It must be 255 characters or less."

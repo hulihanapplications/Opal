@@ -50,4 +50,12 @@
             <%= check_box "user_info", "notify_of_new_messages" %>
         </td>
     </tr>
+    <tr>
+        <td align=left>
+            <%= UserInfo.human_attribute_name(:notify_of_item_changes, :items => Item.model_name.human(:count => :other)) %>
+        </td>
+        <td align=right>
+            <%= check_box "user_info", "notify_of_item_changes" %>
+        </td>
+    </tr>    
 </table>

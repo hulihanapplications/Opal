@@ -82,16 +82,21 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   
   item3 = Item.new(:name => I18n.t('sample_data.items.unapproved.name'), :description => I18n.t('sample_data.items.unapproved.description'))
   item3.user_id = @user.id
-  item3.save
-  
+  item3.save  
   
   # Create Plugins 
   #plugin = PluginImage.new(:url => "/images/item_images/1/example_image_1.png", :thumb_url => "/images/item_images/1/thumb_example_image_1.png", :pinky_url => "/images/item_images/1/pinky_example_image_1.png", :description => I18n.t('sample_data.plugins.images.sample.description'))
   #plugin.item_id = item1.id 
   #plugin.user_id = @user.id 
   #plugin.save
+
+  @plugin = PluginComment.new(:comment => I18n.t('sample_data.plugins.comments.sample.text'))
+  @plugin.item_id = item1.id
+  @plugin.is_approved = "1"    
+  @plugin.user_id = @user.id 
+  @plugin.save    
   
-  @plugin = PluginDescription.new(:title => I18n.t('sample_data.plugins.description.sample.title'), :content => I18n.t('sample_data.plugins.description.sample.content'))
+  @plugin = PluginDescription.new(:title => I18n.t('sample_data.plugins.descriptions.sample.title'), :content => I18n.t('sample_data.plugins.descriptions.sample.content'))
   @plugin.item_id = item1.id 
   @plugin.is_approved = "1"    
   @plugin.user_id = @user.id 

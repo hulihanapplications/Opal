@@ -553,7 +553,7 @@ en:
           description: The Keywords Metatag for your site. Used for search engine submission. Seperated by commas.
         host:
           title: Host
-          description: "The hostname/domain name of your website, used for email generation and other stuff. This can include a port number. Do not add http:// or https://. Examples: example.com or example.com:3000."        
+          description: "The hostname/domain name of your website, used for email, rss, and other stuff. This can include a port number. Do not add http:// or https://. Examples: example.com or example.com:3000."        
         locale: 
           title: Locale
           description: The default language and time zone used by Opal. Since users can also set their own locale, this applies to visitors and new users.

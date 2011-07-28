@@ -40,7 +40,7 @@ module Opal
     end
     
     module InstanceMethods
-      def after_create # called after a plugin record/item is created
+      def set_as_item_preview # called after a plugin record/item is created
         if self.class == Setting.get_global_settings[:default_preview_type] # if this plugin is set as the default preview class...
             item.update_attributes(:preview_type => self.class.name, :preview_id => id) if !item.preview? # set self as preview if no preview exists
         end 
@@ -49,8 +49,8 @@ module Opal
       def reset_preview         
         if self == item.preview
 	    	item.update_attributes(:preview_type => nil, :preview_id => nil)  # reset item preview to nil
-			  preview_successor = Setting.global_settings[:default_preview_type].item(item).first # look for a successor preview 
-			  logger.info preview_successor.inspect
+			preview_successor = Setting.global_settings[:default_preview_type].item(item).first # look for a successor preview 
+			logger.info preview_successor.inspect
 	    	item.update_attributes(:preview_type => preview_successor.class.name, :preview_id => preview_successor.id) if preview_successor # set some other record as item's preview
 	    end 
       end
@@ -60,16 +60,24 @@ module Opal
       end   
 
       def send_new_plugin_record_notification
-      	Emailer.deliver_new_plugin_record_notification(self) if self.item.user.user_info.notify_of_item_changes
+      	Emailer.deliver_new_plugin_record_notification(self) if self.item.user.user_info.notify_of_item_changes && self.user_id != self.item.user_id
       end      
-    end
-    
-    def self.included(base) # automatically called when included
-      base.send(:extend, ClassMethods)
-      base.send(:include, InstanceMethods)
-      base.send(:after_create, :after_create)
-      base.send(:before_destroy, :reset_preview)
-      base.send(:after_create, :send_new_plugin_record_notification)                  
-    end
+    end    
   end
 end 
+
+module ActiveRecord
+  class Base
+      def self.acts_as_opal_plugin(options = {}) # for use in plugins
+      	# Option Defaults
+      	options[:notifications] = true if options[:notifications].nil?
+
+	  	send(:extend, Opal::ActsAsOpalPlugin::ClassMethods)
+		send(:include, Opal::ActsAsOpalPlugin::InstanceMethods)		  
+		send(:after_create, :set_as_item_preview)
+		send(:before_destroy, :reset_preview)
+		send(:after_create, :send_new_plugin_record_notification) if options[:notifications]       
+      end        
+  end 
+end
+

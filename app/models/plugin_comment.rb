@@ -24,3 +24,4 @@ class PluginComment < ActiveRecord::Base
     end
   end  
 end
+

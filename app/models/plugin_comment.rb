@@ -1,4 +1,5 @@
 class PluginComment < ActiveRecord::Base
+  include ActionView::Helpers::TextHelper
   acts_as_opal_plugin
   make_voteable
   has_ancestry if PluginComment.table_exists? && column_names.include?("ancestry")
@@ -17,6 +18,10 @@ class PluginComment < ActiveRecord::Base
   attr_accessible :parent_id, :comment, :anonymous_name, :anonymous_email
 
   scope :most_votes_first, order("up_votes - down_votes DESC")
+  
+  def to_s
+  	truncate(comment, :length => 20)
+  end
   
   def destroy_votes # destroy make_voteable votes
     for vote in votings

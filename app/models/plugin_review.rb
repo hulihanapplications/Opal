@@ -1,4 +1,5 @@
 class PluginReview < ActiveRecord::Base
+  include ActionView::Helpers::TextHelper # include text helper for truncate and other options
   acts_as_opal_plugin
   make_voteable
   
@@ -22,6 +23,10 @@ class PluginReview < ActiveRecord::Base
   validates_length_of :review, :minimum => 16
   
   attr_accessible :review, :review_score 
+  
+  def to_s
+  	truncate(strip_tags(review), :length => 50)
+  end
   
   def validate # custom validations          
     min = PluginReview.get_setting("score_min").to_i

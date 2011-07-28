@@ -19,6 +19,7 @@ class ZeroSevenFour < ActiveRecord::Migration
        
     Setting.create(:name => "default_preview_type",  :value => "PluginImage", :setting_type => "Hidden", :item_type => "string") # when a plugin record is created for an item, its preview will be set to this   
     Setting.create(:name => "host",  :value => "localhost", :setting_type => "System", :item_type => "string")            
+    
     # convert old votes
     for vote in PluginReviewVote.all
       new_vote = MakeVotable::Voting.new(:voter_id => vote.user_id, :voter_type => "User", :voteable_id => vote.plugin_review_id, :voteable_type => "PluginReview", :up_vote => (vote.score > 0 ? true : false), :down_vote => (vote.score <= 0 ? true : false))
@@ -28,6 +29,9 @@ class ZeroSevenFour < ActiveRecord::Migration
   end
 
   def self.down
+    Setting.find_by_name("default_preview_type").destroy
+    Setting.find_by_name("host").destroy
+      	
     remove_column :items, :preview_type
     remove_column :items, :preview_id 
     Item.reset_column_information

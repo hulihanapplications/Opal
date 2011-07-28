@@ -12,6 +12,11 @@ class PluginFeatureValue < ActiveRecord::Base
   attr_protected :item_id
 
   acts_as_opal_plugin :notifications => false
+  
+  def to_s
+  	value
+  end
+  
 =begin 
  def validate # run validations for value
    if self.feature.feature_type == "number" || self.feature.feature_type == "slider" 

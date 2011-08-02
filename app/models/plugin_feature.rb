@@ -1,5 +1,5 @@
 class PluginFeature < ActiveRecord::Base
-  acts_as_opal_plugin
+  #acts_as_opal_plugin
   
   has_many :plugin_feature_values, :dependent => :destroy
   has_many :plugin_feature_value_options, :dependent => :destroy  

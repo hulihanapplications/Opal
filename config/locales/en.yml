@@ -290,6 +290,8 @@ en:
     slideshow: Slideshow
     start: Start
     approval: Approval
+    single: Single
+    multiple: Multiple
   # Flash Messages & Notices
   notice:
     save_success: Your changes have been successfully saved!

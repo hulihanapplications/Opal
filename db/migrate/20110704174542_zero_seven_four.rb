@@ -29,8 +29,8 @@ class ZeroSevenFour < ActiveRecord::Migration
   end
 
   def self.down
-    Setting.find_by_name("default_preview_type").destroy
-    Setting.find_by_name("host").destroy
+    Setting.find_by_name("default_preview_type").destroy if Setting.find_by_name("default_preview_type")
+    Setting.find_by_name("host").destroy if Setting.find_by_name("host")
       	
     remove_column :items, :preview_type
     remove_column :items, :preview_id 

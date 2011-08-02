@@ -49,13 +49,7 @@
 		<% if links.size > 0 %>				
 				<div class="links" align=left>
 					<% for link in links%>
-						<div id="link_box_<%= link.id %>">
-							<img src="/themes/<%= @setting[:theme] %>/images/icons/link.png" class="icon"  title="<%= h link.title %>" alt="">
-							<span id="link_<%= link.id %>">
-								<a href="<%= h link.url %>" target="_blank"><%= h link.title %></a>
-							</span>
-							<%= render :partial => "plugins/plugin_item_controls", :locals => { :record => link, :options => {:edit => false, :preview => false, :user => false}} %>																					
-						</div>
+						<%= render link %>
 					<% end %>
 				</div>
 		

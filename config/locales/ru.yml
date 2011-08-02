@@ -289,7 +289,9 @@ ru:
     default: по умолчанию
     slideshow: Демонстрация слайдов
     start: Начало  
-    approval: утверждение       
+    approval: утверждение     
+    single: Single
+    multiple: Multiple      
   # Flash Messages & Notices
   notice:
     save_success: Ваши изменения были успешно сохранены!

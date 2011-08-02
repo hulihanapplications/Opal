@@ -15,9 +15,11 @@ class ZeroSevenFour < ActiveRecord::Migration
     add_index :categories, :ancestry
     add_column :pages, :ancestry, :string
     add_index :pages, :ancestry
-        
+    add_column :user_infos, :notify_of_item_changes, :boolean, :default => true         
+       
     Setting.create(:name => "default_preview_type",  :value => "PluginImage", :setting_type => "Hidden", :item_type => "string") # when a plugin record is created for an item, its preview will be set to this   
-        
+    Setting.create(:name => "host",  :value => "localhost", :setting_type => "System", :item_type => "string")            
+    
     # convert old votes
     for vote in PluginReviewVote.all
       new_vote = MakeVotable::Voting.new(:voter_id => vote.user_id, :voter_type => "User", :voteable_id => vote.plugin_review_id, :voteable_type => "PluginReview", :up_vote => (vote.score > 0 ? true : false), :down_vote => (vote.score <= 0 ? true : false))
@@ -27,6 +29,9 @@ class ZeroSevenFour < ActiveRecord::Migration
   end
 
   def self.down
+    Setting.find_by_name("default_preview_type").destroy
+    Setting.find_by_name("host").destroy
+      	
     remove_column :items, :preview_type
     remove_column :items, :preview_id 
     Item.reset_column_information
@@ -47,6 +52,8 @@ class ZeroSevenFour < ActiveRecord::Migration
     Category.reset_column_information
     remove_index :pages, :ancestry  
     remove_column :pages, :ancestry
-    Page.reset_column_information                
+    Page.reset_column_information    
+    remove_column :user_infos, :notify_of_item_changes
+    UserInfo.reset_column_information            
   end
 end

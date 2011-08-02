@@ -8,4 +8,8 @@ class PluginDiscussion < ActiveRecord::Base
   default_scope :order => "title ASC"
   
   validates_presence_of :title   
+  
+  def to_s 
+  	title
+  end
 end

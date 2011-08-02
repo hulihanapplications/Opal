@@ -35,7 +35,7 @@ class Setting < ActiveRecord::Base
   	  setting[:themes_dir] =  File.join(Rails.root.to_s, "public", "themes") # system path for main themes directory 
   	  setting[:theme_dir] =  File.join(setting[:themes_dir], setting[:theme]) # system path for current theme directory 
   	  setting[:default_preview_type] =  setting[:default_preview_type].constantize if setting[:default_preview_type]
-  	  
+  	  Rails.application.config.action_mailer.default_url_options = { :host => setting[:host] ? setting[:host] : "localhost" } # set actionmailer host 
   	  # Autoload plugin settings
   	  Plugin.plugins.each do |name, plugin|  	    
   	    setting[plugin.plugin_class.name.underscore.to_sym] = PluginSetting.plugin(plugin).all.hash_by(:name, :to_value) 

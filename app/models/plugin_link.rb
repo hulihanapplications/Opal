@@ -6,4 +6,12 @@ class PluginLink < ActiveRecord::Base
   belongs_to :user
 
   validates_presence_of :title, :url
+  
+  def to_s
+  	get_title
+  end
+
+  def get_title # get the title of the file, either bare filename or user-inputted 
+    title.blank? ? url : title
+  end  
 end

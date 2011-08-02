@@ -9,6 +9,10 @@ class PluginFile < ActiveRecord::Base
   
   validates_uniqueness_of :filename, :scope => :item_id, :message => "This item already has a file with this name!"
 
+  def to_s
+    get_title	
+  end
+  
   def to_param # make custom parameter generator for seo urls, to use: pass actual object(not id) into id ie: :id => object
     # this is also backwards compatible with regular integer id lookups, since .to_i gets only contiguous numbers, ie: "4-some-string-here".to_i # => 4    
     "#{id}-#{self.get_title.gsub(/[^a-z0-9]+/i, '-')}" 

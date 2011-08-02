@@ -377,7 +377,7 @@ en:
       verification: "%{title}: Verification Required - %{name}"
     message:
       item_new: "At %{title}, there's a new %{item} in town: %{name}. Check it out their profile here: \n\n%{url}\n\n"    
-      item_new_from_user: "At %{title}, %{from} has created a new %{item}: %{name}. Check it out here:\n\n%{url}\n\n"   
+      item_new_from_user: "At %{title}, %{from} has created a new %{item}: %{name}\n\nCheck it out here:\n\n%{url}\n\n"   
       new_message_from_user: "At %{title}, you've received a new message from %{from}:\n\n%{message}\n\nYou can reply to this message or read your other messages here:\n\n%{url}\n\n"
       password_recovery: "At %{title}, A password recovery request has been made for your account: %{name}.\n\nTo recover your password, go to the following address:\n\n%{url}\n\nIf you didn't make this request, please disregard this email. Feel free to contact %{title} if you have any questions or concerns."  
       verification: "In order to log in to your account(%{name}) at %{title}, you must first verify your account by clicking on this verification link:\n\n%{url}"
@@ -550,7 +550,10 @@ en:
           description: The description for your site. Used in the title of your page(at the top of your browswer) and for search engine submission.
         site_keywords: 
           title: Site Keywords              
-          description: The Keywords Metatag for your site. Used for search engine submission. Seperated by commas.        
+          description: The Keywords Metatag for your site. Used for search engine submission. Seperated by commas.
+        host:
+          title: Host
+          description: "The hostname/domain name of your website, used for email, rss, and other stuff. This can include a port number. Do not add http:// or https://. Examples: example.com or example.com:3000."        
         locale: 
           title: Locale
           description: The default language and time zone used by Opal. Since users can also set their own locale, this applies to visitors and new users.
@@ -789,7 +792,8 @@ en:
         location: My Location
         description: More about Me
         interests: My Interests
-        notify_of_new_messages: Email me when someone sends me a message
+        notify_of_new_messages: Notify me when someone sends me a message
+        notify_of_item_changes: Notify me when some adds something to one of my %{items} or changes one in any way.
         forgot_password_code: Password Recovery Code
         use_gravatar: Use Gravatar?
       user_message:

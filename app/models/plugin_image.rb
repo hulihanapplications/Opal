@@ -12,7 +12,10 @@ class PluginImage < ActiveRecord::Base
   before_destroy :delete_files
  
   attr_accessor :local_file, :remote_file, :effects, :source 
-   
+  
+  def to_s
+  	filename
+  end 
 
   def validate_source # check if files have beeen selected and if they're in proper format, etc.
     if local_file.blank? # local file not specified

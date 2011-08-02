@@ -553,7 +553,10 @@ ru:
           description: Описание Вашего сайта. Используется в заголовке вашего сайта (вверху Вашего браузера) и поисковыми системами.
         site_keywords:
           title: Ключевые слова сайта        
-          description: Ключевые слова (Мета-тег) вашего сайта. Используется поисковыми системами. Разделяйте их запятыми.        
+          description: Ключевые слова (Мета-тег) вашего сайта. Используется поисковыми системами. Разделяйте их запятыми.
+        host:
+          title: Host
+          description: "The hostname/domain name of your website, used for email generation and other stuff. This can include a port number. Do not add http:// or https://. Examples: example.com or example.com:3000."                          
         locale:
           title: Локаль
           description: Стандартный язык и временная зона используемая в Opal. Пользователи также могут изменять собственную локаль.

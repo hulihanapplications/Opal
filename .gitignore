@@ -8,7 +8,7 @@
 tmp/*
 #Gemfile
 #Gemfile.lock
-db/schema.rb
+#db/schema.rb
 
 # Config Files
 config/database.yml

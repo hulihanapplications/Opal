@@ -1,12 +1,12 @@
 <h2 class="title"><%= t("single.popular") %> <%= Item.model_name.human(:count => :other) %></h2>
 <% counter = 1 %>
 <table style="width:100%" cellpadding=0 cellspacing=1>		
-	<% for item in Item.popular_items %>
+	<% for item in Item.popular.approved.public %>
 		<tr>
 			<td align=left>
 				<h4>
 					<%= link_to item_thumbnail(item, :class => "pinky"), {:action => "view", :controller => "items", :id => item }, :title =>  h(item.name) %>
-					<%= counter%>. <b><%= link_to "#{h truncate(item.name, :length => 14)}", {:action => "view", :controller => "items", :id => item}, :title =>  h(item.name) %></b>
+					<%= counter%>. <%= link_to "#{h truncate(item.name, :length => 14)}", {:action => "view", :controller => "items", :id => item}, :title =>  h(item.name) %>
 				</h4>					
 			</td>
 			<td align=right style="width:80px;">

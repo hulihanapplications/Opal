@@ -1,38 +1,9 @@
-<% featured_items = Item.featured_items %>
-<% featured_item = featured_items[rand(featured_items.size)]%>
 <h2 class="title"><%= t("label.item_featured", :item => Item.model_name.human(:count => :other)) %></h2>
-
-<div align=center style="padding-top:2px;">
-	<% if featured_items.size > 0 %>
-		<%= preview(featured_item) %>
-		<h3 class="title">
-			<%= link_to truncate(h(featured_item.name), :length => 30), {:action => "view", :controller => "items", :id => featured_item}, :title => h(featured_item.name) %>
-		</h3>
-		<% if featured_items.size > 1 %>
-			<div class="spacer"></div>
-			<a href="javascript:toggle_box('more_featured_items')"><%= t("label.items_more", :items => t("label.item_featured", :item => Item.model_name.human(:count => :other))) %></a>	
-			<div id="more_featured_items" style="display:none">
-				<table style="width:100%" cellpadding=0 cellspacing=1>		
-					<% for item in featured_items %>
-						<% if item.id != featured_item.id %>
-							<tr>
-								<td align=left>
-									<h4>
-										<%= link_to item_thumbnail(item, :class => "pinky"), {:action => "view", :controller => "items", :id => item }, :title =>  h(item.name) %>
-										<b><%= link_to "#{h truncate(item.name, :length => 28)}", {:action => "view", :controller => "items", :id => item}, :title =>  h(item.name) %></b>
-									</h4>					
-								</td>
-							</tr>
-						<% end %>
-					<% end %>
-				</table>	
-			</div>
-		<% end %>
-	<% else %>
-		<%= t("notice.items_not_found", :items => t("label.item_featured", :item => Item.model_name.human(:count => :other))) %>
-		<!-- There are currently no featured <%= Item.model_name.human(:count => :other) %>.-->
+<table style="width:100%" cellpadding=0 cellspacing=1>		
+	<% for item in Item.featured.approved.public %>
+		<h4>
+			<%= link_to item_thumbnail(item, :class => "pinky"), {:action => "view", :controller => "items", :id => item }, :title =>  h(item.name) %>
+			<%= link_to "#{h truncate(item.name, :length => 14)}", {:action => "view", :controller => "items", :id => item}, :title =>  h(item.name) %>
+		</h4>					
 	<% end %>
-	
-</div>
-
-
+</table>

@@ -120,12 +120,11 @@
 	/* Item Page Types */		
 	#page_summarized{}
 		#page_summarized #top{width:100%;}
-			#page_summarized > #top > #images{float:left;width:190px;text-align:center;}
-							#page_summarized > #top > #images #main_image{padding:0px 0px 10px 0px}
-			#page_summarized > #top > #details{float:left;width:490px;padding-left:10px;}
+			#page_summarized > #top > #images{float:left;;text-align:center;}
+			#page_summarized > #top > #details{float:left;width:488px;padding-left:10px;}
 				#page_summarized > #top > #details .description{}			
 			#page_summarized > #top #features{margin:5px 0px}
-			#page_summarized > #top > #side{float:left;width:200px;padding:5px;;text-align:center;}
+			#page_summarized > #top > #side{float:left;width:200px;padding-right:0px;padding-left:10px;;text-align:center;}
 			#page_summarized  .plugins {margin-top:20px;}
 
 	

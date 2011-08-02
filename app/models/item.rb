@@ -24,6 +24,11 @@ class Item < ActiveRecord::Base
   attr_accessor :tags 
   attr_protected :user_id, :is_approved, :featured, :locked
 
+  scope :featured, where("featured is ?", true)
+  scope :public, where("is_public = ?", "1")
+  scope :approved, where("is_approved = ?", "1")
+  scope :popular, order("recent_views DESC")
+ 
   
   def to_param # make custom parameter generator for seo urls, to use: pass actual object(not id) into id ie: :id => object
     # this is also backwards compatible with regular integer id lookups, since .to_i gets only contiguous numbers, ie: "4-some-string-here".to_i # => 4    
@@ -99,36 +104,16 @@ class Item < ActiveRecord::Base
   end
   
   def is_approved?
-     if self.is_approved == "1"
-       return true
-     else # The item is not approved
-       return false
-     end
+    self.is_approved == "1"
   end
 
   def is_public?
-     if self.is_public == "1"
-       return true
-     else # The item is not approved
-       return false
-     end
+    self.is_public == "1"
   end
  
   def is_user_owner?(user)
-     if self.user_id == user.id # is this user the owner?
-       return true
-     else # not the owner
-       return false
-     end    
+    self.user_id == user.id # is this user the owner?
   end
-  
-  def self.popular_items # get the most popular items
-    return Item.find(:all, :order => "recent_views DESC", :conditions => ["is_approved = ? and is_public = ?", "1", "1"], :limit => 10)
-  end 
-
-  def self.featured_items # get featured items
-    return Item.find(:all, :conditions => ["featured = ? and is_approved = ? and is_public = ?", true, "1", "1"], :order => "created_at DESC")
-  end 
   
   def is_new? # has the item been recently added?
     max_hours = 72 # the item must be added within the last x hours to be considered new 

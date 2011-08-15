@@ -31,7 +31,7 @@ class Plugin < ActiveRecord::Base
       where(["enabled = ?", "1"]).in_order
   end
   
-  def self.in_order;
+  def self.in_order
     order("order_number ASC")
   end
 

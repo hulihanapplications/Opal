@@ -7,16 +7,6 @@
 		var api = $("ul.plugin_tabs_horizontal").data("tabs");
 		api.click(index);											
 	}
-
-	function new_image(){
-		select_tab("<%= Plugin.plugins[:image].model_name.human(:count => :other)  %>");
-		timeoutID = window.setTimeout(show_new_image_box, 410);									
-	}	
-	
-	function show_new_image_box()
-	{
-	  show_box("new_image_box")
-	}
 </script>
 
 <div align=left id="page_summarized">	
@@ -24,7 +14,6 @@
 				<div id="images" class="preview">
 					<%= preview(item) %>
 				</div>					
-
 				<div id="details">
 					<div class="name">
 						<%= item.name %>		

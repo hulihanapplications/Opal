@@ -1,7 +1,15 @@
 <%= javascript_include_tag "/core/javascripts/jquery/jquery.uploadify-v2.1.4/jquery.uploadify.v2.1.4.min.js" %>
 <%= javascript_include_tag "/core/javascripts/jquery/jquery.uploadify-v2.1.4/swfobject.js" %>
 
-<div id="files"></div>
+
+<div class="uploadify_button_wrapper">
+	<a class="button_1"><%= t("label.item_select", :item => PluginImage.model_name.human.pluralize) %></a>
+    <div class="uploadify_object_wrapper">
+       <input type="file" id="uploadify" name="uploadify" />
+    </div>
+</div>
+	
+
 <div id="fileQueue"></div>
 <div id="uploadifyMessage"></div>
 <%= hidden_field "authenticity_token", form_authenticity_token %>
@@ -20,7 +28,7 @@ $(document).ready(function() {
 		var effects = $("#effects").find("input")
 	}
 
-	$("#files").uploadify({
+	$("#uploadify").uploadify({
 		'uploader'       : '/core/javascripts/jquery/jquery.uploadify-v2.1.4/uploadify.swf',
 		'script'         : '<%= url_for(:action => "create", :controller => "plugin_images", :id => defined?(@item) ? @item.id : nil ) %>',
 		'cancelImg'      : '<%= File.join(theme_url, "images", "icons", "cancel.png") %>',
@@ -30,7 +38,7 @@ $(document).ready(function() {
 		'multi'          : true,
 		'method' 		 : 'get',
 		'buttonText'	 : '<%= t("label.item_select", :item => PluginImage.model_name.human.pluralize) %>',
-		//'buttonImg'      : '<%= File.join(theme_url, "images", "icons", "images.png") %>',	
+		'hideButton'	 : true,
 		'wmode'          : 'transparent',
 		'width'          : 180,			
 		'height'		 : 41,
@@ -62,7 +70,7 @@ $(document).ready(function() {
 								$("#uploadifyMessage").html("")
 						   }							
 
-	});
+	});		
 });
 	<%# see http://www.uploadify.com/documentation/ for more options! %>
 </script>

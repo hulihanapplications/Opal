@@ -4,6 +4,7 @@
 	<h2>
 		<%=  icon("image") + " " + t("label.item_new", :item => PluginImage.model_name.human) %> <%= t("single.for").downcase %> <%= h(@item.name) %>
 	</h2>
+	<br />
 
 	<ul class="plugin_tabs_horizontal"> 
 		    <li><a href="#<%= t("single.single") %>"><%= t("single.single") %> <%= @plugin.model_name.human %></a></li>				

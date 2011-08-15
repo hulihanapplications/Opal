@@ -21,14 +21,14 @@ class PluginImagesController < PluginController
           else # redirect them back to item page
             redirect_to :action => "view", :controller => "items", :id => @item
           end       
-        }   
-        #format.flash{          render :text => t("notice.item_create_success", :item => @plugin.model_name.human + (!@image.filename.blank? ? ": #{@image.filename}" : "") )        }   
+        }
+        format.flash{ render :text => t("notice.item_create_success", :item => @plugin.model_name.human + (!@image.filename.blank? ? ": #{@image.filename}" : "") ) }              
       end           
     else # save failed
       flash[:failure] =  t("notice.item_create_failure", :item => @plugin.model_name.human)
       respond_to do |format|
         format.html{render :action => "new"}   
-        #format.flash{render :text =>  t("notice.item_create_failure", :item => @plugin.model_name.human + (!@image.filename.blank? ? ": #{@image.filename}" : "") ) + "\n" + @image.errors.full_messages.join("\n")}
+        format.flash{render :text =>  t("notice.item_create_failure", :item => @plugin.model_name.human + (!@image.filename.blank? ? ": #{@image.filename}" : "") ) + "\n" + @image.errors.full_messages.join("\n")}
       end
     end 
   end 

@@ -306,3 +306,11 @@ div.star-rating{background:transparent!important;overflow:hidden!important}
 
 /* TinyMCE Overrides */
 #tinymce_plugin_opal_image{background:#ECECEC/* url(../images/bgs/plugin_tab_pane_bg.png) repeat-x;	padding:5px;	min-height:300px;	}*/}
+
+/* Uploadify */
+.uploadifyQueueItem {	background:url(../images/bgs/black_trans_10.png) repeat; border:1px solid #666;	font: 11px;	margin: 5px 0px;	padding: 10px;	/*width: 350px;*/-moz-border-radius: 5px;-webkit-border-radius: 5px;	}
+.uploadifyError {	background-color: #FDE5DD !important;	border: 2px solid #FBCBBC !important;}
+.uploadifyQueueItem .cancel {	float: right;}
+.uploadifyQueue .completed {	background:url(../images/bgs/white_trans_25.png) repeat;}
+.uploadifyProgress {	background:url(../images/bgs/white_trans_50.png) repeat;	margin-top: 10px;	width: 100%;}
+.uploadifyProgressBar {	background-color: #A0BF53;	height: 3px;	width: 1px;}

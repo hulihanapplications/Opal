@@ -11,5 +11,7 @@ Opal::Application.configure do
       config.action_mailer.delivery_method = :sendmail  # attempt to use use sendmail
     end
   end
+
+  config.action_mailer.default_url_options ||=  "localhost" # set actionmailer deefault host 
 end
 

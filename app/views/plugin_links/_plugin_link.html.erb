@@ -1,0 +1,11 @@
+<% 
+	options ||= Hash.new
+	options[:controls] = true if options[:controls].nil?
+%>
+<div id="link_box_<%= plugin_link.id %>">
+	<img src="/themes/<%= @setting[:theme] %>/images/icons/link.png" class="icon"  title="<%= plugin_link.title %>" alt="">
+	<span id="link_<%= plugin_link.id %>">
+		<a href="<%= plugin_link.url %>" target="_blank"><%= plugin_link.title %></a>
+	</span>
+	<%= render :partial => "plugins/plugin_item_controls", :locals => { :record => plugin_link, :options => {:edit => false, :preview => false, :user => false}} if options[:controls] %>																					
+</div>

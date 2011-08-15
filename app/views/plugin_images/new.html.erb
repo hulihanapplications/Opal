@@ -5,15 +5,25 @@
 		<%=  icon("image") + " " + t("label.item_new", :item => PluginImage.model_name.human) %> <%= t("single.for").downcase %> <%= h(@item.name) %>
 	</h2>
 
-    <div>
-       <%= form_for(@image,  :url => { :action => "create", :controller => "plugin_images", :id => @item.id}, :html => {:multipart => true}) do |f| %>
-		   <%= render :partial => "plugin_images/form", :locals => {:f => f} %>
-		   <br>
-		   <div align=center style="clear:both">
-		   		<%= submit_tag  t("label.item_create", :item => PluginImage.model_name.human), :class => "button_1" %>
-		   </div>
-	   <% end %>		    			    	
-	</div>	
+	<ul class="plugin_tabs_horizontal"> 
+		    <li><a href="#<%= t("single.single") %>"><%= t("single.single") %> <%= @plugin.model_name.human %></a></li>				
+			<li><a href="#<%= t("single.multiple") %>"><%= t("single.multiple") %> <%= @plugin.model_name.human.pluralize %></a></li> 
+	</ul>	
+	<div class="plugin_panes_horizontal"> 					
+	    <div id="<%= t("single.single") %>">
+	       <%= form_for(@image,  :url => { :action => "create", :controller => "plugin_images", :id => @item.id}, :html => {:multipart => true}) do |f| %>
+			   <%= render :partial => "plugin_images/form", :locals => {:f => f} %>
+			   <br />
+			   <div align=center style="clear:both">
+			   		<%= submit_tag  t("label.item_create", :item => PluginImage.model_name.human), :class => "button_1" %>
+			   </div>
+		   <% end %>		    			    	
+		</div>	
+		<div id="<%= t("single.multiple") %>">
+			   <%= render :partial => "plugin_images/form_multiple" %>
+		</div>
+	</div>
+	
 </div>
 
 <%= back %>

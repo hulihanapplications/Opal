@@ -16,6 +16,7 @@ class ZeroSevenFour < ActiveRecord::Migration
     add_column :pages, :ancestry, :string
     add_index :pages, :ancestry
     add_column :user_infos, :notify_of_item_changes, :boolean, :default => true         
+    add_index :plugin_tags, :name
        
     Setting.create(:name => "default_preview_type",  :value => "PluginImage", :setting_type => "Hidden", :item_type => "string") # when a plugin record is created for an item, its preview will be set to this   
     Setting.create(:name => "host",  :value => "localhost", :setting_type => "System", :item_type => "string")            

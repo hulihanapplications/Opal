@@ -23,8 +23,10 @@ config/locales/item.yml
 vendor/rails
 vendor/bundle
 
-# Master Graphics
+# Graphics
 *_master.png
+*.psd
+*.fla
 *.ai
 
 # Backups

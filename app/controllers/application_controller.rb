@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   helper :all
   before_filter :load_settings, :set_user # load global settings and set logged in user
   before_filter :set_locale, :check_public_access
-  before_filter :prepare_for_mobile  
+  before_filter :detect_mobile, :detect_flash
   layout :layout_location # using a symbol defers layout choice until after a request is processed 
   
   include SimpleCaptcha::ControllerHelpers
@@ -14,7 +14,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery  #:secret => '271565d54852d3da3a489c27f69a31b1'
 
   helper_method :current_user  
-  
+ 
+	
   def layout_location # this will eventually be deprecated, in favor of prepend_view_path
     # Load Theme & Layout
     mobile_mode? ? layout_filename = "application.mobile.erb" : layout_filename = "application.html.erb"
@@ -49,8 +50,8 @@ class ApplicationController < ActionController::Base
     @setting[:url] = request.protocol + request.host_with_port # root url for host/port, taken from request
     # Get Meta Settings Manually So they're not cached(which causes nested meta information)
     @setting[:meta_title] = Array.new
-    @setting[:meta_title] <<  @setting[:description] if !@setting[:description].blank?
-    @setting[:meta_title] <<  @setting[:title] if !@setting[:title].blank?
+    @setting[:meta_title] << @setting[:description] if !@setting[:description].blank?
+    @setting[:meta_title] << @setting[:title] if !@setting[:title].blank?
     @setting[:meta_description] = [@setting[:description]]
   end
   
@@ -248,8 +249,7 @@ class ApplicationController < ActionController::Base
        @uses_tiny_mce = true        
     end    
     proc.call(self) 
-  end
-  
+  end  
 private  
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
@@ -277,10 +277,19 @@ private
   helper_method :mobile_device?
   helper_method :mobile_mode?
   
-  def prepare_for_mobile
+  def detect_mobile
     session[:mobile_mode] = params[:mobile] if params[:mobile]        
     request.format = :mobile if mobile_mode?
-  end  
+  end
+  
+  
+  def detect_flash
+    request.format = :flash if flash_request?
+  end
+  
+  def flash_request? # detect flash request
+    return true if request.user_agent =~ /^(Adobe|Shockwave) Flash/
+  end   
 end
 
 #  Log.create(:log_type => "warning", :log => t("log.failed_admin_access_attempt_visitor", :ip => "1.1.1.1", :controller => "", :action => ""))     

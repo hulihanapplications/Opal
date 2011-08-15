@@ -1,0 +1,68 @@
+<%= javascript_include_tag "/core/javascripts/jquery/jquery.uploadify-v2.1.4/jquery.uploadify.v2.1.4.min.js" %>
+<%= javascript_include_tag "/core/javascripts/jquery/jquery.uploadify-v2.1.4/swfobject.js" %>
+
+<div id="files"></div>
+<div id="fileQueue"></div>
+<div id="uploadifyMessage"></div>
+<%= hidden_field "authenticity_token", form_authenticity_token %>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	// Prepare data to Send with Uploadify
+	var uploadify_script_data = {};
+	uploadify_script_data["authenticity_token"] = encodeURIComponent($('[name=authenticity_token]').val()); // uploadify.swf does not pass through the '+' character in scriptData properly. This fixes that. 
+  	<%- session_key = Rails.application.config.session_options[:key] -%>	
+	uploadify_script_data['<%= session_key %>'] = '<%= cookies[session_key] %>';	 // Associate the session information
+	uploadify_script_data['id'] = '<%= @item.id %>'
+
+	// Check if there's any special effects selected/present
+	if($("#effects")){
+		var effects = $("#effects").find("input")
+	}
+
+	$("#files").uploadify({
+		'uploader'       : '/core/javascripts/jquery/jquery.uploadify-v2.1.4/uploadify.swf',
+		'script'         : '<%= url_for(:action => "create", :controller => "plugin_images", :id => defined?(@item) ? @item.id : nil ) %>',
+		'cancelImg'      : '<%= File.join(theme_url, "images", "icons", "cancel.png") %>',
+		'fileDataName'   : 'plugin_image[local_file]',
+		'queueID'        : 'fileQueue',
+		'auto'           : true,
+		'multi'          : true,
+		'method' 		 : 'get',
+		'buttonText'	 : '<%= t("label.item_select", :item => PluginImage.model_name.human.pluralize) %>',
+		//'buttonImg'      : '<%= File.join(theme_url, "images", "icons", "images.png") %>',	
+		'wmode'          : 'transparent',
+		'width'          : 180,			
+		'height'		 : 41,
+		'scriptData'	 : uploadify_script_data, 						   
+        'onError'		 : function (event, queueID ,fileObj, errorObj) {
+				            var msg;
+				            if (errorObj.info == 404) {
+				               alert('Could not find upload script. Use a relative path.');
+				               msg = 'Could not find upload script.';
+				            } else if (errorObj.type === "HTTP")
+				               msg = errorObj.type+": "+errorObj.info;
+				            else if (errorObj.type ==="File Size")
+				               msg = fileObj.name+'<br>'+errorObj.type+' Limit: '+Math.round(errorObj.sizeLimit/1024)+'KB';
+				            else
+				               msg = errorObj.type+": "+errorObj.info;
+				            alert(msg);
+				            $("#fileUpload" + queueID).fadeOut(250, function() { $("#fileUpload" + queueID).remove()});
+				            return false;
+				            },
+		'onComplete'	 : function(event, ID, fileObj, response, data) { // when a single file has been uploaded
+						    	//msg = ('There are ' + data.fileCount + ' files remaining in the queue.' + "\n" + response);
+								msg = response;
+								$("#uploadifyMessage").html(msg)
+	    					},
+		'onAllComplete'	 : function(event, data) { // when everything is complete.
+								//alert(data.filesUploaded + ' files uploaded successfully!\nAvgSpeed: ' + data.speed + ' kbps\nTotal Uploaded: ' + data.allBytesLoaded );
+								//location.reload(true) // reload page
+								//location.href = 
+								$("#uploadifyMessage").html("")
+						   }							
+
+	});
+});
+	<%# see http://www.uploadify.com/documentation/ for more options! %>
+</script>

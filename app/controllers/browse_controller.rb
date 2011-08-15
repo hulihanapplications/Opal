@@ -13,7 +13,7 @@ class BrowseController < ApplicationController
   
   def lost # they're lost   
   end
-  
+    
   def user
     redirect_to :action => "show", :controller => "users", :id => params[:id]
   end

@@ -122,23 +122,6 @@ module ApplicationHelper
     end
   end 
   
-  def item_thumbnail(item, options = {})   
-      # set defaults
-      options[:preview] = false if options[:preview].nil? 
-      options[:class] ||= "thumbnail"
-      
-      if !item.nil? # item exists
-        image = item.main_image 
-        if image           
-          thumbnail(image, options)
-        else                
-           theme_image_tag("preview.png", :class => options[:class])
-        end     
-      else # item doesn't exist
-        return raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\" title=\"#{Item.model_name.human} cannot be found.\">"      
-      end 
-  end 
-
  def thumbnail(image, options = {}) # show thumbnail for an image
       options[:preview] = false if options[:preview].nil? 
       options[:class] ||= "thumbnail" 

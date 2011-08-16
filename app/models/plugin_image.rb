@@ -5,10 +5,11 @@ class PluginImage < ActiveRecord::Base
   belongs_to :item
   belongs_to :user
   
+  before_validation :validate_source
+  before_validation :generate_image
+  validates_presence_of :url
   validates_uniqueness_of :url, :scope => :item_id
-  validate :validate_source
   validates :remote_file, :format => /(^$)|(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix, :uri_response => true, :if => lambda{|o|o.local_file.blank?} 
-  before_create :generate_image
   before_destroy :delete_files
  
   attr_accessor :local_file, :remote_file, :effects, :source 
@@ -18,10 +19,9 @@ class PluginImage < ActiveRecord::Base
   end 
 
   def validate_source # check if files have beeen selected and if they're in proper format, etc.
-    if local_file.blank? # local file not specified
-      if remote_file.blank?
-        errors.add(:source, :blank) 
-      end
+    if local_file.blank? && remote_file.blank?# local file not specified
+	  errors.add(:source, :blank) 
+	  return false
     end 
   end
   

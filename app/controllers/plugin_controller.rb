@@ -5,6 +5,7 @@ class PluginController < ApplicationController
   before_filter :find_record, :only => [:vote, :change_approval]  # 
   before_filter :check_item_view_permissions, :except => [:vote] # can user view item? 
   before_filter :check_item_edit_permissions, :only => [:change_approval] # list of actions that don't require that the item is editable by the user
+  before_filter :can_group_read_plugin
   before_filter :can_group_create_plugin, :only => [:new, :create, :vote]
   before_filter :can_group_update_plugin, :only => [:edit, :update] 
   before_filter :can_group_delete_plugin, :only => [:delete]  

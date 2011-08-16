@@ -286,6 +286,8 @@ ActiveRecord::Schema.define(:version => 20110704174542) do
     t.datetime "updated_at"
   end
 
+  add_index "plugin_tags", ["name"], :name => "index_plugin_tags_on_name"
+
   create_table "plugin_videos", :force => true do |t|
     t.integer  "item_id"
     t.integer  "user_id"

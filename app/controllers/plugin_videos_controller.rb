@@ -52,4 +52,13 @@ class PluginVideosController < PluginController
   def edit
     @video = PluginVideo.find(params[:video_id])   
   end
+  
+  def show
+  	@video = PluginVideo.find(params[:video_id])  
+    respond_to do |format|
+      format.html do
+      	render :layout => false if request.xhr?
+      end    
+    end    	 
+  end
 end

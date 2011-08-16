@@ -17,3 +17,4 @@ class FlashSessionCookieMiddleware
     [@status, @headers, @response]
   end
 end
+

@@ -51,11 +51,11 @@
 	.button_2:hover{opacity:1.00;filter:alpha(opacity=100);-moz-opacity:1.0;-khtml-opacity: 1.0;}
 
 	/* Notice Messages(Success and Failure Boxes) & Error Styles */
-	.notice{}
+	.notice{text-align:center;}
 		.notice .success{color:#106F00;border:2px solid #1C8F08;margin: 0px 0px 10px 0px;background-color:#BBFFAF;padding:5px;text-align:center;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
 		.notice .info{color:#aaa;border:2px solid #333;background-color:#ccc;margin: 0px 0px 10px 0px;;padding:5px;text-align:center;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
 		.notice .warning{color:#aaa;border:2px solid #333;background-color:#ccc;margin: 0px 0px 10px 0px;;padding:5px;text-align:center;-moz-border-radius: 5px;-webkit-border-radius: 5px;}	
-		.notice .failure, .errorExplanation{color:#AF0000;border:2px solid #AF0000;background-color:#F3B3B3;margin: 0px 0px 10px 0px;padding:5px;text-align:center;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
+		.notice .failure, .errorExplanation, .uploadifyError{color:#AF0000;border:2px solid #AF0000;background-color:#F3B3B3;margin: 0px 0px 10px 0px;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
 		.field_with_errors{color:#AF0000;}
 			.field_with_errors input, .field_with_errors textarea, .field_with_errors select{border: 1px solid #AF0000;}
 		.notice img.loading{margin:0px 0px 10px 0px;}
@@ -309,7 +309,6 @@ div.star-rating{background:transparent!important;overflow:hidden!important}
 
 /* Uploadify */
 .uploadifyQueueItem {	background:url(../images/bgs/black_trans_10.png) repeat; border:1px solid #666;	font: 11px;	margin: 5px 0px;	padding: 10px;	/*width: 350px;*/-moz-border-radius: 5px;-webkit-border-radius: 5px;	}
-.uploadifyError {	background-color: #FDE5DD !important;	border: 2px solid #FBCBBC !important;}
 .uploadifyQueueItem .cancel {	float: right;}
 .uploadifyQueue .completed {	background:url(../images/bgs/white_trans_25.png) repeat;}
 .uploadifyProgress {	background:url(../images/bgs/white_trans_50.png) repeat;	margin-top: 10px;	width: 100%;}

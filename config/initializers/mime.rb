@@ -5,3 +5,4 @@
 # Mime::Type.register_alias "text/html", :iphone
 # config/initializers/mime_types.rb
 Mime::Type.register_alias "text/html", :mobile
+Mime::Type.register_alias "text/html", :flash

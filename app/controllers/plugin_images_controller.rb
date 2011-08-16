@@ -30,7 +30,7 @@ class PluginImagesController < PluginController
         format.html{render :action => "new"}   
         format.flash{render :text =>  t("notice.item_create_failure", :item => @plugin.model_name.human + (!@image.filename.blank? ? ": #{@image.filename}" : "") ) + "\n" + @image.errors.full_messages.join("\n")}
       end
-    end 
+    end    
   end 
 
 

@@ -74,7 +74,7 @@
 			'onAllComplete'	 : function(event, data) { // when everything is complete.
 									//alert(data.filesUploaded + ' files uploaded successfully!\nAvgSpeed: ' + data.speed + ' kbps\nTotal Uploaded: ' + data.allBytesLoaded );
 									//location.reload(true) // reload page
-									location.href = '<%= url_for(:action => "view", :controller => "items", :id => defined?(@item) ? @item.id : nil, :anchor => PluginImage.model_name.human(:count => :other) ) %>'
+									//location.href = '<%= url_for(:action => "view", :controller => "items", :id => defined?(@item) ? @item.id : nil, :anchor => PluginImage.model_name.human(:count => :other) ) %>'
 									//$("#uploadifyMessage").html("")
 							   }							
 	

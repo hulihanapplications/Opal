@@ -60,7 +60,10 @@ module Opal
       end   
 
       def send_new_plugin_record_notification
-      	Emailer.deliver_new_plugin_record_notification(self) if self.item.user.user_info.notify_of_item_changes && self.user_id != self.item.user_id
+      	item_owner = self.item.user
+      	if item_owner
+      		Emailer.deliver_new_plugin_record_notification(self) if item_owner.user_info.notify_of_item_changes && self.user_id != item_owner.id
+      	end 
       end      
     end    
   end

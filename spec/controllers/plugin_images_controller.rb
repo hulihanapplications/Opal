@@ -12,10 +12,13 @@ describe PluginImagesController do
   context "as user" do
     before(:each) do
       login_user
+      @item = Factory(:item, :user => @controller.set_user)
+      @image = Factory(:plugin_image, :item => @item)         
     end 
         
     describe "new" do
       it "should return 200" do 
+      	PluginImage.stub!(:validate_source).and_return(true)
         get :new, {:id =>  Factory(:plugin_image)}
         @response.code.should eq("200")
       end

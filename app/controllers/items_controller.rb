@@ -276,8 +276,9 @@ class ItemsController < ApplicationController
  end 
  
  def tag
-   @tag = CGI::unescape(params[:tag])
-   tags = PluginTag.find(:all, :conditions => ["name = ?", @tag])
+   @tag = CGI::unescape(params[:tag])   
+   @category = Category.find(params[:category_id]) if params[:category_id]
+   tags = @category ? PluginTag.category(@category).where(:name => @tag) : PluginTag.where(:name => @tag) 
    @items = Array.new # create container to hold items
    for tag in tags
      temp_item = Item.find(tag.item_id) # get the item that the tag points to

@@ -1,0 +1,16 @@
+<%
+	 options ||= Hash.new
+	 options[:tags] ||= options[:category] ? PluginTag.category(options[:category]).unique.all : PluginTag.unique.all	 
+%>
+
+<% if @setting[:plugin_tag][:tag_list_mode] != "None" %>
+	<%= content_tag :div, :class => "box_1 tag_list" do %>
+		<%= content_tag :h2, PluginTag.model_name.human(:count => :other) %>
+		<% if @setting[:plugin_tag][:tag_list_mode] == "Cloud" %>
+			<% tag_cloud options[:tags], %w(cloud_tiny cloud_small, cloud_medium, cloud_large) do |tag, css_class| %>
+			   <%= link_to tag.name, tag_path(:tag => tag.name, :category_id => options[:category] ? options[:category] : nil), :class => css_class %>
+			<% end %>	
+		<% end %>
+	<% end if options[:tags].size > 0 %>
+<% end %>
+

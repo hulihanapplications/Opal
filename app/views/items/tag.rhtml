@@ -1,9 +1,25 @@
+
 <%= render :partial => "browse/main_content_top_bar" %>
 
-<div align=center>
-	<h2><%=h @tag %> <%= Item.model_name.human(:count => :other) %></h2>	
-	<%= @items.size %> <%= Item.model_name.human(:count => :other) %>
+<div id="side">
+	<%= render :partial => "plugin_tags/side" if Plugin.plugins[:tag].is_enabled? %>	
+</div>
+<div id="main">
+	<div align=center>
+		<h2><%= @tag %> <%=  @category.name if defined?(@category) %> <%= Item.model_name.human(:count => :other) %></h2>	
+		<%= @items.size %> <%= Item.model_name.human(:count => :other) %>
+	</div>	
+
+	<%= render :partial => "items/list_items", :locals => {:items => @items} %>	
 </div>
 
-<%= render :partial => "items/list_items", :locals => {:items => @items } %>
-<br>
+
+
+
+
+
+
+
+
+
+

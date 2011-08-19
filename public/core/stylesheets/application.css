@@ -107,6 +107,12 @@ div.simple_captcha_image{}
 .main_content_top_bar{height:25px;}
 .pagination{clear:both;}
 .back{padding:10px;}
+.cloud_tiny{}
+.cloud_small{font-size:1.1em}
+.cloud_medium{font-size:1.2em}
+.cloud_large{font-size:1.3em}
+
+
 
 /* Colorbox */
 #colorbox, #cboxOverlay, #cboxWrapper{position:absolute; top:0; left:0; z-index:9999; overflow:hidden;}

@@ -10,7 +10,7 @@ Opal::Application.routes.draw do
   # Set up default
   root :to => "browse#index"
 
-  match '/tag/:tag', :controller => "items", :action => "tag"
+  match '/tag/:tag(/:category_id)' => 'items#tag', :as => :tag
   match '/download/:id', :controller => "plugin_files", :action => "download"
   match '/verify/:id/:code', :controller => "user", :action => "verify"
   match '/page/:id', :controller => "pages", :action => "page"

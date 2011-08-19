@@ -1,5 +1,8 @@
 class PluginSetting < ActiveRecord::Base
   belongs_to :plugin
+  
+  validates_presence_of :name
+  validates_presence_of :plugin_id
   validates_uniqueness_of :name, :scope => :plugin_id
   
   def self.plugin(plugin)

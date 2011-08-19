@@ -20,7 +20,8 @@ class ZeroSevenFour < ActiveRecord::Migration
        
     Setting.create(:name => "default_preview_type",  :value => "PluginImage", :setting_type => "Hidden", :item_type => "string") # when a plugin record is created for an item, its preview will be set to this   
     Setting.create(:name => "host",  :value => "localhost", :setting_type => "System", :item_type => "string")            
-    
+    PluginSetting.create(:plugin_id => Plugin.find_by_name("Tag").id, :name => "tag_list_mode", :value => "Cloud", :options => "Cloud, None", :item_type => "option") # when a plugin record is created for an item, its preview will be set to this   
+
     # convert old votes
     for vote in PluginReviewVote.all
       new_vote = MakeVotable::Voting.new(:voter_id => vote.user_id, :voter_type => "User", :voteable_id => vote.plugin_review_id, :voteable_type => "PluginReview", :up_vote => (vote.score > 0 ? true : false), :down_vote => (vote.score <= 0 ? true : false))
@@ -32,7 +33,9 @@ class ZeroSevenFour < ActiveRecord::Migration
   def self.down
     Setting.find_by_name("default_preview_type").destroy if Setting.find_by_name("default_preview_type")
     Setting.find_by_name("host").destroy if Setting.find_by_name("host")
-      	
+    tag_list_setting = PluginSetting.where(:name => "tag_list_mode").where(:plugin_id => Plugin.find_by_name("Tag").id).first  
+    tag_list_setting.destroy if tag_list_setting
+  	
     remove_column :items, :preview_type
     remove_column :items, :preview_id 
     Item.reset_column_information

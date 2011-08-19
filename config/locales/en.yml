@@ -292,6 +292,7 @@ en:
     approval: Approval
     single: Single
     multiple: Multiple
+    cloud: Cloud
   # Flash Messages & Notices
   notice:
     save_success: Your changes have been successfully saved!
@@ -542,7 +543,10 @@ en:
           description: The maximum value that can be used in review scores.      
         video_display_mode:
           title: Display Mode
-          description: How videos are displayed.              
+          description: How videos are displayed. 
+        tag_list_mode:
+          title: List Mode 
+          description: If cloud is selected, a tag cloud is displayed, which shows a list of tags and the popularity of each tag.                       
       setting:       
         site_title: 
           title: Title of Your Site           

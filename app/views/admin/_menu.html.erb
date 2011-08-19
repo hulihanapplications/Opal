@@ -18,8 +18,5 @@
 		   <li>
 		   		<%= link_to icon("settings") + " " + t("section.title.configure").capitalize, {:action => "index", :controller => "settings"} , :class => (params[:controller] == "settings"  ? "active" : "") %>		
 		   </li>
-		   <li>
-				<%= link_to icon("home") + " " + t("section.title.my_account"), {:action => "index", :controller => "user"}  %>		
-		   </li>
 		 </ul>
 		 <div id="tabcontent">

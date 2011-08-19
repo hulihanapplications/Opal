@@ -8,7 +8,7 @@
   		<%= auto_discovery_link_tag(:rss, {:action => "category", :controller => "items", :id => @category,  :format => "xml"}, {:title => "#{t("label.rss_feed")} - #{@category.name}"}) %> 
 	    <%= link_to icon("rss", "#{t("label.rss_feed")} - #{@category.name}") + " #{t("label.rss_feed")} - #{@category.name}",  {:action => "category", :controller => "items", :id => @category,  :format => "xml"} %>
 	</div>	
-
+	<%= render :partial => "plugin_tags/side", :locals => {:category => @category} if Plugin.plugins[:tag].is_enabled? %>					
 	<%= show_page Page.get_system_page(I18n.t('seeds.page.category_column.title')) %>
 
 </div>

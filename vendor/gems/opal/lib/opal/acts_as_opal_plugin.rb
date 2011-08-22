@@ -60,7 +60,7 @@ module Opal
       end   
 
       def send_new_plugin_record_notification
-      	item_owner = self.item.user
+      	item_owner = self.item ? self.item.user : nil
       	if item_owner
       		Emailer.deliver_new_plugin_record_notification(self) if item_owner.user_info.notify_of_item_changes && self.user_id != item_owner.id
       	end 
@@ -79,6 +79,7 @@ module ActiveRecord
 		send(:include, Opal::ActsAsOpalPlugin::InstanceMethods)		  
 		send(:after_create, :set_as_item_preview)
 		send(:before_destroy, :reset_preview)
+		#send(:validates_presence_of, :user_id)		
 		send(:after_create, :send_new_plugin_record_notification) if options[:notifications]       
       end        
   end 

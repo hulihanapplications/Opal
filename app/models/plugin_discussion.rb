@@ -9,6 +9,8 @@ class PluginDiscussion < ActiveRecord::Base
   
   validates_presence_of :title   
   
+  attr_accessible :title, :description 
+  
   def to_s 
   	title
   end

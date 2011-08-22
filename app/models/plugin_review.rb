@@ -8,6 +8,7 @@ class PluginReview < ActiveRecord::Base
   belongs_to :user
   has_many :plugin_review_votes, :dependent => :destroy
   
+  before_validation lambda{|o| o.sanitize_content(:review)}
   before_destroy :destroy_votes
    
   scope :with_total_vote_score, lambda{   # computes vote score of reviews by summing all associated plugin_review_vote records(deprecated as of 0.7.4)

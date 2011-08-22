@@ -6,6 +6,10 @@ class PluginDescription < ActiveRecord::Base
   belongs_to :item
   belongs_to :user
   
+  attr_accessible :title, :content
+
+  before_validation lambda{|o| o.sanitize_content(:content)}
+  
   def to_s
   	truncate(strip_tags(content), :length => 50)
   end  

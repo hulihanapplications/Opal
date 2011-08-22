@@ -9,7 +9,7 @@ class PluginVideo < ActiveRecord::Base
 
   #validates_presence_of :title 
   
-  before_validation :sanitize_code 
+  before_validation lambda{|o| o.sanitize_content(:code)}
   
   attr_accessible :code, :title, :description
   
@@ -17,9 +17,5 @@ class PluginVideo < ActiveRecord::Base
 
   def to_s
   	title.blank? ? truncate(code, :length => 50) : title 
-  end
-
-  def sanitize_code
-    self.code = sanitize(self.code)
   end
 end

@@ -9,9 +9,7 @@ class PluginReviewsController < PluginController
  
   def create   
     @item = Item.find(params[:id])
-    @review = PluginReview.new
-    @review.review_score = params[:review][:review_score]
-    @review.review = sanitize(params[:review][:review])
+    @review = PluginReview.new(params[:review])
     @review.user_id = @logged_in_user.id
     @review.item_id = @item.id      
     
@@ -43,8 +41,7 @@ class PluginReviewsController < PluginController
   def update
     @review = PluginReview.find(params[:review_id])
     @review_user = User.find(@review.user_id)
-    @review.review_score = params[:review][:review_score]
-    @review.review = sanitize(params[:review][:review])     
+    @review.attributes = params[:review]    
     if @review.save
       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => t("log.item_save", :item => @plugin.model_name.human,  :name => truncate(@review.review, :length => 10)))                                       
       flash[:success] =  t("notice.item_save_success", :item => @plugin.model_name.human)

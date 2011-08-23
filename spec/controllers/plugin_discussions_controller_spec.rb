@@ -20,7 +20,6 @@ describe PluginDiscussionsController do
       it "should work normally" do
         expect{
           post(:create, {:id => @item.id, :discussion => Factory.attributes_for(:plugin_discussion)})
-          puts assigns[:discussion].errors.inspect
         }.to change(PluginDiscussion, :count).by(+1)
         flash[:success].should_not be_nil
       end        

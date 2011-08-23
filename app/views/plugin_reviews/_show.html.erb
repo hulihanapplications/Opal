@@ -35,7 +35,6 @@
     								<time itemprop="dtreviewed" datetime="<%= review.created_at.strftime("%Y-%m-%d") %>">
     									<b><%= friendly_date review.created_at %></b>
 									</time>	
-									<%#= link_to icon("link"), {:action => "show", :controller => "plugin_reviews", :id => item.id, :review_id => review.id}, :class => "transparent" %>
 
 									<%= render :partial => "plugins/plugin_item_controls", :locals => {:record => review, :options => {:votes => true, :user => false, :date => false}} %>
 								</td>											

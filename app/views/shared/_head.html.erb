@@ -114,7 +114,7 @@
 	  var votes_element = $("#votes_" + record_type + "_" + record_id)
 	  var up_vote_link = $("#up_vote_" + record_type + "_" + record_id)
       var down_vote_link = $("#down_vote_" + record_type + "_" + record_id)	  	  
-	  
+	  votes_element.html("...")
 	  $.ajax({
 	    type: "POST",  
 	    url: '<%= url_for :action => "vote", :controller => "plugin" %>',

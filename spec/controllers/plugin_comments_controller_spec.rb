@@ -34,7 +34,6 @@ describe PluginCommentsController do
       it "should work normally" do
         expect{
           post(:create, { :id => @item.id, :plugin_comment => Factory.attributes_for(:plugin_comment)})
-          puts assigns[:plugin_comment].errors.inspect
         }.to change(PluginComment, :count).by(+1)
         flash[:success].should_not be_nil     
       end   

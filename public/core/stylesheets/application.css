@@ -79,7 +79,7 @@ ul.sortable, ul.collapsed{margin:0px;padding:0px;list-style-type:none;}
 	.indent td{padding:2px 0px 2px 0px;}
 .navlinks{margin-bottom:10px;}
 .tooltip {display:none;z-index:999}
-
+.vote_box{padding:0 2px;}
 /* Notice Messages(Success and Failure Boxes) & Error Styles */
 .notice{text-align:center;} /* This is the div that contains all notice messages. */
 

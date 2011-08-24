@@ -116,7 +116,7 @@ DEPENDENCIES
   ancestry
   authlogic
   factory_girl_rails
-  i18n (>= 0.5.0)
+  i18n
   make_voteable!
   opal!
   rails (= 3.0.7)

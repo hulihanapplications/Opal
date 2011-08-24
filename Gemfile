@@ -5,7 +5,7 @@ gem "simple_captcha", :path => File.expand_path("#{File.dirname(__FILE__)}/vendo
 gem "russian", :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems/russian")  #, :git => "git://github.com/MrHant/russian.git" # Gem specific for "ru" locale
 gem "rails", "= 3.0.7"#, :git => "http://github.com/rails/rails"
 gem "rmagick"
-gem "i18n", ">=0.5.0"
+gem "i18n"
 gem "rubyzip"
 gem "ya2yaml" 
 #gem "ruby-openid", "=2.1.8"

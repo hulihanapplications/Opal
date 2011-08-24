@@ -239,12 +239,9 @@ class ItemsController < ApplicationController
 
    # Prepare Category
      @options[:category_ids] = Array.new # Array to hold category ids to search 
-     if params[:item][:category_id] == "all" # search all categories
-       # do nothing
-     else # search one category
-       category = Category.find(params[:item][:category_id])
-       #conditions << "category_id in (#{category.get_all_ids(:include_children => @setting[:include_child_category_items])})"
-     end 
+     params[:item][:category_id] = params[:item][:category_id].to_i
+     category = Category.find(params[:item][:category_id]) if params[:item][:category_id] > 0
+
    
    # Prepare Times
      times  = Hash.new # create a new hash indexed by html value, which contains a time object to be passed into query 
@@ -267,7 +264,7 @@ class ItemsController < ApplicationController
     respond_to do |format|
       format.html do
         if request.xhr?
-          render :action => "advanced_search.html.erb", :layout => false
+          render :layout => false
         else
           # render regular action
         end

@@ -49,8 +49,9 @@ GEM
     ancestry (1.2.4)
       activerecord (>= 2.2.2)
     arel (2.0.9)
-    authlogic (2.1.6)
-      activesupport
+    authlogic (3.0.3)
+      activerecord (>= 3.0.7)
+      activerecord (>= 3.0.7)
     builder (2.1.2)
     diff-lcs (1.1.2)
     erubis (2.6.6)
@@ -114,7 +115,7 @@ PLATFORMS
 
 DEPENDENCIES
   ancestry
-  authlogic
+  authlogic (>= 3.0.3)
   factory_girl_rails
   i18n
   make_voteable!

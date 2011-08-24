@@ -28,7 +28,6 @@ print I18n.t('label.installing')
 @admin.locale = I18n.locale.to_s
 @admin.save
 
-
 puts " #{I18n.t('single.done')}."
 
 # Sample Data

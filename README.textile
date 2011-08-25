@@ -63,7 +63,7 @@ Next, Run the following command(while in the Opal directory) to install Opal's d
 
 <pre>
 bundle exec rake db:migrate RAILS_ENV=production LOCALE=en
-bundle exec rake db:seed 	RAILS_ENV=production LOCALE=en
+bundle exec rake db:seed RAILS_ENV=production LOCALE=en
 </pre>
 
 This command will install all of Opal's required gems(via bundler) and create the database structure of Opal inside the production database. If you leave out *RAILS_ENV=PRODUCTION*, everything will be installed into your development database instead. This command will also set up the default admin account, some sample items(you'll be asked if you want to install sample Data), and other stuff to help you get started with Opal. You can also specify the *LOCALE* parameter to install Opal in a language other than english. 
@@ -107,45 +107,7 @@ production:
 h2. Plugins & Themes
 
 You can easily extend and customize Opal with new plugins and themes. Check out "Opal's Project Page":http://hulihanapplications.com/projects/opal#5 to learn more. 
-
-h1. Troubleshooting
-
-h2. rmagick
-
-Opal the uses the rmagick gem to handle image uploads and special effects like color adjustments, watermarking, thumbnail generation, etc. This is the only required gem that is *native*. 
-
-Since native gems often require existing compiled software, some people might have trouble installing rmagick on shared hosting servers. However, most hosting companies offer some version of rmagick. Opal works with many versions of rmagick, so if your server has a different version of rmagick installed, Opal can _probably_ use that one instead. Here's how: 
-
-First, check your server's version of rmagick:
-
-<pre>
-gem list --local
-</pre>
-
-Then edit _Gemfile_, which is found in your Opal directory, and change this line:
-
-<pre>
-gem "rmagick"
-</pre>
-
-to something like this:
-
-<pre>
-gem "rmagick", "=2.13.0"
-</pre>
-
-Replace _2.13.0_ with your server's version of rmagick. That's it! Type in the command _bundle install_ and everything should install smoothly.  
-
-h2. Gem Problems
-
-If Opal is having trouble loading any of its required gems, you can always store them locally inside of Opal. To do this, run the following command from the Opal directory:
-
-<pre>
-bundle install --deployment
-</pre> 
-
-This will store all required gems in vendor/bundle, which Bundler knows to look for automatically. Bundling your gems locally is helpful when running Opal on shared hosting accounts, or when your user account uses different gems than the system.
-
+ 
 h1. Community & Additional Help
 
 If you need any more help, check out these resources:
@@ -156,7 +118,7 @@ If you need any more help, check out these resources:
 h1. Development & Contribution
 
 If you're interested in developing Opal or contributing a theme, plugin, or translation, check out the following:
-
+* "Submit a bug or feature request":http://dev.hulihanapplications.com/projects/opal/issues
 * "Source Code On Github":https://github.com/hulihanapplications/Opal
 * "Opal Developer's Guide":http://dev.hulihanapplications.com/wiki/opal/Developer%27s_Guide
 ** "Plugin Development Guide":http://dev.hulihanapplications.com/wiki/opal/Plugin_Development

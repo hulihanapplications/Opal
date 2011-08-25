@@ -40,7 +40,7 @@ Opal::Application.routes.draw do
   # User Authentication
   match 'login', :controller => "user_sessions", :action => "new"
   match 'logout', :controller => "user_sessions", :action => "destroy"
-  resource :user_session
+  resources :user_sessions
   
   resources :users
   resources :plugin_videos

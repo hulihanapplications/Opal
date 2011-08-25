@@ -52,7 +52,8 @@ class PluginReviewsController < PluginController
   end
   
   def new 
-    @review = PluginReview.new(:user => @logged_in_user)  
+    @review = PluginReview.new
+    @review.user = @logged_in_user      
   end
  
   def edit

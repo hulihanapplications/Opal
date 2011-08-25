@@ -1,6 +1,8 @@
 require File.expand_path(File.join("..", "..", "..", "config", "environment"), __FILE__) # load rails environment & initalizers
 namespace I18n.t("name").downcase.to_sym do
 
+  # TODO: Reload Rails env for every DB-Related task
+
   desc "Install #{I18n.t("name")} - Database, Default Data, and optional Example Data"
   task :install => :environment do        
     ENV["PROMPTS"] ||= "TRUE"    

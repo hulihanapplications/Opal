@@ -24,7 +24,7 @@ class Item < ActiveRecord::Base
   attr_accessor :tags 
   attr_protected :user_id, :is_approved, :featured, :locked
 
-  scope :featured, where("featured is ?", true)
+  scope :featured, where(:featured => true)
   scope :public, where("is_public = ?", "1")
   scope :approved, where("is_approved = ?", "1")
   scope :popular, order("recent_views DESC")

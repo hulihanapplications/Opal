@@ -24,9 +24,9 @@ class Page < ActiveRecord::Base
   scope :system, lambda { where("page_type = ?", "system")}     
   scope :in_order, lambda { order("order_number ASC") }  
   scope :newest_first, lambda { order("created_at DESC") } 
-  scope :published, lambda { where("published = ?", true)}   
+  scope :published, lambda { where(:published => true)}   
   scope :root, lambda { where("page_id = ?", 0)}   
-  scope :display_in_menu, where("display_in_menu = ?", true)   
+  scope :display_in_menu, where(:display_in_menu => true)   
   scope :for_page, lambda { |page| where("page_id = ?", page.id)}   
   scope :with_name, lambda { |somename| where("name = ?", somename)}  
 

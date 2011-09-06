@@ -1,3 +1,3 @@
 module Opal
-  VERSION = "0.7.4" unless defined?(::Opal::VERSION)  
+  VERSION = "0.8.0" unless defined?(::Opal::VERSION)  
 end

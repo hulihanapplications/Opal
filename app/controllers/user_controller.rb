@@ -37,9 +37,8 @@ class UserController < ApplicationController
 
          if @user.is_verified? # check verification
            # Automatically log in user
-           session[:user_id] = @user.id 
-           @logged_in_user = @user               
            flash[:success] +=  " " + t("notice.user_login_success")
+           sign_in(@user)               
          else # they need to verify their account.
            verification = UserVerification.create(:user_id => @user.id, :code => UserVerification.generate_code)
            url = url_for(:action => "verify", :controller => "user", :id => verification.id, :code =>  verification.code, :only_path => false)

@@ -251,6 +251,18 @@ class ApplicationController < ActionController::Base
     proc.call(self) 
   end  
 private  
+  def sign_in(user)
+    unless @logged_in_user
+      user_session = UserSession.new(User.find_by_single_access_token(user.single_access_token))
+      user_session.save
+    end
+  end
+
+  def sign_in_and_redirect(user)
+    sign_in(user)
+    redirect_to user_home_path
+  end
+
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
     @current_user_session = UserSession.find

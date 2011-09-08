@@ -42,7 +42,9 @@ Opal::Application.routes.draw do
   match 'logout', :controller => "user_sessions", :action => "destroy"
   resources :user_sessions
   
-  resources :users
+  resources :users do 
+    get "verification_required", :on => :collection
+  end
   resources :plugin_videos
   
   # This is a legacy wild controller route that's not recommended for RESTful applications.

@@ -33,13 +33,17 @@ class User < ActiveRecord::Base
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
   
   before_save :strip_html
+  after_create lambda{|r| r.create_log(:log_type => "create", :public => true, :user_id => r.id) }
   after_create :create_everything
+  after_create :set_verification  
+  after_create :notify
   after_destroy :destroy_everything
   
   attr_accessor :password_confirmation, :password # virtual attributes
   attr_protected :is_admin, :is_verified, :is_disabled, :title # protect from bulk assignment  
   
   scope :latest_logins, :limit => 5, :order => "last_login_at DESC"
+  scope :logged_in, where(["last_request_at > ?", 5.minutes.ago]).order("last_request_at DESC")
   
   # Authentication! 
     # Enable Authlogic
@@ -177,4 +181,41 @@ class User < ActiveRecord::Base
   def can_create_more_items?
     is_admin? || (items_remaining.nil? || items_remaining > 0) 
   end
+  
+  def apply_omniauth(omniauth) # fill attributes based on received omniauth data
+    if omniauth['user_info']
+      self.email = omniauth['user_info']['email'] if self.email.blank?
+      self.first_name = omniauth["user_info"]['first_name'] if omniauth["user_info"]['first_name'] && self.first_name.blank?
+      self.last_name = omniauth["user_info"]['last_name'] if omniauth["user_info"]['last_name'] && self.last_name.blank?
+    end 
+
+    # Update user info fetching from social network
+    case omniauth['provider']
+    when 'facebook'  
+      # fetch extra user info from facebook
+    when 'twitter'
+      # fetch extra user info from twitter
+    end
+  end
+
+  def generate_username # generate a random username
+    s = Array.new
+    s << self.first_name.downcase unless self.first_name.blank?
+    s << String.random(:mode => :num) # if !self.first_name.blank? && User.find_by_username(self.first_name.downcase)
+    self.username = s.join("-")    
+  end
+  
+  def set_verification
+    if Setting.get_setting_bool("email_verification_required") 
+      update_attribute(:is_verified, "0") 
+      verification = UserVerification.create(:user_id => id, :code => UserVerification.generate_code)
+      Emailer.verification_email(verification).deliver # send verification email          
+    else 
+      update_attribute(:is_verified, "1") 
+    end 
+  end
+    
+  def notify
+    Emailer.deliver_new_user_notification(self) if Setting.get_setting_bool("new_user_notification")                 
+  end  
 end

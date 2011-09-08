@@ -11,6 +11,17 @@ module Opal
        	  self.class.send(:include, ::ActionView::Helpers::SanitizeHelper)
           self.send((attribute.to_s + "=").to_sym, sanitize(self.send(attribute.to_sym)))
         end        
+        
+        def create_log(options = {})# create a log
+          options[:log_type] = "unknown" if options[:log_type].blank?
+          l = Log.new(options)
+          l.target_id = self.id
+          l.target_class = self.class.name
+          l.user_id = self.user_id if respond_to?(:user_id)
+          l.item_id = self.item_id if respond_to?(:item_id)       
+          l.save
+          return l
+        end             
       end
       
       module ClassMethods

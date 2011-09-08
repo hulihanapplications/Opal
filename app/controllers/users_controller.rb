@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
   before_filter :enable_sorting, :only => [:show] # prepare sort variables & defaults for sorting
   before_filter :authenticate_user, :except => [:show] # must be logged in
-  before_filter :find_user, :except => [:index, :create, :new, :show]
-  before_filter :authenticate_admin, :except => [:change_password, :change_avatar, :update, :edit, :show] # make sure logged in user is an admin
-  before_filter :enable_admin_menu, :except => [:change_password, :change_avatar, :update, :edit, :show]  # show admin menu 
+  before_filter :find_user, :except => [:index, :create, :new, :show, :verification_required]
+  before_filter :authenticate_admin, :except => [:change_password, :change_avatar, :update, :edit, :show, :verification_required] # make sure logged in user is an admin
+  before_filter :enable_admin_menu, :except => [:change_password, :change_avatar, :update, :edit, :show, :verification_required]  # show admin menu 
   before_filter :protect_against_self, :only => [:delete, :toggle_user_disabled, :toggle_user_verified] 
   before_filter :get_all_group_plugin_permissions, :only => [:show]
   
@@ -60,8 +60,6 @@ class UsersController < ApplicationController
     else # User is not admin
       # Reset protected attributes  
       params[:user][:group_id] = @user.group_id
-      params[:user][:username] = @user.username
-      params[:user][:email] =  @user.email 
       params[:user][:created_at] = @user.created_at  
     end                    
     
@@ -174,5 +172,8 @@ class UsersController < ApplicationController
     @setting[:meta_title] << "#{@user.username}" 
     @items = Item.paginate :page => params[:page], :per_page => @setting[:items_per_page], :order => Item.sort_order(params[:sort]), :conditions => ["user_id = ? and is_approved = '1' and is_public = '1'", @user.id ]
   end
-  
+
+  def verification_required
+    @user = @logged_in_user
+  end
 end

@@ -4,7 +4,7 @@ class AdminController < ApplicationController
 
 
  def index
-    @latest_logs = Log.find(:all, :limit => 5)
+    @latest_logs = Log.limit(5)
  end  
 
  def env

@@ -15,7 +15,7 @@ class UserVerification < ActiveRecord::Base
   
   def send_email
     user = User.find(self.user_id)
-    Emailer.deliver_verification_email(user.email, self)
+    Emailer.verification_email(user.email, self).deliver
   end
   
   def self.generate_code # generate verification code

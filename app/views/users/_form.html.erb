@@ -6,11 +6,7 @@
             <%= f.label :username %>
         </td>
         <td align=right>
-        	<% if @logged_in_user.is_admin? %>
-				<%= f.text_field :username %>
-			<% else %>
-            	<b><%= h user.username %></b>
-			<% end %>        	
+			<%= f.text_field :username %>     	
         </td>
     </tr>
     <% if params[:action] == "new" || params[:action] == "create" %>
@@ -48,11 +44,7 @@
             <%= f.label :email %>
         </td>
         <td align=right>
-        	<% if @logged_in_user.is_admin? %>
-				<%= f.text_field :email %>
-			<% else %>
-            	<b><%= h user.email %></b>
-			<% end %>  
+			<%= f.text_field :email %>
         </td>
     </tr>
     <tr>

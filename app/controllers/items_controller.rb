@@ -149,8 +149,6 @@ class ItemsController < ApplicationController
   
          # Create Features
          num_of_features_updated = PluginFeature.create_values_for_item(:item => @item, :features => params[:features], :user => @logged_in_user, :delete_existing => true, :approve => true)
-   
-         Emailer.deliver_new_item_notification(@item, url_for(:action => "view", :controller => "items", :id => @item)) if Setting.get_setting_bool("new_item_notification")
          flash[:success] = t("notice.item_create_success", :item => Item.model_name.human)
          redirect_to :action => "view", :controller => "items", :id => @item
        else

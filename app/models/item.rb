@@ -18,6 +18,7 @@ class Item < ActiveRecord::Base
   validates_presence_of :name
   
   after_create :create_everything  
+  after_create :notify
   after_destroy :destroy_everything
   after_save :save_tags
   
@@ -212,5 +213,9 @@ class Item < ActiveRecord::Base
   
   def is_record_preview?(some_object) # is this object the preview for this item?
     preview? ? some_object.is_a?(preview_type.constantize) && some_object.id == preview_id : false
+  end
+  
+  def notify
+    Emailer.new_item_notification(self).deliver if Setting.global_settings[:new_item_notification]
   end
 end

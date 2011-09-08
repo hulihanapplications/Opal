@@ -381,7 +381,7 @@ en:
     message:
       item_new: "At %{title}, there's a new %{item} in town: %{name}. Check it out their profile here: \n\n%{url}\n\n"    
       item_new_from_user: "At %{title}, %{from} has created a new %{item}: %{name}\n\nCheck it out here:\n\n%{url}\n\n"   
-      new_message_from_user: "At %{title}, you've received a new message from %{from}:\n\n%{message}\n\nYou can reply to this message or read your other messages here:\n\n%{url}\n\n"
+      new_message_from_user: "At %{title}, you've received a new message from %{from}:\n\n%{message}\n\nYou can reply to this message or read your other messages here:\n\n%{url}"
       password_recovery: "At %{title}, A password recovery request has been made for your account: %{name}.\n\nTo recover your password, go to the following address:\n\n%{url}\n\nIf you didn't make this request, please disregard this email. Feel free to contact %{title} if you have any questions or concerns."  
       verification: "In order to log in to your account(%{name}) at %{title}, you must first verify your account by clicking on this verification link:\n\n%{url}"
   # Labels & Sentences
@@ -845,9 +845,7 @@ en:
         id: ID
         name: Name
         description: Description
-        views: 
-          one: View
-          other: Views
+        views: Views
         created_at: Created
         updated_at: Updated
         user_id: Added by

@@ -10,7 +10,7 @@
 			<div class="box_2" style="margin-bottom:5px">
 				<h2 class="title"><%= t("label.item_new", :item => @plugin.model_name.human) %></h2>
 				<hr />
-                <% form_for(@video, :url => { :action => "create", :controller => "plugin_videos", :id => @item.id}) do |f| %>
+                <%= form_for(@video, :url => { :action => "create", :controller => "plugin_videos", :id => @item.id}) do |f| %>
 					<%= render :partial => "form", :locals => {:f => f} %>
 					<br>
 					<div align=center><%= submit_tag t("label.item_save", :item => @plugin.model_name.human), :class => "button_1" %></div>

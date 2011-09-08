@@ -11,7 +11,7 @@
 					</h2>
 			</div>							
 			<div class="box_2a">
-		    	<% form_for(@plugin_feature, :url => { :action => 'create',  :controller => "plugin_features",:id => @plugin_feature.id  }, :method => "post") do |f| %>
+		    	<%= form_for(@plugin_feature, :url => { :action => 'create',  :controller => "plugin_features",:id => @plugin_feature.id  }, :method => "post") do |f| %>
 					<%= render :partial => "plugin_features/form", :locals => {:feature => @plugin_feature, :f => f} %>								 					
 					<div align=center>
 						<%= f.submit t("label.item_create", :item => PluginFeature.model_name.human), :class => "button_1" %>

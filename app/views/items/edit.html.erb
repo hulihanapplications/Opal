@@ -10,7 +10,7 @@
 		</tr>	
 	</table>	
 </div>
-<% form_for(@item, :url => { :action => 'update', :controller => "items", :id => @item.id }, :method => "post") do |f| %>
+<%= form_for(@item, :url => { :action => 'update', :controller => "items", :id => @item.id }, :method => "post") do |f| %>
 	<%= render :partial => "form", :locals => {:item => @item, :f => f} %>
 	<br>
 	<div align=center>

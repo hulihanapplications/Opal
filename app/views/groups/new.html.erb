@@ -1,6 +1,6 @@
 <div class="box_2" align=center>
     <h2><%= t("label.item_new", :item => Group.model_name.human) %></h2><br>
-    <% form_for(@group, :url => { :action => 'create', :controller => "groups" }, :method => "post") do |f| %>
+    <%= form_for(@group, :url => { :action => 'create', :controller => "groups" }, :method => "post") do |f| %>
 		<%= render :partial => "form", :locals => {:group => @group, :f => f } %>
 		<br>
 		<div align=center>	

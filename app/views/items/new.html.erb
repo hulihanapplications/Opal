@@ -12,7 +12,7 @@
 </div>
 <%= show_page Page.get_system_page(I18n.t('seeds.page.new_item.title')) %>
    	
-<% form_for(@item, :url => { :action => 'create', :controller => "items"}, :method => "post") do |f| %>
+<%= form_for(@item, :url => { :action => 'create', :controller => "items"}, :method => "post") do |f| %>
 	<%= render :partial => "form", :locals => {:item => @item, :f => f} %>
 	<br>
 	<div align=center>

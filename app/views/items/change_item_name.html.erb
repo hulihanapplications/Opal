@@ -7,7 +7,7 @@
 			<%= t("label.item_change", :item => Item.model_name.human + " " + t("single.name")) %>
 		</h2>					
 		<div class="box_2">
-			<% form_tag({:action => "do_change_item_name"}) do %>	
+			<%= form_tag({:action => "do_change_item_name"}) do %>	
 				<%#= @item_pluralization_cases.inspect %>
 				<% @item_pluralization_cases.each do |key, value|  %>
 					<div class="field">

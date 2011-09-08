@@ -28,7 +28,7 @@
 			<div id="edit_group_box_<%= @group.id %>" class="box_2" style="margin-bottom:5px;" align=center>
     			<h2 class="title"><%= t("label.item_edit", :item => Group.model_name.human) %></h2><br>
 				
-			    <% form_for(@group, :url => { :action => 'update', :controller => "groups", :id => @group.id }, :method => "post") do |f| %>
+			    <%= form_for(@group, :url => { :action => 'update', :controller => "groups", :id => @group.id }, :method => "post") do |f| %>
 					<%= render :partial => "form", :locals => {:group => @group, :f => f } %>
 					<br>
 					<div align=center>	

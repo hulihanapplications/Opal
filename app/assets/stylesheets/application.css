@@ -1,4 +1,8 @@
 /* ...
 *= require_self
-*= require opal
+*= require jquery.tools
+*= require simple_captcha
+*= require colorbox
+*= require uploadify
+*= require_tree .
 */

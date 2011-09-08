@@ -1,0 +1,11 @@
+/* Uploadify */
+.uploadifyQueueItem {margin: 5px 0px;	padding: 10px;}
+.uploadifyQueueItem .cancel {	float: right;}
+.uploadifyError {}
+.uploadifyQueue .completed {}
+.uploadifyProgress {margin-top: 10px;	width: 100%;}
+.uploadifyProgressBar {height: 3px;	width: 1px;}
+.uploadify_button_wrapper{position:relative;align:center}
+.uploadify_button_wrapper a {position:absolute; top:0;    left:0;    z-index:0;    display:block;    float:left;}
+.uploadify_button_wrapper a.hover { }
+.uploadify_object_wrapper {    position:relative;    z-index:10;}

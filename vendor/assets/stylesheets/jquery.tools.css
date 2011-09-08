@@ -1,0 +1,5 @@
+/* jQuery TOOLS - Accordian Tab CSS */
+#accordion {width: 100%;}/* root element for accordion. decorated with rounded borders and gradient background image */
+#accordion h2.accordion_tab {cursor:pointer;clear:both}/* accordion header */
+#accordion h2.current {	cursor:default;-moz-border-radius: 0px;-webkit-border-radius: 0px;	}/* currently active header */
+#accordion div.pane {	display:none;}/* accordion pane */

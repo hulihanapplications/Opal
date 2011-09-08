@@ -26,7 +26,7 @@ group :assets do
   gem 'therubyracer'
 end
 
-gem 'jquery-rails'
+#gem 'jquery-rails'
 
 
 group :test do

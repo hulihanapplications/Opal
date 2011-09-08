@@ -1,0 +1,4 @@
+/* Simple Captcha */
+input#captcha{font-size:24px;width:110px;}
+div.simple_captcha_image{}
+#simple_captcha td{vertical-align:middle}

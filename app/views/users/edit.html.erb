@@ -7,8 +7,7 @@
 					<h2 class="title"><%=  t("section.title.my_settings") %></h2>
 				<% else %>
 					<h2 class="title"><%= t("label.item_edit", :item => User.model_name.human) %></h2>
-				<% end %>					
-				
+				<% end %>									
 			</td>
 			<td align=right>
 
@@ -21,7 +20,7 @@
 		<td valign=top align=center style="padding-right:5px;width:50%">
 					<div class="box_2"  align=left style="margin-bottom:10px">
 						<h3 class="title"><%= t("single.avatar") %></h3>
-						<% form_tag({:action => 'change_avatar', :id => @user.id}, :multipart => true) do %>
+						<%= form_tag({:action => 'change_avatar', :id => @user.id}, :multipart => true) do %>
 							<table>
 								<tr>
 									<td colspan=2 align=center>
@@ -132,7 +131,7 @@
 	</td>
 	<td valign=top align=left style="padding-left:5px;width:50%">
             <div id="edit_user_box_<%= @user.id %>" class="box_2" style="margin-bottom:10px;" align=center>
-                <% form_for(@user,  :url => { :action => "update", :controller => "users", :id => @user.id}) do |f| %>
+                <%= form_for(@user,  :url => { :action => "update", :controller => "users", :id => @user.id}) do |f| %>
                     <div align=left><h3 class="title"><%= t("single.details") %></h3></div>
 	                <%= render :partial => "form", :locals => {:f => f, :user => @user} %>
 					<hr>

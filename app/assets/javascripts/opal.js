@@ -32,8 +32,6 @@ function change_class(id, classname)
 	document.getElementById(id).className = classname
 }
 
-
-
 checked=false;
 function toggle_all_checkboxes (form_id) {
 	var aa= document.getElementById(form_id);
@@ -114,3 +112,41 @@ jQuery.fn.delayed_reveal = function(timeout) { // show object after time has pas
     }, timeout);			      				
 }
 
+
+$(document).ready(function() {
+		// Ready Tab Functions
+	    $("ul.plugin_tabs_horizontal").tabs("div.plugin_panes_horizontal > div", {effect: 'slide', fadeOutSpeed: 400}); // effects: slide, fade, default, ajax, horizontal
+		$("ul.plugin_tabs_vertical").tabs("div.plugin_panes_vertical > div", {effect: 'slide', fadeOutSpeed: 400}); // effects: slide, fade, default, ajax, horizontal
+		$("#accordion").tabs("#accordion div.pane", {tabs: 'h2.accordion_tab', effect: 'slide', initialIndex: null});// effects: slide, fade, default, ajax, horizontal
+		$("ul.tabs").tabs("div.panes > div");
+				
+		// Enable ColorBox
+		$("a[rel='colorbox']").colorbox();
+
+		// Hovering
+		$(".hoverable").mouseover(
+		  function () { // focus
+		  	//alert("hovering..")
+			$(this).addClass('hover');
+		  }	
+		);	
+		$(".hoverable").mouseout(
+		  function () { // focus
+			$(this).removeClass('hover');
+		  }	
+		);			
+		
+		/* Input States */
+		$(":input").focus(function(){
+			//alert($(this).attr("type"))
+			if($(this).attr("type") != "submit")
+			{
+				$(this).addClass('selected');
+			}
+		});		
+		
+		$(":input").blur(function(){
+			$(this).removeClass('selected');
+		});		
+		
+});

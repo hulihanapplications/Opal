@@ -1,13 +1,13 @@
 <%= auto_discovery_link_tag(:rss, {:action => "rss", :controller => "items"}, {:title => "#{t("label.rss_feed")} - #{t("single.new").capitalize} #{Item.model_name.human(:count => :other)}"}) %> 
 
-<%#= javascript_include_tag "/core/javascripts/jquery/jquery-1.4.2.min.js" %>
-<%#= javascript_include_tag "/core/javascripts/jquery/jquery-ui-1.8.7.custom.min.js" if @setting[:ui] %>
-<%#= javascript_include_tag "/core/javascripts/jquery/jquery.tools.min.js" %>
-<%#= javascript_include_tag "/core/javascripts/jquery/jquery.colorbox-min.js" %>
-<%#= javascript_include_tag "/core/javascripts/jquery/jquery.rating.js" %>
-<%#= javascript_include_tag "/core/javascripts/rails.js" %>	
+<%= javascript_include_tag "jquery-1.4.2.min" %>
+<%= javascript_include_tag "jquery-ui-1.8.7.custom.min" if @setting[:ui] %>
+<%= javascript_include_tag "jquery.tools.min" %>
+<%= javascript_include_tag "jquery.colorbox-min" %>
+<%= javascript_include_tag "jquery.rating" %>
+<%= javascript_include_tag "rails" %>	
 
-<%= javascript_include_tag "application" %>
+<%= javascript_include_tag "opal" %>
 <%= stylesheet_link_tag "application" %>
 			
 <script type="text/javascript">
@@ -60,17 +60,7 @@
 
 
 <script type="text/javascript">
-	$(document).ready(function() {
-
-		// Ready Tab Functions
-	    $("ul.plugin_tabs_horizontal").tabs("div.plugin_panes_horizontal > div", {effect: 'slide', fadeOutSpeed: 400}); // effects: slide, fade, default, ajax, horizontal
-		$("ul.plugin_tabs_vertical").tabs("div.plugin_panes_vertical > div", {effect: 'slide', fadeOutSpeed: 400}); // effects: slide, fade, default, ajax, horizontal
-		$("#accordion").tabs("#accordion div.pane", {tabs: 'h2.accordion_tab', effect: 'slide', initialIndex: null});// effects: slide, fade, default, ajax, horizontal
-				$("ul.tabs").tabs("div.panes > div");
-
-		// Enable ColorBox
-		$("a[rel='colorbox']").colorbox();
-			
+	$(document).ready(function() {			
 		<% if params[:action] == "view" %>	
 			<% plugin = Plugin.find_by_name("Image") %>
 			<% if plugin.is_enabled? %>
@@ -78,31 +68,7 @@
 			<% end %>
 		<% end %>
 
-		// Hovering
-		$(".hoverable").mouseover(
-		  function () { // focus
-		  	//alert("hovering..")
-			$(this).addClass('hover');
-		  }	
-		);	
-		$(".hoverable").mouseout(
-		  function () { // focus
-			$(this).removeClass('hover');
-		  }	
-		);			
-		
-		/* Input States */
-		$(":input").focus(function(){
-			//alert($(this).attr("type"))
-			if($(this).attr("type") != "submit")
-			{
-				$(this).addClass('selected');
-			}
-		});		
-		
-		$(":input").blur(function(){
-			$(this).removeClass('selected');
-		});			
+	
 			
 	});
 

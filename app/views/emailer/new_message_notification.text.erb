@@ -1,2 +1,3 @@
-<%= t("email.message.new_message_from_user", :title => @setting[:title], :message => @message.message, :from => @message.user_from.username + " (#{@message.user_from.first_name} #{@message.user_from.last_name})", :url => @url) %>
+<%= t("email.message.new_message_from_user", :title => @setting[:title], :message => @message.message, :from => @message.user_from.username + " (#{@message.user_from.first_name} #{@message.user_from.last_name})", :url => "") %>
 
+<%= link_to(:action => "for_me", :controller => "messages", :only_path => false) %>

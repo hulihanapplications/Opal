@@ -33,12 +33,6 @@ module Opal
     # JavaScript files you want as :defaults (application.js is always included).
     # config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
     
-    config.session_store  :active_record_store , :key => "_opal_session"# alternative: :mem_cache_store 
-    #config.secret_token  = "MeFa2RudracRED8trEbuswuZApR7xudAthabeSwAste9Ebremac8EdE5ebaBa7"
-    # Use the database for sessions instead of the cookie-based default,
-    # which shouldn't be used to store highly confidential information
-    # (create the session table with 'rake db:sessions:create')
-    #config.action_controller.session_store = :active_record_store
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"

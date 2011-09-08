@@ -106,7 +106,6 @@ class MessagesController < ApplicationController
       @sent_message.user_id = @logged_in_user.id # the sending user gets to own this message.
       @sent_message.save      
       
-      Emailer.deliver_new_message_notification(@message, url_for(:action => "for_me", :controller => "messages", :only_path => false)) if @message.user.user_info.notify_of_new_messages? # send notification email      
       flash[:success] = t("notice.message_send_success", :item => UserMessage.model_name.human, :to => @user_to.username)  
     else 
       flash[:failure] = t("notice.message_send_failure", :item => UserMessage.model_name.human, :to => @user_to.username)  

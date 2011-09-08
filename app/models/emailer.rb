@@ -33,11 +33,10 @@ class Emailer < ActionMailer::Base
   end
   
   # Notify a User that a message was sent to them
-  def new_message_notification(message, url = "http://localhost/")     
+  def new_message_notification(message)     
     @setting = Setting.global_settings
     recipients = message.user.email
     @message = message
-    @url = url
     subject = I18n.t("email.subject.item_new_from_user", :item => UserMessage.model_name.human, :from => @message.user_from.username, :name => "#{@message.user_from.first_name} #{@message.user_from.last_name}", :title => @setting[:title])
     mail(:to => nil, :bcc => recipients, :subject => subject, :date => Time.now)    
   end

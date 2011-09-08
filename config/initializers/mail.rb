@@ -1,5 +1,5 @@
 # Load Mail Settings from config/email.yml
-Opal::Application.configure do
+Rails.application.class.configure do 
   config.action_mailer.raise_delivery_errors = false # report email errors?...usually overriden by config/environments/[environment]
     
   if Rails.env != 'test'
@@ -12,6 +12,7 @@ Opal::Application.configure do
     end
   end
 
-  config.action_mailer.default_url_options ||=  "localhost" # set actionmailer deefault host 
+  config.action_mailer.default_url_options ||=  "localhost" # set actionmailer default host 
 end
+
 

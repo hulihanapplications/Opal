@@ -5,6 +5,8 @@ class UserMessage < ActiveRecord::Base
   
   default_scope :order => "created_at desc"
   
+  after_create :notify
+  
   attr_protected :user_id, :from_user_id
   
   def is_read? 
@@ -53,4 +55,7 @@ class UserMessage < ActiveRecord::Base
     return UserMessage.find(:all, :conditions => ["from_user_id = ?", user.id])
   end
   
+  def notify
+    Emailer.new_message_notification(self).deliver if self.user.user_info.notify_of_new_messages? # send notification email      
+  end
 end

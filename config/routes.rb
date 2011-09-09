@@ -1,5 +1,4 @@
 Opal::Application.routes.draw do
-
   # The priority is based upon order of creation: first created -> highest priority.
 
   @setting = Setting.global_settings
@@ -14,6 +13,9 @@ Opal::Application.routes.draw do
   match '/download/:id', :controller => "plugin_files", :action => "download"
   match '/verify/:id/:code', :controller => "user", :action => "verify"
   match '/page/:id', :controller => "pages", :action => "page"
+  match 'account', :controller => "user", :action => "index", :as => "user_home"
+  match 'administration', :controller => "administration", :action => "index"
+
 
   if (Setting.get_setting('locale').to_s == 'en')
     match "/#{Item.model_name.human(:count => :other).downcase}(/:action(/:id(.:format)))", :controller => "items" # use plural item name in url for anything in the items controller 

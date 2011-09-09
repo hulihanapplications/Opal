@@ -29,10 +29,10 @@
 					 <%= user_avatar(@logged_in_user, :size => "tiny") %>
 					 <%= t("label.logged_in_as", :name => @logged_in_user.username) %> 
 					 <%= icon("spacer") %>
-					 <%= link_to t("section.title.my_account"), user_home_path %>
+					 <%= link_to t("section.title.my_account"), {:action => "index", :controller => "user"} %>
 					 <% if @logged_in_user.is_admin? %>
 					 	<%= icon("spacer") %>
-					 	<%= link_to t("section.title.admin"), administration_path %>
+					 	<%= link_to t("section.title.admin"), {:action => "index", :controller => "admin"} %>
 					 <% end %>
 					 <%= icon("spacer") %>
 					 <%= link_to t("label.log_out"), logout_path %>

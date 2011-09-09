@@ -1,18 +1,18 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<%= render :partial => "shared/head" %>
+	<%= render :partial => "head" %>
 </head>
 
 <body>
 <div id="wrapper">
 	<div id="header">
-		<%= render :partial => "shared/header" %>
+		<%= render :partial => "header" %>
 	</div>
 	<div id="content">
-	 	 <%#= render :partial => "browse/top_bar" %>				    
-		 <%#= render :partial => "shared/flash", :locals => {:flash => flash} %>
-		 <%#= render :partial => "/browse/banner_top" %>		 		 
+	 	 <%#= render :partial => "top_bar" %>				    
+		 <%#= render :partial => "flash", :locals => {:flash => flash} %>
+		 <%#= render :partial => "banner_top" %>		 		 
 		 <%= render :partial => "/user/menu" if @show_user_menu %>
 		 <%= render :partial => "/admin/menu" if @show_admin_menu %>		 
 	     <%= yield %>			
@@ -22,11 +22,10 @@
 		  </div>
 		 <% end %>
 		<div style="clear:both"></div><!-- Break Floats -->
- 		<%#= render :partial => "/browse/banner_bottom" %>		
 	</div>
 	<div id="footer">
 		<%#= show_page Page.get_system_page("Website Bottom") %>
-		<%= render :partial => "shared/footer.html.erb" %>
+		<%= render :partial => "footer.html.erb" %>
 	</div>
 </div>
 </body>

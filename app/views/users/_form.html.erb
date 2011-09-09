@@ -68,7 +68,7 @@
             <%= f.label :locale %>
         </td>
         <td align=right>
-            <%= render :partial => "shared/select_locale", :locals => {:options => {:input_name => "user[locale]", :select => user.locale}} %>
+            <%= render :partial => "select_locale", :locals => {:options => {:input_name => "user[locale]", :select => user.locale}} %>
         </td>
     </tr>
     <tr>

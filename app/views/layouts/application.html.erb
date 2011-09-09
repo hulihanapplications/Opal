@@ -1,18 +1,18 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<%= render :partial => "shared/head" %>
+	<%= render :partial => "head" %>
 </head>
 
 <body>
 <div id="wrapper">
 	<div id="header">
-		<%= render :partial => "shared/header" %>
+		<%= render :partial => "header" %>
 	</div>
 	<div id="content">
-	 	 <%= render :partial => "browse/top_bar" %>				    
+	 	 <%= render :partial => "top_bar" %>				    
 		 <%= render_flash(flash) %>
-		 <%= render :partial => "/browse/banner_top" %>		 		 
+		 <%= render :partial => "banner_top" %>		 		 
 		 <%= render :partial => "/user/menu" if @show_user_menu %>
 		 <%= render :partial => "/admin/menu" if @show_admin_menu %>		 
 	     <%= yield %>			
@@ -23,11 +23,11 @@
 		  </div>
 		 <% end %>
 		<div style="clear:both"></div><!-- Break Floats -->
- 		<%= render :partial => "/browse/banner_bottom" %>		
+ 		<%= render :partial => "banner_bottom" %>		
 	</div>
 	<div id="footer">
 		<%= show_page Page.get_system_page(I18n.t('seeds.page.website_bottom.title')) %>
-		<%= render :partial => "shared/footer" %>
+		<%= render :partial => "footer" %>
 	</div>
 </div>
 </body>

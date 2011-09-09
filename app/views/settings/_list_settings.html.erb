@@ -35,7 +35,7 @@
 							   <% elsif setting.item_type == "special" %>				
 									<%# Handle Special Settings %>
 									<% if setting.name == "locale" %>
-										<%= render :partial => "shared/select_locale", :locals => {:options => {:input_name => "setting[#{setting.name}]"}} %>
+										<%= render :partial => "select_locale", :locals => {:options => {:input_name => "setting[#{setting.name}]"}} %>
 									<% end%>									
 								<% else %>
 					            	<%= t("label.item_unknown", :item => Setting.model_name.human, :name => setting.item_type) %>

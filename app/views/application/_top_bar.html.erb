@@ -36,7 +36,7 @@
 					 <% end %>
 					 <%= icon("spacer") %>
 					 <%= link_to t("label.log_out"), logout_path %>
-					 <%= render :partial => "shared/help" if Setting.get_setting_bool("display_help_sections")  %>
+					 <%= render :partial => "help" if Setting.get_setting_bool("display_help_sections")  %>
 		  			<% else %>
 				   		<%= link_to(t("label.log_in"), login_path(:redirect_to => current_url)) if Setting.get_setting_bool("show_user_login") %>
 				   		<% if @setting[:allow_user_registration] %>

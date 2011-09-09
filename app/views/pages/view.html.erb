@@ -4,13 +4,13 @@
 		<% if params[:controller] == "blog" %>
 			<%= render :partial => "blog/menu" %>
 		<% else %>
-				<%= render :partial => "menu_for_page", :locals => {:page => @page, :subpages => subpages}  %>				
+			<%= render :partial => "menu_for_page", :locals => {:page => @page, :subpages => subpages}  %>				
 		<% end %>
 	</div>
 	<div id="main">	
 <% end %>	   
 	   <div class="page">
-	   		<%= render :partial => "pages/header", :locals => {:page => @page} %>
+	   		<%= render :partial => "pages/page_header", :locals => {:page => @page} %>
 			<%= show_page(@page) %>
 	   
 	   		<%# Handle Special Pages %>

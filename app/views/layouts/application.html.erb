@@ -10,11 +10,10 @@
 		<%= render :partial => "header" %>
 	</div>
 	<div id="content">
-	 	 <%= render :partial => "top_bar" %>				    
 		 <%= render_flash(flash) %>
 		 <%= render :partial => "banner_top" %>		 		 
-		 <%= render :partial => "/user/menu" if @show_user_menu %>
-		 <%= render :partial => "/admin/menu" if @show_admin_menu %>		 
+		 <%= render :partial => "user/menu" if @show_user_menu %>
+		 <%= render :partial => "admin/menu" if @show_admin_menu %>		 
 	     <%= yield %>			
  		 <% if @show_user_menu || @show_admin_menu %>
 		  <%# Close Tab Div in Menu Partial %>

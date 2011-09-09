@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/galetahub/simple-captcha.git
+  revision: c294fc9c9f87edba3042a97a408470fa30a1a92c
+  specs:
+    simple_captcha (0.1.1)
+
+GIT
   remote: git://github.com/medihack/make_voteable
   revision: 78df04ecb9140e54c644eade060990de61433f40
   specs:
@@ -9,7 +15,6 @@ PATH
   remote: vendor/gems
   specs:
     opal (0.8.0)
-    simple_captcha (0.1.1)
 
 PATH
   remote: vendor/gems/russian

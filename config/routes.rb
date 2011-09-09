@@ -1,5 +1,6 @@
 Opal::Application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
+  # See how all your routes lay out with "rake routes"
 
   @setting = Setting.global_settings
 
@@ -14,7 +15,7 @@ Opal::Application.routes.draw do
   match '/verify/:id/:code', :controller => "user", :action => "verify"
   match '/page/:id', :controller => "pages", :action => "page"
   match 'account', :controller => "user", :action => "index", :as => "user_home"
-  match 'administration', :controller => "administration", :action => "index"
+  match 'admin', :controller => "admin", :action => "index"
 
 
   if (Setting.get_setting('locale').to_s == 'en')
@@ -30,23 +31,25 @@ Opal::Application.routes.draw do
                :constraints  => {:year => /\d{4}/, :month => /\d{1,2}/,:day => /\d{1,2}/},
                :as => :blog_archive
 
+ 
 
-  
-  # Resources
-
-  # See how all your routes lay out with "rake routes"
    
   # Simple Captcha
   match '/simple_captcha/:id', :to => 'simple_captcha#show', :as => :simple_captcha
 
+
+  # Resources  
+  resources :user_sessions
   # User Authentication
   match 'login', :controller => "user_sessions", :action => "new"
   match 'logout', :controller => "user_sessions", :action => "destroy"
-  resources :user_sessions
+
   
   resources :users do 
     get "verification_required", :on => :collection
   end
+  
+  
   resources :plugin_videos
   
   # This is a legacy wild controller route that's not recommended for RESTful applications.

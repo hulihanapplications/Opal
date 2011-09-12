@@ -52,6 +52,9 @@ module Opal
     # Enable the asset pipeline
     config.assets.enabled = true
 
+    # Add public/ Asset path for uploadable files
+    config.assets.paths << Rails.root.join("public", "images")
+
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
     

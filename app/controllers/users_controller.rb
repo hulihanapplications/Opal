@@ -147,9 +147,10 @@ class UsersController < ApplicationController
   end
   
   def change_avatar
+    require "RMagick"
     if !params[:file].blank?   #from their computer
       filename = params[:file].original_filename
-      file_dir = "#{RAILS_ROOT}/public/images/avatars" 
+      file_dir = "#{Rails.root.to_s}/public/images/avatars" 
       acceptable_file_extensions = ".png, .jpg, .jpeg, .gif, .bmp, .tiff, .PNG, .JPG, .JPEG, .GIF, .BMP, .TIFF"
       if Uploader.check_file_extension(:filename => filename, :extensions => acceptable_file_extensions)
         image = Magick::Image.from_blob(params[:file].read).first    # read in image binary
@@ -158,7 +159,7 @@ class UsersController < ApplicationController
         Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log =>  t("log.user_account_item_save", :item => t("single.avatar")))                                                   
         flash[:success] = t("notice.save_success")     
       else
-        flash[:failure] = t("notice.invalid_file_extensions", :item => Image.model_name.human, :acceptable_file_extensions => acceptable_file_extensions)      
+        flash[:failure] = I18n.t("activerecord.errors.messages.invalid_file_extension", :valid_extensions => acceptable_file_extensions))
       end
     else # they didn't select an image
       flash[:failure] = t("notice.item_forgot_to_select", :item => Image.model_name.human)      

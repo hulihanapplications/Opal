@@ -125,7 +125,7 @@ class SettingsController < ApplicationController
       end
     else # bad file extension
       flash[:failure] = t("notice.item_install_failure", :item => t("single.theme"))
-      flash[:failure] += t("notice.invalid_file_extensions", :item => t("single.theme"), :acceptable_file_extensions => acceptable_file_extensions)      
+      flash[:failure] += I18n.t("activerecord.errors.messages.invalid_file_extension", :valid_extensions => acceptable_file_extensions))
     end 
     redirect_to :action => "themes"
   ensure 

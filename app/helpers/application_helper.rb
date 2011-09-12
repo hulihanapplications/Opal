@@ -64,7 +64,7 @@ module ApplicationHelper
   def avatar_image(user, options = {})
       options[:title] = user.to_s
       if File.exists?(Rails.root.to_s + "/public/images/avatars/" + user.id.to_s + ".png") 
-         return image_tag("images/avatars/#{user.id.to_s}.png", options)
+         return image_tag("avatars/#{user.id.to_s}.png", options)
       else # get default avatar
          return theme_image_tag("default_avatar.png", options)        
       end        

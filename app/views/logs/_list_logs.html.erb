@@ -15,6 +15,9 @@
 							<%= log_message(log) %>
 							<%= content_tag(:div, friendly_date(log.created_at), :class => "sub") %>								
 						</td>
+						<td class="icon_column">
+							<%= log_icon(log) %>
+						</td>						
 					</tr>
 				
 				</table>				

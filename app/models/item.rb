@@ -13,7 +13,7 @@ class Item < ActiveRecord::Base
   has_many :plugin_reviews, :dependent => :destroy
   has_many :plugin_tags, :dependent => :destroy
   has_many :plugin_videos, :dependent => :destroy
-  has_many :logs
+  has_many :logs, :as => :target
   
   validates_presence_of :name
   
@@ -176,10 +176,6 @@ class Item < ActiveRecord::Base
     end
   end 
  end 
- 
- def logs # get logs for item
-   Log.item(self).newest_first
- end
  
 =begin
   # Create Dynamic Attributes from Features

@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
   before_filter :detect_mobile, :detect_flash
   layout :layout_location # using a symbol defers layout choice until after a request is processed 
   
-  include Humanizer::ActionController # add humanizer support to controller
     
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
@@ -243,7 +242,9 @@ class ApplicationController < ActionController::Base
     end    
     proc.call(self) 
   end  
+  
 private  
+
   def sign_in(user)
     unless @logged_in_user
       user_session = UserSession.new(User.find_by_single_access_token(user.single_access_token))

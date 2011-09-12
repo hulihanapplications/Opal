@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110704174542) do
+ActiveRecord::Schema.define(:version => 20110912050216) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -84,6 +84,8 @@ ActiveRecord::Schema.define(:version => 20110704174542) do
     t.datetime "updated_at"
     t.string   "target_type"
     t.integer  "target_id"
+    t.string   "ip"
+    t.string   "archived_target"
   end
 
   create_table "page_comments", :force => true do |t|

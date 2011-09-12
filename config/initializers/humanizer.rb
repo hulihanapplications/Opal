@@ -25,3 +25,5 @@ module Humanizer
     end
   end
 end
+
+ActionController::Base.send :include, Humanizer::ActionController # add humanizer support to controller

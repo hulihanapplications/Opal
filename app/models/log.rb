@@ -4,7 +4,7 @@ class Log < ActiveRecord::Base
   belongs_to :target, :polymorphic => true
   
   default_scope :order => "created_at DESC" # override default find
-  scope :item, lambda{|item| where("item_id = ?", item.id)}
+  scope :target, lambda{|target| where(:target_id => target.id, :target_type => target.class.name)}
   scope :newest_first, order("created_at DESC")
 
 
@@ -27,7 +27,6 @@ class Log < ActiveRecord::Base
     options[:start_date]  ||= nil # start date
     options[:end_date]    ||= nil # end date
     options[:log_type]     ||= nil # by log type 
-    
     
     # Perform find
     logs = Log.find :all, :conditions => Log.get_search_conditions(options).join("AND")
@@ -87,5 +86,7 @@ class Log < ActiveRecord::Base
     string << self.log
   end
   
-
+  def klass # return target class
+    target_type.constantize
+  end
 end

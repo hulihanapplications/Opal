@@ -23,16 +23,16 @@ class ItemsController < ApplicationController
   end
  
   def category # get all items for a category and its children/descendants recursively
-     @category = Category.find(params[:id]) 
-     #@setting[:include_child_category_items] = Setting.get_setting_bool("include_child_category_items") # get a bool object for a setting to pass into various functions that use it(reduces redundant db queries).
-     category_ids = @category.get_all_ids(:include_children => @setting[:include_child_category_items]).split(',') # get an array of category ids to be passed into Mysql IN clause
-     current_page = params[:page] ||= 1 
-     page = @setting[:items_per_page].to_i
-     
-     @items = Item.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i, :order => Item.sort_order(params[:sort]), :conditions => ["category_id IN (?) and is_approved = '1' and is_public = '1'", category_ids]    
-     
-     @setting[:meta_title] << @category.name 
-     @setting[:meta_description] << [@category.name , @category.description, Item.model_name.human(:count => :other), @setting[:meta_description]].join(" - ")
+    @category = Category.find(params[:id]) 
+    #@setting[:include_child_category_items] = Setting.get_setting_bool("include_child_category_items") # get a bool object for a setting to pass into various functions that use it(reduces redundant db queries).
+    category_ids = @category.get_all_ids(:include_children => @setting[:include_child_category_items]).split(',') # get an array of category ids to be passed into Mysql IN clause
+    current_page = params[:page] ||= 1 
+    page = @setting[:items_per_page].to_i
+    
+    @items = Item.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i, :order => Item.sort_order(params[:sort]), :conditions => ["category_id IN (?) and is_approved = '1' and is_public = '1'", category_ids]    
+    
+    @setting[:meta_title] << @category.name 
+    @setting[:meta_description] << [@category.name , @category.description, Item.model_name.human(:count => :other), @setting[:meta_description]].join(" - ")
      
     respond_to do |format|
       format.html # new.html.erb
@@ -100,7 +100,7 @@ class ItemsController < ApplicationController
     if @item.save && @feature_errors.size == 0 # make sure there's not required feature errors        
         # Update Features
         num_of_features_updated = PluginFeature.create_values_for_item(:item => @item, :features => params[:features], :user => @logged_in_user, :delete_existing => true, :approve => true)  
-        Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log =>  t("log.item_save", :item => Item.model_name.human, :name => @item.name))                    
+        log(:log_type => "update", :target => @item)
         flash[:success] = t("notice.item_save_success", :item => Item.model_name.human)
         redirect_to :action => "view" , :id => @item        
     else # failed adding required features
@@ -145,7 +145,7 @@ class ItemsController < ApplicationController
 
    if proceed            
       if @item.save && @feature_errors.size == 0 # item creation failed
-         Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => Item.model_name.human, :name => @item.name))
+         log(:log_type => "create", :target => @item)
   
          # Create Features
          num_of_features_updated = PluginFeature.create_values_for_item(:item => @item, :features => params[:features], :user => @logged_in_user, :delete_existing => true, :approve => true)
@@ -163,7 +163,7 @@ class ItemsController < ApplicationController
   
   def delete
    if @item.is_deletable_for_user?(@logged_in_user)
-     Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => t("log.item_delete", :item => Item.model_name.human, :name => @item.name))     
+     log(:log_type => "destroy", :target => @item)
      @item.destroy
      flash[:success] = t("notice.item_delete_success", :item => Item.model_name.human)
    else # The user can't delete this item
@@ -314,7 +314,7 @@ class ItemsController < ApplicationController
      item_name_hash = {I18n.locale.to_s => {"activerecord" => {"models" => {"item" => utf8_hash(params[:key].to_hash)}}}} # to_hash converts ActiveSupport::HashWithIndifferentAccess to regular hash for proper yaml conversion          
      File.open(item_name_file, "w") { |f| f.write item_name_hash.ya2yaml } # you can also use ya2yaml instead of to_yaml, which hates utf-8
      
-     Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_save", :item => Item.model_name.human + " " + t("single.name"), :name => params[:key].values.join(", ")))       
+     log(:log_type => "system", :log => t("log.item_save", :item => Item.model_name.human + " " + t("single.name"), :name => params[:key].values.join(", ")))       
      flash[:success] = t("notice.save_success")
      I18n.load_path.push(item_name_file) # add item_name_file onto load_path 
      I18n.reload! # reload I18n to see our new changes

@@ -19,7 +19,7 @@ class LogsController < ApplicationController
   end
   
   def for_item # for a particular item
-    @logs = Log.paginate :page => params[:page], :per_page => 25, :conditions => Log.get_search_conditions(:item => @item)
+    @logs = @item.logs.paginate(:page => params[:page], :per_page => 25)
     @setting[:show_item_nav_links] = true # show nav links          
   end
   

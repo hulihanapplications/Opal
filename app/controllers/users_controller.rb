@@ -42,7 +42,7 @@ class UsersController < ApplicationController
         
     if @user.save 
       flash[:success] = t("notice.item_create_success", :item => User.model_name.human)      
-      Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log => t("log.item_create", :item => User.model_name.human, :name => @user.username))
+      log(:log_type => "create", :target => @user)
       redirect_to users_path      
     else # creation failed
       render :action => "new"
@@ -65,7 +65,7 @@ class UsersController < ApplicationController
     
     if @user.update_attributes(params[:user]) && @user_info.update_attributes(params[:user_info])        
       @user.update_attribute(:is_admin, params[:user][:is_admin]) if @logged_in_user.is_admin?
-      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => User.model_name.human, :name => @user.username))
+      log(:target => @user, :log_type => "update", :log => t("log.item_save", :item => User.model_name.human, :name => @user.username))
       flash[:success] = t("notice.save_success") 
       redirect_to edit_user_path(@user)
     else
@@ -77,7 +77,7 @@ class UsersController < ApplicationController
     if @user.id == @logged_in_user.id.to_i # trying to delete the user they're logged in as.
       flash[:failure] = t("notice.invalid_permissions")
     else
-      Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.item_delete", :item => User.model_name.human, :name => @user.username))
+      log(:target => @user, :log_type => "delete", :log => t("log.item_delete", :item => User.model_name.human, :name => @user.username))
       flash[:success] = t("notice.item_delete_success", :item => User.model_name.human) 
       @user.destroy
     end
@@ -86,7 +86,7 @@ class UsersController < ApplicationController
   
   def change_password
     if @user.update_attributes(:password => params[:user][:password], :password_confirmation => params[:user][:password_confirmation])
-      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => User.model_name.human, :name => @user.username + "(#{User.human_attribute_name(:password)}: #{params[:user][:password]})"))
+      log(:target => @user, :log_type => "update", :log => t("log.item_save", :item => User.model_name.human, :name => @user.username + "(#{User.human_attribute_name(:password)}: #{params[:user][:password]})"))
       flash[:success] = t("notice.save_success") 
       redirect_to edit_user_path(@user)
     else
@@ -114,7 +114,7 @@ class UsersController < ApplicationController
     end  
     if @user.update_attribute(:is_disabled, flag)
       flash[:success] = t("notice.item_save_success", :item => User.model_name.human)
-      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => log_msg)
+      log(:target => @user, :log_type => "update", :log => log_msg)
     end
     redirect_to edit_user_path(@user) 
   end
@@ -126,7 +126,7 @@ class UsersController < ApplicationController
       flag = "1"  # make verified
     end  
     if @user.update_attribute(:is_verified, flag)
-      Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log => t("log.item_verify", :item => User.model_name.human, :name => @user.username))
+      log(:target => @user, :log_type => "create", :log => t("log.item_verify", :item => User.model_name.human, :name => @user.username))
       flash[:success] = t("notice.item_save_success", :item => User.model_name.human)
     end
     redirect_to edit_user_path(@user)  
@@ -138,7 +138,7 @@ class UsersController < ApplicationController
     if verification
       url = url_for(:action => "verify", :controller => "user", :id => verification.id, :code =>  verification.code, :only_path => false)
       Emailer.verification_email(@user.email, verification, url).deliver
-      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_email_sent", :item => UserVerification.model_name.human, :name => @user.username))                                                  
+      log(:target => @user, :log_type => "update", :log => t("log.item_email_sent", :item => UserVerification.model_name.human, :name => @user.username))                                                  
       flash[:success] =  t("log.item_email_sent", :item => UserVerification.model_name.human, :name => @user.username)
     else
       flash[:failure] = t("notice.item_not_found", :item => UserVerification.model_name.human)
@@ -156,10 +156,10 @@ class UsersController < ApplicationController
         image = Magick::Image.from_blob(params[:file].read).first    # read in image binary
         image.crop_resized!( 100, 100 ) # Resize image
         image.write("#{file_dir}/#{@user.id.to_s}.png") # write the file
-        Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log =>  t("log.user_account_item_save", :item => t("single.avatar")))                                                   
+        Log.create(:target => @user, :log_type => "update", :log =>  t("log.user_account_item_save", :item => t("single.avatar")))                                                   
         flash[:success] = t("notice.save_success")     
       else
-        flash[:failure] = I18n.t("activerecord.errors.messages.invalid_file_extension", :valid_extensions => acceptable_file_extensions))
+        flash[:failure] = I18n.t("activerecord.errors.messages.invalid_file_extension", :valid_extensions => acceptable_file_extensions)
       end
     else # they didn't select an image
       flash[:failure] = t("notice.item_forgot_to_select", :item => Image.model_name.human)      

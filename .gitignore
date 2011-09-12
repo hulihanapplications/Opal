@@ -46,6 +46,10 @@ public/themes/*
 public/images/item_images/*
 public/images/uploaded_images/*
 public/images/avatars/*
+app/assets/images/item_images/*
+app/assets/images/uploaded_images/*
+app/assets/images/avatars/*
+
 files/item_files/*
 
 # Remove any Opal Plugins

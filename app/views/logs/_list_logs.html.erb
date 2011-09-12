@@ -13,7 +13,10 @@
 						<% end %>						
 						<td style="width:100%">																							
 							<%= log_message(log) %>
-							<%= content_tag(:div, friendly_date(log.created_at), :class => "sub") %>								
+							<div class="sub">
+								<%= friendly_date(log.created_at) %>
+								<%= link_to_function(icon("dropdown") + " " + t("single.details"), "$('#log_details_#{log.id}').toggle()", :class => "") %>																					
+							</div>
 						</td>
 						<td class="icon_column">
 							<%= log_icon(log) %>
@@ -21,8 +24,10 @@
 					</tr>
 				
 				</table>				
-
 			</div>
+			<div id="log_details_<%= log.id %>" class="extra_options_box"  style="display:none;">
+				<%= Log.human_attribute_name(:ip) %>: <%= log.ip %>
+			</div>				
 			<hr>
 		<% end %>		
 	</div>

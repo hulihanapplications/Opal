@@ -1,14 +1,19 @@
-<%= show_page Page.get_system_page(I18n.t('seeds.page.website_top.title')) %>
-<%= render :partial => "top_bar" %>				    
 
-<div class="main_logo"> 		
-	<% if File.exists?(File.join(@setting[:theme_dir], "images", "logo.png")) %>
-  		<%= link_to theme_image_tag("logo.png"), {:action => "index", :controller => "browse"} %>
-	<% else %>
-  		<div class="title"><h1><%= link_to @setting[:title], {:action => "index", :controller => "browse"} %></h1></div>
-		<div class="description"><%= @setting[:description] %> </div>					
-	<% end %>
+<div id="header">
+	<div>
+		<%= render :partial => "top_bar" %>				    
+		<%= show_page Page.get_system_page(I18n.t('seeds.page.website_top.title')) %>
+		
+		<div class="main_logo"> 		
+			<% if File.exists?(File.join(@setting[:theme_dir], "images", "logo.png")) %>
+		  		<%= link_to theme_image_tag("logo.png"), {:action => "index", :controller => "browse"} %>
+			<% else %>
+		  		<div class="title"><h1><%= link_to @setting[:title], {:action => "index", :controller => "browse"} %></h1></div>
+				<div class="description"><%= @setting[:description] %> </div>					
+			<% end %>
+		</div>
+		
+		<%= render :partial => "main_menu" %>
+	</div>
 </div>
-
-<%= render :partial => "main_menu" %>
 

@@ -4,7 +4,6 @@ class UserController < ApplicationController
   before_filter :enable_user_menu, :except => [:register, :create_account]  # show_user_menu
   before_filter :enable_sorting, :only => [:items] # prepare sort variables & defaults for sorting
 
-  include SimpleCaptcha::ControllerHelpers
   def index
     @latest_logs = Log.find(:all, :limit => 5, :conditions => Log.get_search_conditions(:user => @logged_in_user))
     @items = Item.find(:all, :select => "id", :order => "created_at DESC", :conditions => ["user_id = ?", @logged_in_user.id])
@@ -15,7 +14,7 @@ class UserController < ApplicationController
     if @setting[:allow_user_registration]
       @user = User.new(params[:user]) # always remember that ANYONE can override bulk assignment
 
-      if simple_captcha_valid? || session[:omniauth]
+      if human? || session[:omniauth]
         @user.apply_omniauth(session[:omniauth]) if session[:omniauth] # load omniauth data
         @user.registered_ip = request.env["REMOTE_ADDR"]
         @user.is_admin = "0"
@@ -35,7 +34,7 @@ class UserController < ApplicationController
           render :action => "register"
         end
       else # captcha failed
-        flash[:failure] =  t("notice.invalid_captcha")  #print out any errors!
+        flash[:failure] = I18n.translate("humanizer.validation.error")
         render :action => "register"
       end
     end

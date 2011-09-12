@@ -44,12 +44,6 @@ td.icon_column{width:20px;vertical-align:middle;text-align:center}
 /* Flash Notifications */
 .flash{padding-top:10px;} /* This is the div that contains all flash messages. */
 
-
-/* Simple Captcha */
-input#captcha{font-size:24px;width:110px;}
-div.simple_captcha_image{}
-#simple_captcha td{vertical-align:middle}
-	
 /* jQuery TOOLS - Accordian Tab CSS */
 #accordion {width: 100%;}/* root element for accordion. decorated with rounded borders and gradient background image */
 #accordion h2.accordion_tab {cursor:pointer;clear:both}/* accordion header */

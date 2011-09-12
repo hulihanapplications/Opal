@@ -1,23 +1,31 @@
-<div align=center>
+<div align=center class="contact_us">
 	<%= form_tag({:action => "send_contact_us", :controller => "pages"}) do |f| %>
-	 <table>
-		 <tr>
-		 	<td align=left><%= t("single.name") %></td>
-			<td align=left><input type="text" name="name" style="width:100%"></td>
-		 </tr>
-		 <tr>
-		 	<td align=left><%= User.human_attribute_name(:email) %> </td>
-			<td align=left><input type="text" name="email" style="width:100%"></td>
-		 </tr>
-		 <tr>
-		 	<td align=left><%= UserMessage.model_name.human %> </td>
-		 	<td align=left><textarea name="message" style="width:100%"></textarea></td>			 
-		 </tr>
-	     <tr>
-	         	<td align=left><%= t("label.captcha") %></td>
-	     		<td align=left><%= show_simple_captcha %></td>
-		 </tr>
-	     <tr><td align=center colspan=2><br><%= submit_tag  t("single.send"), :class => "button_1" %></td></tr>
-	 </table>
-	<% end %>	
+		<div class="field">
+			<%= label_tag :name, t("single.name") %>
+			<%= text_field_tag :name %>
+		</div>
+		
+		<div class="field">
+			<%= label_tag :email, User.human_attribute_name(:email) %>
+			<%= text_field_tag :email %>
+		</div>	
+
+		<div class="field">
+			<%= label_tag :phone, User.human_attribute_name(:phone) %>
+			<%= text_field_tag :phone %>
+		</div>
+		
+		<div class="field">
+			<%= label_tag :message, UserMessage.model_name.human %>
+			<%= text_area_tag :message %>
+		</div>	
+		
+		<div class="field">
+			<%= label_tag :humanizer_answer, controller.humanizer_question %>
+			<%= text_field_tag :humanizer_answer %>
+			<%= hidden_field_tag :humanizer_question_id, controller.humanizer_question_id %>
+		</div>			
+		
+		<%= submit_tag  t("single.send"), :class => "button_1" %>
+	<% end %>
 </div>

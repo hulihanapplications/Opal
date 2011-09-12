@@ -2,11 +2,12 @@ class Emailer < ActionMailer::Base
   default :from => "#{Setting.get_setting("site_title")} <noreply@none.com>"
   default :content_type => "text/plain" # not working in Rails 3.0.3 for some reason, must set inside mail()
   
-  def contact_us_email(email = "noemailset@none.com", name = "No Name Set", subject = "No Subject Set", message = "No Message Set", ip = "0.0.0.0", display = "plain")
+  def contact_us_email(email = "noemailset@none.com", name = "No Name Set", subject = "No Subject Set", phone = I18n.t("single.none"), message = "No Message Set", ip = "0.0.0.0", display = "plain")
     recipients = Emailer.admin_emails
     @message = message
     @email = email
     @name = name
+    @phone = phone
     @ip = ip
     mail(:to => nil, :bcc => recipients, :subject => subject, :date => Time.now)
   end

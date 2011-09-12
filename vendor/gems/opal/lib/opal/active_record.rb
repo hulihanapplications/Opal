@@ -16,7 +16,7 @@ module Opal
           options[:log_type] = "unknown" if options[:log_type].blank?
           l = Log.new(options)
           l.target_id = self.id
-          l.target_class = self.class.name
+          l.target_type = self.class.name
           l.user_id = self.user_id if respond_to?(:user_id)
           l.item_id = self.item_id if respond_to?(:item_id)       
           l.save

@@ -2,10 +2,16 @@
 		<%= render :partial => "menu" %>
 </div>
 <div id="main">
+   <div class="header">
+   		<% if @logged_in_user.is_admin? %>
+   			<div align=right>
+				<%= link_to raw("#{icon('new')} #{t('label.item_new', :item => t('activerecord.models.blog_page', :count => 1))}"), {:action => "new", :controller => "pages", :type => "Blog"} if @logged_in_user.is_admin?  %>
+			</div>
+		<% end %>			
+   </div>
    <%= show_page Page.find_by_name("blog") %>
    <div>
 			<%= render :partial => "blog/list_pages", :locals => {:pages => @pages} %>
-
    </div>
    <div align=center>
  	 		<%= page_entries_info @pages, :entry_name => t("activerecord.models.blog_page", :count => @pages.size) %>							

@@ -49,7 +49,7 @@ class SettingsController < ApplicationController
      
      acceptable_file_extensions = ".png, .jpg, .jpeg, .gif, .bmp, .tiff, .PNG, .JPG, .JPEG, .GIF, .BMP, .TIFF"
      uploaded_file = Uploader.file_from_url_or_local(:local => params[:file], :url => params[:url])
-     filename = File.basename(uploaded_file.path)
+     filename = params[:file].blank? ? File.basename(uploaded_file.path) : params[:file].original_filename 
      main_image_path = File.join(@setting[:theme_dir], "images", "logo.png") # location of main logo
      
 
@@ -58,7 +58,7 @@ class SettingsController < ApplicationController
         width = original_image.columns
         height = original_image.rows
      end      
-         
+     flash[:info] = filename
      if Uploader.check_file_extension(:filename => filename, :extensions => acceptable_file_extensions)
         image = Magick::Image.from_blob(File.open(uploaded_file.path).read)[0] # read in image binary, from_blob returns an array of images, grab first item
         Uploader.generate_image(
@@ -72,8 +72,8 @@ class SettingsController < ApplicationController
         flash[:success] = t("notice.item_create_success", :item => t("single.logo"))
         Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_create", :item => t("single.logo"), :name => filename))  # log it
      else
-        flash[:failure] = t("notice.invalid_file_extensions", :item => Image.model_name.human, :acceptable_file_extensions => acceptable_file_extensions)      
-     end     
+        flash[:failure] = t("single.logo") + " " + t("activerecord.errors.messages.invalid_file_extension", :valid_extensions => acceptable_file_extensions)      
+     end
 
  
    redirect_to :action => "index", :controller => "settings"

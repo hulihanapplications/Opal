@@ -1,10 +1,10 @@
 class BlogController < ApplicationController
   def index
-    @pages = Page.all.blog.published.newest_first.paginate :page => params[:page], :per_page => 5
+    @pages = Page.all.blog.published.newest_first.paginate(:page => params[:page], :per_page => 5)
   end
 
   def rss 
-    @pages = Page.all.blog.published.newest_first.paginate :page => params[:page], :per_page => 10
+    @pages = Page.all.blog.published.newest_first.paginate(:page => params[:page], :per_page => 10)
     render :layout => false
   end
 

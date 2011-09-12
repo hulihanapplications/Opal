@@ -1,6 +1,4 @@
 <% if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_read? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
 	<% comments_count = PluginComment.count(:all, :conditions => ["item_id = ?", item.id]) %>
-	<img src="/themes/<%= @setting[:theme] %>/images/icons/comments.png" class="icon" title="This <%= Item.model_name.human %> has <%= comments_count %> <%= plugin.model_name.human(:count => :other) %>." alt="">
-	<%= link_to "#{comments_count} #{plugin.model_name.human(:count => comments_count)}", {:action => "view", :controller => "items", :id => item , :anchor => plugin.model_name.human(:count => :other)}, :title => "This #{Item.model_name.human} has #{comments_count} #{plugin.model_name.human(:count => :other)}" %>																						
-	
+	<%= link_to icon("comments") + " " + "#{comments_count} #{plugin.model_name.human(:count => comments_count)}", {:action => "view", :controller => "items", :id => item , :anchor => plugin.model_name.human(:count => :other)}, :title => "This #{Item.model_name.human} has #{comments_count} #{plugin.model_name.human(:count => :other)}" %>																							
 <% end %>

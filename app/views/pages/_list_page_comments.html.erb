@@ -27,11 +27,7 @@
 						</div>
 					</td>
 					<td align=left class="comment_column">
-						<% if comment_user && comment.user.is_admin? %>
-						<div class="comment_box_from_owner">
-						<% else %>
-						<div class="comment_box">
-						<% end %>
+						<div class="comment_box <%= "comment_box_from_owner" if comment_user && comment.user.is_admin? %>">
 							<div align=left>
 								<b class="highlight_1"><%= friendly_date comment.created_at %></b>
 									<% if @logged_in_user.is_admin? %>

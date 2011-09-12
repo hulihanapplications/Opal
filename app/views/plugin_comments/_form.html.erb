@@ -21,7 +21,8 @@
 
 <% if @logged_in_user.anonymous?  %>
 	<div class="field">
-		<%= f.label :captcha, t("label.captcha") %>
-		<%= show_simple_captcha %>	
-	</div>
+		<%= label_tag :humanizer_answer, controller.humanizer_question %>
+		<%= text_field_tag :humanizer_answer %>
+		<%= hidden_field_tag :humanizer_question_id, controller.humanizer_question_id %>
+	</div>		
 <% end %>

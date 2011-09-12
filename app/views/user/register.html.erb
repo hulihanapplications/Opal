@@ -103,10 +103,11 @@
          </tr>
          <tr>
              <td>
-                 <%= t("label.captcha") %>
+				<%= label_tag :humanizer_answer, controller.humanizer_question %>
              </td>
              <td align=left>
-                 <%= show_simple_captcha %>
+				<%= text_field_tag :humanizer_answer %>
+				<%= hidden_field_tag :humanizer_question_id, controller.humanizer_question_id %>
              </td>
          </tr>
 		 <% page = Page.find_by_name("terms_of_service") %>

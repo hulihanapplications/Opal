@@ -72,9 +72,9 @@
 		<%= f.radio_button :listed, true %> <%= t("single.positive") %>
 		<%= f.radio_button :listed, false %> <%= t("single.negative") %>
 	</div>																									
-	<hr />
-	<%= link_to_function content_tag(:h3, link_to_function(raw("#{icon("dropdown")} #{t("single.advanced")} #{t("single.options")}"), "$('#advanced_options').toggle()"))  %>
-	<div id="advanced_options"  style="display:none;">
+
+	<%= content_tag(:h3, link_to_function(icon("dropdown") + " " + t("single.advanced"), "$('#advanced_options').toggle()", :class => "extra_options")) %>	
+	<div id="advanced_options"  class="extra_options_box" style="display:none;">
 		<br />									
 		<div class="field">							
 			<h3><%= feature_icon feature %> <%= f.label :icon_url %></h3>

@@ -1,5 +1,8 @@
 # Initialize Localization
 
+# tell the I18n library where to find your translations
+I18n.load_path += Dir[Rails.root.join('vendor', 'locales', '*.{rb,yml}')]
+
 # set default locale 
 I18n.default_locale = :en
 

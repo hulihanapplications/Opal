@@ -1,7 +1,8 @@
 class PagesController < ApplicationController
- before_filter :authenticate_admin, :except => [:create_page_comment, :redirect_to_page, :page, :tinymce_images, :view, :send_contact_us] # make sure logged in user is an admin    
- before_filter :enable_admin_menu, :except => [:view, :send_contact_us]# show admin menu 
- before_filter :uses_tiny_mce, :only => [:new, :edit, :update, :destroy]  # which actions to load tiny_mce, TinyMCE Config is done in Layout. 
+  before_filter :authenticate_admin, :except => [:create_page_comment, :redirect_to_page, :page, :tinymce_images, :view, :send_contact_us] # make sure logged in user is an admin    
+  before_filter :enable_admin_menu, :except => [:view, :send_contact_us]# show admin menu 
+  before_filter :uses_tiny_mce, :only => [:new, :edit, :update, :destroy]  # which actions to load tiny_mce, TinyMCE Config is done in Layout. 
+  before_filter :check_humanizer_answer, :only => [:send_contact_us]
  
  def index
    @setting[:meta_title] << Page.model_name.human(:count => :other) 
@@ -65,7 +66,7 @@ class PagesController < ApplicationController
  
  def create_page_comment # this is the only create action that doesn't require that the item is editable by the user
    @page = Page.find(params[:id])
-   if simple_captcha_valid?
+   if human? || !@logged_in_user.anonymous?
      if !@page.is_system_page? # only public pages can have comments
        if Setting.get_setting_bool("allow_page_comments") || @logged_in_user.is_admin? # make sure the user is logged in and can leave page comments 
              @comment = PageComment.new(params[:comment])
@@ -87,7 +88,7 @@ class PagesController < ApplicationController
        flash[:failure] = t("notice.invalid_permissions")        
      end 
    else # captcha failed'
-        flash[:failure] = t("notice.invalid_captcha")
+     flash[:failure] = I18n.translate("humanizer.validation.error")
    end
    redirect_to :back
    #redirect_to :action => "page", :id => @page.id # go to page
@@ -153,7 +154,7 @@ class PagesController < ApplicationController
       valid_extensions = ".png, .jpg, .jpeg, .gif, .bmp, .tiff, .PNG, .JPG, .JPEG, .GIF, .BMP, .TIFF"
       uploaded_file = Uploader.file_from_url_or_local(:local => params[:file], :url => params[:url])
       if uploaded_file
-        filename = File.basename(uploaded_file.path)
+        filename = params[:file].blank? ? File.basename(uploaded_file.path) : params[:file].original_filename 
         if Uploader.check_file_extension(:filename => filename, :extensions => valid_extensions)
          image = Magick::Image.from_blob(File.open(uploaded_file.path).read)[0] # read in image binary, from_blob returns an array of images, grab first item                  
           @image = Image.new(params[:image])
@@ -223,19 +224,15 @@ class PagesController < ApplicationController
   end  
 
   def send_contact_us
-   if true#simple_captcha_valid?  
-     email_regexp = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
-     if !email_regexp.match(params[:email])# validate email
-       flash[:failure] = "#{t("notice.invalid_email")}" #print out any errors!
-     else # email okay
-      #  def contact_us_email(recipient, from = "noemailset@none.com", name = "No Name Set", subject = "No Subject Set", message = "No Message Set", ip = "", display = "plain") 
-      # Send Email
-      Emailer.contact_us_email(params[:email], params[:name], t("email.subject.contact_us", :site_title => @setting[:title], :from => params[:name]), params[:message], request.env['REMOTE_ADDR']).deliver
-      flash[:success] = "#{t("notice.contact_thanks", :name => params[:name])}" #print out any errors!
-     end
-   else # captcha failed
-     flash[:failure] = t("notice.invalid_captcha") #print out any errors!
-   end 
+   email_regexp = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
+   if !email_regexp.match(params[:email])# validate email
+     flash[:failure] = "#{t("notice.invalid_email")}" #print out any errors!
+   else # email okay
+    #  def contact_us_email(recipient, from = "noemailset@none.com", name = "No Name Set", subject = "No Subject Set", message = "No Message Set", ip = "", display = "plain") 
+    # Send Email
+    Emailer.contact_us_email(params[:email], params[:name], t("email.subject.contact_us", :site_title => @setting[:title], :from => params[:name]), params[:phone], params[:message], request.env['REMOTE_ADDR']).deliver
+    flash[:success] = "#{t("notice.contact_thanks", :name => params[:name])}" #print out any errors!
+   end
    redirect_to :action => "index", :controller => "browse"
   end  
   

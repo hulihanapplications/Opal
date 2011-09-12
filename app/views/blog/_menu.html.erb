@@ -1,35 +1,24 @@
 
 <%= auto_discovery_link_tag(:rss, {:action => "rss", :controller => "blog"}, {:title => "#{t("label.rss_feed")} - #{t("section.title.blog").capitalize}"}) %>
-<div class="box_1" style="margin-bottom:10px"> 
-	<table style="width:100%" cellpadding=0 cellspacing=0>
-		<tr>
-			<td align=left>
-				<h2 class="title"><%= t("single.archive") %></h2>
-			</td>
-			<td align=right>				
-				<%= link_to raw("#{icon('new')} #{t('label.item_new', :item => t('activerecord.models.blog_page', :count => 1))}"), {:action => "new", :controller => "pages", :type => "Blog"} if @logged_in_user.is_admin?  %>				
-			</td>
-		</tr>
-	</table>
-	<!--
-	<b><%= link_to "Home", :action => "index", :controller => "blog" %></b>
-	<div class="spacer"></div>
-	-->
+<div class="box_1"> 
+	<h2 class="title"><%= t("single.archive") %></h2>
 	<%# Get Post archive by using group_by %>
-	<% @post_archives = Page.find(:all, :order => "created_at DESC", :conditions => ["page_type = ? and published = ?", "blog", true]).group_by{|post| post.created_at.beginning_of_month } %>
-	
-	
-	<% @post_archives.each do |date, posts|  %> 
-		<div>
-			<table style="width:100%" cellpadding=0 cellspacing=0>
-				<tr>
-					<td align=left>
-						<b><%= link_to "#{date.strftime("%B %Y")} ", blog_archive_path(:year => date.strftime("%Y"), :month => date.strftime("%m")) %></b>
-					</td>
-					<td align=right><%= posts.size %></td>					
-				</tr>
-			</table>
-		</div>
+	<% @post_archives = Page.find(:all, :order => "created_at DESC", :conditions => ["page_type = ? and published = ?", "blog", true]).group_by{|post| post.created_at.beginning_of_month } %>	
+	<% if @post_archives.size > 0 %>
+		<% @post_archives.each do |date, posts|  %> 
+			<div>
+				<table style="width:100%" cellpadding=0 cellspacing=0>
+					<tr>
+						<td align=left>
+							<b><%= link_to "#{date.strftime("%B %Y")} ", blog_archive_path(:year => date.strftime("%Y"), :month => date.strftime("%m")) %></b>
+						</td>
+						<td align=right><%= posts.size %></td>					
+					</tr>
+				</table>
+			</div>
+		<% end %>
+	<% else %>
+		<%= t("notice.items_not_found", :items => t("activerecord.models.blog_page", :count => :other)) %>
 	<% end %>
 </div> 
 

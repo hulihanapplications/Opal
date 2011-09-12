@@ -3,7 +3,7 @@ class PluginCommentsController < PluginController
  include ActionView::Helpers::TextHelper # for truncate, etc.
  
  def create # this is the only create action that doesn't require that the item is editable by the user
-   if simple_captcha_valid? || !@logged_in_user.anonymous?
+   if human? || !@logged_in_user.anonymous?
      @item = Item.find(params[:id])
      @plugin_comment = PluginComment.new(params[:plugin_comment])
      if !@logged_in_user.anonymous? # if the user is not anonymous
@@ -24,8 +24,8 @@ class PluginCommentsController < PluginController
      else # fail saved 
       flash[:failure] = t("notice.item_create_failure", :item => @plugin.model_name.human)
      end
-   else # captcha failed'
-     flash[:failure] = t("notice.invalid_captcha") 
+   else # humanizer failure
+     flash[:failure] = I18n.translate("humanizer.validation.error")
    end
    redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human(:count => :other) 
  end 

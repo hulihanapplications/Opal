@@ -7,7 +7,6 @@
 			<h2 class="title">
 				<%= t("label.item_edit", :item => @page.model_name) %>
 			</h2>
-			<hr>
 			<%= render :partial => "form", :locals => {:page => @page} %>
 			<div align=center>
 				<%= submit_tag t("single.save"), :class => "button_1" %>

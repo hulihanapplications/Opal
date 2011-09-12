@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_filter :detect_mobile, :detect_flash
   layout :layout_location # using a symbol defers layout choice until after a request is processed 
   
-  include SimpleCaptcha::ControllerHelpers
+  include Humanizer::ActionController # add humanizer support to controller
     
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store

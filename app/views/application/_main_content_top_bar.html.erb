@@ -11,7 +11,8 @@
 				<% end %>
 			</td>
 			<td align=right>
-				<% if !@item %>							
+				<% if !@item %>		
+					<%= link_to(icon("new") + " #{t("label.item_new", :item => Item.model_name.human)}", {:action => "new", :controller => "items", :id => params[:id]}) if @logged_in_user.can_create_item? %>														
 					<% if Setting.get_setting_bool("allow_item_list_type_changes")  && (params[:action] != "view") %>
 						<%  session[:list_type] ?  @setting[:list_type] = session[:list_type] : @setting[:list_type] = Setting.get_setting("list_type") %>						
 						<%= link_to raw("<img src=\"/themes/#{@setting[:theme]}/images/icons/list_type_simple.png\" class=\"icon #{"selected" if @setting[:list_type] == "simple"}\">"), { :action => 'set_list_type', :controller => "items", :list_type => "simple", :redirect_to => current_url}, :class => "transparent", :title => t("activerecord.records.setting.list_type_simple.description", :items => Item.model_name.human(:count => :other) ) %>						
@@ -85,6 +86,7 @@
 						</script>	
 					<% end %>					
 				<% else %>		
+					<%= link_to(icon("new") + " #{t("label.item_new", :item => Item.model_name.human)}", {:action => "new", :controller => "items", :id => @item.category_id}) if @logged_in_user.can_create_item? %>														
 					<% if Setting.get_setting_bool("allow_item_page_type_changes")  && (params[:action] == "view") %>		
 						<%  session[:item_page_type] ?  @setting[:item_page_type] = session[:item_page_type] : @setting[:item_page_type] = Setting.get_setting("item_page_type") %>																			
 						<%= link_to raw("<img src=\"/themes/#{@setting[:theme]}/images/icons/item_page_type_summarized.png\" class=\"icon #{"selected" if @setting[:item_page_type] == "summarized"}\">"), { :action => 'set_item_page_type', :controller => "items", :item_page_type => "summarized", :redirect_to => current_url}, :class => "transparent", :title => t("activerecord.records.setting.item_page_type_summarized.description", :item => Item.model_name.human ) %>						

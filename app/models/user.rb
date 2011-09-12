@@ -26,14 +26,14 @@ class User < ActiveRecord::Base
   
   validates_uniqueness_of :username #this will comb through the database and make sure email is unique
   validates_uniqueness_of :email #this will comb through the database and make sure email is unique
-  validates_presence_of :username, :first_name, :last_name, :email
+  validates_presence_of :username, :email
   validates_confirmation_of :password # this will confirm the password, but you have to have an html input called password_confirmation
   validates_length_of :username, :maximum => 255
   #validates_numericality_of :zip
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
   
   before_save :strip_html
-  after_create lambda{|r| r.create_log(:log_type => "create", :public => true, :user_id => r.id) }
+  after_create lambda{|r| r.create_log(:log_type => "create", :user_id => r.id) }
   after_create :create_everything
   after_create :set_verification  
   after_create :notify
@@ -172,14 +172,14 @@ class User < ActiveRecord::Base
     max_items = Setting.get_setting("max_items_per_user")
     if max_items.to_i != 0 
      items_remaining = max_items.to_i - self.items.count
-     return (items_remaining > 0 || max_items.to_i != 0) || @logged_in_user.is_admin?
+     return (items_remaining > 0 || max_items.to_i != 0) || is_admin?
     else # user can create unlimited items 
      return nil
     end      
   end
   
-  def can_create_more_items?
-    is_admin? || (items_remaining.nil? || items_remaining > 0) 
+  def can_create_item?
+    is_admin? || ((items_remaining.nil? || items_remaining > 0) && !anonymous?) 
   end
   
   def apply_omniauth(omniauth) # fill attributes based on received omniauth data
@@ -216,6 +216,6 @@ class User < ActiveRecord::Base
   end
     
   def notify
-    Emailer.deliver_new_user_notification(self) if Setting.get_setting_bool("new_user_notification")                 
+    Emailer.new_user_notification(self).deliver if Setting.get_setting_bool("new_user_notification")                 
   end  
 end

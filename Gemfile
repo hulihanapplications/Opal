@@ -14,7 +14,7 @@ gem "will_paginate", ">= 3.0.pre2"
 gem "omniauth"
 
 gem "make_voteable", :git => "git://github.com/medihack/make_voteable"# , :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems")
-gem "simple_captcha", :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems")#, :git => 'git://github.com/galetahub/simple-captcha.git' # use galetahub's simple_captcha instead of rubygems
+gem "humanizer", "=2.4.3"
 
 # Database Gems
 #gem "mysql2"

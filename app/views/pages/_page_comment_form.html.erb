@@ -7,10 +7,11 @@
 		<h3><%= label "comment", "anonymous_email", PageComment.human_attribute_name(:anonymous_email)  %></h3>		
 		<%= text_field 'comment', 'anonymous_email'  %>
 	</div>	
- <% end %> 
- <table style="width:100%;margin-bottom:5px;" align=left cellpadding=0 cellspacing=0>
-	 <tr><td  align=center><textarea name="comment[comment]" style="width:100%"></textarea></td>			 </tr>
-      <tr><td align=left><%= t("label.captcha") %></td></tr>
-	 <tr><td  align=left><%= show_simple_captcha %></td></tr>
- </table>
+	<div class="field">
+		<%= label_tag :humanizer_answer, controller.humanizer_question %>
+		<%= text_field_tag :humanizer_answer %>
+		<%= hidden_field_tag :humanizer_question_id, controller.humanizer_question_id %>
+	</div>	
+ <% end %>
+ <%= text_area_tag "comment[comment]" %> 		
  <div style="clear:both"></div>

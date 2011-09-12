@@ -58,49 +58,35 @@ class Page < ActiveRecord::Base
   end
   
   def self.public_pages
-    return Page.find(:all, :conditions => ["page_type = ?", "public"])
+    where(:page_type => "public")
   end
   
   def self.system_pages
-    return Page.find(:all, :conditions => ["page_type = ?", "system"])
+    where(:page_type => "system")
   end  
  
   def self.blog_pages
-    return Page.find(:all, :conditions => ["page_type = ?", "blog"], :order => "created_at DESC")
+    where(:page_type => "blog").order("created_at DESC")
   end  
   
   def self.get_system_page(page_title) # retrieve system page by page title
-    return Page.find(:first, :conditions => ["page_type = ? and title = ?", "system", page_title])
+    system_pages.where(:title => page_title).first
   end
 
   def self.get_public_page(page_title) # retrieve public page by page title
-    return Page.find(:first, :conditions => ["page_type = ? and title = ?", "public", page_title])
+    public_pages.where(:title => page_title).first
   end
    
-
-  
   def is_system_page?
-    if self.page_type.downcase == "system"
-      return true
-    else 
-      return false
-    end
+    self.page_type.downcase == "system"
   end
   
   def is_public_page?
-    if self.page_type.downcase == "public"
-      return true
-    else 
-      return false
-    end
+    self.page_type.downcase == "public"
   end
 
   def is_blog_post?
-    if self.page_type.downcase == "blog"
-      return true
-    else 
-      return false
-    end
+    self.page_type.downcase == "blog"
   end 
   
   def parent

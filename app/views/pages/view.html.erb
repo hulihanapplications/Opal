@@ -9,13 +9,7 @@
 	</div>
 	<div id="main">	
 <% end %>	   
-	   <div class="page">
-	   		<%= render :partial => "pages/page_header", :locals => {:page => @page} %>
-			<%= show_page(@page) %>
-	   
-	   		<%# Handle Special Pages %>
-			<%= render :partial => "pages/template_contact_us" if @page.name == "contact_us" %>
-	   </div>
+	   <%= render @page %>
 	   
 	   <% if !@page.is_system_page? %>
 	   		<% if Setting.get_setting_bool("allow_page_comments") %>

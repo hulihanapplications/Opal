@@ -15,14 +15,11 @@
 		</div>
 	<% end %>  	
 	<%= render :partial => "plugin_tags/side" if Plugin.plugins[:tag].is_enabled? %>					
-	<%= show_page Page.get_system_page(I18n.t('seeds.page.category_column.title')) %>	
+	<%= render Page.get_system_page(I18n.t('seeds.page.category_column.title')) %>	
 </div>
 <div id="main">
 		<% items_page =  Page.find_by_name("items") %>
-		<% if items_page %>
-			<%= render :partial => "pages/header", :locals => {:page => items_page} %>
-			<%= show_page items_page  %>
-		<% end %>		
+		<% render items_page if items_page %>		
 		<%= render :partial => "/items/list_items", :locals => {:items => @items } %>
 		<div class="pagination">
 			<%= page_entries_info @items, :entry_name => Item.model_name.human %>	

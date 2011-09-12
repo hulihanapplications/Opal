@@ -32,10 +32,9 @@
 	<div id="editor_wrapper">
 		<%= text_area 'page', 'content', :style => "width:100%;height:500px", :class => "mceEditor", :id => "form_content_box_#{page.id}", :disabled => !page.content_editable %>
 	</div>
-	
-	<div style="height:5px"></div>
-	<%= link_to_function content_tag(:h3, link_to_function(raw("#{icon("dropdown")} #{t("single.advanced")} #{t("single.options")}"), "$('#advanced_options').toggle()"), :style => "padding:5px 0px") if !page.is_system_page? %>
-	<div id="advanced_options"  style="display:none;">
+
+	<%= content_tag(:h3, link_to_function(icon("dropdown") + " " + t("single.advanced"), "$('#advanced_options').toggle()", :class => "extra_options")) %>	
+	<div id="advanced_options"  class="extra_options_box" style="display:none;" >
 		<table cellpadding=0 cellspacing=0>
 			<tr>
 				<td class="">
@@ -111,11 +110,10 @@
 					<% end %>																		
 				</td>					
 			</tr>
-		</table>			
+		</table>	
 	</div>
-	<hr />
-	<%= link_to_function content_tag(:h3, link_to_function(raw("#{icon("dropdown")} #{t("label.additional_info")}"), "$('#additional_info').toggle()"), :style => "padding:5px 0px") %>
-	<div id="additional_info" style="display:none;">
+	<%= content_tag(:h3, link_to_function(icon("dropdown") + " " + t("label.additional_info"), "$('#additional_info').toggle()", :class => "extra_options")) %>
+	<div id="additional_info" class="extra_options_box" style="display:none;">
 		<table cellpadding=0 cellspacing=0>
 			<tr>
 				<td>
@@ -139,7 +137,6 @@
 				</td>
 			</tr>
 		</table>
-	
 	</div>															
 </div>
 	

@@ -28,16 +28,10 @@
 					</div>
 				<% end %>  	
 		<% end %>	
-		<% if homepage_sidebar %>
-			<%= render :partial => "pages/header", :locals => {:page => homepage_sidebar} %>
-			<%= show_page homepage_sidebar  %>
-		<% end %>		
+		<% render homepage_sidebar if homepage_sidebar %>	
 	<% end if show_sidebar %>		
 	<%= content_tag :div, :id => (show_sidebar ? "main" : nil) do  %>
-		<% if homepage %>
-			<%= render :partial => "pages/header", :locals => {:page => homepage, :options => {:navlinks => false}} %>
-			<%= show_page homepage  %>
-		<% end %>
+		<%= render homepage if homepage %>
 		<% if @setting[:homepage_type] == "new_items" && @setting[:section_items] %>
 			<%= render :partial => "browse/homepage_new_items" %>
 		<% elsif @setting[:homepage_type] == "categories" && @setting[:section_items] %>

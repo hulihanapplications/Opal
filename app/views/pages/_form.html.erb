@@ -126,7 +126,7 @@
 								<% if @page.user %>
 									<%= Page.human_attribute_name(:user_id) %> 			
 									<b><%= link_to  "#{h @page.user.username}", {:action => "user", :controller => "browse", :id => @page.user}, :title => "#{@page.user.username}"  %></b>
-									<%= user_avatar(@page.user, :size => "tiny") %>
+									<%= user_avatar(@page.user, :class => "tiny") %>
 								<% end %>	
 							</div>	
 						</div>						

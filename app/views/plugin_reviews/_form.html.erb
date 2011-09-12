@@ -7,7 +7,7 @@
 				<tr>
 					<td class="user_column">
 						<div class="user_box" align=center >				 
-							 <%= link_to user_avatar(@review.user, :size => "small"), {:action => "user", :id => @review.user, :controller => "browse"}   %>
+							 <%= link_to user_avatar(@review.user, :class => "small"), {:action => "user", :id => @review.user, :controller => "browse"}   %>
 							 <%= link_to content_tag(:span, @review.user.to_s, :itemprop => "reviewer"), {:action => "user", :id => @review.user, :controller => "browse"}   %>		   	 
 				    	</div>
 					</td>

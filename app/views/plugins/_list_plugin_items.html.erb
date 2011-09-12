@@ -13,7 +13,7 @@
 								<td style="width:20px;">
 									<% if plugin_item.user %>
 										<% user = plugin_item.user %>
-										<%= link_to user_avatar(user, :size => "tiny"), {:action => "user", :controller => "browse", :user_id => user}  %>													
+										<%= link_to user_avatar(user, :class => "tiny"), {:action => "user", :controller => "browse", :user_id => user}  %>													
 									<% else %>
 										<img src="/themes/<%= @setting[:theme] %>/images/default_avatar.png" class="avatar_tiny" title="<%= t("single.anonymous") %>">
 									<% end %>								

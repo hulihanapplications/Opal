@@ -371,6 +371,23 @@ ru:
     items_imported: "%{count} %{items} импортировано."
     failed_admin_access_attempt_visitor: Кто-то с адресом %{ip} пытался войти в Админ. зону. %{controller} - %{action}
     failed_admin_access_attempt_user: %{username}(%{id}) пытался войти в Админ. зону. %{controller} - %{action}
+    models:
+      plugin_comment:
+        create: "%{user} left a %{item} for %{parent} <div><blockquote>%{target}</blockquote></div>"
+      plugin_image:
+        create: "%{user} uploaded an %{item} for %{target}"
+      plugin_review:
+        create: "%{user} reviewed %{target}"
+      plugin_discussion_post:
+        create: "%{user} posted on the %{parent} discussion: %{discussion} <div><blockquote>%{target}</blockquote></div>"
+      plugin_discussion:
+        create: "%{user} created a new %{parent} %{item}: %{target}"                   
+      item: 
+        create: "%{user} added a new %{item}: %{target}"      
+      page:
+        create: "%{user} added a new %{item}: %{target}"
+      user:
+        create: "%{user} joined %{title}"    
   # Email
   email:
     subject:

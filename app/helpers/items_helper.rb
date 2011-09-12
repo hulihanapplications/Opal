@@ -28,5 +28,11 @@ module ItemsHelper
       else # item doesn't exist
         return raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\" title=\"#{Item.model_name.human} cannot be found.\">"      
       end 
-  end    
+  end
+
+  def link_to_item(item, options = {})
+    options[:preview] = false if options[:preview].nil?
+    link_to((options[:preview] ? item_thumbnail(item, :class => "pinky") : "") + " " + item.name, {:action => "view", :controller => "items", :id => item}, :title => item.name)                                      
+  end  
+      
 end 

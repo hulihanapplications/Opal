@@ -10,8 +10,7 @@ class PluginImage < ActiveRecord::Base
   validates_presence_of :url
   validates_uniqueness_of :url, :scope => :item_id
   validates :remote_file, :format => /(^$)|(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix, :uri_response => true, :if => lambda{|o|o.local_file.blank?}, :on => :create 
-  before_destroy :delete_files
- 
+  before_destroy :delete_files  
   attr_accessor :local_file, :remote_file, :effects, :source 
   
   def to_s

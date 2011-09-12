@@ -26,7 +26,7 @@
 			<td>
 				<div align=right class="login_box">
 					<% if !@logged_in_user.anonymous? %>
-					 <%= user_avatar(@logged_in_user, :size => "tiny") %>
+					 <%= user_avatar(@logged_in_user, :class => "tiny") %>
 					 <%= t("label.logged_in_as", :name => @logged_in_user.username) %> 
 					 <%= icon("spacer") %>
 					 <%= link_to t("section.title.my_account"), user_home_path %>

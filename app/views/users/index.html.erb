@@ -7,7 +7,7 @@
 					<table cellpadding=0 cellspacing=0 style="width:100%">
 						<tr>
 							<td style="width:20px;" align=left>
-								<%= user_avatar(user, :size => "tiny") %>								
+								<%= user_avatar(user, :class => "tiny") %>								
 							</td>
 							<td align=left style="padding-left:2px">
 								<h3><b><%= link_to user.username, user %></b></h3>
@@ -51,7 +51,7 @@
 						<% for user in @users%>			
 							<tr class="<%= cycle("row_a", "row_b") %>">
 								<td>	
-								<%= link_to  user_avatar(user, :size => "tiny"), user, :title => "#{h user.username}"  %>
+								<%= link_to  user_avatar(user, :class => "tiny"), user, :title => "#{h user.username}"  %>
 								</td>
 								<td>
 									<%= icon("admin") if user.is_admin? %>									

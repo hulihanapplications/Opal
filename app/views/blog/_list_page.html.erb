@@ -9,7 +9,7 @@
 			<% if page.user %>
 				<%= t("single.by").downcase %>
 				<b><%= link_to page.user.username, {:action => "user", :controller => "browse", :id => page.user}, :title => "#{page.user.username}"  %></b>
-				<%= user_avatar(page.user, :size => "tiny") %>
+				<%= user_avatar(page.user, :class => "tiny") %>
 			<% end %>																															
 	 	</td>									
 	</tr>

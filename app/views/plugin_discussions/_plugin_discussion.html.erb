@@ -26,7 +26,7 @@
 		<% if latest_posts.size > 0 %>
 			<div class="spacer"></div>					
 			<h3><%= t("label.items_latest", :items => PluginDiscussionPost.model_name.human(:count => :other)) %></h3>
-			<%= render :partial => "plugin_discussions/list_posts", :locals => {:posts => latest_posts, :item => @item, :options => {:size => "small"}} %>
+			<%= render :partial => "plugin_discussions/list_posts", :locals => {:posts => latest_posts, :item => @item, :options => {:class => "small"}} %>
 		<% end %>
 	<% end %>
 </div>

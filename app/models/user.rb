@@ -33,7 +33,6 @@ class User < ActiveRecord::Base
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
   
   before_save :strip_html
-  after_create lambda{|r| r.create_log(:log_type => "create", :user_id => r.id) }
   after_create :create_everything
   after_create :set_verification  
   after_create :notify

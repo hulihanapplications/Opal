@@ -10,7 +10,7 @@ class PluginVideo < ActiveRecord::Base
   #validates_presence_of :title 
   
   before_validation lambda{|o| o.sanitize_content(:code)}
-  
+    
   attr_accessible :code, :title, :description
   
   default_scope :order => "title ASC"

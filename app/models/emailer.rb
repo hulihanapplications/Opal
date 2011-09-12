@@ -55,7 +55,7 @@ class Emailer < ActionMailer::Base
     @setting = Setting.global_settings
     recipients = Emailer.admin_emails
     @user = user
-    subject = I18n.t("email.subject.item_new", :item => User.model_name.human, :name => @user.username + " (#{@user.first_name} #{@user.last_name})", :title => @setting[:title])
+    subject = I18n.t("email.subject.item_new", :item => User.model_name.human, :name => @user.to_s, :title => @setting[:title])
     mail(:to => nil, :bcc => recipients, :subject => subject, :date => Time.now)
   end
 

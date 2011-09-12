@@ -24,7 +24,7 @@
 					  <table  cellpadding=0 cellspacing=0 >
 					  	<tr>
 						  <td style="width:20px;vertical-align:middle;text-align:center">
-							 <%= link_to user_avatar(message.user_from, :size => "tiny"), {:action => "user", :controller => "browse", :id => message.user_from} %>
+							 <%= link_to user_avatar(message.user_from, :class => "tiny"), {:action => "user", :controller => "browse", :id => message.user_from} %>
 						  </td>
 						  <td style="width:20px;vertical-align:middle;text-align:center">
 						    <% if message.is_replied_to? && message.message_replied_to %>
@@ -34,7 +34,7 @@
 							<% end %>
 						  </td>
 						  <td style="width:20px;vertical-align:middle;text-align:center">
-							 <%= link_to user_avatar(message.user_to, :size => "tiny"), {:action => "user", :controller => "browse", :id => message.user_to} %>		  	
+							 <%= link_to user_avatar(message.user_to, :class => "tiny"), {:action => "user", :controller => "browse", :id => message.user_to} %>		  	
 						  </td>						  			  		
 					  	</tr>
 					  </table>		

@@ -48,29 +48,33 @@ module ApplicationHelper
     raw link_to(truncate(t("page.title.#{page.title.delete(' ').underscore}", :default => page.title), :length => options[:truncate_length]), url, :class => options[:class], :title => t("page.description.#{page.title.delete(' ').underscore}", :default => page.description))   
   end
 
-   def user_avatar(user, options = {:size => "normal"})
+   def user_avatar(user, options = {})
+    options[:class] ||= "normal"
     if !user.nil? # user exists    
       if user.use_gravatar? 
-        gravatar_image(user, :size => options[:size])
+        gravatar_image(user, options)
       else # don't use gravatar, check local avatars 
-        avatar_image(user, :size => options[:size])
+        avatar_image(user, options)
       end
     else # user doesn't exist
       return raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\" title=\"#{t("notice.item_not_found", :item => User.model_name.human)}\">"      
     end     
   end 
 
-  def avatar_image(user, options = {:size => "normal"})
+  def avatar_image(user, options = {})
+      options[:title] = user.to_s
       if File.exists?(Rails.root.to_s + "/public/images/avatars/" + user.id.to_s + ".png") 
-         return raw "<img src=\"/images/avatars/#{user.id.to_s}.png\" class=\"avatar_#{options[:size]}\" title=\"#{user.username}\">"
+         return image_tag("images/avatars/#{user.id.to_s}.png", options)
       else # get default avatar
-         return raw "<img src=\"/themes/#{@setting[:theme]}/images/default_avatar.png\" class=\"avatar_#{options[:size]}\" title=\"#{user.username}\">"
+         return theme_image_tag("default_avatar.png", options)        
       end        
   end 
   
-  def gravatar_image(object, options = {:size => "normal"})
-    email = object.class == User ? object.email.downcase : object.class == String ? object : nil 
-    return raw "<img src='http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5.hexdigest(email)}?d=#{URI.escape(@setting[:url] + @setting[:theme_url] + "/images/default_avatar.png")}&s=100' class=\"avatar_#{options[:size]}\" title=\"#{object.class == User ? object.username : nil}\">"
+  def gravatar_image(object, options = {})
+    email = (object.class == User) ? object.email.downcase : (object.class == String ? object : nil)
+    options[:title] ||= Object.class == User ? object.to_s : nil
+    return image_tag("http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5.hexdigest(email)}?d=#{URI.escape(@setting[:url] + @setting[:theme_url] + "/images/default_avatar.png")}&s=100", options)
+    #return raw "<img src='http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5.hexdigest(email)}?d=#{URI.escape(@setting[:url] + @setting[:theme_url] + "/images/default_avatar.png")}&s=100' class=\"avatar_#{options[:size]}\" title=\"#{object.class == User ? object.username : nil}\">"
   end
 
 
@@ -473,8 +477,8 @@ module ApplicationHelper
     options[:avatar] = false if options[:avatar].nil?
     options[:name] = true if options[:name].nil?
     options[:avatar_class] ||= "tiny"
-    link_to raw((options[:name] ? user.to_s : "") + " " + (options[:avatar] ? user_avatar(user, :size => options[:avatar_class]) : "")), user_path(user)
-  end
+    link_to raw((options[:name] ? user.to_s : "") + " " + (options[:avatar] ? user_avatar(user, :class => options[:avatar_class]) : "")), user_path(user)
+  end  
   
   def loading #show loading box
     theme_image_tag("loading.gif", :class => "loading")

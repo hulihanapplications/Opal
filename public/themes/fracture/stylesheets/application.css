@@ -18,7 +18,7 @@ hr{width: 100%; margin: 5px 0px 5px 0px; height: 1px; background: #ccc; border: 
 #wrapper > #content{;padding:5px;padding-top:10px; padding-bottom:70px;height:100%}
 		#wrapper > #content #main{width:660px;float:left;}
 		#wrapper > #content #side{width:230px;float:left;padding-right:10px}
-#wrapper > #footer{position:absolute;bottom:0;width:100%;height:45px;padding:10px;color:#ccc;background:url(../images/bgs/body_bg.png) repeat-x white;;text-align:center;}
+#wrapper > #footer{position:absolute;bottom:0;width:100%;height:45px;padding:10px;color:#ccc;background:url(../images/bgs/body_bg.png) repeat-x white;border-top:1px solid black;;text-align:center;}
 
 /* Main Menu */
 div.main_menu{position:absolute;bottom:0;right:0;}
@@ -91,9 +91,9 @@ img.thumbnail:hover, .preview_not_found:hover {;opacity:1.00;filter:alpha(opacit
 img.pinky{border:0px solid #999;opacity:0.80;filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity: 0.8;}
 img.pinky:hover{;opacity:1.00;filter:alpha(opacity=100);-moz-opacity:1.0;-khtml-opacity: 1.0}
 img.selected{border:1px solid #aaa;background:url(../images/bgs/black_trans_05.png) repeat;padding:2px;opacity:1.00;filter:alpha(opacity=100);-moz-opacity:1.0;-khtml-opacity: 1.0;;-moz-border-radius: 3px;-webkit-border-radius: 3px;}
-img.avatar_normal{border:1px solid #666}
-img.avatar_small{width:50px;height:50px;border:1px solid #666}
-img.avatar_tiny, img.pinky{height:20px;border:1px solid #666;vertical-align:middle;}
+img.normal{border:1px solid #666}
+img.small, img.medium{width:50px;height:50px;border:1px solid #666}
+img.tiny, img.pinky{height:20px;border:1px solid #666;vertical-align:middle;}
 img.loading{margin:2px;background:#ccc;padding:5px;border:1px solid #666;;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
 
 /* Items */

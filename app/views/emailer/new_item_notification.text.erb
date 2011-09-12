@@ -1,2 +1,1 @@
-<%= t("email.message.item_new_from_user", :item => Item.model_name.human, :name => @item.name, :title => @setting[:title], :from => @item.user ? @item.user.username : nil, :url => link_to_item(@item)) -%>
-
+<%= t("email.message.item_new_from_user", :item => Item.model_name.human, :name => @item.name, :title => @setting[:title], :from => @item.user ? @item.user.username : nil, :url => url_for(:action => "view", :controller => "items", :id => @item, :only_path => false)) -%>

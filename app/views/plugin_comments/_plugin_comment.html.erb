@@ -6,13 +6,13 @@
 				<div class="user_box">
 				 <% if !plugin_comment.user_id.nil? && plugin_comment.user_id != 0  %>
 					 <% comment_user = User.find(plugin_comment.user_id)%>
-					 <%= user_avatar(comment_user, :size => "small") %>
+					 <%= user_avatar(comment_user, :class => "small") %>
 					 <br>
 					 <%= link_to "#{truncate(comment_user.username, :length => 10)}", {:action => "user", :id => comment_user.id, :controller => "browse" }, :style => "font-weight:bold", :title => "#{h comment_user.username}"   %>
 					 <br>
 				   <% else %><%# an anonymous comment %>
 				   	 <% if !plugin_comment.anonymous_email.nil? %>
-						 <%= gravatar_image(plugin_comment.anonymous_email, :size => "small") %>
+						 <%= gravatar_image(plugin_comment.anonymous_email, :class => "small") %>
 					 <% else %>
 			 	         <img src="/images/default_avatar.png" class="avatar_small">
 					 <% end %>

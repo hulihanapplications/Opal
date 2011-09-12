@@ -32,9 +32,9 @@
 			 <%= label :user_info, :use_gravatar %>
 		</td>
 		<td align=right>
-			<%= gravatar_image(@user, :size => "tiny") %>
+			<%= gravatar_image(@user, :class => "tiny") %>
 			<%= t("single.positive") %> <input type="radio" name="user_info[use_gravatar]" value="1"<% if @user.use_gravatar? %>CHECKED<% end %>>
-			<%= avatar_image(@user, :size => "tiny") %>
+			<%= avatar_image(@user, :class => "tiny") %>
 			<%= t("single.negative") %> <input type="radio" name="user_info[use_gravatar]" value="0"<% if !@user.use_gravatar? %>CHECKED<% end %>>
 		</td>			
 	</tr>	

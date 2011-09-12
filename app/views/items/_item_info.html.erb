@@ -1,5 +1,5 @@
 <div class="box_3" align=center>
-	 <%= link_to user_avatar(item.user, :size => "small"), {:action => "user", :controller => "browse", :id => item.user } %>
+	 <%= link_to user_avatar(item.user, :class => "small"), {:action => "user", :controller => "browse", :id => item.user } %>
 	 <br>
 	 <%= Item.human_attribute_name(:user_id) %>  <%= link_to item.user.username, {:action => "user", :controller => "browse", :id => item.user }, :style => "font-weight:bold"   %><br>
 	<% if get_setting_bool("enable_item_date") %>

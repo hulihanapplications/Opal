@@ -1,3 +1,3 @@
-<%= content_tag(:div, user_avatar(record.user, :size => "small")) %>
+<%= content_tag(:div, user_avatar(record.user, :class => "small")) %>
 <%= content_tag(:div, score(record)) %>
 <%= truncate(record.review, :length => 60) %>

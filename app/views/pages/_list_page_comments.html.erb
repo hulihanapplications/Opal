@@ -10,13 +10,13 @@
 					<td align=left class="user_column">
 						<div class="user_box">
 						   <% if comment_user %>
-							 <%= user_avatar(comment_user, :size => "small") %>
+							 <%= user_avatar(comment_user, :class => "small") %>
 							 <br>
 							 <%= link_to comment_user.username, {:action => "user", :id => comment_user, :controller => "browse" }, :style => "font-weight:bold"   %>
 							 <br>
 						   <% else %><%# an anonymous comment %>
 						   	 <% if !comment.anonymous_email.nil? %>
-									 <%= gravatar_image(comment.anonymous_email, :size => "small") %>
+									 <%= gravatar_image(comment.anonymous_email, :class => "small") %>
 							 <% else %>
 					 	         <img src="/images/default_avatar.png" class="avatar_small">
 							 <% end %>

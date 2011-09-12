@@ -9,7 +9,7 @@
 				<tr>
 					<td align=left style="width:20px;vertical-align:middle">
 						<% if post.user_id %>																		
-							<%= link_to  user_avatar(post.user, :size => "tiny"), {:action => "user", :controller => "browse", :id => post.user_id}, :title => "#{post.user.username}"  %>
+							<%= link_to  user_avatar(post.user, :class => "tiny"), {:action => "user", :controller => "browse", :id => post.user_id}, :title => "#{post.user.username}"  %>
 						<% end %>					
 					</td>
 					<td align=left style="vertical-align:middle">
@@ -31,13 +31,13 @@
 						<div class="user_box">
 						 <% if !post.user_id.nil? && post.user_id != 0  %>
 							 <% post_user = User.find(post.user_id) %>
-							 <%= user_avatar(post_user, :size => "small") %>
+							 <%= user_avatar(post_user, :class => "small") %>
 							 <br>
 							 <%= link_to post_user.username, {:action => "user", :id => post_user.id, :controller => "browse" }  %>
 							 <br>
 						   <% else %><%# an anonymous post %>
 						   	 <% if !post.anonymous_email.nil? %>
-									 <%= gravatar_image(post.anonymous_email, :size => "small") %>
+									 <%= gravatar_image(post.anonymous_email, :class => "small") %>
 							 <% else %>
 					 	         <img src="/images/default_avatar.png" class="avatar_small">
 							 <% end %>

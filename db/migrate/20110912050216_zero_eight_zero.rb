@@ -11,7 +11,7 @@ class ZeroEightZero < ActiveRecord::Migration
       puts "#{Log.model_name.human} #{log.id} #{I18n.t("single.updated", :default => "Updated")}" 
     end
     
-    # Move images to assets dir 
+    # Move public images to assets  
     src = Rails.root.join("public", "images")
     dst = Rails.root.join("app", "assets", "images")
     if File.exists?(src)
@@ -20,6 +20,8 @@ class ZeroEightZero < ActiveRecord::Migration
         puts file.to_s + " -> " + dst.to_s
       end 
       FileUtils.rmdir(src) # remove directory if empty
+    else 
+      I18n.t("notice.item_not_found", :item => src)
     end  
   end
     

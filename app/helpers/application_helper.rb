@@ -125,29 +125,16 @@ module ApplicationHelper
       return ""
     end
   end 
-  
- def thumbnail(image, options = {}) # show thumbnail for an image
-      options[:preview] = false if options[:preview].nil? 
-      options[:class] ||= "thumbnail" 
-      if !image.nil? # item exists
-         if options[:preview]
-          return raw "<a href=\"#{h image.url}\"  title=\"#{h image.description}\" rel=\"colorbox\"><img src=\"#{image.thumb_url}\" class=\"#{options[:class]}\" title=\"#{h image.description}\"></a>"
-         else
-          return raw "<img src=\"#{image.thumb_url}\" class=\"#{options[:class]}\" title=\"#{h image.description}\">"            
-         end     
-      else # item doesn't exist
-        return raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\" title=\"#{Item.model_name.human} cannot be found.\">"      
-      end       
- end
+
  
  def feature_icon(feature)
-     if !feature.icon_url.nil? && feature.icon_url != "" # Show unique feature icon, but if not set, show default 
-      return raw "<img src=\"#{feature.icon_url}\" class=\"icon\" title=\"#{h feature.name}\">"         
-     else 
-      return raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/feature.png\" class=\"icon\" title=\"#{h feature.name}\">"       
-     end    
+   if !feature.icon_url.nil? && feature.icon_url != "" # Show unique feature icon, but if not set, show default 
+    image_tag(feature.icon_url, :class => "icon", :title => feature.name)
+   else 
+    icon("feature", feature.name)
+   end    
  end
- 
+  
  def descend_page(page, options = {})    # recursively print out page title and other information
     # initialize default values for options
     options[:depth]             ||= 5      # how many levels to descend

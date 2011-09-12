@@ -84,10 +84,15 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   item3.save  
   
   # Create Plugins 
-  #plugin = PluginImage.new(:url => "/images/item_images/1/example_image_1.png", :thumb_url => "/images/item_images/1/thumb_example_image_1.png", :pinky_url => "/images/item_images/1/pinky_example_image_1.png", :description => I18n.t('sample_data.plugins.images.sample.description'))
-  #plugin.item_id = item1.id 
-  #plugin.user_id = @user.id 
-  #plugin.save
+  sample_image_path = Rails.root.join("spec", "fixtures", "images", "example.png")
+  if File.exists?(sample_image_path)
+    sample_image = File.new(sample_image_path) 
+    plugin = PluginImage.new(:local_file => ActionDispatch::Http::UploadedFile.new(:tempfile => sample_image, :filename => File.basename(sample_image.path)), :description => I18n.t('sample_data.plugins.images.sample.description'))
+    plugin.item_id = item1.id 
+    plugin.user_id = @user.id 
+    plugin.is_approved = "1"    
+    plugin.save
+  end 
 
   @plugin = PluginComment.new(:comment => I18n.t('sample_data.plugins.comments.sample.text'))
   @plugin.item_id = item1.id

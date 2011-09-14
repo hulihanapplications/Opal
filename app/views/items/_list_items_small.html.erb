@@ -7,12 +7,8 @@
 					<div class="<%= cycle('row_a', 'row_b') %>">	
 						<table style="width:100%" cellspacing=0 cellpadding=0>
 							<tr>
-								<% if Plugin.plugins[:image] && Plugin.plugins[:image].is_enabled? %>
-								<td class="icon_column">		
-									<%= link_to (item_thumbnail item, :class => "pinky" ), {:action => "view", :controller => "items", :id => item }, :title => "#{h item.name}" %>																						
-								</td>
-								<% end %>
 								<td align=left>
+									<%= preview(item, :size => "pinky") %>									
 									<span class="name">
 										<%= link_to truncate(item.name,  :length => 20), {:action => "view", :controller => "/items", :id => item }, :title => "#{h item.name}" %>
 									</span>

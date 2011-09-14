@@ -21,15 +21,15 @@
 						</td>
 						<td align=right>
 							<% if images.size > 0 %> 
-								<a href="<%= h images[0].url %>"  title="<%= h images[0].description %>" rel="colorbox_slideshow">						
+								<a href="<%= images[0].image.url %>"  title="<%= h images[0].description %>" rel="colorbox_slideshow">						
 									<%= icon("images") %>
 									<%= t("single.start") %> <%= t("single.slideshow") %>
 								</a>					 	
 								<%# hidden %>
 								<% for image in images %>
 									<% if image.id != images[0].id %>
-										<a href="<%= h image.url %>"  title="<%= h image.description %>" rel="colorbox_slideshow" style="display:none">						
-											<img src="<%= h image.thumb_url %>" class="thumbnail"  />
+										<a href="<%= h image.image.url %>"  title="<%= h image.description %>" rel="colorbox_slideshow" style="display:none">						
+											<img src="<%= h image.image.thumb.url %>" class="thumbnail"  />
 										</a>	
 									<% end %>
 								<% end %>				
@@ -47,10 +47,8 @@
 				<% if images.size > 0 %>
 						<% for image in images %>
 							<div class="image">
-								<%= thumbnail(image, :preview => true) %>														
-								<div style="margin:5px;">
-									<%= render :partial => "plugins/plugin_item_controls", :locals => {:record => image} %> 									   																
-								</div>
+								<%= content_tag(:div, plugin_image_thumbnail(image, :preview => true)) %>														
+								<%= render :partial => "plugins/plugin_item_controls", :locals => {:record => image} %> 									   																
 							</div>					
 						<% end %>
 				<% end %>

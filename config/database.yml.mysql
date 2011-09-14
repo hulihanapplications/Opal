@@ -14,14 +14,14 @@
 
 development:
   host: localhost
-  adapter: mysql
+  adapter: mysql2
   database: database
   username: root
   password:
 
 production:
   host: localhost
-  adapter: mysql
+  adapter: mysql2
   database: database
   username: root
   password: 

@@ -2,7 +2,7 @@
 class UserSessionsController < ApplicationController 
   # before_filter :require_no_user, :only => [:new, :create]
   # before_filter :require_user, :only => :destroy
-  skip_before_filter :check_public_access, :only => [:new, :create]
+  skip_filter :check_public_access, :only => [:new, :create]
   
   def new
     @user_session = UserSession.new

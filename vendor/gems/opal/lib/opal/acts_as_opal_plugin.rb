@@ -48,15 +48,15 @@ module Opal
 
       def reset_preview         
         if self == item.preview
-	    	item.update_attributes(:preview_type => nil, :preview_id => nil)  # reset item preview to nil
-			preview_successor = Setting.global_settings[:default_preview_type].item(item).first # look for a successor preview 
-			logger.info preview_successor.inspect
-	    	item.update_attributes(:preview_type => preview_successor.class.name, :preview_id => preview_successor.id) if preview_successor # set some other record as item's preview
-	    end 
+	    	  item.update_attributes(:preview_type => nil, :preview_id => nil)  # reset item preview to nil
+          preview_successor = Setting.global_settings[:default_preview_type].item(item).first # look for a successor preview 
+          #logger.info preview_successor.inspect
+          item.update_attributes(:preview_type => preview_successor.class.name, :preview_id => preview_successor.id) if preview_successor # set some other record as item's preview
+        end 
       end
       
       def is_approved?
-         self.is_approved == "1" if respond_to?(:is_approved) 
+        self.is_approved == "1" if respond_to?(:is_approved) 
       end   
 
       def send_new_plugin_record_notification
@@ -75,12 +75,12 @@ module ActiveRecord
       	# Option Defaults
       	options[:notifications] = true if options[:notifications].nil?
 
-	  	send(:extend, Opal::ActsAsOpalPlugin::ClassMethods)
-		send(:include, Opal::ActsAsOpalPlugin::InstanceMethods)		  
-		send(:after_create, :set_as_item_preview)
-		send(:before_destroy, :reset_preview)
-		#send(:validates_presence_of, :user_id)		
-		send(:after_create, :send_new_plugin_record_notification) if options[:notifications]       
+	  	  send(:extend, Opal::ActsAsOpalPlugin::ClassMethods)
+	     	send(:include, Opal::ActsAsOpalPlugin::InstanceMethods)		  
+		    send(:after_create, :set_as_item_preview)
+		    send(:before_destroy, :reset_preview)
+		    #send(:validates_presence_of, :user_id)		
+		    send(:after_create, :send_new_plugin_record_notification) if options[:notifications]       
       end        
   end 
 end

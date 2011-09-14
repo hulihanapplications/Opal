@@ -5,11 +5,11 @@ Factory.define :plugin_image do |o|
   o.url           "/path/to/image"
   # Upload File By Default
   file = File.new(Rails.root + 'spec/fixtures/images/rails.png')
-  o.local_file ActionDispatch::Http::UploadedFile.new(:tempfile => file, :filename => File.basename(file.path))
+  o.image ActionDispatch::Http::UploadedFile.new(:tempfile => file, :filename => File.basename(file.path))
   file.close   
 end
 
 Factory.define :plugin_image_remote, :parent => :plugin_image do |o|
-  o.local_file 	nil
-  o.remote_file "http://localhost/"
+  o.image 	nil
+  o.remote_image_url "http://localhost/"
 end

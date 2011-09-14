@@ -106,7 +106,7 @@ class SettingsController < ApplicationController
   def install_theme # install a theme into opal 
     # Note: Theme zip files will be extracted into a directory with the same filename as the zipfile(ie: example_theme.zip -> public/themes/example_theme)
     zipfile = Uploader.file_from_url_or_local(:local => params[:file], :url => params[:url]) 
-    #acceptable_file_extensions = ".zip, .ZIP"
+    acceptable_file_extensions = ".zip, .ZIP"
     if true #Uploader.check_file_extension(:filename => File.basename(zipfile.path), :extensions => acceptable_file_extensions) # make sure file is a zipped archive 
       extract_dir = Uploader.extract_zip_to_tmp(zipfile.path).entries[0].to_s # extract zip file to tmp
       extract_dir_entries = Dir.actual_entries(extract_dir)
@@ -125,7 +125,7 @@ class SettingsController < ApplicationController
       end
     else # bad file extension
       flash[:failure] = t("notice.item_install_failure", :item => t("single.theme"))
-      flash[:failure] += I18n.t("activerecord.errors.messages.invalid_file_extension", :valid_extensions => acceptable_file_extensions))
+      flash[:failure] += I18n.t("activerecord.errors.messages.invalid_file_extension", :valid_extensions => acceptable_file_extensions)
     end 
     redirect_to :action => "themes"
   ensure 

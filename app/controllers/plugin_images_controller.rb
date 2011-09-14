@@ -1,4 +1,8 @@
 class PluginImagesController < PluginController
+  def single_access_allowed?
+    action_name == "create" 
+  end  
+  
   def new
     @image = PluginImage.new(:item_id => @item.id)
   end

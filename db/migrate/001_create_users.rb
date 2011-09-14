@@ -30,12 +30,5 @@ class CreateUsers < ActiveRecord::Migration
     FileUtils.rm_rf(avatars_path) if File.exist?(avatars_path) # remove the folder if it exists    
     
     drop_table :users
-    # clear out all avatars
-    # Dave: I'm turning this off for now, because it will only delete the default avatars.
-    #avatars_path = "#{Rails.root.to_s}/public/images/avatars"
-    #FileUtils.rm_rf(avatars_path)     
-    #FileUtils.mkdir(avatars_path) # remake the folder
-    #FileUtils.cp("#{Rails.root.to_s}/default.png", avatars_path) # copy the default avatar into the recreated folder
-    #FileUtils.cp("#{Rails.root.to_s}/1.png", avatars_path) # copy the admin avatar into the recreated folder
   end
 end

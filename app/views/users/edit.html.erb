@@ -31,7 +31,7 @@
 								</tr>
 								<tr>
 									<td style="width:100px"><%= t("label.item_select", :item => Image.model_name.human) %></td>
-									<td><input type=file name="file" <% if @user.use_gravatar? %>DISABLED<% end %>></td>
+									<td><input type=file name="avatar" <% if @user.use_gravatar? %>DISABLED<% end %>></td>
 								</tr>
 								<tr>
 									<td colspan=2 align=center style="font-size:10px">

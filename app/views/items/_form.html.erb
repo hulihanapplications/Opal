@@ -7,10 +7,10 @@
 <div class="side">
 	<div class="box_2">
 		<div class="field">
-			<h3 class="title">
+			<div class="label">
 				<%= icon("categories") %>
 				<%= Category.model_name.human %>
-			</h3>
+			</div>
 			<%= category_select_tag("item[category_id]", item.category_id)%>							
 		</div>
 	</div>
@@ -18,7 +18,7 @@
 <div class="main">
 	<div class="box_2">
 		<div class="field">
-			<%= f.label :name %>
+			<%= f.label :name %><br />
 			<%= f.text_field :name %>				
 		</div>
 

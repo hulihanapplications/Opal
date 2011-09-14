@@ -56,6 +56,8 @@ GEM
       activerecord (>= 3.0.7)
     bcrypt-ruby (3.0.0)
     builder (3.0.0)
+    carrierwave (0.5.7)
+      activesupport (~> 3.0)
     coffee-rails (3.1.0)
       coffee-script (>= 2.2.0)
       railties (~> 3.1.0.rc1)
@@ -208,6 +210,7 @@ PLATFORMS
 DEPENDENCIES
   ancestry
   authlogic (>= 3.0.3)
+  carrierwave
   coffee-rails (~> 3.1.0)
   factory_girl_rails
   humanizer (= 2.4.3)

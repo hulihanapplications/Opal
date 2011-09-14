@@ -12,6 +12,7 @@ gem "authlogic", ">=3.0.3"
 gem "ancestry"
 gem "will_paginate", ">= 3.0.pre2"
 gem "omniauth"
+gem "carrierwave"
 
 gem "make_voteable", :git => "git://github.com/medihack/make_voteable"# , :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems")
 gem "humanizer", "=2.4.3"

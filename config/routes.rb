@@ -11,7 +11,7 @@ Opal::Application.routes.draw do
   root :to => "browse#index"
 
   match '/tag/:tag(/:category_id)' => 'items#tag', :as => :tag
-  match '/download/:id', :controller => "plugin_files", :action => "download"
+  match '/download/:id/:file_id', :controller => "plugin_files", :action => "download", :as => "download"
   match '/verify/:id/:code', :controller => "user", :action => "verify"
   match '/page/:id', :controller => "pages", :action => "page"
   match 'account', :controller => "user", :action => "index", :as => "user_home"

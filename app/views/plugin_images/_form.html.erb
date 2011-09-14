@@ -26,10 +26,10 @@ $(function() {
 						<%= f.radio_button(:source, :remote, :checked => !f.object.remote_file.blank?) %> <%= f.label :source_remote,  t("label.from_web") %>
 				 	</h3>	
 					<div id="local_file" class="field" style="<%= f.object.remote_file.blank? ? nil : "display:none" %>">
-						<%= f.file_field :local_file %>								
+						<%= f.file_field :image %>								
 					</div>					
 					<div id="remote_file" class="field" style="<%= f.object.remote_file.blank? ? "display:none" : nil %>">
-						<%= f.text_field :remote_file %>							
+    					<%= f.text_field :remote_image_url %>
 					</div>		
 				</div>
 				<% end %>
@@ -43,22 +43,24 @@ $(function() {
 		<td class="side_right">
 			<div class="box_2 ">
 				<% if params[:action] == "new" || params[:action] == "create"%>
-					<%= content_tag(:h3, raw("#{icon("options")} #{t("single.effects")}")) %>
-					<div id="effects" class="field indent" >
-						<%= content_tag(:div, check_box(:effects, :monochrome) + label(:effects, :monochrome, t("label.image_effect_bw").html_safe)) %>
-						<%= content_tag(:div, check_box(:effects, :sepia) + label(:effects, :sepia, t("label.image_effect_sepia").html_safe)) %>
-						<%= content_tag(:div, check_box(:effects, :rotate_90_cw) + label(:effects, :rotate_90_cw, t("label.image_effect_rotate_90_cw").html_safe)) %>
-						<%= content_tag(:div, check_box(:effects, :rotate_90_ccw) + label(:effects, :rotate_90_ccw, t("label.image_effect_rotate_90_ccw").html_safe)) %>
-						<%= content_tag(:div, check_box(:effects, :rotate_180) + label(:effects, :rotate_180, t("label.image_effect_rotate_180").html_safe)) %>
-						<%= content_tag(:div, check_box(:effects, :resize_image) + label(:effects, :resize_image, t("label.image_effect_resize", :width => @plugin.get_setting("item_image_width"), :height => @plugin.get_setting("item_image_height").html_safe))) %>
-						<%= content_tag(:div, check_box(:effects, :watermark) + label(:effects, :watermark, t("single.watermark").html_safe)) %>
-						<%= content_tag(:div, check_box(:effects, :stamp) + label(:effects, :stamp, t("single.stamp").html_safe)) %>
-						<%= content_tag(:div, check_box(:effects, :negate) + label(:effects, :negate, t("label.image_effect_negate").html_safe)) %>
-						<%= content_tag(:div, check_box(:effects, :gaussian_blur) + label(:effects, :gaussian_blur, t("label.image_effect_gaussian_blur").html_safe)) %>
-						<%= content_tag(:div, check_box(:effects, :polaroid) + label(:effects, :polaroid, t("label.image_effect_polaroid").html_safe)) %>										
-					</div>
+					<%= content_tag :div do %>
+						<%= content_tag(:h3, raw("#{icon("options")} #{t("single.effects")}")) %>
+						<div id="effects" class="field indent" >
+							<%= content_tag(:div, check_box(:effects, :monochrome) + label(:effects, :monochrome, t("label.image_effect_bw").html_safe)) %>
+							<%= content_tag(:div, check_box(:effects, :sepia) + label(:effects, :sepia, t("label.image_effect_sepia").html_safe)) %>
+							<%= content_tag(:div, check_box(:effects, :rotate_90_cw) + label(:effects, :rotate_90_cw, t("label.image_effect_rotate_90_cw").html_safe)) %>
+							<%= content_tag(:div, check_box(:effects, :rotate_90_ccw) + label(:effects, :rotate_90_ccw, t("label.image_effect_rotate_90_ccw").html_safe)) %>
+							<%= content_tag(:div, check_box(:effects, :rotate_180) + label(:effects, :rotate_180, t("label.image_effect_rotate_180").html_safe)) %>
+							<%= content_tag(:div, check_box(:effects, :resize_image) + label(:effects, :resize_image, t("label.image_effect_resize", :width => @plugin.get_setting("item_image_width"), :height => @plugin.get_setting("item_image_height").html_safe))) %>
+							<%= content_tag(:div, check_box(:effects, :watermark) + label(:effects, :watermark, t("single.watermark").html_safe)) %>
+							<%= content_tag(:div, check_box(:effects, :stamp) + label(:effects, :stamp, t("single.stamp").html_safe)) %>
+							<%= content_tag(:div, check_box(:effects, :negate) + label(:effects, :negate, t("label.image_effect_negate").html_safe)) %>
+							<%= content_tag(:div, check_box(:effects, :gaussian_blur) + label(:effects, :gaussian_blur, t("label.image_effect_gaussian_blur").html_safe)) %>
+							<%= content_tag(:div, check_box(:effects, :polaroid) + label(:effects, :polaroid, t("label.image_effect_polaroid").html_safe)) %>										
+						</div>
+					<% end  %>
 				<% else %>
-					<%= content_tag(:div, thumbnail(f.object, :preview => true), :style => "text-align:center")  %>
+					<%= content_tag(:div, plugin_image_thumbnail(f.object, :preview => true), :style => "text-align:center")  %>
 					<div class="sub" align=center>
 						<%= @image.filename %>
 					</div>

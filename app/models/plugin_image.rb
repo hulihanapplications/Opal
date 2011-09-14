@@ -1,17 +1,19 @@
 class PluginImage < ActiveRecord::Base
   acts_as_opal_plugin
 
+  mount_uploader :image, ::ImageUploader
+
   belongs_to :plugin
   belongs_to :item
   belongs_to :user
   
-  before_validation :validate_source, :on => :create
-  before_validation :generate_image, :on => :create
-  validates_presence_of :url
-  validates_uniqueness_of :url, :scope => :item_id
-  validates :remote_file, :format => /(^$)|(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix, :uri_response => true, :if => lambda{|o|o.local_file.blank?}, :on => :create 
-  before_destroy :delete_files  
-  attr_accessor :local_file, :remote_file, :effects, :source 
+  #before_validation :generate_image, :on => :create
+  validates_presence_of :item_id
+  validates_presence_of :image
+  #validates_uniqueness_of :url, :scope => :item_id
+  #validates :remote_file, :format => /(^$)|(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix, :uri_response => true, :if => lambda{|o|o.local_file.blank?}, :on => :create 
+  after_destroy :delete_files
+  attr_accessor :local_file, :remote_file, :effects, :source
   
   def to_s
   	filename
@@ -28,12 +30,12 @@ class PluginImage < ActiveRecord::Base
       require "RMagick"     
       valid_extensions = ".png, .jpg, .jpeg, .gif, .bmp, .tiff, .PNG, .JPG, .JPEG, .GIF, .BMP, .TIFF"
       temp_file = Uploader.file_from_url_or_local(:local => local_file, :url => remote_file)
-      temp_filename = local_file.blank? ? File.basename(temp_file.path) : local_file.original_filename 
-      logger.info "\n\n" + temp_filename
-      if Uploader.check_file_extension(:filename => temp_filename, :extensions => valid_extensions)
-        # Generate Paths & Urls 
-        self.url = File.join("/", "images", "item_images", item_id.to_s, "normal", temp_filename)
-        self.thumb_url = File.join("/", "images", "item_images", item_id.to_s, "thumbnails", temp_filename)
+      @filename = local_file.blank? ? File.basename(temp_file.path) : local_file.original_filename 
+      logger.info "\n\n" + @filename
+      if Uploader.check_file_extension(:filename => @filename, :extensions => valid_extensions)
+        # Generate Paths & Urls te
+        self.url = image_url,
+        self.thumb_url = image_url(:thumbnail),
         
         # generate image, apply special effects, save image to filesystem  
         temp_image_file = File.open(temp_file.path)
@@ -43,8 +45,8 @@ class PluginImage < ActiveRecord::Base
         image = Magick::Image.from_blob(image_data)[0] # read in image binary, from_blob returns an array of images, grab first item
         Uploader.generate_image(
           :image => image,
-          :path => File.join(Rails.root.to_s, "public", url),
-          :thumbnail_path => File.join(Rails.root.to_s, "public", thumb_url),
+          :path => path,
+          :thumbnail_path => path(:thumbnail),
           :effects => self.effects
         ) 
       else # format failed
@@ -53,25 +55,25 @@ class PluginImage < ActiveRecord::Base
       end              
   end  
   
+  def delete_files_off
+    if File.exists?(path) # does the file exist?
+     FileUtils.rm(path) # delete the file
+    else # file doesn't exist
+     self.errors.add('error', "System couldn't delete the normal file: #{path}! Continuing...")
+    end
+
+    if File.exists?(path(:thumbnail)) # does the file exist?
+     FileUtils.rm(path(:thumbnail)) # delete the file
+    else # file doesn't exist
+     self.errors.add('error',  "System couldn't find the thumbnail file: #{path(:thumbnail)}! Continuing...")
+    end
+  end
+  
   def delete_files
-    image_path = File.join(Rails.root.to_s, "public", self.url)
-    thumb_path = File.join(Rails.root.to_s, "public", self.thumb_url)
+    FileUtils.rmdir(File.dirname(image.path)) if File.exists?(File.dirname(image.path)) # remove CarrierWave store dir, must be empty to work
+  end
 
-    if File.exists?(image_path) # does the file exist?
-     FileUtils.rm(image_path) # delete the file
-    else # file doesn't exist
-     self.errors.add('error', "System couldn't delete the normal file: #{image_path}! Continuing...")
-    end
-
-    if File.exists?(thumb_path) # does the file exist?
-     FileUtils.rm(thumb_path) # delete the file
-    else # file doesn't exist
-     self.errors.add('error',  "System couldn't find the thumbnail file: #{thumb_path}! Continuing...")
-    end
- end
-
-
-  def filename # get filename from url 
-    return File.basename(self.url)
+  def filename
+    File.basename(image.path)
   end
 end

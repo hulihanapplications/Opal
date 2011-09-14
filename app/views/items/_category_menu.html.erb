@@ -6,7 +6,7 @@
 	<% @category = options[:category] %>
 
 	<h2 class="title" title="<%= @category.description unless @category.description.blank? %>"><%= @category.name %></h2>
-	<%= @category.description unless @category.description.blank? %>		
+	<%#= @category.description unless @category.description.blank? %>		
 	<% for category in @category.child_categories %>
 		<%= descend_category(category, :include_children => @setting[:include_child_category_items], :show_item_count => true, :depth => 0)  %>
 	<% end %>			

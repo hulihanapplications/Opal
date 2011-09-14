@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe usersController do  
+describe UsersController do  
   render_views
   
   describe "as admin" do

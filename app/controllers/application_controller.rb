@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
   def load_settings
     @setting = Setting.global_settings 
     @setting[:theme] = params[:theme] if params[:theme] # preview theme if theme is specified in url
-    prepend_view_path(File.join(@setting[:themes_dir], @setting[:theme],  "app", "views")) # add the curent theme's view path to view paths to load
+    prepend_view_path(File.join(@setting[:themes_dir], @setting[:theme],  "app", "views")) if @setting[:theme] && @setting[:themes_dir] # add the curent theme's view path to view paths to load
     @setting[:url] = request.protocol + request.host_with_port # root url for host/port, taken from request
     # Get Meta Settings Manually So they're not cached(which causes nested meta information)
     @setting[:meta_title] = Array.new
@@ -166,7 +166,7 @@ class ApplicationController < ActionController::Base
         # proceed
     else 
      flash[:failure] = t("notice.not_visible")   
-     redirect_to :action => "index", :category => "browse"      
+     redirect_to :action => "index", :controller => "browse"      
     end
   end
   
@@ -199,6 +199,7 @@ class ApplicationController < ActionController::Base
   end  
   
   def can_group_create_plugin # check if group permissions allows current user to create plugin records for this item
+    logger.info @logged_in_user.inspect
     if @group_permissions_for_plugin.can_create? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
       # ok, proceed
     else # denied! 

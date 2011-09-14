@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   require 'digest/sha2'
 
   make_voter
+  mount_uploader :avatar, ::AvatarUploader
 
   has_one :user_info, :dependent => :destroy
   has_many :user_messages, :dependent => :destroy
@@ -37,7 +38,7 @@ class User < ActiveRecord::Base
   after_create :set_verification  
   after_create :notify
   after_destroy :destroy_everything
-  
+  after_destroy :delete_avatar
   attr_accessor :password_confirmation, :password # virtual attributes
   attr_protected :is_admin, :is_verified, :is_disabled, :title # protect from bulk assignment  
   
@@ -216,5 +217,10 @@ class User < ActiveRecord::Base
     
   def notify
     Emailer.new_user_notification(self).deliver if Setting.get_setting_bool("new_user_notification")                 
-  end  
+  end
+
+  def delete_avatar
+    FileUtils.rmdir(File.dirname(avatar.path)) # remove CarrierWave store dir, must be empty to work
+  end
+    
 end

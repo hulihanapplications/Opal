@@ -1,27 +1,27 @@
 <div align=center class="contact_us">
 	<%= form_tag({:action => "send_contact_us", :controller => "pages"}) do |f| %>
 		<div class="field">
-			<%= label_tag :name, t("single.name") %>
+			<%= label_tag :name, t("single.name") %><br />
 			<%= text_field_tag :name %>
 		</div>
 		
 		<div class="field">
-			<%= label_tag :email, User.human_attribute_name(:email) %>
+			<%= label_tag :email, User.human_attribute_name(:email) %><br />
 			<%= text_field_tag :email %>
 		</div>	
 
 		<div class="field">
-			<%= label_tag :phone, User.human_attribute_name(:phone) %>
+			<%= label_tag :phone, User.human_attribute_name(:phone) %><br />
 			<%= text_field_tag :phone %>
 		</div>
 		
 		<div class="field">
-			<%= label_tag :message, UserMessage.model_name.human %>
+			<%= label_tag :message, UserMessage.model_name.human %><br />
 			<%= text_area_tag :message %>
 		</div>	
 		
 		<div class="field">
-			<%= label_tag :humanizer_answer, controller.humanizer_question %>
+			<%= label_tag :humanizer_answer, controller.humanizer_question %><br />
 			<%= text_field_tag :humanizer_answer %>
 			<%= hidden_field_tag :humanizer_question_id, controller.humanizer_question_id %>
 		</div>			

@@ -1,4 +1,4 @@
-<%= render :partial => "pages/page_header", :locals => {:page => page} %>
+<%= render :partial => "pages/page_header", :locals => {:page => page} unless page.content.blank? %>
 <%= content_tag(:div, :class => :page) do %>
 	<%= show_page(page) %>
 	<%= render :partial => "pages/template_contact_us" if page.name == "contact_us" %>

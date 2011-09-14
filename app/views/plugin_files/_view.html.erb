@@ -27,12 +27,13 @@
 			<div style="display:none" id="new_file_box" class="box_1">
 		      <h2><%=  t("label.item_new", :item => plugin.model_name.human) %></h2>
 			   <div>
-					   <%= form_tag({:action => 'create', :controller => "plugin_files", :id => item.id} , :multipart => true) %>
-					<img src="/themes/<%= @setting[:theme] %>/images/icons/file.png" class="icon"  title="" alt="">					   
-					<%= PluginFile.human_attribute_name(:title) %>
-					<input name="file_title" type="text" id="new_file_title" onfocus = "focus_input('new_file_title')" onblur = "blur_input('new_file_title')">
-					<%= PluginFile.human_attribute_name(:file) %> <input name="file" type="file">
-					<%= submit_tag  t("label.item_create", :item => plugin.model_name.human), :class => "button_1" %>
+					<%= form_tag({:action => 'create', :controller => "plugin_files", :id => item.id} , :multipart => true) %>
+						<%= icon("file") %>
+						<%= PluginFile.human_attribute_name(:title) %>
+						<%= text_field_tag("plugin_file[title]") %>
+						<%= PluginFile.human_attribute_name(:file) %> 
+						<%= file_field_tag("plugin_file[file]") %>
+						<%= submit_tag  t("label.item_create", :item => plugin.model_name.human), :class => "button_1" %>
 					</form>
 				 </div> 
 				 <br>
@@ -45,29 +46,24 @@
 				
 				<div class="files" align=left>
 					<% for file in files %>
-						<div id="file_box_<%= file.id %>">
-							<span id="file_<%= file.id %>">							
-									<b>
-											<%= link_to (h File.basename(file.get_title) ), {:action => "download", :controller => "plugin_files", :id => file } %>
-									</b>
-								</a>
-								(<%= file.size %>)
-								 <%= icon("bullet") %>
-								<%= friendly_date file.created_at %>
-								<img src="/themes/<%= @setting[:theme] %>/images/icons/file.png" class="icon"  title="<%= h file.title %>" alt="">
-								<i><b><%= file.downloads %> <%= t("single.download", :count => :other) %></b></i>
-		
+						<div id="file_box_<%= file.id %>" class="file box_2">
+							<span id="file_<%= file.id %>">	
+								<table style="width:100%">
+									<tr>
+										<td align=left>
+											
+											<%= content_tag(:h2, link_to(icon("file") + " " + file.get_title, download_path(:id => file.item, :file_id => file))) %>								
+										</td>
+										<td align=right>
+											<%= render :partial => "plugins/plugin_item_controls", :locals => { :record => file, :options => {:date => true, :edit => false, :votes => false, :preview => false, :user => true}} %>																						
+										</td>										
+									</tr>
+								</table>						
+								<hr />
+								<%= number_to_human_size(file.file.size) %>
+								<%= icon("spacer") %>
+								<%= file.downloads %> <%= PluginFile.human_attribute_name(:downloads) %>
 							</span>
-							<% if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_delete? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>									
-								<%= link_to icon("delete"), { :action => 'delete', :controller => "plugin_files", :id => item.id, :file_id => file.id}, :confirm => t("confirm.item_delete", :item => plugin.model_name.human) %>
-							<% end %>
-							<% if @item.is_editable_for_user?(@logged_in_user)  %>
-								<span class="box_2" style="padding:2px;">									
-						 			<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/approved.png\" title=\"#{t("single.approved")}\" class=\"icon\">" if file.is_approved? %> 										
-						 			<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/unapproved.png\" title=\"#{t("single.not")} #{t("single.approved")}\" class=\"icon\">" if !file.is_approved? %> 																							
-									<%= link_to raw("<img src=\"/themes/#{@setting[:theme]}/images/icons/cycle.png\" class=\"icon\">"), {:action => "change_approval", :id => item.id, :file_id => file.id, :controller => "plugin_files"}, :confirm => t("confirm.general"), :title => "#{t("label.item_change", :item => "")}", :class => "transparent" %>
-								</span>												
-							<% end %>						
 						</div>
 					<% end %>
 				</div>

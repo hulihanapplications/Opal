@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
- before_filter :authenticate_user, :only => [:edit, :update, :delete, :create, :new] 
+ before_filter :authenticate_user, :only => [:edit, :update, :delete, :create, :new, :my] 
  before_filter :enable_user_menu, :only =>  [:new, :edit, :create, :update, :my] # show user menu 
  
  before_filter :authenticate_admin, :only =>  [:all_items, :settings, :change_item_name, :do_change_item_name] # check if user is admin 

@@ -2,8 +2,7 @@ module ActionView
   class Base
     def self.field_error_proc
       Proc.new do |html_tag, instance|
-       extend ActionView::Helpers::RawOutputHelper     
-       raw("<span class=\"field_with_errors\">#{html_tag}</span>") 
+       "<span class=\"field_with_errors\">#{html_tag}</span>".html_safe 
       end 
     end
   end

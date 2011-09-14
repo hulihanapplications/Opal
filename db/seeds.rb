@@ -87,12 +87,18 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   sample_image_path = Rails.root.join("spec", "fixtures", "images", "example.png")
   if File.exists?(sample_image_path)
     sample_image = File.new(sample_image_path) 
-    plugin = PluginImage.new(:local_file => ActionDispatch::Http::UploadedFile.new(:tempfile => sample_image, :filename => File.basename(sample_image.path)), :description => I18n.t('sample_data.plugins.images.sample.description'))
+    plugin = PluginImage.new(:image => ActionDispatch::Http::UploadedFile.new(:tempfile => sample_image, :filename => File.basename(sample_image.path)), :description => I18n.t('sample_data.plugins.images.sample.description'))
     plugin.item_id = item1.id 
     plugin.user_id = @user.id 
     plugin.is_approved = "1"    
     plugin.save
-  end 
+    
+    plugin = PluginFile.new(:file => ActionDispatch::Http::UploadedFile.new(:tempfile => sample_image, :filename => File.basename(sample_image.path)))
+    plugin.item_id = item1.id 
+    plugin.user_id = @user.id 
+    plugin.is_approved = "1"    
+    plugin.save    
+  end  
 
   @plugin = PluginComment.new(:comment => I18n.t('sample_data.plugins.comments.sample.text'))
   @plugin.item_id = item1.id
@@ -132,15 +138,12 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   @plugin = PluginFeature.create(:name => I18n.t('sample_data.plugins.features.rank.name'), :order_number => 1, :feature_type => "slider", :min => 1, :max => 10)    
   @plugin = PluginFeature.create(:name => I18n.t('sample_data.plugins.features.score.name'), :order_number => 1, :feature_type => "stars", :max => 5)    
   @plugin = PluginFeature.create(:name => I18n.t('sample_data.plugins.features.is_this_awesome.name'), :order_number => 1, :feature_type => "yesno", :max => 5)    
-
-  
   
   @plugin = PluginReview.new(:review_score => 5, :review => I18n.t('sample_data.plugins.reviews.sample.text'))
   @plugin.item_id = item1.id
   @plugin.is_approved = "1"    
   @plugin.user_id = @user.id 
   @plugin.save    
-  
   
   @plugin = PluginLink.new(:title => I18n.t('sample_data.plugins.links.sample.title'), :url => "http://www.hulihanapplications.com")
   @plugin.item_id = item1.id 
@@ -179,7 +182,6 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   pages[:about] = Page.create(:title => I18n.t('sample_data.pages.about.title'), :description => I18n.t('sample_data.pages.about.description'), :page_type => "public", :content => I18n.t('sample_data.pages.about.content'))
   pages[:more_about] = Page.create(:title => I18n.t('sample_data.pages.more_about.title'), :page_id => pages[:about].id, :description => I18n.t('sample_data.pages.more_about.description'), :page_type => "public", :content => I18n.t('sample_data.pages.more_about.content'))
 
-  
   # Create Blog Post
   blog_page = Page.new(:title => I18n.t('sample_data.pages.blog_post.title'), :content => I18n.t('sample_data.pages.blog_post.content'), :page_type => "blog")
   blog_page.save

@@ -1,14 +1,14 @@
 class PluginFile < ActiveRecord::Base
   acts_as_opal_plugin
-  
+
+  mount_uploader :file, ::FileUploader
+
   belongs_to :plugin
   belongs_to :item
   belongs_to :user
   
-  before_destroy :delete_file
+  after_destroy :delete_files
   
-  validates_uniqueness_of :filename, :scope => :item_id, :message => "This item already has a file with this name!"
-
   def to_s
     get_title	
   end
@@ -19,25 +19,14 @@ class PluginFile < ActiveRecord::Base
   end  
   
   def get_title # get the title of the file, either bare filename or user-inputted 
-    if self.title? # file has a title?
-      file_title = self.title 
-    else # no title, use filename
-      file_title = File.basename(self.filename)
-    end    
-    return file_title
+    self.title? ? self.title : filename.blank? ? "" : filename
   end
   
-  def delete_file
-    file = Rails.root.to_s + "/files/item_files/#{self.item_id}/#{self.filename}"
-
-    if File.exists?(file) # does the file exist?
-     FileUtils.rm(file) # delete the file
-    else # file doesn't exist
-     self.errors.add('error', "System couldn't delete the file: #{file}! Continuing...")
-    end
+  def delete_files
+    FileUtils.rmdir(File.dirname(file.path)) if !file.path.blank? && File.exists?(File.dirname(file.path))  # remove CarrierWave store dir, must be empty to work
   end
   
-  def path # the path to the file
-    return Rails.root.to_s + "/files/item_files/#{self.item_id}/#{self.filename}"
-  end 
+  def filename
+    file.path.blank? ? "" : File.basename(file.path)  
+  end  
 end

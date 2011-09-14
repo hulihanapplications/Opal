@@ -5,7 +5,7 @@
 		<tr>
 			<td align=left>
 				<h4>
-					<%= link_to item_thumbnail(item, :class => "pinky"), {:action => "view", :controller => "items", :id => item }, :title =>  h(item.name) %>
+					<%= preview(item, :size => "pinky") %>
 					<%= counter%>. <%= link_to "#{h truncate(item.name, :length => 14)}", {:action => "view", :controller => "items", :id => item}, :title =>  h(item.name) %>
 				</h4>					
 			</td>

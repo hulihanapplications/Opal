@@ -9,21 +9,22 @@ class AddCarrierwave < ActiveRecord::Migration
       for item in Item.all
         item_image_dir = Rails.root.join("public", "item_images", item.id.to_s)
         for plugin_image in item.plugin_images
-          orig_image_path = File.join(item_image_dir, "normal", File.basename(image.url))
-          orig_thumbnail_path = File.join(item_image_dir, "thumbnails", File.basename(image.thumb_url))
-          if File.exists?(orig_image_path)
-            plugin_image.image = File.open(orig_image_path)
-            if plugin_image.save
-              puts orig_image_path + "\t->\t" + plugin_image.image.path  
-            end           
+          unless plugin_image.url.blank?
+            orig_image_path = File.join(item_image_dir, "normal", File.basename(plugin_image.url))
+            if File.exists?(orig_image_path)
+              plugin_image.image = File.open(orig_image_path)
+              if plugin_image.save
+                say(orig_image_path + "\t->\t" + plugin_image.image.path, true)  
+              end           
+            end
           end
         end      
         FileUtils.rm_rf(item_image_dir) if File.exists?(item_image_dir)
       end
     rescue => e
-      puts e.message
+      say e.message
+      say e.backtrace.join("\n")      
     end 
-
      
     remove_column :plugin_images, :url
     remove_column :plugin_images, :thumb_url     
@@ -35,21 +36,23 @@ class AddCarrierwave < ActiveRecord::Migration
     # Switch PluginFiles to CarrierWave  
     begin  
       for item in PluginFile.all
-        item_image_dir = Rails.root.join("public", "item_images", item.id.to_s)
-        for plugin_image in item.plugin_images
-          orig_image_path = File.join(item_image_dir, "normal", File.basename(image.url))
-          orig_thumbnail_path = File.join(item_image_dir, "thumbnails", File.basename(image.thumb_url))
-          if File.exists?(orig_image_path)
-            plugin_image.image = File.open(orig_path)
-            if plugin_image.save
-              puts orig_path + "\t->\t" + plugin_image.image.path  
-            end           
-          end
+        item_files_dir = Rails.root.join("file", "item_files", item.id.to_s)
+        for plugin_file in item.plugin_files
+          unless plugin_file.filename.blank?          
+            file = File.join(item_files_dir, File.basename(plugin_file.filename))
+            if File.exists?(file)
+              plugin_file.file = File.open(file)
+              if plugin_file.save
+                say(file + "\t->\t" + plugin_file.file.path, true)  
+              end           
+            end
+          end 
         end      
-        FileUtils.rm_rf(item_image_dir) if File.exists?(item_image_dir)
+        FileUtils.rm_rf(item_files_dir) if File.exists?(item_files_dir)
       end
     rescue => e
-      puts e.message
+      say e.message
+      say e.backtrace.join("\n")      
     end 
     remove_column :plugin_files, :size
     
@@ -63,13 +66,14 @@ class AddCarrierwave < ActiveRecord::Migration
         if File.exists?(avatar_path)
           user.avatar = File.open(avatar_path)
           if user.save
-            puts avatar_path + "\t->\t" + user.avatar.path
+            say(avatar_path + "\t->\t" + user.avatar.path, true)
           end      
           FileUtils.rm(avatar_path)                
         end     
       end
     rescue => e
-      puts e.message
+      say e.message
+      say e.backtrace.join("\n")
     end 
     
     User.reset_column_information    

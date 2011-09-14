@@ -89,13 +89,13 @@ if (install_sample_data == "y" || install_sample_data == "yes")
     sample_image = File.new(sample_image_path) 
     plugin = PluginImage.new(:image => ActionDispatch::Http::UploadedFile.new(:tempfile => sample_image, :filename => File.basename(sample_image.path)), :description => I18n.t('sample_data.plugins.images.sample.description'))
     plugin.item_id = item1.id 
-    plugin.user_id = @user.id 
+    plugin.user_id = @admin.id 
     plugin.is_approved = "1"    
     plugin.save
     
     plugin = PluginFile.new(:file => ActionDispatch::Http::UploadedFile.new(:tempfile => sample_image, :filename => File.basename(sample_image.path)))
     plugin.item_id = item1.id 
-    plugin.user_id = @user.id 
+    plugin.user_id = @admin.id 
     plugin.is_approved = "1"    
     plugin.save    
   end  
@@ -103,13 +103,13 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   @plugin = PluginComment.new(:comment => I18n.t('sample_data.plugins.comments.sample.text'))
   @plugin.item_id = item1.id
   @plugin.is_approved = "1"    
-  @plugin.user_id = @user.id 
+  @plugin.user_id = @admin.id 
   @plugin.save    
   
   @plugin = PluginDescription.new(:title => I18n.t('sample_data.plugins.descriptions.sample.title'), :content => I18n.t('sample_data.plugins.descriptions.sample.content'))
   @plugin.item_id = item1.id 
   @plugin.is_approved = "1"    
-  @plugin.user_id = @user.id 
+  @plugin.user_id = @admin.id 
   @plugin.save
   
   # Create  Features
@@ -119,7 +119,7 @@ if (install_sample_data == "y" || install_sample_data == "yes")
       @plugin_feature_value.plugin_feature_id = @plugin.id
       @plugin_feature_value.is_approved = "1"        
       @plugin_feature_value.item_id = item1.id
-      @plugin_feature_value.user_id = @user.id 
+      @plugin_feature_value.user_id = @admin.id 
       @plugin_feature_value.save    
         
   @plugin = PluginFeature.new(:name => I18n.t('sample_data.plugins.features.size.name'), :order_number => 1, :feature_type => "option")    
@@ -131,7 +131,7 @@ if (install_sample_data == "y" || install_sample_data == "yes")
       @plugin_feature_value.plugin_feature_id = @plugin.id
       @plugin_feature_value.is_approved = "1"        
       @plugin_feature_value.item_id = item1.id
-      @plugin_feature_value.user_id = @user.id 
+      @plugin_feature_value.user_id = @admin.id 
       @plugin_feature_value.save        
   
   @plugin = PluginFeature.create(:name => I18n.t('sample_data.plugins.features.date.name'), :order_number => 1, :feature_type => "date")    
@@ -142,19 +142,19 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   @plugin = PluginReview.new(:review_score => 5, :review => I18n.t('sample_data.plugins.reviews.sample.text'))
   @plugin.item_id = item1.id
   @plugin.is_approved = "1"    
-  @plugin.user_id = @user.id 
+  @pplugin.user_id = @admin.id
   @plugin.save    
   
   @plugin = PluginLink.new(:title => I18n.t('sample_data.plugins.links.sample.title'), :url => "http://www.hulihanapplications.com")
   @plugin.item_id = item1.id 
   @plugin.is_approved = "1"
-  @plugin.user_id = @user.id 
+  @plugin.user_id = @admin.id 
   @plugin.save    
   
   @plugin = PluginTag.new(:name => I18n.t('sample_data.plugins.tags.sample.name'))
   @plugin.item_id = item1.id 
   @plugin.is_approved = "1"    
-  @plugin.user_id = @user.id 
+  @plugin.user_id = @admin.id 
   @plugin.save   
  
   tag = PluginTag.create(:name => I18n.t('sample_data.plugins.tags.cool.name'), :item_id => item1.id)
@@ -165,16 +165,16 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   tag.save
 
   # Sample Discussion
-  discussion = PluginDiscussion.new(:item_id => 1, :user_id => @user.id, :title => I18n.t('sample_data.plugins.discussions.sample.title'), :description => I18n.t('sample_data.plugins.discussions.sample.description'))
+  discussion = PluginDiscussion.new(:item_id => item1.id, :user_id => @admin.id, :title => I18n.t('sample_data.plugins.discussions.sample.title'), :description => I18n.t('sample_data.plugins.discussions.sample.description'))
   discussion.is_approved = "1"
   discussion.save
 
-  discussion_post = PluginDiscussionPost.create(:item_id => 1, :user_id => @user.id, :plugin_discussion_id => discussion.id, :post => I18n.t('sample_data.plugins.discussions.sample.post'))
+  discussion_post = PluginDiscussionPost.create(:item_id => item1.id, :user_id => @user.id, :plugin_discussion_id => discussion.id, :post => I18n.t('sample_data.plugins.discussions.sample.post'))
   
   @plugin = PluginVideo.new(:title => I18n.t('sample_data.plugins.videos.sample.title'), :description => I18n.t('sample_data.plugins.videos.sample.description'), :code => I18n.t('sample_data.plugins.videos.sample.code'))
   @plugin.item_id = item1.id
   @plugin.is_approved = "1"    
-  @plugin.user_id = @user.id 
+  @plugin.user_id = @admin.id 
   @plugin.save    
 
   # Create Public Page

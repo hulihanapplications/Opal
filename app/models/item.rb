@@ -37,13 +37,6 @@ class Item < ActiveRecord::Base
   end
   
   def create_everything   
-    # Make Images Folder
-    images_path = "#{Rails.root.to_s}/public/images/item_images/#{self.id}"
-    FileUtils.mkdir_p(images_path) if !File.exist?(images_path) # create the folder if it doesn't exist
-
-    # Make Images Folder
-    files_path = "#{Rails.root.to_s}/files/item_files/#{self.id}"
-    FileUtils.mkdir_p(files_path) if !File.exist?(files_path) # create the folder if it doesn't exist
   end
 
   def destroy_everything    

@@ -214,7 +214,6 @@ ActiveRecord::Schema.define(:version => 20110913100216) do
     t.integer  "item_id"
     t.integer  "user_id"
     t.string   "title",                    :default => ""
-    t.string   "size",                     :default => ""
     t.string   "filename"
     t.string   "is_approved", :limit => 1, :default => "0"
     t.datetime "created_at"

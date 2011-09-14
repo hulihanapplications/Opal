@@ -6,7 +6,7 @@ class ZeroSevenThree < ActiveRecord::Migration
     # Create Video Plugin
     plugin = Plugin.new(:name => "Video", :is_enabled => "1", :is_builtin => "1")
     if plugin.save
-      PluginSetting.create(:plugin_id => plugin.id, :name => "video_display_mode",   :value => "Full", :options => "Full, List",  :item_type => "option")
+      PluginSetting.create(:plugin_id => plugin.id, :name => "video_display_mode",   :value => "List", :options => "Full, List",  :item_type => "option")
     end 
   end
 

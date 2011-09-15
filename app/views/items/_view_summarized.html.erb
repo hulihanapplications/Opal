@@ -31,7 +31,7 @@
 									feature_values = PluginFeatureValue.find(:all, :conditions => ["item_id = ? and is_approved = '1'", item.id]) # show only approved values
 								end  
 							%> 		
-							<div class="box_2a spacer_vert_left">
+							<div class="box_2a">
 								<div class="features">
 									<%= render :partial => "plugin_features/list_values", :locals => {:feature_values => feature_values, :plugin => Plugin.plugins[:feature], :item => @item} %>
 								</div>	

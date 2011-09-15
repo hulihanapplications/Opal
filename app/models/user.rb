@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   make_voter
   mount_uploader :avatar, ::AvatarUploader
 
+  has_many :authentications, :dependent => :destroy
   has_one :user_info, :dependent => :destroy
   has_many :user_messages, :dependent => :destroy
   has_many :pages, :dependent => :nullify

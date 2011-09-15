@@ -3,6 +3,14 @@
 <table style="width:100%">
     <tr>
         <td align=left>
+            <%= f.label :email %>
+        </td>
+        <td align=right>
+			<%= f.text_field :email %>
+        </td>
+    </tr>    
+    <tr>
+        <td align=left>
             <%= f.label :username %>
         </td>
         <td align=right>
@@ -29,26 +37,6 @@
     <% end %>
     <tr>
         <td align=left>
-            <%= f.label :group %>
-        </td>
-        <td align=right>
-        	<% if @logged_in_user.is_admin? %>
-               <%= render :partial => "/groups/select_group", :locals => {:groups => Group.find(:all), :options => {:id_to_select => user.group_id} } %>
-			<% else %>
-				<b><%= user.group.name %></b>
-			<% end %>
-        </td>
-    </tr>
-    <tr>
-        <td align=left>
-            <%= f.label :email %>
-        </td>
-        <td align=right>
-			<%= f.text_field :email %>
-        </td>
-    </tr>
-    <tr>
-        <td align=left>
             <%= f.label :first_name %>
         </td>
         <td align=right>
@@ -73,6 +61,18 @@
     </tr>
     <tr>
         <td align=left>
+            <%= f.label :group %>
+        </td>
+        <td align=right>
+        	<% if @logged_in_user.is_admin? %>
+               <%= render :partial => "/groups/select_group", :locals => {:groups => Group.find(:all), :options => {:id_to_select => user.group_id} } %>
+			<% else %>
+				<b><%= user.group.name %></b>
+			<% end %>
+        </td>
+    </tr>    
+    <tr>
+        <td align=left>
             <%= f.label :created_at %>
         </td>
         <td align=right>
@@ -82,7 +82,7 @@
             	<b><%= friendly_date user.created_at %></b>
 			<% end %>          	
         </td>
-    </tr>
+    </tr>    
     <% if @logged_in_user.is_admin? %>
     <tr>
         <td align=left>

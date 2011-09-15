@@ -15,5 +15,8 @@
    <li>
 		<%= link_to icon("settings") + " " + t("section.title.my_settings"), {:action => "edit", :controller => "users", :id => @logged_in_user}, :class => ((params[:action] == "edit" && params[:controller] == "users") || (params[:action] == "update" && params[:controller] == "users") || params[:action] == "change_password"  ? "active" : "") %>
    </li>
+   <li>
+   		<%= link_to icon("authentication") + " " + Authentication.model_name.human(:count => :other), authentications_path, :class => (params[:controller] == "authentications" ? "active" : "") %>
+   </li>   
  </ul>
  <div id="tabcontent" class="tabcontent">

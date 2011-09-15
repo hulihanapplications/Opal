@@ -293,6 +293,7 @@ en:
     single: Single
     multiple: Multiple
     cloud: Cloud
+    forget: Forget
   # Flash Messages & Notices
   notice:
     save_success: Your changes have been successfully saved!
@@ -314,6 +315,7 @@ en:
     item_not_found: %{item} not found.
     item_invalid: Sorry, this %{item} is invalid.    
     item_needs_approval: This %{item} still needs to be approved.
+    item_info_saved: We will remember your %{item} information.    
     items_disabled: Sorry, %{items} are not enabled.
     items_cannot_add_any_more: You can't add any more %{items}.
     items_not_found: No %{items} found.

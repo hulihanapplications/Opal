@@ -5,7 +5,7 @@
 	<div id="main">
 		<table style="width:100%" cellpadding=0 cellspacing=0 class="">
 			<tr>
-				<td class="left" style="width:50%">		
+				<td class="left">		
 					<h3 class="title"><%= @plugin_feature.name %> <%= PluginFeatureValueOption.model_name.human(:count => :other) %></h3>
 					<div class="box_2" style="margin-bottom:10px;">
 					   <div>					   	
@@ -13,7 +13,7 @@
 					   </div>
 					</div>								
 				</td>
-				<td class="right" style="width:50%">
+				<td class="right">
 				   <h3 class="title"><%= t("label.item_new", :item =>  @plugin_feature.name + " " + PluginFeatureValueOption.model_name.human) %> </h3>	
 			    	   <%= form_for(@plugin_feature_value_option, :url => { :action => 'create_option', :controller => "plugin_features", :id => @plugin_feature.id }, :method => "post") do |f| %>
 							<div class="box_2">																			   			

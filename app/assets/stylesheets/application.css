@@ -3,4 +3,5 @@
 *= require jquery.tools
 *= require colorbox
 *= require uploadify
+*= require authentication
 */

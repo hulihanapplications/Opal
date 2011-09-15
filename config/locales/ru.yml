@@ -293,6 +293,7 @@ ru:
     single: Single
     multiple: Multiple      
     cloud: Cloud
+    forget: Forget    
   # Flash Messages & Notices
   notice:
     save_success: Ваши изменения были успешно сохранены!
@@ -314,6 +315,7 @@ ru:
     item_not_found: %{item} не найден.
     item_invalid: Извините, %{item} не верен.
     item_needs_approval: %{item} все ещё нуждается в подтверждении.
+    item_info_saved: We will remember your %{item} information.    
     items_disabled: Извините, %{items} не включены.
     items_cannot_add_any_more: Вы не можете добавить ещё %{items}.
     items_not_found: Не найдено %{items}.

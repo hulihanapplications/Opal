@@ -9,13 +9,13 @@
 		<% end %>
 		<table style="width:100%">
 			<tr>
-				<td class="left" style="width:50%" >
+				<td class="left">
 					<% unless Authentication.providers.empty? %>
 						<%= content_tag(:h2, t("label.use_authentication"), :class => "title")  %>
 						<%= render :partial => "authentications/providers" %>
 					<% end %>
 				</td>
-				<td class="spacer_left" style="width:50%" align=center>		
+				<td class="right spacer_left" align=center>		
 					<h2 class="title"><%= t("label.log_in") %></h2>					
 					<%= form_for @user_session do |f| %>
 						 <%= hidden_field_tag(:redirect_to, params[:redirect_to]) %>
@@ -35,7 +35,8 @@
 						  </tr>
 						 </table>
 				     <% end %>
-					 <div class="box_2" style=";margin-bottom:0px">
+				     <br />
+					 <div class="box_2">
 					 	<%= t("label.log_in_forgot_password") %>
 						<%= link_to_function(icon("cycle") + " " + t("label.log_in_recover_password"), "toggle_box('forgot_password_box')") %>
 						<div style="display:none" id="forgot_password_box" align=center>
@@ -53,7 +54,7 @@
 						</div>
 					 </div> 
 					<% if @setting[:allow_user_registration] %>
-						<div class="box_2" style="margin-bottom:5px">
+						<div class="box_2">
 							<%= t("label.register_message") %>	
 						  	<%= link_to t("label.register"), {:action => "register", :controller => "user"}, :class => "signup_button" %>
 						</div>

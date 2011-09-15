@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110913100216) do
+ActiveRecord::Schema.define(:version => 20110704174542) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -84,8 +84,6 @@ ActiveRecord::Schema.define(:version => 20110913100216) do
     t.datetime "updated_at"
     t.string   "target_type"
     t.integer  "target_id"
-    t.string   "ip"
-    t.string   "archived_target"
   end
 
   create_table "page_comments", :force => true do |t|
@@ -219,7 +217,7 @@ ActiveRecord::Schema.define(:version => 20110913100216) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "downloads",                :default => 0
-    t.string   "file"
+    t.string   "size"
   end
 
   create_table "plugin_images", :force => true do |t|
@@ -231,7 +229,8 @@ ActiveRecord::Schema.define(:version => 20110913100216) do
     t.string   "is_approved", :limit => 1, :default => "0"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "image"
+    t.string   "url"
+    t.string   "thumb_url"
   end
 
   create_table "plugin_links", :force => true do |t|
@@ -405,7 +404,6 @@ ActiveRecord::Schema.define(:version => 20110913100216) do
     t.datetime "last_login_at"
     t.string   "current_login_ip"
     t.string   "salt"
-    t.string   "avatar"
   end
 
   create_table "votings", :force => true do |t|

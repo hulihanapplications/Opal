@@ -142,7 +142,7 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   @plugin = PluginReview.new(:review_score => 5, :review => I18n.t('sample_data.plugins.reviews.sample.text'))
   @plugin.item_id = item1.id
   @plugin.is_approved = "1"    
-  @pplugin.user_id = @admin.id
+  @plugin.user_id = @admin.id
   @plugin.save    
   
   @plugin = PluginLink.new(:title => I18n.t('sample_data.plugins.links.sample.title'), :url => "http://www.hulihanapplications.com")

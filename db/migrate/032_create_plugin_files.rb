@@ -14,8 +14,7 @@ class CreatePluginFiles < ActiveRecord::Migration
     
     # Create Files Folder
     files_path = "#{Rails.root.to_s}/files/item_files"
-    FileUtils.mkdir_p(files_path) if !File.exist?(files_path) # createthe folder if it doesn't exist
-    
+    FileUtils.mkdir_p(files_path) if !File.exist?(files_path) # createthe folder if it doesn't exist    
   end
 
   def self.down

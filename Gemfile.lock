@@ -51,6 +51,7 @@ GEM
     ancestry (1.2.4)
       activerecord (>= 2.2.2)
     arel (2.2.1)
+    authbuttons-rails (0.1.2)
     authlogic (3.0.3)
       activerecord (>= 3.0.7)
       activerecord (>= 3.0.7)
@@ -209,6 +210,7 @@ PLATFORMS
 
 DEPENDENCIES
   ancestry
+  authbuttons-rails
   authlogic (>= 3.0.3)
   carrierwave
   coffee-rails (~> 3.1.0)

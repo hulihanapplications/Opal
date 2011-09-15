@@ -488,6 +488,7 @@ en:
     skipping_prompt: "Skipping Prompt..."
     remember_me: Remember Me
     currently_logged_in: Currently Logged In 
+    use_authentication: Use another network       
   # General Information 
   info: 
     delete_main_logo: Deleting your main logo will show the title of your site instead. 
@@ -706,6 +707,9 @@ en:
           description: If an item doesn't have a preview, the first created plugin item of this type will become its new preview.  
     # ActiveRecord Models & Validations        
     models:
+      authentication:
+        one: Authentication
+        other: Authentications
       user:
         one: User 
         other: Users        

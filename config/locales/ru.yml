@@ -490,6 +490,7 @@ ru:
     skipping_prompt: "Пропускаем запрос..."
     remember_me: Remember Me    
     currently_logged_in: Currently Logged In 
+    use_authentication: Use another network           
   # General Information 
   info: 
     delete_main_logo: Удаление логотипа отобразит заголовок вашего сайта. 
@@ -708,6 +709,11 @@ ru:
           title: Default Preview for Item
           description: If an %{item} doesn't have a preview, the first created plugin item of this type will become its preview.                      
     models:
+      authentication:
+        one: Authentication
+        few: Authentications
+        many: Authentications 
+        other: Authentications     
       user:
         one: Пользователь
         few: Пользователя

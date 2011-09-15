@@ -1,0 +1,8 @@
+<% options ||= Hash.new %>
+<% Authentication.providers.each do |name, credentials| %>
+	<a href="/auth/<%= name %>" class="auth_provider <%= "auth_provider_selected" if options[:select] == name %>">
+  	<%= image_tag "#{name}_64.png", :alt => name.humanize %>
+        <h3><%= name.humanize %></h3>
+	</a>
+<% end %>
+<div class="clear"></div>

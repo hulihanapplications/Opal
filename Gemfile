@@ -7,11 +7,11 @@ gem "rmagick", "~>2.12.2"
 gem "i18n"
 gem "rubyzip"
 gem "ya2yaml" 
-#gem "ruby-openid", "=2.1.8"
 gem "authlogic", ">=3.0.3"
 gem "ancestry"
 gem "will_paginate", ">= 3.0.pre2"
 gem "omniauth"
+gem "authbuttons-rails"
 gem "carrierwave"
 
 gem "make_voteable", :git => "git://github.com/medihack/make_voteable"# , :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems")

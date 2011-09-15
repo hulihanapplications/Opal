@@ -1,0 +1,30 @@
+
+<div id="side">	
+	<% unless Authentication.providers.empty? %>
+		<div class="box_2">
+			<%= content_tag(:h3, t("label.item_create", :item => Authentication.model_name.human), :class => "title") %>
+			<%= render :partial => "authentications/providers" %>
+		</div>	
+	<% end %>		
+</div>
+<div id="main">
+		<div class="header">					
+			<%= content_tag(:h1, Authentication.model_name.human(:count => :other), :class => :title) %>			
+		</div>	
+		<div class="sub">You can sign in to this account using:</div>
+		<br />
+		<% if @authentications %>
+		  <% if !@authentications.empty? %>
+		    <div class="authentications">
+		      <% for authentication in @authentications %>
+					<%= render authentication %>
+		      <% end %>
+		      <div class="clear"></div>
+		    </div>
+		  <% else %>
+		    <%= t("notice.items_not_found", :items => Authentication.model_name.human(:count => :other)) %>
+		  <% end %>
+		<% end %>			
+</div>
+
+

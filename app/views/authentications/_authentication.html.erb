@@ -1,0 +1,6 @@
+<div class="authentication">
+  <%= image_tag "#{authentication.provider}_32.png", :size => "32x32" %>
+  <div class="provider"><%= authentication.provider.titleize %></div>
+  <div class="uid"><%= content_tag(:span, truncate(authentication.uid, :length => 20), :title => authentication.uid, :class => "help") %></div>
+  <%= link_to icon("delete"), authentication, :confirm => t("confirm.item_delete", :item => Authentication.model_name.human), :method => :delete, :class => "remove transparent" %>
+</div>

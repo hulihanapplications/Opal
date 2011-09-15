@@ -1,0 +1,15 @@
+# Providers are autodetected. If you don't want to use a certain provider, remove it from this file.
+#:client_options:
+#  :ssl:
+#    :ca_path: /etc/ssl/certs # specify path to root certs
+providers:
+  google:
+    key: CONSUMER_KEY
+    secret: CONSUMER_SECRET 
+  facebook:
+    key: APP_ID
+    secret: APP_SECRET
+  twitter:
+    key: CONSUMER_KEY
+    secret: CONSUMER_SECRET
+    

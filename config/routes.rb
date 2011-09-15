@@ -48,6 +48,14 @@ Opal::Application.routes.draw do
   resources :users do 
     get "verification_required", :on => :collection
   end
+
+  resources :authentications do
+    get "confirm", :on => :collection
+    get "forget", :on => :collection
+  end
+  match '/auth/:provider/callback' => 'authentications#create'
+  match '/auth/failure' => 'authentications#failure'
+
   
   
   resources :plugin_videos, :logs

@@ -177,6 +177,14 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   @plugin.user_id = @admin.id 
   @plugin.save    
 
+  sample_video_path = Rails.root.join("spec", "fixtures", "videos", "example.flv")
+  sample_video = File.new(sample_video_path) 
+  @plugin = PluginVideo.new(:video => sample_video, :title => I18n.t('sample_data.plugins.videos.uploaded.title'), :description => I18n.t('sample_data.plugins.videos.uploaded.description')))
+  @plugin.item_id = item1.id
+  @plugin.is_approved = "1"    
+  @plugin.user_id = @admin.id 
+  @plugin.save    
+
   # Create Public Page
   pages = Hash.new
   pages[:about] = Page.create(:title => I18n.t('sample_data.pages.about.title'), :description => I18n.t('sample_data.pages.about.description'), :page_type => "public", :content => I18n.t('sample_data.pages.about.content'))

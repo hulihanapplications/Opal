@@ -1,7 +1,9 @@
 class PluginVideo < ActiveRecord::Base
   acts_as_opal_plugin
 
-  include ActionView::Helpers::SanitizeHelper
+  mount_uploader :video, ::VideoUploader
+
+
   include ActionView::Helpers::TextHelper
 
   belongs_to :item

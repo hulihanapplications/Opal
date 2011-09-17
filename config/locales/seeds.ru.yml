@@ -1,0 +1,80 @@
+# This file contains seed data used in Installation
+ru:
+  seeds: 
+    setting:
+      site_title: "Мой Opal Вебсайт"
+      site_description: "Бесплатная, Открытая, Система Управления Вещами. Размещайте что угодно!"
+    category:
+        uncategorized:
+          name: "Без категории"
+          description: "Вещи которые слишком хороши чтобы поместиться в одной категории."
+    page:
+      banner_top:
+        title: "Верхний баннер"
+        description: "Любое содержимое добавленое сюда будет показано вверху вашего сайта. Полезно для баннеров и javascript."
+        content: ""
+      banner_bottom:
+        title: "Нижний баннер"
+        description: "Любое содержимое добавленое сюда будет показано внизу вашего сайта. Полезно для баннеров и javascript."
+        content: ""
+      terms_of_service:
+        title: "Условия использования"
+        description: "Условия использования для новых пользователей."
+        content: "<h1>Условия использования</h1>Используя этот сайт, Вы соглашаетесь не добавлять, не отправлять любое разрушающее или оскорбительное содержимое, включая но не ограничиваясь: порнографией, любыми вредоносными программами или файлами, насильственными или злобными изображениями, и т.д.<br><br>Вы также соглашаетесь не отправлять украденное содержимое, плагиат, или любое другое размещение без согласия законного владельца."
+      new_item:
+        title: "Новый товар"
+        description: "Эта страница появляется когда Пользователь будет создавать новый товар."
+        content: ""
+      email_footer:
+        title: "Подпись Email"
+        description: "Появляется в подписи автоматических email писем."
+        content: 'Это автоматическое email. Пожалуйста не отвечайте на него.'
+      home_page_sidebar:
+        title: "Боковой блок на Главной странице"
+        description: "Эта страница отображается в боковом блоке на Главной странице"
+        content: "<div class=\"box_2\" style=\"margin-bottom:5px\">\r\n<h1 class=\"title\">Введение</h1>Для начала, Войдите с именем пользователя: <strong>admin</strong> и паролем: <strong>admin. </strong>\r\n<br><br><h2 class=\"title\">Перво-наперво</h2>\r\n  Сначала, вы наверное захотите изменить название вещей, которые вы собираетесь размещать. Чтобы сделать это, войдите в ваш профиль, Нажмите на <b>вкладку Админ. панель</b>, потом на <b>вкладку configure</b>. Под <b>вкладкой Items</b>, вы сможете изменить название вещи в полях <b>Item Name</b> и <b>Plural Item Name</b>.<br><br><h2 class=\"title\">Измените этот раздел</h2>\r\n После входа, Нажмите на <strong>вкладку Админ. панель</strong>, затем нажмите на <strong>вкладку Страницы</strong>. В <strong>Разделе Системные Страницы</strong>, нажмите на иконку редактирования напротив страницы: <span style=\"text-decoration: underline;\">Боковой блок на Главной странице</span>. Вот и всё что нужно!<br><br><h2 class=\"title\">Нужна ещё помощь?</h2> Если вам нужная ещё помощь с Opal, прочитайте <a href=\"http://www.hulihanapplications.com/projects/opal_guide\" onclick=\"window.open(&quot;http://dev.hulihanapplications.com/wiki/opal&quot;, &quot;&quot;, &quot;resizable=yes, location=no, width=400, height=640, menubar=no, status=no, scrollbars=yes&quot;); return false;\"><b>Пользовательское руководство Opal</b></a> для помощи в использовании Opal.</div>"
+      website_top:
+        title: "Верх Вебсайта"
+        description: "Показывается в самом верху сайта."
+        content: ""
+      website_bottom: 
+        title: "Низ Вебсайта"
+        description: "Показывается в самом низу сайта."
+        content: ""
+      category_column:
+        title: "Колонка Категорий"
+        description: "Эта страница появляется под меню с категориями."
+        content: ""
+      contact_us:
+        title: "Обратная связь"
+        description: "Общайтесь с нами."
+        content: "<div align=center style=\"margin-bottom:10px\">\r\n<h2 class=\"title\">Обратная связь</h2><hr>Общайтесь с нами.</div>"
+      home:
+        title: "Главная"
+        description: "Главная страница сайта."
+        content: "<div class=\"box_2\" style=\"margin-bottom:5px\">\r\n<h1 class=\"title\">Добро пожаловать!</h1>Добро пожаловать в Opal. Впервые используете Opal? Нет проблем. Начните читать раздел <b>Введение</b>.<br><br><h2 class=\"title\">Измените этот Раздел</h2>\r\n После входа, нажмите на <strong>вкладку Админ. панели</strong>, затем Нажмите на <strong>вкладку Страницы</strong>. В <strong>Разделе Публичных страниц</strong>, нажмите на иконку редактирования напротив страницы: <span style=\"text-decoration: underline;\">Главная</span>. Вот и все что нужно!</div>"
+      items:
+        title: "Товары"
+        description: ""
+        content: ""
+      blog:
+        title: "Блог"
+        description: ""
+        content: ""      
+    group:
+      users:
+        name: "Обычные пользователи"
+        description: "Обычные пользователи которые совершили вход на вашем сайте."
+      admin:
+        name: "Администраторы"
+        description: "Верховные мастера. Имеют ко всему доступ и могут делать что угодно."
+      public:
+        name: "Публика"
+        description: "Посетители вашего сайта, которые не совершили вход."
+    user:
+      admin:
+        username: admin
+        first_name: Вася
+        last_name: Иванов
+        email: admin@test.com
+        password: admin

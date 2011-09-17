@@ -1,0 +1,104 @@
+# This file contains optional sample data used in Installation
+ru:  
+  sample_data:
+    users:
+      test:
+        username: test
+        first_name: Петя 
+        last_name: Сидоров
+        email: test@test.com
+        password: test  
+      unverified:
+        username: unverified
+        first_name: Витя
+        last_name: Козлов
+        email: unverified@test.com
+        password: unverified   
+    messages:
+      read:
+        text: "Тестовое сообщение(прочитанное) для test от admin."
+      unread:
+        text: "Тестовое сообщение(непрочитанное) для test от admin."
+      reply:
+        text: "Тестовое Сообщение для Test от Admin." 
+    items:
+      sample:
+        name: "Тестовая вещь А"
+        description: "Тестовое описание."
+      long_name:
+        name: "Тестовая вещь Б (с Очень Очень Очень Очень Очень Длинным названием)."
+        description: "Тестовое описание. Очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень длинное."
+      unapproved:
+        name: "Тестовая вещь В (Неподтвержденная)"
+        description: "Тестовое описание. Эта вещь ни публичная, ни подтвержденная."
+    plugins:
+      images:
+        sample:
+          description: "Тестовое изображение."
+      descriptions:
+        sample:
+          title: "Чудесная вещь!"
+          content: "Эта вещь очень чудесная.<br><br>Написано процессе эзотерическая на тд, мы опа туда быстрее очередь. Об если отнимет предварительного миф. Всё руки филипа те, могут многие чем за. Это всего трудовой то, тем пока компанию за. Следующее содержимое до для, на получат заложенным биг. Код на шагов проходят, как всего палки времени до, то курице следующее конечного это. Плиты лучшему неодинаковые вот по, осколки значения ещё те. Определить программном нет от. Другие премирования разработчиков но так, голоса получаете дни об, но они ставить метеорного. Английском полвосьмого те все, программном электронной за не. Не но люсита автора, двигает работникам программистов нет на. От опять минуту следующее как. Их чем двигает инструменты, всё их распоряжения программистов. Над он этих периоды, это писать значения до, был их одну сэкономленного. То код закончить концентрируются. Для какие платформу ну. Бы новые люсита разные вас, действия закончить вы них, труда собой совершенно мы всю. То нью свою быстро успехов."
+      features:
+        price:
+          name: "Цена"
+          value: "200 рублей"
+        size:
+          name: "Размер"
+          option_small: "Маленький"
+          option_medium: "Средний"
+          option_large: "Большой"
+        date:
+          name: "Дата"
+        rank:
+          name: "Ранг"
+        score:
+          name: "Оценка"
+        is_this_awesome:
+          name: "Она классная?"
+      reviews:
+        sample:
+          text: "Она мне действительно нравится!"
+      comments:
+        sample:
+          text: "Спасибо что поделился этим с нами!"
+      links:
+        sample:
+          title: "Вебсайт вещи"
+      tags:
+        sample:
+          name: "Самая обычная"
+        cool:
+          name: "Классная"
+      discussions:
+        sample:
+          title: "Тестовое обсуждение"
+          description: "Это тестовое обсуждение. Не стесняйтесь удалить его."
+          post: "Это тестовое сообщение."
+      videos:
+        sample:
+          title: "Sample Video"
+          description: "This is a sample video"
+          code: '<div style="text-align: center;"><iframe width="560" height="349" src="http://www.youtube.com/embed/SIJsCy-LB0g" frameborder="0" allowfullscreen></iframe></div>'
+        uploaded:
+          title: "Uploaded Video"
+          description: "This is an uploaded sample video."                      
+    pages:
+      about:
+        title: "О нас"
+        description: "Всё про нас."
+        content: "<div class=\"box_2\"><h1>Что такое Opal?</h1>Opal это Система Управления Вещами созданная с помощью Ruby on Rails. Ну, какие типы вещей мы можем <b>размещать</b>? Любые! Велосипеды, дома на продажу, продавцов бананов, и т.д. могут быть размещены и организованы в Opal.</div>"
+      more_about:
+        title: "Больше о нас"
+        description: ""
+        content: "Здесь ещё больше информации о нас."
+      blog_post:
+        title: "Первое сообщение"
+        content: "Это первое сообщение в блоге!"
+    categories:
+      uncategorized_child:
+        name: "Дочерний Без категории"
+        description: "Вещи которые слишком хороши чтобы поместиться в одной категории."
+      uncategorized_grand_child:
+        name: "Дочерний Дочернего Без категории"
+        description: "Вещи которые слишком хороши чтобы поместиться в одной категории."    

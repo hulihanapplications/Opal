@@ -1,5 +1,7 @@
 <%= auto_discovery_link_tag(:rss, {:action => "rss", :controller => "items"}, {:title => "#{t("label.rss_feed")} - #{t("single.new").capitalize} #{Item.model_name.human(:count => :other)}"}) %> 
 
+<%= stylesheet_link_tag "application" %>
+
 <%= javascript_include_tag "jquery-1.4.2.min" %>
 <%= javascript_include_tag "jquery-ui-1.8.7.custom.min" if @setting[:ui] %>
 <%= javascript_include_tag "jquery.tools.min" %>
@@ -8,7 +10,7 @@
 <%= javascript_include_tag "rails" %>	
 
 <%= javascript_include_tag "opal" %>
-<%= stylesheet_link_tag "application" %>
+
 			
 <script type="text/javascript">
 	// Set javascript settings			
@@ -48,8 +50,8 @@
 
 
 <!-- Load Theme Files -->
-<%= javascript_include_tag "/themes/#{@setting[:theme]}/javascripts/application.js" %>
 <%= stylesheet_link_tag "/themes/#{@setting[:theme]}/stylesheets/application.css" %>
+<%= javascript_include_tag "/themes/#{@setting[:theme]}/javascripts/application.js" %>
 <link rel="shortcut icon" href="/themes/<%= @setting[:theme] %>/images/favicon.ico"> 
 
 <!-- Load Meta Data -->

@@ -89,7 +89,7 @@ h1.title, h2.title, h3.title{}
 div.preview, img.preview{background:white;padding:3px;margin:3px;border:0px solid #aaa;opacity:0.80;filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity: 0.8; box-shadow: 0px 2px 5px #333;-moz-box-shadow: 0px 2px 5px #333;  -webkit-box-shadow: 0px 2px 5px #333;}
 div.preview:hover, img.preview:hover{;opacity:1.00;filter:alpha(opacity=100);-moz-opacity:1.0;-khtml-opacity: 1.0}
 	.preview_not_found;{}
-		.preview_not_found a{width:180px;height:125px;background:url(../images/preview.png) no-repeat center center;}
+		.preview_not_found a, .preview_text{width:180px;height:125px;background:url(../images/preview.png) no-repeat center center;}
 img.pinky, img.tiny{border:1px solid #333;height:20px;width:20px;vertical-align:middle}
 a img.pinky, a img.tiny{opacity:0.80;filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity: 0.8;}
 a img.pinky:hover, a img.tiny:hover{;opacity:1.00;filter:alpha(opacity=100);-moz-opacity:1.0;-khtml-opacity: 1.0}
@@ -173,7 +173,8 @@ img.loading{margin:2px;background:#ccc;padding:5px;border:1px solid #666;;-moz-b
 		.plugin_box div.reviews div.review_box{;text-align:center;}
 				.plugin_box div.reviews div.review_box div.review{background-position:left;min-height:107px;background:url(../images/comment_bg.png) no-repeat;padding-left:40px;padding-top:10px;text-align:left;}
 				.score{font-size:16px;}	
-
+				.preview_plugin_review{padding-top:10px;}
+				
 /* Comments & Posts */
 div.comments td{vertical-align:top;}
 	div.comments td.comment_column{width:100%;}		
@@ -209,12 +210,10 @@ div.loading{text-align:center;} /* The box containing the loading img */
 /* Tabs Section */
 ul#tabmenu {	list-style:none; 	margin:0 !important; 	padding:0;	height:25px;	margin-bottom:0px;}
 #tabmenu li  { 	float:left;	 	text-indent:0;	padding:0;	margin:0 !important;	list-style-image:none !important; }/* single tab */
-#tabmenu a, #tabmenu a.active { color:#333;	background: url(../images/bgs/user_tab_bg_unselected.png) no-repeat;;	font-size:12px;	display:block;	height: 20px;  	width: 115px;	text-align:center;		text-decoration:none;	padding:4px 0px 1px 0px;	margin:0px 2px 0px 0px;		position:relative;}/* link inside the tab. uses a background image */
-#tabmenu a.active {	border:0px;	background: url(../images/bgs/user_tab_bg_selected.png) no-repeat;}
+#tabmenu a, #tabmenu a.active { color:#333;	background:#C6C6C6;	font-size:12px;	display:block;	height: 19px;	min-width:90px;	padding:3px 10px;	margin:0px 2px 0px 0px;	text-align:center;		text-decoration:none;		position:relative;-moz-border-radius-topleft:5px;-webkit-border-top-left-radius:5px; -moz-border-radius-topright:5px;-webkit-border-top-right-radius:5px}/* link inside the tab. uses a background image */
+#tabmenu a.active, #tabmenu a:hover {background:url(../images/bgs/black_trans_10.png) repeat}
 #tabmenu a:visited, #tabmenu a:link {}
-#tabmenu a:hover {;border:0px;	background: url(../images/bgs/user_tab_bg_selected.png) no-repeat;}
-#tabmenu a.active:hover{}/* active tab uses a class name "current". it's highlight is also done by moving the background image. */
-#tabcontent {	background: url(../images/bgs/user_tab_pane_bg.png) repeat-x;	padding:10px;padding-top:10px;	min-height:300px;}
+#tabcontent {	background: url(../images/bgs/user_tab_pane_bg.png) repeat-x;	padding:10px;padding-top:10px;	min-height:400px;}
 
 /* Pagination */
 .pagination{margin-top:20px;margin-bottom:20px;text-align:center;}

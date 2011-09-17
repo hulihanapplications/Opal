@@ -119,6 +119,7 @@
 			                 <%= render :partial => "select_locale", :locals => {:options => {:input_name => "user[locale]"}} %>
 			             </td>
 			         </tr>
+			         <% unless session[:omniauth] %>
 			         <tr>
 			             <td>
 							<%= label_tag :humanizer_answer, controller.humanizer_question %>
@@ -128,6 +129,7 @@
 							<%= hidden_field_tag :humanizer_question_id, controller.humanizer_question_id %>
 			             </td>
 			         </tr>
+			         <% end %>
 					 <% page = Page.find_by_name("terms_of_service") %>
 				     <tr><td colspan=2 align=center>
 				     	<div style="height:20px"></div>	

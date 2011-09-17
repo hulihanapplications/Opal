@@ -348,7 +348,8 @@ ru:
     delete_own_group_failure: Извините, вы не можете удалить свою собственную группу.
     search_results_left_blank: Я не знаю что искать!
     message_send_success: Ваш %{item} был послан %{to}. 
-    message_send_failure: Ваш %{item} для %{to} не может быть послан! 
+    message_send_failure: Ваш %{item} для %{to} не может быть послан!
+    account_connected_to: Your account is now connected to %{to}.
   # Logs 
   log: # call with t(:failed_admin_access_attempt_user, :scope => [:log]) or t("log.failed_admin_access_attempt_user") 
     item_create: "Создан %{item}: %{name}"

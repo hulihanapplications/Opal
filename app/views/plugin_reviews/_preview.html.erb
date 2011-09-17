@@ -1,3 +1,9 @@
-<%= content_tag(:div, user_avatar(record.user, :class => "small")) %>
-<%= content_tag(:div, score(record)) %>
-<%= truncate(record.review, :length => 60) %>
+<% if options[:size].to_s == "pinky" %>
+	<%= link_to(theme_image_tag("icons/preview.png", :title => record.item.description, :class => options[:size].to_s), {:action => "view", :controller => "items", :id => record.item}, :title => record.item.name) %>
+<% else %>
+	<div class="preview_text preview_<%= record.class.model_name.underscore %>">
+		<%= content_tag(:div, user_avatar(record.user, :class => "small")) %>
+		<%= content_tag(:div, score(:value => record.review_score)) %>
+		<%= truncate(record.review, :length => 60) %>
+	</div>
+<% end %>

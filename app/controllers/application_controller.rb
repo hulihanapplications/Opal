@@ -247,7 +247,7 @@ class ApplicationController < ActionController::Base
 private  
 
   def sign_in(user)
-    unless @logged_in_user
+    if @logged_in_user.nil? || @logged_in_user.anonymous? 
       user_session = UserSession.new(User.find_by_single_access_token(user.single_access_token))
       user_session.save
     end

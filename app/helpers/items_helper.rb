@@ -3,7 +3,7 @@ module ItemsHelper
     options[:size] ||= "normal" 
     
     preview_record = item.preview
-    content_tag (options[:size] == "pinky" ? :span : :div), :class => "preview" do 
+    content_tag (options[:size] == "pinky" ? :span : :div), :class => "preview preview_#{options[:size].to_s}" do 
       if preview_record && preview_record.is_approved?
           render :partial => "#{preview_record.class.name.pluralize.underscore}/preview", :locals => {:record => preview_record, :item => item, :options => options } # rescue nil
       else # no preview found 

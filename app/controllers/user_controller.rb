@@ -20,7 +20,7 @@ class UserController < ApplicationController
         @user.is_admin = "0"
 
         if @user.save # creation successful
-          flash[:success] =  t("notice.user_account_create_success")
+          flash[:success] =  [t("notice.user_account_create_success")]
           log(:log_type => "create", :target => @user, :user_id => @user.id)
           if session[:omniauth] # saved omniauth data
             @authentication = @user.authentications.new(:provider => session[:omniauth]['provider'], :uid => session[:omniauth]['uid'])

@@ -1,7 +1,7 @@
-<%= content_tag (options[:size].to_s == "pinky" ? :span : :div), :class => "preview_not_found preview_not_found_#{options[:size]}" do %>
-	<% if options[:size].to_s == "pinky" %>
-		<%= link_to(theme_image_tag("icons/preview.png", :title => item.description, :class => options[:size].to_s), {:action => "view", :controller => "items", :id => item}, :title => item.name) %>
-	<% else %>
+<% if options[:size].to_s == "pinky" %>
+	<%= link_to(theme_image_tag("icons/preview.png", :title => item.description, :class => options[:size].to_s), {:action => "view", :controller => "items", :id => item}, :title => item.name) %>
+<% else %>
+	<%= content_tag :div, :class => "preview_not_found preview_not_found_#{options[:size].to_s} preview_text" do %>
 		<%= link_to(content_tag(:h2, I18n.t("notice.item_not_found", :item => I18n.t("single.preview"))), {:action => "view", :controller => "items", :id => item}, :title => item.name) %>
 	<% end %>
 <% end %>

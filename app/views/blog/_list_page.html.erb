@@ -1,4 +1,4 @@
-<%= render :partial => "pages/header", :locals => {:page => page} %>
+<%= render :partial => "pages/page_header", :locals => {:page => page} %>
 <table cellpadding=0 cellspacing=0 style="width:100%">
 	<tr>
 		<td align=left style="text-align:left;vertical-align:bottom"> 
@@ -17,10 +17,8 @@
 
 <div class="spacer"></div>
 
-<div style="height:10px"></div>
 <div class="content">
 	<%= raw page.content %>
 </div>
-<div style="height:10px"></div>	
 
 

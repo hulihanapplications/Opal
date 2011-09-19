@@ -2,7 +2,7 @@ class PluginVideosController < PluginController
   before_filter :uses_tiny_mce, :only => [:new, :edit, :create, :update]  # which actions to load tiny_mce, TinyMCE Config is done in Layout.
 
   def create
-   @video = PluginVideo.new(params[:video])
+   @video = PluginVideo.new(params[:plugin_video])
    @video.user_id = @logged_in_user.id
    @video.item_id = @item.id
    
@@ -22,7 +22,7 @@ class PluginVideosController < PluginController
  
   def update
    @video = PluginVideo.find(params[:video_id])
-   @video.attributes = params[:video]
+   @video.attributes = params[:plugin_video]
    if @video.save
     Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => t("log.item_save", :item => @plugin.model_name.human, :name => @video.title))                    
     flash[:success] =  t("notice.item_save_success", :item => @plugin.model_name.human)

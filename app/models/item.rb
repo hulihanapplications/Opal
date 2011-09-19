@@ -14,7 +14,7 @@ class Item < ActiveRecord::Base
   has_many :plugin_tags, :dependent => :destroy
   has_many :plugin_videos, :dependent => :destroy
   has_many :logs, :as => :target
-  
+  belongs_to :preview, :polymorphic => true
   validates_presence_of :name
   
   after_create :create_everything  
@@ -191,10 +191,6 @@ class Item < ActiveRecord::Base
     puts "No Method Found.\nYou tried to run: #{method_id}\nWith the arguments: #{arguments_you_tried_to_pass_in.inspect}" 
   end
 =end
-
-  def preview # get the preview record for this item
-    (!preview_id.blank? && !preview_type.blank?) ? preview_type.constantize.find_by_id(preview_id) : nil
-  end
 
   def preview? # does this item have a preview?
    !preview.nil?

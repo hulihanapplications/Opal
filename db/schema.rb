@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110913100216) do
+ActiveRecord::Schema.define(:version => 20110918100216) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -307,6 +307,7 @@ ActiveRecord::Schema.define(:version => 20110913100216) do
     t.string   "is_approved", :limit => 1, :default => "0"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "video"
   end
 
   create_table "plugins", :force => true do |t|

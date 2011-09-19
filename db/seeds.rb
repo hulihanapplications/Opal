@@ -86,14 +86,14 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   # Create Plugins 
   sample_image_path = Rails.root.join("spec", "fixtures", "images", "example.png")
   if File.exists?(sample_image_path)
-    sample_image = File.new(sample_image_path) 
-    plugin = PluginImage.new(:image => ActionDispatch::Http::UploadedFile.new(:tempfile => sample_image, :filename => File.basename(sample_image.path)), :description => I18n.t('sample_data.plugins.images.sample.description'))
+    sample_image = File.open(sample_image_path) 
+    plugin = PluginImage.new(:image => sample_image, :description => I18n.t('sample_data.plugins.images.sample.description'))
     plugin.item_id = item1.id 
     plugin.user_id = @admin.id 
     plugin.is_approved = "1"    
     plugin.save
     
-    plugin = PluginFile.new(:file => ActionDispatch::Http::UploadedFile.new(:tempfile => sample_image, :filename => File.basename(sample_image.path)))
+    plugin = PluginFile.new(:file => sample_image)
     plugin.item_id = item1.id 
     plugin.user_id = @admin.id 
     plugin.is_approved = "1"    
@@ -179,8 +179,10 @@ if (install_sample_data == "y" || install_sample_data == "yes")
 
   sample_video_path = Rails.root.join("spec", "fixtures", "videos", "example.flv")
   sample_video = File.new(sample_video_path) 
-  @plugin = PluginVideo.new(:video => sample_video, :title => I18n.t('sample_data.plugins.videos.uploaded.title'), :description => I18n.t('sample_data.plugins.videos.uploaded.description')))
-  @plugin.item_id = item1.id
+  @plugin = PluginVideo.new(:video => sample_video, :title => I18n.t('sample_data.plugins.videos.uploaded.title'), :description => I18n.t('sample_data.plugins.videos.uploaded.description'))
+  @plugin.item_id = item2.id
+  item2.preview = @plugin
+  item2.save
   @plugin.is_approved = "1"    
   @plugin.user_id = @admin.id 
   @plugin.save    

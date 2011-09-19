@@ -1,7 +1,8 @@
 /* ...
-*= require_tree .
 *= require jquery.tools
 *= require colorbox
 *= require uploadify
 *= require authentication
-*/
+*= require flowplayer
+*= require_tree .
+* */

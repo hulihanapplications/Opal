@@ -722,7 +722,10 @@ en:
         average: Average
       plugin_image:
         local_file: Local File 
-        remote_file: URL        
+        remote_file: URL   
+      plugin_video:
+        video: Video File      
+        code: Embed Code
     errors: # you can find the list of validation error keys here: http://guides.rubyonrails.org/i18n.html 
       template: 
         header: 

@@ -38,6 +38,9 @@ module Opal
     # JavaScript files you want as :defaults (application.js is always included).
     # config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
     
+    # Customize Sanitation
+    config.action_view.sanitized_allowed_tags = %w{img a table tr td th br b u i strong p span embed object param ul ol li blockquote pre div sub sup h1 h2 h3 h4 h5 h6 iframe}           
+    config.action_view.sanitized_allowed_attributes = %w{href title style width height allowfullscreen frameborder allowscriptaccess src type data name value align}
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
@@ -50,6 +53,7 @@ module Opal
     config.assets.enabled = true
 
     # Add public/ Asset path for uploadable files
+    config.assets.paths << Rails.root.join("vendor", "assets", "flash")
     #config.assets.paths << Rails.root.join("public", "images")
 
     # Version of your assets, change this if you want to expire all your assets

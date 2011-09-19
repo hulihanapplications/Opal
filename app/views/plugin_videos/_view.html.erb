@@ -36,7 +36,7 @@
 								</tr>
 							</table>
 							<div style="display:none;" id="video_<%= video.id %>_content">								
-								<%= raw video.code %>						
+								<%= render video %>
 							</div>																										
 						</div>														
 					<% end %>					
@@ -57,7 +57,7 @@
 							</table>
 							<%= content_tag(:div, video.description, :class => "description") unless video.description.blank? %>
 							<br />
-							<%= content_tag(:div, raw(video.code), :class => "code")  %>													
+							<%= render video %>
 						</div>														
 					<% end %>
 				</div>

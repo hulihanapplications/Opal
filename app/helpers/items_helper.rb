@@ -11,24 +11,6 @@ module ItemsHelper
       end      
     end
   end 
-  
-  def item_thumbnail(item, options = {})   
-      # set defaults
-      options[:preview] = false if options[:preview].nil? 
-      options[:class] ||= "thumbnail"
-      
-      if !item.nil? # item exists
-        if item.preview_type == PluginImage.name
-           plugin_image_thumbnail(item.preview, options)
-        elsif  item.preview_type == PluginVideo.name
-           theme_image_tag("preview_video.png", :class => options[:class])
-        else # some other preview type
-           theme_image_tag("preview.png", :class => options[:class])
-        end     
-      else # item doesn't exist
-        return raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\" title=\"#{Item.model_name.human} cannot be found.\">"      
-      end 
-  end
 
   def link_to_item(item, options = {})
     options[:preview] = false   if options[:preview].nil?

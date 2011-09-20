@@ -8,8 +8,6 @@
 					<tr>
 						<% if log_user %>
 							<%= content_tag(:td, link_to(user_avatar(log.user, :class => "medium"), {:action => "user", :controller => "browse", :id => log.user}, :title => "#{log.user.username}")) if log_user %>
-						<% else %>
-							<%= content_tag(:td, link_to(item_thumbnail(log.item, :class => "medium"), {:action => "view", :controller => "items", :id => log.item}, :title => h(log.item.name))) if log_item %>						
 						<% end %>						
 						<td style="width:100%">																							
 							<%= log_message(log) %>

@@ -11,3 +11,8 @@ end
 Factory.define :admin, :parent => :user do |o|
   o.is_admin   '1'  
 end
+
+Factory.define :user_with_avatar, :parent => :user do |o|
+  file = File.new(Rails.root + 'spec/fixtures/images/example.png')
+  o.avatar ActionDispatch::Http::UploadedFile.new(:tempfile => file, :filename => File.basename(file.path))
+end

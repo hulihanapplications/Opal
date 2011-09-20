@@ -28,8 +28,11 @@ class FileUploader < CarrierWave::Uploader::Base
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    #prefix = storage == CarrierWave::Storage::Fog ? "" : ".." # if file is stored at a third party, don't store outside of public
-    return File.join("../uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}")
+    if CarrierWave::Uploader::Base.storage == CarrierWave::Storage::Fog
+      return File.join("uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}")
+    else
+      return File.join("../uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}")
+    end 
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:

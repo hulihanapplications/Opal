@@ -20,7 +20,7 @@ CarrierWave.configure do |config|
     config.fog_directory = config_hash[:fog_directory]
     config.fog_host = config_hash[:fog_host]
     config.fog_public = config_hash[:fog_public]
-    config.fog_attributes = config_hash[:fog_attributes]                 
+    config.fog_attributes = config_hash[:fog_attributes] unless config_hash[:fog_attributes].nil?              
   end  
 
   config.root config_hash[:root] if config_hash[:root]

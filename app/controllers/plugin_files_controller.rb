@@ -39,7 +39,7 @@ class PluginFilesController < PluginController
       end  
       @file.update_attribute(:downloads, @file.downloads + 1) # increment downloads
       
-      if FileUploader.storage == CarrierWave::Storage::Fog # if file is stored at a third party
+      if CarrierWave::Uploader::Base.storage == CarrierWave::Storage::Fog # if file is stored at a third party
         redirect_to @file.file.url
       else # send local file
         send_file @file.file.path, :filename => @file.filename

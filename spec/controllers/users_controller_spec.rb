@@ -71,8 +71,17 @@ describe UsersController do
       #@user = Factory(:item, :user => @controller.set_user)
     end
     
-    pending "change_avatar"
     pending "change_password"
+    
+    describe "change_avatar" do
+      it "works properly" do
+        file = File.new(Rails.root + 'spec/fixtures/images/example.png')
+        post(:change_avatar, {:id => @controller.set_user.id, :avatar => ActionDispatch::Http::UploadedFile.new(:tempfile => file, :filename => File.basename(file.path))})
+        flash[:success].should_not be_nil
+        response.should_redirect_to edit_user_path(@controller.set_user)         
+      end
+    end 
+    
     pending "verification_required"
   end 
   

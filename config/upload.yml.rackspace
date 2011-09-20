@@ -1,0 +1,9 @@
+# Example Configuration File for Rackspace Cloud Files
+:upload:
+  :storage: :fog # storage method: file, fog(for s3 and rackspace cloud files), etc.
+  :fog_credentials: 
+    :provider: Rackspace
+    :rackspace_username: xxx
+    :rackspace_api_key: yyy
+  :fog_directory: path/to/your/directory # required, this is your bucket
+  #:fog_host: "c000000.cdn.rackspacecloud.com"

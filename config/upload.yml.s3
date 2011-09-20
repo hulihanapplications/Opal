@@ -6,7 +6,7 @@
     :aws_access_key_id: xxx
     :aws_secret_access_key: yyy
     :region: 'eu-west-1' # optional
-  :fog_directory: /path/to/my/app/public # required, this is your bucket
+  :fog_directory: path/to/your/bucket # required, this is your bucket
   #:fog_host: www.example.com
   #:fog_public: false # optional, defaults to true
   #:config.fog_attributes = 

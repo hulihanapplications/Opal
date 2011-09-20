@@ -88,7 +88,7 @@ class ApplicationController < ActionController::Base
   
   def authenticate_admin
     if @logged_in_user.anonymous? #There's definitely no user logged in(id 0 is public user)
-      flash[:failure] = t("notice.failed_admin_access_attempt") + request.inspect
+      flash[:failure] = t("notice.failed_admin_access_attempt") 
       Log.create(:log_type => "warning", :log => I18n.t("log.failed_admin_access_attempt_visitor", :ip => request.env["REMOTE_ADDR"], :controller => params[:controller], :action => params[:action]))     
       redirect_to login_url(:redirect_to => request.referer) # store original request of where they wanted to go.
     else #there's a user logged in, but what type is he?
@@ -199,7 +199,6 @@ class ApplicationController < ActionController::Base
   end  
   
   def can_group_create_plugin # check if group permissions allows current user to create plugin records for this item
-    logger.info @logged_in_user.inspect
     if @group_permissions_for_plugin.can_create? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
       # ok, proceed
     else # denied! 

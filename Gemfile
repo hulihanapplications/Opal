@@ -13,6 +13,7 @@ gem "will_paginate", ">= 3.0.pre2"
 gem "omniauth"
 gem "authbuttons-rails"
 gem "carrierwave"
+gem "fog" # for s3 and rackspace cloud files support
 
 gem "make_voteable", :git => "git://github.com/medihack/make_voteable"# , :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems")
 gem "humanizer", "=2.4.3"

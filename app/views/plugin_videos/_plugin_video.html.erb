@@ -10,7 +10,25 @@
 				<%#= theme_image_tag("logo.png") %>					
 			</a> 
 			<script> 
-				flowplayer("video_<%= plugin_video.id%>_player", "<%= asset_path("flowplayer-3.2.7.swf") %>", {
+				flowplayer("video_<%= plugin_video.id %>_player", "<%= asset_path("flowplayer-3.2.7.swf") %>", {
+					plugins: {
+						controls: {
+							url: '<%= asset_path("flowplayer.controls-3.2.5.swf") %>',
+							
+							backgroundColor: "transparent",
+							backgroundGradient: "none",
+							sliderColor: '#FFFFFF',
+							sliderBorder: '1.5px solid rgba(160,160,160,0.7)',
+							volumeSliderColor: '#FFFFFF',
+							volumeBorder: '1.5px solid rgba(160,160,160,0.7)',
+				
+							timeColor: '#ffffff',
+							durationColor: '#535353',
+				
+							tooltipColor: 'rgba(255, 255, 255, 0.7)',
+							tooltipTextColor: '#000000'
+						}
+					},					
 				    clip:  {
 				        autoPlay: false,
 				        autoBuffering: true

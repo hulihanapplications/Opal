@@ -14,6 +14,7 @@ tmp/*
 config/database.yml
 config/email.yml
 config/providers.yml
+config/upload.yml
 config/setup_load_paths.rb
 config/deploy.rb
 

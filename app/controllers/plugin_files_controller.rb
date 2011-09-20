@@ -38,7 +38,12 @@ class PluginFilesController < PluginController
         log(:target => @file, :log_type => "download", :log => t("log.item_downloaded_by_user", :item => @plugin.model_name.human, :name => @file.filename)) # msg if a user is logged in
       end  
       @file.update_attribute(:downloads, @file.downloads + 1) # increment downloads
-      send_file @file.file.path, :filename => @file.filename
+      
+      if FileUploader.storage == CarrierWave::Storage::Fog # if file is stored at a third party
+        redirect_to @file.file.url
+      else # send local file
+        send_file @file.file.path, :filename => @file.filename
+      end
     else # they must be logged in to download this file
       authenticate_user
     end 

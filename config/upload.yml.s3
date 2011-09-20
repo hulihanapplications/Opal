@@ -1,0 +1,13 @@
+# Example Configuration File for Amazon S3 Uploads 
+:upload:
+  :storage: :fog # storage method: file, fog(for s3 and rackspace cloud files), etc.
+  :fog_credentials: 
+    :provider: AWS
+    :aws_access_key_id: xxx
+    :aws_secret_access_key: yyy
+    :region: 'eu-west-1' # optional
+  :fog_directory: /path/to/my/app/public # required, this is your bucket
+  #:fog_host: www.example.com
+  #:fog_public: false # optional, defaults to true
+  #:config.fog_attributes = 
+  #  'Cache-Control':'max-age=315576000'  

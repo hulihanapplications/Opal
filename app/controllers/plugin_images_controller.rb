@@ -11,7 +11,7 @@ class PluginImagesController < PluginController
     @image = PluginImage.new(params[:plugin_image])
     @image.effects = params[:effects]
     @image.user_id = @logged_in_user.id
-    @image.item_id = @item.id
+    @image.record = @item
     @image.is_approved = "1" if !@group_permissions_for_plugin.requires_approval?  || @item.is_editable_for_user?(@logged_in_user) # approve if not required or owner or admin
     
     if @image.save # if image was saved successfully

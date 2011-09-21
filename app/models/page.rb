@@ -30,6 +30,9 @@ class Page < ActiveRecord::Base
   scope :for_page, lambda { |page| where("page_id = ?", page.id)}   
   scope :with_name, lambda { |somename| where("name = ?", somename)}  
 
+  def to_s
+    title
+  end
 
   def destroy_everything
     for subpage in self.pages # delete all subpages

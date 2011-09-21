@@ -12,7 +12,7 @@ class PluginDiscussionsController < PluginController
    # Set Approval
    @discussion.is_approved = "1" if !@group_permissions_for_plugin.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin 
    @discussion.user_id = @logged_in_user.id
-   @discussion.item_id = @item.id
+   @discussion.record = @item
    if @discussion.save
     Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => @plugin.model_name.human, :name => "#{@discussion.title}"))            
     flash[:success] = t("notice.item_create_success", :item => @plugin.model_name.human)
@@ -45,7 +45,7 @@ class PluginDiscussionsController < PluginController
    @post = PluginDiscussionPost.new(params[:post])
    @post.user_id = @logged_in_user.id
    @post.plugin_discussion_id = @discussion.id
-   @post.item_id = @item.id 
+   @post.record = @item 
    
    if @post.save
      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => PluginDiscussionPost.model_name.human,  :name =>  "#{@post.plugin_discussion.title} - " + truncate(@post.post, :length => 10)))                   

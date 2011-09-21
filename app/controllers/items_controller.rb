@@ -88,7 +88,7 @@ class ItemsController < ApplicationController
     params[:item][:is_public]     ||= "0" 
     params[:item][:featured]      ||= false
         
-    @feature_errors = PluginFeature.check(:features => params[:features], :item => @item) # check if required features are present
+    @feature_errors = PluginFeature.check(:features => params[:features], :record => @item) # check if required features are present
     
     @item.attributes = params[:item] # mass assign any new attributes, but don't save.
     if @logged_in_user.is_admin? # save protected attributes
@@ -99,7 +99,7 @@ class ItemsController < ApplicationController
     
     if @item.save && @feature_errors.size == 0 # make sure there's not required feature errors        
         # Update Features
-        num_of_features_updated = PluginFeature.create_values_for_item(:item => @item, :features => params[:features], :user => @logged_in_user, :delete_existing => true, :approve => true)  
+        num_of_features_updated = PluginFeature.create_values_for_record(:record => @item, :features => params[:features], :user => @logged_in_user, :delete_existing => true, :approve => true)  
         log(:log_type => "update", :target => @item)
         flash[:success] = t("notice.item_save_success", :item => Item.model_name.human)
         redirect_to :action => "view" , :id => @item        

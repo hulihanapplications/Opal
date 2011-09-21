@@ -69,9 +69,9 @@ class Emailer < ActionMailer::Base
   end
 
   def new_plugin_record_notification(record)
-    recipients = record.item.user.email
+    recipients = record.record.user.email
     @record = record
-    subject = I18n.t("email.subject.item_new_from_user", :item => record.class.model_name.human, :name => record.item.name, :title => Setting.global_settings[:title], :from => record.user ? record.user.to_s : nil)
+    subject = I18n.t("email.subject.item_new_from_user", :item => record.class.model_name.human, :name => record.record.to_s, :title => Setting.global_settings[:title], :from => record.user ? record.user.to_s : nil)
     mail(:to => nil, :bcc => recipients, :subject => subject, :date => Time.now)
   end
 

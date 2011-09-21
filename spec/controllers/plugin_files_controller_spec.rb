@@ -39,7 +39,8 @@ describe PluginFilesController do
   context "as visitor" do
     describe "download" do
       @file = Factory(:plugin_file)
-      get(download_path(:file_id => @file.id, :id => @file.item.id))      
+      get(download_path(:file_id => @file.id, :id => @file.item.id))
+      response.code.should eq("200")
     end    
   end
 end

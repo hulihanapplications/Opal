@@ -11,7 +11,7 @@
 			<%= content_tag(:div, feature.description, :class => "description") if feature.description.blank? %>										
 
 
-   				<% existing_value_for_item = PluginFeatureValue.find(:first, :conditions => ["plugin_feature_id = ? and item_id = ?", feature.id, item.id]) %>
+   				<% existing_value_for_item = feature.plugin_feature_values.record(item).first %>
 				<% 
 					if existing_value_for_item
 						value =  existing_value_for_item.value

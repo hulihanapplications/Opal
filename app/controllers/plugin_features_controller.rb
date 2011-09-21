@@ -18,7 +18,7 @@ class PluginFeaturesController < ApplicationController
      if feature && feature[:value] != "" # if array item has something in it and at least value was filled out
        feature_value = PluginFeatureValue.new(feature)
        feature_value.user_id = @logged_in_user.id
-       feature_value.item_id = @item.id
+       feature_value.record = @item
     
        # Set Approval
        feature_value.is_approved = "1" if !@group_permissions_for_plugin.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin 

@@ -16,7 +16,7 @@ class PluginFeature < ActiveRecord::Base
  
  
  def self.check(options = {}) # checks hash for presence of required features and feature value appropriateness
-   options[:item]       ||= nil # item needed to add errors
+   options[:record]       ||= nil # item needed to add errors
    options[:features]   ||= Hash.new
    
    errors = Hash.new
@@ -50,9 +50,9 @@ class PluginFeature < ActiveRecord::Base
    return errors
  end
  
- def self.create_values_for_item(options = {}) # create values for an item(from a hash)
+ def self.create_values_for_record(options = {}) # create values for an item(from a hash)
    # Set defaults 
-   options[:item]                   ||= nil
+   options[:record]                   ||= nil
    options[:features]               ||= Hash.new
    options[:user]                   ||= nil # user making changes
    options[:approve] = true if !defined? options[:approve] # never use ||= for default values when the value is a bool
@@ -63,14 +63,14 @@ class PluginFeature < ActiveRecord::Base
    
    options[:features].each do |feature_id, feature_value| 
      if options[:delete_existing] # delete any existing values
-      existing_value = PluginFeatureValue.find(:first, :conditions => ["plugin_feature_id = ? and item_id = ?", feature_id, options[:item].id])
+      existing_value = PluginFeatureValue.where(:plugin_feature_id => feature_id).record(options[:record]).first
       existing_value.destroy if existing_value 
      end
     
      feature_value = PluginFeatureValue.new(feature_value) 
      # Handle protected attributes
      feature_value.plugin_feature_id =  feature_id     
-     feature_value.item_id = options[:item].id     
+     feature_value.record = options[:record]     
      feature_value.user_id = options[:user].id          
      feature_value.is_approved = "1" if options[:approve] == true 
      

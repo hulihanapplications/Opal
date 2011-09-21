@@ -11,7 +11,7 @@ class PluginReviewsController < PluginController
     @item = Item.find(params[:id])
     @review = PluginReview.new(params[:review])
     @review.user_id = @logged_in_user.id
-    @review.item_id = @item.id      
+    @review.record = @item      
     
     #if @item.is_viewable_for_user?(@logged_in_user) && ( && @logged_in_user.id == @item.user_id) || !@plugin.get_setting_bool("only_creator_can_review") || @logged_in_user.is_admin?)
      @review.is_approved = "1" if !@group_permissions_for_plugin.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin       

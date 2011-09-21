@@ -4,7 +4,7 @@ class PluginFilesController < PluginController
   def create
     @file = PluginFile.new(params[:plugin_file])
     @file.user_id = @logged_in_user.id
-    @file.item_id = @item.id
+    @file.record = @item
     @file.title = params[:file_title]
     
     @file.is_approved = "1" if !@group_permissions_for_plugin.requires_approval?  || @item.is_editable_for_user?(@logged_in_user) # approve if not required or owner or admin 

@@ -2,7 +2,7 @@
 
 /* HTML  */
 html,body {height: 100%;margin:0px;padding:0px;}
-input, option, textarea{padding:2px}
+input, option, textarea{padding:2px;}
 textarea{width:100%;height:100px;margin:0;padding:0}
 td{vertical-align:top;}
 p{margin:0px 0px 20px 0px;}

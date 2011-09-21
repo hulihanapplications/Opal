@@ -4,7 +4,6 @@ class PluginCommentsController < PluginController
  
  def create # this is the only create action that doesn't require that the item is editable by the user
    if human? || !@logged_in_user.anonymous?
-     @item = Item.find(params[:id])
      @plugin_comment = PluginComment.new(params[:plugin_comment])
      if !@logged_in_user.anonymous? # if the user is not anonymous
        @plugin_comment.user_id = @logged_in_user.id # set comment user id
@@ -14,7 +13,7 @@ class PluginCommentsController < PluginController
      # Set Approval
      @plugin_comment.is_approved = "1" if !@group_permissions_for_plugin.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin 
      
-     @plugin_comment.item_id = @item.id
+     @plugin_comment.record = @item
      if @plugin_comment.save
       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => @plugin.model_name.human, :name => truncate(@plugin_comment.comment, :length => 10)))  if !@logged_in_user.anonymous?
       Log.create(:item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => @plugin.model_name.human, :name => "#{request.env["REMOTE_ADDR"]}: " + truncate(@plugin_comment.comment, :length => 10))) if @logged_in_user.anonymous?

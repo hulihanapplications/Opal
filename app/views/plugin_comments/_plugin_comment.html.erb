@@ -14,7 +14,7 @@
 				   	 <% if !plugin_comment.anonymous_email.nil? %>
 						 <%= gravatar_image(plugin_comment.anonymous_email, :class => "small") %>
 					 <% else %>
-						<%= user_avatar(nil, :class => "small") %>			 	         
+						<%#= user_avatar(nil, :class => "small") %>			 	         
 					 <% end %>
 					 <br>
 					 <%= h plugin_comment.anonymous_name %>

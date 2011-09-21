@@ -4,7 +4,7 @@ class PluginLinksController < PluginController
    @link.title = params[:link_title]
    @link.url = params[:link_url]
    @link.user_id = @logged_in_user.id
-   @link.item_id = @item.id
+   @link.record = @item
  
    # Set Approval
    @link.is_approved = "1" if !@group_permissions_for_plugin.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin 

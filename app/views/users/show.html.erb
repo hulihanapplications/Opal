@@ -1,7 +1,7 @@
 
 <div id="side">
 			<div class="box_3" align=center>
-			   <h1 class="title"><%= h @user.username %></h1>
+			   <h1 class="title"><%= @user.username %></h1>
 			   <div class="user_avatar" align=center style="margin-bottom:5px">
 				 <%= user_avatar(@user) %>
 			   </div>		
@@ -55,30 +55,26 @@
 						</a>	
 						<br><br>						
 				   </div>		
-			<div class="box_1" align=left>	
-				<% if !@user.user_info.location.blank? %>
+				<%= content_tag(:div, :class => "box_1") do %>
 					<h2 class="title"><%= UserInfo.human_attribute_name(:location) %></h2>
-					<%= h @user.user_info.location  %>	
+					<%= @user.user_info.location  %>	
 					<hr>
-				<% end %>
-				<% if !@user.user_info.description.blank? %>				
+				<% end if !@user.user_info.location.blank? %>
+				<%= content_tag(:div, :class => "box_1") do %>			
 					<h2 class="title"><%= UserInfo.human_attribute_name(:description) %></h2>
-					<%= h @user.user_info.description %>
+					<%= @user.user_info.description %>
 					<hr>
-				<% end %>
-				<% if !@user.user_info.interests.blank? %>
+				<% end if !@user.user_info.description.blank? %>
+				<%= content_tag(:div, :class => "box_1") do %>
 					<h2 class="title"><%= UserInfo.human_attribute_name(:interests) %></h2>
-					<%= h @user.user_info.interests %>
+					<%= @user.user_info.interests %>
 					<hr>
-				<% end %>	
-				<% if @logged_in_user.is_admin? %>							
+				<% end if !@user.user_info.interests.blank?  %>	
+				<%= content_tag(:div, :class => "box_1") do %>							
 					<h2 class="title"><%= Group.model_name.human %></h2>
-					<%= h @user.group.name %>
-				<% end %>								
-			</div>
-			<br>
-			
-			<% if @setting[:section_items] %>
+					<%= @user.group.name %>
+				<% end if @logged_in_user.is_admin? %>								
+			<% if @setting[:section_items] && @items.size > 0 %>
 				<%= render :partial => "main_content_top_bar" %>
 				<br>
 	

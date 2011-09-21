@@ -36,6 +36,10 @@ class Item < ActiveRecord::Base
     "#{id}-#{name.parameterize}" 
   end
   
+  def to_s
+    name
+  end
+  
   def create_everything   
   end
 

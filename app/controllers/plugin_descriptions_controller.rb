@@ -7,7 +7,7 @@ class PluginDescriptionsController < PluginController
   def create
    @description = PluginDescription.new(params[:description])
    @description.user_id = @logged_in_user.id
-   @description.item_id = @item.id
+   @description.record = @item
    
    # Set Approval
    @description.is_approved = "1" if !@group_permissions_for_plugin.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin 

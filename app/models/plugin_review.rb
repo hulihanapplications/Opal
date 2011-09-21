@@ -19,7 +19,7 @@ class PluginReview < ActiveRecord::Base
   scope :most_votes_first, order("up_votes - down_votes DESC")
   
   validates_presence_of :review_score
-  validates_presence_of :item_id, :user_id
+  validates_presence_of :record_id, :user_id
   validates_length_of :review, :minimum => 16
   
   attr_accessible :review, :review_score 

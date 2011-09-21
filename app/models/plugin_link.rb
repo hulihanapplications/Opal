@@ -6,6 +6,8 @@ class PluginLink < ActiveRecord::Base
 
   validates_presence_of :title, :url
   
+  attr_accessible :title, :url
+
   def to_s
   	get_title
   end

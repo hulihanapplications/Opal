@@ -5,6 +5,10 @@ module Opal
       def item(item)
         where("item_id = ?", item.id)
       end
+
+      def record(record)
+        where(:record_id => record.id, :record_type => record.class.name)
+      end
       
       def approved
          where("is_approved = ?", "1")
@@ -41,17 +45,19 @@ module Opal
     
     module InstanceMethods
       def set_as_item_preview # called after a plugin record/item is created
-        if self.class == Setting.get_global_settings[:default_preview_type] # if this plugin is set as the default preview class...
-            item.update_attributes(:preview_type => self.class.name, :preview_id => id) if !item.preview? # set self as preview if no preview exists
+        if record_type == "Item" && self.class == Setting.get_global_settings[:default_preview_type] # if this plugin is set as the default preview class...
+            record.update_attributes(:preview_type => self.class.name, :preview_id => id) if !record.preview? # set self as preview if no preview exists
         end 
       end
 
-      def reset_preview         
-        if self == item.preview
-	    	  item.update_attributes(:preview_type => nil, :preview_id => nil)  # reset item preview to nil
-          preview_successor = Setting.global_settings[:default_preview_type].item(item).first # look for a successor preview 
-          #logger.info preview_successor.inspect
-          item.update_attributes(:preview_type => preview_successor.class.name, :preview_id => preview_successor.id) if preview_successor # set some other record as item's preview
+      def reset_preview
+        if record_type == "Item"         
+          if self == record.preview
+  	    	  record.update_attributes(:preview_type => nil, :preview_id => nil)  # reset item preview to nil
+            preview_successor = Setting.global_settings[:default_preview_type].record(record).first # look for a successor preview 
+            #logger.info preview_successor.inspect
+            record.update_attributes(:preview_type => preview_successor.class.name, :preview_id => preview_successor.id) if preview_successor # set some other record as item's preview
+          end
         end 
       end
       
@@ -60,9 +66,9 @@ module Opal
       end   
 
       def send_new_plugin_record_notification
-      	item_owner = self.item ? self.item.user : nil
-      	if item_owner
-      		Emailer.new_plugin_record_notification(self).deliver if item_owner.user_info.notify_of_item_changes && self.user_id != item_owner.id
+      	record_owner = self.record ? self.record.user : nil
+      	if record_owner
+      		Emailer.new_plugin_record_notification(self).deliver if record_owner.user_info.notify_of_item_changes && self.user_id != record_owner.id
       	end 
       end      
     end    

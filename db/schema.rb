@@ -132,7 +132,6 @@ ActiveRecord::Schema.define(:version => 20110921212447) do
   add_index "pages", ["ancestry"], :name => "index_pages_on_ancestry"
 
   create_table "plugin_comments", :force => true do |t|
-    t.integer  "item_id"
     t.integer  "user_id"
     t.text     "comment"
     t.string   "is_approved",     :limit => 1, :default => "0"
@@ -143,6 +142,8 @@ ActiveRecord::Schema.define(:version => 20110921212447) do
     t.integer  "up_votes",                     :default => 0
     t.integer  "down_votes",                   :default => 0
     t.string   "ancestry"
+    t.string   "record_type"
+    t.integer  "record_id"
   end
 
   add_index "plugin_comments", ["ancestry"], :name => "index_plugin_comments_on_ancestry"

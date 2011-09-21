@@ -1,5 +1,5 @@
 class PluginFeatureValue < ActiveRecord::Base
-  # Dave: the plugin_feature_value is an interest type of plugin, it actually 
+  # the plugin_feature_value is an interesting type of plugin, it actually 
   #       is a child of another psuedo plugin, the plugin_feature. I want plugin
   #       functionality to be able to support inheritance, not just a plain pointer to an
   #       plugin_whatever value set. 
@@ -7,8 +7,8 @@ class PluginFeatureValue < ActiveRecord::Base
   belongs_to :user
   
   validates_presence_of :value
-  validates_uniqueness_of  :item_id, :scope => :plugin_feature_id
-  attr_protected :item_id
+  #validates_uniqueness_of  :record_id, :scope => :plugin_feature_id
+  attr_accessible :value
 
   acts_as_opal_plugin :notifications => false
   

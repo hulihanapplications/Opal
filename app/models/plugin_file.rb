@@ -8,6 +8,8 @@ class PluginFile < ActiveRecord::Base
   
   after_destroy :delete_files
   
+  attr_accessible :title, :file, :remove_file, :remote_file_url
+  
   def to_s
     get_title	
   end

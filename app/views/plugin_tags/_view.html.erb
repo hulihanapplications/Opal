@@ -1,7 +1,7 @@
 <% if item.is_editable_for_user?(@logged_in_user) %>
-	<% tags = PluginTag.find(:all, :conditions => ["item_id = ?", item.id], :order => "created_at DESC") %>
+	<% tags = PluginTag.record(item).newest_first %>
 <% else %>
-	<% tags = PluginTag.find(:all, :conditions => ["item_id = ? and is_approved = '1'", item.id], :order => "created_at DESC") %>
+	<% tags = PluginTag.record(item).newest_first.approved %>
 <% end %>
 
 	<div class="plugin_box">

@@ -1,6 +1,6 @@
 class PolymorphicPlugins < ActiveRecord::Migration
   def klasses 
-    [PluginComment, PluginDescription, PluginDiscussion, PluginFeatureValue, PluginFile, PluginImage, PluginLink, PluginTag, PluginVideo]
+    [PluginComment, PluginDescription, PluginDiscussion, PluginFeatureValue, PluginFile, PluginImage, PluginLink, PluginReview, PluginTag, PluginVideo]
   end 
   
   def polymorphize(klass)

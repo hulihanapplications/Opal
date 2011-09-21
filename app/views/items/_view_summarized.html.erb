@@ -46,7 +46,7 @@
 				<div id="side">					
 					<%= content_tag :div, :class => "box_2" do %>
 						<% if Plugin.plugins[:review].is_enabled? %>
-								<% review_score = PluginReview.average(:review_score, :conditions => ["item_id = ?", item.id]) %>
+								<% review_score = PluginReview.record(item).average(:review_score) %>
 								<% review_score ||= 0 %>										
 								<span>	
 									<%= link_to_function score(:type => @setting[:plugin_review][:review_type], :min => @setting[:plugin_review][:score_min].to_i, :max => @setting[:plugin_review][:score_max].to_i, :value => review_score),  "select_tab(\"#{Plugin.plugins[:review].model_name.human(:count => :other)}\")"  %>																			
@@ -59,7 +59,7 @@
 								</span>																			
 						<% end %>	
 						<% if Plugin.plugins[:link].is_enabled? %>
-							<% first_link = PluginLink.item(item).approved.first %>
+							<% first_link = PluginLink.record(item).approved.first %>
 							<%= tag(:hr) if (Plugin.plugins[:comment].is_enabled? || Plugin.plugins[:review].is_enabled?) && first_link %>	
 							<%= render :partial => "plugin_links/plugin_link", :locals => {:plugin_link => first_link,:options => {:controls => false}} if first_link %>						
 						<% end %>														

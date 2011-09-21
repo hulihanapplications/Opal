@@ -1,7 +1,7 @@
 <% if item.is_editable_for_user?(@logged_in_user) %>
-	<% videos = PluginVideo.item(item) %>
+	<% videos = PluginVideo.record(item) %>
 <% else %>
-	<% videos = PluginVideo.item(item).approved %>
+	<% videos = PluginVideo.record(item).approved %>
 <% end %>
 
 	<div class="plugin_box">

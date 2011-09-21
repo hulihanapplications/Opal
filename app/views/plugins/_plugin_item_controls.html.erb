@@ -39,7 +39,7 @@
 			<span class="approval_box plugin_item_control_box">
 				<%= icon("approved", t("single.approved"), "icon help") if record.is_approved? %> 		
 				<%= icon("unapproved", "#{t("single.not")} #{t("single.approved")}", "icon help") if !record.is_approved? %> 																				
-				<%= link_to icon("cycle", t("label.item_change", :item => t("single.approval"))), {:action => "change_approval", :id => record.item_id, :record_type => record.class.name, :record_id => record.id,  "#{record.class.system_name.downcase}_id".to_sym => record.id, :controller => record.class.name.pluralize.underscore}, :confirm => t("confirm.general"), :class => "transparent" %>
+				<%= link_to icon("cycle", t("label.item_change", :item => t("single.approval"))), {:action => "change_approval", :id => record.record, :record_type => record.class.name, :record_id => record.id,  "#{record.class.system_name.downcase}_id".to_sym => record.id, :controller => record.class.name.pluralize.underscore}, :confirm => t("confirm.general"), :class => "transparent" %>
 				<%= icon("spacer") %>
 			</span>
 		<% end %>		
@@ -58,7 +58,7 @@
 				<% if @item.is_record_preview?(record) %>
 					<%= icon("star_selected", t("single.preview"), "help") %>
 				<% else %>
-					<%= link_to icon("star_empty", t("label.item_mark_as", :item => record.class.model_name.human, :name => Item.model_name.human + " " + t("single.preview"))), {:controller => "items", :action => "set_preview", :id => record.item.id, :preview_id => record.id, :preview_type => record.class.name}, :method => :post, :class => "transparent"  %>	
+					<%= link_to icon("star_empty", t("label.item_mark_as", :item => record.class.model_name.human, :name => Item.model_name.human + " " + t("single.preview"))), {:controller => "items", :action => "set_preview", :id => record.record, :preview_id => record.id, :preview_type => record.class.name}, :method => :post, :class => "transparent"  %>	
 				<% end %>
 			<% end %>
 			

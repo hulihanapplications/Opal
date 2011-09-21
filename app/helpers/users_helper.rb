@@ -13,12 +13,16 @@ module UsersHelper
   end 
 
   def avatar_image(user, options = {})
+    if !user.nil?
       options[:title] = user.to_s
       if user.avatar.blank? ? false : File.exists?(user.avatar.path)  
         return image_tag(user.avatar.url, options)
       else # get default avatar
         return theme_image_tag("default_avatar.png", options)        
-      end        
+      end
+    else
+      return theme_image_tag("default_avatar.png", options)        
+    end         
   end 
   
   def gravatar_image(object, options = {})

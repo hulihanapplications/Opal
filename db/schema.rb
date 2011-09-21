@@ -266,7 +266,6 @@ ActiveRecord::Schema.define(:version => 20110921212447) do
   end
 
   create_table "plugin_reviews", :force => true do |t|
-    t.integer  "item_id"
     t.integer  "user_id"
     t.float    "review_score",                           :default => 0.0
     t.text     "review"
@@ -278,6 +277,8 @@ ActiveRecord::Schema.define(:version => 20110921212447) do
     t.integer  "up_votes",                               :default => 0
     t.integer  "down_votes",                             :default => 0
     t.integer  "plugin_review_category_id"
+    t.string   "record_type"
+    t.integer  "record_id"
   end
 
   create_table "plugin_settings", :force => true do |t|

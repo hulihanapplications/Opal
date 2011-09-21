@@ -2,14 +2,10 @@
 module Opal
   module ActsAsOpalPlugin       
     module ClassMethods              
-      def item(item)
-        where("item_id = ?", item.id)
-      end
-
       def record(record)
         where(:record_id => record.id, :record_type => record.class.name)
       end
-      
+            
       def approved
          where("is_approved = ?", "1")
       end

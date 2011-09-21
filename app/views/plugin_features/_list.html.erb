@@ -1,4 +1,4 @@
 <% if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_read? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
-		<% feature_values = PluginFeatureValue.find(:all, :conditions => ["item_id = ? and is_approved = '1'", item.id], :order => "created_at DESC") %>
+		<% feature_values = PluginFeatureValue.record(item).approved.newest_first %>
 		<%= render :partial => "plugin_features/list_values", :locals => {:feature_values => feature_values, :plugin => plugin, :item => item, :options => {:show_controls => false, :truncate_length => 22, :only_listed => true} } %>		
 <% end %>

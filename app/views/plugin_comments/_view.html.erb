@@ -1,7 +1,7 @@
 <% if item.is_editable_for_user?(@logged_in_user) %>
-	<% comments = PluginComment.item(item).roots.most_votes_first.newest_first %>
+	<% comments = PluginComment.record(item).roots.most_votes_first.newest_first %>
 <% else %>
-	<% comments = PluginComment.item(item).roots.most_votes_first.newest_first.approved %>
+	<% comments = PluginComment.record(item).roots.most_votes_first.newest_first.approved %>
 <% end %>
 <div class="plugin_box">
 	<div class="header title">

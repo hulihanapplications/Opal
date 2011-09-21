@@ -1,7 +1,7 @@
 <% if item.is_editable_for_user?(@logged_in_user) %>
-	<% reviews = PluginReview.item(item).most_votes_first.newest_first %>
+	<% reviews = PluginReview.record(item).most_votes_first.newest_first %>
 <% else %>
-	<% reviews = PluginReview.item(item).most_votes_first.newest_first.approved %>
+	<% reviews = PluginReview.record(item).most_votes_first.newest_first.approved %>
 <% end %>
 
 <div class="plugin_box" >

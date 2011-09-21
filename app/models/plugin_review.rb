@@ -4,7 +4,6 @@ class PluginReview < ActiveRecord::Base
   make_voteable
   
   #belongs_to :plugin
-  belongs_to :item
   belongs_to :user
   has_many :plugin_review_votes, :dependent => :destroy
   

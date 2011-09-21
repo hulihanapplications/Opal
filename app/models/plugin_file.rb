@@ -4,7 +4,6 @@ class PluginFile < ActiveRecord::Base
   mount_uploader :file, ::FileUploader
 
   belongs_to :plugin
-  belongs_to :item
   belongs_to :user
   
   after_destroy :delete_files

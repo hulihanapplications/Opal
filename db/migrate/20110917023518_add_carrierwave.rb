@@ -43,20 +43,14 @@ class AddCarrierwave < ActiveRecord::Migration
     # User avatars
     add_column :users, :avatar, :string     
     User.reset_column_information    
-    #begin  
-      for user in User.all
-        avatar_path = Rails.root.join("public", "images", "avatars", user.id.to_s + ".png")
-        if File.exists?(avatar_path)
-          user.avatar = File.open(avatar_path)
-          say(avatar_path + "\t->\t" + user.avatar.path, true) if user.save
-          FileUtils.rm(avatar_path)                
-        end     
-      end
-    #rescue => e
-    #  say e.message
-    #  say e.backtrace.join("\n")
-    #end 
-    
+    for user in User.all
+      avatar_path = Rails.root.join("public", "images", "avatars", user.id.to_s + ".png")
+      if File.exists?(avatar_path)
+        user.avatar = File.open(avatar_path)
+        say(avatar_path + "\t->\t" + user.avatar.path, true) if user.save
+        FileUtils.rm(avatar_path)                
+      end     
+    end    
   end   
   
   def down  

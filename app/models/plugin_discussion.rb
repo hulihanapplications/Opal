@@ -1,7 +1,5 @@
 class PluginDiscussion < ActiveRecord::Base
   acts_as_opal_plugin
-
-  belongs_to :item
   belongs_to :user
   has_many :plugin_discussion_posts, :dependent => :destroy
    

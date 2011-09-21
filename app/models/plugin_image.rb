@@ -4,7 +4,6 @@ class PluginImage < ActiveRecord::Base
   mount_uploader :image, ::ImageUploader
 
   belongs_to :plugin
-  belongs_to :item
   belongs_to :user
   
   #before_validation :generate_image, :on => :create

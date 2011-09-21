@@ -2,7 +2,6 @@ class PluginTag < ActiveRecord::Base
   acts_as_opal_plugin
 
   belongs_to :plugin
-  belongs_to :item
   belongs_to :user
 
   #before_create :shrink_name

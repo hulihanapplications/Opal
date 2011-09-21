@@ -77,6 +77,7 @@ module ActiveRecord
 
 	  	  send(:extend, Opal::ActsAsOpalPlugin::ClassMethods)
 	     	send(:include, Opal::ActsAsOpalPlugin::InstanceMethods)		  
+        send(:belongs_to, :record, :polymorphic => true)
 		    send(:after_create, :set_as_item_preview)
 		    send(:before_destroy, :reset_preview)
 		    #send(:validates_presence_of, :user_id)		

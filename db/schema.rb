@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110917220555) do
+ActiveRecord::Schema.define(:version => 20110921212447) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -148,19 +148,19 @@ ActiveRecord::Schema.define(:version => 20110917220555) do
   add_index "plugin_comments", ["ancestry"], :name => "index_plugin_comments_on_ancestry"
 
   create_table "plugin_descriptions", :force => true do |t|
-    t.integer  "item_id"
     t.integer  "user_id"
     t.string   "title",                    :default => ""
     t.text     "content"
     t.string   "is_approved", :limit => 1, :default => "0"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "record_type"
+    t.integer  "record_id"
   end
 
   create_table "plugin_discussion_posts", :force => true do |t|
     t.integer  "plugin_discussion_id"
     t.integer  "user_id"
-    t.integer  "item_id"
     t.text     "post"
     t.string   "is_sticky",            :limit => 1, :default => "1"
     t.string   "is_enabled",           :limit => 1, :default => "0"
@@ -169,7 +169,6 @@ ActiveRecord::Schema.define(:version => 20110917220555) do
   end
 
   create_table "plugin_discussions", :force => true do |t|
-    t.integer  "item_id"
     t.integer  "user_id"
     t.string   "title"
     t.string   "description"
@@ -178,6 +177,8 @@ ActiveRecord::Schema.define(:version => 20110917220555) do
     t.string   "is_closed",   :limit => 1, :default => "0"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "record_type"
+    t.integer  "record_id"
   end
 
   create_table "plugin_feature_value_options", :force => true do |t|
@@ -190,7 +191,6 @@ ActiveRecord::Schema.define(:version => 20110917220555) do
   end
 
   create_table "plugin_feature_values", :force => true do |t|
-    t.integer  "item_id"
     t.integer  "plugin_feature_id"
     t.integer  "user_id"
     t.string   "value",                          :default => ""
@@ -198,6 +198,8 @@ ActiveRecord::Schema.define(:version => 20110917220555) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "url"
+    t.string   "record_type"
+    t.integer  "record_id"
   end
 
   create_table "plugin_features", :force => true do |t|
@@ -218,20 +220,19 @@ ActiveRecord::Schema.define(:version => 20110917220555) do
   end
 
   create_table "plugin_files", :force => true do |t|
-    t.integer  "item_id"
     t.integer  "user_id"
     t.string   "title",                    :default => ""
-    t.string   "size",                     :default => ""
     t.string   "filename"
     t.string   "is_approved", :limit => 1, :default => "0"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "downloads",                :default => 0
+    t.string   "record_type"
+    t.integer  "record_id"
     t.string   "file"
   end
 
   create_table "plugin_images", :force => true do |t|
-    t.integer  "item_id"
     t.integer  "user_id"
     t.string   "width",                    :default => "0"
     t.string   "height",                   :default => "0"
@@ -239,17 +240,20 @@ ActiveRecord::Schema.define(:version => 20110917220555) do
     t.string   "is_approved", :limit => 1, :default => "0"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "record_type"
+    t.integer  "record_id"
     t.string   "image"
   end
 
   create_table "plugin_links", :force => true do |t|
-    t.integer  "item_id"
     t.integer  "user_id"
     t.string   "title"
     t.string   "url"
     t.string   "is_approved", :limit => 1, :default => "0"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "record_type"
+    t.integer  "record_id"
   end
 
   create_table "plugin_review_votes", :force => true do |t|
@@ -287,19 +291,19 @@ ActiveRecord::Schema.define(:version => 20110917220555) do
   end
 
   create_table "plugin_tags", :force => true do |t|
-    t.integer  "item_id"
     t.integer  "user_id"
     t.integer  "parent_id",                :default => 0
     t.string   "name"
     t.string   "is_approved", :limit => 1, :default => "0"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "record_type"
+    t.integer  "record_id"
   end
 
   add_index "plugin_tags", ["name"], :name => "index_plugin_tags_on_name"
 
   create_table "plugin_videos", :force => true do |t|
-    t.integer  "item_id"
     t.integer  "user_id"
     t.string   "title"
     t.text     "description"
@@ -307,6 +311,8 @@ ActiveRecord::Schema.define(:version => 20110917220555) do
     t.string   "is_approved", :limit => 1, :default => "0"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "record_type"
+    t.integer  "record_id"
     t.string   "video"
   end
 

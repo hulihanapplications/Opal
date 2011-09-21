@@ -4,7 +4,6 @@ class PluginFeatureValue < ActiveRecord::Base
   #       functionality to be able to support inheritance, not just a plain pointer to an
   #       plugin_whatever value set. 
   belongs_to :plugin_feature
-  belongs_to :item
   belongs_to :user
   
   validates_presence_of :value

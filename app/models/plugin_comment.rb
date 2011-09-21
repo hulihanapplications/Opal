@@ -5,7 +5,6 @@ class PluginComment < ActiveRecord::Base
   has_ancestry if PluginComment.table_exists? && column_names.include?("ancestry")
 
   belongs_to :plugin
-  belongs_to :item
   belongs_to :user  
   
   default_scope :order => "created_at DESC"

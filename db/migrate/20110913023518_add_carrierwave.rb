@@ -81,7 +81,7 @@ class AddCarrierwave < ActiveRecord::Migration
     for user in User.all
       if !user.avatar.blank?
         dst = Rails.root.join("public", "images", "avatars", user.id.to_s + ".png")
-          say(user.avatar.path + "\t->\t" + dst, true) if FileUtils.cp(user.avatar.path, dst)
+          say(user.avatar.path + "\t->\t" + dst, true) if File.exists?(user.avatar.path) && FileUtils.cp(user.avatar.path, dst)
           user.remove_avatar!
       end     
     end    
@@ -95,10 +95,10 @@ class AddCarrierwave < ActiveRecord::Migration
           dst = Rails.root.join("public", "images", "item_images", item.id.to_s, "normal", File.basename(plugin_image.image.path))
           thumb_dst = Rails.root.join("public", "images", "item_images", item.id.to_s, "thumbnails", File.basename(plugin_image.image.path))
           FileUtils.mkdir_p(File.dirname(dst)) unless File.exists?(File.dirname(dst))
-          FileUtils.mkdir_p(File.dirname(thumb_dst)) unless File.exists?(File.dirname(thumb_dst))                                                
-          say(plugin_image.image.path + "\t->\t" + dst, true) if FileUtils.cp(plugin_image.image.path, dst)             
+          FileUtils.mkdir_p(File.dirname(thumb_dst)) unless File.exists?(File.dirname(thumb_dst))                                                          
+          say(plugin_image.image.path + "\t->\t" + dst, true) if File.exists?(plugin_image.image.path) && FileUtils.cp(plugin_image.image.path, dst)             
           unless plugin_image.image.thumb.blank?
-            say(plugin_image.image.thumb.path + "\t->\t" + thumb_dst, true) if FileUtils.cp(plugin_image.image.thumb.path, thumb_dst)
+            say(plugin_image.image.thumb.path + "\t->\t" + thumb_dst, true) if File.exists?(plugin_image.image.thumb.path) && FileUtils.cp(plugin_image.image.thumb.path, thumb_dst)
           end                        
           plugin_image.remove_image!
         end  
@@ -108,7 +108,7 @@ class AddCarrierwave < ActiveRecord::Migration
         if !plugin_file.file.blank?
           dst = Rails.root.join("files", "item_files", item.id.to_s, File.basename(plugin_file.file.path))
           FileUtils.mkdir_p(File.dirname(dst)) unless File.exists?(File.dirname(dst))
-          say(plugin_file.file.path + "\t->\t" + dst, true) if FileUtils.cp(plugin_file.file.path, dst)                              
+          say(plugin_file.file.path + "\t->\t" + dst, true) if File.exists?(plugin_file.file.path) && FileUtils.cp(plugin_file.file.path, dst)                              
           plugin_file.remove_file!
         end  
       end        

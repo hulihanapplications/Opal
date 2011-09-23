@@ -25,3 +25,37 @@ CarrierWave.configure do |config|
 
   config.root config_hash[:root] if config_hash[:root]
 end
+
+# Extend CarrierWave Functionality
+module CarrierWave
+  module Uploader
+    module RemoveDirectory
+      # delete files and directory, since remove only deletes the file
+      def remove_directory
+        FileUtils.rm_rf(File.dirname(path)) if !path.blank? && File.exists?(File.dirname(path)) # remove CarrierWave store dir, must be empty to work
+      end      
+    end
+    
+    module RemoveTmp
+      # store! nil's the cache_id after it finishes so we need to remember it for deletion
+      def remember_cache_id(new_file)
+        @cache_id_was = cache_id
+      end
+    
+      def delete_tmp_dir(new_file)
+        # make sure we don't delete other things accidentally by checking the name pattern
+        if @cache_id_was.present? && @cache_id_was =~ /\A[\d]{8}\-[\d]{4}\-[\d]+\-[\d]{4}\z/
+          FileUtils.rm_rf(File.join(cache_dir, @cache_id_was))
+        end
+      end      
+    end
+  end
+end
+
+CarrierWave::Uploader::Base.send(:include, CarrierWave::Uploader::RemoveDirectory)
+CarrierWave::Uploader::Base.send(:include, CarrierWave::Uploader::RemoveTmp)
+# Delete Cached Stuff after file has been stored
+CarrierWave::Uploader::Base.send(:before, :store, :remember_cache_id) 
+CarrierWave::Uploader::Base.send(:after, :store, :delete_tmp_dir) 
+# Make all Uploaders remove uploaded file directory  
+CarrierWave::Uploader::Base.send(:before, :remove, :remove_directory) 

@@ -13,7 +13,7 @@ describe PluginDiscussionsController do
     before(:each) do
       login_user
       @item = Factory(:item, :user => @controller.set_user)
-   	  @discussion = Factory(:plugin_discussion, :item => @item)      
+   	  @discussion = Factory(:plugin_discussion, :record => @item)      
     end 
     
     describe "create" do 

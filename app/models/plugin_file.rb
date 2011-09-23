@@ -6,8 +6,6 @@ class PluginFile < ActiveRecord::Base
   belongs_to :plugin
   belongs_to :user
   
-  after_destroy :delete_files
-  
   attr_accessible :title, :file, :remove_file, :remote_file_url
   
   def to_s
@@ -21,10 +19,6 @@ class PluginFile < ActiveRecord::Base
   
   def get_title # get the title of the file, either bare filename or user-inputted 
     self.title? ? self.title : filename.blank? ? "" : filename
-  end
-  
-  def delete_files
-    FileUtils.rmdir(File.dirname(file.path)) if !file.path.blank? && File.exists?(File.dirname(file.path))  # remove CarrierWave store dir, must be empty to work
   end
   
   def filename

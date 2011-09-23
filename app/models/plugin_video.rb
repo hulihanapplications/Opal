@@ -18,5 +18,5 @@ class PluginVideo < ActiveRecord::Base
 
   def to_s
   	title.blank? ? truncate(code, :length => 50) : title 
-  end
+  end 
 end

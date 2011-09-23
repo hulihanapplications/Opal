@@ -13,7 +13,7 @@ describe PluginDescriptionsController do
     before(:each) do
       login_user
       @item = Factory(:item, :user => @controller.set_user)
-      @description = Factory(:plugin_description, :item => @item)   
+      @description = Factory(:plugin_description, :record => @item)   
     end 
         
     describe "new" do
@@ -25,7 +25,7 @@ describe PluginDescriptionsController do
 
     describe "edit" do
       it "should return 200" do
-        get :edit, {:id =>  @description.item.id, :description_id => @description.id}
+        get :edit, {:id =>  @description.record.id, :description_id => @description.id}
         @response.code.should eq("200")
       end
     end  
@@ -42,7 +42,7 @@ describe PluginDescriptionsController do
     describe :update do 
       it "should work normally" do
       	new_content = random_content
-        post(:update, { :id => @description.item.id, :description_id => @description.id, :description => {:content => new_content}})
+        post(:update, { :id => @description.record.id, :description_id => @description.id, :description => {:content => new_content}})
         PluginDescription.find(@description.id).content == new_content
         flash[:success].should_not be_nil     
       end      	

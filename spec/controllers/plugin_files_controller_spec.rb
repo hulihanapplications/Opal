@@ -27,7 +27,7 @@ describe PluginFilesController do
     
     describe "destroy" do 
       it "should reduce count and return success" do
-      @file = Factory(:plugin_file, :item => @item)
+      @file = Factory(:plugin_file, :record => @item)
         expect{
           post(:delete, {:id => @item.id, :file_id => @file.id})
         }.to change(Pluginfile, :count).by(-1) 
@@ -39,7 +39,7 @@ describe PluginFilesController do
   context "as visitor" do
     describe "download" do
       @file = Factory(:plugin_file)
-      get(download_path(:file_id => @file.id, :id => @file.item.id))
+      get(download_path(:file_id => @file.id, :id => @file.record.id))
       response.code.should eq("200")
     end    
   end

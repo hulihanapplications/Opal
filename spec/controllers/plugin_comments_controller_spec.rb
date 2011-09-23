@@ -13,7 +13,7 @@ describe PluginCommentsController do
     before(:each) do
       login_user 
       @item = Factory(:item, :user => @controller.set_user)
-      @comment = Factory(:plugin_comment, :item => @item)   
+      @comment = Factory(:plugin_comment, :record => @item)   
     end 
         
     describe "new" do
@@ -25,7 +25,7 @@ describe PluginCommentsController do
 
     describe "edit" do
       it "should return 200" do
-        get :edit, {:id =>  @comment.item.id, :comment_id => @comment.id}
+        get :edit, {:id =>  @comment.record.id, :comment_id => @comment.id}
         @response.code.should eq("200")
       end
     end  
@@ -58,7 +58,7 @@ describe PluginCommentsController do
     describe :update do 
       it "should work normally" do
         new_content = random_content
-        post(:update, { :id => @comment.item.id, :comment_id => @comment.id, :comment => {:comment => new_content}})
+        post(:update, { :id => @comment.record.id, :comment_id => @comment.id, :comment => {:comment => new_content}})
         PluginComment.find(@comment.id).comment == new_content
         flash[:success].should_not be_nil     
       end       
@@ -67,7 +67,7 @@ describe PluginCommentsController do
     describe :destroy do
       it "decrements count" do
         expect{
-          post(:delete, {:id => @comment.item.id, :comment_id => @comment.id})
+          post(:delete, {:id => @comment.record.id, :comment_id => @comment.id})
         }.to change(PluginComment, :count).by(-1)
         flash[:success].should_not be_nil
       end       

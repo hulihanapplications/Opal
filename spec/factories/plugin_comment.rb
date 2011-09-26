@@ -1,5 +1,5 @@
 Factory.define :plugin_comment do |o|
-  o.association   :item, :factory => :item
+  o.association   :record, :factory => :item
   o.association   :user, :factory => :user
   o.is_approved   "1"
   o.comment       "This is a test comment."

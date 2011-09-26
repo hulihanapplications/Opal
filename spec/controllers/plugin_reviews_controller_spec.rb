@@ -13,7 +13,7 @@ describe PluginReviewsController do
     before(:each) do
       login_user 
       @item = Factory(:item, :user => @controller.set_user)
-      @review = Factory(:plugin_review, :item => @item)   
+      @review = Factory(:plugin_review, :record => @item)   
     end 
         
     describe "new" do
@@ -25,7 +25,7 @@ describe PluginReviewsController do
 
     describe "edit" do
       it "should return 200" do
-        get :edit, {:id =>  @review.item.id, :review_id => @review.id}
+        get :edit, {:id =>  @review.record.id, :review_id => @review.id}
         @response.code.should eq("200")
       end
     end  
@@ -50,7 +50,7 @@ describe PluginReviewsController do
     describe :update do 
       it "should work normally" do
       	new_content = random_content
-        post(:update, { :id => @review.item.id, :review_id => @review.id, :review => {:review => new_content, :review_score => @review.review_score}})
+        post(:update, { :id => @review.record.id, :review_id => @review.id, :review => {:review => new_content, :review_score => @review.review_score}})
         PluginReview.find(@review.id).review == new_content
         flash[:success].should_not be_nil     
       end      	
@@ -59,7 +59,7 @@ describe PluginReviewsController do
     describe :destroy do
       it "decrements count" do
         expect{
-          post(:delete, {:id => @review.item.id, :review_id => @review.id})
+          post(:delete, {:id => @review.record.id, :review_id => @review.id})
         }.to change(PluginReview, :count).by(-1)
         flash[:success].should_not be_nil
       end     	

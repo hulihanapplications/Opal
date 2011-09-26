@@ -1,10 +1,9 @@
 Factory.define :plugin_image do |o|
-  o.association   :item, :factory => :item
+  o.association   :record, :factory => :item
   o.association   :user, :factory => :user
   o.is_approved   "1"
   # Upload File By Default
-  file = File.new(Rails.root + 'spec/fixtures/images/rails.png')
-  o.image ActionDispatch::Http::UploadedFile.new(:tempfile => file, :filename => File.basename(file.path))
+  o.image File.new(Rails.root + 'spec/fixtures/images/rails.png')
   #file.close   
 end
 

@@ -3,15 +3,36 @@ class Image < ActiveRecord::Base
 
   before_destroy :delete_files
 
-  
-  #validates_uniqueness_of :url, :scope => :item_id, :message => "There is already an image with this filename!"
-  
-  def delete_files
-    image_dir = File.join(Rails.root.to_s, "app", "assets", "images", "uploaded_images", self.id.to_s)
+  attr_accessor :original_filename
 
-    # Remove Image Folder
-    FileUtils.rm_rf(image_dir) if File.exist?(image_dir) # remove the folder if it exists 
+  def store_dir # rootless storage dir used for paths & urls 
+    File.join("images", "uploaded_images", id.to_s, "normal")
+  end 
+
+  def thumb_store_dir # rootless storage dir used for paths & urls 
+    File.join("images", "uploaded_images", id.to_s, "thumbnails")
+  end 
+
+  def path
+    Rails.root.join(store_dir, filename)
   end
 
+  def thumb_path
+    Rails.root.join(thumb_store_dir, filename)   
+  end
+  
+  def assign_url
+    self.url = File.join(store_dir, filename) if self.url.blank? && !filename.blank?
+    self.thumb_url = File.join(thumb_store_dir, filename) if self.thumb_url.blank? && !filename.blank?
+  end
+  
+  def delete_files
+    # Remove Image Dir
+    image_dir = File.join(File.dirname(path), "..")
+    FileUtils.rm_rf(image_dir) if File.exists?(image_dir) # remove the folder if it exists 
+  end
 
+  def filename
+    @original_filename.blank? ? File.basename(url) : @original_filename
+  end
 end

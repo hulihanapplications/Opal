@@ -14,11 +14,11 @@ class Image < ActiveRecord::Base
   end 
 
   def path
-    Rails.root.join(store_dir, filename)
+    Rails.root.join("public", store_dir, filename)
   end
 
   def thumb_path
-    Rails.root.join(thumb_store_dir, filename)   
+    Rails.root.join("public", thumb_store_dir, filename)   
   end
   
   def assign_url

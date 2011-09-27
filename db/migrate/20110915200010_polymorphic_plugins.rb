@@ -13,7 +13,8 @@ class PolymorphicPlugins < ActiveRecord::Migration
       say("#{klass.model_name.human} #{r.id} #{I18n.t("single.updated", :default => "Updated")}", true) if r.save 
     end
 
-    remove_column klass.table_name.to_sym, :item_id            
+    remove_column klass.table_name.to_sym, :item_id
+    klass.reset_column_information                
   end
   
   def unpolymorphize(klass)
@@ -21,12 +22,13 @@ class PolymorphicPlugins < ActiveRecord::Migration
     klass.reset_column_information
 
     klass.where(:record_type => "Item").all do |r|
-      r.item_id = r.record
+      r.item_id = r.record_id
       say("#{klass.model_name.human} #{r.id} #{I18n.t("single.updated", :default => "Updated")}", true) if r.save
     end
 
     remove_column klass.table_name.to_sym, :record_type
-    remove_column klass.table_name.to_sym, :record_id    
+    remove_column klass.table_name.to_sym, :record_id  
+    klass.reset_column_information  
   end
   
   def up

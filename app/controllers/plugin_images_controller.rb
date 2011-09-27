@@ -68,7 +68,17 @@ class PluginImagesController < PluginController
     render :action => "edit"
   end
 
-  def tiny_mce_images # display images in tinymce  
+  def tinymce_images # show images to use with tinymce images
+    @plugin = Plugin.find_by_name("Image") # use Images Plugin for titles and thumbnail settings      
+    if params[:item_id] # get images for item
+      @item = Item.find(params[:item_id])
+      check_item_edit_permissions
+      @images = PluginImage.record(@item)
+    else # get images for system
+      authenticate_admin # make sure they're an admin
+      @images = PluginImage.paginate(:page => params[:page], :per_page => 25)
+    end 
+    render :layout => false 
   end
   
 private  

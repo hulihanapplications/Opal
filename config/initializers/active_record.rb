@@ -1,5 +1,3 @@
-
-
 module ActiveRecord
   class Base
      def self.combine_conditions(array_of_conditions)
@@ -16,6 +14,21 @@ module ActiveRecord
        end
        [conditions.join(" AND "), values].flatten
      end
+  end
+  
+  class Migration  
+    # Print a pretty conversion message
+    def convert_msg(src, dst)
+      say(src + " -> " + dst, true)
+    end    
+    
+    # copy file from a to b
+    def cp(src, dst) 
+      # Compute dst dir name 
+      dst_dir = File.extname(dst).blank? ? dst : File.dirname(dst) # "/x/y/z.png" => "/x/y/z", "/x/y/" => "/x/y"
+      FileUtils.mkdir_p(dst_dir) unless File.exists?(dst_dir)
+      convert_msg(src, dst) if File.exists?(src) && FileUtils.cp(src, dst)       
+    end    
   end
 end
 

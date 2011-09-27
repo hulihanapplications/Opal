@@ -644,7 +644,7 @@ en:
         description: More about Me
         interests: My Interests
         notify_of_new_messages: Notify me when someone sends me a message
-        notify_of_item_changes: Notify me when some adds something to one of my %{items} or changes one in any way.
+        notify_of_item_changes: "Notify me when anyone adds or contributes something to anything I've created" 
         forgot_password_code: Password Recovery Code
         use_gravatar: Use Gravatar?
       user_message:

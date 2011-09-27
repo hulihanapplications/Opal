@@ -16,7 +16,7 @@ class AddCarrierwave < ActiveRecord::Migration
           orig_image_path = File.join(item_image_dir, "normal", File.basename(plugin_image.url))
           if File.exists?(orig_image_path)
             plugin_image.image = File.open(orig_image_path)
-            say(orig_image_path + "\t->\t" + plugin_image.image.path, true) if plugin_image.save              
+            convert_msg(orig_image_path, plugin_image.image.path) if plugin_image.save              
           end
         end
       end      
@@ -28,17 +28,18 @@ class AddCarrierwave < ActiveRecord::Migration
           file = File.join(item_files_dir, File.basename(plugin_file.filename))
           if File.exists?(file)
             plugin_file.file = File.open(file)
-            say(file + "\t->\t" + plugin_file.file.path, true) if plugin_file.save  
+            convert_msg(file, plugin_file.file.path) if plugin_file.save  
           end
         end 
       end      
       FileUtils.rm_rf(item_files_dir) if File.exists?(item_files_dir)        
     end
-
      
     remove_column :plugin_images, :url
     remove_column :plugin_images, :thumb_url     
+    PluginImage.reset_column_information
     remove_column :plugin_files, :size
+    PluginFile.reset_column_information
     
     # User avatars
     add_column :users, :avatar, :string     
@@ -47,7 +48,7 @@ class AddCarrierwave < ActiveRecord::Migration
       avatar_path = Rails.root.join("public", "images", "avatars", user.id.to_s + ".png")
       if File.exists?(avatar_path)
         user.avatar = File.open(avatar_path)
-        say(avatar_path + "\t->\t" + user.avatar.path, true) if user.save
+        convert_msg(avatar_path, user.avatar.path) if user.save
         FileUtils.rm(avatar_path)                
       end     
     end    
@@ -59,7 +60,7 @@ class AddCarrierwave < ActiveRecord::Migration
         dst = Rails.root.join("public", "images", "avatars", user.id + ".png")
         if FileUtils.cp(user.avatar.path, dst)
           user.avatar = File.open(avatar_path)
-          say(user.avatar.path + "\t->\t" + dst, true)
+          convert_msg(user.avatar.path, dst)
           user.remove_avatar!
         end       
       end     
@@ -75,12 +76,13 @@ class AddCarrierwave < ActiveRecord::Migration
     for user in User.all
       if !user.avatar.blank?
         dst = Rails.root.join("public", "images", "avatars", user.id.to_s + ".png")
-          say(user.avatar.path + "\t->\t" + dst, true) if File.exists?(user.avatar.path) && FileUtils.cp(user.avatar.path, dst)
-          user.remove_avatar!
+        cp(user.avatar.path, dst)
+        user.remove_avatar!
       end     
     end    
    
     remove_column :users, :avatar     
+    User.reset_column_information
 
     for item in Item.all
       # Move Images to Legacy Format
@@ -88,12 +90,8 @@ class AddCarrierwave < ActiveRecord::Migration
         if !plugin_image.image.blank?
           dst = Rails.root.join("public", "images", "item_images", item.id.to_s, "normal", File.basename(plugin_image.image.path))
           thumb_dst = Rails.root.join("public", "images", "item_images", item.id.to_s, "thumbnails", File.basename(plugin_image.image.path))
-          FileUtils.mkdir_p(File.dirname(dst)) unless File.exists?(File.dirname(dst))
-          FileUtils.mkdir_p(File.dirname(thumb_dst)) unless File.exists?(File.dirname(thumb_dst))                                                          
-          say(plugin_image.image.path + "\t->\t" + dst, true) if File.exists?(plugin_image.image.path) && FileUtils.cp(plugin_image.image.path, dst)             
-          unless plugin_image.image.thumb.blank?
-            say(plugin_image.image.thumb.path + "\t->\t" + thumb_dst, true) if File.exists?(plugin_image.image.thumb.path) && FileUtils.cp(plugin_image.image.thumb.path, thumb_dst)
-          end                        
+          cp(plugin_image.image.path, dst)             
+          cp(plugin_image.image.thumb.path, thumb_dst) unless plugin_image.image.thumb.blank?
           plugin_image.remove_image!
         end  
       end      
@@ -101,8 +99,7 @@ class AddCarrierwave < ActiveRecord::Migration
       for plugin_file in item.plugin_files
         if !plugin_file.file.blank?
           dst = Rails.root.join("files", "item_files", item.id.to_s, File.basename(plugin_file.file.path))
-          FileUtils.mkdir_p(File.dirname(dst)) unless File.exists?(File.dirname(dst))
-          say(plugin_file.file.path + "\t->\t" + dst, true) if File.exists?(plugin_file.file.path) && FileUtils.cp(plugin_file.file.path, dst)                              
+          cp(plugin_file.file.path, dst)                              
           plugin_file.remove_file!
         end  
       end        
@@ -110,6 +107,8 @@ class AddCarrierwave < ActiveRecord::Migration
 
     remove_column :plugin_images, :image 
     remove_column :plugin_files, :file     
+    PluginImage.reset_column_information
+    PluginFile.reset_column_information
 
     # Delete CarrierWave dirs     
     public_uploads_path = Rails.root.join("public", "uploads") 

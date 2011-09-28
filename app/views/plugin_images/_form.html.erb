@@ -14,11 +14,13 @@ $(function() {
 
 <%= error_messages_for :image %>
 
+<%= record_hidden_tags(@record) if defined?(@record) %>
+
 <table style="width:100%" cellspacing=0 cellpadding=0>
 	<tr>
 		<td class="main">
 			<div id="" class="box_2">
-				<% if params[:action] == "new" || params[:action] == "create"%>
+				<% if f.object.new_record? %>
 				<div class="field">
 					<h3>						
 						<%= f.radio_button(:source, :local, :checked => f.object.remote_image_url.blank?) %> <%= f.label :source_local,  t("label.from_local") %> 
@@ -41,7 +43,7 @@ $(function() {
 		</td>
 		<td class="side_right">
 			<div class="box_2 ">
-				<% if params[:action] == "new" || params[:action] == "create"%>
+				<% if f.object.new_record? %>
 					<%= content_tag :div do %>
 						<%= content_tag(:h3, raw("#{icon("options")} #{t("single.effects")}")) %>
 						<div id="effects" class="field indent" >
@@ -50,7 +52,7 @@ $(function() {
 							<%= content_tag(:div, check_box(:effects, :rotate_90_cw) + label(:effects, :rotate_90_cw, t("label.image_effect_rotate_90_cw").html_safe)) %>
 							<%= content_tag(:div, check_box(:effects, :rotate_90_ccw) + label(:effects, :rotate_90_ccw, t("label.image_effect_rotate_90_ccw").html_safe)) %>
 							<%= content_tag(:div, check_box(:effects, :rotate_180) + label(:effects, :rotate_180, t("label.image_effect_rotate_180").html_safe)) %>
-							<%= content_tag(:div, check_box(:effects, :resize_image) + label(:effects, :resize_image, t("label.image_effect_resize", :width => @plugin.get_setting("item_image_width"), :height => @plugin.get_setting("item_image_height").html_safe))) %>
+							<%= content_tag(:div, check_box(:effects, :resize_image) + label(:effects, :resize_image, t("label.image_effect_resize", :width => @setting[:plugin_image][:item_image_width], :height => @setting[:plugin_image][:item_image_width]))) %>
 							<%= content_tag(:div, check_box(:effects, :watermark) + label(:effects, :watermark, t("single.watermark").html_safe)) %>
 							<%= content_tag(:div, check_box(:effects, :stamp) + label(:effects, :stamp, t("single.stamp").html_safe)) %>
 							<%= content_tag(:div, check_box(:effects, :negate) + label(:effects, :negate, t("label.image_effect_negate").html_safe)) %>
@@ -61,15 +63,14 @@ $(function() {
 				<% else %>
 					<%= content_tag(:div, plugin_image_thumbnail(f.object, :preview => true), :style => "text-align:center")  %>
 					<div class="sub" align=center>
-						<%= @image.filename %>
+						<%= f.object.filename %>
 					</div>
 					<hr />
 					<%= content_tag(:h3, raw("#{icon("details")} #{t("label.additional_info")}")) %>
-					<%= PluginImage.human_attribute_name(:created_at) %>:  <b><%= friendly_date @image.created_at %></b>
+					<%= PluginImage.human_attribute_name(:created_at) %>:  <b><%= friendly_date f.object.created_at %></b>
 					<br>
 				<% end %>
 			</div>
 		</td>
 	</tr>
 </table>
-		

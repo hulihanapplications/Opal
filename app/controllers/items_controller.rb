@@ -148,7 +148,7 @@ class ItemsController < ApplicationController
          log(:log_type => "create", :target => @item)
   
          # Create Features
-         num_of_features_updated = PluginFeature.create_values_for_item(:item => @item, :features => params[:features], :user => @logged_in_user, :delete_existing => true, :approve => true)
+         num_of_features_updated = PluginFeature.create_values_for_record(:record => @item, :features => params[:features], :user => @logged_in_user, :delete_existing => true, :approve => true)
          flash[:success] = t("notice.item_create_success", :item => Item.model_name.human)
          redirect_to :action => "view", :controller => "items", :id => @item
        else

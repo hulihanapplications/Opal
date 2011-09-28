@@ -14,6 +14,10 @@ label, .field .label{font-size:16px;}
 	#wrapper > #content{width: 900px ;margin: 0 auto ;height:100%}
 			#wrapper > #content #main, .main{width:660px;}
 			#wrapper > #content #main, div.main{float:left;}
+				#main .header table{width:100%}
+					#main .header td{vertical-align:middle}
+					#main .header td.left{text-align:left}
+					#main .header td.right{text-align:right}
 			#wrapper > #content #side, div.side, .side_right, .side_left{width:230px;}
 			#wrapper > #content #side, div.side, div.side_right, div.side_left{float:left;}
 			#wrapper > #content #side, div.side, .side_left{padding-right:10px}

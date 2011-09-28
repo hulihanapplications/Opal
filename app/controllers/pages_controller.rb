@@ -4,7 +4,7 @@ class PagesController < ApplicationController
   before_filter :uses_tiny_mce, :only => [:new, :edit, :update, :destroy]  # which actions to load tiny_mce, TinyMCE Config is done in Layout. 
   before_filter :check_humanizer_answer, :only => [:send_contact_us]
  
- def index
+  def index
     @setting[:meta_title] << Page.model_name.human(:count => :other)
     params[:type] ||= "public"
     if params[:type].downcase == "public"
@@ -24,7 +24,7 @@ class PagesController < ApplicationController
     @page = Page.new(params[:page])
     @page.user_id = @logged_in_user.id
     if @page.save
-      Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("log.item_create", :item => Page.model_name.human, :name => @page.title))             
+      log(:log_type => "create", :target => @page)
       flash[:success] = t("notice.item_create_success", :item => Page.model_name.human)
       redirect_to :action => 'index', :type => @page.page_type.capitalize   
     else
@@ -40,7 +40,7 @@ class PagesController < ApplicationController
      params[:page][:content] = params[:page][:content] # clean user input      
       if @page.update_attributes(params[:page]) 
         flash[:success] = t("notice.item_save_success", :item => Page.model_name.human)
-        Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => Page.model_name.human, :name => @page.title))
+        log(:log_type => "update", :target => @page)
         redirect_to :action => 'edit', :id => @page.id, :type => @page.page_type.capitalize  
       else
         flash[:failure] = t("notice.item_save_failure", :item => Page.model_name.human)
@@ -57,7 +57,7 @@ class PagesController < ApplicationController
     if @page.is_system_page? # Can't delete system pages
       flash[:failure] = t("notice.invalid_permissions")
     else 
-      Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.item_delete", :item => Page.model_name.human, :name => @page.title))                        
+      log(:log_type => "destroy", :target => @page)
       flash[:success] = t("notice.item_delete_success", :item => Page.model_name.human)
       @page.destroy
     end
@@ -132,7 +132,7 @@ class PagesController < ApplicationController
       page = Page.find(id) 
       page.update_attribute(:order_number, position)
     end
-     Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_save", :item => Page.model_name.human, :name => Page.human_attribute_name(:order_number)))                                                 
+     log(:log_type => "system", :log => t("log.item_save", :item => Page.model_name.human, :name => Page.human_attribute_name(:order_number)))
      render :text => "<div class=\"notice\"><div class=\"success\">#{t("notice.save_success")}</div></div>"
   end 
 end

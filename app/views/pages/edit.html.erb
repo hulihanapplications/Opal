@@ -4,9 +4,21 @@
 	</div>
 	<div id="main">
 		<input type="hidden" name="page[page_type]" value="<%= @page.page_type.downcase %>">
-			<h2 class="title">
-				<%= t("label.item_edit", :item => @page.model_name) %>
-			</h2>
+			<div class="header">
+				<table cellpadding=0 cellspacing=0>
+					<tr>
+						<td class="left">
+							<h2 class="title">
+								<%= t("label.item_edit", :item => @page.model_name) %>
+							</h2>							
+						</td>
+						<td class="right">
+							<%= link_to(t("single.view"), {:action => "view", :controller => "pages", :id => @page}, :target => "_blank") unless @page.is_system_page? %>
+						</td>
+					</tr>
+				</table>
+			</div>
+
 			<%= render :partial => "form", :locals => {:page => @page} %>
 			<div align=center>
 				<%= submit_tag t("single.save"), :class => "button_1" %>

@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   helper :all
   before_filter :load_settings, :set_user # load global settings and set logged in user
   before_filter :set_locale, :check_public_access
-  before_filter :detect_mobile, :detect_flash
+  #before_filter :detect_mobile
+  before_filter :detect_flash
   layout :layout_location # using a symbol defers layout choice until after a request is processed 
   
     
@@ -133,9 +134,8 @@ class ApplicationController < ActionController::Base
   def find_item # look up an item
     if params[:id] # is an item id set?    
       @item = Item.find(params[:id])
-    else # no item id passed in
-      flash[:failure] = t("notice.item_not_found", :item => Item.model_name.human)
-      redirect_to :action => "index", :controller => "user"
+      @record = @item
+    else # no item found
     end        
   rescue # catch any errors
     flash[:failure] = t("notice.item_not_found", :item => Item.model_name.human)
@@ -158,22 +158,13 @@ class ApplicationController < ActionController::Base
      end  
     end
   rescue Exception => e  
-    flash[:failure] = t("notice.item_not_found", :item => @plugin.model_name.human(:count => :other))
-  end
-  
-  def check_item_view_permissions # can user view this item?
-    if @item.is_viewable_for_user?(@logged_in_user)
-        # proceed
-    else 
-     flash[:failure] = t("notice.not_visible")   
-     redirect_to :action => "index", :controller => "browse"      
-    end
+    flash[:failure] = t("notice.item_not_found", :item => plugin_name)
+    redirect_to :back
   end
   
   def check_item_edit_permissions # check to see if the logged in user has permission to edit item
     if @item.is_editable_for_user?(@logged_in_user)
       @item.update_attribute(:updated_at, Time.now) # refresh item's last update time 
-      #proceed
     else # they don't have rights to the item
       flash[:failure] = t("notice.invalid_permissions")
       redirect_to :action => "index", :controller => "user"
@@ -184,44 +175,66 @@ class ApplicationController < ActionController::Base
     @logged_in_user.group.plugin_permissions = GroupPluginPermission.all_plugin_permissions_for_group(@logged_in_user.group)
   end
   
-  def get_group_permissions_for_plugin # initialize group plugin permissions for the plugin that is already looked up
+  def get_group_permissions_for_plugin # initialize group plugin permissions for the plugin that is already looked up    
     @group_permissions_for_plugin = GroupPluginPermission.for_plugin_and_group(@plugin, @logged_in_user.group)
     raise I18n.t("notice.item_not_found", :item => @plugin.klass.model_name.human) unless @group_permissions_for_plugin
   end    
 
+  def check_item_view_permissions # can user view this item?
+    if item_is_present 
+      unless @item.is_viewable_for_user?(@logged_in_user)
+       flash[:failure] = t("notice.not_visible")   
+       redirect_to :action => "index", :controller => "browse"      
+      end
+    end
+  end
+
+  # Does user's group have permission to do a certain thing? 
+  def check_group_permission(permission)
+    # todo 
+  end
+
   def can_group_read_plugin # check if group permissions allows current user to create plugin records for this item
-    if @group_permissions_for_plugin.can_read? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
-      # ok, proceed
-    else # denied! 
-      flash[:failure] = t("notice.invalid_permissions")            
-      redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human(:count => :other)       
+    if item_is_present 
+      unless @group_permissions_for_plugin.can_read? || @record.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
+        flash[:failure] = t("notice.invalid_permissions")            
+        redirect_to :action => "view", :controller => "items", :id => @record, :anchor => @plugin.model_name.human(:count => :other)       
+      end
+    else 
+      authenticate_admin      
     end
   end  
   
   def can_group_create_plugin # check if group permissions allows current user to create plugin records for this item
-    if @group_permissions_for_plugin.can_create? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
-      # ok, proceed
-    else # denied! 
-      flash[:failure] = t("notice.invalid_permissions")            
-      redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human(:count => :other)       
+    if item_is_present     
+      unless @group_permissions_for_plugin.can_create? || @record.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
+        flash[:failure] = t("notice.invalid_permissions")            
+        redirect_to :action => "view", :controller => "items", :id => @record, :anchor => @plugin.model_name.human(:count => :other)       
+      end
+    else 
+      authenticate_admin
     end
   end  
 
   def can_group_update_plugin # check if group permissions allows current user to create plugin records for this item
-    if @group_permissions_for_plugin.can_update? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
-      # ok, proceed
-    else # denied! 
-      flash[:failure] = t("notice.invalid_permissions")            
-      redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human(:count => :other)       
+    if item_is_present 
+      unless @group_permissions_for_plugin.can_update? || @record.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
+        flash[:failure] = t("notice.invalid_permissions")            
+        redirect_to :action => "view", :controller => "items", :id => @record, :anchor => @plugin.model_name.human(:count => :other)       
+      end
+    else 
+      authenticate_admin      
     end
   end  
   
   def can_group_delete_plugin # check if group permissions allows current user to create plugin records for this item
-    if @group_permissions_for_plugin.can_delete? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
-      # ok, proceed
-    else # denied! 
-      flash[:failure] = t("notice.invalid_permissions")            
-      redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human(:count => :other)       
+    if item_is_present 
+      unless @group_permissions_for_plugin.can_delete? || @record.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
+        flash[:failure] = t("notice.invalid_permissions")            
+        redirect_to :action => "view", :controller => "items", :id => @record, :anchor => @plugin.model_name.human(:count => :other)       
+      end
+    else 
+      authenticate_admin      
     end
   end    
     
@@ -237,14 +250,25 @@ class ApplicationController < ActionController::Base
   
   def uses_tiny_mce(options = {}) # replacement for tiny_mce gem
     proc = Proc.new do |c|
-       c.instance_variable_set(:@uses_tiny_mce, true)
-       @uses_tiny_mce = true        
-    end    
-    proc.call(self) 
+      c.instance_variable_set(:@uses_tiny_mce, true)
+      @uses_tiny_mce = true
+    end
+    proc.call(self)
   end  
   
-private  
+  def find_record # look up polymorphic record 
+    klass = params[:record_type].camelize.constantize
+    @record = klass.find(params[:record_id])
+    if @record
+      @item = @record if @record.is_a?(Item)
+    else  
+      flash[:failure] = t("notice.item_not_found", :item => klass.model_name.human)
+      redirect_to :back
+    end 
+  end
+  
 
+private  
   def sign_in(user)
     if @logged_in_user.nil? || @logged_in_user.anonymous? 
       user_session = UserSession.new(User.find_by_single_access_token(user.single_access_token))
@@ -288,7 +312,6 @@ private
     request.format = :mobile if mobile_mode?
   end
   
-  
   def detect_flash
     request.format = :flash if flash_request?
   end
@@ -296,6 +319,21 @@ private
   def flash_request? # detect flash request
     return true if request.user_agent =~ /^(Adobe|Shockwave) Flash/
   end   
+  
+  def item_is_present # check if an item has been specified
+    if defined?(@item)
+      !@item.id.nil?
+    elsif defined?(@record) # check item in record
+      @record.is_a?(Item)
+    else 
+      false
+    end 
+  end
+  
+  # Get Model(if any) associated with controller
+  def controller_model
+    
+  end  
 end
 
 #  Log.create(:log_type => "warning", :log => t("log.failed_admin_access_attempt_visitor", :ip => "1.1.1.1", :controller => "", :action => ""))     

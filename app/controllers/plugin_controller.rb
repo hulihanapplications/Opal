@@ -9,15 +9,6 @@ class PluginController < ApplicationController
   before_filter :can_group_create_plugin, :only => [:new, :create, :vote]
   before_filter :can_group_update_plugin, :only => [:edit, :update] 
   before_filter :can_group_delete_plugin, :only => [:delete]  
-  
-  def find_record # look up record
-  	klass = params[:record_type].camelize.constantize
-  	@record = klass.find(params[:record_id])
-  	if @record.nil? 
-        flash[:failure] = t("notice.item_not_found", :item => klass.model_name.human)
-		redirect_to :back
-  	end	
-  end
    
   def vote
      if @record    	

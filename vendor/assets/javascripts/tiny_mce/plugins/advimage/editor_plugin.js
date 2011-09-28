@@ -28,7 +28,7 @@
 			ed.addButton('image', {
 				title : 'advimage.image_desc',
 				cmd : 'mceAdvImage',
-				image : url + '/../opal_image/img/image_edit.png'
+				image : url + '/../opal/img/image_edit.png'
 			});
 		},
 

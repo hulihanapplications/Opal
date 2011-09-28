@@ -13,11 +13,10 @@ class PluginCommentsController < PluginController
      # Set Approval
      @plugin_comment.is_approved = "1" if !@group_permissions_for_plugin.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin 
      
-     @plugin_comment.record = @item
+     @plugin_comment.record = @record if defined?(@record)
      if @plugin_comment.save
-      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => @plugin.model_name.human, :name => truncate(@plugin_comment.comment, :length => 10)))  if !@logged_in_user.anonymous?
-      Log.create(:item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => @plugin.model_name.human, :name => "#{request.env["REMOTE_ADDR"]}: " + truncate(@plugin_comment.comment, :length => 10))) if @logged_in_user.anonymous?
-      
+      log(:log_type => "new", :target => @plugin_comment)
+
       flash[:success] = t("notice.item_create_success", :item => @plugin.model_name.human)
       flash[:success] += t("notice.item_needs_approval", :item => @plugin.model_name.human) if !@plugin_comment.is_approved?
      else # fail saved 
@@ -32,7 +31,7 @@ class PluginCommentsController < PluginController
  def delete
    @plugin_comment = PluginComment.find(params[:comment_id])
    if @plugin_comment.destroy
-     Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => t("log.item_delete", :item => @plugin.model_name.human, :name => truncate(@plugin_comment.comment, :length => 10)) ) 
+     log(:log_type => "destroy", :target => @plugin_comment)
      flash[:success] = t("notice.item_delete_success", :item => @plugin.model_name.human)     
    else # fail saved 
      flash[:failure] = t("notice.item_delete_failure", :item => @plugin.model_name.human)        
@@ -57,7 +56,7 @@ class PluginCommentsController < PluginController
  def update
    @plugin_comment = PluginComment.find(params[:comment_id])
    if @plugin_comment.update_attributes(params[:plugin_comment])
-     Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => t("log.item_update", :item => @plugin.model_name.human, :name => truncate(@plugin_comment.comment, :length => 10)) ) 
+     log(:log_type => "update", :target => @plugin_comment)
      flash[:success] = t("notice.item_save_success", :item => @plugin.model_name.human)     
    else # fail saved 
      flash[:failure] = t("notice.item_save_failure", :item => @plugin.model_name.human)        

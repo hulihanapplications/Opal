@@ -459,5 +459,10 @@ module ApplicationHelper
   def current_url
     CGI::escape(request.url)
   end
+  
+  # display hidden form tags for record information when working with a polymorphic record(which belongs to 'record')
+  def record_hidden_tags(record)
+    [hidden_field_tag(:id, record.id), hidden_field_tag(:record_type, record.class.name), hidden_field_tag(:record_id, record.id)].join("\n").html_safe
+  end
 end
 

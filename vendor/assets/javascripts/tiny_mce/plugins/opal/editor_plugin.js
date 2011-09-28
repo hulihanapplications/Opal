@@ -5,22 +5,16 @@
  */
 
 (function() {
-	tinymce.create('tinymce.plugins.opal_image', {
+	tinymce.create('tinymce.plugins.opal', {
 		init : function(ed, url) {
 			// Register commands
 			ed.addCommand('mce_opal_image', function() {
 				// Internal image object like a flash placeholder
 				if (ed.dom.getAttrib(ed.selection.getNode(), 'class').indexOf('mceItem') != -1)
 					return;
-				
-				if(opal_setting["item_id"] != null) // set item id
-				{
-					//alert(opal_setting["item_id"] )
-					action_url = "/pages/tinymce_images?item_id=" + opal_setting["item_id"]			
-				}
-				else{ // no item id set 
-					action_url = "/pages/tinymce_images"			
-				}
+	
+				// Set URL to Open
+				action_url = opal_image_url
 				
 				ed.windowManager.open({
 					file : action_url, // + get_url_vars()["item_id"],
@@ -43,7 +37,7 @@
 
 		getInfo : function() {
 			return {
-				longname : 'Opal Image',
+				longname : 'Opal',
 				author : 'Hulihan Applications',
 				authorurl : 'http://www.hulihanapplications.com',
 				infourl : 'http://www.hulihanapplications.com/projects/opal',
@@ -53,5 +47,5 @@
 	});
 
 	// Register plugin
-	tinymce.PluginManager.add('opal_image', tinymce.plugins.opal_image);
+	tinymce.PluginManager.add('opal', tinymce.plugins.opal);
 })();

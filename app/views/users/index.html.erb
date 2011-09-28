@@ -22,14 +22,14 @@
 	</div>
 	<div id="main">							
 					<div class="header">					
-						<table style="width:100%;" cellpadding=0 cellspacing=0>
+						<table cellpadding=0 cellspacing=0>
 							<tr>
-								<td align=left>
+								<td class="left">
 									<h2 class="title">
 										<a name="groups"><%= @users.total_entries %></a> <%= User.model_name.human(:count =>  @users.total_entries) %>
 									</h2>				
 								</td>
-								<td align=right >
+								<td class="right">
 										<%= link_to icon("new") + " " + t("label.item_new", :item => User.model_name.human), new_user_path %>						
 								</td>
 							</tr>

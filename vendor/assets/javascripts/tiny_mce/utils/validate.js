@@ -1,26 +1,3 @@
-/**
- * $Id: validate.js 758 2008-03-30 13:53:29Z spocke $
- *
- * Various form validation methods.
- *
- * @author Moxiecode
- * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
- */
-
-/**
-	// String validation:
-
-	if (!Validator.isEmail('myemail'))
-		alert('Invalid email.');
-
-	// Form validation:
-
-	var f = document.forms['myform'];
-
-	if (!Validator.isEmail(f.myemail))
-		alert('Invalid email.');
-*/
-
 var Validator = {
 	isEmail : function(s) {
 		return this.test(s, '^[-!#$%&\'*+\\./0-9=?A-Z^_`a-z{|}~]+@[-!#$%&\'*+\\/0-9=?A-Z^_`a-z{|}~]+\.[-!#$%&\'*+\\./0-9=?A-Z^_`a-z{|}~]+$');

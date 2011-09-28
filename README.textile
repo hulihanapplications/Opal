@@ -1,23 +1,25 @@
 h1. Opal
  
-Opal is a powerful Item Management System built in Ruby on Rails. It lets you to create a directory that lists any kind of item, from houses to video games to classifieds.
+Opal is a powerful item directory application powered by Ruby on Rails. It allows you to list any kind of item, from houses to video games to classifieds.
 
 h2. Features 
  
-Opal is powered By Rails 3 and a bunch of "other cool stuff":http://www.hulihanapplications.com/projects/opal. Here's some of the many features found in Opal:
-
+* Powered by Ruby on Rails 3.1
 * List Any Type of Item(Products, Video Games, Locations, Events, Classifieds, etc.)
-* Add extra stuff to your Items like Images, Videos, Reviews, Comments, Discussions, Custom Fields, and more.
-* Powered by Rails 3.1
+* Add extra stuff to your Items like Images, Videos, Reviews, Comments, Files, Discussions, Custom Fields, and more.
 * State-of-the-Art Interface powered by HTML5, CSS3, jQuery, Uploadify, and jQuery TOOLS
-* Mass Image Uploader and Special Effects(Rotate, Resize, Watermark, Stamp, B&W, Sepia, etc.)
-* Multiple-User Login System with Secure Admin Section
-* Infinite-Depth Category Organization & Customizable Advanced Item Searching
-* I18n(Internationalization) Support for multiple languages & locales
-* CMS-style Page Publishing & Integrated Blog
-* Easy-To-Use TinyMCE Editor with Security Filtering and Image Uploader
+* Multiple-user login system with secure administration area
+* Login from other websites(facebook, twitter, google, etc.) with OpenID/OAuth Support - "(Guide)":http://dev.hulihanapplications.com/wiki/opal/OAuth
+* Mass file uploader
+* Store files locally or in the cloud using Amazon S3, Rackspace Cloud Files, etc. - "(Guide)":http://dev.hulihanapplications.com/wiki/opal/Upload
+* Apply special effects to Images(Rotate, Resize, Watermark, Stamp, B&W, Sepia, etc.)
+* Infinite-depth category organization & customizable advanced item searching
+* I18n(Internationalization) support for multiple languages & locales
+* CMS-style Pages & Integrated Blog
+* TinyMCE content editor with security filtering and image uploader
 * Customizable "Themes":http://customize.hulihanapplications.com/Projects/category/6-opal & "Plugins":http://customize.hulihanapplications.com/Projects/category/11-opal with easy uploader & installer
-* Activity Logging
+* User Activity Logging
+* Gravatar Support
 * "Much More":http://www.hulihanapplications.com/projects/opal
 
 h2. Uses
@@ -27,11 +29,11 @@ Since Opal is highly customizable, you can use it for many different things:
 * Directory Website
 * Content Management System(CMS)
 * Blog
-* E-Commerce Website/Web Store
 * Image/Video Gallery 
 * File Download System
-* Forum/Disccusion Board
+* Forum/Discussion Board
 * Review/Classifieds Website
+* E-Commerce Website/Web Store
 
 !https://github.com/hulihanapplications/Opal/raw/master/public/themes/fracture/screenshot.png(Opal's Default Theme - Fracture)!
 
@@ -68,7 +70,7 @@ bundle exec rake db:migrate RAILS_ENV=production LOCALE=en
 bundle exec rake db:seed RAILS_ENV=production LOCALE=en
 </pre>
 
-This command will install all of Opal's required gems(via bundler) and create the database structure of Opal inside the production database. If you leave out *RAILS_ENV=PRODUCTION*, everything will be installed into your development database instead. This command will also set up the default admin account, some sample items(you'll be asked if you want to install sample Data), and other stuff to help you get started with Opal. You can also specify the *LOCALE* parameter to install Opal in a language other than english. 
+These commands will create the database structure of Opal in production mode. If you leave out *RAILS_ENV=PRODUCTION*, everything will be installed into your development database instead. This will also set up the default admin account, some sample items(you'll be asked if you want to install sample data), and other stuff to help you get started with Opal. You can also specify the *LOCALE* parameter to install Opal in a language other than english. 
   * If you want to automate an Opal installation, or if you just want to bypass prompts(that ask you if you want to install sample data and other stuff: run this command: _rake opal:install PROMPTS=FALSE_)
 
 h2. That's it! 
@@ -125,15 +127,16 @@ h1. Community & Additional Help
 
 If you need any more help, check out these resources:
 
-* "Opal User's Guide":http://dev.hulihanapplications.com/wiki/opal/User%27s_Guide
-* "Opal Forum":http://dev.hulihanapplications.com/projects/opal/boards
+* "User's Guide":http://dev.hulihanapplications.com/wiki/opal/User%27s_Guide
+* "Wiki":http://dev.hulihanapplications.com/wiki/opal/
+* "Forum":http://dev.hulihanapplications.com/projects/opal/boards
 
 h1. Development & Contribution
 
 If you're interested in developing Opal or contributing a theme, plugin, or translation, check out the following:
 * "Submit a bug or feature request":http://dev.hulihanapplications.com/projects/opal/issues
 * "Source Code On Github":https://github.com/hulihanapplications/Opal
-* "Opal Developer's Guide":http://dev.hulihanapplications.com/wiki/opal/Developer%27s_Guide
+* "Developer's Guide":http://dev.hulihanapplications.com/wiki/opal/Developer%27s_Guide
 ** "Plugin Development Guide":http://dev.hulihanapplications.com/wiki/opal/Plugin_Development
 ** "Theme Development Guide":http://dev.hulihanapplications.com/wiki/opal/Theme_Development
 ** "Locale Development Guide":http://dev.hulihanapplications.com/wiki/opal/Locale_Development

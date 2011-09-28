@@ -1,12 +1,3 @@
-/**
- * $Id: form_utils.js 1184 2009-08-11 11:47:27Z spocke $
- *
- * Various form utilitiy functions.
- *
- * @author Moxiecode
- * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
- */
-
 var themeBaseURL = tinyMCEPopup.editor.baseURI.toAbsolute('themes/' + tinyMCEPopup.getParam("theme"));
 
 function getColorPickerHTML(id, target_form_element) {

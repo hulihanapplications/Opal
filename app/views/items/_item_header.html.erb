@@ -1,9 +1,4 @@
 <%= render :partial => "main_content_top_bar" %>
-
-<script type="text/javascript">	
-	opal_setting["item_id"] = <%=  @item.id %>;	
-</script>
-
 <div class="header">					
 	<% if item.is_editable_for_user?(@logged_in_user) %>
 		<div class="box_1 tools" style="margin-bottom:10px" >

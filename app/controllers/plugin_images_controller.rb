@@ -1,38 +1,42 @@
 class PluginImagesController < PluginController
+  skip_before_filter :find_item, :only => [:tinymce]
+
+  
   def single_access_allowed?
     action_name == "create" 
   end  
   
   def new
-    @image = PluginImage.new(:item_id => @item.id)
+    @image = PluginImage.new(:item_id => @record.id)
   end
 
   def create
     @image = PluginImage.new(params[:plugin_image])
     @image.effects = params[:effects]
-    @image.user_id = @logged_in_user.id
-    @image.record = @item
+    @image.user = @logged_in_user
+    @image.record = @record if defined?(@record)
     @image.is_approved = "1" if !@group_permissions_for_plugin.requires_approval?  || @item.is_editable_for_user?(@logged_in_user) # approve if not required or owner or admin
     
     if @image.save # if image was saved successfully
-      flash[:success] =  t("notice.item_create_success", :item => @plugin.model_name.human)
-      flash[:success] +=  t("notice.item_needs_approval", :item => @plugin.model_name.human) if !@image.is_approved?
+      flash[:success] =  t("notice.item_create_success", :item => PluginImage.model_name.human)
+      flash[:success] +=  t("notice.item_needs_approval", :item => PluginImage.model_name.human) if !@image.is_approved?
+      log(:log_type => "new", :target => @image)
       
       respond_to do |format|
         format.html{
           if params[:tinymce] == "true" # redirect them back to the tinymce popup box
-            redirect_to :action => "tinymce_images", :controller => "pages", :item_id => @item.id     
+            redirect_to :back      
           else # redirect them back to item page
-            redirect_to :action => "view", :controller => "items", :id => @item
+            redirect_to :action => "view", :controller => "items", :id => @record
           end       
         }
-        format.flash{ render :text => t("notice.item_create_success", :item => @plugin.model_name.human + (!@image.filename.blank? ? ": #{@image.filename}" : "") ) }              
+        format.flash{ render :text => t("notice.item_create_success", :item => PluginImage.model_name.human + (!@image.filename.blank? ? ": #{@image.filename}" : "") ) }              
       end           
     else # save failed
-      flash[:failure] =  t("notice.item_create_failure", :item => @plugin.model_name.human)
+      flash[:failure] =  t("notice.item_create_failure", :item => PluginImage.model_name.human)
       respond_to do |format|
         format.html{render :action => "new"}   
-        format.flash{render :text =>  t("notice.item_create_failure", :item => @plugin.model_name.human + (!@image.filename.blank? ? ": #{@image.filename}" : "") ) + "\n" + @image.errors.full_messages.join("\n")}
+        format.flash{render :text =>  t("notice.item_create_failure", :item => PluginImage.model_name.human + (!@image.filename.blank? ? ": #{@image.filename}" : "") ) + "\n" + @image.errors.full_messages.join("\n")}
       end
     end    
   end 
@@ -41,16 +45,16 @@ class PluginImagesController < PluginController
   def delete
     @image = PluginImage.find(params[:image_id])
     if @image.destroy
-      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => t("log.item_delete", :item => @plugin.model_name.human, :name => @image.filename))                        
-      flash[:success] =  t("notice.item_delete_success", :item => @plugin.model_name.human)     
+      log(:log_type => "destroy", :target => @image)
+      flash[:success] =  t("notice.item_delete_success", :item => PluginImage.model_name.human)     
     else # fail saved 
-      flash[:failure] =  t("notice.item_delete_failure", :item => @plugin.model_name.human)   
+      flash[:failure] =  t("notice.item_delete_failure", :item => PluginImage.model_name.human)   
     end
     
     if params[:tinymce] == "true" # redirect them back to the tinymce popup box
       redirect_to :action => "tinymce_images", :controller => "pages", :item_id => @item.id     
     else # redirect them back to item page
-      redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human(:count => :other)     
+      redirect_to :action => "view", :controller => "items", :id => @item, :anchor => PluginImage.model_name.human(:count => :other)     
     end
   end
 
@@ -61,22 +65,21 @@ class PluginImagesController < PluginController
   def update
     @image = PluginImage.find(params[:image_id])
     if @image.update_attributes(params[:plugin_image])
-       flash[:success] =  t("notice.item_save_success", :item => @plugin.model_name.human)     
+       log(:log_type => "update", :target => @image)
+       flash[:success] =  t("notice.item_save_success", :item => PluginImage.model_name.human)     
     else
-      flash[:success] =  t("notice.item_save_failure", :item => @plugin.model_name.human)     
+      flash[:success] =  t("notice.item_save_failure", :item => PluginImage.model_name.human)     
     end 
     render :action => "edit"
   end
 
-  def tinymce_images # show images to use with tinymce images
-    @plugin = Plugin.find_by_name("Image") # use Images Plugin for titles and thumbnail settings      
-    if params[:item_id] # get images for item
-      @item = Item.find(params[:item_id])
-      check_item_edit_permissions
-      @images = PluginImage.record(@item)
-    else # get images for system
-      authenticate_admin # make sure they're an admin
-      @images = PluginImage.paginate(:page => params[:page], :per_page => 25)
+  def tinymce # show images to use with tinymce images
+    @plugin_image = PluginImage.new
+    if item_is_present
+      @images = PluginImage.record(@record).paginate(:page => params[:page], :per_page => 25)
+    else
+      authenticate_admin
+      @images = PluginImage.paginate(:page => params[:page], :per_page => 25)      
     end 
     render :layout => false 
   end

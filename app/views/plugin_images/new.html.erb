@@ -12,7 +12,7 @@
 	</ul>	
 	<div class="plugin_panes_horizontal"> 					
 	    <div id="<%= t("single.single") %>">
-	       <%= form_for(@image,  :url => { :action => "create", :controller => "plugin_images", :id => @item.id}, :html => {:multipart => true}) do |f| %>
+	       <%= form_for(@image,  :url => { :action => "create", :controller => "plugin_images"}, :html => {:multipart => true}) do |f| %>
 			   <%= render :partial => "plugin_images/form", :locals => {:f => f} %>
 			   <br />
 			   <div align=center style="clear:both">

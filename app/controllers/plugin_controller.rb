@@ -1,8 +1,7 @@
 class PluginController < ApplicationController
-  before_filter :find_item # look up item 
-  before_filter :find_plugin # look up item  
+  before_filter :find_record # look up record 
+  before_filter :find_plugin # look up plugin 
   before_filter :get_group_permissions_for_plugin # get permissions for this plugin
-  before_filter :find_record, :only => [:vote, :change_approval]  # 
   before_filter :check_item_view_permissions, :except => [:vote] # can user view item? 
   before_filter :check_item_edit_permissions, :only => [:change_approval] # list of actions that don't require that the item is editable by the user
   before_filter :can_group_read_plugin
@@ -41,11 +40,12 @@ class PluginController < ApplicationController
     end
     
     if @record.update_attribute(:is_approved, approval)
-      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => log_msg)      
+      log(:log_type => "update", :target => @record, :log => log_msg)
       flash[:success] = t("notice.item_#{"un" if approval == "0"}approve_success", :item => @plugin.model_name.human)  
     else
       flash[:failure] = t("notice.item_save_failure", :item => @plugin.model_name.human)
     end
-    redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @record.class.model_name.human(:count => :other) 
+    #redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @record.class.model_name.human(:count => :other)
+    redirect_to :back 
   end
 end

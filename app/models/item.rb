@@ -67,28 +67,15 @@ class Item < ActiveRecord::Base
     return features_container
   end
   
-  def is_viewable_for_user?(user) # Can the current user see this item?
-    if user.is_admin? || self.user_id == user.id # User is an admin, or the user that created the item. Item owners can always see their item, but no one else can, if not allowed.
-      return true
-    else # not an admin or user that created item.
-        if self.is_public == "1" && self.is_approved == "1"
-          return true
-        elsif (self.is_public == "0" && self.is_approved == "1") # It's not public, but is approved 
-          return false
-        else # not public or viewable
-          return false
-        end
-    end
+  def is_approved?
+    self.is_approved == "1"
   end
-  
-  def is_editable_for_user?(user) # can the user edit this item?
-     if ((self.is_user_owner?(user) && !self.locked) || user.is_admin?)  # Yes, the item belongs to the user
-       return true
-     else # The item does not belong to the user.
-       return false
-     end
+
+  def is_public?
+    self.is_public == "1"
   end
-  
+ 
+  # Override
   def is_deletable_for_user?(user) # can the user delete this item?
     if user.is_admin? # User is an admin
       return true
@@ -99,27 +86,7 @@ class Item < ActiveRecord::Base
         return false
       end
     end
-  end
-  
-  def is_approved?
-    self.is_approved == "1"
-  end
-
-  def is_public?
-    self.is_public == "1"
-  end
- 
-  def is_user_owner?(user)
-    self.user_id == user.id # is this user the owner?
-  end
-  
-  def is_new? # has the item been recently added?
-    max_hours = 72 # the item must be added within the last x hours to be considered new 
-    return ((Time.now - self.created_at) / 3600) < max_hours # convert secs to hours 
-  end
-
-  def self.sort_conditions(options = {}) # get sanitized sort conditions for use in find
-  end
+  end            
 
   def self.sort_order(options = {}) # get sanitized sort order for use in find
     options[:by] ||= Item.human_attribute_name(:created_at)

@@ -32,14 +32,7 @@
 								   <a href="javascript:ImageDialog.insertOpalImage('<%= image.image.url %>', '<%= image.description %>')" title="<%= t("label.item_select", :item => Image.model_name.human) %>">
 										<%= image_tag image.image.thumb.url, :class => "thumbnail" %>
 								   </a>
-								   <div class="box_2" style="margin-top:3px">
-										<%= link_to icon("zoom"), image.image.url, :target => "_blank", :title => t("label.zoom_in"), :class => "transparent" %>
-										<% if @item %>	
-											<%= link_to icon("delete"), { :action => 'delete', :controller => "plugin_images", :id => @item.id, :image_id => image.id, :tinymce => "true"}, :confirm => t("confirm.item_delete", :item => PluginImage.model_name.human), :class => "transparent" %>																											   	
-										<% else %>
-											<%= link_to icon("delete"), { :action => 'delete_image', :controller => "pages", :id => image.id}, :confirm => t("confirm.item_delete", :item => PluginImage.model_name.human), :class => "transparent" %>										
-										<% end %>										
-								   </div>									   							
+								   <%= render :partial => "plugins/plugin_item_controls", :locals => {:record => image, :preview => false} %> 									   																								   							
 								</div>							
 							<% end %>
 							<div class="clear"></div>

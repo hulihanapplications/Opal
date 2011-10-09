@@ -18,7 +18,7 @@
 				</td>
 				<td align=right>
 					<% if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_create? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
-						<%= link_to icon("new") + " " + t("label.item_new", :item => PluginComment.model_name.human), {:action => "new", :controller => "plugin_comments", :id => @item.id}, :remote => true, :id => "new_plugin_comment_link" %>
+						<%= link_to icon("new") + " " + t("label.item_new", :item => PluginComment.model_name.human), {:action => "new", :controller => "plugin_comments", :record_type => @item.class.name, :record_id => @item.id, :id => @item.id}, :remote => true, :id => "new_plugin_comment_link" %>
 					<% end %>						
 				</td>
 			</tr>

@@ -1,13 +1,12 @@
 class PluginImagesController < PluginController
-  skip_before_filter :find_item, :only => [:tinymce]
+  #skip_before_filter :find_record, :only => [:tinymce]
 
-  
   def single_access_allowed?
     action_name == "create" 
   end  
   
   def new
-    @image = PluginImage.new(:item_id => @record.id)
+    @image = PluginImage.new
   end
 
   def create
@@ -41,7 +40,6 @@ class PluginImagesController < PluginController
     end    
   end 
 
-
   def delete
     @image = PluginImage.find(params[:image_id])
     if @image.destroy
@@ -59,7 +57,7 @@ class PluginImagesController < PluginController
   end
 
   def edit
-     @image = PluginImage.find(params[:image_id])    
+    @image = PluginImage.find(params[:image_id])    
   end
   
   def update

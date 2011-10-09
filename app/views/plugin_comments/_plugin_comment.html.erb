@@ -31,7 +31,7 @@
 									<b class="highlight_1"><%= friendly_date plugin_comment.created_at %></b>							
 								</td>
 								<td align=right>
-									<%= link_to icon("reply") + " " + t("single.reply"), {:action => "new", :controller => "plugin_comments", :id => plugin_comment.record, :parent_id => plugin_comment.id}, :remote => true, :id => "plugin_comment_#{plugin_comment.id}_reply_link" %>
+									<%= link_to icon("reply") + " " + t("single.reply"), {:action => "new", :controller => "plugin_comments", :id => plugin_comment.record, :parent_id => plugin_comment.id, :record_type => plugin_comment.record_type, :record_id => plugin_comment.record_id}, :remote => true, :id => "plugin_comment_#{plugin_comment.id}_reply_link" %>
 									<%= render :partial => "plugins/plugin_item_controls", :locals => { :record => plugin_comment, :options => {:votes => true, :preview => false, :user => false}} %>											
 								</td>
 							</tr>

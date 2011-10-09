@@ -315,7 +315,7 @@ en:
     use_authentication: Use another network       
   # General Information 
   info: 
-    delete_main_logo: Deleting your main logo will show the title of your site instead. 
+    delete_main_logo: Deleting your logo will show the title of your site instead. 
     html_allowed: "The following HTML elements are allowed here: %{elements}"
     image_guidelines: All Images are monitored for appropriateness(no adult, explicit, offensive, or otherwise graphic images allowed). Also, all images will be scaled down to 100x100 pixels.
   # Confirmations
@@ -498,7 +498,7 @@ en:
           title: Items Per Page        
           description: This is the number of items to show per page.
         main_logo:
-          title: Main Logo               
+          title: Logo               
         list_type_simple: 
           title: Simple        
           description: View %{items} in a simple format.

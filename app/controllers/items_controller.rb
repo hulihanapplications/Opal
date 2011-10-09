@@ -81,7 +81,6 @@ class ItemsController < ApplicationController
     end
   end  
 
-
   def update
     # Handle Defaults & Unselected/Unchecked Options
     params[:item][:is_approved]   ||= "0" 

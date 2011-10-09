@@ -460,9 +460,15 @@ module ApplicationHelper
     CGI::escape(request.url)
   end
   
-  # display hidden form tags for record information when working with a polymorphic record(which belongs to 'record')
-  def record_hidden_tags(record)
+  # set record to be used in next request 
+  def remember_record(record)
+    # display hidden form tags for record information when working with a polymorphic record(which belongs to 'record')
     [hidden_field_tag(:id, record.id), hidden_field_tag(:record_type, record.class.name), hidden_field_tag(:record_id, record.id)].join("\n").html_safe
+  end
+  
+  # link to polymorphic record
+  def link_to_record(record)
+    link_to record.to_s, {:action => :view, :controller => record.class.controller_name, :id => record.id} if record
   end
 end
 

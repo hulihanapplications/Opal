@@ -1,6 +1,6 @@
 source "http://rubygems.org/"
 
-gem "rails", "=3.1.0"#, :git => "http://github.com/rails/rails"
+gem "rails", "=3.1.1"#, :git => "http://github.com/rails/rails"
 gem "opal", :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems")
 gem "russian", :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems/russian")  #, :git => "git://github.com/MrHant/russian.git" # Gem specific for "ru" locale
 gem "rmagick", "~>2.12.2"

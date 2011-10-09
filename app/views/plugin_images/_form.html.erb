@@ -14,7 +14,7 @@ $(function() {
 
 <%= error_messages_for :image %>
 
-<%= record_hidden_tags(@record) if defined?(@record) %>
+<%= remember_record(@record) if defined?(@record) %>
 
 <table style="width:100%" cellspacing=0 cellpadding=0>
 	<tr>

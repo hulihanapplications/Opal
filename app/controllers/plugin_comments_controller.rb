@@ -25,7 +25,7 @@ class PluginCommentsController < PluginController
    else # humanizer failure
      flash[:failure] = I18n.translate("humanizer.validation.error")
    end
-   redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human(:count => :other) 
+   redirect_to :back, :anchor => @plugin.model_name.human(:count => :other) 
  end 
  
  def delete
@@ -43,9 +43,8 @@ class PluginCommentsController < PluginController
    @plugin_comment = PluginComment.new
    @plugin_comment.parent_id = PluginComment.find(params[:parent_id]) if !params[:parent_id].blank?
     respond_to do |format|
-      format.html{ 
-         render :layout => false if request.xhr?
-      }
+      format.html{}
+      format.js  {render :layout => false }
     end
  end
  

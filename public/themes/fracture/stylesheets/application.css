@@ -91,11 +91,11 @@ div.preview:hover, img.preview:hover{;opacity:1.00;filter:alpha(opacity=100);-mo
 	.preview_not_found;{}
 		.preview_not_found a, .preview_text{width:180px;height:125px;background:url(../images/preview.png) no-repeat center center;}
 img.pinky, img.tiny{border:1px solid #333;height:20px;width:20px;vertical-align:middle}
-a img.pinky, a img.tiny{opacity:0.80;filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity: 0.8;}
-a img.pinky:hover, a img.tiny:hover{;opacity:1.00;filter:alpha(opacity=100);-moz-opacity:1.0;-khtml-opacity: 1.0}
+a img.pinky, a img.tiny, a img.medium{opacity:0.80;filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity: 0.8;}
+a img.pinky:hover, a img.tiny:hover, a img.medium:hover{;opacity:1.00;filter:alpha(opacity=100);-moz-opacity:1.0;-khtml-opacity: 1.0}
 img.selected{border:1px solid #aaa;background:url(../images/bgs/black_trans_05.png) repeat;padding:2px;opacity:1.00;filter:alpha(opacity=100);-moz-opacity:1.0;-khtml-opacity: 1.0;;-moz-border-radius: 3px;-webkit-border-radius: 3px;}
 img.normal{}
-img.small, img.medium{width:50px;height:50px;border:1px solid #666}
+img.small, img.medium{height:50px;border:1px solid #666}
 img.loading{margin:2px;background:#ccc;padding:5px;border:1px solid #666;;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
 
 /* Items */

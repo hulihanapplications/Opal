@@ -17,7 +17,7 @@ class PluginFilesController < PluginController
       flash[:failure] = t("notice.item_create_failure", :item => @plugin.model_name.human)       
     end 
 
-    redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
+    redirect_to :back
   end
   
   def delete
@@ -28,7 +28,7 @@ class PluginFilesController < PluginController
     else # fail saved 
      flash[:success] = t("notice.item_delete_failure", :item => @plugin.model_name.human)
     end
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
+    redirect_to :back
   end
 
   def download

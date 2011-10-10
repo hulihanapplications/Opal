@@ -19,7 +19,7 @@ class PluginDescriptionsController < PluginController
    else # fail saved 
     flash[:failure] = t("notice.item_create_failure", :item => @plugin.model_name.human)
    end  
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
+   redirect_to :back, :anchor => @plugin.model_name.human(:count => :other) 
   end
  
   def update
@@ -31,7 +31,7 @@ class PluginDescriptionsController < PluginController
    else # fail saved 
      flash[:success] = t("notice.item_save_failure", :item => @plugin.model_name.human)
    end    
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
+   redirect_to :back, :anchor => @plugin.model_name.human(:count => :other) 
   end
   
   def delete
@@ -43,7 +43,7 @@ class PluginDescriptionsController < PluginController
      flash[:success] = t("notice.item_delete_failure", :item => @plugin.model_name.human)
    end
   
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
+   redirect_to :back, :anchor => @plugin.model_name.human(:count => :other) 
  end  
 
  def change_approval
@@ -62,7 +62,7 @@ class PluginDescriptionsController < PluginController
     else
       flash[:failure] = t("notice.item_save_failure", :item => @plugin.model_name.human)
     end
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
+    redirect_to :back, :anchor => @plugin.model_name.human(:count => :other) 
   end
  
   def new 

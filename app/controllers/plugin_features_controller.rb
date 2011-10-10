@@ -32,10 +32,8 @@ class PluginFeaturesController < ApplicationController
        end 
      end 
    end
-   flash[:notice] = flash_msg 
-   
-    
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
+   flash[:notice] = flash_msg     
+   redirect_to :back
   end
 
   def update_feature_value
@@ -48,7 +46,7 @@ class PluginFeaturesController < ApplicationController
    else # fail saved 
     flash[:failure] = t("notice.item_save_failure", :item => @plugin.model_name.human)
    end    
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
+   redirect_to :back
   end
  
   def delete_feature_value
@@ -58,9 +56,8 @@ class PluginFeaturesController < ApplicationController
     flash[:success] = t("notice.item_delete_success", :item => @plugin.model_name.human)
    else # fail saved 
        flash[:failure] = t("notice.item_delete_failure", :item => @plugin.model_name.human)
-   end
- 
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
+   end 
+   redirect_to :back
   end
 
  def change_approval
@@ -79,7 +76,7 @@ class PluginFeaturesController < ApplicationController
     else
       flash[:failure] = t("notice.item_save_failure", :item => @plugin.model_name.human) 
     end
-   redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
+    redirect_to :back
   end 
  
   def new
@@ -95,7 +92,7 @@ class PluginFeaturesController < ApplicationController
     if @plugin_feature.save
       Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("log.item_create", :item => PluginFeatureValue.model_name.human, :name => "#{@plugin_feature.name}")) 
       flash[:success] = t("notice.item_create_success", :item => @plugin.model_name.human)
-      redirect_to :action => "index", :controller => "plugin_features"  
+      redirect_to :back
      else
       flash[:failure] = t("notice.item_create_failure", :item => @plugin.model_name.human)
       render :action => "new"
@@ -112,7 +109,7 @@ class PluginFeaturesController < ApplicationController
       flash[:failure] = t("notice.item_delete_failure", :item => @plugin.model_name.human)
     end
     
-    redirect_to :action => "index", :controller => "plugin_features"  
+    redirect_to :back
   end 
 
  def edit
@@ -125,7 +122,7 @@ class PluginFeaturesController < ApplicationController
     if @plugin_feature.update_attributes(params[:plugin_feature])
       Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => PluginFeatureValue.model_name.human, :name => "#{@plugin_feature.name}"))       
       flash[:success] = t("notice.item_save_success", :item => @plugin.model_name.human)
-      redirect_to :action => "edit", :controller => "plugin_features", :id => @plugin_feature.id
+      redirect_to :back
      else
       flash[:failure] = t("notice.item_save_failure", :item => @plugin.model_name.human)
       render :action => "edit"
@@ -141,7 +138,7 @@ class PluginFeaturesController < ApplicationController
     if @plugin_feature_value_option.save
       Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("log.item_create", :item => PluginFeatureValueOption.model_name.human, :name => "#{@plugin_feature_value_option.value}")) 
       flash[:success] = t("notice.item_create_success", :item =>  PluginFeatureValueOption.model_name.human)
-      redirect_to :action => "options", :controller => "plugin_features", :id => @plugin_feature_value_option.plugin_feature_id
+      redirect_to :back
      else
       flash[:failure] = t("notice.item_create_failure", :item =>  PluginFeatureValueOption.model_name.human)
       render :action => "options"
@@ -176,7 +173,7 @@ class PluginFeaturesController < ApplicationController
     else # failed adding required features
       flash[:failure] = t("notice.item_save_failure", :item => @plugin.model_name.human)          
     end  
-    redirect_to :action => "edit_values" , :id => @item            
+    redirect_to :back
   end
   
   def options 

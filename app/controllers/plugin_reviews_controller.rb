@@ -19,7 +19,7 @@ class PluginReviewsController < PluginController
       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => @plugin.model_name.human,  :name => truncate(@review.review, :length => 10)))                                       
       flash[:success] = t("notice.item_create_success", :item => @plugin.model_name.human)
       flash[:success] += " " +  t("notice.user_thanks", :name => @review.user.first_name)
-      redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
+      redirect_to :back
      else # fail saved 
       flash[:failure] = t("notice.item_create_failure", :item => @plugin.model_name.human)
       render :action => "new"
@@ -35,7 +35,7 @@ class PluginReviewsController < PluginController
     else # fail saved 
       flash[:failure] =  t("notice.item_delete_failure", :item => @plugin.model_name.human)     
     end
-    redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
+    redirect_to :back
   end
 
   def update

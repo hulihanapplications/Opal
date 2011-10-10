@@ -2,7 +2,7 @@ class Page < ActiveRecord::Base
   has_ancestry if Page.table_exists? && column_names.include?("ancestry")
 
   has_many :pages
-  has_many :page_comments, :dependent => :destroy
+  has_many :plugin_comments, :dependent => :destroy, :as => :record
   belongs_to :page
   belongs_to :user
   

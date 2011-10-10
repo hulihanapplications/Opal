@@ -20,7 +20,7 @@ class PluginDiscussionsController < PluginController
    else # fail saved 
     flash[:failure] = t("notice.item_create_failure", :item => @plugin.model_name.human)
    end 
-   redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human(:count => :other) 
+   redirect_to :back, :anchor => @plugin.model_name.human(:count => :other) 
  end 
  
  def delete
@@ -31,7 +31,7 @@ class PluginDiscussionsController < PluginController
    else # fail saved 
      flash[:failure] = t("notice.item_failure_success", :item => @plugin.model_name.human)    
    end      
-   redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human(:count => :other) 
+   redirect_to :back, :anchor => @plugin.model_name.human(:count => :other) 
  end
  
  def view
@@ -53,7 +53,7 @@ class PluginDiscussionsController < PluginController
    else # fail saved 
     flash[:failure] = t("notice.item_create_failure", :item => PluginDiscussionPost.model_name.human)      
    end
-   redirect_to :action => "view", :controller => "plugin_discussions", :id => @item, :discussion_id => @discussion.id, :anchor => @post.id       
+   redirect_to :back
  end
  
  def delete_post   
@@ -65,7 +65,7 @@ class PluginDiscussionsController < PluginController
     else # delete failed 
       flash[:failure] = t("notice.item_delete_failure", :item => PluginDiscussionPost.model_name.human)      
     end
-    redirect_to :action => "view", :controller => "plugin_discussions", :id => @item, :discussion_id => @discussion.id 
+    redirect_to :back
  end
  
 
@@ -76,7 +76,7 @@ class PluginDiscussionsController < PluginController
      render :layout => false
    else # Attempted Securtiy Bypass: User is trying to add a comment to an item that's not viewable. They shouldn't be able to get to the add comment form, but this stops them server-side.
      flash[:failure] = t("notice.not_visible")             
-     redirect_to :action => "index", :category => "browse"
+     redirect_to root_path
    end    
  end   
 end

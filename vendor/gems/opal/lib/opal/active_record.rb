@@ -60,10 +60,37 @@ module Opal
         def is_new? # has the item been recently added?
           max_hours = 72 # the item must be added within the last x hours to be considered new 
           return ((Time.now - self.created_at) / 3600) < max_hours # convert secs to hours 
-        end        
+        end      
+        
+        # check if a performer object(User, etc.) can do something to/regarding this object/instance
+        #   @page.can?(User.anonymous, :destroy) => false 
+        # Override this in model for custom functionality        
+        def can?(performer, action, options = {})
+          case performer          
+          when User
+            case action.to_sym
+            when :edit, :destroy
+              self.is_user_owner?(performer) || performer.is_admin? 
+            end
+          end 
+        end
+          
       end
       
       module ClassMethods
+        # check if a performer object(User, etc.) can do something to/regarding this class
+        #   Page.can?(User.anonymous, :create) => false 
+        # Override this in model for custom functionality
+        def can?(performer, action, options = {})
+          case performer       
+          when User
+            case action.to_sym
+            when :new, :create
+              performer.is_admin? 
+            end
+          end 
+        end        
+        
         # Get the next order number in line for sorting
         def next_order_number
           last_record = self.find(:last, :order => "order_number ASC")

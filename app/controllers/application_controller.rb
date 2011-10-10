@@ -333,11 +333,7 @@ private
       false
     end 
   end
-  
-  # Get Model(if any) associated with controller
-  def controller_model
-    
-  end  
+
 end
 
 #  Log.create(:log_type => "warning", :log => t("log.failed_admin_access_attempt_visitor", :ip => "1.1.1.1", :controller => "", :action => ""))     

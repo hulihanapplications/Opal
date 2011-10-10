@@ -6,9 +6,7 @@
 			<div class="log" id="log_<%= log.id %>">
 				<table style="width:100%">
 					<tr>
-						<% if log_user %>
-							<%= content_tag(:td, link_to(user_avatar(log.user, :class => "medium"), {:action => "user", :controller => "browse", :id => log.user}, :title => "#{log.user.username}")) if log_user %>
-						<% end %>						
+						<%= content_tag(:td, link_to_user(log_user, :avatar => true, :avatar_class => "medium", :name => false)) if log_user %>
 						<td style="width:100%">																							
 							<%= log_message(log) %>
 							<div class="sub">

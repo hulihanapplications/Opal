@@ -19,14 +19,14 @@ class PluginImagesController < PluginController
     if @image.save # if image was saved successfully
       flash[:success] =  t("notice.item_create_success", :item => PluginImage.model_name.human)
       flash[:success] +=  t("notice.item_needs_approval", :item => PluginImage.model_name.human) if !@image.is_approved?
-      log(:log_type => "new", :target => @image)
+      log(:log_type => "create", :target => @image)
       
       respond_to do |format|
         format.html{
           if params[:tinymce] == "true" # redirect them back to the tinymce popup box
             redirect_to :back      
           else # redirect them back to item page
-            redirect_to :action => "view", :controller => "items", :id => @record
+            redirect_to :back, :anchor => @plugin.model_name.human(:count => :other) 
           end       
         }
         format.flash{ render :text => t("notice.item_create_success", :item => PluginImage.model_name.human + (!@image.filename.blank? ? ": #{@image.filename}" : "") ) }              
@@ -50,9 +50,9 @@ class PluginImagesController < PluginController
     end
     
     if params[:tinymce] == "true" # redirect them back to the tinymce popup box
-      redirect_to :action => "tinymce_images", :controller => "pages", :item_id => @item.id     
+      redirect_to :back, :anchor => @plugin.model_name.human(:count => :other) 
     else # redirect them back to item page
-      redirect_to :action => "view", :controller => "items", :id => @item, :anchor => PluginImage.model_name.human(:count => :other)     
+      redirect_to :back, :anchor => @plugin.model_name.human(:count => :other) 
     end
   end
 

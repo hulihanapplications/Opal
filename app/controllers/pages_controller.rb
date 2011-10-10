@@ -3,7 +3,8 @@ class PagesController < ApplicationController
   before_filter :enable_admin_menu, :except => [:view, :send_contact_us]# show admin menu 
   before_filter :uses_tiny_mce, :only => [:new, :edit, :update, :destroy]  # which actions to load tiny_mce, TinyMCE Config is done in Layout. 
   before_filter :check_humanizer_answer, :only => [:send_contact_us]
- 
+  before_filter :get_all_group_plugin_permissions
+
   def index
     @setting[:meta_title] << Page.model_name.human(:count => :other)
     params[:type] ||= "public"
@@ -103,7 +104,7 @@ class PagesController < ApplicationController
        if @page.published || @logged_in_user.is_admin? # make sure this is a published page they're going to
            @setting[:meta_title] << @page.description if !@page.description.blank?
            @setting[:meta_title] << @page.title 
-           @comments = PageComment.paginate :page => params[:page], :per_page => 25, :conditions => ["page_id = ? and is_approved = ?", @page.id, "1"]                  
+           @comments = PluginComment.record(@page).paginate(:page => params[:page], :per_page => 25).approved
        else
           flash[:failure] = "#{t("notice.not_visible")}"      
           redirect_to :action => "index", :controller => "browse"

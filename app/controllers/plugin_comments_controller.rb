@@ -5,17 +5,14 @@ class PluginCommentsController < PluginController
  def create # this is the only create action that doesn't require that the item is editable by the user
    if human? || !@logged_in_user.anonymous?
      @plugin_comment = PluginComment.new(params[:plugin_comment])
-     if !@logged_in_user.anonymous? # if the user is not anonymous
-       @plugin_comment.user_id = @logged_in_user.id # set comment user id
-     else # a visitor is leaving the comment.
-     end 
-     
+     @plugin_comment.user_id = @logged_in_user.id if !@logged_in_user.anonymous?  # set comment user id
+
      # Set Approval
      @plugin_comment.is_approved = "1" if !@group_permissions_for_plugin.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin 
      
      @plugin_comment.record = @record if defined?(@record)
      if @plugin_comment.save
-      log(:log_type => "new", :target => @plugin_comment)
+      log(:log_type => "create", :target => @plugin_comment)
 
       flash[:success] = t("notice.item_create_success", :item => @plugin.model_name.human)
       flash[:success] += t("notice.item_needs_approval", :item => @plugin.model_name.human) if !@plugin_comment.is_approved?
@@ -36,7 +33,7 @@ class PluginCommentsController < PluginController
    else # fail saved 
      flash[:failure] = t("notice.item_delete_failure", :item => @plugin.model_name.human)        
    end      
-   redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human(:count => :other) 
+   redirect_to :back, :anchor => @plugin.model_name.human(:count => :other) 
  end
  
  def new
@@ -60,6 +57,6 @@ class PluginCommentsController < PluginController
    else # fail saved 
      flash[:failure] = t("notice.item_save_failure", :item => @plugin.model_name.human)        
    end      
-   redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human(:count => :other)   
+   redirect_to :back, :anchor => @plugin.model_name.human(:count => :other) 
  end
 end

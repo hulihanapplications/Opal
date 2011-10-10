@@ -13,7 +13,7 @@ class PluginTagsController < ApplicationController
      else # fail saved 
        flash[:failure] = t("notice.item_create_failure", :item => @plugin.model_name.human)
      end     
-     redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
+     redirect_to :back
   end
   
   def delete
@@ -24,6 +24,6 @@ class PluginTagsController < ApplicationController
      else # fail saved 
        flash[:failure] = t("notice.item_delete_failure", :item => @plugin.model_name.human)
      end     
-     redirect_to :action => "view", :controller => "items", :id => @item.id, :anchor => @plugin.model_name.human(:count => :other) 
+     redirect_to :back
   end
 end

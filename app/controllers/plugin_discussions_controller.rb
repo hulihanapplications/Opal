@@ -2,15 +2,11 @@ class PluginDiscussionsController < PluginController
  before_filter :uses_tiny_mce, :only => [:new, :edit, :create, :update]  # which actions to load tiny_mce, TinyMCE Config is done in Layout. 
  before_filter :can_group_read_plugin, :only => [:view, :create_post, :rss]
  before_filter :can_group_update_plugin, :only => [:delete_post] 
- before_filter :get_all_group_plugin_permissions, :only => [:view]
 
  include ActionView::Helpers::TextHelper # for truncate, etc.
 
  def create # this is the only create action that doesn't require that the item is editable by the user
    @discussion = PluginDiscussion.new(params[:discussion])
-
-   # Set Approval
-   @discussion.is_approved = "1" if !@group_permissions_for_plugin.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin 
    @discussion.user_id = @logged_in_user.id
    @discussion.record = @item
    if @discussion.save

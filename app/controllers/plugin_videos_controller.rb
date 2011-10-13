@@ -5,10 +5,7 @@ class PluginVideosController < PluginController
    @video = PluginVideo.new(params[:plugin_video])
    @video.user_id = @logged_in_user.id
    @video.record = @item
-   
-   # Set Approval
-   @video.is_approved = "1" if !@group_permissions_for_plugin.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin 
-         
+            
    if @video.save
     Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "create", :log => t("log.item_create", :item => @plugin.model_name.human, :name => @video.title))             
     flash[:success] = t("notice.item_create_success", :item => @plugin.model_name.human)

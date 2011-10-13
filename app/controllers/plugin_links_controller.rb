@@ -6,9 +6,6 @@ class PluginLinksController < PluginController
     @link.user_id = @logged_in_user.id
     @link.record = @item
 
-    # Set Approval
-    @link.is_approved = "1" if !@group_permissions_for_plugin.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin
-
     if @link.save
       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => @plugin.model_name.human, :name => @link.title))
       flash[:success] =  t("notice.item_create_success", :item => @plugin.model_name.human)

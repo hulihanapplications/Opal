@@ -23,7 +23,7 @@
 	<% end if options[:date] || options[:user] %>
 	
 	<% if options[:votes] && !@logged_in_user.anonymous?  %>
-		 <% if !@logged_in_user.anonymous? || record.record.is_editable_for_user?(@logged_in_user) %>												 	
+		 <% if !@logged_in_user.anonymous? || record.record.can?(@logged_in_user, :edit) %>												 	
 	 		<%= content_tag :span, :class => "vote_box plugin_item_control_box" do %>
 		 		<% up_voted, down_voted = @logged_in_user.up_voted?(record), @logged_in_user.down_voted?(record)  %>
 				<%= link_to_function icon("vote#{up_voted ? "d" : ""}_up", t("label.item_upvote", :item => record.class.model_name.human)), "vote('#{record.class.name.underscore}', #{record.record.id}, #{record.id}, 'up')", :class => "transparent", :disabled => down_voted, :id => "up_vote_#{record.class.name.underscore}_#{record.id}" %>
@@ -35,7 +35,7 @@
 	<% end %>	
 	
 	<% if options[:approval] && record.respond_to?(:is_approved?) %>
-		<% if record.record ? record.record.is_editable_for_user?(@logged_in_user) : record.is_editable_for_user?(@logged_in_user) %>
+		<% if record.record ? record.record.can?(@logged_in_user, :edit) : false %>
 			<span class="approval_box plugin_item_control_box">
 				<%= icon("approved", t("single.approved"), "icon help") if record.is_approved? %> 		
 				<%= icon("unapproved", "#{t("single.not")} #{t("single.approved")}", "icon help") if !record.is_approved? %> 																				
@@ -46,9 +46,9 @@
 	<% end %>
 		
 	<%
-		options[:preview] 	= options[:preview] && record.record && record.record.is_editable_for_user?(@logged_in_user) 
-		options[:edit] 		= options[:edit] && record.is_editable_for_user?(@logged_in_user) || !record.record.nil? ? record.record.is_editable_for_user?(@logged_in_user) : false
-		options[:delete]	= options[:delete] && record.is_deletable_for_user?(@logged_in_user)  || !record.record.nil? ? record.record.is_editable_for_user?(@logged_in_user) : false
+		options[:preview] 	= options[:preview] && record.record && record.record.can?(@logged_in_user, :edit) 
+		options[:edit] 		= options[:edit] && record.can?(@logged_in_user, :edit)
+		options[:delete]	= options[:delete] && record.can?(@logged_in_user, :edit)
 	%>
 	
 	<% if options[:preview] || options[:edit] || options[:delete] %>

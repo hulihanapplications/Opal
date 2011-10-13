@@ -31,7 +31,23 @@ class GroupPluginPermission < ActiveRecord::Base
     gpp ||= GroupPluginPermission.new(:plugin_id => plugin.id, :group_id => group.id) # initialize default permissions if no records are found.
     return gpp
   end
-    
+
+  # interpret action to match attribute, ie: group_plugin_permission.can?(:create) => true
+  def can?(action)
+    case action.to_sym
+    when :create, :new
+      can_create == "1"
+    when :read, :view
+      can_read == "1"
+    when :delete, :destroy
+      can_delete == "1"
+    when :edit, update
+      can_update == "1"
+    when :requires_approval
+      requires_approval == "1"
+    end 
+  end
+  
   def can_create?
     self.can_create == "1"
   end

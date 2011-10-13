@@ -14,7 +14,6 @@ class PluginImagesController < PluginController
     @image.effects = params[:effects]
     @image.user = @logged_in_user
     @image.record = @record if defined?(@record)
-    @image.is_approved = "1" if !@group_permissions_for_plugin.requires_approval?  || @item.is_editable_for_user?(@logged_in_user) # approve if not required or owner or admin
     
     if @image.save # if image was saved successfully
       flash[:success] =  t("notice.item_create_success", :item => PluginImage.model_name.human)
@@ -73,7 +72,7 @@ class PluginImagesController < PluginController
 
   def tinymce # show images to use with tinymce images
     @plugin_image = PluginImage.new
-    if item_is_present
+    if @record.is_a?(Item)
       @images = PluginImage.record(@record).paginate(:page => params[:page], :per_page => 25)
     else
       authenticate_admin

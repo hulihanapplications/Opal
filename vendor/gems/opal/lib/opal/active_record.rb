@@ -69,24 +69,27 @@ module Opal
           case performer          
           when User
             case action.to_sym
+            when :view, :read
+              #true              
             when :edit, :destroy
               self.is_user_owner?(performer) || performer.is_admin? 
             end
           end 
-        end
-          
+        end          
       end
       
       module ClassMethods
         # check if a performer object(User, etc.) can do something to/regarding this class
         #   Page.can?(User.anonymous, :create) => false 
         # Override this in model for custom functionality
+        # Options:
+        #   belongs_to: will the record belong to another record/object? If so, then the owner of the parent object might have special rights
         def can?(performer, action, options = {})
           case performer       
           when User
             case action.to_sym
             when :new, :create
-              performer.is_admin? 
+              performer.is_admin?
             end
           end 
         end        

@@ -1,10 +1,9 @@
-class PluginTagsController < ApplicationController
+class PluginTagsController < PluginController
   def create
      @tag = PluginTag.new
      @tag.name = params[:tag_name]
      @tag.user_id = @logged_in_user.id
-     @tag.record = @item
-     @tag.is_approved = "1" if !@group_permissions_for_plugin.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin 
+     @tag.record = @record
      
      if @tag.save
        log(:log_type => "create", :target => @tag)

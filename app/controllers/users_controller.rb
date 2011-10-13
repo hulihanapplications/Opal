@@ -5,7 +5,6 @@ class UsersController < ApplicationController
   before_filter :authenticate_admin, :except => [:change_password, :change_avatar, :update, :edit, :show, :verification_required] # make sure logged in user is an admin
   before_filter :enable_admin_menu, :except => [:change_password, :change_avatar, :update, :edit, :show, :verification_required]  # show admin menu 
   before_filter :protect_against_self, :only => [:delete, :toggle_user_disabled, :toggle_user_verified] 
-  before_filter :get_all_group_plugin_permissions, :only => [:show]
   
   def find_user
     if @logged_in_user.is_admin?

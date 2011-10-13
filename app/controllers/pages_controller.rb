@@ -3,7 +3,6 @@ class PagesController < ApplicationController
   before_filter :enable_admin_menu, :except => [:view, :send_contact_us]# show admin menu 
   before_filter :uses_tiny_mce, :only => [:new, :edit, :update, :destroy]  # which actions to load tiny_mce, TinyMCE Config is done in Layout. 
   before_filter :check_humanizer_answer, :only => [:send_contact_us]
-  before_filter :get_all_group_plugin_permissions
 
   def index
     @setting[:meta_title] << Page.model_name.human(:count => :other)

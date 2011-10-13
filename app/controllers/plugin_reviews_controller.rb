@@ -1,10 +1,9 @@
 class PluginReviewsController < PluginController
- before_filter :check_item_view_permissions, :only => [:show] # can user view item?
+ before_filter :only => [:show] {|c| can?(@record.record, @logged_in_user, :view)} 
  before_filter :can_group_read_plugin, :only => [:show]
  before_filter :can_group_create_plugin, :only => [:create, :new]
  before_filter :can_group_update_plugin, :only => [:update, :edit] 
  before_filter :uses_tiny_mce, :only => [:new, :edit, :create, :update]  # which actions to load tiny_mce, TinyMCE Config is done in Layout.
- before_filter :get_all_group_plugin_permissions, :only => [:show]
  include ActionView::Helpers::TextHelper # for truncate, etc.
  
   def create   
@@ -13,17 +12,15 @@ class PluginReviewsController < PluginController
     @review.user_id = @logged_in_user.id
     @review.record = @item      
     
-    #if @item.is_viewable_for_user?(@logged_in_user) && ( && @logged_in_user.id == @item.user_id) || !@plugin.get_setting_bool("only_creator_can_review") || @logged_in_user.is_admin?)
-     @review.is_approved = "1" if !@group_permissions_for_plugin.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin       
-     if @review.save
+    if @review.save
       Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => @plugin.model_name.human,  :name => truncate(@review.review, :length => 10)))                                       
       flash[:success] = t("notice.item_create_success", :item => @plugin.model_name.human)
       flash[:success] += " " +  t("notice.user_thanks", :name => @review.user.first_name)
       redirect_to :back
-     else # fail saved 
+    else # fail saved 
       flash[:failure] = t("notice.item_create_failure", :item => @plugin.model_name.human)
       render :action => "new"
-     end               
+    end               
   end
  
   def delete

@@ -1,6 +1,4 @@
-class BlogController < ApplicationController
-  before_filter :get_all_group_plugin_permissions
-  
+class BlogController < ApplicationController 
   def index
     @pages = Page.all.blog.published.newest_first.paginate(:page => params[:page], :per_page => 5)
   end
@@ -12,7 +10,6 @@ class BlogController < ApplicationController
 
   def post
     @page = Page.find(params[:id])
-    @plugin_comments = PluginComment.record(@page).paginate(:page => params[:page], :per_page => 25).approved
     if @page.published || @logged_in_user.is_admin? # make sure this is a published page they're going to
       # proceed
       @setting[:meta_title] << @page.title

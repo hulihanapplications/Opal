@@ -18,7 +18,7 @@
 					<h2 class="title"><%= plugin_comments.size %> <%= PluginComment.model_name.human(:count => plugin_comments.size) %></h2>										
 				</td>
 				<td align=right>
-					<%= link_to icon("new") + " " + t("label.item_new", :item => PluginComment.model_name.human), {:action => "new", :controller => "plugin_comments", :record_type => record.class.name, :record_id => record.id, :id => record.id}, :remote => true, :id => "new_plugin_comment_link" if PluginComment.can?(@logged_in_user, :create)  %>
+					<%= link_to icon("new") + " " + t("label.item_new", :item => PluginComment.model_name.human), {:action => "new", :controller => "plugin_comments", :record_type => record.class.name, :record_id => record.id, :id => record.id}, :remote => true, :id => "new_plugin_comment_link" if PluginComment.can?(@logged_in_user, :create, :belongs_to => @item)  %>
 				</td>
 			</tr>
 		</table>				

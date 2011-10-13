@@ -37,9 +37,25 @@ module Opal
       def installed? # has this plugin been installed?
         table_exists?
       end
+      
+      # override ActiveRecord.can?
+      def can?(performer, action, options = {})
+        case performer
+        when User        
+          GroupPluginPermission.for_plugin_and_group(plugin, performer.group).can?(action) || super(performer, action, options)       
+        end 
+      end
     end
     
     module InstanceMethods
+      # override ActiveRecord#can?
+      def can?(performer, action, options = {})
+        case performer
+        when User
+          GroupPluginPermission.for_plugin_and_group(self.class.plugin, performer.group).can?(action) || super(performer, action, options)
+        end                 
+      end      
+      
       def set_as_item_preview # called after a plugin record/item is created
         if record_type == "Item" && self.class == Setting.get_global_settings[:default_preview_type] # if this plugin is set as the default preview class...
             record.update_attributes(:preview_type => self.class.name, :preview_id => id) if !record.preview? # set self as preview if no preview exists
@@ -66,7 +82,11 @@ module Opal
       	if record_owner
       		Emailer.new_plugin_record_notification(self).deliver if record_owner.user_info.notify_of_item_changes && self.user_id != record_owner.id
       	end 
-      end      
+      end  
+      
+      def set_approval
+        self.is_approved = "1" if !GroupPluginPermission.for_plugin_and_group(self.class.plugin, self.user.group).requires_approval? || record.is_user_owner?(user) || user.is_admin? # approve if not required or owner or admin 
+      end    
     end    
   end
 end 
@@ -80,6 +100,7 @@ module ActiveRecord
 	  	  send(:extend, Opal::ActsAsOpalPlugin::ClassMethods)
 	     	send(:include, Opal::ActsAsOpalPlugin::InstanceMethods)		  
         send(:belongs_to, :record, :polymorphic => true)
+        send(:before_create, :set_approval)
 		    send(:after_create, :set_as_item_preview)
 		    send(:before_destroy, :reset_preview)
 		    #send(:validates_presence_of, :user_id)		

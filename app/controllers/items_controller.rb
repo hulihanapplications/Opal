@@ -6,9 +6,8 @@ class ItemsController < ApplicationController
  before_filter :enable_admin_menu, :only =>  [:all_items, :settings, :change_item_name, :do_change_item_name] # show admin menu 
  
  before_filter :find_item, :only => [:view, :edit, :update, :delete, :set_preview] # look up item  
- before_filter :get_all_group_plugin_permissions, :only => [:view, :category, :tag, :search, :advanced_search, :index, :all_items, :my]
- before_filter :check_item_view_permissions, :only => [:view] # check item view permissions
- before_filter :check_item_edit_permissions, :only => [:edit, :update, :delete, :set_preview] # check if item is editable by user 
+ before_filter :only => [:view] {|c| can?(@item, @logged_in_user, :view)} 
+ before_filter :only => [:edit, :update, :delete, :set_preview] {|c| can?(@item, @logged_in_user, :edit)}  
  before_filter :enable_sorting, :only => [:index, :category, :all_items, :search, :my] # prepare sort variables & defaults for sorting
 
  

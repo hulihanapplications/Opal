@@ -1,14 +1,11 @@
 class PluginCommentsController < PluginController 
- before_filter :can_group_create_plugin, :only => [:create, :reply]
+ before_filter :only => [:create, :reply] {|c|  can?(PluginComment, @logged_in_user, :destroy)} 
  include ActionView::Helpers::TextHelper # for truncate, etc.
  
  def create # this is the only create action that doesn't require that the item is editable by the user
    if human? || !@logged_in_user.anonymous?
      @plugin_comment = PluginComment.new(params[:plugin_comment])
-     @plugin_comment.user_id = @logged_in_user.id if !@logged_in_user.anonymous?  # set comment user id
-
-     # Set Approval
-     @plugin_comment.is_approved = "1" if !@group_permissions_for_plugin.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin 
+     @plugin_comment.user = @logged_in_user   # set comment user id
      
      @plugin_comment.record = @record if defined?(@record)
      if @plugin_comment.save
@@ -39,10 +36,10 @@ class PluginCommentsController < PluginController
  def new
    @plugin_comment = PluginComment.new
    @plugin_comment.parent_id = PluginComment.find(params[:parent_id]) if !params[:parent_id].blank?
-    respond_to do |format|
-      format.html{}
-      format.js  {render :layout => false }
-    end
+   respond_to do |format|
+     format.html{}
+     format.js  {render :layout => false }
+   end
  end
  
  def edit

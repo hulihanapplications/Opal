@@ -2,10 +2,9 @@ class PluginFeaturesController < ApplicationController
   #before_filter :authenticate_user
   before_filter :find_item, :except => [:new, :create, :delete, :index, :edit, :update, :create_option, :delete_option, :options] # look up item 
   before_filter :find_plugin # look up plugin
-  before_filter :get_group_permissions_for_plugin # get permissions for this plugin
-  before_filter :check_item_view_permissions, :only => [:create_feature_values, :update_feature_value, :update_values, :delete_feature_values] # can user view item? 
-  before_filter :check_item_edit_permissions, :only => [:change_approval] # list of actions that don't require that the item is editable by the user
   before_filter :authenticate_admin, :enable_admin_menu, :only =>  [:create, :delete, :index, :new, :edit, :update, :create_option, :delete_option, :options] # make sure logged in user is an admin  
+  before_filter :only => [:create_feature_values, :update_feature_value, :update_values, :delete_feature_values] {|c| can?(@item, @logged_in_user, :view)} 
+  before_filter :only => [:change_approval] {|c| can?(@item, @logged_in_user, :edit)} 
   before_filter :can_group_create_plugin, :only => [:create_feature_values]
   before_filter :can_group_update_plugin, :only => [:update_feature_value, :update_values] 
   before_filter :can_group_delete_plugin, :only => [:delete_feature_value]  
@@ -18,11 +17,7 @@ class PluginFeaturesController < ApplicationController
      if feature && feature[:value] != "" # if array item has something in it and at least value was filled out
        feature_value = PluginFeatureValue.new(feature)
        feature_value.user_id = @logged_in_user.id
-       feature_value.record = @item
-    
-       # Set Approval
-       feature_value.is_approved = "1" if !@group_permissions_for_plugin.requires_approval? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? # approve if not required or owner or admin 
-             
+       feature_value.record = @item             
        if feature_value.save
           Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => PluginFeatureValue.model_name.human, :name => "#{feature_value.plugin_feature.name}: #{feature_value.value}")) 
           flash[:success] = t("notice.item_create_success", :item => PluginFeatureValue.model_name.human + "(#{feature_value.plugin_feature.name})") + "<br>"
@@ -80,7 +75,7 @@ class PluginFeaturesController < ApplicationController
   end 
  
   def new
-       @plugin_feature = PluginFeature.new    
+    @plugin_feature = PluginFeature.new    
   end
   # Admin Only Methods 
   def create # creates a new Feature, not a Feature Value

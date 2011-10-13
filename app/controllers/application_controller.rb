@@ -160,82 +160,7 @@ class ApplicationController < ActionController::Base
     flash[:failure] = t("notice.item_not_found", :item => plugin_name)
     redirect_to :back
   end
-  
-  def check_item_edit_permissions # check to see if the logged in user has permission to edit item
-    if @item.is_editable_for_user?(@logged_in_user)
-      @item.update_attribute(:updated_at, Time.now) # refresh item's last update time 
-    else # they don't have rights to the item
-      flash[:failure] = t("notice.invalid_permissions")
-      redirect_to :action => "index", :controller => "user"
-    end
-  end 
-  
-  def get_all_group_plugin_permissions # get ALL plugin permissions for user's group
-    @logged_in_user.group.plugin_permissions = GroupPluginPermission.all_plugin_permissions_for_group(@logged_in_user.group)
-  end
-  
-  def get_group_permissions_for_plugin # initialize group plugin permissions for the plugin that is already looked up    
-    @group_permissions_for_plugin = GroupPluginPermission.for_plugin_and_group(@plugin, @logged_in_user.group)
-    raise I18n.t("notice.item_not_found", :item => @plugin.klass.model_name.human) unless @group_permissions_for_plugin
-  end    
-
-  def check_item_view_permissions # can user view this item?
-    if item_is_present 
-      unless @item.is_viewable_for_user?(@logged_in_user)
-       flash[:failure] = t("notice.not_visible")   
-       redirect_to :action => "index", :controller => "browse"      
-      end
-    end
-  end
-
-  # Does user's group have permission to do a certain thing? 
-  def check_group_permission(permission)
-    # todo 
-  end
-
-  def can_group_read_plugin # check if group permissions allows current user to create plugin records for this item
-    if item_is_present 
-      unless @group_permissions_for_plugin.can_read? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
-        flash[:failure] = t("notice.invalid_permissions")            
-        redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human(:count => :other)       
-      end
-    else 
-      authenticate_admin      
-    end
-  end  
-  
-  def can_group_create_plugin # check if group permissions allows current user to create plugin records for this item
-    if item_is_present     
-      unless @group_permissions_for_plugin.can_create? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
-        flash[:failure] = t("notice.invalid_permissions")            
-        redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human(:count => :other)       
-      end
-    else 
-      authenticate_admin
-    end
-  end  
-
-  def can_group_update_plugin # check if group permissions allows current user to create plugin records for this item
-    if item_is_present 
-      unless @group_permissions_for_plugin.can_update? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
-        flash[:failure] = t("notice.invalid_permissions")            
-        redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human(:count => :other)       
-      end
-    else 
-      authenticate_admin      
-    end
-  end  
-  
-  def can_group_delete_plugin # check if group permissions allows current user to create plugin records for this item
-    if item_is_present 
-      unless @group_permissions_for_plugin.can_delete? || @item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?
-        flash[:failure] = t("notice.invalid_permissions")            
-        redirect_to :action => "view", :controller => "items", :id => @item, :anchor => @plugin.model_name.human(:count => :other)       
-      end
-    else 
-      authenticate_admin      
-    end
-  end    
+ 
     
   def enable_sorting # convert sort url GET variables into nice hashes for use in model sort functions(which also sanitize). This is a prefilter method.
     # Set default sort variables
@@ -323,17 +248,42 @@ private
   def flash_request? # detect flash request
     return true if request.user_agent =~ /^(Adobe|Shockwave) Flash/
   end   
-  
-  def item_is_present # check if an item has been specified
-    if defined?(@item)
-      !@item.id.nil?
-    elsif defined?(@record) # check item in record
-      @record.is_a?(Item)
-    else 
-      false
-    end 
-  end
 
+  # check permission/access, controller style
+  def can?(target, performer, action)
+    if !target.can?(performer, action)
+      flash[:failure] = t("notice.invalid_permissions")
+      redirect_to :back            
+    end
+  end 
+  
+  def can_group_read_plugin # check if group permissions allows current user to create plugin records for this item
+    unless @plugin.plugin_class.can?(@logged_in_user, :read)
+      flash[:failure] = t("notice.invalid_permissions")            
+      redirect_to :back
+    end
+  end  
+  
+  def can_group_create_plugin # check if group permissions allows current user to create plugin records for this item
+    unless @plugin.plugin_class.can?(@logged_in_user, :create)
+      flash[:failure] = t("notice.invalid_permissions")            
+      redirect_to :back
+    end
+  end  
+
+  def can_group_update_plugin # check if group permissions allows current user to create plugin records for this item
+    unless @plugin.plugin_class.can?(@logged_in_user, :update)
+      flash[:failure] = t("notice.invalid_permissions")            
+      redirect_to :back
+    end
+  end  
+  
+  def can_group_delete_plugin # check if group permissions allows current user to create plugin records for this item
+    unless @plugin.plugin_class.can?(@logged_in_user, :delete)
+      flash[:failure] = t("notice.invalid_permissions")            
+      redirect_to :back
+    end
+  end    
 end
 
 #  Log.create(:log_type => "warning", :log => t("log.failed_admin_access_attempt_visitor", :ip => "1.1.1.1", :controller => "", :action => ""))     

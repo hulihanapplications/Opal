@@ -37,7 +37,7 @@ class Setting < ActiveRecord::Base
   	  setting[:default_preview_type] =  setting[:default_preview_type].constantize if setting[:default_preview_type]
   	  Rails.application.config.action_mailer.default_url_options = { :host => setting[:host] ? setting[:host] : "localhost" } # set actionmailer host 
   	  # Autoload plugin settings
-  	  Plugin.plugins.each do |name, plugin|  	    
+  	  Plugin.plugins.each do |name, plugin|
   	    setting[plugin.plugin_class.name.underscore.to_sym] = PluginSetting.plugin(plugin).all.hash_by(:name, :to_value) 
   	  end  	  
     rescue Exception => e

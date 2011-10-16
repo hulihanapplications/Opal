@@ -23,7 +23,7 @@ class GroupPluginPermission < ActiveRecord::Base
 
   
   def self.plugin(plugin)
-    where("plugin_id = ?", plugin.id)
+    where(:plugin_id => plugin.id)
   end
   
   def self.for_plugin_and_group(plugin, group)

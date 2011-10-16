@@ -1,4 +1,4 @@
-<% if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_read? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
+<% if PluginLink.can?(@logged_in_user, :view) %>
 	<% first_link = PluginLink.record(item).approved.first %>
 	<%= link_to(icon("link") + " " + truncate(first_link.title, :length => 21), first_link.url, :title => first_link.title) if !first_link.nil? %>
 <% end %>

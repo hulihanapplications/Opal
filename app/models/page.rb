@@ -128,4 +128,13 @@ class Page < ActiveRecord::Base
       self["title"]
     end
   end
+  
+  def can?(performer, action, options = {})
+    case action.to_sym
+    when :view, :read      
+      is_user_owner?(performer) ? true : published    
+    else 
+      super(performer, action, options)                 
+    end
+  end   
 end

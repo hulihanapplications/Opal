@@ -59,7 +59,7 @@
 	  $.ajax({
 	    type: "POST",  
 	    url: '<%= url_for :action => "vote", :controller => "plugin" %>',
-	    data: {id: item_id, record_id: record_id, record_type: record_type, direction: direction},
+	    data: {record_id: record_id, record_type: record_type, direction: direction},
 	    beforeSend: function(){
 			//if(votes_element)
 			  //votes_element.loading()
@@ -101,7 +101,7 @@
 			'ajax:success': function(event, data, status, xhr){
 				$("#new_plugin_comment").html(data)
 			},			
-		});				
+		});							
 	});		
 	
 </script>

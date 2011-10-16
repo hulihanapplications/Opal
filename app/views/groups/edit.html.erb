@@ -83,12 +83,12 @@
 													
 														
 														<%= GroupPluginPermission.human_attribute_name(:can_update) %>
-														<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_update]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :update) %> <%= "DISABLED" if @group.is_admin_group? %>> 
+														<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_update]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :update) %> <%= "DISABLED" if @group.is_admin_group? || @group == Group.public %>> 
 													
 													
 													
 														<%= GroupPluginPermission.human_attribute_name(:can_delete) %>
-														<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_delete]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :delete) %> <%= "DISABLED" if @group.is_admin_group? %>>
+														<input type="checkbox" name="plugin_permission[<%= plugin.id %>][can_delete]" value="1" <%= "CHECKED" if  @group.has_plugin_permission?(:plugin => plugin, :permission_type => :delete) %> <%= "DISABLED" if @group.is_admin_group? || @group == Group.public %>>
 														<hr />
 													
 														<%= GroupPluginPermission.human_attribute_name(:requires_approval) %>

@@ -77,7 +77,6 @@ ul.sortable, ul.collapsed{margin:0px;padding:0px;list-style-type:none;}
 
 /* Boxes */
 .extra_options_box{padding:10px;}
-.vote_box{padding:0 2px;}
 
 /* Comments & Posts */
 .comment .comment{margin-left:40px;}
@@ -89,7 +88,9 @@ ul.sortable, ul.collapsed{margin:0px;padding:0px;list-style-type:none;}
 .navlinks{margin-bottom:10px;}
 .tooltip {display:none;z-index:999}
 .clear{clear:both}
+
 /* Plugins */
+.plugin_item_controls{margin:0;padding:0}
 .images .image .plugin_item_controls{display:block;margin:5px;}
 
 /* Notice Messages(Success and Failure Boxes) & Error Styles */

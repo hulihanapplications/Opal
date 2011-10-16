@@ -16,6 +16,10 @@ class PluginFeatureValue < ActiveRecord::Base
   	value
   end
   
+  def self.plugin
+    Plugin.where(:name => "Feature").first
+  end
+  
 =begin 
  def validate # run validations for value
    if self.feature.feature_type == "number" || self.feature.feature_type == "slider" 

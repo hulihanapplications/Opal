@@ -16,24 +16,12 @@ class Plugin < ActiveRecord::Base
     self.assign_order_number
   end 
 
-  default_scope :order => "order_number ASC" # override default find
-  
+  default_scope order("order_number ASC")  
   scope :third_party, where(:is_builtin => "0")
-  
-  def actual_model # returns the Class of plugin that this plugin object points to. Example: Plugin.find_by_name("Image").actual_model => PluginImage 
-    return "Plugin#{self.name}".camelize.constantize
-  end
-    
+  scope :enabled, where(:is_enabled => "1")
+   
   # Set plugins as class accessor 
   cattr_accessor :plugins, :third_party_plugins # Plugin.plugins
-  
-  def self.enabled      
-      where(["enabled = ?", "1"]).in_order
-  end
-  
-  def self.in_order
-    order("order_number ASC")
-  end
 
   def self.all_to_hash # return all plugins in an unordered hash
     plugin_hash = Hash.new
@@ -61,14 +49,10 @@ class Plugin < ActiveRecord::Base
   
   def destroy_everything    
     # Delete Plugin Objects for Items
-    for item in self.actual_model.find(:all)
+    for item in self.plugin_class.find(:all)
       item.destroy
     end
   end 
-  
-  def self.enabled # get all enabled plugins
-    self.find(:all, :conditions => ["is_enabled = ?", "1"], :order => "order_number ASC")
-  end
   
   # The Plugin is not a child of an Object, instead it is a type of view that will be displayed for all items. 
   # Notes: order_number must be 0 indexed because of each_index in the sorting method  
@@ -130,7 +114,7 @@ class Plugin < ActiveRecord::Base
   end
   
   def plugin_class # get the class that this plugin record is tied to
-    "Plugin#{self.name}".constantize
+    "Plugin#{self.name.capitalize}".constantize
   end
   
   alias :klass :plugin_class

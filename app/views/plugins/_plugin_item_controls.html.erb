@@ -9,14 +9,27 @@
 	options[:approval] 	= true if options[:approval].nil?
 	options[:votes] 	= false if options[:votes].nil?
 	options[:date] 		= false if options[:date].nil?
+		
+	# Reset User Perspective Options
+	options[:user]		= options[:user] && record.respond_to?(:user_id) ? (!record.record.nil? ? !record.record.is_user_owner?(record.user) : false) : false
+	options[:preview] 	= options[:preview] && record.record && record.record.can?(@logged_in_user, :edit) 
+	options[:edit] 		= options[:edit] && record.can?(@logged_in_user, :edit)
+	options[:delete]	= options[:delete] && record.can?(@logged_in_user, :edit)	
 %>
 <span class="plugin_item_controls">
+	<%= yield :plugin_item_controls %>
+	
+	<%
+		# Empty content_for :plugin_item_controls 
+		@view_flow.content.delete(:plugin_item_controls) 
+	%>
+		
 	<%= content_tag :span, :class => "plugin_item_control_box" do %>	
 		<% if options[:date] %>
 			<%= friendly_date record.created_at %>
 		<% end %>
 		
-		<% if options[:user] && record.respond_to?(:user_id) ? (!record.record.nil? ? !record.record.is_user_owner?(record.user) : false) : false %>
+		<% if options[:byline] %>
 			<%= options[:byline] ? I18n.t("single.by").downcase : nil %>
 			<%= link_to_user(record.user, :avatar => true, :name => options[:byline]) %>
 		<% end %>
@@ -27,29 +40,25 @@
 	 		<%= content_tag :span, :class => "vote_box plugin_item_control_box" do %>
 		 		<% up_voted, down_voted = @logged_in_user.up_voted?(record), @logged_in_user.down_voted?(record)  %>
 				<%= link_to_function icon("vote#{up_voted ? "d" : ""}_up", t("label.item_upvote", :item => record.class.model_name.human)), "vote('#{record.class.name.underscore}', #{record.record.id}, #{record.id}, 'up')", :class => "transparent", :disabled => down_voted, :id => "up_vote_#{record.class.name.underscore}_#{record.id}" %>
+				<%#= link_to icon("vote#{up_voted ? "d" : ""}_up", t("label.item_upvote", :item => record.class.model_name.human)), {:action => "vote", :controller => record.class.controller_name, :direction => "up", :record_type => record.class.name, :record_id => record.id}, :remote => true, :class => "transparent", :disabled => down_voted, :id => "up_vote_#{record.class.name.underscore}_#{record.id}" %>
 				<%= content_tag(:span, record.votes, :id => "votes_#{record.class.name.underscore}_#{record.id}", :class => "votes") %>
 				<%= link_to_function icon("vote#{down_voted ? "d" : ""}_down", t("label.item_downvote", :item => record.class.model_name.human)), "vote('#{record.class.name.underscore}', #{record.record.id}, #{record.id}, 'down')", :class => "transparent", :disabled => up_voted, :id => "down_vote_#{record.class.name.underscore}_#{record.id}" %>
-				<%= icon("spacer") if options[:approval] && record.record.is_editable_for_user?(@logged_in_user) %>							
+		 		<%#= link_to icon("vote#{down_voted ? "d" : ""}_down", t("label.item_downvote", :item => record.class.model_name.human)), {:action => "vote", :controller => record.class.controller_name, :direction => "down", :record_type => record.class.name, :record_id => record.id}, :remote => true, :class => "transparent", :disabled => down_voted, :id => "down_vote_#{record.class.name.underscore}_#{record.id}" %>				
+
 			<% end %>
 		 <% end %>
-	<% end %>	
-	
+	<% end %>		
+
+
 	<% if options[:approval] && record.respond_to?(:is_approved?) %>
 		<% if record.record ? record.record.can?(@logged_in_user, :edit) : false %>
 			<span class="approval_box plugin_item_control_box">
 				<%= icon("approved", t("single.approved"), "icon help") if record.is_approved? %> 		
 				<%= icon("unapproved", "#{t("single.not")} #{t("single.approved")}", "icon help") if !record.is_approved? %> 																				
 				<%= link_to icon("cycle", t("label.item_change", :item => t("single.approval"))), {:action => "change_approval", :id => record.record, :record_type => record.class.name, :record_id => record.id,  "#{record.class.system_name.downcase}_id".to_sym => record.id, :controller => record.class.name.pluralize.underscore}, :confirm => t("confirm.general"), :class => "transparent" %>
-				<%= icon("spacer") %>
 			</span>
 		<% end %>		
 	<% end %>
-		
-	<%
-		options[:preview] 	= options[:preview] && record.record && record.record.can?(@logged_in_user, :edit) 
-		options[:edit] 		= options[:edit] && record.can?(@logged_in_user, :edit)
-		options[:delete]	= options[:delete] && record.can?(@logged_in_user, :edit)
-	%>
 	
 	<% if options[:preview] || options[:edit] || options[:delete] %>
 		<span class="plugin_item_control_box">

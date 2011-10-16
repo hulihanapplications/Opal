@@ -5,7 +5,7 @@
 		<%= t("label.item_edit", :item => PluginComment.model_name.human) %>
 	</h2>
 	<%= form_for @plugin_comment, :url => {:action => "update", :controller => "plugin_comments", :id => @plugin_comment.record.id, :comment_id => @plugin_comment.id} do |f| %>
-		<%= remember_record(@plugin_comment.record) if @plugin_comment.record %>
+		<%= remember_record(@plugin_comment) %>
 		<%= render :partial => "form", :locals => {:f => f} %>	
 		<%= submit_tag  t("label.item_save", :item => PluginComment.model_name.human), :class => "button_1" %>
 	<% end %>

@@ -13,7 +13,7 @@
 							<h2 class="title"><%= videos.size %> <%= plugin.model_name.human(:count => videos.size) %> </h2>										
 						</td>
 						<td align=right>
-							<% if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_create? || item.is_editable_for_user?(@logged_in_user) %>
+							<% if PluginVideo.can?(@logged_in_user, :create) %>
 								<%= link_to icon("new") + " " + t("label.item_new", :item => plugin.model_name.human), {:action => "new", :controller => "plugin_videos", :id => item.id }, :class => "plugin_title_link" %>
 							<% end %>							
 						</td>

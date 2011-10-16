@@ -1,8 +1,6 @@
-class PluginReviewsController < PluginController
- before_filter :only => [:show] {|c| can?(@record.record, @logged_in_user, :view)} 
- before_filter :can_group_read_plugin, :only => [:show]
- before_filter :can_group_create_plugin, :only => [:create, :new]
- before_filter :can_group_update_plugin, :only => [:update, :edit] 
+class PluginReviewsController < PluginController 
+ before_filter :only => [:show] {|c|  can?(@record, @logged_in_user, :view)} 
+ before_filter :only => [:delete_post] {|c|  can?(@record, @logged_in_user, :destroy)} 
  before_filter :uses_tiny_mce, :only => [:new, :edit, :create, :update]  # which actions to load tiny_mce, TinyMCE Config is done in Layout.
  include ActionView::Helpers::TextHelper # for truncate, etc.
  

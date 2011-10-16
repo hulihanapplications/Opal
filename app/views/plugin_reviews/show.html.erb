@@ -9,7 +9,7 @@
 	</div>
 	<div class="plugin_box">
 		<div class="reviews">	
-	    	<%= render :partial => "plugin_reviews/show", :locals => {:review => @review, :item => @item, :plugin => @plugin, :my_group_plugin_permissions =>  GroupPluginPermission.all_plugin_permissions_for_group(@logged_in_user.group), :options => {:rich_snippets => true}} if @item.is_editable_for_user?(@logged_in_user) || @review.is_approved? %>
+	    	<%= render :partial => "plugin_reviews/show", :locals => {:review => @review, :item => @item, :plugin => @plugin} if @item.can?(@logged_in_user, :edit) || @review.is_approved? %>
 		</div>			
 	</div>										
 	<%= back %>	

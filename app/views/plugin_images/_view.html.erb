@@ -11,7 +11,7 @@
 
 
 	<div class="plugin_box">
-		<% if options[:show_title] || ( @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_create? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin?) %>
+		<% if options[:show_title] || PluginImage.can?(@logged_in_user, :create) %>
 			<div class="header title">
 				<table style="width:100%" cellpadding=0 cellspacing=0>
 					<tr>
@@ -34,7 +34,7 @@
 									<% end %>
 								<% end %>				
 							<% end %>
-							<%= link_to(icon("new") + " " + t("label.item_new", :item => PluginImage.model_name.human), {:action => "new", :controller => "plugin_images", :record_id => @item.id, :record_type => @item.class.name}) if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_create? || item.is_editable_for_user?(@logged_in_user) %>
+							<%= link_to(icon("new") + " " + t("label.item_new", :item => PluginImage.model_name.human), {:action => "new", :controller => "plugin_images", :record_id => @item.id, :record_type => @item.class.name}) if PluginImage.can?(@logged_in_user, :create) %>
 						</td>
 					</tr>
 				</table>				

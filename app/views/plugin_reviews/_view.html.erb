@@ -31,7 +31,7 @@
 							<span title="<%= PluginReview.human_attribute_name(:average)%>"><%= score(:type => @setting[:plugin_review][:review_type], :min => @setting[:plugin_review][:score_min].to_i, :max => @setting[:plugin_review][:score_max].to_i, :value => review_score) %></span>
 						</span>
 						
-						<% if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_create? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
+						<% if PluginReview.can?(@logged_in_user, :create) %>
 							<%= icon("new") %>
 							<%= link_to t("label.item_new", :item => plugin.model_name.human), {:action => "new", :controller => "plugin_reviews", :id => item}%>
 						<% end %>												
@@ -43,7 +43,7 @@
 	<% if reviews.size > 0 %>
 		<div class="reviews">					
 			<% for review in reviews  %>
-		      <%= render :partial => "plugin_reviews/show", :locals => {:review => review, :item => item, :plugin => plugin, :my_group_plugin_permissions => my_group_plugin_permissions}  %>			
+		      <%= render :partial => "plugin_reviews/show", :locals => {:review => review, :item => item, :plugin => plugin}  %>			
 			<% end %>
 		</div>
 	<% else %>

@@ -21,6 +21,12 @@ describe PluginCommentsController do
         get :new, {:id => @item.id}
         @response.code.should eq("200")
       end
+
+      it "should return 200 with json format" do 
+        get :new, {:id => @item.id}, :format => :json
+        puts response.body.inspect
+        @response.code.should eq("200")
+      end      
     end
 
     describe "edit" do

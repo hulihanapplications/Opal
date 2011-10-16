@@ -1,5 +1,5 @@
 class PluginCommentsController < PluginController 
- before_filter :only => [:create, :reply] {|c|  can?(PluginComment, @logged_in_user, :destroy)} 
+ before_filter :only => [:create, :reply] {|c|  can?(PluginComment, @logged_in_user, :create)} 
  include ActionView::Helpers::TextHelper # for truncate, etc.
  
  def create # this is the only create action that doesn't require that the item is editable by the user
@@ -37,8 +37,7 @@ class PluginCommentsController < PluginController
    @plugin_comment = PluginComment.new
    @plugin_comment.parent_id = PluginComment.find(params[:parent_id]) if !params[:parent_id].blank?
    respond_to do |format|
-     format.html{}
-     format.js  {render :layout => false }
+     format.html{render :layout => false if request.xhr?}
    end
  end
  

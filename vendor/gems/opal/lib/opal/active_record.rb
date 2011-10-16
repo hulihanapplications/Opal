@@ -68,11 +68,9 @@ module Opal
         def can?(performer, action, options = {})
           case performer          
           when User
-            case action.to_sym
-            when :view, :read
-              #true              
-            when :edit, :destroy
-              self.is_user_owner?(performer) || performer.is_admin? 
+            case action.to_sym        
+            when :edit, :update, :destroy, :delete
+              (self.is_user_owner?(performer) && !performer.anonymous?) || performer.is_admin?
             end
           end 
         end          

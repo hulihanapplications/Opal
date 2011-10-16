@@ -1,13 +1,12 @@
 class PluginFeaturesController < ApplicationController
   #before_filter :authenticate_user
-  before_filter :find_item, :except => [:new, :create, :delete, :index, :edit, :update, :create_option, :delete_option, :options] # look up item 
+  before_filter :find_record, :except => [:new, :create, :delete, :index, :edit, :update, :create_option, :delete_option, :options] # look up item 
   before_filter :find_plugin # look up plugin
   before_filter :authenticate_admin, :enable_admin_menu, :only =>  [:create, :delete, :index, :new, :edit, :update, :create_option, :delete_option, :options] # make sure logged in user is an admin  
-  before_filter :only => [:create_feature_values, :update_feature_value, :update_values, :delete_feature_values] {|c| can?(@item, @logged_in_user, :view)} 
-  before_filter :only => [:change_approval] {|c| can?(@item, @logged_in_user, :edit)} 
-  before_filter :can_group_create_plugin, :only => [:create_feature_values]
-  before_filter :can_group_update_plugin, :only => [:update_feature_value, :update_values] 
-  before_filter :can_group_delete_plugin, :only => [:delete_feature_value]  
+  before_filter :only => [:create_feature_values] {|c| can?(PluginFeatureValue, @logged_in_user, :create)} 
+  before_filter :only => [:update_feature_value, :update_values] {|c| can?(@record.record, @logged_in_user, :edit)} 
+  before_filter :only => [:delete_feature_values] {|c| can?(@record.record, @logged_in_user, :edit)} 
+
   include ActionView::Helpers::TextHelper # for truncate, etc.
   
   def create_feature_values

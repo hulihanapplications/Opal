@@ -143,8 +143,8 @@ class ApplicationController < ActionController::Base
   
   def find_plugin(options = {}) # look up a plugin 
     # Look up plugin based on controller name, ie: PluginCommentsController
-    plugin_name = self.controller_name.split("_") # "PluginComments" -> "plugin_comments" -> ["plugin", "comments"]
-    plugin_name = plugin_name[1].capitalize.singularize # get the second part of the controller name
+    tmp_controller_name = defined?(@record) ? @record.class.controller_name : self.controller_name
+    plugin_name = tmp_controller_name.split("_")[1].capitalize.singularize # "PluginComments" -> "plugin_comments" -> ["plugin", "comments"]
     @plugin = Plugin.find_by_name(plugin_name)
     if @plugin.is_enabled? # check to see if the plugin is enabled
      # Proceed
@@ -192,7 +192,7 @@ class ApplicationController < ActionController::Base
         @item = @record if @record.is_a?(Item)
       else  
         flash[:failure] = t("notice.item_not_found", :item => klass.name + " " + params[:record_id])
-        redirect_to :back
+        render :text => "nope"
       end 
     end
   end  
@@ -253,37 +253,11 @@ private
   def can?(target, performer, action)
     if !target.can?(performer, action)
       flash[:failure] = t("notice.invalid_permissions")
-      redirect_to :back            
+      respond_to do |format|     
+        format.html {request.xhr? ? render(:text => flash[:failure]) : redirect_to(:back)} 
+      end       
     end
   end 
-  
-  def can_group_read_plugin # check if group permissions allows current user to create plugin records for this item
-    unless @plugin.plugin_class.can?(@logged_in_user, :read)
-      flash[:failure] = t("notice.invalid_permissions")            
-      redirect_to :back
-    end
-  end  
-  
-  def can_group_create_plugin # check if group permissions allows current user to create plugin records for this item
-    unless @plugin.plugin_class.can?(@logged_in_user, :create)
-      flash[:failure] = t("notice.invalid_permissions")            
-      redirect_to :back
-    end
-  end  
-
-  def can_group_update_plugin # check if group permissions allows current user to create plugin records for this item
-    unless @plugin.plugin_class.can?(@logged_in_user, :update)
-      flash[:failure] = t("notice.invalid_permissions")            
-      redirect_to :back
-    end
-  end  
-  
-  def can_group_delete_plugin # check if group permissions allows current user to create plugin records for this item
-    unless @plugin.plugin_class.can?(@logged_in_user, :delete)
-      flash[:failure] = t("notice.invalid_permissions")            
-      redirect_to :back
-    end
-  end    
 end
 
 #  Log.create(:log_type => "warning", :log => t("log.failed_admin_access_attempt_visitor", :ip => "1.1.1.1", :controller => "", :action => ""))     

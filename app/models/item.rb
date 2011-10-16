@@ -174,4 +174,13 @@ class Item < ActiveRecord::Base
   def notify
     Emailer.new_item_notification(self).deliver if Setting.global_settings[:new_item_notification]
   end
+  
+  def can?(performer, action, options = {})
+    case action.to_sym
+    when :view, :read      
+      is_user_owner?(performer) ? true : is_public? && is_approved?    
+    else 
+      super(performer, action, options)                 
+    end
+  end     
 end

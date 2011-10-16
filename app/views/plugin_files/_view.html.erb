@@ -13,7 +13,7 @@
 						<h2 class="title"><%= files.size %> <%= plugin.model_name.human(:count => files.size) %></h2>
 					</td>
 					<td align=right>
-						<% if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_create? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
+						<% if PluginFile.can?(@logged_in_user, :create) %>
 							<a href="javascript:toggle_box('new_file_box')" class="plugin_title_link">
 								<%= icon("new") %>
 								<%=  t("label.item_new", :item => plugin.model_name.human) %>
@@ -23,7 +23,7 @@
 				</tr>
 			</table>
 		</div>		
-		<% if @logged_in_user.group.plugin_permissions[plugin.plugin_class.name].can_create? || item.is_user_owner?(@logged_in_user) || @logged_in_user.is_admin? %>
+		<% if PluginFile.can?(@logged_in_user, :create) %>
 			<div style="display:none" id="new_file_box" class="box_1">
 		      <h2><%=  t("label.item_new", :item => plugin.model_name.human) %></h2>
 			   <div>

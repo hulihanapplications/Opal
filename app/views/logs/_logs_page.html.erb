@@ -2,48 +2,7 @@
 	  		<%= render :partial => "tools/menu" if (params[:controller] == "logs" && params[:action] == "index")%>
 			<div class="box_1" style="margin-bottom:5px;">
 				<%= render :partial => "logs/legend" %>
-			</div>
-	  		<!--
-			<div class="box_1" style="margin-bottom:5px;">
-				<h3 class="title">Search by Log Type</h3>
-				<table>
-					<tr><td><input type="radio" name="log_type" value="create"></td><td>Create</td></tr>
-					<tr><td><input type="radio" name="log_type" value="update"></td><td>Update</td></tr>
-					<tr><td><input type="radio" name="log_type" value="delete"></td><td>Delete</td></tr>
-					<tr><td><input type="radio" name="log_type" value="system"></td><td>System</td></tr>					
-				</table>
-			</div>
-
-			<div class="box_1">
-					<h3 class="title">Search by Time</h3>
-					<table>
-						<tr>
-							<td><b>Time of Creation</b></td>
-							<td>
-								<select name="created_at">
-									<option value="whenever" SELECTED>Whenever</option>						
-									<option value="today">Today</option>
-									<option value="this_week">This Week</option>
-									<option value="this_month">This Month</option>
-									<option value="this_year">This Year</option>												
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td><b>Last Updated</b></td>
-							<td>
-								<select name="updated_at">
-									<option value="whenever" SELECTED>Whenever</option>						
-									<option value="today">Today</option>
-									<option value="this_week">This Week</option>
-									<option value="this_month">This Month</option>
-									<option value="this_year">This Year</option>												
-								</select>
-							</td>
-						</tr>							
-					</table>				
-			</div>
-			-->			
+			</div>	
 </div>
 <div id="main">
 	  	<div class="box_2">

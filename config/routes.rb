@@ -58,7 +58,12 @@ Rails.application.routes.draw do
 
   
   
-  resources :plugin_videos, :logs
+  resources :plugin_videos
+  resources :logs do
+    get "for_me", :on => :collection
+    get "for_item", :on => :collection
+    get "for_user", :on => :collection            
+  end
   
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.

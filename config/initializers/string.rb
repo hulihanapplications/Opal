@@ -13,4 +13,20 @@ class String
     end            
     string  =  (0..options[:length].to_i).map{ o[rand(o.length)]  }.join;    
   end
+  
+  # normalize action - "edit" => "update", "update" => "update" 
+  def normalize_action 
+    case self.to_sym
+    when :new, :create
+      "create"    
+    when :view, :read
+      "read"
+    when :edit, :update
+      "update"
+    when :destroy, :delete
+      "destroy"
+    else
+      self
+    end 
+  end   
 end

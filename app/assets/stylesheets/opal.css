@@ -93,8 +93,15 @@ ul.sortable, ul.collapsed{margin:0px;padding:0px;list-style-type:none;}
 .plugin_item_controls{margin:0;padding:0}
 .images .image .plugin_item_controls{display:block;margin:5px;}
 
+/* Pages */
+.page .content{padding:5px 0px;}
+
 /* Notice Messages(Success and Failure Boxes) & Error Styles */
 .notice{text-align:center;} /* This is the div that contains all notice messages. */
+
+/* Logs */
+.log td{vertical-align:middle}
+.log img.medium{float:left;margin-right:5px;vertical-align:middle}
 
 /* Pagination */
 .pagination{text-align:center;}
@@ -105,6 +112,12 @@ ul.sortable, ul.collapsed{margin:0px;padding:0px;list-style-type:none;}
 .buttons{text-align:center;margin:10px 0px}
 #editor_wrapper{margin-bottom:10px;}
 
+/* Menus */
+div.record{position:relative;}
+div.record_menu{position:absolute;top:-10px;right:0;/*display:none;*/}
+div.record:hover div.record_menu{display:block}
+div.record_menu > ul{list-style:none;text-align:right;}
+	div.record_menu > ul li{display:inline;}
 
 /* Other Stuff */
 .main_content_top_bar{height:25px;}

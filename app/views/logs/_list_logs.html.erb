@@ -3,16 +3,18 @@
 		<% for log in logs %>
 			<% log_item = log.item_id ? log.item : nil %>
 			<% log_user = log.user_id ? log.user : nil %>			
-			<div class="log" id="log_<%= log.id %>">
+			<div class="record log" id="log_<%= log.id %>">
+				<div class="record_menu">
+					<ul>
+						<%= content_tag(:li, link_to_function(icon("dropdown") + " " + t("single.details"), "$('#log_details_#{log.id}').toggle()", :class => "")) %>																										
+					</ul>					
+				</div>
+				<%= content_tag(:span, friendly_date(log.created_at), :class => "date") %>												
 				<table style="width:100%">
 					<tr>
 						<%= content_tag(:td, link_to_user(log_user, :avatar => true, :avatar_class => "medium", :name => false)) if log_user %>
-						<td style="width:100%">																							
-							<%= log_message(log) %>
-							<div class="sub">
-								<%= friendly_date(log.created_at) %>
-								<%= link_to_function(icon("dropdown") + " " + t("single.details"), "$('#log_details_#{log.id}').toggle()", :class => "") %>																					
-							</div>
+						<td style="width:100%;">																													
+							<%= content_tag(:span, log_message(log), :class => :message) %>
 						</td>
 						<td class="icon_column">
 							<%= log_icon(log) %>

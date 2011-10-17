@@ -42,13 +42,7 @@ module Opal
       def can?(performer, action, options = {})
         case performer
         when User        
-          case action.to_sym
-          when :destroy, :delete, :edit, :update
-            # Override to Disallow 
-            (GroupPluginPermission.for_plugin_and_group(plugin, performer.group).can?(action) || (self.is_user_owner?(performer) && !performer.anonymous?)) || record.can?(performer, action, options) || performer.is_admin?
-          else
-            GroupPluginPermission.for_plugin_and_group(plugin, performer.group).can?(action) || super(performer, action, options)
-          end                    
+          GroupPluginPermission.for_plugin_and_group(plugin, performer.group).can?(action) || super(performer, action, options)
         end 
       end
     end
@@ -58,7 +52,13 @@ module Opal
       def can?(performer, action, options = {})
         case performer
         when User
-          GroupPluginPermission.for_plugin_and_group(self.class.plugin, performer.group).can?(action) || super(performer, action, options)
+          case action.to_sym          
+          when :destroy, :delete, :edit, :update
+            # Override to Disallow 
+            (GroupPluginPermission.for_plugin_and_group(self.class.plugin, performer.group).can?(action) || (self.is_user_owner?(performer) && !performer.anonymous?)) || record.can?(performer, action, options) || performer.is_admin?
+          else
+            GroupPluginPermission.for_plugin_and_group(self.class.plugin, performer.group).can?(action) || super(performer, action, options)
+          end             
         end                 
       end      
       

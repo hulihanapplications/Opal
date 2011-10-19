@@ -1,4 +1,4 @@
-<%= render :partial => "main_content_top_bar" %>
+<%= render :partial => "main_content_top_bar", :locals => {:item => item} %>
 <div class="header">					
 	<% if item.can?(@logged_in_user, :edit) %>
 		<div class="box_1 tools" style="margin-bottom:10px" >
@@ -25,11 +25,11 @@
 					</td>
 					<td align=right>
 						<% if Item.can?(@logged_in_user, :create)  %>
-							<%= link_to raw("#{icon("new")} #{t("label.item_new", :item => @item.category.name) + " " + Item.model_name.human}"), {:action => "new", :controller => "items", :id => item.category} %>
+							<%= link_to raw("#{icon("new")} #{t("label.item_new", :item => item.category.name) + " " + Item.model_name.human}"), {:action => "new", :controller => "items", :id => item.category} %>
 						<% end %>												
 						<% if item.can?(@logged_in_user, :edit) %>
 							   		<img src="/themes/<%= @setting[:theme] %>/images/icons/logs.png" class="icon">
-									<%= link_to Log.model_name.human(:count => :other), {:controller => "logs", :action => "for_item", :id => @item.id}, :title => t("label.item_view_items", :item => Item.model_name.human, :items => Log.model_name.human(:count => :other)) %>						
+									<%= link_to Log.model_name.human(:count => :other), {:controller => "logs", :action => "for_item", :id => item.id}, :title => t("label.item_view_items", :item => Item.model_name.human, :items => Log.model_name.human(:count => :other)) %>						
 								<%= link_to icon("edit") + " " + t("single.edit") , {:action => "edit", :controller => "items", :id => item}, :title => t("label.item_edit", :item => Item.model_name.human) %>
 						<% end %>
 						<% if item.can?(@logged_in_user, :destroy)  %>

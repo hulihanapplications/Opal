@@ -1,3 +1,4 @@
+<% item ||= nil %>
 <div class="main_content_top_bar">
 	<table style="width:100%" cellpadding=0 cellspacing=0 >
 		<tr>
@@ -5,13 +6,13 @@
 				<% if get_setting_bool("enable_navlinks")  %>
 					<% if @category %>
 						<%= nav_link_category(@category) %>
-					<% elsif @item %>
-						<%= nav_link_item(@item) %>						
+					<% elsif item %>
+						<%= nav_link_item(item) %>
 					<% end %>
 				<% end %>
 			</td>
 			<td align=right>
-				<% if !@item %>		
+				<% if !item %>		
 					<%= link_to(icon("new") + " #{t("label.item_new", :item => Item.model_name.human)}", {:action => "new", :controller => "items", :id => params[:id]}) if @logged_in_user.can_create_item? %>														
 					<% if Setting.get_setting_bool("allow_item_list_type_changes")  && (params[:action] != "view") %>
 						<%  session[:list_type] ?  @setting[:list_type] = session[:list_type] : @setting[:list_type] = Setting.get_setting("list_type") %>						
@@ -86,7 +87,7 @@
 						</script>	
 					<% end %>					
 				<% else %>		
-					<%= link_to(icon("new") + " #{t("label.item_new", :item => Item.model_name.human)}", {:action => "new", :controller => "items", :id => @item.category_id}) if @logged_in_user.can_create_item? %>														
+					<%= link_to(icon("new") + " #{t("label.item_new", :item => Item.model_name.human)}", {:action => "new", :controller => "items", :id => item.category_id}) if @logged_in_user.can_create_item? %>														
 					<% if Setting.get_setting_bool("allow_item_page_type_changes")  && (params[:action] == "view") %>		
 						<%  session[:item_page_type] ?  @setting[:item_page_type] = session[:item_page_type] : @setting[:item_page_type] = Setting.get_setting("item_page_type") %>																			
 						<%= link_to raw("<img src=\"/themes/#{@setting[:theme]}/images/icons/item_page_type_summarized.png\" class=\"icon #{"selected" if @setting[:item_page_type] == "summarized"}\">"), { :action => 'set_item_page_type', :controller => "items", :item_page_type => "summarized", :redirect_to => current_url}, :class => "transparent", :title => t("activerecord.records.setting.item_page_type_summarized.description", :item => Item.model_name.human ) %>						
@@ -95,8 +96,8 @@
 						<%= link_to raw("<img src=\"/themes/#{@setting[:theme]}/images/icons/item_page_type_accordion.png\" class=\"icon #{"selected" if @setting[:item_page_type] == "accordion"}\">"), { :action => 'set_item_page_type', :controller => "items", :item_page_type => "accordion", :redirect_to => current_url}, :class => "transparent", :title => t("activerecord.records.setting.item_page_type_accordion.description", :item => Item.model_name.human ) %>						
 						<%= link_to raw("<img src=\"/themes/#{@setting[:theme]}/images/icons/item_page_type_expanded.png\" class=\"icon #{"selected" if @setting[:item_page_type] == "expanded"}\">"), { :action => 'set_item_page_type', :controller => "items", :item_page_type => "expanded", :redirect_to => current_url}, :class => "transparent", :title => t("activerecord.records.setting.item_page_type_expanded.description", :item => Item.model_name.human ) %>						
 					<% end %>
-				  		<%= auto_discovery_link_tag(:rss, {:action => "view", :controller => "items", :id => @item,  :format => "xml"}, :title => "#{t("label.rss_feed")} - #{@item.name}") %> 
-					    <%= link_to icon("rss", "#{t("label.rss_feed")} - #{@item.name}"),  {:action => "view", :controller => "items", :id => @item,  :format => "xml"}, :class => "transparent" %>					
+				  		<%= auto_discovery_link_tag(:rss, {:action => "view", :controller => "items", :id => item,  :format => "xml"}, :title => "#{t("label.rss_feed")} - #{item.name}") %> 
+					    <%= link_to icon("rss", "#{t("label.rss_feed")} - #{item.name}"),  {:action => "view", :controller => "items", :id => item,  :format => "xml"}, :class => "transparent" %>					
 				<% end %>
 			</td>
 		</tr>

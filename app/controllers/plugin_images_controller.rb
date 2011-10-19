@@ -40,7 +40,7 @@ class PluginImagesController < PluginController
   end 
 
   def delete
-    @image = PluginImage.find(params[:image_id])
+    @image = @record
     if @image.destroy
       log(:log_type => "destroy", :target => @image)
       flash[:success] =  t("notice.item_delete_success", :item => PluginImage.model_name.human)     
@@ -56,11 +56,11 @@ class PluginImagesController < PluginController
   end
 
   def edit
-    @image = PluginImage.find(params[:image_id])    
+    @image = @record   
   end
   
   def update
-    @image = PluginImage.find(params[:image_id])
+    @image = @record
     if @image.update_attributes(params[:plugin_image])
        log(:log_type => "update", :target => @image)
        flash[:success] =  t("notice.item_save_success", :item => PluginImage.model_name.human)     

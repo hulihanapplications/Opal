@@ -13,7 +13,7 @@
 						<h2 class="title"><%= files.size %> <%= plugin.model_name.human(:count => files.size) %></h2>
 					</td>
 					<td align=right>
-						<% if PluginFile.can?(@logged_in_user, :create) %>
+						<% if PluginFile.can?(@logged_in_user, :create, :record => @record) %>
 							<a href="javascript:toggle_box('new_file_box')" class="plugin_title_link">
 								<%= icon("new") %>
 								<%=  t("label.item_new", :item => plugin.model_name.human) %>
@@ -23,11 +23,11 @@
 				</tr>
 			</table>
 		</div>		
-		<% if PluginFile.can?(@logged_in_user, :create) %>
+		<% if PluginFile.can?(@logged_in_user, :create, :record => @record) %>
 			<div style="display:none" id="new_file_box" class="box_1">
 		      <h2><%=  t("label.item_new", :item => plugin.model_name.human) %></h2>
 			   <div>
-					<%= form_tag({:action => 'create', :controller => "plugin_files", :id => item.id} , :multipart => true) %>
+					<%= form_tag({:action => 'create', :controller => "plugin_files", :id => item.id, :record_id => @record.id, :record_type => @record.class.name} , :multipart => true) %>
 						<%= icon("file") %>
 						<%= PluginFile.human_attribute_name(:title) %>
 						<%= text_field_tag("plugin_file[title]") %>

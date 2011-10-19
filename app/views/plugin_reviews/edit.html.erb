@@ -1,22 +1,16 @@
 <div class="item">
-	<%= render :partial => "items/item_header", :locals => {:item => @item, :options => {:show_item_info => true, :show_item_title => true}} %>
+	<%= record_header(@record) %>
 	
-
 	<div class="box_2">
 		<h2 class="title"><%= t("label.item_edit", :item => @plugin.model_name.human) %> <%= t("single.from") %> <%= @review.user.username %> </h2>
 		<div class="spacer"></div>
 		<%= form_tag :action => 'update', :controller => "plugin_reviews", :id => @item.id  %>
-			<input name="review_id" value="<%= @review.id %>" type="hidden">
+			<%= remember_record(@review) %>
 			<%= render :partial => "form", :locals => {:review => @review} %>
 			<br>
 			<div align=center><%= submit_tag t("label.item_save", :item => @plugin.model_name.human), :class => "button_1" %></div>
 		</form>
-	</div>
-	
-	
+	</div>	
 											
-	<%= back %>	
-	
-	
-	
+	<%= back %>			
 </div>

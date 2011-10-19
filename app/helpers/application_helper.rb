@@ -448,6 +448,19 @@ module ApplicationHelper
   # link to polymorphic record
   def link_to_record(record)
     link_to record.to_s, {:action => :view, :controller => record.class.controller_name, :id => record.id} if record
-  end   
+  end
+  
+  def record_header(record)   
+    if record.record
+      case record.record
+      when Item
+        render :partial => "items/item_header", :locals => {:item => record.record, :options => {:show_item_info => true, :show_item_title => true}}
+      end 
+    else
+      case record
+      when Item
+        render :partial => "items/item_header", :locals => {:item => record, :options => {:show_item_info => true, :show_item_title => true}}
+      end  
+    end     
+  end
 end
-

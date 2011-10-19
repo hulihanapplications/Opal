@@ -11,7 +11,8 @@
 			<div class="box_2" style="margin-bottom:5px">
 				<h2 class="title"><%= t("label.item_edit", :item => @plugin.model_name.human) %></h2>
 				<div class="spacer"></div>
-				<%= form_tag :action => 'update', :controller => "plugin_descriptions", :id => @item.id  %>
+				<%= form_tag :action => 'update', :controller => "plugin_descriptions", :id => @item.id, :record_id => @record.id, :record_type => @record.class.name  %>
+					<%= remember_record(@record) %>
 					<input name="description_id" value="<%= @description.id %>" type="hidden">
 					<%= render :partial => "form", :locals => {:description => @description} %>
 					<br>

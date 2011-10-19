@@ -13,7 +13,7 @@
 						<h2 class="title"><%= links.size %> <%= plugin.model_name.human(:count => links.size) %></h2>										
 					</td>
 					<td align=right>
-						<% if PluginLink.can?(@logged_in_user, :create) %>
+						<% if PluginLink.can?(@logged_in_user, :create, :record => @record) %>
 							<a href="javascript:toggle_box('new_link_box')" class="plugin_title_link">
 								<%= icon("new") %>
 								<%=  t("label.item_new", :item => plugin.model_name.human) %>
@@ -24,11 +24,11 @@
 			</table>				
 		</div>			
 
-		<% if PluginLink.can?(@logged_in_user, :create) %>
-			<div style="display:none;margin-bottom:10px;" id="new_link_box" class="box_1">
+		<% if PluginLink.can?(@logged_in_user, :create, :record => @record) %>
+			<div style="display:none" id="new_link_box" class="box_1">
 			      <h2><%=  t("label.item_new", :item => plugin.model_name.human) %></h2>
 				   <div>
-   					   <%= form_tag  :action => 'create', :controller => "plugin_links", :id => item.id %>
+   					   <%= form_tag  :action => 'create', :controller => "plugin_links", :id => item.id, :record_id => @record.id, :record_type => @record.class.name %>
 						<%= icon("link") %>
 						<%= t("single.title") %>
 						<input name="link_title" type="text" id="new_link_title_input" onfocus = "focus_input('new_link_title_input')" onblur = "blur_input('new_link_title_input')">

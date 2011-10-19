@@ -1,12 +1,11 @@
-<div class="item">
-	
-	<%= render :partial => "items/item_header", :locals => {:item => @item, :options => {:show_item_info => true, :show_item_title => true}} %>
-	
+<div class="item">	
+	<%= record_header(@record) %>
 
 	<div class="box_2">
 		<h2 class="title"><%= t("label.item_new", :item => @plugin.model_name.human) %></h2>
 		<div class="spacer"></div>		
-		<%= form_tag  :action => 'create', :controller => "plugin_reviews", :id => @item.id %>
+		<%= form_tag  :action => 'create', :controller => "plugin_reviews" %>
+			<%= remember_record(@record) %>			
 			<%= render :partial => "form", :locals => {:review => @review, :plugin => @plugin} %>
 			<br>
 			<div align=center><%= submit_tag t("label.item_create", :item => @plugin.model_name.human), :class => "button_1" %></div>

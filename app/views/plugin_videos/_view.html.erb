@@ -13,8 +13,8 @@
 							<h2 class="title"><%= videos.size %> <%= plugin.model_name.human(:count => videos.size) %> </h2>										
 						</td>
 						<td align=right>
-							<% if PluginVideo.can?(@logged_in_user, :create) %>
-								<%= link_to icon("new") + " " + t("label.item_new", :item => plugin.model_name.human), {:action => "new", :controller => "plugin_videos", :id => item.id }, :class => "plugin_title_link" %>
+							<% if PluginVideo.can?(@logged_in_user, :create, :record => @record, :record => @record) %>
+								<%= link_to icon("new") + " " + t("label.item_new", :item => plugin.model_name.human), {:action => "new", :controller => "plugin_videos", :id => item.id, :record_id => @record.id, :record_type => @record.class.name}, :class => "plugin_title_link" %>
 							<% end %>							
 						</td>
 					</tr>

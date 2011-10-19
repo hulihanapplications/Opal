@@ -11,7 +11,8 @@
 			<div class="box_2" style="margin-bottom:5px">
 				<h2 class="title"><%= t("label.item_new", :item => @plugin.model_name.human) %></h2>
 				<div class="spacer"></div>		
-				<%= form_tag  :action => 'create', :controller => "plugin_descriptions", :id => @item.id %>
+				<%= form_tag  :action => 'create', :controller => "plugin_descriptions", :id => @item.id, :record_id => @record.id, :record_type => @record.class.name %>
+					<%= remember_record(@record) %>
 					<%= render :partial => "form", :locals => {:description => @description, :plugin => @plugin} %>
 					<br>
 					<div align=center><%= submit_tag t("label.item_create", :item => @plugin.model_name.human), :class => "button_1" %></div>
@@ -20,5 +21,5 @@
 			</div>
 	</div>				
 	
-	<div align=center><img src="/themes/<%= @setting[:theme] %>/images/icons/arrow_left.png" class="icon" title=""> <%= link_to t("single.back"), { :action => 'view', :controller => "items", :id => @item.id, :anchor => "#{@plugin.name}s"}  %></div>
+	<%= back %>
 </div>

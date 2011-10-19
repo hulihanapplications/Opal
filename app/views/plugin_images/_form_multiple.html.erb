@@ -31,7 +31,9 @@
 		uploadify_script_data['<%= session_key %>'] = '<%= cookies[session_key] %>';	 // Associate the session information
 		uploadify_script_data['id'] = '<%= @item.id %>'
 		uploadify_script_data['user_credentials'] = '<%= @logged_in_user.single_access_token %>'
-		
+		uploadify_script_data['record_type'] = '<%= @record.class.name %>'
+		uploadify_script_data['record_id'] = '<%= @record.id %>'
+
 		// Check if there's any special effects selected/present
 		if($("#effects")){
 			var effects = $("#effects").find("input")			

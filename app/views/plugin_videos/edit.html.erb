@@ -1,5 +1,5 @@
 <div class="item">
-	<%= render :partial => "items/item_header", :locals => {:item => @item, :options => {:show_item_info => true, :show_item_title => true}} %>
+	<%= record_header(@record) %>
 	
 	
 	<div id="side">	
@@ -8,7 +8,7 @@
 			</div>	
 	</div>
 	<div id="main">
-			<div class="box_2" style="margin-bottom:5px">
+			<div class="box_2">
 				<h2 class="title"><%= t("label.item_edit", :item => @plugin.model_name.human) %></h2>
 				<hr />
                 <%= form_for(@video, :url => { :action => "update", :controller => "plugin_videos", :id => @item.id, :video_id => @video.id}) do |f| %>
@@ -19,6 +19,5 @@
 			</div>
 	</div>		
 	
-	<div align=center><img src="/themes/<%= @setting[:theme] %>/images/icons/arrow_left.png" class="icon" title="Back"> <%= link_to t("single.back"), { :action => 'view', :controller => "items", :id => @item.id, :anchor => "#{@plugin.name}s"}  %></div>
-	
+	<%= back %>	
 </div>

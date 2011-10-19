@@ -20,7 +20,7 @@
 			</table>
 		
 			<div class="spacer"></div>
-			<%= form_tag :action => 'update_values', :controller => "plugin_features", :id => @item.id  %>
+			<%= form_tag :action => 'update_values', :controller => "plugin_features", :id => @item.id, :record_id => @record.id, :record_type => @record.class.name  %>
 				<%= render :partial => "plugin_features/form_for_item", :locals => {:item => @item} %>
 				<div align=center><%= submit_tag t("single.save"), :class => "button_1" %></div>
 			</form>									

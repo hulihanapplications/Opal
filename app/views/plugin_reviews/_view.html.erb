@@ -31,9 +31,9 @@
 							<span title="<%= PluginReview.human_attribute_name(:average)%>"><%= score(:type => @setting[:plugin_review][:review_type], :min => @setting[:plugin_review][:score_min].to_i, :max => @setting[:plugin_review][:score_max].to_i, :value => review_score) %></span>
 						</span>
 						
-						<% if PluginReview.can?(@logged_in_user, :create) %>
+						<% if PluginReview.can?(@logged_in_user, :create, :record => @record) %>
 							<%= icon("new") %>
-							<%= link_to t("label.item_new", :item => plugin.model_name.human), {:action => "new", :controller => "plugin_reviews", :id => item}%>
+							<%= link_to t("label.item_new", :item => plugin.model_name.human), {:action => "new", :controller => "plugin_reviews", :id => item, :record_id => @record.id, :record_type => @record.class.name}%>
 						<% end %>												
 					</div>								
 				</td>

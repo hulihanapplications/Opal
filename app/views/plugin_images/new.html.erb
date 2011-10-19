@@ -1,8 +1,7 @@
 <div class="item">
-	<%= render :partial => "items/item_header", :locals => {:item => @item, :options => {:show_item_info => true, :show_item_title => true}} %>
-	
+	<%= record_header(@record) %>
 	<h2>
-		<%=  icon("image") + " " + t("label.item_new", :item => PluginImage.model_name.human) %> <%= t("single.for").downcase %> <%= h(@item.name) %>
+		<%=  icon("image") + " " + t("label.item_new", :item => PluginImage.model_name.human) %> <%= t("single.for").downcase %> <%= h(@record.to_s) %>
 	</h2>
 	<br />
 
@@ -13,8 +12,9 @@
 	<div class="plugin_panes_horizontal"> 					
 	    <div id="<%= t("single.single") %>">
 	       <%= form_for(@image,  :url => { :action => "create", :controller => "plugin_images"}, :html => {:multipart => true}) do |f| %>
+			   <%= remember_record(@record) %>
 			   <%= render :partial => "plugin_images/form", :locals => {:f => f} %>
-			   <br />
+			   <br />			   
 			   <div align=center style="clear:both">
 			   		<%= submit_tag  t("label.item_create", :item => PluginImage.model_name.human), :class => "button_1" %>
 			   </div>

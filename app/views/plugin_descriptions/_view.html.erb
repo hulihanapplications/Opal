@@ -1,4 +1,4 @@
-<% if item.is_editable_for_user?(@logged_in_user) %>
+<% if item.can?(@logged_in_user, :edit) %>
 	<% descriptions = PluginDescription.record(item).newest_first %>
 <% else %>
 	<% descriptions = PluginDescription.record(item).approved.newest_first %>

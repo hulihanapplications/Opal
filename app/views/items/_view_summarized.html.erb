@@ -25,7 +25,7 @@
 						<% if Plugin.plugins[:feature].is_enabled? %>
 							<% 
 								features = PluginFeature.find(:all, :order => "order_number ASC") 
-								if item.is_editable_for_user?(@logged_in_user)
+								if item.can?(@logged_in_user, :edit)
 									feature_values = PluginFeatureValue.record(item).all # show all values  
 								else 
 									feature_values = PluginFeatureValue.record(item).approved.all # show only approved values

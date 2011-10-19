@@ -66,12 +66,7 @@ class PluginDiscussionsController < PluginController
 
  def rss
    @discussion = PluginDiscussion.find(params[:discussion_id])
-   if @item.is_viewable_for_user?(@logged_in_user) # make sure user can see the item   
-     @posts = PluginDiscussionPost.find(:all, :conditions => ["plugin_discussion_id = ?", @discussion.id], :limit => 30) 
-     render :layout => false
-   else # Attempted Securtiy Bypass: User is trying to add a comment to an item that's not viewable. They shouldn't be able to get to the add comment form, but this stops them server-side.
-     flash[:failure] = t("notice.not_visible")             
-     redirect_to root_path
-   end    
+   @posts = PluginDiscussionPost.find(:all, :conditions => ["plugin_discussion_id = ?", @discussion.id], :limit => 30) 
+   render :layout => false  
  end   
 end

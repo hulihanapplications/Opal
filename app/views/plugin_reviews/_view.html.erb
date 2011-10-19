@@ -1,4 +1,4 @@
-<% if item.is_editable_for_user?(@logged_in_user) %>
+<% if item.can?(@logged_in_user, :edit) %>
 	<% reviews = PluginReview.record(item).most_votes_first.newest_first %>
 <% else %>
 	<% reviews = PluginReview.record(item).most_votes_first.newest_first.approved %>

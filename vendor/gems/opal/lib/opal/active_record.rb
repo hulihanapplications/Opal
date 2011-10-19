@@ -21,37 +21,7 @@ module Opal
           l.item_id = self.item_id if respond_to?(:item_id)       
           l.save
           return l
-        end         
-        
-        def is_viewable_for_user?(user) # Can the current user see this record?
-          if user.is_admin? || self.user_id == user.id # User is an admin, or the user that created the item. Item owners can always see their item, but no one else can, if not allowed.
-            return true
-          else # not an admin or user that created item.
-              if self.is_public == "1" && self.is_approved == "1"
-                return true
-              elsif (self.is_public == "0" && self.is_approved == "1") # It's not public, but is approved 
-                return false
-              else # not public or viewable
-                return false
-              end
-          end
-        end
-        
-        def is_editable_for_user?(user) # can the user edit this record?
-           if ((self.is_user_owner?(user) && respond_to?(:locked) ? !locked : true) || user.is_admin?)  # Yes, the item belongs to the user
-             return true
-           else # The item does not belong to the user.
-             return false
-           end
-        end
-        
-        def is_deletable_for_user?(user) # can the user delete this record?
-          if user.is_admin? # User is an admin
-            return true
-          else # not an admin    
-            return self.is_user_owner?(user) && respond_to?(:locked) ? !locked : true # check if user that owns this item and users are allowed to delete items
-          end
-        end            
+        end                 
         
         def is_user_owner?(user)
           self.user_id == user.id # is this user the owner?

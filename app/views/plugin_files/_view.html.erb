@@ -1,4 +1,4 @@
-<% if item.is_editable_for_user?(@logged_in_user) %>
+<% if item.can?(@logged_in_user, :edit) %>
 	<% files = PluginFile.record(item).newest_first  %>
 <% else %>
 	<% files = PluginFile.record(item).newest_first.approved  %>

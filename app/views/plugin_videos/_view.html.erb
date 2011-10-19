@@ -1,4 +1,4 @@
-<% if item.is_editable_for_user?(@logged_in_user) %>
+<% if item.can?(@logged_in_user, :edit) %>
 	<% videos = PluginVideo.record(item) %>
 <% else %>
 	<% videos = PluginVideo.record(item).approved %>

@@ -2,7 +2,7 @@
 <% other_plugins = Plugin.find(:all, :conditions => ["is_builtin = '0'"], :order => "order_number ASC")%>
 
 <% for item in items %>
- <% if item.is_viewable_for_user?(@logged_in_user) %>
+ <% if item.can?(@logged_in_user, :view) %>
 	<div class="item_box_simple">
 		<div class="item">
 			<table cellpadding=0 cellspacing=0 style="width:100%">

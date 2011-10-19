@@ -1,4 +1,4 @@
-<% if item.is_editable_for_user?(@logged_in_user) %>
+<% if item.can?(@logged_in_user, :edit) %>
 	<% links = PluginLink.record(item).newest_first  %>
 <% else %>
 	<% links = PluginLink.record(item).newest_first.approved %>

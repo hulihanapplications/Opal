@@ -1,6 +1,6 @@
 <div>
 	<% for item in items %>
-	 <% if item.is_viewable_for_user?(@logged_in_user) %>
+	 <% if item.can?(@logged_in_user, :view) %>
 			<div class="item_box_photo">
 				<div class="item">
 					<table cellpadding=0 cellspacing=0 align=center  style="width:100%">
@@ -11,10 +11,10 @@
 									<%= link_to h(truncate(item.name, :length => 24)), {:action => "view", :controller => "items", :id => item}, :title => "#{h item.name}" %>								
 								</div>
 								<div>
-									<% if item.is_editable_for_user?(@logged_in_user) %>
+									<% if item.can?(@logged_in_user, :edit) %>
 										<%= link_to icon("edit"), {:action => "edit", :controller => "items", :id => item}, :title => t("label.item_edit", :item => Item.model_name.human) %>
 									<% end %>
-									<% if item.is_deletable_for_user?(@logged_in_user) %>
+									<% if item.can?(@logged_in_user, :destroy) %>
 										<%= link_to icon("delete"), {:action => "delete", :controller => "items", :id => item}, :title => t("label.item_delete", :item => Item.model_name.human), :confirm => t("confirm.item_delete", :item => Item.model_name.human) %>
 									<% end %>									
 								</div>

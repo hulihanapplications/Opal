@@ -7,18 +7,18 @@ class ItemsController < ApplicationController
  
  before_filter :find_item, :only => [:view, :edit, :update, :delete, :set_preview] # look up item  
  before_filter :only => [:view] {|c| can?(@item, @logged_in_user, :view)} 
- before_filter :only => [:edit, :update, :delete, :set_preview] {|c| can?(@item, @logged_in_user, :edit)}  
+ before_filter :only => [:edit, :update, :set_preview] {|c| can?(@item, @logged_in_user, :edit)}  
+ before_filter :only => [:delete] {|c| can?(@item, @logged_in_user, :destroy)}  
  before_filter :enable_sorting, :only => [:index, :category, :all_items, :search, :my] # prepare sort variables & defaults for sorting
 
- 
   def index # show all items to user
-   @setting[:homepage_type] = Setting.get_setting("homepage_type")    
-   if @logged_in_user.is_admin?
-    @items = Item.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i, :order => Item.sort_order(params[:sort])     
-   else      
-    @items = Item.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i, :order => Item.sort_order(params[:sort]), :conditions => ["is_approved = '1' and is_public = '1'"]
-   end
-   @setting[:meta_title] << Item.model_name.human(:count => :other) 
+    @setting[:homepage_type] = Setting.get_setting("homepage_type")    
+    if @logged_in_user.is_admin?
+      @items = Item.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i, :order => Item.sort_order(params[:sort])     
+    else      
+      @items = Item.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i, :order => Item.sort_order(params[:sort]), :conditions => ["is_approved = '1' and is_public = '1'"]
+    end
+    @setting[:meta_title] << Item.model_name.human(:count => :other) 
   end
  
   def category # get all items for a category and its children/descendants recursively
@@ -132,13 +132,8 @@ class ItemsController < ApplicationController
   end
   
   def delete
-   if @item.is_deletable_for_user?(@logged_in_user)
-     log(:log_type => "destroy", :target => @item)
-     @item.destroy
-     flash[:success] = t("notice.item_delete_success", :item => Item.model_name.human)
-   else # The user can't delete this item
-     flash[:failure] = t("notice.invalid_permissions")
-   end 
+   log(:log_type => "destroy", :target => @item) if @item.destroy
+   flash[:success] = t("notice.item_delete_success", :item => Item.model_name.human)
    redirect_to :action => "my"
   end
 

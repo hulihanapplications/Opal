@@ -1,7 +1,7 @@
 <% if items.size > 0 %>
 	<div class="box_2" style="padding:0px">
 		<% for item in items %>
-		 <% if item.is_viewable_for_user?(@logged_in_user) %>
+		 <% if item.can?(@logged_in_user, :view) %>
 			 <div class="item_box_small">
 			 	<div class="item">
 					<div class="<%= cycle('row_a', 'row_b') %>">	

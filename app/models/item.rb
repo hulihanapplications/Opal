@@ -74,20 +74,7 @@ class Item < ActiveRecord::Base
   def is_public?
     self.is_public == "1"
   end
- 
-  # Override
-  def is_deletable_for_user?(user) # can the user delete this item?
-    if user.is_admin? # User is an admin
-      return true
-    else # not an admin    
-      if (Setting.get_setting_bool("users_can_delete_items") && self.is_user_owner?(user) && !self.locked) # check if user that owns this item and users are allowed to delete items
-        return true
-      else # either not owner or users can't delete items
-        return false
-      end
-    end
-  end            
-
+  
   def self.sort_order(options = {}) # get sanitized sort order for use in find
     options[:by] ||= Item.human_attribute_name(:created_at)
     options[:direction] ||= "desc"     

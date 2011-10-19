@@ -4,7 +4,7 @@
 %>
 <% 
 	features = PluginFeature.find(:all, :order => "order_number ASC") 
-	if item.is_editable_for_user?(@logged_in_user)
+	if item.can?(@logged_in_user, :edit)
 		feature_values = PluginFeatureValue.find(:all, :conditions => ["item_id = ?", item.id]) # show all values  
 	else 
 		feature_values = PluginFeatureValue.find(:all, :conditions => ["item_id = ? and is_approved = '1'", item.id]) # show only approved values

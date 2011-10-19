@@ -5,7 +5,6 @@ class Item < ActiveRecord::Base
   has_many :plugin_comments, :dependent => :destroy, :as => :record
   has_many :plugin_descriptions, :dependent => :destroy, :as => :record
   has_many :plugin_discussions, :dependent => :destroy, :as => :record
-  has_many :plugin_discussion_posts, :dependent => :destroy, :as => :record  
   has_many :plugin_feature_values, :dependent => :destroy, :as => :record
   has_many :plugin_files, :dependent => :destroy, :as => :record
   has_many :plugin_images, :dependent => :destroy, :as => :record
@@ -15,8 +14,9 @@ class Item < ActiveRecord::Base
   has_many :plugin_videos, :dependent => :destroy, :as => :record
   has_many :logs, :as => :target
   belongs_to :preview, :polymorphic => true
-  validates_presence_of :name
+  validates_presence_of :name, :user_id 
   
+  validate :validate_remaining_items, :on => :create
   after_create :create_everything  
   after_create :notify
   after_destroy :destroy_everything
@@ -174,6 +174,13 @@ class Item < ActiveRecord::Base
   def notify
     Emailer.new_item_notification(self).deliver if Setting.global_settings[:new_item_notification]
   end
+
+  # check if user can create more items
+  def validate_remaining_items
+    if Setting.global_settings[:max_items_per_user].to_i != 0 && !user.is_admin?
+      self.errors.add(:count, I18n.t("notice.items_cannot_add_any_more", :items => Item.model_name.human(:count => :other))) if user.items.count >= Setting.global_settings[:max_items_per_user].to_i
+    end 
+  end
   
   def can?(performer, action, options = {})
     case action.to_sym
@@ -182,5 +189,15 @@ class Item < ActiveRecord::Base
     else 
       super(performer, action, options)                 
     end
-  end     
+  end    
+
+  def self.can?(performer, action, options = {})
+    case action.to_sym
+    when :create, :new      
+      (Setting.global_settings[:let_users_create_items] || performer.is_admin?) && !performer.anonymous?          
+    else 
+      super(performer, action, options)                 
+    end
+  end    
+   
 end

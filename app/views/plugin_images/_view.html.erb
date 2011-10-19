@@ -34,7 +34,7 @@
 									<% end %>
 								<% end %>				
 							<% end %>
-							<%= link_to(icon("new") + " " + t("label.item_new", :item => PluginImage.model_name.human), {:action => "new", :controller => "plugin_images", :record_id => @item.id, :record_type => @item.class.name}) if PluginImage.can?(@logged_in_user, :create) %>
+							<%= link_to(icon("new") + " " + t("label.item_new", :item => PluginImage.model_name.human), {:action => "new", :controller => "plugin_images", :record_id => @item.id, :record_type => @item.class.name}) if PluginImage.can?(@logged_in_user, :create, :record => item) %>
 						</td>
 					</tr>
 				</table>				

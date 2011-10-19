@@ -86,7 +86,7 @@ module Opal
           case performer       
           when User
             case action.to_sym
-            when :new, :create
+            when :new, :create, :view, :read
               performer.is_admin?
             end
           end 

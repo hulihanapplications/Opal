@@ -56,7 +56,7 @@ class ApplicationController < ActionController::Base
   end
   
   def reload_settings # reload global settings
-    Setting.global_settings = Setting.get_global_settings 
+    Setting.reload 
   end  
 
   def reload_plugins # reload cached plugins
@@ -143,7 +143,7 @@ class ApplicationController < ActionController::Base
   
   def find_plugin(options = {}) # look up a plugin 
     # Look up plugin based on controller name, ie: PluginCommentsController
-    tmp_controller_name = defined?(@record) ? @record.class.controller_name : self.controller_name
+    tmp_controller_name = self.controller_name
     plugin_name = tmp_controller_name.split("_")[1].capitalize.singularize # "PluginComments" -> "plugin_comments" -> ["plugin", "comments"]
     @plugin = Plugin.find_by_name(plugin_name)
     if @plugin.is_enabled? # check to see if the plugin is enabled
@@ -156,9 +156,10 @@ class ApplicationController < ActionController::Base
       redirect_to :back
      end  
     end
-  rescue Exception => e  
-    flash[:failure] = t("notice.item_not_found", :item => plugin_name)
-    redirect_to :back
+  # Exception => e  
+  #  logger.info e.message
+  #  flash[:failure] = t("notice.item_not_found", :item => plugin_name) + "zzz"
+  #  redirect_to :back
   end
  
     
@@ -250,8 +251,8 @@ private
   end   
 
   # check permission/access, controller style
-  def can?(target, performer, action)
-    if !target.can?(performer, action)
+  def can?(target, performer, action, options = {})
+    if !target.can?(performer, action, options)
       flash[:failure] = t("notice.invalid_permissions")
       respond_to do |format|     
         format.html {request.xhr? ? render(:text => flash[:failure]) : redirect_to(:back)} 

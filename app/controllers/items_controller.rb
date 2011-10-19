@@ -74,10 +74,6 @@ class ItemsController < ApplicationController
     params[:id] ||= Category.find(:first).id # set item's category the first category if not specified
     @item.category_id = params[:id] if params[:id]
     @item.is_approved = "1" if @logged_in_user.is_admin? # check the is_approved checkbox 
-    if !get_setting_bool("let_users_create_items") && !@logged_in_user.is_admin? # users can't create items and they user isn't an admin
-      flash[:failure] = t("notice.items_cannot_add_any_more", :items => Item.model_name.human(:count => :other))      
-      redirect_to :action => "index"
-    end
   end  
 
   def update
@@ -90,9 +86,9 @@ class ItemsController < ApplicationController
     
     @item.attributes = params[:item] # mass assign any new attributes, but don't save.
     if @logged_in_user.is_admin? # save protected attributes
-      @item.user_id = params[:item][:user_id]
-      @item.is_approved = params[:item][:is_approved]
-      @item.featured = params[:item][:featured]
+      @item.user_id = params[:item][:user_id] if !params[:item][:user_id].blank? 
+      @item.is_approved = params[:item][:is_approved] if !params[:item][:is_approved].blank?
+      @item.featured = params[:item][:featured] if !params[:item][:featured].blank?
     end 
     
     if @item.save && @feature_errors.size == 0 # make sure there's not required feature errors        
@@ -108,28 +104,11 @@ class ItemsController < ApplicationController
     
   end
 
-  def create
-    proceed = false # set default flag to false
-    max_items = get_setting("max_items_per_user").to_i # get the amount
-    if (max_items.to_i == 0 && get_setting_bool("let_users_create_items")) || @logged_in_user.is_admin? # users can add unlimited items or user is an admin
-        # do nothing, proceed 
-        proceed = true
-    else # users can only add a limited number of items
-      if get_setting("let_users_create_items") # are users allowed to create items? 
-        users_items = Item.count(:all, :conditions => ["user_id = ?", @logged_in_user.id])
-        if users_items < max_items # they can add more
-          # do nothing, proceed 
-        else # they can't add any more items
-          flash[:failure] = t("notice.items_cannot_add_any_more", :items => Item.model_name.human(:count => :other)) 
-          proceed = false
-        end
-      end
-    end
-    
+  def create    
     @item = Item.new(params[:item])
-    @item.user_id = @logged_in_user.is_admin? ? params[:item][:user_id] : @logged_in_user.id
-    @item.locked = params[:item][:locked] if @logged_in_user.is_admin?
-    @item.featured = params[:item][:featured] if @logged_in_user.is_admin?
+    @item.user_id = @logged_in_user.is_admin? && !params[:item][:user_id].blank? ? params[:item][:user_id] : @logged_in_user.id
+    @item.locked = params[:item][:locked] if @logged_in_user.is_admin? && !params[:item][:locked].blank?
+    @item.featured = params[:item][:featured] if @logged_in_user.is_admin? && !params[:item][:featured].blank?
         
     @item.is_public = "0" if (!params[:item][:is_public] && (get_setting_bool("allow_private_items") || @logged_in_user.is_admin?))  # make private if is_public checkbox not checked
     if (@logged_in_user.is_admin? && params[:item][:is_approved]) || (!@logged_in_user.is_admin? && !get_setting_bool("item_approval_required"))   
@@ -138,25 +117,18 @@ class ItemsController < ApplicationController
        flash[:notice] = t("notice.item_needs_approval", :item => Item.model_name.human)    
     end 
 
-   params[:item][:category_id] ||= Category.find(:first).id # assign the first category's id if not selected.
-   @feature_errors = PluginFeature.check(:features => params[:features], :item => @item) # check if required features are present        
-
-   if proceed            
-      if @item.save && @feature_errors.size == 0 # item creation failed
-         log(:log_type => "create", :target => @item)
-  
-         # Create Features
-         num_of_features_updated = PluginFeature.create_values_for_record(:record => @item, :features => params[:features], :user => @logged_in_user, :delete_existing => true, :approve => true)
-         flash[:success] = t("notice.item_create_success", :item => Item.model_name.human)
-         redirect_to :action => "view", :controller => "items", :id => @item
-       else
-          flash[:failure] = t("notice.item_create_failure", :item => Item.model_name.human)
-          render :action => "new"
-      end     
-   else # they aren't allowed to add item
-      flash[:failure] = t("notice.invalid_permissions")
+    params[:item][:category_id] ||= Category.find(:first).id # assign the first category's id if not selected.
+    @feature_errors = PluginFeature.check(:features => params[:features], :item => @item) # check if required features are present        
+    if @item.save && @feature_errors.size == 0 # item creation failed
+      log(:log_type => "create", :target => @item)
+      # Create Features
+      num_of_features_updated = PluginFeature.create_values_for_record(:record => @item, :features => params[:features], :user => @logged_in_user, :delete_existing => true, :approve => true)
+      flash[:success] = t("notice.item_create_success", :item => Item.model_name.human)
+      redirect_to :action => "view", :controller => "items", :id => @item
+    else
+      flash[:failure] = t("notice.item_create_failure", :item => Item.model_name.human)
       render :action => "new"
-   end 
+    end     
   end
   
   def delete
@@ -271,10 +243,10 @@ class ItemsController < ApplicationController
  def tag
    @tag = CGI::unescape(params[:tag])   
    @category = Category.find(params[:category_id]) if params[:category_id]
-   tags = @category ? PluginTag.category(@category).where(:name => @tag) : PluginTag.where(:name => @tag) 
+   tags = @category ? PluginTag.category(@category).where(:name => @tag, :record_type => "Item") : PluginTag.where(:name => @tag, :record_type => "Item") 
    @items = Array.new # create container to hold items
    for tag in tags
-     temp_item = Item.find(tag.item_id) # get the item that the tag points to
+     temp_item = tag.record # get the item that the tag points to
      @items << temp_item # Throw item into array     
    end
  end

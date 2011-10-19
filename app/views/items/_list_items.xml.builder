@@ -1,6 +1,7 @@
 for item in items
   xml.item do
     xml.title(h item.name)
+=begin
     main_image = item.main_image  # Grab the main image, make optional
     if item.main_image 
       xml.image do
@@ -8,7 +9,8 @@ for item in items
         xml.title((main_image.description.blank?) ? main_image.filename : main_image.description)
         xml.link(URI.join(@setting[:url], main_image.url))
       end 
-    end 
+    end
+=end 
     xml.description(h item.description)
     # rfc822
     xml.pubDate(item.created_at.rfc2822)

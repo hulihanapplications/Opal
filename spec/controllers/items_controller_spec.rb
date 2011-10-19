@@ -53,8 +53,13 @@ describe ItemsController do
     
     describe "update" do
       it "saves changes" do
-        item = Factory(:item)       
+        item = Factory(:item)     
+        puts item.inspect  
         post(:update, {:id => item.id, :item => {:name => "New Name"}})
+        puts "Hey"
+        puts flash.inspect
+        puts assigns[:item].inspect        
+        puts assigns[:item].errors.inspect
         flash[:success].should_not be_nil
         Item.find(item.id).name.should == "New Name" 
       end      
@@ -79,12 +84,30 @@ describe ItemsController do
     describe "set_preview" do
       it "should work with the right params" do
         item = Factory(:item)
-        post :set_preview, {:id => item, :preview_id => Factory(:plugin_image, :item => item).id, :preview_type => PluginImage.name}
+        post :set_preview, {:id => item, :preview_id => Factory(:plugin_image, :record => item).id, :preview_type => PluginImage.name}
         flash[:success].should_not be_nil
         item.preview_type.should == PluginImage.name
         @response.code.should eq("302")
       end 
     end
+  end
+  
+  context "as user" do 
+    before(:each) do
+      login_user 
+    end 
+        
+    describe "create" do
+      it "fails when user has created maximum amount of items" do
+        Setting.set(:max_items_per_user, 1)
+        previously_created_item = Factory(:item)
+        expect{
+          post(:create, {:item => Factory.attributes_for(:item)})
+        }.to change(Item, :count).by(0)
+        flash[:failure].should_not be_nil
+        Setting.set(:max_items_per_user, 0) # reset        
+      end      
+    end   
   end
   
   context "as visitor" do 
@@ -135,7 +158,7 @@ describe ItemsController do
         
     describe "rss" do
       it "should return 200" do 
-        get :rss, {:id =>  Factory(:item_with_plugins)}
+        get :rss, {:id =>  Factory(:item_with_plugins), :format => :xml}
         @response.code.should eq("200")
       end
     end   

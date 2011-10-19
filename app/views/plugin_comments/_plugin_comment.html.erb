@@ -32,7 +32,7 @@
 								</td>
 								<td align=right>
 									<% content_for :plugin_item_controls do %>
-										<%= content_tag :span, :class => "vote_box plugin_item_control_box" do %>
+										<%= content_tag :span, :class => "plugin_item_control_box" do %>
 											<%= link_to(icon("reply") + " " + t("single.reply"), {:action => "new", :controller => "plugin_comments", :id => plugin_comment.record, :parent_id => plugin_comment.id, :record_type => plugin_comment.record_type, :record_id => plugin_comment.record_id}, :remote => true, :id => "plugin_comment_#{plugin_comment.id}_reply_link") %>
 										<% end %>	
 									<% end if PluginComment.can?(@logged_in_user, :create) %>									

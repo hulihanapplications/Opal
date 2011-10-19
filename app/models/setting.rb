@@ -21,8 +21,7 @@ class Setting < ActiveRecord::Base
 	  setting.to_bool
   rescue # ActiveRecord not found
     return false
-  end
-  
+  end  
   
   def self.get_global_settings
     begin
@@ -70,6 +69,18 @@ class Setting < ActiveRecord::Base
   def to_value # return a value based on setting type
   	item_type == "bool" ? to_bool : to_s 
   end 
-  	
-  self.global_settings = table_exists? ? Setting.get_global_settings : Hash.new # load global settings into metaclass variable  
+  
+  # change setting
+  def self.set(name, value)
+    find_by_name(name).update_attribute(:value, value)
+    reload
+  end  
+  
+  # reload settings from database and store/cache in cattr
+  def self.reload
+    self.global_settings = table_exists? ? Setting.get_global_settings : Hash.new # load global settings into metaclass variable    
+  end
+  
+  # Load settings for the first time when model is loaded
+  reload  
 end

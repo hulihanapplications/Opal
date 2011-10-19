@@ -14,7 +14,7 @@ gem "omniauth"
 gem "authbuttons-rails"
 gem "carrierwave"
 gem "fog" # for s3 and rackspace cloud files support
-
+#gem 'jquery-rails'
 gem "make_voteable", :git => "git://github.com/medihack/make_voteable"# , :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems")
 gem "humanizer", "=2.4.3"
 
@@ -22,15 +22,15 @@ gem "humanizer", "=2.4.3"
 #gem "mysql2"
 gem 'sqlite3'
 
+group :development do
+end
+
 group :assets do
   gem 'sass-rails', "  ~> 3.1.0"
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
   gem 'therubyracer'
 end
-
-#gem 'jquery-rails'
-
 
 group :test do
  gem "rspec-rails"

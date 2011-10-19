@@ -40,9 +40,16 @@ module Opal
       
       # override ActiveRecord.can?
       def can?(performer, action, options = {})
+        options[:record] ||= nil # record is parent 
+        
         case performer
         when User        
-          GroupPluginPermission.for_plugin_and_group(plugin, performer.group).can?(action) || super(performer, action, options)
+          case action.to_sym          
+          when :create, :new
+            GroupPluginPermission.for_plugin_and_group(plugin, performer.group).can?(action) || (options[:record] ? options[:record].is_user_owner?(performer) : false) || super(performer, action, options)
+          else
+            GroupPluginPermission.for_plugin_and_group(plugin, performer.group).can?(action) || super(performer, action, options)            
+          end 
         end 
       end
     end

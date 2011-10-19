@@ -22,6 +22,10 @@ module RSpec
           #post(:create, {:user_session => {:username => Factory.attributes_for(:user)[:username], :password => Factory.attributes_for(:user)[:password]}})
           #raise "Failed Logging in as #{Factory.attributes_for(:user)[:username]}" if flash[:success].nil?          
         end
+      end
+      
+      def current_user
+        @controller.set_user
       end  
     end 
   end 

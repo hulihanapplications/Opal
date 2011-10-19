@@ -173,7 +173,7 @@ class User < ActiveRecord::Base
     max_items = Setting.get_setting("max_items_per_user")
     if max_items.to_i != 0 
      items_remaining = max_items.to_i - self.items.count
-     return (items_remaining > 0 || max_items.to_i != 0) || is_admin?
+     return items_remaining
     else # user can create unlimited items 
      return nil
     end      

@@ -13,7 +13,7 @@ class PluginFilesController < PluginController
       flash[:failure] = t("notice.item_create_failure", :item => @plugin.model_name.human)       
     end 
 
-    redirect_to :back
+    redirect_to record_path(@file.record, :anchor => @plugin.plugin_class.model_name.human(:count => :other))
   end
   
   def delete

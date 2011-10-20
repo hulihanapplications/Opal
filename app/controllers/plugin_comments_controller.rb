@@ -19,7 +19,7 @@ class PluginCommentsController < PluginController
    else # humanizer failure
      flash[:failure] = I18n.translate("humanizer.validation.error")
    end
-   redirect_to :back, :anchor => @plugin.model_name.human(:count => :other) 
+   redirect_to record_path(@review.record, :anchor => @plugin.plugin_class.model_name.human(:count => :other))
  end 
  
  def delete

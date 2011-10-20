@@ -7,10 +7,10 @@ class PluginVideosController < PluginController
    @video.record = @item
             
    if @video.save
-    Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "create", :log => t("log.item_create", :item => @plugin.model_name.human, :name => @video.title))             
+    log(:log_type => "create", :target => @video)
     flash[:success] = t("notice.item_create_success", :item => @plugin.model_name.human)
     flash[:success] += t("notice.item_needs_approval", :item => @plugin.model_name.human) if !@video.is_approved?
-    redirect_to :back
+    redirect_to record_path(@video.record, :anchor => @plugin.plugin_class.model_name.human(:count => :other))
    else # fail saved 
     flash[:failure] = t("notice.item_create_failure", :item => @plugin.model_name.human)
     render :action => "new"
@@ -18,10 +18,10 @@ class PluginVideosController < PluginController
   end
  
   def update
-   @video = PluginVideo.find(params[:video_id])
+   @video = @record
    @video.attributes = params[:plugin_video]
    if @video.save
-    Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => t("log.item_save", :item => @plugin.model_name.human, :name => @video.title))                    
+    log(:log_type => "update", :target => @video)
     flash[:success] =  t("notice.item_save_success", :item => @plugin.model_name.human)
     redirect_to :back
    else # fail saved 
@@ -31,9 +31,9 @@ class PluginVideosController < PluginController
   end
   
   def delete
-    @video = PluginVideo.find(params[:video_id])
+    @video = @record
     if @video.destroy
-      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => t("log.item_delete", :item => @plugin.model_name.human, :name => @video.title))
+      log(:log_type => "destroy", :target => @item)
       flash[:success] = t("notice.item_delete_success", :item => @plugin.model_name.human)
     else # fail saved
       flash[:success] = t("notice.item_delete_failure", :item => @plugin.model_name.human)
@@ -47,7 +47,7 @@ class PluginVideosController < PluginController
   end
  
   def edit
-    @video = PluginVideo.find(params[:video_id])   
+    @video = @record
   end
   
   def show

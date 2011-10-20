@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   match '/page/:id', :controller => "pages", :action => "page"
   match 'account', :controller => "user", :action => "index", :as => "user_home"
   match 'admin', :controller => "admin", :action => "index"
-
+  #match "#{params[:controller]}", :controller => params[:record].class.name, :as => :record_path
 
   if (Setting.get_setting('locale').to_s == 'en')
     match "/#{Item.model_name.human(:count => :other).downcase}(/:action(/:id(.:format)))", :controller => "items" # use plural item name in url for anything in the items controller 
@@ -58,7 +58,10 @@ Rails.application.routes.draw do
 
   
   
-  resources :plugin_videos
+  resources :plugin_videos do 
+    get :delete, :on => :collection 
+  end
+  
   resources :logs do
     get "for_me", :on => :collection
     get "for_item", :on => :collection

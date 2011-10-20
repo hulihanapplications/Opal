@@ -1,33 +1,33 @@
 <div class="item">
-	<%= render :partial => "items/item_header", :locals => {:item => @item, :options => {:show_item_info => true, :show_item_title => true}} %>
+	<%= record_header(@record) %>
 	
 	<%= render @discussion %>
 	
 	<div class="box_2" align=center>
 		<% if @posts.size > 0 %>
-			<%= render :partial => "plugin_discussions/list_posts", :locals => {:posts => @posts, :item => @item} %>
+			<%= render :partial => "plugin_discussions/list_posts", :locals => {:posts => @posts, :item => @record.record} %>
 			<%= page_entries_info @posts, :entry_name => PluginDiscussionPost.model_name.human %>
+			<%= will_paginate @posts %>	
+			<hr />
 		<% end %>
-		<%= will_paginate @posts %>	
 
-		<hr />
+
 		<div align=left>
 			<a name="new_post"></a>
 			<h2 class="title" >				
 				<%= icon("new") + " " + t("label.item_new", :item => PluginDiscussionPost.model_name.human) %>	
 			</h2>
 			<% if !@logged_in_user.anonymous? %>		
-			    <%= form_tag  :action => 'create_post', :controller => "plugin_discussions", :id => @item.id, :discussion_id => @discussion.id %>
-						<textarea name="post[post]"  id="post_post" onfocus = "focus_input('post_post')" onblur = "blur_input('post_post')" style="width:100%;margin-bottom:5px"></textarea>
-			
-						<%= submit_tag  t("label.item_create", :item => PluginDiscussionPost.model_name.human), :class => "button_1" %>
+			    <%= form_tag  :action => 'create_post', :controller => "plugin_discussions" %>
+			    	<%= remember_record @record %>
+					<textarea name="post[post]"  id="post_post" onfocus = "focus_input('post_post')" onblur = "blur_input('post_post')" style="width:100%;margin-bottom:5px"></textarea>
+					<%= submit_tag  t("label.item_create", :item => PluginDiscussionPost.model_name.human), :class => "button_1" %>
 				</form>	
 			<% else %>
 				<div align=center >
 					<img src="/themes/<%= @setting[:theme] %>/images/icons/failure.png" class="icon">
 					<%= t("notice.user_not_logged_in") %>
-				</div>
-		
+				</div>		
 			<% end %>
 		</div>
 	</div>

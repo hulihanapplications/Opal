@@ -11,7 +11,8 @@
 			<div class="box_2">
 				<h2 class="title"><%= t("label.item_edit", :item => @plugin.model_name.human) %></h2>
 				<hr />
-                <%= form_for(@video, :url => { :action => "update", :controller => "plugin_videos", :id => @item.id, :video_id => @video.id}) do |f| %>
+                <%= form_for(@video, :url => { :action => "update", :controller => "plugin_videos"}) do |f| %>
+					<%= remember_record @record %>
 					<%= render :partial => "form", :locals => {:f => f} %>
 					<br>
 					<div align=center><%= submit_tag t("label.item_save", :item => @plugin.model_name.human), :class => "button_1" %></div>

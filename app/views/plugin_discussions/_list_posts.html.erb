@@ -24,47 +24,45 @@
 	<% else %>
 		<div class="comments">
 		<% for post in posts %>
-			<a name="<%= post.id %>"></a>
-			<table>
-				<tr> 
-					<td align=left class="user_column">
-						<div class="user_box">
-						 <% if !post.user_id.nil? && post.user_id != 0  %>
-							 <% post_user = User.find(post.user_id) %>
-							 <%= user_avatar(post_user, :class => "small") %>
-							 <br>
-							 <%= link_to post_user.username, {:action => "user", :id => post_user.id, :controller => "browse" }  %>
-							 <br>
-						   <% else %><%# an anonymous post %>
-						   	 <% if !post.anonymous_email.nil? %>
-									 <%= gravatar_image(post.anonymous_email, :class => "small") %>
-							 <% else %>
-					 	         <img src="/images/default_avatar.png" class="avatar_small">
-							 <% end %>
-							 <br>
-							 <%= h post.anonymous_name %>
-							 <br>							   
-						   <% end %>
-						</div>
-					</td>
-					<td align=left class="comment_column">
-						<% if post.user_id == item.user_id  %>
-						<div class="comment_box_from_owner">
-						<% else %>
-						<div class="comment_box">
-						<% end %>
-							<div align=left>
-								<b><%= friendly_date post.created_at %></b>
-									<% if item.can?(@logged_in_user, :edit) %>
-								    	<%= link_to icon("delete"), { :action => 'delete_post', :controller => "plugin_discussions", :id => item.id, :post_id => post.id}, :confirm =>  t("confirm.item_delete", :item => PluginDiscussionPost.model_name.human) %>						
-									<% end %>
-								<br>
-								<%= simple_format post.post %>
+			<div class="comment">		
+				<a name="<%= post.id %>"></a>
+				<table>
+					<tr> 
+						<td align=left class="user_column">
+							<div class="user_box">
+							 <% if !post.user_id.nil? && post.user_id != 0  %>
+								 <% post_user = User.find(post.user_id) %>
+								 <%= user_avatar(post_user, :class => "small") %>
+								 <br>
+								 <%= link_to post_user.username, {:action => "user", :id => post_user.id, :controller => "browse" }  %>
+								 <br>
+							   <% else %><%# an anonymous post %>
+							   	 <% if !post.anonymous_email.nil? %>
+										 <%= gravatar_image(post.anonymous_email, :class => "small") %>
+								 <% else %>
+						 	         <img src="/images/default_avatar.png" class="avatar_small">
+								 <% end %>
+								 <br>
+								 <%= h post.anonymous_name %>
+								 <br>							   
+							   <% end %>
 							</div>
-						</div>
-					</td>
-				</tr>
-			</table>	
+						</td>
+						<td align=left class="comment_column">
+							<div class="comment_box <%= "comment_box_from_owner" if post.plugin_discussion.is_user_owner?(post.user) %>">							
+								<div align=left>
+									<b><%= friendly_date post.created_at %></b>
+										<% if item.can?(@logged_in_user, :edit) %>
+									    	<%= link_to icon("delete"), { :action => 'delete_post', :controller => "plugin_discussions", :id => item.id, :post_id => post.id, :record_type => PluginDiscussion.name, :record_id => post.plugin_discussion_id}, :confirm =>  t("confirm.item_delete", :item => PluginDiscussionPost.model_name.human) %>						
+										<% end %>
+									<br>
+									<%= simple_format post.post %>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</table>	
+			</div>
 		<% end %>	
 		</div>	
 	<% end %>

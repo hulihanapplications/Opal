@@ -8,6 +8,7 @@ xml.rss(:version=>"2.0"){
     xml.description(@setting[:meta_description].join(" - "))
     xml.language("#{I18n.locale}")
 
+=begin
     if @item.main_image 
       xml.image do
         xml.url(URI.join(@setting[:url], @item.main_image.thumb_url))
@@ -15,15 +16,16 @@ xml.rss(:version=>"2.0"){
         xml.link(URI.join(@setting[:url], @item.main_image.url))
       end 
     end 
-    
+=end  
     for log in @item.logs
       xml.item do        
         xml.title(log.log)
-        xml.description(log.to_s.downcase)
+        xml.description(strip_tags(log_message(log)))
         xml.pubDate(log.created_at.rfc2822)    
         xml.link(url_for(:controller => "items", :action => "view", :id => @item, :only_path => false))
         xml.guid(url_for(:controller => "items", :action => "view", :id => @item, :only_path => false))
       end
-    end    
+    end  
+       
   }
 }

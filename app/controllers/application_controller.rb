@@ -156,10 +156,10 @@ class ApplicationController < ActionController::Base
       redirect_to :back
      end  
     end
-  # Exception => e  
-  #  logger.info e.message
-  #  flash[:failure] = t("notice.item_not_found", :item => plugin_name) + "zzz"
-  #  redirect_to :back
+  rescue Exception => e  
+    logger.info e.message
+    flash[:failure] = e.message # t("notice.item_not_found", :item => plugin_name)
+    redirect_to :back
   end
  
     
@@ -252,13 +252,25 @@ private
 
   # check permission/access, controller style
   def can?(target, performer, action, options = {})
-    if !target.can?(performer, action, options)
-      flash[:failure] = t("notice.invalid_permissions")
-      respond_to do |format|     
-        format.html {request.xhr? ? render(:text => flash[:failure]) : redirect_to(:back)} 
-      end       
-    end
+    if target
+      if !target.can?(performer, action, options)
+        flash[:failure] = t("notice.invalid_permissions")
+        respond_to do |format|     
+          format.html {request.xhr? ? render(:text => flash[:failure]) : redirect_to(:back)} 
+        end       
+      end
+    else
+      flash[:failure] = t("notice.item_not_found", :item => t("single.object", :default => "Object"))      
+      redirect_to :back
+    end       
   end 
+
+  # Generate Polymorphic Url for non-resources, similar to resource-based polymorphic_url  
+  def record_path(record, options = {})
+    url_for options.merge(:action => :view, :controller => record.class.controller_name, :id => record.id)
+  end
+  helper_method :record_path  
+  
 end
 
 #  Log.create(:log_type => "warning", :log => t("log.failed_admin_access_attempt_visitor", :ip => "1.1.1.1", :controller => "", :action => ""))     

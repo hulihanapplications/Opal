@@ -11,10 +11,10 @@ class PluginReviewsController < PluginController
     @review.record = @item      
     
     if @review.save
-      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "new", :log => t("log.item_create", :item => @plugin.model_name.human,  :name => truncate(@review.review, :length => 10)))                                       
+      log(:log_type => "create", :target => @review)
       flash[:success] = t("notice.item_create_success", :item => @plugin.model_name.human)
       flash[:success] += " " +  t("notice.user_thanks", :name => @review.user.first_name)
-      redirect_to :back
+      redirect_to record_path(@review.record, :anchor => @plugin.plugin_class.model_name.human(:count => :other))
     else # fail saved 
       flash[:failure] = t("notice.item_create_failure", :item => @plugin.model_name.human)
       render :action => "new"
@@ -25,7 +25,7 @@ class PluginReviewsController < PluginController
     @review = PluginReview.find(params[:review_id])
     @review_user = User.find(@review.user_id)
     if @review.destroy
-      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "delete", :log => t("log.item_delete", :item => @plugin.model_name.human,  :name => truncate(@review.review, :length => 10)))                                       
+      log(:log_type => "destroy", :target => @review)
       flash[:success] =  t("notice.item_delete_success", :item => @plugin.model_name.human)    
     else # fail saved 
       flash[:failure] =  t("notice.item_delete_failure", :item => @plugin.model_name.human)     
@@ -38,7 +38,7 @@ class PluginReviewsController < PluginController
     @review_user = User.find(@review.user_id)
     @review.attributes = params[:review]    
     if @review.save
-      Log.create(:user_id => @logged_in_user.id, :item_id => @item.id,  :log_type => "update", :log => t("log.item_save", :item => @plugin.model_name.human,  :name => truncate(@review.review, :length => 10)))                                       
+      log(:log_type => "update", :target => @review)
       flash[:success] =  t("notice.item_save_success", :item => @plugin.model_name.human)
     else # fail saved 
       flash[:failure] =  t("notice.item_save_failure", :item => @plugin.model_name.human)

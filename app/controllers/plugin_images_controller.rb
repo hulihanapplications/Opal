@@ -25,7 +25,7 @@ class PluginImagesController < PluginController
           if params[:tinymce] == "true" # redirect them back to the tinymce popup box
             redirect_to :back      
           else # redirect them back to item page
-            redirect_to :back, :anchor => @plugin.model_name.human(:count => :other) 
+            redirect_to record_path(@image.record, :anchor => @plugin.plugin_class.model_name.human(:count => :other))
           end       
         }
         format.flash{ render :text => t("notice.item_create_success", :item => PluginImage.model_name.human + (!@image.filename.blank? ? ": #{@image.filename}" : "") ) }              

@@ -3,20 +3,20 @@
 		<tr>
 			<td align=left style="text-align:left">
 				<h2 class="title">
-					<%= link_to "#{plugin_discussion.title}", {:action => "view", :controller => "plugin_discussions", :id => @item.id, :discussion_id => plugin_discussion.id}%>
+					<%= link_to "#{plugin_discussion.title}", {:action => "view", :controller => "plugin_discussions", :record_type => plugin_discussion.class.name, :record_id => plugin_discussion.id} %>
 				</h2>
 				<%= h plugin_discussion.description if plugin_discussion.description %>
 			</td>
 			<td align=right style="text-align:right">
-				<%= link_to "#{plugin_discussion.plugin_discussion_posts.size} #{PluginDiscussionPost.model_name.human(:count => :other)}", {:action => "view", :controller => "plugin_discussions", :id => @item.id, :discussion_id => plugin_discussion.id}%>
+				<%= "#{plugin_discussion.plugin_discussion_posts.size} #{PluginDiscussionPost.model_name.human(:count => :other)}" %>
 				<% if !@logged_in_user.anonymous? %>
 					<%= icon("new") %>
-					<%= link_to t("label.item_new", :item => PluginDiscussionPost.model_name.human), {:action => "view", :controller => "plugin_discussions", :id => @item.id, :discussion_id => plugin_discussion.id, :anchor => "new_post"}%>
+					<%= link_to t("label.item_new", :item => PluginDiscussionPost.model_name.human), {:action => "view", :controller => "plugin_discussions", :record_type => plugin_discussion.class.name, :record_id => plugin_discussion.id, :anchor => "new_post"}%>
 					<%= icon("spacer") %>
 				<% end %>
 
 				<%= render :partial => "plugins/plugin_item_controls", :locals => {:record => plugin_discussion, :options => {:preview => false, :date => true, :user => true, :byline => true, :edit => false}} %>
-				<%= link_to icon("rss", t("label.rss_feed") + " - " + t("label.items_latest", :items => PluginDiscussionPost.model_name.human(:count => :other))), {:action => "rss", :controller => "plugin_discussions", :id => @item.id, :discussion_id => plugin_discussion.id} %>
+				<%= link_to icon("rss", t("label.rss_feed") + " - " + t("label.items_latest", :items => PluginDiscussionPost.model_name.human(:count => :other))), {:action => "rss", :controller => "plugin_discussions", :record_type => plugin_discussion.class.name, :record_id => plugin_discussion.id, :format => :xml} %>
 
 			</td>							
 		</tr>

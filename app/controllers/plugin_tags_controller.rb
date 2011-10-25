@@ -16,7 +16,7 @@ class PluginTagsController < PluginController
   end
   
   def delete
-     @tag = PluginTag.find(params[:tag_id])
+     @tag = @record
      if @tag.destroy
       log(:log_type => "destroy", :target => @tag)
       flash[:success] = t("notice.item_delete_success", :item => @plugin.model_name.human)

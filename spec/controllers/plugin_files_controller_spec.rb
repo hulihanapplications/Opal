@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe PluginFilesController do  
   render_views
-  
+    
   describe "as admin" do
     before(:each) do
       login_admin
@@ -18,8 +18,8 @@ describe PluginFilesController do
     describe "create" do 
       it "should work with local file" do
         expect{
-          post(:create, {:id => @item.id, :plugin_file => Factory.attributes_for(:plugin_file)})
-        }.to change(Pluginfile, :count).by(+1)
+          post(:create, {:record_type => @item.class.name, :record_id => @item.id, :plugin_file => Factory.attributes_for(:plugin_file)})
+        }.to change(PluginFile, :count).by(+1)
         flash[:success].should_not be_nil
         assigns[:file].destroy # clean up
       end    
@@ -29,18 +29,24 @@ describe PluginFilesController do
       it "should reduce count and return success" do
       @file = Factory(:plugin_file, :record => @item)
         expect{
-          post(:delete, {:id => @item.id, :file_id => @file.id})
-        }.to change(Pluginfile, :count).by(-1) 
+          post(:delete, {:record_type => @file.class.name, :record_id => @file.id})
+        }.to change(PluginFile, :count).by(-1) 
         flash[:success].should_not be_nil
       end 
     end
   end
   
   context "as visitor" do
+    before(:each) do
+      login_visitor      
+    end      
+    
     describe "download" do
-      @file = Factory(:plugin_file)
-      get(download_path(:file_id => @file.id, :id => @file.record.id))
-      response.code.should eq("200")
+      it "should return 200" do
+        @file = Factory(:plugin_file)
+        get(:download, {:record_type => @file.class.name, :record_id => @file.id})
+        response.code.should eq("200")
+      end 
     end    
   end
 end

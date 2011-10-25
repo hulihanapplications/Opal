@@ -19,11 +19,12 @@ class PluginCommentsController < PluginController
    else # humanizer failure
      flash[:failure] = I18n.translate("humanizer.validation.error")
    end
-   redirect_to record_path(@review.record, :anchor => @plugin.plugin_class.model_name.human(:count => :other))
+   redirect_to :back, :anchor => @plugin.model_name.human(:count => :other) 
+   # record_path(@plugin_comment.record, :anchor => @plugin.plugin_class.model_name.human(:count => :other))
  end 
  
  def delete
-   @plugin_comment = PluginComment.find(params[:comment_id])
+   @plugin_comment = @record
    if @plugin_comment.destroy
      log(:log_type => "destroy", :target => @plugin_comment)
      flash[:success] = t("notice.item_delete_success", :item => @plugin.model_name.human)     
@@ -42,11 +43,11 @@ class PluginCommentsController < PluginController
  end
  
  def edit
-   @plugin_comment = PluginComment.find(params[:comment_id]) 
+   @plugin_comment = @record
  end
  
  def update
-   @plugin_comment = PluginComment.find(params[:comment_id])
+   @plugin_comment = @record
    if @plugin_comment.update_attributes(params[:plugin_comment])
      log(:log_type => "update", :target => @plugin_comment)
      flash[:success] = t("notice.item_save_success", :item => @plugin.model_name.human)     

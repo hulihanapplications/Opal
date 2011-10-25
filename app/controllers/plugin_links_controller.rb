@@ -18,7 +18,7 @@ class PluginLinksController < PluginController
   end
  
   def update
-    @link = PluginLink.find(params[:link_id])
+    @link = @record
     if @link.update_attribute(:title, params[:link_title]) && @link.update_attribute(:url, params[:link_url])
       log(:log_type => "update", :target => @link)
       flash[:success] =  t("notice.item_save_success", :item => @plugin.model_name.human)
@@ -30,7 +30,7 @@ class PluginLinksController < PluginController
   end
   
   def delete
-    @link = PluginLink.find(params[:link_id])
+    @link = @record
     if @link.destroy
       log(:log_type => "destroy", :target => @link)
       flash[:success] =  t("notice.item_delete_failure", :item => @plugin.model_name.human)

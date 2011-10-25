@@ -33,7 +33,7 @@ class ZeroSevenFour < ActiveRecord::Migration
   def self.down
     Setting.find_by_name("default_preview_type").destroy if Setting.find_by_name("default_preview_type")
     Setting.find_by_name("host").destroy if Setting.find_by_name("host")
-    tag_list_setting = PluginSetting.where(:name => "tag_list_mode").where(:plugin_id => Plugin.find_by_name("Tag").id).first  
+    tag_list_setting = Plugin.find_by_name("Tag") ? PluginSetting.where(:name => "tag_list_mode").where(:plugin_id => Plugin.find_by_name("Tag").id).first : nil  
     tag_list_setting.destroy if tag_list_setting
   	
     remove_column :items, :preview_type

@@ -27,8 +27,9 @@
 			<div style="display:none" id="new_file_box" class="box_1">
 		      <h2><%=  t("label.item_new", :item => plugin.model_name.human) %></h2>
 			   <div>
-					<%= form_tag({:action => 'create', :controller => "plugin_files", :id => item.id, :record_id => @record.id, :record_type => @record.class.name} , :multipart => true) %>
+					<%= form_tag({:action => 'create', :controller => "plugin_files", :multipart => true) %>
 						<%= icon("file") %>
+						<%= remember_record(@record) %>
 						<%= PluginFile.human_attribute_name(:title) %>
 						<%= text_field_tag("plugin_file[title]") %>
 						<%= PluginFile.human_attribute_name(:file) %> 
@@ -50,9 +51,8 @@
 							<span id="file_<%= file.id %>">	
 								<table style="width:100%">
 									<tr>
-										<td align=left>
-											
-											<%= content_tag(:h3, link_to(icon("file") + " " + file.get_title, download_path(:id => file.record, :file_id => file))) %>								
+										<td align=left>											
+											<%= content_tag(:h3, link_to(icon("file") + " " + file.get_title, download_path(:record_type => file.class.name, :record_id => file))) %>								
 										</td>
 										<td align=right>
 											<%= render :partial => "plugins/plugin_item_controls", :locals => { :record => file, :options => {:date => true, :edit => false, :votes => false, :preview => false, :user => true}} %>																						

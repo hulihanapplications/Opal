@@ -98,7 +98,9 @@ module Opal
       end  
       
       def set_approval
-        self.is_approved = "1" if !GroupPluginPermission.for_plugin_and_group(self.class.plugin, self.user.group).requires_approval? || record.is_user_owner?(user) || user.is_admin? # approve if not required or owner or admin 
+        if respond_to?(:is_approved) && self.user
+          self.is_approved = "1" if !GroupPluginPermission.for_plugin_and_group(self.class.plugin, self.user.group).requires_approval? || record.is_user_owner?(user) || user.is_admin? # approve if not required or owner or admin
+        end  
       end    
     end    
   end

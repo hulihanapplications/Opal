@@ -158,10 +158,12 @@ if (install_sample_data == "y" || install_sample_data == "yes")
   @plugin.save   
  
   tag = PluginTag.create(:name => I18n.t('sample_data.plugins.tags.cool.name'), :record => item1)
+  tag.user = @user
   tag.is_approved = "1"
   tag.save
   tag = PluginTag.create(:name => I18n.t('sample_data.plugins.tags.cool.name'), :record => item2)
   tag.is_approved = "1"
+  tag.user = @user  
   tag.save
 
   # Sample Discussion

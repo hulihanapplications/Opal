@@ -18,7 +18,7 @@ class PluginDescriptionsController < PluginController
   end
  
   def update
-   @description = PluginDescription.find(params[:description_id])
+   @description = @record
    @description.attributes = params[:description]   
    if @description.save
     log(:log_type => "update", :target => @description)
@@ -30,7 +30,7 @@ class PluginDescriptionsController < PluginController
   end
   
   def delete
-   @description = PluginDescription.find(params[:description_id])
+   @description = @record
    if @description.destroy
     log(:log_type => "destroy", :target => @description)
     flash[:success] = t("notice.item_delete_success", :item => @plugin.model_name.human)
@@ -46,6 +46,6 @@ class PluginDescriptionsController < PluginController
   end
  
   def edit
-    @description = PluginDescription.find(params[:description_id])   
+    @description = @record
   end
 end

@@ -5,7 +5,6 @@ class PluginReviewsController < PluginController
  include ActionView::Helpers::TextHelper # for truncate, etc.
  
   def create   
-    @item = Item.find(params[:id])
     @review = PluginReview.new(params[:review])
     @review.user_id = @logged_in_user.id
     @review.record = @item      
@@ -22,7 +21,7 @@ class PluginReviewsController < PluginController
   end
  
   def delete
-    @review = PluginReview.find(params[:review_id])
+    @review = @record
     @review_user = User.find(@review.user_id)
     if @review.destroy
       log(:log_type => "destroy", :target => @review)
@@ -34,7 +33,7 @@ class PluginReviewsController < PluginController
   end
 
   def update
-    @review = PluginReview.find(params[:review_id])
+    @review = @record
     @review_user = User.find(@review.user_id)
     @review.attributes = params[:review]    
     if @review.save
@@ -52,11 +51,11 @@ class PluginReviewsController < PluginController
   end
  
   def edit
-    @review = PluginReview.find(params[:review_id])   
+    @review = @record  
   end 
 
   def show  
-    @review = PluginReview.find(params[:review_id])
+    @review = @record
     @setting[:meta_title] << @item.description     
     @setting[:meta_title] << @item.name 
     @setting[:meta_title] << [PluginReview.model_name.human, t("single.from").downcase, @review.user.username].join(" ")

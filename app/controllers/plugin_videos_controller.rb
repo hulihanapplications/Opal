@@ -51,7 +51,7 @@ class PluginVideosController < PluginController
   end
   
   def show
-  	@video = PluginVideo.find(params[:video_id])  
+  	@video = @record
     respond_to do |format|
       format.html{}
       format.js{render :layout => false }

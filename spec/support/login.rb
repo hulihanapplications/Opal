@@ -9,6 +9,7 @@ module RSpec
       end
       
       def login_admin
+        configure_request               
         @controller.stub!(:current_user).and_return(Factory(:admin))
         wrap_with_controller do
           #post(:create, {:user_session => {:username => Factory.attributes_for(:admin)[:username], :password => Factory.attributes_for(:admin)[:password]}})                   
@@ -17,6 +18,7 @@ module RSpec
       end
       
       def login_user
+        configure_request       
         @controller.stub!(:current_user).and_return(Factory(:user))
         wrap_with_controller do
           #post(:create, {:user_session => {:username => Factory.attributes_for(:user)[:username], :password => Factory.attributes_for(:user)[:password]}})
@@ -24,9 +26,17 @@ module RSpec
         end
       end
       
+      def login_visitor
+        configure_request     
+      end
+      
       def current_user
         @controller.set_user
       end  
+      
+      def stub_captcha
+        @controller.stub!(:human).and_return(true)  
+      end
     end 
   end 
 end

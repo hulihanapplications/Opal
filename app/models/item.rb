@@ -120,7 +120,8 @@ class Item < ActiveRecord::Base
      for tag in self.tags.split(",") # separate tag by comma       
        tag = tag.strip # remove whitespace  
        if !tag.empty?
-        tag = PluginTag.new(:item_id => self.id, :name => tag.strip)
+        tag = PluginTag.new(:name => tag.strip)
+        tag.record = self
         tag.is_approved = "1"
         tag.save
        end

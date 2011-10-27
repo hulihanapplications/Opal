@@ -1,6 +1,5 @@
 <div class="item">
-	
-	<%= render :partial => "items/item_header", :locals => {:item => @item, :options => {:show_item_info => true, :show_item_title => true}} %>
+	<%= record_header(@record) %>
 	
 	<div id="side">
 			<div class="box_1">
@@ -11,7 +10,7 @@
 			<div class="box_2" style="margin-bottom:5px">
 				<h2 class="title"><%= t("label.item_new", :item => @plugin.model_name.human) %></h2>
 				<div class="spacer"></div>		
-				<%= form_tag  :action => 'create', :controller => "plugin_descriptions", :id => @item.id, :record_id => @record.id, :record_type => @record.class.name %>
+				<%= form_tag  :action => 'create', :controller => "plugin_descriptions" %>
 					<%= remember_record(@record) %>
 					<%= render :partial => "form", :locals => {:description => @description, :plugin => @plugin} %>
 					<br>

@@ -24,14 +24,13 @@ describe PluginCommentsController do
 
       it "should return 200 with json format" do 
         get :new, {:record_type => @item.class.name, :record_id => @item.id}, :format => :json
-        puts response.body.inspect
         @response.code.should eq("200")
       end      
     end
 
     describe "edit" do
       it "should return 200" do
-        get :edit, {:record_type =>  @comment.record.class.name, :record_id => @comment.id}
+        get :edit, {:record_type =>  @comment.class.name, :record_id => @comment.id}
         @response.code.should eq("200")
       end
     end  
@@ -94,8 +93,8 @@ describe PluginCommentsController do
         record = Factory(:item)
         expect{
           post(:create, {:record_type => record.class.name, :record_id => record.id, :plugin_comment => Factory.attributes_for(:plugin_comment_anonymous)})
+          flash[:success].should_not be_nil     
         }.to change(PluginComment, :count).by(+1)
-        flash[:success].should_not be_nil     
       end      
     end 
   end

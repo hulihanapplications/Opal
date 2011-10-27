@@ -12,20 +12,20 @@ describe PluginReviewsController do
   context "as user" do
     before(:each) do
       login_user 
-      @item = Factory(:item, :user => @controller.set_user)
-      @review = Factory(:plugin_review, :record => @item)   
+      @record = Factory(:item, :user => @controller.set_user)
+      @review = Factory(:plugin_review, :record => @record)   
     end 
         
     describe "new" do
       it "should return 200" do 
-        get :new, {:id => @item.id}
+        get :new, {:record_type => @record.class.name, :record_id => @record.id}
         @response.code.should eq("200")
       end
     end
 
     describe "edit" do
       it "should return 200" do
-        get :edit, {:id =>  @review.record.id, :review_id => @review.id}
+        get :edit, {:record_type => @review.class.name, :record_id => @review.id}
         @response.code.should eq("200")
       end
     end  
@@ -33,15 +33,15 @@ describe PluginReviewsController do
     describe "create" do 
       it "should work normally" do
         expect{
-          post(:create, { :id => @item.id, :review => Factory.attributes_for(:plugin_review)})
+          post(:create, { :record_type => @record.class.name, :record_id => @record.id, :review => Factory.attributes_for(:plugin_review)})
         }.to change(PluginReview, :count).by(+1)
         flash[:success].should_not be_nil     
       end   
       
       it "should work when trying to add to another user's item" do 
          expect{
-          item = Factory(:item)
-          post(:create, { :id => item.id, :review => Factory.attributes_for(:plugin_review)})
+          record = Factory(:item)
+          post(:create, { :record_type => record.class.name, :record_id => record.id, :review => Factory.attributes_for(:plugin_review)})
         }.to change(PluginReview, :count).by(+1)
         flash[:success].should_not be_nil      	
       end  
@@ -50,7 +50,7 @@ describe PluginReviewsController do
     describe :update do 
       it "should work normally" do
       	new_content = random_content
-        post(:update, { :id => @review.record.id, :review_id => @review.id, :review => {:review => new_content, :review_score => @review.review_score}})
+        post(:update, { :record_type => @review.class.name, :record_id => @review.id, :review => {:review => new_content, :review_score => @review.review_score}})
         PluginReview.find(@review.id).review == new_content
         flash[:success].should_not be_nil     
       end      	
@@ -59,7 +59,7 @@ describe PluginReviewsController do
     describe :destroy do
       it "decrements count" do
         expect{
-          post(:delete, {:id => @review.record.id, :review_id => @review.id})
+          post(:delete, {:record_type => @review.class.name, :record_id => @review.id})
         }.to change(PluginReview, :count).by(-1)
         flash[:success].should_not be_nil
       end     	

@@ -28,9 +28,10 @@
 			      <h2><%=  t("label.item_new", :item => plugin.model_name.human) %></h2>
 				   <div>
    					   <%= form_tag  :action => 'create', :controller => "plugin_tags", :id => item.id, :record_id => @record.id, :record_type => @record.class.name %>
-						<%= t("single.name") %> <input name="tag_name" type="text" id="new_tag_tag">
+						<%= label(:plugin_tag, :name, t("single.name")) %>
+						<%= text_field_tag "plugin_tag[name]" %>
 						<input name="plugin.title" value="<%= plugin.model_name.human %>" type="hidden">
-						<%= submit_tag  t("label.item_create", :item => plugin.model_name.human), :class => "button_1" %>
+						<%= submit_tag t("label.item_create", :item => plugin.model_name.human), :class => "button_1" %>
 					   </form>
 					 </div>
 					 <br>

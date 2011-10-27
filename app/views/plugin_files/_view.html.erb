@@ -27,7 +27,7 @@
 			<div style="display:none" id="new_file_box" class="box_1">
 		      <h2><%=  t("label.item_new", :item => plugin.model_name.human) %></h2>
 			   <div>
-					<%= form_tag({:action => 'create', :controller => "plugin_files", :multipart => true) %>
+					<%= form_tag({:action => 'create', :controller => "plugin_files"}, :multipart => true) %>
 						<%= icon("file") %>
 						<%= remember_record(@record) %>
 						<%= PluginFile.human_attribute_name(:title) %>

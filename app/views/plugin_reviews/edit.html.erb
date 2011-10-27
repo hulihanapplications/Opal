@@ -4,7 +4,7 @@
 	<div class="box_2">
 		<h2 class="title"><%= t("label.item_edit", :item => @plugin.model_name.human) %> <%= t("single.from") %> <%= @review.user.username %> </h2>
 		<div class="spacer"></div>
-		<%= form_tag :action => 'update', :controller => "plugin_reviews", :id => @item.id  %>
+		<%= form_tag :action => 'update', :controller => "plugin_reviews"  %>
 			<%= remember_record(@review) %>
 			<%= render :partial => "form", :locals => {:review => @review} %>
 			<br>

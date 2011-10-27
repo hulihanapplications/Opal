@@ -26,7 +26,7 @@ module RSpec
         end
       end
       
-      def login_visitor
+      def login_anonymous
         configure_request     
       end
       
@@ -35,7 +35,7 @@ module RSpec
       end  
       
       def stub_captcha
-        @controller.stub!(:human).and_return(true)  
+        @controller.stub!(:human?).and_return(true)  
       end
     end 
   end 

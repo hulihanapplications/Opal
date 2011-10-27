@@ -11,14 +11,14 @@
 	options[:date] 		= false if options[:date].nil?
 		
 	# Reset User Perspective Options
-	options[:user]		= options[:user] && record.respond_to?(:user_id) ? (!record.record.nil? ? !record.record.is_user_owner?(record.user) : false) : false
+	options[:user]		= options[:user] && record.respond_to?(:user_id) && !record.user_id.blank? ? (!record.record.nil? ? !record.record.is_user_owner?(record.user) : false) : false
 	options[:preview] 	= options[:preview] && record.record && record.record.can?(@logged_in_user, :edit) 
 	options[:edit] 		= options[:edit] && record.can?(@logged_in_user, :edit)
 	options[:delete]	= options[:delete] && record.can?(@logged_in_user, :edit)	
 %>
 <span class="plugin_item_controls">
 	<%= yield :plugin_item_controls %>
-	
+	 
 	<%
 		# Empty content_for :plugin_item_controls 
 		@view_flow.content.delete(:plugin_item_controls) 

@@ -1,5 +1,5 @@
 <div class="item">
-	<%= render :partial => "items/item_header", :locals => {:item => @item, :options => {:show_item_info => true, :show_item_title => true}} %>
+	<%= record_header(@record) %>
 	<div class="header">					
 		<h2 class="title">
 			<%= PluginReview.model_name.human %> 

@@ -1,7 +1,7 @@
 class PluginTagsController < PluginController
+  
   def create
-     @tag = PluginTag.new
-     @tag.name = params[:tag_name]
+     @tag = PluginTag.new(params[:plugin_tag])
      @tag.user_id = @logged_in_user.id
      @tag.record = @record
      
@@ -12,7 +12,7 @@ class PluginTagsController < PluginController
      else # fail saved 
        flash[:failure] = t("notice.item_create_failure", :item => @plugin.model_name.human)
      end     
-     redirect_to :back
+     redirect_to :back, :anchor => @plugin.plugin_class.model_name.human(:count => :other)
   end
   
   def delete
@@ -23,6 +23,6 @@ class PluginTagsController < PluginController
      else # fail saved 
        flash[:failure] = t("notice.item_delete_failure", :item => @plugin.model_name.human)
      end     
-     redirect_to :back
+     redirect_to :back, :anchor => @plugin.plugin_class.model_name.human(:count => :other)
   end
 end

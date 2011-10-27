@@ -1,10 +1,7 @@
 class PluginTag < ActiveRecord::Base
   acts_as_opal_plugin
 
-  belongs_to :plugin
   belongs_to :user
-
-  #before_create :shrink_name
 
   validates_presence_of :name 
   validates_length_of :name, :minimum => 1
@@ -19,10 +16,6 @@ class PluginTag < ActiveRecord::Base
   
   def to_s
   	name
-  end
-  
-  def shrink_name
-    self.name = name.downcase 
   end
   
   def count # get number of tags with same name

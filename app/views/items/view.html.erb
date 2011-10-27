@@ -1,5 +1,5 @@
 <div class="item">
-	<%= render :partial => "items/item_header", :locals => {:item => @item} %>
+	<%= record_header(@item) %>
 	<% @setting[:item_page_type] = get_setting("item_page_type") if !@setting[:item_page_type]  %><%# get default page type if not set. %>
 	<%= render :partial => "items/view_#{@setting[:item_page_type]}", :locals => {:item => @item, :plugins => Plugin.enabled} %>
 </div>

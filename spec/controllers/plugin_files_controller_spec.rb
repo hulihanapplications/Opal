@@ -30,15 +30,15 @@ describe PluginFilesController do
       @file = Factory(:plugin_file, :record => @item)
         expect{
           post(:delete, {:record_type => @file.class.name, :record_id => @file.id})
+          flash[:success].should_not be_nil
         }.to change(PluginFile, :count).by(-1) 
-        flash[:success].should_not be_nil
       end 
     end
   end
   
-  context "as visitor" do
+  context "as anonymous" do
     before(:each) do
-      login_visitor      
+      login_anonymous  
     end      
     
     describe "download" do

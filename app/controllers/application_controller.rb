@@ -186,15 +186,10 @@ class ApplicationController < ActionController::Base
   #   new/create - record should be parent of the new object being created
   #   edit/update/destroy - record should be the object that will action will be performed on
   def find_record 
-    unless params[:record_type].blank?
+    if !params[:record_type].blank?
       klass = params[:record_type].camelize.constantize
       @record = klass.find(params[:record_id])
-      if @record
-        @item = @record if @record.is_a?(Item)
-      else  
-        flash[:failure] = t("notice.item_not_found", :item => klass.name + " " + params[:record_id])
-        render :text => "nope"
-      end 
+      @item = @record if @record.is_a?(Item)
     end
   end  
 
@@ -252,9 +247,10 @@ private
 
   # check permission/access, controller style
   def can?(target, performer, action, options = {})
+    #logger.info "can? #{action} failed on #{target} by #{performer}"
     if target
       if !target.can?(performer, action, options)
-        flash[:failure] = t("notice.invalid_permissions")
+        flash[:failure] = t("notice.invalid_permissions") + action + target.inspect
         respond_to do |format|     
           format.html {request.xhr? ? render(:text => flash[:failure]) : redirect_to(:back)} 
         end       
@@ -269,8 +265,6 @@ private
   def record_path(record, options = {})
     url_for options.merge(:action => :view, :controller => record.class.controller_name, :id => record.id)
   end
-  helper_method :record_path  
   
+  helper_method :record_path  
 end
-
-#  Log.create(:log_type => "warning", :log => t("log.failed_admin_access_attempt_visitor", :ip => "1.1.1.1", :controller => "", :action => ""))     

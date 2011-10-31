@@ -54,12 +54,7 @@ describe ItemsController do
     describe "update" do
       it "saves changes" do
         item = Factory(:item)     
-        puts item.inspect  
         post(:update, {:id => item.id, :item => {:name => "New Name"}})
-        puts "Hey"
-        puts flash.inspect
-        puts assigns[:item].inspect        
-        puts assigns[:item].errors.inspect
         flash[:success].should_not be_nil
         Item.find(item.id).name.should == "New Name" 
       end      

@@ -221,7 +221,9 @@ class User < ActiveRecord::Base
   end
 
   def delete_avatar
-    FileUtils.rmdir(File.dirname(avatar.path)) # remove CarrierWave store dir, must be empty to work
+    if avatar && avatar.path
+      FileUtils.rmdir(File.dirname(avatar.path)) if File.exists?(File.dirname(avatar.path)) # remove CarrierWave store dir, must be empty to work
+    end 
   end
     
 end

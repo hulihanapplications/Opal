@@ -23,5 +23,5 @@
 </div> 
 
 <div class="box_2" align=center>
-	<%= link_to icon("rss")  + " " + t("label.rss_feed"), {:action => "rss", :controller => "blog"} %>
+	<%= link_to icon("rss")  + " " + t("label.rss_feed"), {:action => "rss", :controller => "blog", :format => :xml} %>
 </div>

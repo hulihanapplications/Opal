@@ -36,7 +36,7 @@ describe UsersController do
       it "decrements count" do
         user = Factory(:user)
         expect{
-          post(:delete, {:id => user.id})
+          post(:destroy, {:id => user.id})
         }.to change(User, :count).by(-1)
         flash[:success].should_not be_nil
         @response.should redirect_to(users_path)
@@ -52,11 +52,12 @@ describe UsersController do
     end
     
     describe "update" do
-      it "saves changes" do
+      it "works when changing username" do
         user = Factory(:user)       
-        post(:update, {:id => user.id, :user => {:name => "New Name"}})
+        new_username = random_content
+        post(:update, {:id => user.id, :user => {:username => new_username}})
         flash[:success].should_not be_nil
-        user.find(user.id).name.should == "New Name" 
+        User.find(user.id).username.should == new_username
       end      
     end
     
@@ -78,7 +79,7 @@ describe UsersController do
         file = File.new(Rails.root + 'spec/fixtures/images/example.png')
         post(:change_avatar, {:id => @controller.set_user.id, :avatar => ActionDispatch::Http::UploadedFile.new(:tempfile => file, :filename => File.basename(file.path))})
         flash[:success].should_not be_nil
-        response.should_redirect_to edit_user_path(@controller.set_user)         
+        response.should redirect_to edit_user_path(@controller.set_user)         
       end
     end 
     

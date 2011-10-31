@@ -1,9 +1,9 @@
 xml.instruct! :xml, :version=>"1.0" 
 xml.rss(:version=>"2.0"){
   xml.channel  {
-    xml.title("#{t("section.title.blog").capitalize} - #{@setting[:title]}")
+    xml.title("#{Page.find_by_name("blog").title} - #{@setting[:title]}")
     xml.link(url_for(:controller => "blog", :only_path => false))
-    xml.description(@setting[:meta_description])
+    xml.description(@setting[:meta_description].join(" "))
     xml.language("#{I18n.locale}")
     for page in @pages
       xml.item do      

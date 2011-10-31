@@ -17,20 +17,25 @@ describe PluginController do
         
     describe :vote do 
       it "upvote should work" do
-        expect{        
-          post :vote, {:record_id => @record.id, :record_type => @record.class.controller_name, :controller => "plugin", :direction => "up"}
-        }.to change(PluginImage, :count).by(+1)
+        previous_up_votes = @record.up_votes
+        xhr :post, :vote, {:record_id => @record.id, :record_type => @record.class.name, :controller => "plugin", :direction => "up"}, :format => :js
+        assigns[:record].up_votes.should == previous_up_votes + 1  
         @response.code.should eq("200")        
       end
+      
+      pending "it should not work when user has already voted"
     end
 
     describe :change_approval do 
-      it "it should work" do
-        expect{        
-          post :change_approval, {:record_id => @record.id, :record_type => @record.class.controller_name, :controller => "plugin", :direction => "up"}
-        }.to change(@record, :is_approved?).to("0")
-        @response.code.should eq("200")        
+      it "it should invert approval" do
+        previous_approval = @record.is_approved?   
+        post :change_approval, {:record_id => @record.id, :record_type => @record.class.name, :controller => "plugin"}
+        assigns[:record].is_approved?.should == !previous_approval
+        puts response.location
+        flash[:success].should_not be_nil
       end
+      
+      pending "it should not work when creator does not own record"
     end
   end
 end

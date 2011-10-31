@@ -24,17 +24,11 @@ describe AuthenticationsController do
     end
     
     describe "create" do
-      it "logs them in automatically if the authentication is already associated with the user's account" do
+      pending "logs them in automatically if the authentication is already associated with the user's account" 
+      pending "adds authentication to user's account if they're logged in" 
+      pending "saves authentication information, then redirects the to registration form" 
         
-      end
-      
-      it "adds authentication to user's account if they're logged in" do
-        
-      end
-      
-      it "saves authentication information, then redirects the to registration form" do
-        
-      end      
+  
 =begin
       it "increments count" do
         expect{
@@ -48,9 +42,10 @@ describe AuthenticationsController do
     
     describe "destroy" do
       it "decrements count" do
-        authentication = Factory(:authentication)
+        authentication = Factory(:authentication, :user => current_user)
+        puts authentication.inspect
         expect{
-          post(:delete, {:id => authentication.id})
+          post(:destroy, {:id => authentication.id})
         }.to change(Authentication, :count).by(-1)
         flash[:success].should_not be_nil
         @response.should redirect_to(authentications_path)
@@ -62,9 +57,7 @@ describe AuthenticationsController do
     pending "failure"     
 
     describe "create" do      
-      it "saves authentication/provider information, then redirects the to registration form" do
-        
-      end      
+      pending "saves authentication/provider information, then redirects the to registration form"      
     end    
   end 
 end

@@ -95,12 +95,11 @@ describe ItemsController do
     describe "create" do
       it "fails when user has created maximum amount of items" do
         Setting.set(:max_items_per_user, 1)
-        previously_created_item = Factory(:item)
+        previously_created_item = Factory(:item, :user => current_user)
         expect{
           post(:create, {:item => Factory.attributes_for(:item)})
         }.to change(Item, :count).by(0)
         flash[:failure].should_not be_nil
-        Setting.set(:max_items_per_user, 0) # reset        
       end      
     end   
   end

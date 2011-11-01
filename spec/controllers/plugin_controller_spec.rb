@@ -31,7 +31,6 @@ describe PluginController do
         previous_approval = @record.is_approved?   
         post :change_approval, {:record_id => @record.id, :record_type => @record.class.name, :controller => "plugin"}
         assigns[:record].is_approved?.should == !previous_approval
-        puts response.location
         flash[:success].should_not be_nil
       end
       

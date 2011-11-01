@@ -43,7 +43,6 @@ describe AuthenticationsController do
     describe "destroy" do
       it "decrements count" do
         authentication = Factory(:authentication, :user => current_user)
-        puts authentication.inspect
         expect{
           post(:destroy, {:id => authentication.id})
         }.to change(Authentication, :count).by(-1)

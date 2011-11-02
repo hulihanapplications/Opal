@@ -11,9 +11,12 @@ class PluginImagesController < PluginController
 
   def create
     @image = PluginImage.new(params[:plugin_image])
-    @image.effects = params[:effects]
     @image.user = @logged_in_user
-    @image.record = @record if defined?(@record)
+    @image.record = @record if defined?(@record)    
+    @image.effects = params[:plugin_image][:effects]
+    #raise params[:check]
+    @image.image = params[:plugin_image][:image] 
+    @image.remote_image_url = params[:plugin_image][:remote_image_url] 
     
     if @image.save # if image was saved successfully
       flash[:success] =  t("notice.item_create_success", :item => PluginImage.model_name.human)

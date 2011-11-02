@@ -50,6 +50,12 @@ module CarrierWave
       end      
     end
   end
+  
+  module RMagick
+    module Advanced
+      
+    end
+  end
 end
 
 CarrierWave::Uploader::Base.send(:include, CarrierWave::Uploader::RemoveDirectory)

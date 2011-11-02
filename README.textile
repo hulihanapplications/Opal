@@ -11,7 +11,7 @@ h2. Features
 * Multiple-user login system with secure administration area
 * Login from other websites(facebook, twitter, google, etc.) with OpenID/OAuth Support - "(Guide)":http://dev.hulihanapplications.com/wiki/opal/OAuth
 * Mass file uploader
-* Store files locally or in the cloud using Amazon S3, Rackspace Cloud Files, etc. - "(Guide)":http://dev.hulihanapplications.com/wiki/opal/Upload
+* Store uploaded files locally or in the cloud using Amazon S3, Rackspace Cloud Files, etc. - "(Guide)":http://dev.hulihanapplications.com/wiki/opal/Upload
 * Apply special effects to Images(Rotate, Resize, Watermark, Stamp, B&W, Sepia, etc.)
 * Infinite-depth category organization & customizable advanced item searching
 * I18n(Internationalization) support for multiple languages & locales

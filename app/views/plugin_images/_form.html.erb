@@ -47,17 +47,16 @@ $(function() {
 					<%= content_tag :div do %>
 						<%= content_tag(:h3, raw("#{icon("options")} #{t("single.effects")}")) %>
 						<div id="effects" class="field indent" >
-							<%= content_tag(:div, check_box(:effects, :monochrome) + label(:effects, :monochrome, t("label.image_effect_bw").html_safe)) %>
-							<%= content_tag(:div, check_box(:effects, :sepia) + label(:effects, :sepia, t("label.image_effect_sepia").html_safe)) %>
-							<%= content_tag(:div, check_box(:effects, :rotate_90_cw) + label(:effects, :rotate_90_cw, t("label.image_effect_rotate_90_cw").html_safe)) %>
-							<%= content_tag(:div, check_box(:effects, :rotate_90_ccw) + label(:effects, :rotate_90_ccw, t("label.image_effect_rotate_90_ccw").html_safe)) %>
-							<%= content_tag(:div, check_box(:effects, :rotate_180) + label(:effects, :rotate_180, t("label.image_effect_rotate_180").html_safe)) %>
-							<%= content_tag(:div, check_box(:effects, :resize_image) + label(:effects, :resize_image, t("label.image_effect_resize", :width => @setting[:plugin_image][:item_image_width], :height => @setting[:plugin_image][:item_image_width]))) %>
-							<%= content_tag(:div, check_box(:effects, :watermark) + label(:effects, :watermark, t("single.watermark").html_safe)) %>
-							<%= content_tag(:div, check_box(:effects, :stamp) + label(:effects, :stamp, t("single.stamp").html_safe)) %>
-							<%= content_tag(:div, check_box(:effects, :negate) + label(:effects, :negate, t("label.image_effect_negate").html_safe)) %>
-							<%= content_tag(:div, check_box(:effects, :gaussian_blur) + label(:effects, :gaussian_blur, t("label.image_effect_gaussian_blur").html_safe)) %>
-							<%= content_tag(:div, check_box(:effects, :polaroid) + label(:effects, :polaroid, t("label.image_effect_polaroid").html_safe)) %>										
+							<%= content_tag(:div, check_box("plugin_image[effects]", :monochrome) + label("plugin_image_effects", :monochrome, t("label.image_effect_bw").html_safe)) %>
+							<%= content_tag(:div, check_box("plugin_image[effects]", :sepia) + label("plugin_image_effects", :sepia, t("label.image_effect_sepia").html_safe)) %>
+							<%= content_tag(:div, check_box("plugin_image[effects]", :rotate_90_cw) + label("plugin_image[effects]", :rotate_90_cw, t("label.image_effect_rotate_90_cw").html_safe)) %>
+							<%= content_tag(:div, check_box("plugin_image[effects]", :rotate_90_ccw) + label("plugin_image_effects", :rotate_90_ccw, t("label.image_effect_rotate_90_ccw").html_safe)) %>
+							<%= content_tag(:div, check_box("plugin_image[effects]", :rotate_180) + label("plugin_image_effects", :rotate_180, t("label.image_effect_rotate_180").html_safe)) %>
+							<%= content_tag(:div, check_box("plugin_image[effects]", :resize, {:disabled => Setting.global_settings[:plugin_image][:resize_item_images], :checked => Setting.global_settings[:plugin_image][:resize_item_images]}) + label("plugin_image_effects", :resize, t("label.image_effect_resize", :width => @setting[:plugin_image][:item_image_width], :height => @setting[:plugin_image][:item_image_width]))) %>
+							<%= content_tag(:div, check_box("plugin_image[effects]", :watermark) + label("plugin_image_effects", :watermark, t("single.watermark").html_safe)) %>
+							<%= content_tag(:div, check_box("plugin_image[effects]", :stamp) + label("plugin_image_effects", :stamp, t("single.stamp").html_safe)) %>
+							<%= content_tag(:div, check_box("plugin_image[effects]", :negate) + label("plugin_image_effects", :negate, t("label.image_effect_negate").html_safe)) %>
+							<%= content_tag(:div, check_box("plugin_image[effects]", :polaroid) + label("plugin_image_effects", :polaroid, t("label.image_effect_polaroid").html_safe)) %>
 						</div>
 					<% end  %>
 				<% else %>

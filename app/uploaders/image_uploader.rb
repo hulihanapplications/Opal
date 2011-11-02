@@ -26,6 +26,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   # def scale(width, height)
   #   # do something
   # end
+  
   process :monochrome, :if => :monochrome?
   process :sepia, :if => :sepia?
   process :rotate_90_cw, :if => :rotate_90_cw?
@@ -162,26 +163,26 @@ class ImageUploader < CarrierWave::Uploader::Base
   def watermark
     manipulate! do |img| 
       watermark_path = File.join(Setting.global_settings[:theme_dir], "images", "watermark.png")
-      if File.exists?(watermark_path) # use existing watermark image
-        watermark_image = Magick::Image.read(File.read(watermark_path)).first 
-        img.composite!(watermark_image, Magick::CenterGravity, Magick::OverCompositeOp)      
-      else # no existing watermark image, generate one from text
+      if File.exists?(watermark_path) # use watermark image
+        watermark_image = Magick::Image.read(watermark_path).first 
+        img.composite!(watermark_image, Magick::CenterGravity, Magick::OverCompositeOp)     
+      else # no watermark image found, generate one from text
         watermark_image = Magick::Image.new(300, 50) do # since Image.new returns an actual image, you must initialize image properties(like bg color, etc. in the initialization block of the object) 
           self.background_color = "transparent" # uncomment for Method 2 & 3
         end
         gc = Magick::Draw.new
-        gc.annotate(watermark_image, 0, 0, 0, 0, Setting.global_settings[:title]) do 
+        watermark_text = Setting.global_settings[:title]
+        gc.annotate(watermark_image, 0, 0, 0, 0, watermark_text) do 
           gc.gravity = Magick::CenterGravity
           gc.pointsize = 32
           gc.font_family = "Helvetica"
           gc.stroke = "none"
-          gc.fill = "white" # uncomment for Method 2                    
+          gc.fill = "black"                     
         end
-        watermark_image.rotate!(-90)   
-        img = img.watermark(watermark_image, 0.15, 0, Magick::EastGravity)
-        #img.composite!(watermark_image, Magick::CenterGravity, Magick::OverCompositeOp)
+           
+        img.watermark(watermark_image, 0.15, 0, Magick::CenterGravity)
       end              
-    end 
+    end  
   end  
 
   def stamp?(*args)
@@ -192,7 +193,7 @@ class ImageUploader < CarrierWave::Uploader::Base
     manipulate! do |img|
      stamp_path = File.join(Setting.global_settings[:theme_dir], "images", "stamp.png")
      if File.exists?(stamp_path) # use existing stamp image
-       stamp_image = Magick::Image.read(File.read(stamp_path)).first 
+       stamp_image = Magick::Image.read(stamp_path).first 
        img.composite!(stamp_image, Magick::SouthEastGravity, Magick::OverCompositeOp)  # Other Gravities: SouthEastGravity, NorthGravity(centered), etc.    
      else # no existing stamp image, generate one from text
        logger.error("No Stamp Found: #{stamp_path}")

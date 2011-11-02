@@ -295,7 +295,7 @@ en:
     make_link: Make this a link.
     out_of: out of
     from_local: From your Computer
-    from_web: From the Web(URL)
+    from_web: From the Web (URL)
     image_effect_bw: "Monochrome(Black &amp; White)"
     image_effect_sepia: Sepia
     image_effect_rotate_90_cw: "Rotate 90&deg; Clockwise"

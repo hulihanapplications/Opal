@@ -12,9 +12,8 @@ class PluginImagesController < PluginController
   def create
     @image = PluginImage.new(params[:plugin_image])
     @image.user = @logged_in_user
-    @image.record = @record if defined?(@record)    
+    @image.record = @record if defined?(@record)     
     @image.effects = params[:plugin_image][:effects]
-    #raise params[:check]
     @image.image = params[:plugin_image][:image] 
     @image.remote_image_url = params[:plugin_image][:remote_image_url] 
     

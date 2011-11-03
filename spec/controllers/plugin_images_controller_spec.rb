@@ -34,7 +34,8 @@ describe PluginImagesController do
     describe "create" do 
       it "should work with uploaded file" do
         expect{
-          post(:create, {:record_type => @record.class.name, :record_id => @record.id, :plugin_image => Factory.attributes_for(:plugin_image)})
+          uploaded_file = fixture_file_upload(Rails.root.join('spec/fixtures/images/rails.png'), "image/png")       
+          post(:create, {:record_type => @record.class.name, :record_id => @record.id, :plugin_image => {:image => uploaded_file}})
           flash[:success].should_not be_nil
         }.to change(PluginImage, :count).by(+1)
         assigns[:image].destroy # clean up          
@@ -43,7 +44,7 @@ describe PluginImagesController do
       it "should fail when an file is not included" do
         expect{          
           post(:create, {:record_type => @record.class.name, :record_id => @record.id, :plugin_image => Factory.attributes_for(:plugin_image, :image => nil)})
-          flash[:success].should_not be_nil
+          flash[:failure].should_not be_nil
         }.to change(PluginImage, :count).by(0)               
       end
     end

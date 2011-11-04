@@ -53,7 +53,7 @@ class PluginVideosController < PluginController
   def show
   	@video = @record
     respond_to do |format|
-      format.html{}
+      format.html{render :layout => false if request.xhr?}
       format.js{render :layout => false }
     end    	 
   end

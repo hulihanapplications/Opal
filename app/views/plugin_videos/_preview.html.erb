@@ -1,9 +1,8 @@
-
-
-<%= link_to(theme_image_tag("preview_video.png", :class => options[:size]), {:action => "show", :controller => "plugin_videos", :record_id => record.id, :record_type => record.class.name}, :id => "preview_link_#{item.id}", :title => record.title.blank? ? record.title : "") %>
+<% link_id = "preview_link_#{item.id}_#{options[:size].to_s}" %>
+<%= link_to(theme_image_tag("preview_video.png", :class => options[:size]), {:action => "show", :controller => "plugin_videos", :record_id => record.id, :record_type => record.class.name}, :id => link_id, :title => record.title.blank? ? record.title : "") %>
 
 <script>
     $(document).ready(function(){
-        $("#preview_link_<%= item.id %>").colorbox();              
+        $("#<%= link_id %>").colorbox();              
     });
 </script>

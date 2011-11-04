@@ -1,14 +1,13 @@
-GIT
-  remote: git://github.com/medihack/make_voteable
-  revision: 78df04ecb9140e54c644eade060990de61433f40
-  specs:
-    make_voteable (0.1.1)
-      activerecord (~> 3.0)
-
 PATH
   remote: vendor/gems
   specs:
     opal (0.8.0)
+
+PATH
+  remote: vendor/gems/make_voteable-106adecfad30
+  specs:
+    make_voteable (0.1.0)
+      activerecord (~> 3.0)
 
 PATH
   remote: vendor/gems/russian

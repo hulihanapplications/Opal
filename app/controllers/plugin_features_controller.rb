@@ -3,9 +3,9 @@ class PluginFeaturesController < ApplicationController
   before_filter :find_record, :except => [:new, :create, :delete, :index, :edit, :update, :create_option, :delete_option, :options] # look up item 
   before_filter :find_plugin # look up plugin
   before_filter :authenticate_admin, :enable_admin_menu, :only =>  [:create, :delete, :index, :new, :edit, :update, :create_option, :delete_option, :options] # make sure logged in user is an admin  
-  before_filter :only => [:create_feature_values] {|c| can?(PluginFeatureValue, @logged_in_user, :create)} 
-  before_filter :only => [:update_feature_value, :update_values] {|c| can?(@record.record, @logged_in_user, :edit)} 
-  before_filter :only => [:delete_feature_values] {|c| can?(@record.record, @logged_in_user, :edit)} 
+  before_filter(:only => [:create_feature_values]){|c| can?(PluginFeatureValue, @logged_in_user, :create)} 
+  before_filter(:only => [:update_feature_value, :update_values]){|c| can?(@record.record, @logged_in_user, :edit)} 
+  before_filter(:only => [:delete_feature_values]){|c| can?(@record.record, @logged_in_user, :edit)} 
 
   include ActionView::Helpers::TextHelper # for truncate, etc.
   

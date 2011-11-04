@@ -2,12 +2,12 @@ class PluginController < ApplicationController
   before_filter :find_record # look up record 
   before_filter :find_plugin, :except => [:vote, :change_approval] # look up plugin 
 
-  before_filter :except => [:vote, :change_approval] {|c| can?(@record, @logged_in_user, :view)} 
-  before_filter :only => [:change_approval] {|c| can?(@record.record, @logged_in_user, :edit)}      
+  before_filter(:except => [:vote, :change_approval]) {|c| can?(@record, @logged_in_user, :view)} 
+  before_filter(:only => [:change_approval]){|c| can?(@record.record, @logged_in_user, :edit)}      
 
-  before_filter :only => [:new, :create] {|c| can?(@plugin.plugin_class, @logged_in_user, :create, :record => @record)} 
-  before_filter :only => [:edit, :update] {|c| can?(@record, @logged_in_user, :edit)} 
-  before_filter :only => [:delete] {|c| can?(@record, @logged_in_user, :destroy)} 
+  before_filter(:only => [:new, :create]) {|c| can?(@plugin.plugin_class, @logged_in_user, :create, :record => @record)} 
+  before_filter(:only => [:edit, :update]) {|c| can?(@record, @logged_in_user, :edit)} 
+  before_filter(:only => [:delete]){|c| can?(@record, @logged_in_user, :destroy)} 
    
   def vote
     if @logged_in_user.voted?(@record) # have they already voted?

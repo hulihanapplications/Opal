@@ -1,7 +1,8 @@
 class PluginDiscussionsController < PluginController
  before_filter :uses_tiny_mce, :only => [:new, :edit, :create, :update]  # which actions to load tiny_mce, TinyMCE Config is done in Layout. 
- before_filter :only => [:view, :create_post, :rss] {|c|  can?(@record, @logged_in_user, :view)} 
- before_filter :only => [:delete_post] {|c|  can?(@record, @logged_in_user, :destroy)} 
+ before_filter(:only => [:view, :create_post, :rss]) {|c|  can?(@record, @logged_in_user, :view)} 
+ before_filter(:only => [:delete_post]) {|c|  can?(@record, @logged_in_user, :destroy)} 
+
  include ActionView::Helpers::TextHelper # for truncate, etc.
 
  def create # this is the only create action that doesn't require that the item is editable by the user

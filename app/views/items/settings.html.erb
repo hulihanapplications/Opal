@@ -75,7 +75,9 @@
 									</div>		
 									<table width="100%" cellpadding=0 cellspacing=0  class="setting_table row_table">													 
 									 <tr class="row_b">
-									  <td style="width:100px;height:100px;vertical-align:middle" align=center><a href="/images/examples/item_page_type_summarized.png" rel="colorbox" title="<%= t("activerecord.records.setting.item_page_type_summarized.title") %>"><img alt="" class="thumbnail" src="/images/examples/thumbnail_item_page_type_summarized.png"  /></a></td>
+									  <td style="width:100px;height:100px;vertical-align:middle" align=center>
+									  	<%= link_to(image_tag("examples/thumbnail_item_page_type_summarized.png", :class => :thumbnail), image_path("examples/item_page_type_summarized.png"), :rel => "colorbox", :title => t("activerecord.records.setting.item_page_type_summarized.title"))%>
+									  </td>
 									  <td align=left style="padding-left:10px;vertical-align:middle"><h2><%= t("activerecord.records.setting.item_page_type_summarized.title") %></h2><%= t("activerecord.records.setting.item_page_type_summarized.description", :item => Item.model_name.human.downcase) %></td>
 									  <td align=right style="padding-right:20px;vertical-align:middle"><input type="radio" name="setting[item_page_type]" value="summarized" <% if @setting[:item_page_type] == "summarized" %>CHECKED<% end %>></td>		  
 									 </tr>

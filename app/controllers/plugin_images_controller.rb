@@ -1,6 +1,4 @@
 class PluginImagesController < PluginController
-  #skip_before_filter :find_record, :only => [:tinymce]
-
   def single_access_allowed?
     action_name == "create" 
   end  

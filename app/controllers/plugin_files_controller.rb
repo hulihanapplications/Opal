@@ -1,5 +1,5 @@
 class PluginFilesController < PluginController 
-  before_filter :only => [:download] {|c|  can?(@record, @logged_in_user, :view)} 
+  before_filter(:only => [:download]) {|c|  can?(@record, @logged_in_user, :view)} 
 
   def create
     @file = PluginFile.new(params[:plugin_file])

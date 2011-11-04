@@ -38,6 +38,15 @@ namespace I18n.t("name").downcase.to_sym do
     sleep 1 # sleep to make sure all db changes have completed
     Rake::Task["#{I18n.t("name").downcase}:install"].invoke    
   end
+  
+  # hook into asset precompilation 
+  Rake::Task['assets:precompile'].enhance do
+    assets = File.expand_path(File.dirname(__FILE__) + "/../../vendor/assets/javascripts/tiny_mce")
+    target = File.join(Rails.public_path, Rails.application.config.assets.prefix)
+    
+    mkdir_p target
+    cp_r assets, target
+  end
 end
 
 

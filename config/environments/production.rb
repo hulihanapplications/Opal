@@ -38,7 +38,8 @@ Opal::Application.configure do
   config.active_support.deprecation = :log
   
   # Add additional assets to precompile
-  config.assets.precompile = [/^[a-zA-Z]*\..*/]
+  config.assets.precompile += [/^[a-zA-Z]*\..*/]
+  config.assets.precompile += [ /\w+\.(?!js|css).+/, /application.(css|js)$/ ]
     
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)

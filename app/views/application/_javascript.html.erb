@@ -2,7 +2,8 @@
 
 <% if using_tiny_mce? %>
 	<!-- Load TinyMCE -->
-	<%= javascript_include_tag "tiny_mce/tiny_mce" %>
+	<%# Load TinyMCE as non-asset since tinymce has a path resolution issue %>
+	<%= javascript_include_tag "/javascripts/tiny_mce/tiny_mce" %>
 	<script type="text/javascript">
 		// Activate TinyMCE 			
 		//<![CDATA[

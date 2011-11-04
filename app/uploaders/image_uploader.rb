@@ -102,7 +102,7 @@ class ImageUploader < CarrierWave::Uploader::Base
     model.effects[:rotate_180] == "1" if model.effects
   end
 
-  def rotate_189
+  def rotate_180
     manipulate! do |img| 
       img.rotate!(180) 
     end 

@@ -19,6 +19,10 @@ Opal::Application.configure do
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_assets = false
 
+  # Live Compilation - On the first request the assets are compiled and cached. 
+  # Causes First-time load performance hit  
+  config.assets.compile = false
+
   # Compress JavaScripts and CSS
   config.assets.compress = true
 
@@ -38,6 +42,7 @@ Opal::Application.configure do
   config.active_support.deprecation = :log
   
   # Add additional assets to precompile
+  #config.assets.precompile += ['tiny_mce/tiny_mce.js'] # moved from vendor/assets to public/javascripts because of tinymce path resolution problem
   config.assets.precompile += [/^[a-zA-Z]*\..*/]
   config.assets.precompile += [ /\w+\.(?!js|css).+/, /application.(css|js)$/ ]
     

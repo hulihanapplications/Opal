@@ -51,6 +51,7 @@ public/images/avatars/*
 public/uploads/*
 files/item_files/*
 uploads/*
+public/assets
 
 # Remove any Opal Plugins
 vendor/plugins/opal_*

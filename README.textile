@@ -63,7 +63,7 @@ bundle install
 
 h2. Install Opal 
 
-Next, Run the following commands (while in the Opal directory) to install Opal's required stuff(database structure, assets, etc.) in production mode: 
+Next, Run these commands (while in the Opal directory) to install Opal's required stuff (database structure, assets, etc.) in production mode: 
 
 <pre>
 bundle exec rake db:migrate RAILS_ENV=production LOCALE=en
@@ -97,32 +97,26 @@ rake db:migrate RAILS_ENV=production
 
 That's it!
 
-h1. Extra Stuff
+h1. Extra Stuff 
 
-h2. Email Settings
+h2. Guides & Tutorials
 
-Opal includes an automated email system that will send you emails whenever someone registers, creates a new item, etc. 
-To use this automated email system, you must configure the _config/email.yml_ file to connect to an SMTP email server. Here's an example of what this file should look like:
+Here's just a few of the "many things":http://dev.hulihanapplications.com/wiki/opal/User%27s_Guide you can do with Opal:
 
-<pre>
-development:
-  :address: smtp.server.com
-  :port: 25
-  :authentication: plain
-  :user_name: user
-  :password: pass
+* "Set up OAuth Authentication to log in through other websites":http://dev.hulihanapplications.com/wiki/opal/OAuth
+* "Use Amazon S3, Rackspace Cloud Files, etc. to store files":http://dev.hulihanapplications.com/wiki/opal/Upload
+* "Create Custom Fields for Items":http://dev.hulihanapplications.com/wiki/opal/Create_Custom_Fields_for_Items
+* "Configure Email & Notifications":http://dev.hulihanapplications.com/wiki/opal/Notifications
+* "Add an ad banner To Opal":http://dev.hulihanapplications.com/wiki/opal/Adding_an_Ad_Banner_To_Opal
+* "How to Watermark Uploaded Images":http://dev.hulihanapplications.com/wiki/opal/Watermarking_Uploaded_Images
 
-production:
-  :address: smtp.server.com
-  :port: 25
-  :authentication: plain
-  :user_name: user
-  :password: pass
-</pre>
+Check out the "Opal Wiki":http://dev.hulihanapplications.com/wiki/opal/User's_Guide for more.
 
 h2. Plugins & Themes
 
-You can easily extend and customize Opal with new plugins and themes. Check out "Opal's Project Page":http://hulihanapplications.com/projects/opal#5 to learn more. 
+You can easily extend and customize Opal with new plugins and themes. *Plugins* extend Opal's core functionality and *Themes* change the appearance of your Opal application. 
+
+Opal has a small but dedicated community of designers and coders that create plugins and themes for public use. You can find them on the official "Opal website":http://hulihanapplications.com/projects/opal#5. Check out the guides below to make your own. 
  
 h1. Community & Additional Help
 

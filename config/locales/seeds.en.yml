@@ -52,7 +52,7 @@ en:
       home:
         title: "Home"
         description: "The Main Home Page."
-        content: "<div class=\"box_2\" style=\"margin-bottom:5px\">\r\n<h1 class=\"title\">Welcome!</h1>Welcome to Opal. First time using Opal? No problem. Start by reading the <b>Getting Started</b> section.<br><br><h2 class=\"title\">Change this Section</h2>\r\n After you log in, Click on the <strong>admin Tab</strong>, then Click on the <strong>Pages Tab</strong>. In the <strong>Public Pages Section</strong>, click on the edit icon next to the page: <span style=\"text-decoration: underline;\">Home</span>. That's all there is to it!</div>"
+        content: "<div class=\"box_2\">\r\n<h1 class=\"title\">Welcome!</h1><p>Welcome to Opal! This is a sample homepage that you can change from the Administration section.<h2 class=\"title\">Change this section</h2><p>After you log in, Click on the <strong>Administration</strong> link at the top of the page, then click on the <strong>Pages</strong> tab. In the <strong>Public Pages Section</strong>, click on the edit icon next to the page: <span style=\"text-decoration: underline;\">Home</span>. That's all there is to it!</p><h2>Additional Help</h2><p style=\"margin-bottom:0\">If you need any more help or would like to learn the ins and outs of Opal, check out the <a href=\"http://dev.hulihanapplications.com/wiki/opal/User%27s_Guide\" target=_blank>Opal User's Guide</a>.</p></div>"
       items:
         title: "Items"
         description: ""

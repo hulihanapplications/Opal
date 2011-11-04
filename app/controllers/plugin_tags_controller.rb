@@ -1,5 +1,4 @@
-class PluginTagsController < PluginController
-  
+class PluginTagsController < PluginController  
   def create
      @tag = PluginTag.new(params[:plugin_tag])
      @tag.user_id = @logged_in_user.id

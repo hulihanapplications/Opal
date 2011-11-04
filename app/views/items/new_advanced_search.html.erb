@@ -15,7 +15,7 @@
 				  $('#results').html('<div class="loading"><%= theme_image_tag("loading.gif", :class => "loading") %></div>');
 				})	
 				.bind('ajax:success', function(evt, data, status, xhr){
-				  alert("Success!");
+				  //alert("Success!");
 				  $('#results').html(xhr.responseText);
 				})	
 				.bind('ajax:error', function(evt, xhr, status, error){

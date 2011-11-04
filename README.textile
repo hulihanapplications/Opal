@@ -10,9 +10,9 @@ h2. Features
 * State-of-the-Art Interface powered by HTML5, CSS3, jQuery, Uploadify, and jQuery TOOLS
 * Multiple-user login system with secure administration area
 * Login from other websites(facebook, twitter, google, etc.) with OpenID/OAuth Support - "(Guide)":http://dev.hulihanapplications.com/wiki/opal/OAuth
-* Mass file uploader
+* Mass file & image uploader
 * Store uploaded files locally or in the cloud using Amazon S3, Rackspace Cloud Files, etc. - "(Guide)":http://dev.hulihanapplications.com/wiki/opal/Upload
-* Apply special effects to Images(Rotate, Resize, Watermark, Stamp, B&W, Sepia, etc.)
+* Apply special effects to Images(Rotate, Resize, Watermark, Stamp, Monochrome, Sepia, etc.)
 * Infinite-depth category organization & customizable advanced item searching
 * I18n(Internationalization) support for multiple languages & locales
 * CMS-style Pages & Integrated Blog
@@ -63,15 +63,16 @@ bundle install
 
 h2. Install Opal 
 
-Next, Run the following command(while in the Opal directory) to install Opal's database schema in production mode: 
+Next, Run the following commands (while in the Opal directory) to install Opal's required stuff(database structure, assets, etc.) in production mode: 
 
 <pre>
 bundle exec rake db:migrate RAILS_ENV=production LOCALE=en
 bundle exec rake db:seed RAILS_ENV=production LOCALE=en
+bundle exec rake assets:precompile RAILS_ENV=production 
 </pre>
 
 These commands will create the database structure of Opal in production mode. If you leave out *RAILS_ENV=PRODUCTION*, everything will be installed into your development database instead. This will also set up the default admin account, some sample items(you'll be asked if you want to install sample data), and other stuff to help you get started with Opal. You can also specify the *LOCALE* parameter to install Opal in a language other than english. 
-  * If you want to automate an Opal installation, or if you just want to bypass prompts(that ask you if you want to install sample data and other stuff: run this command: _rake opal:install PROMPTS=FALSE_)
+  * If you want to automate an Opal installation, or if you just want to bypass prompts(that ask you if you want to install sample data and other stuff: run this command: _bundle exec rake db:seed PROMPTS=FALSE_)
 
 h2. That's it! 
 

@@ -23,6 +23,8 @@ Opal::Application.configure do
   config.assets.compress = true
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
+  # Run this during deploy:
+  # bundle exec rake assets:precompile RAILS_ENV=production
   config.assets.compile = false
 
   # Generate digests for assets URLs

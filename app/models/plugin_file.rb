@@ -9,7 +9,7 @@ class PluginFile < ActiveRecord::Base
   attr_accessible :title, :file, :remove_file, :remote_file_url
   
   def to_s
-    get_title	
+    get_title 
   end
   
   def to_param # make custom parameter generator for seo urls, to use: pass actual object(not id) into id ie: :id => object
@@ -21,7 +21,8 @@ class PluginFile < ActiveRecord::Base
     self.title? ? self.title : filename.blank? ? "" : filename
   end
   
+  # get filename. If "filename" column exists, return that. Otherwise get it from carrierwave attachment
   def filename
-    file.path.blank? ? "" : File.basename(file.path)  
+    self.class.column_names.include?("filename") ? self["filename"] : (file.path.blank? ? "" : File.basename(file.path))  
   end  
 end

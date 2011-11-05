@@ -21,8 +21,9 @@ class AddCarrierwave < ActiveRecord::Migration
         end
       end      
       FileUtils.rm_rf(item_image_dir) if File.exists?(item_image_dir)
+      
       # Update PluginFiles
-      item_files_dir = Rails.root.join("file", "item_files", item.id.to_s)
+      item_files_dir = Rails.root.join("files", "item_files", item.id.to_s)
       for plugin_file in item.plugin_files
         unless plugin_file.filename.blank?          
           file = File.join(item_files_dir, File.basename(plugin_file.filename))

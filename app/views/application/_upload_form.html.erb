@@ -1,0 +1,27 @@
+<script type="text/javascript">
+$(function() {
+	$('#source_local').click(function() {
+		$("#remote_file").conceal();
+		$("#local_file").reveal();
+	});
+	
+	$('#source_remote').click(function() {
+		$("#local_file").conceal();
+		$("#remote_file").reveal();
+	});	
+});
+</script>
+
+<div class="field">
+	<h3>						
+		<%= radio_button_tag(:source, :local, true) %> <%= label_tag :source_local,  t("label.from_local") %> 
+		<%= radio_button_tag(:source, :remote, false) %> <%= label_tag :source_remote,  t("label.from_web") %>
+ 	</h3>	
+	<div id="local_file" class="field" style="<%= true ? nil : "display:none" %>">
+		<%= file_field_tag :file %>								
+	</div>					
+	<div id="remote_file" class="field" style="<%= true ? "display:none" : nil %>">
+		<%= text_field_tag :url %>
+	</div>		
+</div>
+				

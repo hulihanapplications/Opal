@@ -174,7 +174,7 @@ en:
   # Logs 
   log: # call with t(:failed_admin_access_attempt_user, :scope => [:log]) or t("log.failed_admin_access_attempt_user") 
     item_create: "Created %{item}: %{name}"
-    item_update: "Made changes to %{item}: %{name}"
+    item_save: "Made changes to %{item}: %{name}"
     item_destroy: "Deleted %{item}: %{name}"
     item_install: "Installed %{item}: %{name}"
     item_uninstall: "Uninstalled %{item}: %{name}"

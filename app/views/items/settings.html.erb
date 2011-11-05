@@ -46,7 +46,7 @@
 									 </tr>
 									 <tr class="row_b">
 									  <td style="width:100px;height:100px;vertical-align:middle" align=center>
-									  	<%= link_to(image_tag("examples/thumbnail_item_list_detailed.png", :class => :preview), image_path("examples/item_list_details.png"), :rel => "colorbox", :title => t("activerecord.records.setting.list_type_detailed.title"))%>									  										  	
+									  	<%= link_to(image_tag("examples/thumbnail_item_list_detailed.png", :class => :preview), image_path("examples/item_list_detailed.png"), :rel => "colorbox", :title => t("activerecord.records.setting.list_type_detailed.title"))%>									  										  	
 									  </td>
 									  <td align=left style="padding-left:10px;vertical-align:middle"><h2><%= t("activerecord.records.setting.list_type_detailed.title") %></h2><%= t("activerecord.records.setting.list_type_detailed.description", :items => Item.model_name.human(:count => :other).downcase) %></td>
 									  <td align=right style="padding-right:20px;vertical-align:middle"><input type="radio" name="setting[list_type]" value="detailed" <% if get_setting("list_type") == "detailed" %>CHECKED<% end %>></td>		  

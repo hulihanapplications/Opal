@@ -51,14 +51,13 @@ class SettingsController < ApplicationController
      uploaded_file = Uploader.file_from_url_or_local(:local => params[:file], :url => params[:url])
      filename = params[:file].blank? ? File.basename(uploaded_file.path) : params[:file].original_filename 
      main_image_path = File.join(@setting[:theme_dir], "images", "logo.png") # location of main logo
-     
 
      if params[:keep_dimensions] # keep original logo dimensions
         original_image = Magick::Image.from_blob(File.open(main_image_path).read).first # open original logo and create image object        
         width = original_image.columns
         height = original_image.rows
      end      
-     flash[:info] = filename
+     
      if Uploader.check_file_extension(:filename => filename, :extensions => acceptable_file_extensions)
         image = Magick::Image.from_blob(File.open(uploaded_file.path).read)[0] # read in image binary, from_blob returns an array of images, grab first item
         Uploader.generate_image(

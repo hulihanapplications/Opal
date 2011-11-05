@@ -2,10 +2,10 @@ for item in items
   xml.item do
     xml.title(h item.name)
 
-    main_image = item.plugin_images.first  # Grab the main image, make optional
-    if item.main_image 
+    main_image = item.plugin_images.approved.first  # Grab the main image, make optional
+    if main_image 
       xml.image do
-        xml.url(URI.join(@setting[:url], main_image.image.url))
+        xml.url(URI.join(@setting[:url], main_image.image.thumb.url))
         xml.title((main_image.description.blank?) ? main_image.filename : main_image.description)
         xml.link(URI.join(@setting[:url], main_image.image.url))
       end 

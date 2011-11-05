@@ -250,7 +250,7 @@ private
     #logger.info "can? #{action} failed on #{target} by #{performer}"
     if target
       if !target.can?(performer, action, options)
-        flash[:failure] = t("notice.invalid_permissions") + action + target.inspect
+        flash[:failure] = t("notice.invalid_permissions") + action.to_s + target.inspect
         respond_to do |format|     
           format.html {request.xhr? ? render(:text => flash[:failure]) : redirect_to(:back)} 
         end       

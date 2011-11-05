@@ -37,9 +37,9 @@ describe SettingsController do
       end    
     end
     
-    describe :new_install_theme do
+    describe :new_theme_install do
       it "returns 200" do
-        get :new_install_theme
+        get :new_theme_install
         response.code.should eq("200")
       end    
     end  

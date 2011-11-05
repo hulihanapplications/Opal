@@ -52,7 +52,7 @@ module LogsHelper
     when "delete", "destroy"
       icon("delete", t("single.deleted"), "icon help")
     when "system"
-      icon("success", t("single.system") + " " + Log.model_name.human)
+      icon("success", t("single.system") + " " + Log.model_name.human, "icon help")
     when "warning"
       icon("warning", t("single.warning"), "icon help")
     else

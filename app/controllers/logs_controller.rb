@@ -6,7 +6,7 @@ class LogsController < ApplicationController
   before_filter :enable_user_menu, :only => [:for_me]
 
   before_filter :find_item, :only => [:for_item]
-  before_filter :only => [:for_item] {|c| can?(@item, @logged_in_user, :view)} 
+  before_filter(:only => [:for_item]){|c| can?(@item, @logged_in_user, :view)} 
   
   
   def index 

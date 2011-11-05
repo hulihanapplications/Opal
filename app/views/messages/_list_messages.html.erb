@@ -45,12 +45,12 @@
 					  	<div id="message_box_<%= message.id %>">
 					  									
 								<a href="javascript:toggle_box('message_box_hidden_<%= message.id %>')">
-									<%= h truncate(message.message,  :length => 65) %>
+									<%= h truncate(message.message, :length => 65) %>
 								</a>							
 												
 					  	</div>
 					</td>
-					<td align=right style="width:135px;vertical-align:middle;">
+					<td align=right style="width:150px;vertical-align:middle;">
 						<%= friendly_date message.created_at %>					
 					</td>
 			  	</tr>	

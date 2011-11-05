@@ -11,8 +11,8 @@ xml.rss(:version=>"2.0"){
         xml.description("#{h post.post}")
         # rfc822
         xml.pubDate(post.created_at.rfc2822)
-      xml.link(record_path(@discuession, :only_path => false))
-      xml.guid(record_path(@discuession, :only_path => false))
+      xml.link(record_path(@discussion, :only_path => false))
+      xml.guid(record_path(@discussion, :only_path => false))
       end
     end
   }

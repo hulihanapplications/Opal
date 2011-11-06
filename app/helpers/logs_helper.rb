@@ -11,7 +11,7 @@ module LogsHelper
           when "Item"
             options = {:user => link_to_user(log.target.user), :item => log.klass.model_name.human.downcase, :target => link_to_record(log.target)}
           when "PluginComment"    
-            options = {:user => link_to_user(log.target.user), :item => log.klass.model_name.human.downcase, :parent => link_to_record(log.target.record), :target => link_to(truncate(log.target.comment, :length => 40), {:action => "view", :controller => "items", :anchor => log.klass.model_name.human(:count => :other)})}
+            options = {:user => (log.target.user ? link_to_user(log.target.user) : I18n.t("single.anonymous")), :item => log.klass.model_name.human.downcase, :parent => link_to_record(log.target.record), :target => link_to(truncate(log.target.comment, :length => 40), {:action => "view", :controller => "items", :anchor => log.klass.model_name.human(:count => :other)})}
           when "PluginImage"    
             message << raw(plugin_image_thumbnail(log.target, :class => "medium", :preview => true))
             options = {:user => link_to_user(log.target.user), :item => log.klass.model_name.human.downcase, :parent => link_to_record(log.target.record), :target => link_to_record(log.target.record)}

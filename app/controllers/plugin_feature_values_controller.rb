@@ -1,0 +1,2 @@
+class PluginFeatureValuesController < PluginController
+end

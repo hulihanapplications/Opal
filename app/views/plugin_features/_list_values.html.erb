@@ -11,13 +11,8 @@
 				<% if ((options[:only_listed] && feature.listed) || !options[:only_listed]) && feature.visible_for_category?(feature_value.record.category) %>
 					<tr>
 						<td style="text-align:left;white-space: nowrap;">
-								<% if item.can?(@logged_in_user, :edit) && options[:show_controls]  %>
-									<span class="" >									
-							 			<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/approved.png\" title=\"#{t("single.approved")}\" class=\"icon\">" if feature_value.is_approved? %> 										
-							 			<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/unapproved.png\" title=\"#{t("single.not")} #{t("single.approved")}\" class=\"icon\">" if !feature_value.is_approved? %> 																							
-										<%= link_to raw("<img src=\"/themes/#{@setting[:theme]}/images/icons/cycle.png\" class=\"icon\">"), {:action => "change_approval", :id => item.id, :feature_value_id => feature_value.id, :controller => "plugin_features"}, :confirm => t("confirm.general"), :title => "#{t("label.item_change", :item => "")}", :class => "transparent" %>										
-									</span>												
-								<% end %>
+								<%= render :partial => "plugins/plugin_item_controls", :locals => { :record => feature_value, :options => {:votes => false, :preview => false, :user => false, :edit => false, :delete => false}} if options[:show_controls] %>
+
 								<%= feature_icon feature %>
 								<%= feature.name %>:
 						</td>

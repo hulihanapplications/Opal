@@ -6,8 +6,8 @@
  options[:select] 		||= Setting.get_setting("locale")  # the locale to select
 %>
 <select name="<%= options[:input_name] %>">
-<% Dir.new(Opal.locales_dir).entries.each do |file| %>
-	<% if (file.to_s != ".") && (file != "..") && file != "pluralize.rb" && file != "item.yml" && File.extname(file) == ".yml"  %>
+<% Dir.glob(File.join(Opal.locales_dir, "*.yml")).entries.each do |file| %>
+	<% if file != "item.yml" %>
 	 <% locale = File.basename(file, ".yml") %>
      <option value="<%= locale %>" <%= "SELECTED" if locale == options[:select] %>><%= t("locales.#{locale}", :default => locale) %></option>
 	<% end %>

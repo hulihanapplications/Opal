@@ -8,7 +8,7 @@ Rails.application.class.configure do
       email_settings = YAML::load(File.open("#{Rails.root.to_s}/config/email.yml"))
       config.action_mailer.smtp_settings = email_settings[Rails.env] unless email_settings[Rails.env].nil?
     else # no mail config file found
-      config.action_mailer.delivery_method = :sendmail  # attempt to use use sendmail
+      config.action_mailer.delivery_method = :sendmail if File.exists?(Emailer.sendmail_settings[:location]) # attempt to use use sendmail
     end
   end
 

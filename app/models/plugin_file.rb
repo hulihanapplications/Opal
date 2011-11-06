@@ -18,11 +18,11 @@ class PluginFile < ActiveRecord::Base
   end  
   
   def get_title # get the title of the file, either bare filename or user-inputted 
-    self.title? ? self.title : filename.blank? ? "" : filename
+    !self.title.blank? ? self.title : filename.blank? ? self["file"] : filename
   end
   
   # get filename. If "filename" column exists, return that. Otherwise get it from carrierwave attachment
   def filename
-    self.class.column_names.include?("filename") ? self["filename"] : (file.path.blank? ? "" : File.basename(file.path))  
+    self.class.column_names.include?("filename") ? (self["filename"] ? self["filename"] : self["file"]) : (file.path.blank? ? "" : File.basename(file.path))  
   end  
 end

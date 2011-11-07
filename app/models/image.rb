@@ -1,3 +1,7 @@
+#
+# The Image model has been deprecated as of Opal 0.8.0
+#
+
 class Image < ActiveRecord::Base
   belongs_to :user
 

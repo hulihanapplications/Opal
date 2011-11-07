@@ -75,7 +75,6 @@ class PagesController < ApplicationController
   
   def edit
     @page = Page.find(params[:id])
-    @page_comments = PageComment.paginate :page => params[:page], :per_page => 25, :conditions => ["page_id = ? and is_approved = ?", @page.id, "1"]
     params[:type] = @page.page_type.capitalize
   end
   

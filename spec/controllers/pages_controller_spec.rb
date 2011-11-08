@@ -79,6 +79,12 @@ describe PagesController do
         get :view, {:id =>  Factory(:page)}
         @response.code.should eq("200")
       end
+      
+      it "should redirect when redirect is true and redirect_url is not blank" do
+        @page = Factory(:page_with_redirect)
+        get :view, {:id => @page.id}
+        @response.should redirect_to(@page.redirect_url)
+      end 
     end
     
     pending "send_contact_us"

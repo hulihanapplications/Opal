@@ -154,7 +154,6 @@ class ItemsController < ApplicationController
  end
  
  def new_advanced_search
-   #@setting[:load_prototype] = true # use prototype for ajax calls in this method, instead of jquery
  end
 
 
@@ -162,9 +161,6 @@ class ItemsController < ApplicationController
    @options = Hash.new
    @options[:item_ids] = Array.new # Array to hold item ids to search
    conditions = Array.new # holds search conditions
-   
-   # Santize User Input
-      # todo
   
    # Prepare Features
    if params[:feature] # if there are any feature fields submitted
@@ -181,20 +177,19 @@ class ItemsController < ApplicationController
            # Determine Mysql Where Opertor by Feature Search Type
            matching_feature_values[feature_id] = Array.new # create array to hold matching item ids          
           if feature_hash["type"] == "Keyword" # if searching by Keyword
-             matching_values = PluginFeatureValue.find(:all, :group => "item_id", :select => "item_id", :conditions => ["value like ?", "%#{feature_hash["value"]}%"]) # get items matching this feature                  
+             matching_values = PluginFeatureValue.where(:record_type => "Item").group(:record_id).select(:record_id).where("value like ?", "%#{feature_hash["value"]}%") # get items matching this feature                  
           else # some other search type
-            matching_values = PluginFeatureValue.find(:all, :group => "item_id", :select => "item_id", :conditions => ["value = ?", "#{feature_hash["value"]}"]) # get items matching this feature                              
+             matching_values = PluginFeatureValue.where(:record_type => "Item").group(:record_id).select(:record_id).where("value like ?", feature_hash["value"]) # get items matching this feature                  
           end
           
           # Load Item IDs from matching values into arrays
           for value in matching_values 
-            matching_feature_values[feature_id] << value.item_id 
+            matching_feature_values[feature_id] << value.record_id 
           end
        end 
      end     
       
     @options[:item_ids] =  get_common_elements_for_hash_of_arrays(matching_feature_values) if num_of_features_to_search > 0 # get common elements from hash using & operator    
-    #logger.info "Matching Items: #{matching_feature_values.inspect}"
   else # no features selected
   end 
          

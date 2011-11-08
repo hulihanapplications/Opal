@@ -100,6 +100,7 @@ class PagesController < ApplicationController
      if params[:id] # A page number is set, show that page
        @page = Page.find(params[:id])   
        if @page.published || @logged_in_user.is_admin? # make sure this is a published page they're going to
+           redirect_to @page.redirect_url if @page.redirect && !@page.redirect_url.blank?
            @setting[:meta_title] << @page.description if !@page.description.blank?
            @setting[:meta_title] << @page.title 
            @comments = PluginComment.record(@page).paginate(:page => params[:page], :per_page => 25).approved

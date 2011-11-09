@@ -9,28 +9,28 @@
 <div id="side">
 				<div class="box_1" align=left>					
 					<h3><%= Category.model_name.human %></h3>
-					<%= category_select_tag("item[category_id]", nil, :include_blank => t("single.all")) %>	
+					<%= category_select_tag("category_id", nil, :include_blank => t("single.all")) %>	
 				</div>
 				<div class="box_1" align=left>
 					<div class="field">
 						<h3><%= label :item, :created_at %></h3>
 						<select name="created_at">
-							<option value="whenever" SELECTED><%= t("label.time_any") %></option>						
-							<option value="today"><%= t("label.time_today") %></option>
-							<option value="this_week"><%= t("label.time_this_week") %></option>
-							<option value="this_month"><%= t("label.time_this_month") %></option>
-							<option value="this_year"><%= t("label.time_this_year") %></option>												
+							<option value="" SELECTED><%= t("label.time_any") %></option>						
+							<option value="<%= Time.now.beginning_of_day.to_sql %>"><%= t("label.time_today") %></option>
+							<option value="<%= Time.now.beginning_of_week.to_sql %>"><%= t("label.time_this_week") %></option>
+							<option value="<%= Time.now.beginning_of_month.to_sql %>"><%= t("label.time_this_month") %></option>
+							<option value="<%= Time.now.beginning_of_year.to_sql %>"><%= t("label.time_this_year") %></option>												
 						</select>						
 					</div>	
 					
 					<div class="field">
 						<h3><%= label :item, :updated_at %></h3>
 						<select name="updated_at">
-							<option value="whenever" SELECTED><%= t("label.time_any") %></option>						
-							<option value="today"><%= t("label.time_today") %></option>
-							<option value="this_week"><%= t("label.time_this_week") %></option>
-							<option value="this_month"><%= t("label.time_this_month") %></option>
-							<option value="this_year"><%= t("label.time_this_year") %></option>												
+							<option value="" SELECTED><%= t("label.time_any") %></option>						
+							<option value="<%= Time.now.beginning_of_day.to_sql %>"><%= t("label.time_today") %></option>
+							<option value="<%= Time.now.beginning_of_week.to_sql %>"><%= t("label.time_this_week") %></option>
+							<option value="<%= Time.now.beginning_of_month.to_sql %>"><%= t("label.time_this_month") %></option>
+							<option value="<%= Time.now.beginning_of_year.to_sql %>"><%= t("label.time_this_year") %></option>												
 						</select>					
 					</div>																				
 				</div>				

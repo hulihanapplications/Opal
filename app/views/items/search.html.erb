@@ -6,10 +6,10 @@
 	</div>
 </div>
 <div id="main">	
-	<%= render :partial => "items/list_items", :locals => {:items => @items } %>
+	<%= render :partial => "items/list_items", :locals => {:items => @results } %>
 	<div class="pagination">
-		<%= page_entries_info @items, :entry_name => Item.model_name.human %>	
-		<%= will_paginate @items, :params => {:search_for => @search_for } %>		
+		<%= page_entries_info @results, :entry_name => Item.model_name.human %>	
+		<%= will_paginate @results, :params => {:search_for => @search_for } %>		
 	</div>
 </div>
 

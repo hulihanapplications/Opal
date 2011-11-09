@@ -15,7 +15,7 @@
 									<%= submit_tag t("single.search"), :class => "button_1", :id => "search_button" %>
 								    <%= link_to icon("rss", "#{t("label.rss_feed")} - #{t("single.new").capitalize} #{Item.model_name.human(:count => :other)}") ,  {:action => "rss", :controller => "items", :format => :xml}, :class => "transparent" %>
 		
-									<%= link_to "#{t("single.advanced")} #{t("single.search")}", {:action => "new_advanced_search", :controller => "items"} %>							
+									<%= link_to "#{t("single.advanced")} #{t("single.search")}", {:action => "advanced_search", :controller => "items"} %>							
 								</td>						
 							</tr>
 						</table>

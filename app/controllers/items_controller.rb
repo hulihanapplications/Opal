@@ -146,89 +146,67 @@ class ItemsController < ApplicationController
    if !params[:search_for] == "" || !params[:search_for].nil?
     @search_for = params[:search_for] # what to search for
     @setting[:meta_title] << t("label.search_results_for", :query => @search_for) 
-    @items = Item.paginate :page => params[:page], :per_page => @setting[:items_per_page], :order => Item.sort_order(params[:sort]), :conditions => ["name like ? or description like ? and is_approved = '1' and is_public = '1'", "%#{@search_for}%", "%#{@search_for}%" ]
+    
+    # Search Name/Description
+    @results = Item.paginate(:page => params[:page], :per_page => @setting[:items_per_page]).order(Item.sort_order(params[:sort])).where("name like ? or description like ?", "%#{@search_for}%", "%#{@search_for}%")
+
+    # Handle Approval & Visibility
+    unless @logged_in_user.is_admin?
+      @results = @results.approved
+      @results = @results.public
+    end 
    else # No Input
      flash[:failure] = t("notice.search_results_left_blank")
      redirect_to :action => "index"
    end
  end
  
- def new_advanced_search
- end
+  def advanced_search
+  end
 
 
- def advanced_search
-   @options = Hash.new
-   @options[:item_ids] = Array.new # Array to hold item ids to search
-   conditions = Array.new # holds search conditions
-  
-   # Prepare Features
-   if params[:feature] # if there are any feature fields submitted
-     # We need to sanitize all values entering the ActiveRecord's conditions. They will be passed in via the array[string, hash] format: ActiveRecord::Base.find(:all, :conditions => ["x = :x_value", {:x_value => "someValue"}])
-     values_hash = Hash.new # hash to contain values, ie: {:x_value => "someValue", :y_value => "%someValue%"}   
-     num_of_features_to_search = 0 # number of features to search       
-     matching_feature_values = Hash.new # hash to hold arrays of ids of items that match each feature value
-     
-     params[:feature].each do |feature_id, feature_hash|# loop through for every feature value, create a conditions
-        #logger.info "#{feature_id} - #{feature_hash.inspect}"
-       if feature_hash["search"] == "1" # was this feature's checkbox checked?
-          num_of_features_to_search += 1 # increment number of features to search  
-           
-           # Determine Mysql Where Opertor by Feature Search Type
-           matching_feature_values[feature_id] = Array.new # create array to hold matching item ids          
-          if feature_hash["type"] == "Keyword" # if searching by Keyword
-             matching_values = PluginFeatureValue.where(:record_type => "Item").group(:record_id).select(:record_id).where("value like ?", "%#{feature_hash["value"]}%") # get items matching this feature                  
-          else # some other search type
-             matching_values = PluginFeatureValue.where(:record_type => "Item").group(:record_id).select(:record_id).where("value like ?", feature_hash["value"]) # get items matching this feature                  
-          end
-          
-          # Load Item IDs from matching values into arrays
-          for value in matching_values 
-            matching_feature_values[feature_id] << value.record_id 
-          end
-       end 
-     end     
-      
-    @options[:item_ids] =  get_common_elements_for_hash_of_arrays(matching_feature_values) if num_of_features_to_search > 0 # get common elements from hash using & operator    
-  else # no features selected
-  end 
+  def do_advanced_search 
+    # Set Defaults for Time Search
+    created_at = params[:created_at].blank? ? Time.now.to_time.advance(:years => -100).to_sql : params[:created_at]
+    updated_at = params[:updated_at].blank? ? Time.now.to_time.advance(:years => -100).to_sql : params[:created_at]
+    
+    # Start ActiveRecord::Relation chain
+    @results = Item.where("created_at >= ?", created_at)    
+    @results = @results.where("updated_at >= ?", updated_at) # add to chain
+    
+    # Search Feature Values
+    unless params[:feature].blank?
+      record_ids_with_matching_values = Array.new
+      params[:feature].each do |feature_id, feature_hash|# loop through for every feature value, create a conditions
+        if feature_hash["search"] == "1" # was this feature's checkbox checked?           
+           matching_values = PluginFeatureValue.where(:record_type => "Item").group(:record_id).select(:record_id).where("value like ?", "%#{feature_hash["value"]}%") # get items matching this feature                  
+           matching_values.each {|v| record_ids_with_matching_values << v.record_id} # add matching each value's record_id to array
+        end 
+      end    
+      @results = @results.where(:id => record_ids_with_matching_values.uniq) unless record_ids_with_matching_values.empty? # add to chain
+    end 
+
+    # Search Category
+    @results = @results.where(:category_id => params[:category_id]) unless params[:category_id].blank?    
          
-
-
-   # Prepare Category
-     @options[:category_ids] = Array.new # Array to hold category ids to search 
-     params[:item][:category_id] = params[:item][:category_id].to_i
-     category = Category.find(params[:item][:category_id]) if params[:item][:category_id] > 0
-
-   
-   # Prepare Times
-     times  = Hash.new # create a new hash indexed by html value, which contains a time object to be passed into query 
-     times["whenever"] = Time.now.to_time.advance(:years => -100).to_sql
-     times["today"] = Time.now.beginning_of_day.to_sql
-     times["this_week"] = Time.now.beginning_of_week.to_sql
-     times["this_month"] = Time.now.beginning_of_month.to_sql
-     times["this_year"] = Time.now.beginning_of_year.to_sql
-  
-     conditions << ["(created_at >= ? and updated_at >= ?)", times[params[:created_at]], times[params[:created_at]]]  # select hash item that matches selected form data
-
-     # Prepare Name/Description     
-     conditions << ["(name like ? or description like ?)", "%#{params[:search]["keywords"]}%", "%#{params[:search]["keywords"]}%"] if params[:search]["keywords"] && !params[:search]["keywords"].empty?
-     
-     # Prepare Item Ids
-     conditions << ["id in (?)", @options[:item_ids].join(",")] if @options[:item_ids].size > 0 
-
-    # Get Item That match our Search
-    @items = Item.find(:all, :conditions => ActiveRecord::Base.combine_conditions(conditions), :limit => 20)
+    # Search Name/Description     
+    @results = @results.where("name like ? or description like ?", "%#{params[:search]["keywords"]}%", "%#{params[:search]["keywords"]}%") unless params[:search]["keywords"].blank? # add to chain
+    
+    # Handle Approval & Visibility
+    unless @logged_in_user.is_admin?
+      @results = @results.approved
+      @results = @results.public
+    end 
+    
+    # Limit 
+    @results = @results.limit(10)
+    
     respond_to do |format|
       format.html do
-        if request.xhr?
-          render :layout => false
-        else
-          # render regular action
-        end
+        render :layout => false if request.xhr?
       end
     end  
- end 
+  end 
  
  def tag
    @tag = CGI::unescape(params[:tag])   

@@ -75,7 +75,7 @@ class ApplicationController < ActionController::Base
   def authenticate_user(msg = t("notice.user_not_logged_in"))
     if @logged_in_user.anonymous? # There's definitely no user logged in
       flash[:failure] = "#{msg}"
-      redirect_to login_url(:redirect_to => request.env["REQUEST_URI"]) # store original request of where they wanted to go.
+      redirect_to login_url(:redirect_to => destination) # store original request of where they wanted to go.
     else #there's a user logged in, but what type is he?
       if @logged_in_user.is_enabled? # Check if account is in good standing
         redirect_to verification_required_path if !@logged_in_user.is_verified? && params[:action] != "verification_required"        
@@ -91,7 +91,7 @@ class ApplicationController < ActionController::Base
     if @logged_in_user.anonymous? #There's definitely no user logged in(id 0 is public user)
       flash[:failure] = t("notice.failed_admin_access_attempt") 
       Log.create(:log_type => "warning", :log => I18n.t("log.failed_admin_access_attempt_visitor", :ip => request.env["REMOTE_ADDR"], :controller => params[:controller], :action => params[:action]))     
-      redirect_to login_url(:redirect_to => request.referer) # store original request of where they wanted to go.
+      redirect_to login_url(:redirect_to => destination) # store original request of where they wanted to go.
     else #there's a user logged in, but what type is he?
       if(@logged_in_user.is_admin?) # make sure user is an admin
         # Proceed
@@ -267,4 +267,8 @@ private
   end
   
   helper_method :record_path  
+  
+  def destination
+    request.env["REQUEST_URI"]    
+  end
 end

@@ -1,0 +1,15 @@
+
+<div id="side">
+	<div align=center class="box_1">
+		<h2><%= t("label.items_found", :count => @results.size, :items => Item.model_name.human(:count => @results.size)) %></h2>
+	</div>
+</div>
+<div id="main">
+	<%= render :partial => "items/list_items", :locals => {:items => @results } %>
+</div>
+
+
+
+<%# For Debugging %>
+<%#= "#{@options.inspect}<br><br>#{params.inspect} " %>
+

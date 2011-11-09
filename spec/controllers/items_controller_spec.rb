@@ -165,14 +165,25 @@ describe ItemsController do
       end
     end       
 
-    describe "new_advanced_search" do
+    describe "advanced_search" do
       it "should return 200" do 
-        get :new_advanced_search
+        get :advanced_search
         @response.code.should eq("200")
       end
     end     
     
-    pending "advanced_search"
+    describe "do_advanced_search" do
+      it "should work without any input" do
+        post :do_advanced_search
+        @response.code.should eq("200")
+      end
+      
+      it "should work when passed a keyword" do
+        post :do_advanced_search, {:search => {:keywords => "test"}}
+        @response.code.should eq("200")
+      end      
+    end 
+    
     pending "set_list_type"
     pending "set_item_page_type"   
   end

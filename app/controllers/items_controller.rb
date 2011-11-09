@@ -178,8 +178,8 @@ class ItemsController < ApplicationController
     unless params[:feature].blank?
       record_ids_with_matching_values = Array.new
       params[:feature].each do |feature_id, feature_hash|# loop through for every feature value, create a conditions
-        if feature_hash["search"] == "1" # was this feature's checkbox checked?           
-           matching_values = PluginFeatureValue.where(:record_type => "Item").group(:record_id).select(:record_id).where("value like ?", "%#{feature_hash["value"]}%") # get items matching this feature                  
+        if feature_hash[:search] == "1" # was this feature's checkbox checked?           
+           matching_values = PluginFeatureValue.where(:record_type => "Item").group(:record_id).select(:record_id).where("value like ?", "%#{feature_hash[:value]}%") # get items matching this feature                  
            matching_values.each {|v| record_ids_with_matching_values << v.record_id} # add matching each value's record_id to array
         end 
       end    
@@ -190,7 +190,7 @@ class ItemsController < ApplicationController
     @results = @results.where(:category_id => params[:category_id]) unless params[:category_id].blank?    
          
     # Search Name/Description     
-    @results = @results.where("name like ? or description like ?", "%#{params[:search]["keywords"]}%", "%#{params[:search]["keywords"]}%") unless params[:search]["keywords"].blank? # add to chain
+    @results = @results.where("name like ? or description like ?", "%#{params[:search][:keywords]}%", "%#{params[:search][:keywords]}%") if !params[:search].blank? && !params[:search][:keywords].blank? # add to chain
     
     # Handle Approval & Visibility
     unless @logged_in_user.is_admin?

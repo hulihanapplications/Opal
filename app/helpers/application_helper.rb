@@ -356,7 +356,9 @@ module ApplicationHelper
  
  def back(options = {})
    options[:url] ||= :back
-   raw "<div align=center class=\"back\">" + link_to(icon("arrow_left") + " #{I18n.t("single.back")}", options[:url]) + "</div>"
+   content_tag(:div, :align => :center, :class => "back") do
+     link_to(icon("arrow_left") + " #{I18n.t("single.back")}", options[:url])
+   end
  end
   
   def link_to_user(user, options = {})

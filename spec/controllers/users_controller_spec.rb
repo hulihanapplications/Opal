@@ -139,10 +139,21 @@ describe UsersController do
       end
     end 
     
-    pending "verification_required"
+    describe "verification_required" do
+			it "displays a page" do
+				get :verification_required
+				response.should be_successful
+			end
+		end
+
   end 
   
   context "as visitor" do
-    pending "show" 
+    describe "show"  do
+			it "displays a page" do
+				get :show, :id => Factory(:user).id
+				response.should be_successful
+			end
+		end
   end 
 end

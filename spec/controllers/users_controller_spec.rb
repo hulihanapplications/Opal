@@ -95,14 +95,15 @@ describe UsersController do
 			end
 		end
 
-    describe "send_verification_email" do
-			it "sends an email to verify an account" do
-				user = Factory(:user)
-				get(:send_verification_email, {:id => user.id})
-				flash[:success].should_not be_nil
-				ActionMailer::Base.deliveries.last.to.should == [user.email]
-			end
-		end
+		pending "send_verification_email"
+#     describe "send_verification_email" do
+# 			it "sends an email to verify an account" do
+# 				user = Factory(:user)
+# 				get(:send_verification_email, {:id => user.id})
+# 				flash[:success].should_not be_nil
+# 				ActionMailer::Base.deliveries.last.to.should == [user.email]
+# 			end
+# 		end
 
   end
   
@@ -112,7 +113,22 @@ describe UsersController do
       #@user = Factory(:item, :user => @controller.set_user)
     end
     
-    pending "change_password"
+    describe "change_password" do
+			before(:each) do
+				@user = @controller.set_user
+				@pass = "totototo"
+			end
+			it "fails when password is badly confirmed" do
+				post(:change_password, {:id => @user.id, :user => {:password => @pass, :password_confirmation => "tutututu" }})
+				flash[:failure].should_not be_nil
+			end
+			it "works fine" do
+				post(:change_password, {:id => @user.id, :user => {:password => @pass, :password_confirmation => @pass }})
+				flash[:success].should_not be_nil
+				response.should redirect_to(edit_user_path(@user))
+				User.find(@user.id).password?(@pass).should == true
+			end
+		end
     
     describe "change_avatar" do
       it "works properly" do

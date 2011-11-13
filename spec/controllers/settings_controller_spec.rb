@@ -23,7 +23,7 @@ describe SettingsController do
     end
     
 		describe "handling the site logo," do
-			before(:all) do
+			before(:each) do
 				@image_path = Rails.root.to_s + "/public/themes/fracture/images/logo.png" # location of main logo
 				if File.file?(@image_path) 
 					@image_saved = Rails.root.to_s + "/public/themes/fracture/images/logo-saved.png" # temp save location for the original logo
@@ -32,7 +32,7 @@ describe SettingsController do
 				
 			end
 
-			after(:all) do
+			after(:each) do
 				FileUtils.rm(@image_path) if File.file?(@image_path)
 				FileUtils.mv(@image_saved, @image_path) unless @image_saved.nil?
 			end
@@ -60,7 +60,16 @@ describe SettingsController do
 					File.file?(@image_path).should == true
 					response.should redirect_to(:action => :index, :controller => :settings)
 				end
-				pending "uploading a non-image logo"
+				it "fails uploading a non-image logo" do
+					@testimage = fixture_file_upload(Rails.root.to_s + '/spec/fixtures/videos/example.flv')
+					class << @testimage
+						attr_reader :tempfile
+					end
+					post(:change_logo, { :source => :local, :file => @testimage })
+					flash[:failure].should_not == nil
+					File.file?(@image_path).should == false
+					response.should redirect_to(:action => :index, :controller => :settings)
+				end
 			end
 
 			describe :delete_logo do 

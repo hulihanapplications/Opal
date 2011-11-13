@@ -22,7 +22,7 @@ describe SettingsController do
       end    
     end
     
-		describe "handling the site logo" do
+		describe "handling the site logo," do
 			before(:all) do
 				@image_path = Rails.root.to_s + "/public/themes/fracture/images/logo.png" # location of main logo
 				if File.file?(@image_path) 
@@ -87,13 +87,48 @@ describe SettingsController do
         response.code.should eq("200")
       end    
     end  
-    
-    describe :install_theme do
-      pending :it_works
-    end        
 
-    describe :delete_theme do
-      pending :it_works
-    end           
+		describe :install_theme do
+			before(:all) do
+				@theme_dir = Rails.root.to_s + "/public/themes/test-theme"
+			end
+
+			it "installs new theme from an url" do
+				# change this url with official one from official website
+				post(:install_theme, { :source => :remote, :url => "http://mose.com/test-theme.zip" } )
+				flash[:success].should_not == nil
+				File.directory?(@theme_dir).should == true
+				File.file?(@theme_dir + "/theme.yml").should == true
+				response.should redirect_to(:action => :themes, :controller => :settings)
+				FileUtils.remove_dir(@theme_dir) if File.directory?(@theme_dir)
+			end
+			it "installs new theme from a local file" do
+				@ziptheme = fixture_file_upload(Rails.root.to_s + '/spec/fixtures/test-theme.zip')
+				class << @ziptheme
+					attr_reader :tempfile
+				end
+				post(:install_theme, { :source => :local, :file => @ziptheme } )
+				flash[:success].should_not == nil
+				File.directory?(@theme_dir).should == true
+				File.file?(File.join(@theme_dir, "theme.yml")).should == true
+				response.should redirect_to(:action => :themes, :controller => :settings)
+				FileUtils.remove_dir(@theme_dir) if File.directory?(@theme_dir)
+			end
+		end        
+
+		describe :delete_theme do
+			before(:each) do
+				@theme_dir = Rails.root.to_s + "/public/themes/test-theme"
+				FileUtils.cp_r(Rails.root.to_s + '/spec/fixtures/test-theme', Rails.root.to_s + '/public/themes/')
+			end
+			it "deletes an installed theme" do
+				get(:delete_theme, { :theme_name => "test-theme" } )
+				flash[:success].should_not == nil
+				File.directory?(@theme_dir).should == false
+				response.should redirect_to(:action => :themes, :controller => :settings)
+			end
+		end
+
+
   end
 end

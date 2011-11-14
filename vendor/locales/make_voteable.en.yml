@@ -1,0 +1,6 @@
+en:
+  activerecord:
+    models:
+      "make_voteable/voting":
+        one: Vote
+        other: Votes

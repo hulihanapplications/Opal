@@ -61,6 +61,8 @@ cd Opal
 bundle install 
 </pre>
 
+You may get an error here regarding "rmagick":http://dev.hulihanapplications.com/wiki/opal/RMagick if you don't have it already installed. Check out this "Wiki Guide":http://dev.hulihanapplications.com/wiki/opal/RMagick for help.  
+
 h2. Install Opal 
 
 Next, Run these commands (while in the Opal directory) to install Opal's required stuff (database structure, assets, etc.) in production mode: 
@@ -79,10 +81,10 @@ h2. That's it!
 You can now start Opal using the built-in Rails webserver, WEBrick... 
 
 <pre>
-rails s -e production
+bundle exec rails s -e production
 </pre>
 
-...or any of your other favorite webservers: apache, mongrel, nginx, etc.
+...or any of your other favorite webservers: thin, nginx, apache, mongrel, etc.
  
 * To log in to Opal for the first time, the default Admin username and password is: *admin*.
 

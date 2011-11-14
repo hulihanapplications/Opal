@@ -101,7 +101,7 @@ describe SettingsController do
 			end
 			
 			it "installs new theme from a local file" do
-        uploaded_file = fixture_file_upload(Rails.root.join('spec/fixtures/test-theme.zip'), "application/zip")       
+        uploaded_file = fixture_file_upload(Rails.root.join('spec/fixtures/themes/test-theme.zip'), "application/zip")       
 				post(:install_theme, { :source => :local, :file => uploaded_file} )
 				flash[:success].should_not == nil
 				File.directory?(@theme_dir).should == true
@@ -114,11 +114,11 @@ describe SettingsController do
 		describe :delete_theme do
 			before(:each) do
 				@theme_dir = Rails.root.to_s + "/public/themes/test-theme"
-				FileUtils.cp_r(Rails.root.to_s + '/spec/fixtures/test-theme', Rails.root.to_s + '/public/themes/')
+				FileUtils.cp_r(Rails.root.to_s + '/spec/fixtures/themes/test-theme', Rails.root.to_s + '/public/themes/')
 			end
 			
 			it "deletes an installed theme" do
-				get(:delete_theme, { :theme_name => "test-theme" } )
+				get(:delete_theme, { :theme_name => "test-theme" })
 				flash[:success].should_not == nil
 				File.directory?(@theme_dir).should == false
 				response.should redirect_to(:action => :themes, :controller => :settings)

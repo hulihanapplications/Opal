@@ -55,7 +55,7 @@
 											<%= content_tag(:h3, link_to(icon("file") + " " + file.get_title, download_path(:record_type => file.class.name, :record_id => file))) %>								
 										</td>
 										<td align=right>
-											<%= render :partial => "plugins/plugin_item_controls", :locals => { :record => file, :options => {:date => true, :edit => false, :votes => false, :preview => false, :user => true}} %>																						
+											<%= render :partial => "plugins/record_menu", :locals => { :record => file, :options => {:date => true, :edit => false, :votes => false, :preview => false, :user => true}} %>																						
 										</td>										
 									</tr>
 								</table>						

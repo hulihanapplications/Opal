@@ -62,6 +62,8 @@ module Opal
           case action.to_sym          
           when :destroy, :delete, :edit, :update, :view, :read
             (GroupPluginPermission.for_plugin_and_group(self.class.plugin, performer.group).can?(action) || (self.is_user_owner?(performer) && !performer.anonymous?)) || record.can?(performer, action, options) || performer.is_admin?
+          when :approve
+            is_user_owner?(performer) || super(performer, action, options)
           else
             GroupPluginPermission.for_plugin_and_group(self.class.plugin, performer.group).can?(action) || super(performer, action, options)
           end             

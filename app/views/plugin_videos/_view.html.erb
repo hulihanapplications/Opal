@@ -31,7 +31,7 @@
 										<%= content_tag(:h3, link_to_function((video.title.blank? ? video.description.blank? ? video.id : video.description : video.title), "toggle_box('video_#{video.id}_content')", :id => "video_#{video.id}_link", :title => video.description)) %></h3>																												
 									</td>
 									<td align=right>
-										<%= render :partial => "plugins/plugin_item_controls", :locals => {:record => video} %>
+										<%= render :partial => "plugins/record_menu", :locals => {:record => video} %>
 									</td>
 								</tr>
 							</table>
@@ -51,7 +51,7 @@
 										<h3 class="title"><%= video.title %></h3>																
 									</td>
 									<td align=right>
-										<%= render :partial => "plugins/plugin_item_controls", :locals => {:record => video} %>
+										<%= render :partial => "plugins/record_menu", :locals => {:record => video} %>
 									</td>
 								</tr>
 							</table>

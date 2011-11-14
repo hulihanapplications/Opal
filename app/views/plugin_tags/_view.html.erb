@@ -47,7 +47,7 @@
 						<div id="tag_box_<%= tag.id %>">
 							<%= icon("tag") %>
 							<%= link_to_tag tag %>
-							<%= render :partial => "plugins/plugin_item_controls", :locals => {:record => tag, :options => {:preview => false, :byline => false, :edit => false}} %>
+							<%= render :partial => "plugins/record_menu", :locals => {:record => tag, :options => {:preview => false, :byline => false, :edit => false}} %>
 
 						</div>
 					<% end %>

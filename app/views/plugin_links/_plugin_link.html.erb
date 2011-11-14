@@ -7,5 +7,5 @@
 	<span id="link_<%= plugin_link.id %>">
 		<a href="<%= plugin_link.url %>" target="_blank"><%= plugin_link.title %></a>
 	</span>
-	<%= render :partial => "plugins/plugin_item_controls", :locals => { :record => plugin_link, :options => {:edit => false, :preview => false, :user => false}} if options[:controls] %>																					
+	<%= render :partial => "plugins/record_menu", :locals => { :record => plugin_link, :options => {:edit => false, :preview => false, :user => false}} if options[:controls] %>																					
 </div>

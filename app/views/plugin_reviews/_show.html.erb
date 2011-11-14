@@ -36,7 +36,7 @@
     									<b><%= friendly_date review.created_at %></b>
 									</time>	
 
-									<%= render :partial => "plugins/plugin_item_controls", :locals => {:record => review, :options => {:votes => true, :user => false, :date => false}} %>
+									<%= render :partial => "plugins/record_menu", :locals => {:record => review, :options => {:votes => true, :user => false, :date => false}} %>
 								</td>											
 							</tr>
 						</table>		

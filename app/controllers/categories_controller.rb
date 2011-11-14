@@ -24,7 +24,7 @@ class CategoriesController < ApplicationController
     category = Category.find(params[:id])    
     if params[:category][:category_id].to_i != category.id # trying to select self as parent category 
       if category.update_attributes(params[:category])
-        Log.create(:user_id => @logged_in_user.id,  :log_type => "system", :log => t("log.item_save", :item => Category.model_name.human, :name => category.name))
+        log(:target => category,  :log_type => "update")
         flash[:success] = t("notice.save_success")
       else
         flash[:failure] = t("notice.save_failure")
@@ -39,7 +39,7 @@ class CategoriesController < ApplicationController
     #category = Category.find(params[:id])   
     category = Category.new(params[:category])
     if category.save
-      Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_create", :item => Category.model_name.human, :name => category.name))
+      log(:target => category,  :log_type => "create")
       flash[:success] = t("notice.item_create_success", :item => Category.model_name.human)
      else
       flash[:failure] = t("notice.item_create_failure", :item => Category.model_name.human)
@@ -56,7 +56,7 @@ class CategoriesController < ApplicationController
   def delete # deletes feature 
     category = Category.find(params[:id])    
     if category.destroy
-      Log.create(:user_id => @logged_in_user.id,  :log_type => "system", :log =>  t("log.item_delete", :item => Category.model_name.human, :name => category.name))
+      log(:target => category,  :log_type => "destroy")
       flash[:success] = t("notice.item_delete_success", :item => Category.model_name.human)
      else
       flash[:failure] = t("notice.item_delete_failure", :item => Category.model_name.human)

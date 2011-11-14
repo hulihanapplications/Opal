@@ -4,11 +4,6 @@
 			<% log_item = log.item_id ? log.item : nil %>
 			<% log_user = log.user_id ? log.user : nil %>			
 			<div class="record log" id="log_<%= log.id %>">
-				<div class="record_menu">
-					<ul>
-						<%= content_tag(:li, link_to_function(icon("dropdown") + " " + t("single.details"), "$('#log_details_#{log.id}').toggle()", :class => "")) %>																										
-					</ul>					
-				</div>
 				<%= content_tag(:span, friendly_date(log.created_at), :class => "date") %>												
 				<table style="width:100%">
 					<tr>
@@ -21,10 +16,14 @@
 						</td>						
 					</tr>
 				
-				</table>				
-			</div>
-			<div id="log_details_<%= log.id %>" class="extra_options_box"  style="display:none;">
-				<%= Log.human_attribute_name(:ip) %>: <%= log.ip %>
+				</table>
+				<%= render :partial => "record_menu", :locals => {:record => log, :options => {:edit => false, :delete => false}} %>
+				<% content_for :record_menu_items do %>
+					<%= content_tag(:li, link_to_function(icon("dropdown") + " " + t("single.details"), "$('#log_details_#{log.id}').toggle()", :class => "")) %>																										
+				<% end %>											
+				<div id="log_details_<%= log.id %>" class="extra_options_box"  style="display:none;">
+					<%= Log.human_attribute_name(:ip) %>: <%= log.ip %>
+				</div>								
 			</div>				
 			<hr>
 		<% end %>		

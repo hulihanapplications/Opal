@@ -45,7 +45,7 @@ class LogsController < ApplicationController
     log = Log.find(params[:id])    
     if log.update_attributes(params[:log])
       flash[:success] = t("notice.item_save_success", :item => Log.model_name.human)
-      Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log =>  t("log.item_save", :item => Log.model_name.human, :name => log.id))
+      log(:target => log,  :log_type => "update")
      else
       flash[:failure] = t("notice.item_save_failure", :item => Log.model_name.human)
     end
@@ -63,7 +63,7 @@ class LogsController < ApplicationController
     
     if log.save
       flash[:success] = t("notice.item_create_success", :item => Log.model_name.human)
-      Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log =>  t("log.item_create", :item => Log.model_name.human, :name => log.id))        
+      log(:target => log,  :log_type => "create")
      else
       flash[:failure] = t("notice.item_create_failure", :item => Log.model_name.human)           
     end
@@ -74,7 +74,7 @@ class LogsController < ApplicationController
     log = Log.find(params[:id])    
     if log.destroy
       flash[:success] = t("notice.item_delete_success", :item => Log.model_name.human)
-      Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log =>  t("log.item_delete", :item => Log.model_name.human, :name => log.id))                    
+      log(:target => log,  :log_type => "destroy")
     else
       flash[:failure] = t("notice.item_delete_failure", :item => Log.model_name.human)    
     end

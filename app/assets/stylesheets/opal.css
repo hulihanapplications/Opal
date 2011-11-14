@@ -67,13 +67,19 @@ ul.sortable, ul.collapsed{margin:0px;padding:0px;list-style-type:none;}
 	/* Item Page */
 	.plugins .plugin_box{clear:both}
 
-/* Sections & Menus */
+/* Sections */
 .section{}
 	.section .header{margin-bottom:5px}
 	.section .header td{vertical-align:middle}
 
+/* Menus */
 .menu{text-align:center}
 	.menu .last{margin-bottom:0px}
+div.record{position:relative;}
+div.record_menu{position:absolute;top:-10px;right:0;/*display:none;*/}
+div.record:hover div.record_menu{display:block}
+div.record_menu > ul.record_menu{list-style:none;text-align:right;}
+	div.record_menu > ul.record_menu li{display:inline;}
 
 /* Boxes */
 .extra_options_box{padding:10px;}
@@ -112,12 +118,6 @@ ul.sortable, ul.collapsed{margin:0px;padding:0px;list-style-type:none;}
 .buttons{text-align:center;margin:10px 0px}
 #editor_wrapper{margin-bottom:10px;}
 
-/* Menus */
-div.record{position:relative;}
-div.record_menu{position:absolute;top:-10px;right:0;/*display:none;*/}
-div.record:hover div.record_menu{display:block}
-div.record_menu > ul{list-style:none;text-align:right;}
-	div.record_menu > ul li{display:inline;}
 
 /* Other Stuff */
 .main_content_top_bar{height:25px;}

@@ -14,7 +14,7 @@ class GroupsController < ApplicationController
       end
       if @group.save # save successful
         flash[:success] = t("notice.item_create_success", :item => Group.model_name.human)        
-        Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log =>  t("log.item_create", :item => Group.model_name.human, :name => @group.name))
+        log(:target => @group,  :log_type => "create")
         redirect_to :action => 'index'
       else
         flash[:failure] = t("notice.item_create_failure", :item => Group.model_name.human)
@@ -27,7 +27,7 @@ class GroupsController < ApplicationController
       @group = Group.find(params[:id])
       flash[:notice] = ""
       if @group.update_attributes(params[:group])
-        Log.create(:user_id => @logged_in_user.id, :log_type => "update", :log => t("log.item_save", :item => Group.model_name.human, :name => @group.name))
+        log(:target => @group,  :log_type => "update")
         flash[:success] = t("notice.item_save_success", :item => Group.model_name.human)
         redirect_to :action => "edit", :id => @group.id
       else
@@ -58,7 +58,7 @@ class GroupsController < ApplicationController
             permissions_hash[:plugin_id] = key # set the plugin id      
             GroupPluginPermission.create(permissions_hash) # create the record
         end
-        Log.create(:user_id => @logged_in_user.id, :log_type => "create", :log => t("log.item_save", :item => GroupPluginPermission.model_name.human, :name => @group.name))
+        log(:log_type => "create", :log => t("log.item_save", :item => GroupPluginPermission.model_name.human, :name => @group.name))
       end
       flash[:success] = t("notice.save_success")            
       redirect_to :action => "edit", :id => @group.id
@@ -70,7 +70,7 @@ class GroupsController < ApplicationController
      else
        @group = Group.find(params[:id])
        if @group.is_deletable?
-         Log.create(:user_id => @logged_in_user.id, :log_type => "delete", :log => t("log.item_delete", :item => Group.model_name.human, :name => @group.name))
+         log(:target => @group,  :log_type => "destroy")
          flash[:success] = t("notice.item_delete_success", :item => Group.model_name.human) 
          @group.destroy
        else

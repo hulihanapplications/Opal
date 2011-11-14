@@ -41,6 +41,8 @@ module Opal
             case action.to_sym        
             when :read, :view, :edit, :update, :destroy, :delete
               (self.is_user_owner?(performer) && !performer.anonymous?) || performer.is_admin?
+            when :approve
+              performer.is_admin?
             end
           end 
         end          

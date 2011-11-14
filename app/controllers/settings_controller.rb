@@ -17,7 +17,7 @@ class SettingsController < ApplicationController
     if @setting.value != value # the value of the setting has changed
      if @setting.update_attribute("value", value) # update the setting
       flash[:success] << t("notice.item_save_success", :item => Setting.model_name.human + ": #{@setting.title}") + "<br />" 
-      Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_save", :item => Setting.model_name.human, :name => @setting.title))  # log it
+      log(:log_type => "system", :log => t("log.item_save", :item => Setting.model_name.human, :name => @setting.title))  # log it
      else # the setting failed saving 
       flash[:failure] << t("notice.item_save_failure", :item => Setting.model_name.human + ": #{@setting.title}")  + "<br />" 
      end
@@ -69,7 +69,7 @@ class SettingsController < ApplicationController
           :generate_thumbnail => false
         )           
         flash[:success] = t("notice.item_create_success", :item => t("single.logo"))
-        Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_create", :item => t("single.logo"), :name => filename))  # log it
+        log(:log_type => "system", :log => t("log.item_create", :item => t("single.logo"), :name => filename))  # log it
      else
         flash[:failure] = t("single.logo") + " " + t("activerecord.errors.messages.invalid_file_extension", :valid_extensions => acceptable_file_extensions)      
      end
@@ -86,7 +86,7 @@ class SettingsController < ApplicationController
     if File.exists?(main_image_path) # check if logo exists
       FileUtils.rm(main_image_path)
       flash[:success] = t("notice.item_delete_success", :item => t("single.logo"))
-      Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_delete", :item => t("single.logo"), :name => File.basename(main_image_path)))  # log it      
+      log(:log_type => "system", :log => t("log.item_destroy", :item => t("single.logo"), :name => File.basename(main_image_path)))  # log it      
     else # no logo exists
       flash[:success] = t("notice.file_not_found", :file => main_image_path) 
     end
@@ -117,7 +117,7 @@ class SettingsController < ApplicationController
         themes_dir = File.join(Rails.root.to_s, "public/themes") 
         if FileUtils.mv(unzipped_theme_dir, themes_dir) # move tmp theme dir into the real themes dir
            flash[:success] = t("notice.item_install_success", :item => t("single.theme")) 
-           Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("log.item_install", :item => t("single.theme"), :name => theme_config["theme"]["name"])) # log it
+           log(:log_type => "create", :log => t("log.item_install", :item => t("single.theme"), :name => theme_config["theme"]["name"])) # log it
         end        
       else # no theme config file found 
         flash[:failure] = t("notice.item_install_failure", :item => t("single.theme"))
@@ -148,7 +148,7 @@ class SettingsController < ApplicationController
       FileUtils.rm_rf(theme_dir) if File.exists?(theme_dir)# erase theme directory
       FileUtils.rm_rf(theme_layout_dir) if File.exists?(theme_layout_dir)# erase theme layout directory, if it exists      
       flash[:success] = t("notice.item_uninstall_success", :item => t("single.theme"))
-      Log.create(:user_id => @logged_in_user.id, :log_type => "new", :log => t("log.item_uninstall", :item => t("single.theme"), :name => theme_config["theme"]["name"])) # log it
+      log(:log_type => "destroy", :log => t("log.item_uninstall", :item => t("single.theme"), :name => theme_config["theme"]["name"])) # log it
     end
     
     redirect_to :action => "themes"

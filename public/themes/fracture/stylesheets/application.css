@@ -53,7 +53,8 @@ ul.main_menu{list-style:none;text-align:right;}
 /* Fields & Inputs */
 
 /* Menus */
-div.record_menu{border:1px solid #ccc;background:url(../images/bgs/white_trans_50.png) repeat;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:5px}
+div.record_menu{margin:10px 0px;border:1px solid #ccc;background:url(../images/bgs/white_trans_50.png) repeat;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
+.records div.record_menu{-moz-border-radius-bottomleft:0px;-webkit-border-bottom-left-radius:0px; -moz-border-radius-bottomright:0px;-webkit-border-bottom-right-radius:0px}
 ul.record_menu{}
 	.record_menu.right li{border-left:1px solid #ccc;}
 	.record_menu.left li{border-right:1px solid #ccc;}

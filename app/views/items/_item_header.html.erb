@@ -1,44 +1,5 @@
 <%= render :partial => "main_content_top_bar", :locals => {:item => item} %>
-<div class="header">					
-	<% if item.can?(@logged_in_user, :edit) %>
-		<div class="box_1 tools" style="margin-bottom:10px" >
-			<table style="width:100%" cellpadding=0 cellspacing=0>
-				<tr>
-					<td align=left>		
-			 			<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/approved.png\" title=\"#{Item.human_attribute_name(:is_approved)}\" class=\"icon help\">" if item.is_approved? %> 										
-			 			<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/unapproved.png\" title=\"#{t("single.not")} #{Item.human_attribute_name(:is_approved)}\" class=\"icon help\">" if !item.is_approved? %> 																								
-			 			<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/locked.png\" title=\"#{Item.human_attribute_name(:locked)}\" class=\"icon help\">" if item.locked %> 										
-			 			<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/unlocked.png\" title=\"#{t("single.not")} #{Item.human_attribute_name(:locked)}\" class=\"icon help\">" if !item.locked %> 																								
-																											
-						<% if get_setting_bool("allow_private_items")  %>
-								<% if item.is_public? %>
-						 			<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/public.png\" title=\"#{Item.human_attribute_name(:is_public)}\" class=\"icon help\">" %> 										
-								<% else %>
-						 			<%= raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/private.png\" title=\"#{t("single.not")} #{Item.human_attribute_name(:is_public)}\" class=\"icon help\">" %> 										
-								<% end %>
-						<% end %>
-						<% if item.featured %>							
-							<img src="/themes/<%= @setting[:theme] %>/images/icons/featured.png" class="icon help"  alt="" title="<%= Item.human_attribute_name(:featured) + " " + Item.model_name.human %> ">
-						<% else %>
-							<img src="/themes/<%= @setting[:theme] %>/images/icons/not_featured.png" class="icon help"  alt="" title="<%= t("single.not") + " " +  Item.human_attribute_name(:featured)%>">																																											 
-						<% end %>																		
-					</td>
-					<td align=right>
-						<% if Item.can?(@logged_in_user, :create)  %>
-							<%= link_to raw("#{icon("new")} #{t("label.item_new", :item => item.category.name) + " " + Item.model_name.human}"), {:action => "new", :controller => "items", :id => item.category} %>
-						<% end %>												
-						<% if item.can?(@logged_in_user, :edit) %>
-							   		<img src="/themes/<%= @setting[:theme] %>/images/icons/logs.png" class="icon">
-									<%= link_to Log.model_name.human(:count => :other), {:controller => "logs", :action => "for_item", :id => item.id}, :title => t("label.item_view_items", :item => Item.model_name.human, :items => Log.model_name.human(:count => :other)) %>						
-								<%= link_to icon("edit") + " " + t("single.edit") , {:action => "edit", :controller => "items", :id => item}, :title => t("label.item_edit", :item => Item.model_name.human) %>
-						<% end %>
-						<% if item.can?(@logged_in_user, :destroy)  %>
-								<%= link_to icon("delete") + " " + t("single.delete") , {:action => "delete", :controller => "items", :id => item}, :title => t("label.item_delete", :item => Item.model_name.human), :confirm => t("confirm.item_delete", :item => Item.model_name.human) %>
-						<% end %>							
-					</td>
-				</tr>
-			</table>		
-		</div>
-	<% end %>
+<div class="header">						
+	<%= render :partial => "record_menu", :locals => {:record => item} %>	
 </div>
 

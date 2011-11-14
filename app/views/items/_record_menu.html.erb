@@ -1,0 +1,9 @@
+<% content_for :record_menu_left do %>
+	<%= content_tag(:li, content_tag(:span, record.featured ? icon("featured", Item.human_attribute_name(:featured), "icon help") : icon("not_featured", t("single.not") + " " +  Item.human_attribute_name(:featured), "icon help"))) %>
+	<%= content_tag(:li, content_tag(:span, record.locked ? icon("locked", Item.human_attribute_name(:locked), "icon help") : icon("unlocked", t("single.not") + " " +  Item.human_attribute_name(:locked), "icon help"))) %>
+<% end %>
+<% content_for :record_menu_right do %>
+	<%= content_tag(:li, link_to(icon("logs") + " " + Log.model_name.human(:count => :other), {:controller => "logs", :action => "for_item", :id => record.id}, :title => t("label.item_view_items", :item => Item.model_name.human, :items => Log.model_name.human(:count => :other)))) %>
+<% end %>				
+
+<%= render :partial => "application/record_menu", :locals => {:record => record} if record.can?(@logged_in_user, :edit) %>	

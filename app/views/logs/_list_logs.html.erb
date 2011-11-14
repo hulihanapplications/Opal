@@ -1,10 +1,17 @@
 <% if logs.size > 0 %>
-	<div class="logs">
+	<div class="logs records">
 		<% for log in logs %>
 			<% log_item = log.item_id ? log.item : nil %>
 			<% log_user = log.user_id ? log.user : nil %>			
 			<div class="record log" id="log_<%= log.id %>">
-				<%= content_tag(:span, friendly_date(log.created_at), :class => "date") %>												
+				<% content_for :record_menu_items do %>
+					<%= content_tag(:li, link_to_function(icon("dropdown") + " " + t("single.details"), "$('#log_details_#{log.id}').toggle()", :class => "")) %>																										
+				<% end %>	
+				<%= render :partial => "record_menu", :locals => {:record => log, :options => {:edit => false, :delete => false, :date => true, :user => false}} %>
+										
+				<div id="log_details_<%= log.id %>" class="extra_options_box"  style="display:none;">
+					<%= Log.human_attribute_name(:ip) %>: <%= log.ip %>
+				</div>					
 				<table style="width:100%">
 					<tr>
 						<%= content_tag(:td, link_to_user(log_user, :avatar => true, :avatar_class => "medium", :name => false)) if log_user %>
@@ -14,16 +21,8 @@
 						<td class="icon_column">
 							<%= log_icon(log) %>
 						</td>						
-					</tr>
-				
-				</table>
-				<%= render :partial => "record_menu", :locals => {:record => log, :options => {:edit => false, :delete => false}} %>
-				<% content_for :record_menu_items do %>
-					<%= content_tag(:li, link_to_function(icon("dropdown") + " " + t("single.details"), "$('#log_details_#{log.id}').toggle()", :class => "")) %>																										
-				<% end %>											
-				<div id="log_details_<%= log.id %>" class="extra_options_box"  style="display:none;">
-					<%= Log.human_attribute_name(:ip) %>: <%= log.ip %>
-				</div>								
+					</tr>				
+				</table>							
 			</div>				
 			<hr>
 		<% end %>		

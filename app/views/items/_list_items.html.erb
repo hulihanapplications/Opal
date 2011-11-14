@@ -1,2 +1,4 @@
 <% @setting[:list_type] = get_setting("list_type") if !@setting[:list_type]  %><%# get default list type if not set. %>
-<%= render :partial => "/items/list_items_#{@setting[:list_type]}", :locals => {:items => items} %>    
+<%= content_tag(:div, :class => "items records") do %>
+	<%= render :partial => "/items/list_items_#{@setting[:list_type]}", :locals => {:items => items} %>
+<% end %>    

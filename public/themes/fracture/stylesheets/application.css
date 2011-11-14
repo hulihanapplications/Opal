@@ -52,6 +52,14 @@ ul.main_menu{list-style:none;text-align:right;}
 
 /* Fields & Inputs */
 
+/* Menus */
+div.record_menu{border:1px solid #ccc;background:url(../images/bgs/white_trans_50.png) repeat;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:5px}
+ul.record_menu{}
+.record_menu li{padding:5px 10px}
+.record_menu.right li{border-left:1px solid #ccc;}
+.record_menu.left li{border-right:1px solid #ccc;}
+.record_menu li:hover{}
+
 /* Boxes */
 .box_1{border:1px solid #aaa;background:#E9E9E9;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:10px;}
 	.box_1 h1.title, .box_1 h2.title, .box_1 h3.title{}

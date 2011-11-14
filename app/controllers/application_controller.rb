@@ -90,7 +90,7 @@ class ApplicationController < ActionController::Base
   def authenticate_admin
     if @logged_in_user.anonymous? #There's definitely no user logged in(id 0 is public user)
       flash[:failure] = t("notice.failed_admin_access_attempt") 
-      Log.create(:log_type => "warning", :log => I18n.t("log.failed_admin_access_attempt_visitor", :ip => request.env["REMOTE_ADDR"], :controller => params[:controller], :action => params[:action]))     
+      log(:log_type => "warning", :log => I18n.t("log.failed_admin_access_attempt_visitor", :ip => request.env["REMOTE_ADDR"], :controller => params[:controller], :action => params[:action]))     
       redirect_to login_url(:redirect_to => destination) # store original request of where they wanted to go.
     else #there's a user logged in, but what type is he?
       if(@logged_in_user.is_admin?) # make sure user is an admin
@@ -98,7 +98,7 @@ class ApplicationController < ActionController::Base
         @setting[:meta_title] << t("section.title.admin")
       else # a non-admin is trying to do someting
         flash[:failure] = t("notice.failed_admin_access_attempt")
-        Log.create(:log_type => "warning", :log => I18n.t("log.failed_admin_access_attempt_user", :username => @logged_in_user.username, :id => @logged_in_user.id, :controller => params[:controller], :action => params[:action]))        
+        log(:log_type => "warning", :log => I18n.t("log.failed_admin_access_attempt_user", :username => @logged_in_user.username, :id => @logged_in_user.id, :controller => params[:controller], :action => params[:action]))        
         redirect_to root_url
       end
     end

@@ -52,6 +52,9 @@ td.right{padding-left:10px;width:50%}
 .hover{opacity:1.00;filter:alpha(opacity=100);-moz-opacity:1.0;-khtml-opacity: 1.0;}
 .disabled{opacity:0.50;filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity: 0.5;}
 
+/* Lists */
+ul.right{text-align:right;}
+ul.left{text-align:left}
 ul.sortable, ul.collapsed{margin:0px;padding:0px;list-style-type:none;}
 	ul.sortable li, ul.collapsed li{list-style-image:none;padding:0px;margin:0px;}
 	ul.sortable li{cursor:move;}
@@ -73,13 +76,14 @@ ul.sortable, ul.collapsed{margin:0px;padding:0px;list-style-type:none;}
 	.section .header td{vertical-align:middle}
 
 /* Menus */
+
 .menu{text-align:center}
 	.menu .last{margin-bottom:0px}
 div.record{position:relative;}
-div.record_menu{position:absolute;top:-10px;right:0;/*display:none;*/}
+div.record_menu{/*position:absolute;top:-10px;right:0;*//*display:none;*/}
 div.record:hover div.record_menu{display:block}
-div.record_menu > ul.record_menu{list-style:none;text-align:right;}
-	div.record_menu > ul.record_menu li{display:inline;}
+	div.record_menu ul.record_menu{list-style:none;padding:0px;display:block}
+		div.record_menu ul.record_menu li{display:inline;margin:0px 2px 0px 0px}
 
 /* Boxes */
 .extra_options_box{padding:10px;}

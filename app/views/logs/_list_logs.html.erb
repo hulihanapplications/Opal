@@ -4,8 +4,8 @@
 			<% log_item = log.item_id ? log.item : nil %>
 			<% log_user = log.user_id ? log.user : nil %>			
 			<div class="record log" id="log_<%= log.id %>">
-				<% content_for :record_menu_items do %>
-					<%= content_tag(:li, link_to_function(icon("dropdown") + " " + t("single.details"), "$('#log_details_#{log.id}').toggle()", :class => "")) %>																										
+				<% content_for :record_menu_right do %>
+					<%= content_tag(:li, link_to_function(icon("dropdown") + " " + t("single.details"), "$('#log_details_#{log.id}').toggle()")) %>																										
 				<% end %>	
 				<%= render :partial => "record_menu", :locals => {:record => log, :options => {:edit => false, :delete => false, :date => true, :user => false}} %>
 										

@@ -1,0 +1,9 @@
+# theme only for tests purposes
+theme:
+    name: Test-Theme
+    description: A test theme
+    version: 0.0.1
+    author: Hulihan Applications
+    author_website: http://www.hulihanapplications.com
+    theme_website: http://www.hulihanapplications.com/projects/opal
+    

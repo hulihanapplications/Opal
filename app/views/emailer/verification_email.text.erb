@@ -1,2 +1,2 @@
-<%= t("email.message.verification", :title => @setting[:title], :url => url_for(:action => "verify", :controller => "user", :id => verification.id, :code =>  verification.code, :only_path => false), :name => @user_verification.user.username) %>
+<%= t("email.message.verification", :title => @setting[:title], :url => @url, :name => @user.username) %>
 

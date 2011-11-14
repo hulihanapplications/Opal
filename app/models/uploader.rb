@@ -6,9 +6,9 @@ class Uploader #< ActiveRecord::Base
     options[:url]     ||= nil   # file from a url
 
     options[:url] = nil if (!options[:local].blank? && !options[:url].blank?) # if they did both
-    if !options[:local].blank? # local upload, convert TempFile to real File  
-      return options[:local].tempfile # return file from url      
-    elsif !options[:url].blank? # from url
+    if !options[:local].blank? # use locally uploaded file  
+      return options[:local]       
+    elsif !options[:url].blank? # use file from url
       return Uploader.file_from_url(options[:url]) # return file from url
     else # nothing 
       return false

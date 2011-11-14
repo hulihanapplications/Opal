@@ -22,14 +22,13 @@ describe SettingsController do
       end    
     end
     
-		describe "handling the site logo," do
+		describe "handling the site logo" do
 			before(:each) do
 				@image_path = Rails.root.to_s + "/public/themes/fracture/images/logo.png" # location of main logo
 				if File.file?(@image_path) 
 					@image_saved = Rails.root.to_s + "/public/themes/fracture/images/logo-saved.png" # temp save location for the original logo
 					FileUtils.mv(@image_path, @image_saved)
-				end
-				
+				end				
 			end
 
 			after(:each) do
@@ -38,34 +37,23 @@ describe SettingsController do
 			end
 			
 			describe :change_logo do 
-
 				it "uploads a remote logo" do
-					post(:change_logo, { :source => :remote, :url => "http://hulihanapplications.com/images/quick_links/opal_tiny.png" } )
+					post(:change_logo, { :source => :remote, :url => "http://www.hulihanapplications.com/images/projects/opal.png"})
 					flash[:success].should_not == nil
 					File.file?(@image_path).should == true
 					response.should redirect_to(:action => :index, :controller => :settings)
 				end
 
 				it "uploads a local logo" do
-					@testimage = fixture_file_upload(Rails.root.to_s + '/spec/fixtures/images/example.png')
-					# start of dirty-hack-that-we-should-get-rid-off-soon
-					# this hack was suggested on http://stackoverflow.com/questions/7793510/mocking-file-uploads-in-rails-3-1-controller-tests
-					# and is mostly for rails 3 compat. Smells a bit bad but well, it works ...
-					class << @testimage
-						attr_reader :tempfile
-					end
-					# end of dirty-hack-that-we-should-get-rid-off-soon
-					post(:change_logo, { :source => :local, :file => @testimage })
-					flash[:success].should_not == nil
+          uploaded_file = fixture_file_upload(Rails.root.join('spec/fixtures/images/example.png'), "image/png")       
+          post(:change_logo, {:source => :local, :file => uploaded_file})
 					File.file?(@image_path).should == true
 					response.should redirect_to(:action => :index, :controller => :settings)
 				end
+				
 				it "fails uploading a non-image logo" do
-					@testimage = fixture_file_upload(Rails.root.to_s + '/spec/fixtures/videos/example.flv')
-					class << @testimage
-						attr_reader :tempfile
-					end
-					post(:change_logo, { :source => :local, :file => @testimage })
+				  uploaded_file = fixture_file_upload(Rails.root.join('spec/fixtures/videos/example.flv'), "video/x-flv")       
+					post(:change_logo, { :source => :local, :file => uploaded_file })
 					flash[:failure].should_not == nil
 					File.file?(@image_path).should == false
 					response.should redirect_to(:action => :index, :controller => :settings)
@@ -111,12 +99,10 @@ describe SettingsController do
 				response.should redirect_to(:action => :themes, :controller => :settings)
 				FileUtils.remove_dir(@theme_dir) if File.directory?(@theme_dir)
 			end
+			
 			it "installs new theme from a local file" do
-				@ziptheme = fixture_file_upload(Rails.root.to_s + '/spec/fixtures/test-theme.zip')
-				class << @ziptheme
-					attr_reader :tempfile
-				end
-				post(:install_theme, { :source => :local, :file => @ziptheme } )
+        uploaded_file = fixture_file_upload(Rails.root.join('spec/fixtures/test-theme.zip'), "application/zip")       
+				post(:install_theme, { :source => :local, :file => uploaded_file} )
 				flash[:success].should_not == nil
 				File.directory?(@theme_dir).should == true
 				File.file?(File.join(@theme_dir, "theme.yml")).should == true
@@ -130,6 +116,7 @@ describe SettingsController do
 				@theme_dir = Rails.root.to_s + "/public/themes/test-theme"
 				FileUtils.cp_r(Rails.root.to_s + '/spec/fixtures/test-theme', Rails.root.to_s + '/public/themes/')
 			end
+			
 			it "deletes an installed theme" do
 				get(:delete_theme, { :theme_name => "test-theme" } )
 				flash[:success].should_not == nil

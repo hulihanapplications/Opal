@@ -404,7 +404,7 @@ en:
           description: "The hostname/domain name of your website, used for email, rss, and other stuff. This can include a port number. Do not add http:// or https://. Examples: example.com or example.com:3000."        
         sender_email:
           title: Sender Email
-          description: Email address that will be used as a sender for the mails sent by Opal.
+          description: Email address that will be used in emails sent by Opal.
         locale: 
           title: Locale
           description: The default language and time zone used by Opal. Since users can also set their own locale, this applies to visitors and new users.

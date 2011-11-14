@@ -48,7 +48,7 @@ class ItemsController < ApplicationController
       @items = Item.paginate :page => params[:page], :per_page => @setting[:items_per_page], :order => Item.sort_order(params[:sort]), :conditions => ["is_public = '0'" ]            
     else # show all items 
       params[:type] = t("single.all")
-      @items = Item.paginate :page => params[:page], :per_page => @setting[:items_per_page], :order => Item.sort_order(params[:sort])
+      @items = Item.paginate(:page => params[:page], :per_page => @setting[:items_per_page]).order(Item.sort_order(params[:sort]))
     end
   end 
 

@@ -173,7 +173,7 @@ class Item < ActiveRecord::Base
   def can?(performer, action, options = {})
     case action.to_sym
     when :view, :read      
-      is_user_owner?(performer) ? true : is_public? && is_approved?    
+      super(performer, action, options) ? true : is_public? && is_approved?    
     else 
       super(performer, action, options)                 
     end

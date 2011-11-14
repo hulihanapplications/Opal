@@ -210,7 +210,7 @@ class User < ActiveRecord::Base
     if Setting.get_setting_bool("email_verification_required") 
       update_attribute(:is_verified, "0") 
       verification = UserVerification.create(:user_id => id, :code => UserVerification.generate_code)
-      Emailer.verification_email(verification).deliver # send verification email          
+      verification.send_email
     else 
       update_attribute(:is_verified, "1") 
     end 

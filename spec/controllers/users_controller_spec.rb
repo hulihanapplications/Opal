@@ -95,15 +95,14 @@ describe UsersController do
 			end
 		end
 
-		pending "send_verification_email"
-#     describe "send_verification_email" do
-# 			it "sends an email to verify an account" do
-# 				user = Factory(:user)
-# 				get(:send_verification_email, {:id => user.id})
-# 				flash[:success].should_not be_nil
-# 				ActionMailer::Base.deliveries.last.to.should == [user.email]
-# 			end
-# 		end
+    describe "send_verification_email" do
+			it "sends an email to verify an account" do
+				user = Factory(:user)
+				get(:send_verification_email, {:id => user.id})
+				flash[:success].should_not be_nil
+				ActionMailer::Base.deliveries.last.to.should == [user.email]
+			end
+		end
 
   end
   

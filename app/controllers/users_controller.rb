@@ -134,9 +134,7 @@ class UsersController < ApplicationController
   def send_verification_email
     verification = UserVerification.find_by_user_id(@user.id)
     verification = UserVerification.create(:user_id => @user.id, :code => UserVerification.generate_code) if !verification # if none found, create new verification email 
-    if verification
-      url = url_for(:action => "verify", :controller => "user", :id => verification.id, :code =>  verification.code, :only_path => false)
-      Emailer.verification_email(@user.email, verification, url).deliver
+    if verification && verification.send_email
       log(:target => @user, :log_type => "update", :log => t("log.item_email_sent", :item => UserVerification.model_name.human, :name => @user.username))                                                  
       flash[:success] =  t("log.item_email_sent", :item => UserVerification.model_name.human, :name => @user.username)
     else

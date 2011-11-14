@@ -405,6 +405,9 @@ ru:
         host:
           title: Host
           description: "The hostname/domain name of your website, used for email generation and other stuff. This can include a port number. Do not add http:// or https://. Examples: example.com or example.com:3000."                          
+        sender_email:                                                                                                                                                                                         
+          title: Sender Email
+          description: Email address that will be used as a sender for the mails sent by Opal.
         locale:
           title: Локаль
           description: Стандартный язык и временная зона используемая в Opal. Пользователи также могут изменять собственную локаль.
@@ -802,8 +805,8 @@ ru:
         range: должно быть между %{min} и %{max}
         items_cannot_add_more: Вы не можете добавить ещё %{items}.    
         item_must_be_owner: Вы должны быть владельцем этого %{item} чтобы сделать это.
-    	invalid_file_extension: "не может быть сохранен потому что имя файла не заканчивается следующим образом: %{valid_extensions}"
-    	unresponsive: "is not responding"        
+      invalid_file_extension: "не может быть сохранен потому что имя файла не заканчивается следующим образом: %{valid_extensions}"
+      unresponsive: "is not responding"        
   # Locales
   locales:
     en: Английская (English)

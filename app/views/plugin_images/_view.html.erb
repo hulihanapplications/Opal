@@ -47,8 +47,8 @@
 				<% if images.size > 0 %>
 						<% for image in images %>
 							<div class="image">
+								<%= render :partial => "plugins/record_menu", :locals => {:record => image, :options => {:preview => true, :date => false}} if image.can?(@logged_in_user, :edit) %> 									   																
 								<%= content_tag(:div, plugin_image_thumbnail(image, :preview => true)) %>														
-								<%= render :partial => "plugins/record_menu", :locals => {:record => image, :options => {:preview => true}} %> 									   																
 							</div>					
 						<% end %>
 				<% end %>

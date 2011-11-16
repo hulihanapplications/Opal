@@ -62,10 +62,13 @@ ul.sortable, ul.collapsed{margin:0px;padding:0px;list-style-type:none;}
 
 
 /* Items */
+/* Items */
+.item{}
+	.item input.name, .item .name a, .item .name{font-size:24px;;text-align:left;}
+	.item > .description, .item .details .description, .item #details .description{font-size:16px;;text-align:left;}
 	.item .new{position:relative;bottom:0px;left:0px;}
 	div.preview_not_found a, .preview_text{text-align:center;position: relative;display:table}
 		div.preview_not_found h2{;display:table-cell;vertical-align: middle}
-	/* Item Lists */
 	
 	/* Item Page */
 	.plugins .plugin_box{clear:both}
@@ -107,7 +110,6 @@ ul.record_menu{list-style:none;padding:0px;margin:0px;}
 .help{cursor:help;}
 
 /* Plugins */
-.images .image div.record_menu{margin-top:5px;}
 
 /* Pages */
 .page .content{padding:5px 0px;}

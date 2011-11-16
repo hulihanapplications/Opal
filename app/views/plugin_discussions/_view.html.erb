@@ -21,23 +21,22 @@
 				</tr>
 			</table>				
 		</div>	
-		<div style="display:none" id="new_discussion_box" class="box_1">
-		      <h2><%=  t("label.item_new", :item => plugin.model_name.human) %></h2>
-			  	 <div>
-  					   <%= form_tag  :action => 'create', :controller => "plugin_discussions", :id => item.id, :record_id => @record.id, :record_type => @record.class.name %>
-								<img src="/themes/<%= @setting[:theme] %>/images/icons/discussion.png" class="icon">
-								<input name="discussion[title]" type="text" id="discussion_title" onfocus = "focus_input('discussion_title')" onblur = "blur_input('discussion_title')"> 
-					   			<%= PluginDiscussion.human_attribute_name(:title) %>									
-								<input name="discussion[description]" type="text" id="discussion_description" onfocus = "focus_input('discussion_description')" onblur = "blur_input('discussion_description')"> 
-					   			<%= PluginDiscussion.human_attribute_name(:description) %>
-								<%= submit_tag  t("label.item_create", :item => plugin.model_name.human), :class => "button_1" %>
-						</form>
-						<div style="margin-bottom:5px"></div>
-				 </div>
-				 <br>
-			 	 <div align="center">
-				   			<a href="javascript:toggle_box('new_discussion_box')"><%= icon("cancel") %></a>
-				 </div>
+		<div style="display:none" id="new_discussion_box">
+			<div class="box_1">
+			<h2><%=  t("label.item_new", :item => plugin.model_name.human) %></h2>
+			   <%= form_tag  :action => 'create', :controller => "plugin_discussions", :id => item.id, :record_id => @record.id, :record_type => @record.class.name %>
+						<img src="/themes/<%= @setting[:theme] %>/images/icons/discussion.png" class="icon">
+						<input name="discussion[title]" type="text" id="discussion_title" onfocus = "focus_input('discussion_title')" onblur = "blur_input('discussion_title')"> 
+			   			<%= PluginDiscussion.human_attribute_name(:title) %>									
+						<input name="discussion[description]" type="text" id="discussion_description" onfocus = "focus_input('discussion_description')" onblur = "blur_input('discussion_description')"> 
+			   			<%= PluginDiscussion.human_attribute_name(:description) %>
+						<%= submit_tag  t("label.item_create", :item => plugin.model_name.human), :class => "button_1" %>
+				</form>
+			</div>
+			<div align="center">
+	   			<a href="javascript:toggle_box('new_discussion_box')"><%= icon("cancel") %></a>
+			</div>
+			<br />
 		</div>
 
 	<% end %>

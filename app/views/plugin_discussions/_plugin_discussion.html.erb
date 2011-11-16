@@ -1,26 +1,21 @@
 <div class="box_2">
-	<table cellpadding=0 cellspacing=0 style="width:100%">
-		<tr>
-			<td align=left style="text-align:left">
-				<h2 class="title">
-					<%= link_to "#{plugin_discussion.title}", {:action => "view", :controller => "plugin_discussions", :record_type => plugin_discussion.class.name, :record_id => plugin_discussion.id} %>
-				</h2>
-				<%= h plugin_discussion.description if plugin_discussion.description %>
-			</td>
-			<td align=right style="text-align:right">
-				<%= "#{plugin_discussion.plugin_discussion_posts.size} #{PluginDiscussionPost.model_name.human(:count => :other)}" %>
-				<% if !@logged_in_user.anonymous? %>
-					<%= icon("new") %>
-					<%= link_to t("label.item_new", :item => PluginDiscussionPost.model_name.human), {:action => "view", :controller => "plugin_discussions", :record_type => plugin_discussion.class.name, :record_id => plugin_discussion.id, :anchor => "new_post"}%>
-					<%= icon("spacer") %>
-				<% end %>
+	<% content_for :record_menu_right do %>
+		<%= content_tag(:li, link_to(icon("new") + " " + t("label.item_new", :item => PluginDiscussionPost.model_name.human), {:action => "view", :controller => "plugin_discussions", :record_type => plugin_discussion.class.name, :record_id => plugin_discussion.id, :anchor => "new_post"})) if !@logged_in_user.anonymous? %>
+		<%= content_tag :li do %>			
+			<%= content_tag :span do %>
+				<%= "#{plugin_discussion.plugin_discussion_posts.size} #{PluginDiscussionPost.model_name.human(:count => :other)}" %>			
+			<% end %>
+		<% end %>		
+		<%= content_tag(:li, link_to(icon("rss", t("label.rss_feed") + " - " + t("label.items_latest", :items => PluginDiscussionPost.model_name.human(:count => :other))), {:action => "rss", :controller => "plugin_discussions", :record_type => plugin_discussion.class.name, :record_id => plugin_discussion.id, :format => :xml})) %>
+	<% end %>	
 
-				<%= render :partial => "plugins/record_menu", :locals => {:record => plugin_discussion, :options => {:preview => false, :date => true, :user => true, :byline => true, :edit => false}} %>
-				<%= link_to icon("rss", t("label.rss_feed") + " - " + t("label.items_latest", :items => PluginDiscussionPost.model_name.human(:count => :other))), {:action => "rss", :controller => "plugin_discussions", :record_type => plugin_discussion.class.name, :record_id => plugin_discussion.id, :format => :xml} %>
+	<%= render :partial => "plugins/record_menu", :locals => {:record => plugin_discussion, :options => {:edit => false}} %>					
 
-			</td>							
-		</tr>
-	</table>
+	<h2 class="title">
+		<%= link_to "#{plugin_discussion.title}", {:action => "view", :controller => "plugin_discussions", :record_type => plugin_discussion.class.name, :record_id => plugin_discussion.id} %>
+	</h2>
+	<%= h plugin_discussion.description if plugin_discussion.description %>
+
 	<% if params[:controller] != "plugin_discussions" %>
 		<% latest_posts = PluginDiscussionPost.find(:all, :conditions => ["plugin_discussion_id = ?", plugin_discussion.id], :limit => 3) %>
 		<% if latest_posts.size > 0 %>

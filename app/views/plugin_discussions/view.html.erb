@@ -5,7 +5,7 @@
 	
 	<div class="box_2" align=center>
 		<% if @posts.size > 0 %>
-			<%= render :partial => "plugin_discussions/list_posts", :locals => {:posts => @posts, :item => @record.record} %>
+			<%= render :partial => "plugin_discussions/list_posts", :locals => {:posts => @posts, :item => @record.record, :record => @discussion} %>
 			<%= page_entries_info @posts, :entry_name => PluginDiscussionPost.model_name.human %>
 			<%= will_paginate @posts %>	
 			<hr />

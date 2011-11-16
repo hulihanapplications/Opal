@@ -11,8 +11,6 @@
 				<% if ((options[:only_listed] && feature.listed) || !options[:only_listed]) && feature.visible_for_category?(feature_value.record.category) %>
 					<tr>
 						<td style="text-align:left;white-space: nowrap;">
-								<%= render :partial => "plugins/record_menu", :locals => { :record => feature_value, :options => {:votes => false, :preview => false, :user => false, :edit => false, :delete => false}} if options[:show_controls] %>
-
 								<%= feature_icon feature %>
 								<%= feature.name %>:
 						</td>

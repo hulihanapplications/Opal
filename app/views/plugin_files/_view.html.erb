@@ -48,17 +48,9 @@
 				<div class="files" align=left>
 					<% for file in files %>
 						<div id="file_box_<%= file.id %>" class="file box_2">
-							<span id="file_<%= file.id %>">	
-								<table style="width:100%">
-									<tr>
-										<td align=left>											
-											<%= content_tag(:h3, link_to(icon("file") + " " + file.get_title, download_path(:record_type => file.class.name, :record_id => file))) %>								
-										</td>
-										<td align=right>
-											<%= render :partial => "plugins/record_menu", :locals => { :record => file, :options => {:date => true, :edit => false, :votes => false, :preview => false, :user => true}} %>																						
-										</td>										
-									</tr>
-								</table>						
+							<%= render :partial => "plugins/record_menu", :locals => {:record => file, :options => {:edit => false}} if file.can?(@logged_in_user, :edit) %>					
+							<span id="file_<%= file.id %>">											
+								<%= content_tag(:h3, link_to(icon("file") + " " + file.get_title, download_path(:record_type => file.class.name, :record_id => file))) %>								
 								<hr />
 								<%= number_to_human_size(file.file.size) %>
 								<%= icon("spacer") %>

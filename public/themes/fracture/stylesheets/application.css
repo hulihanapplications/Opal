@@ -54,7 +54,7 @@ ul.main_menu{list-style:none;text-align:right;}
 
 /* Menus */
 .record_menu li a, .record_menu li span{-moz-border-radius: 5px;-webkit-border-radius: 5px;}
-.record_menu li span{border:1px solid #ccc;background:url(../images/bgs/white_trans_50.png) repeat;}
+.record_menu li span{border:1px solid #bbb;background:url(../images/bgs/white_trans_50.png) repeat;}
 .record_menu li a{border:1px solid #aaa; background:url(../images/bgs/button_3_bg.png) repeat center center;}
 .record_menu li a:hover{border:1px solid #999;}
 
@@ -103,12 +103,6 @@ img.selected{border:1px solid #aaa;background:url(../images/bgs/black_trans_05.p
 img.normal{}
 img.small, img.medium{height:50px;border:1px solid #666}
 img.loading{margin:2px;background:#ccc;padding:5px;border:1px solid #666;;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
-
-/* Items */
-.item 
-	.item input.name, .item .name a, .item .name{font-size:24px;;text-align:left;}
-	.item .description{font-size:16px;;text-align:left;}
-	.item textarea.description{width:400px;height:100px;}		
 	
 /* Item Lists */
 .item_box_simple{margin-bottom:15px;padding-bottom:15px;padding-left:5px;border-bottom:1px solid #ddd;}

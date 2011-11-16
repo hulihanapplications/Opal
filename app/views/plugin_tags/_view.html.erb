@@ -44,11 +44,10 @@
 				<div class="tags" align=left>
 		 		    <% counter = 1 %>
 					<% for tag in tags %>
-						<div id="tag_box_<%= tag.id %>">
+						<div class="box_1" id="tag_box_<%= tag.id %>">
+							<%= render :partial => "plugins/record_menu", :locals => {:record => tag, :options => {:edit => false}} %>
 							<%= icon("tag") %>
 							<%= link_to_tag tag %>
-							<%= render :partial => "plugins/record_menu", :locals => {:record => tag, :options => {:preview => false, :byline => false, :edit => false}} %>
-
 						</div>
 					<% end %>
 				</div>

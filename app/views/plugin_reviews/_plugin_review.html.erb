@@ -1,0 +1,55 @@
+ <%
+ 	# Set Defaults
+	options  					||= Hash.new
+	options[:rich_snippets] 	= false if options[:rich_snippets].nil?
+ %>				 
+ <div id="review_box_<%= plugin_review.id %>" <%= raw "itemscope itemtype=\"http://data-vocabulary.org/Review\"" if options[:rich_snippets] %>>
+ 	<%= raw "<meta itemprop=\"itemreviewed\" content=\"#{item.name}\" />" if options[:rich_snippets] %>
+	
+	<table style="width:100%">
+		<tr>
+			<td class="user_column">
+				  <div class="user_box" align=center >
+				 <% review_user = User.find(plugin_review.user_id)  %>
+				 <%= link_to user_avatar(review_user, :class => "small"), user_path(review_user)   %>
+				 <br>
+				 <%= link_to content_tag(:span, review_user.username, :itemprop => "reviewer"), user_path(review_user)   %>
+					 
+		      </div>
+			</td>
+			<td class="review_column">
+				<div class="review_box">
+					<div class="review">																										 																							
+						<% content_for :record_menu_left do %>
+							<%= content_tag :li do %>										
+								<span style="display:none" <%= raw "itemprop=\"rating\" itemscope itemtype=\"http://data-vocabulary.org/Rating\"" if options[:rich_snippets] %>>														
+									 <%= raw "<meta itemprop=\"worst\" content=\"#{@setting[:plugin_review][:score_min].to_i}\" />" if options[:rich_snippets] %>
+									 <%= raw "<meta itemprop=\"best\" content=\"#{@setting[:plugin_review][:score_max].to_i}\" />" if options[:rich_snippets] %>																 						
+									 <%= raw "<meta itemprop=\"value\" content=\"#{plugin_review.review_score.to_i}\" />" if options[:rich_snippets] %>		
+								 </span>	
+								 <%= link_to score(:type => @setting[:plugin_review][:review_type], :min => @setting[:plugin_review][:score_min].to_i, :max => @setting[:plugin_review][:score_max], :value => plugin_review.review_score.to_i), {:action => "show", :controller => "plugin_reviews", :record_id => plugin_review.id, :record_type => plugin_review.class.name} %>											 
+							<% end %>	
+							<%= content_tag :li do %>
+								<%= content_tag :span, :class => :date do %>
+    								<time itemprop="dtreviewed" datetime="<%= plugin_review.created_at.strftime("%Y-%m-%d") %>">
+    									<%= friendly_date plugin_review.created_at %>
+									</time>												
+								<% end %>										
+							<% end %>		    																			
+				
+						<% end %>
+
+						<%= render :partial => "plugins/record_menu", :locals => {:record => plugin_review, :options => {:preview => true, :votes => true, :user => false, :date => false}} %>
+													
+						<meta itemprop="summary" content="<%= truncate(plugin_review.review, :length => 80) %>" /> <!-- Short Description --> 
+						
+						<div class="review_content" itemprop="description">
+							<%= raw plugin_review.review %>
+						</div>
+						
+					</div>							
+				</div>
+			</td>
+		</tr>
+	</table>
+ </div>	

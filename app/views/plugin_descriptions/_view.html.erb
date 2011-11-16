@@ -25,16 +25,8 @@
 				<div class="descriptions">
 					<% for description in descriptions %>
 						<div id="description_box_<%= description.id %>" class="description" align=left>
-							<table cellpadding=0 cellspacing=0 style="width:100%">
-								<tr>
-									<td align=left style="text-align:left;vertical-align:bottom"> 
-										<div class="title"><%= h description.title %></div>																
-									</td>
-									<td align=right style="text-align:right;vertical-align:bottom">
-										<%= render :partial => "plugins/record_menu", :locals => {:record => description, :date => true}%>																																																		
-								 	</td>									
-								</tr>
-							</table>
+							<%= render :partial => "plugins/record_menu", :locals => {:record => description, :options => {}}  %>													
+							<div class="title"><%= h description.title %></div>																
 							<div class="content">
 								<%= raw description.content %>									
 							</div>						

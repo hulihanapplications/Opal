@@ -8,7 +8,7 @@
 	options[:byline]	= true if options[:byline].nil?
 	options[:approval] 	= true if options[:approval].nil?
 	options[:votes] 	= false if options[:votes].nil?
-	options[:date] 		= false if options[:date].nil?
+	options[:date] 		= true if options[:date].nil?
 	options[:labels] 	= false if options[:labels].nil? # turn on text labels?
 		
 	# Narrow menu options based on user's permissions 
@@ -19,6 +19,13 @@
 	options[:delete]	= options[:delete] && record.can?(@logged_in_user, :edit)	
 	options[:votes]		= options[:votes] && !@logged_in_user.anonymous? 
 %>
+
+
+<%
+  	# Determine if menu should be shown
+  	show_menu = options.values.include?(true)
+%>
+
 <%= content_tag(:div, :class => :record_menu) do %>
 	<table style="width:100%" cellpadding="0" cellspacing="0">
 		<tr>
@@ -97,4 +104,4 @@
 			</td>
 		</tr>
 	</table>					
-<% end %>
+<% end if show_menu %>

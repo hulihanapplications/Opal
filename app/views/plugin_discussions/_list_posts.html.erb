@@ -24,7 +24,7 @@
 	<% else %>
 		<div class="comments">
 		<% for post in posts %>
-			<div class="comment">		
+			<div class="comment">						
 				<a name="<%= post.id %>"></a>
 				<table>
 					<tr> 
@@ -49,13 +49,14 @@
 							</div>
 						</td>
 						<td align=left class="comment_column">
-							<div class="comment_box <%= "comment_box_from_owner" if post.plugin_discussion.is_user_owner?(post.user) %>">							
+							<div class="comment_box <%= "comment_box_from_owner" if post.plugin_discussion.is_user_owner?(post.user) %>">
+								<% content_for :record_menu_right do %>	
+									<%= content_tag(:li, link_to(icon("delete"), { :action => 'delete_post', :controller => "plugin_discussions", :id => item.id, :post_id => post.id, :record_type => PluginDiscussion.name, :record_id => post.plugin_discussion_id}, :confirm =>  t("confirm.item_delete", :item => PluginDiscussionPost.model_name.human))) if post.can?(@logged_in_user, :delete)  %>
+								<% end %>				
+							
+								<%= render :partial => "application/record_menu", :locals => {:record => post, :options => {:user => false, :date => true, :delete => false, :edit => false}} %>
+															
 								<div align=left>
-									<b><%= friendly_date post.created_at %></b>
-										<% if item.can?(@logged_in_user, :edit) %>
-									    	<%= link_to icon("delete"), { :action => 'delete_post', :controller => "plugin_discussions", :id => item.id, :post_id => post.id, :record_type => PluginDiscussion.name, :record_id => post.plugin_discussion_id}, :confirm =>  t("confirm.item_delete", :item => PluginDiscussionPost.model_name.human) %>						
-										<% end %>
-									<br>
 									<%= simple_format post.post %>
 								</div>
 							</div>

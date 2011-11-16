@@ -24,23 +24,15 @@
 			</td>
 			<td align=left class="comment_column">
 				<div class="comment_box <%= "comment_box_from_owner" if plugin_comment.user_id == plugin_comment.record.user_id %>">
+					<% content_for :record_menu_right do %>
+						<%= content_tag :li do %>										
+							<%= link_to(icon("reply") + " " + t("single.reply"), {:action => "new", :controller => "plugin_comments", :id => plugin_comment.record, :parent_id => plugin_comment.id, :record_type => plugin_comment.record_type, :record_id => plugin_comment.record_id}, :remote => true, :id => "plugin_comment_#{plugin_comment.id}_reply_link") %>
+						<% end if PluginComment.can?(@logged_in_user, :create) %>	
+					<% end %>
+
+					<%= render :partial => "plugins/record_menu", :locals => {:record => plugin_comment, :options => {:votes => true, :user => false, :date => true}} %>
+											
 					<div align=left>
-						<table style="width:100%" cellpadding=0 cellspacing=0>
-							<tr>
-								<td align=left>
-									<b class="highlight_1"><%= friendly_date plugin_comment.created_at %></b>							
-								</td>
-								<td align=right>
-									<% content_for :plugin_item_controls do %>
-										<%= content_tag :span, :class => "plugin_item_control_box" do %>
-											<%= link_to(icon("reply") + " " + t("single.reply"), {:action => "new", :controller => "plugin_comments", :id => plugin_comment.record, :parent_id => plugin_comment.id, :record_type => plugin_comment.record_type, :record_id => plugin_comment.record_id}, :remote => true, :id => "plugin_comment_#{plugin_comment.id}_reply_link") %>
-										<% end %>	
-									<% end if PluginComment.can?(@logged_in_user, :create) %>									
-									<%= render :partial => "plugins/record_menu", :locals => { :record => plugin_comment, :options => {:votes => true, :preview => false, :user => false}} %>
-								</td>
-							</tr>
-						</table>
-			
 						<%= simple_format(plugin_comment.comment) %>
 					</div>
 				</div>

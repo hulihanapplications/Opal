@@ -55,8 +55,8 @@ class PluginReviewsController < PluginController
 
   def show  
     @review = @record
-    @setting[:meta_title] << @item.description     
-    @setting[:meta_title] << @item.name 
+    @setting[:meta_title] << @review.record.description     
+    @setting[:meta_title] << @review.record.name 
     @setting[:meta_title] << [PluginReview.model_name.human, t("single.from").downcase, @review.user.username].join(" ")
   end
 end

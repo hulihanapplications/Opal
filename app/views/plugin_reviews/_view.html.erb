@@ -43,7 +43,7 @@
 	<% if reviews.size > 0 %>
 		<div class="reviews">					
 			<% for review in reviews  %>
-		      <%= render :partial => "plugin_reviews/show", :locals => {:review => review, :item => item, :plugin => plugin}  %>			
+		      <%= render review  %>			
 			<% end %>
 		</div>
 	<% else %>

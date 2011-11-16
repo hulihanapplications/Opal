@@ -1,7 +1,7 @@
 <%
 	record  ||= nil
 	options ||= Hash.new
-	options[:preview] 	= true if options[:preview].nil?
+	options[:preview] 	= false if options[:preview].nil?
 	options[:edit] 		= true if options[:edit].nil?
 	options[:delete] 	= true if options[:delete].nil?
 	options[:user] 		= true if options[:user].nil?
@@ -9,7 +9,7 @@
 	options[:approval] 	= true if options[:approval].nil?
 	options[:votes] 	= false if options[:votes].nil?
 	options[:date] 		= false if options[:date].nil?
-	options[:labels] 	= true if options[:labels].nil? # turn on text labels?
+	options[:labels] 	= false if options[:labels].nil? # turn on text labels?
 		
 	# Narrow menu options based on user's permissions 
 	options[:approval]  = options[:approval] && record.respond_to?(:is_approved?) && record.can?(@logged_in_user, :approve) 	
@@ -41,28 +41,15 @@
 								<%= link_to_user(record.user, :avatar => true, :name => options[:byline]) %>
 							<% end %>
 						<% end %>
-					<% end %>
-
-					
-					<% if options[:votes] %>
-						<%= content_tag :li do %>
-							<%= content_tag(:span, record.votes, :id => "votes_#{record.class.name.underscore}_#{record.id}", :class => "votes") %>
-							 <% if !@logged_in_user.anonymous? && !record.is_user_owner?(@logged_in_user) %>												 	
-						 		<%= content_tag :span, :class => "vote_box" do %>
-							 		<% up_voted, down_voted = @logged_in_user.up_voted?(record), @logged_in_user.down_voted?(record)  %>
-									<%= link_to_function icon("vote#{up_voted ? "d" : ""}_up", t("label.item_upvote", :item => record.class.model_name.human)), "vote('#{record.class.name.underscore}', #{record.record.id}, #{record.id}, 'up')", :disabled => down_voted, :id => "up_vote_#{record.class.name.underscore}_#{record.id}" %>
-									<%= link_to_function icon("vote#{down_voted ? "d" : ""}_down", t("label.item_downvote", :item => record.class.model_name.human)), "vote('#{record.class.name.underscore}', #{record.record.id}, #{record.id}, 'down')", :disabled => up_voted, :id => "down_vote_#{record.class.name.underscore}_#{record.id}" %>
-								<% end %>
-							 <% end %>
-						<% end %>
-					<% end %>		
-
+					<% end %>					
 
 					<% if options[:approval] %>
 						<%= content_tag :li do %>
 							<%= content_tag(:span, :class => "approval_box") do %>
-								<%= record.is_approved? ? icon("approved", t("single.approved"), "icon help") + " #{t("single.approved")}" : icon("unapproved", "#{t("single.not")} #{t("single.approved")}", "icon help") + " #{t("single.not")} #{t("single.approved")}" %>						
-							<% end %>		
+								<%= record.is_approved? ? icon("approved", t("single.approved"), "icon help") + (options[:labels] ? " #{t("single.approved")}" : "") : icon("unapproved", "#{t("single.not")} #{t("single.approved")}", "icon help") + (options[:labels] ? " #{t("single.not")} #{t("single.approved")}" : "") %>						
+							<% end %>	
+						<% end %>
+						<%= content_tag :li do %>	
 							<%= link_to(icon("cycle", t("label.item_change", :item => t("single.approval"))), {:action => "change_approval", :id => record.record, :record_type => record.class.name, :record_id => record.id,  "#{record.class.system_name.downcase}_id".to_sym => record.id, :controller => record.class.name.pluralize.underscore}, :confirm => t("confirm.general")) %>
 						<% end %>
 					<% end %>
@@ -71,11 +58,11 @@
 			<td class="right">		
 				<%= content_tag(:ul, :class => "record_menu right record_menu_right") do %>
 						<% if options[:delete] %>
-						    <%= content_tag(:li, link_to(icon("delete") + " " + t("single.delete"), { :action => 'delete', :controller => record.class.name.pluralize.underscore, :record_id => record.id, :record_type => record.class.name, "#{record.class.system_name.underscore}_id".to_sym => record.id}, :confirm => t("confirm.item_delete", :item => record.class.model_name.human))) %>																
+						    <%= content_tag(:li, link_to(icon("delete") + (options[:labels] ? " #{t("single.delete")}" : ""), { :action => 'delete', :controller => record.class.name.pluralize.underscore, :record_id => record.id, :record_type => record.class.name, "#{record.class.system_name.underscore}_id".to_sym => record.id}, :confirm => t("confirm.item_delete", :item => record.class.model_name.human))) %>																
 						<% end %>
 						
 						<% if options[:edit] %>
-							<%= content_tag(:li, link_to(icon("edit") + " " + t("single.edit"), {:action => "edit", :controller => record.class.name.pluralize.underscore, :record_id => record.id, :record_type => record.class.name, "#{record.class.system_name.underscore}_id".to_sym => record.id})) %>
+							<%= content_tag(:li, link_to(icon("edit") + (options[:labels] ? " #{t("single.edit")}" : ""), {:action => "edit", :controller => record.class.name.pluralize.underscore, :record_id => record.id, :record_type => record.class.name, "#{record.class.system_name.underscore}_id".to_sym => record.id})) %>
 						<% end %>
 
 						<% if options[:preview] %>
@@ -87,6 +74,19 @@
 								<% end %>
 							<% end %>
 						<% end %>						
+	
+						<% if options[:votes] %>
+							<%= content_tag :li do %>
+								<%= content_tag(:span, record.votes, :id => "votes_#{record.class.name.underscore}_#{record.id}", :class => "votes help", :title =>  MakeVoteable::Voting.model_name.human(:count => :other)) %>
+								 <% if !@logged_in_user.anonymous? && !record.is_user_owner?(@logged_in_user) %>												 	
+							 		<%= content_tag :span, :class => "vote_box" do %>
+								 		<% up_voted, down_voted = @logged_in_user.up_voted?(record), @logged_in_user.down_voted?(record)  %>
+										<%= link_to_function icon("vote#{up_voted ? "d" : ""}_up", t("label.item_upvote", :item => record.class.model_name.human)), "vote('#{record.class.name.underscore}', #{record.record.id}, #{record.id}, 'up')", :disabled => down_voted, :id => "up_vote_#{record.class.name.underscore}_#{record.id}" %>
+										<%= link_to_function icon("vote#{down_voted ? "d" : ""}_down", t("label.item_downvote", :item => record.class.model_name.human)), "vote('#{record.class.name.underscore}', #{record.record.id}, #{record.id}, 'down')", :disabled => up_voted, :id => "down_vote_#{record.class.name.underscore}_#{record.id}" %>
+									<% end %>
+								 <% end %>
+							<% end %>
+						<% end %>	
 
 						<%= yield :record_menu_right %>	 
 						<%

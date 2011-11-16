@@ -9,7 +9,7 @@
 	</div>
 	<div class="plugin_box">
 		<div class="reviews">	
-	    	<%= render :partial => "plugin_reviews/show", :locals => {:review => @review, :item => @item, :plugin => @plugin} if @item.can?(@logged_in_user, :edit) || @review.is_approved? %>
+	    	<%= render @review %>
 		</div>			
 	</div>										
 	<%= back %>	

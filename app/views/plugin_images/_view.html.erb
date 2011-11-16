@@ -48,7 +48,7 @@
 						<% for image in images %>
 							<div class="image">
 								<%= content_tag(:div, plugin_image_thumbnail(image, :preview => true)) %>														
-								<%= render :partial => "plugins/record_menu", :locals => {:record => image} %> 									   																
+								<%= render :partial => "plugins/record_menu", :locals => {:record => image, :options => {:preview => true}} %> 									   																
 							</div>					
 						<% end %>
 				<% end %>

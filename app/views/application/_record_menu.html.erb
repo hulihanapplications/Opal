@@ -15,7 +15,7 @@
 	options[:public]  	= options[:public] && record.respond_to?(:is_public?) && record.can?(@logged_in_user, :edit)
 	options[:user]		= options[:user] && record.respond_to?(:user_id) && !record.user_id.blank? ? (record.respond_to?(:record) ? (!record.record.nil? ? !record.record.is_user_owner?(record.user) : false) : false) : false
 	options[:edit] 		= options[:edit] && record.can?(@logged_in_user, :edit)
-	options[:delete]	= options[:delete] && record.can?(@logged_in_user, :edit)	
+	options[:delete]	= options[:delete] && record.can?(@logged_in_user, :delete)	
 %>
 <%= content_tag(:div, :class => :record_menu) do %>
 	<%= content_tag(:ul, :class => "record_menu left record_menu_left") do %>

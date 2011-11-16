@@ -132,7 +132,9 @@ class Page < ActiveRecord::Base
   def can?(performer, action, options = {})
     case action.to_sym
     when :view, :read      
-      is_user_owner?(performer) ? true : published    
+      is_user_owner?(performer) ? true : published 
+    when :delete, :destroy
+      deletable && super(performer, action, options)  
     else 
       super(performer, action, options)                 
     end

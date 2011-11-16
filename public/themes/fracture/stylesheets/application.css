@@ -53,10 +53,13 @@ ul.main_menu{list-style:none;text-align:right;}
 /* Fields & Inputs */
 
 /* Menus */
-.record_menu li a, .record_menu li span{-moz-border-radius: 5px;-webkit-border-radius: 5px;}
-.record_menu li span{border:1px solid #bbb;background:url(../images/bgs/white_trans_50.png) repeat;}
-.record_menu li a{border:1px solid #aaa; background:url(../images/bgs/button_3_bg.png) repeat center center;}
-.record_menu li a:hover{border:1px solid #999;}
+.record_menu li > a, .record_menu li > span{-moz-border-radius: 5px;-webkit-border-radius: 5px;}
+.record_menu li > span{border:1px solid #bbb;background:url(../images/bgs/white_trans_50.png) repeat;}
+.record_menu li > a{border:1px solid #aaa; background:url(../images/bgs/button_3_bg.png) repeat center center;}
+.record_menu li > a:hover{border:1px solid #999;}
+.record_menu span > a img{background:url(../images/icons/spacer.png) no-repeat left center;padding-left:14px;}
+.record_menu span > a img.avatar{background:none;padding-left:0px;}
+
 
 /* Boxes */
 .box_1{border:1px solid #aaa;background:#E9E9E9;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:10px;}

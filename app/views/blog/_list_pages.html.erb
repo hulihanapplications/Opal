@@ -1,4 +1,5 @@
 <% for page in @pages %>
+	<%= render :partial => "pages/page_header", :locals => {:page => page} %>
 	<div class="box_2 blog_page page">
 		<%= render :partial => "blog/list_page", :locals => {:page => page} %>
 		<div class="spacer"></div>

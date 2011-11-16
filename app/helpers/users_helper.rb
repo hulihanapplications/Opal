@@ -15,6 +15,7 @@ module UsersHelper
   def avatar_image(user, options = {})
     if !user.nil?
       options[:title] = user.to_s
+      options[:class] = "#{options[:class]} avatar" 
       if user.avatar.blank? ? false : File.exists?(user.avatar.path)  
         return image_tag(user.avatar.url, options)
       else # get default avatar
@@ -28,6 +29,7 @@ module UsersHelper
   def gravatar_image(object, options = {})
     email = (object.class == User) ? object.email.downcase : (object.class == String ? object : nil)
     options[:title] ||= Object.class == User ? object.to_s : nil
+    options[:class] = "#{options[:class]} avatar"     
     return image_tag("http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5.hexdigest(email)}?d=#{URI.escape(@setting[:url] + @setting[:theme_url] + "/images/default_avatar.png")}&s=100", options)
   end  
 end

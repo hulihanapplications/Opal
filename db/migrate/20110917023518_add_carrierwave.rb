@@ -58,7 +58,7 @@ class AddCarrierwave < ActiveRecord::Migration
   def down  
     for user in User.all
       if !user.avatar.blank?
-        dst = Rails.root.join("public", "images", "avatars", user.id + ".png")
+        dst = Rails.root.join("public", "images", "avatars", user.id.to_s + ".png")
         if FileUtils.cp(user.avatar.path, dst)
           user.avatar = File.open(avatar_path)
           convert_msg(user.avatar.path, dst)

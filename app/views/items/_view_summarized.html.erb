@@ -57,13 +57,12 @@
 								<span>	
 									<%= link_to_function raw("#{icon("comments")} #{item.plugin_comments.size} #{PluginComment.model_name.human(:count => :other)}"), "select_tab(\"#{Plugin.plugins[:comment].model_name.human(:count => item.plugin_comments.size)}\")" %>						
 								</span>																			
-						<% end %>	
-						<% if Plugin.plugins[:link].is_enabled? %>
-							<% first_link = PluginLink.record(item).approved.first %>
-							<%= tag(:hr) if (Plugin.plugins[:comment].is_enabled? || Plugin.plugins[:review].is_enabled?) && first_link %>	
-							<%= render :partial => "plugin_links/plugin_link", :locals => {:plugin_link => first_link,:options => {:controls => false}} if first_link %>						
-						<% end %>														
-					<% end if Plugin.plugins[:review].is_enabled? || Plugin.plugins[:comment].is_enabled?  || Plugin.plugins[:link].is_enabled? %>			
+						<% end %>															
+					<% end if Plugin.plugins[:review].is_enabled? || Plugin.plugins[:comment].is_enabled?  %>
+					<% if Plugin.plugins[:link].is_enabled? %>
+						<% first_link = PluginLink.record(item).approved.first %>
+						<%= render :partial => "plugin_links/plugin_link", :locals => {:plugin_link => first_link,:options => {:controls => false}} if first_link %>						
+					<% end %>								
 					<%= content_tag :div, :class => "box_2" do %>
 						<% if Plugin.plugins[:link].is_enabled? %>
 						<% end %>

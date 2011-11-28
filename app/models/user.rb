@@ -141,7 +141,7 @@ class User < ActiveRecord::Base
   end
 
   def is_enabled?
-    self.is_disabled == "1" 
+    self.is_disabled != "1" 
   end
 
   def is_verified?

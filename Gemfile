@@ -17,6 +17,7 @@ gem "fog" # for s3 and rackspace cloud files support
 #gem 'jquery-rails'
 gem "make_voteable", :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems/make_voteable-106adecfad30")#, :git => "git://github.com/medihack/make_voteable"
 gem "humanizer", "=2.4.3"
+gem "cregexp"
 
 # Database Gems
 #gem "mysql2"

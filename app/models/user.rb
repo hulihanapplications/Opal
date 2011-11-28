@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password # this will confirm the password, but you have to have an html input called password_confirmation
   validates_length_of :username, :maximum => 255
   #validates_numericality_of :zip
-  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
+  validates_format_of :email, :with => Cregexp.email
   
   before_save :strip_html
   after_create :create_everything
@@ -46,43 +46,46 @@ class User < ActiveRecord::Base
   scope :latest_logins, :limit => 5, :order => "last_login_at DESC"
   scope :logged_in, where(["last_request_at > ?", 5.minutes.ago]).order("last_request_at DESC")
   
-  # Authentication! 
-    # Enable Authlogic
-    acts_as_authentic do |c| 
-      c.validate_email_field     = false
-      c.validate_login_field     = false
-      c.validate_password_field  = false
-    end
-    
-    def password?(password) # check if this password is the user's password
-     self.password_hash == hash_password(password)
-   end
-   
-    def self.authenticate(login, password)
-      u = self.find(:first, :conditions => ["username = ? and password_hash = ?", login, hash_password(password) ] )# check username column with the hashed pass arg
-      return u
-    end     
-    
-    def password=(pass) # set password, encrypt password on assignment
-      @password = pass 
-      self.salt = User.generate_salt # generate new salt
-      self.password_hash = hash_password(pass)
-    end
-    
-    def hash_password(pass) # hash that password
-      Digest::SHA256.hexdigest(pass + (salt.blank? ? "" : salt))
-    end
+  # Enable Authlogic
+  acts_as_authentic do |c| 
+    c.validate_email_field     = false
+    c.validate_login_field     = false
+    c.validate_password_field  = false
+  end
   
-    def self.generate_salt
-      salt = String.new
-      64.times { salt << (i = Kernel.rand(62); i += ((i < 10) ? 48 : ((i < 36) ? 55 : 61 ))).chr }
-      return salt
-    end
-   
-    def assign_salt # assign a salt if it don't exist.
-      self.salt = User.generate_salt
-    end 
+  def password?(password) # check if this password is the user's password
+   self.password_hash == hash_password(password)
+  end
+  
+  def password=(pass) # set password, encrypt password on assignment
+    @password = pass 
+    self.salt = User.generate_salt # generate new salt
+    self.password_hash = hash_password(pass)
+  end
+  
+  def hash_password(pass) # hash that password
+    Digest::SHA256.hexdigest(pass + (salt.blank? ? "" : salt))
+  end
+
+  def self.generate_salt
+    salt = String.new
+    64.times { salt << (i = Kernel.rand(62); i += ((i < 10) ? 48 : ((i < 36) ? 55 : 61 ))).chr }
+    return salt
+  end
+ 
+  def assign_salt # assign a salt if it don't exist.
+    self.salt = User.generate_salt
+  end 
     
+  # lookup user by email or username
+  def self.lookup(string)
+    if Cregexp.match(string, :email)   
+      User.find_by_email(string)
+    else
+      User.find_by_username(string)
+    end
+  end 
+  
   def self.search(search, page)
     paginate :per_page => 5, :page => page,
              :conditions => ['username like ?', "%#{search}%"],
@@ -138,19 +141,11 @@ class User < ActiveRecord::Base
   end
 
   def is_enabled?
-    if self.is_disabled == "1" 
-      return false
-    else 
-      return true
-    end    
+    self.is_disabled == "1" 
   end
 
   def is_verified?
-    if self.is_verified == "1" || self.is_admin? # you don't have to be verified if you're an admin.
-      return true
-    else 
-      return false
-    end      
+    self.is_verified == "1" || self.is_admin? # you don't have to be verified if you're an admin.
   end
   
   def self.admins # get all admins

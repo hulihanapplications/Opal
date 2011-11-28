@@ -4,7 +4,7 @@ class UserSession < Authlogic::Session::Base
   # ...many more options in the documentation
   
   # Custom Configuration
-  find_by_login_method :find_by_username # User lookup method
+  find_by_login_method :lookup # User lookup method
   verify_password_method :password? # User password verification method
   
   def to_key # rails3 fix

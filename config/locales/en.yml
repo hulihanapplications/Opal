@@ -633,7 +633,7 @@ en:
         password_confirmation: Confirm Password
         first_name: First Name
         last_name: Last Name
-        email: Email Address
+        email: Email
         created_at: Joined
         is_admin: Admin?
         locale: Locale

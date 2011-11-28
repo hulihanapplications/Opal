@@ -21,7 +21,7 @@
 						 <%= hidden_field_tag(:redirect_to, params[:redirect_to]) %>
 						 <table>
 						  <tr>
-						   	<td><%= f.label :username %></td><td > <%= f.text_field :username %></td>
+						   	<td><%= f.label :username, "#{User.human_attribute_name(:email)} / #{User.human_attribute_name(:username)}" %></td><td > <%= f.text_field :username %></td>
 						  </tr>
 						  <tr>
 						  	<td><%= f.label :password %></td><td > <%= f.password_field :password %></td>

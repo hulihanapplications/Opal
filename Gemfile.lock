@@ -65,6 +65,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.1.2)
+    cregexp (0.2.0)
     diff-lcs (1.1.3)
     erubis (2.7.0)
     excon (0.7.6)
@@ -242,6 +243,7 @@ DEPENDENCIES
   authlogic (>= 3.0.3)
   carrierwave
   coffee-rails (~> 3.1.0)
+  cregexp
   factory_girl_rails
   fog
   humanizer (= 2.4.3)

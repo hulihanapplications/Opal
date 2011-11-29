@@ -226,7 +226,7 @@ en:
       new_message_from_user: "At %{title}, you've received a new message from %{from}:\n\n%{message}\n\nYou can reply to this message or read your other messages here:\n\n%{url}"
       password_recovery: "At %{title}, A password recovery request has been made for your account: %{name}.\n\nTo recover your password, go to the following address:\n\n%{url}\n\nIf you didn't make this request, please disregard this email. Feel free to contact %{title} if you have any questions or concerns."  
       verification: "In order to log in to your account(%{name}) at %{title}, you must first verify your account by clicking on this verification link:\n\n%{url}"
-      plugin_comment_reply_notification: "%{user} has replied to one of your comments:"            
+      plugin_comment_reply_notification: "%{user} has replied to a comment you left for %{record}"            
   # Labels & Sentences
   label:
     create_account: Create New Account

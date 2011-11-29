@@ -1,7 +1,8 @@
 <%= content_tag :p do %>
 	<%=  t("email.message.plugin_comment_reply_notification", 
 			:parent => "#{truncate(@plugin_comment.parent.comment, :length => 30)}",
-		    :user => link_to(@plugin_comment.user.to_s, user_url(@plugin_comment.user))
+		    :user => link_to(@plugin_comment.user.to_s, user_url(@plugin_comment.user)),
+		    :record => link_to(@plugin_comment.record.to_s, url_for(:action => "view", :controller => @plugin_comment.record.class.controller_name, :id => @plugin_comment.record.id, :anchor => PluginComment.model_name.human(:count => :other), :only_path => false))
 		 ).html_safe
 	%>
 <% end %>

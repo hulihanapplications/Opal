@@ -9,8 +9,9 @@ class PluginComment < ActiveRecord::Base
   
   default_scope :order => "created_at DESC"
 
+  before_validation lambda{|o| o.sanitize_content(:comment)}
   before_destroy :destroy_votes  
-  #after_create :send_notification
+  after_create :send_reply_notification
   
   validates_presence_of :comment
   #validates_length_of :comment, :maximum => 255, :message => "This comment is too long! It must be 255 characters or less."
@@ -27,5 +28,15 @@ class PluginComment < ActiveRecord::Base
       vote.destroy
     end
   end  
+  
+  def reply? # is this comment a reply to another comment
+    !parent_id.blank?
+  end
+  
+  # send email notification to parent comment owner as long as they're not 
+  # the record owner(since they'll get a separate notification) or owner of the comment(self)
+  def send_reply_notification
+    Emailer.plugin_comment_reply_notification(self).deliver if reply? && parent.user != record.user && parent.user != user && parent.user.user_info.notify_of_item_changes
+  end
 end
 

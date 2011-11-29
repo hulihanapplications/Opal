@@ -11,7 +11,7 @@ module LogsHelper
           when "Item"
             options = {:user => link_to_user(log.target.user), :item => log.klass.model_name.human.downcase, :target => link_to_record(log.target)}
           when "PluginComment"    
-            options = {:user => (log.target.user ? link_to_user(log.target.user) : I18n.t("single.anonymous")), :item => log.klass.model_name.human.downcase, :parent => link_to_record(log.target.record), :target => link_to(truncate(log.target.comment, :length => 40), {:action => "view", :controller => "items", :anchor => log.klass.model_name.human(:count => :other)})}
+            options = {:user => (log.target.user ? link_to_user(log.target.user) : I18n.t("single.anonymous")), :item => log.klass.model_name.human.downcase, :parent => link_to_record(log.target.record), :target => link_to(truncate(log.target.comment, :length => 40), {:action => "view", :controller => log.target.class.controller_name, :anchor => log.klass.model_name.human(:count => :other)})}
           when "PluginImage"    
             message << raw(plugin_image_thumbnail(log.target, :class => "medium", :preview => true))
             options = {:user => link_to_user(log.target.user), :item => log.klass.model_name.human.downcase, :parent => link_to_record(log.target.record), :target => link_to_record(log.target.record)}
@@ -24,7 +24,7 @@ module LogsHelper
           when "Page"
             options = {:user => link_to_user(log.target.user), :item => log.klass.model_name.downcase, :target => link_to(log.target.title, {:action => "page", :controller => "pages", :id => log.target})}
           when "PluginVideo"
-            message = {:user => link_to_user(log.user), :item => log.klass.model_name.human, :name => link_to(log.target, {:action => "view", :controller => "items", :id => log.target, :anchor => log.klass.model_name.human(:count => :other)})}
+            message = {:user => link_to_user(log.user), :item => log.klass.model_name.human, :name => link_to(log.target, {:action => "view", :controller => log.target.class.controller_name, :id => log.target, :anchor => log.klass.model_name.human(:count => :other)})}
           when "User"
             options = {:user => link_to_user(log.target), :title => Setting.global_settings[:title]}
           else # some other class

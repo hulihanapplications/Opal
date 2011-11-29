@@ -39,7 +39,7 @@
 						
 					<% if options[:date] || options[:user] %>						
 						<%= content_tag :li do %>
-							<%= content_tag :span do %>
+							<%= content_tag :span, :class => :user do %>
 								<%= friendly_date(record.created_at) %>
 								<% if options[:user] %>								
 									<%= options[:byline] ? I18n.t("single.by").downcase : nil %>

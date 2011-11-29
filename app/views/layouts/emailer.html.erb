@@ -1,0 +1,20 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<style>
+		<%= render :file => Rails.root.join("app", "assets", "stylesheets", "email.css") %>		
+	</style>
+</head>
+<body>
+<div id="email wrapper">
+	<div id="header">
+	</div>
+	<div id="content">
+		<%= yield %>
+	</div>
+	<div id="footer">
+		<%= link_to Setting.global_settings[:title], root_url %>
+	</div>
+</div>
+</body>
+</html>

@@ -31,5 +31,12 @@ module UsersHelper
     options[:title] ||= Object.class == User ? object.to_s : nil
     options[:class] = "#{options[:class]} avatar"     
     return image_tag("http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5.hexdigest(email)}?d=#{URI.escape(@setting[:url] + @setting[:theme_url] + "/images/default_avatar.png")}&s=100", options)
-  end  
+  end
+
+  def link_to_user(user, options = {})
+    options[:avatar] = false if options[:avatar].nil?
+    options[:name] = true if options[:name].nil?
+    options[:avatar_class] ||= "tiny"
+    link_to raw((options[:name] ? user.to_s : "") + " " + (options[:avatar] ? user_avatar(user, :class => options[:avatar_class]) : "")), {:action => "show", :controller => "users", :id => user}, options
+  end      
 end

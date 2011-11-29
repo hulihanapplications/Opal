@@ -361,12 +361,7 @@ module ApplicationHelper
    end
  end
   
-  def link_to_user(user, options = {})
-    options[:avatar] = false if options[:avatar].nil?
-    options[:name] = true if options[:name].nil?
-    options[:avatar_class] ||= "tiny"
-    link_to raw((options[:name] ? user.to_s : "") + " " + (options[:avatar] ? user_avatar(user, :class => options[:avatar_class]) : "")), {:action => "show", :controller => "users", :id => user}
-  end  
+
   
   def loading #show loading box
     theme_image_tag("loading.gif", :class => "loading")

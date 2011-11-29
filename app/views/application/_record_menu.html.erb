@@ -26,12 +26,12 @@
 		%>					
 		
 		<% if options[:date] %>						
-			<%= content_tag(:li, content_tag(:span, friendly_date(record.created_at))) %>
+			<%= content_tag(:li, content_tag(:span, friendly_date(record.created_at), :class => :date)) %>
 		<% end %>
 		
 		<% if options[:user] %>
 			<%= content_tag :li do %>		
-				<%= content_tag :span do %>									
+				<%= content_tag :span, :class => :user do %>									
 					<%= options[:byline] ? I18n.t("single.by").downcase : nil %>
 					<%= link_to_user(record.user, :avatar => true, :name => options[:byline]) %>
 				<% end %>
@@ -40,7 +40,7 @@
 
 		<% if options[:public] %>
 			<%= content_tag :li do %>
-				<%= content_tag :span do %>									
+				<%= content_tag :span, :class => :public do %>									
 					<%= record.is_public? ? icon("public", t("single.public"), "icon help") + (options[:labels] ? " #{t("single.public")}" : "") : icon("private", "#{t("single.not")} #{t("single.public")}", "icon help") + (options[:labels] ? " #{t("single.not")} #{t("single.public")}" : "") %>
 					<%#= icon("spacer") %> 		
 					<%#= link_to icon("cycle", t("label.item_change", :item => t("single.approval"))), {:action => "change_approval", :id => record, :record_type => record.class.name, :record_id => record.id, :id => record, :controller => record.class.name.pluralize.underscore}, :confirm => t("confirm.general") %>
@@ -50,7 +50,7 @@
 		
 		<% if options[:approval] %>
 			<%= content_tag :li do %>	
-				<%= content_tag :span do %>																
+				<%= content_tag :span, :class => :approval do %>																
 					<%= record.is_approved? ? icon("approved", t("single.approved"), "icon help") + (options[:labels] ? " #{t("single.approved")}" : "") : icon("unapproved", "#{t("single.not")} #{t("single.approved")}", "icon help") + (options[:labels] ? " #{t("single.not")} #{t("single.approved")}" : "") %>						
 					<%#= icon("spacer") %> 		
 					<%#= link_to icon("cycle", t("label.item_change", :item => t("single.approval"))), {:action => "change_approval", :id => record, :record_type => record.class.name, :record_id => record.id, :id => record, :controller => record.class.name.pluralize.underscore}, :confirm => t("confirm.general") %>

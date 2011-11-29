@@ -33,10 +33,17 @@ class PluginComment < ActiveRecord::Base
     !parent_id.blank?
   end
   
+  def anonymous? # is this an anonymous comment left by a visitor?
+    user_id.blank? || user_id == User.anonymous.id 
+  end
+  
+  
   # send email notification to parent comment owner as long as they're not 
   # the record owner(since they'll get a separate notification) or owner of the comment(self)
   def send_reply_notification
-    Emailer.plugin_comment_reply_notification(self).deliver if reply? && parent.user != record.user && parent.user != user && parent.user.user_info.notify_of_item_changes
+    if reply?
+      Emailer.plugin_comment_reply_notification(self).deliver if parent.anonymous? || (parent.user && (parent.user != record.user && parent.user != user && parent.user.user_info.notify_of_item_changes))
+    end 
   end
 end
 

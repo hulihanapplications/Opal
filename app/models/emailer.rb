@@ -78,8 +78,9 @@ class Emailer < ActionMailer::Base
   def plugin_comment_reply_notification(plugin_comment)
     @plugin_comment = plugin_comment
     @setting = Setting.global_settings   
-    subject = I18n.t("email.subject.plugin_comment_reply_notification", :user => @plugin_comment.user.to_s)    
-    mail(:to => @plugin_comment.parent.user.email, :subject => subject, :date => Time.now)   
+    subject = I18n.t("email.subject.plugin_comment_reply_notification", :user => @plugin_comment.anonymous? ? @plugin_comment.anonymous_name : @plugin_comment.user.to_s)
+    recipient = @plugin_comment.parent.anonymous? ? @plugin_comment.parent.anonymous_email : @plugin_comment.parent.user.email   
+    mail(:to => recipient, :subject => subject, :date => Time.now)   
   end
   
   

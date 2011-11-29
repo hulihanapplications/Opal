@@ -51,13 +51,37 @@ describe PluginCommentsController do
         flash[:success].should_not be_nil       
       end  
       
-      it "parent_id should get saved if used" do         
-        item = Factory(:item)
-        parent = Factory(:plugin_comment, :record => item)
-        post(:create, { :record_type => item.class.name, :record_id => item.id, :plugin_comment => Factory.attributes_for(:plugin_comment, :parent_id => parent.id)})
-        assigns[:plugin_comment].parent_id.should == parent.id
-        flash[:success].should_not be_nil       
-      end        
+
+      context "when comment is a reply to another comment" do
+        it "parent_id should get saved if provided" do         
+          item = Factory(:item)
+          parent = Factory(:plugin_comment, :record => item)
+          post(:create, { :record_type => item.class.name, :record_id => item.id, :plugin_comment => Factory.attributes_for(:plugin_comment, :parent_id => parent.id)})
+          assigns[:plugin_comment].parent_id.should == parent.id
+          flash[:success].should_not be_nil       
+        end     
+        
+        it "should send an email to the parent owner when they are a regular user" do
+          parent = Factory(:plugin_comment)          
+          post(:create, { :record_type => @item.class.name, :record_id => @item.id, :plugin_comment => Factory.attributes_for(:plugin_comment, :parent_id => parent.id)})
+          ActionMailer::Base.deliveries.empty?.should == false 
+        end 
+
+        it "should not send an email to the parent owner if they don't want notifications" do
+          user = Factory(:user)
+          user.user_info.update_attribute(:notify_of_item_changes, false) # turn off user's notification setting
+          parent = Factory(:plugin_comment, :user => user)        
+          ActionMailer::Base.deliveries.clear # clear out unrelated emails  
+          post(:create, { :record_type => @item.class.name, :record_id => @item.id, :plugin_comment => Factory.attributes_for(:plugin_comment, :parent_id => parent.id)})
+          ActionMailer::Base.deliveries.empty?.should == true           
+        end 
+        
+        it "should send an email to the parent owner when they are a visitor" do
+          parent = Factory(:plugin_comment_anonymous)          
+          post(:create, { :record_type => @item.class.name, :record_id => @item.id, :plugin_comment => Factory.attributes_for(:plugin_comment, :parent_id => parent.id)})
+          ActionMailer::Base.deliveries.empty?.should == false           
+        end        
+      end   
     end
     
     describe :update do 

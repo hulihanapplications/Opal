@@ -39,7 +39,7 @@
 				<% elsif feature.feature_type == "yesno" %>
 	   				<input name="features[<%= feature.id %>][value]" type="radio" id="feature_input_<%= feature.id %>"  value="<%= t("single.positive") %>" <%= "CHECKED" if value ==  t("single.positive")  %>> <%= t("single.positive") %>
 	   				<input name="features[<%= feature.id %>][value]" type="radio" id="feature_input_<%= feature.id %>"  value="<%= t("single.negative") %>" <%= "CHECKED" if value == t("single.negative") %>> <%= t("single.negative") %>
-	   				<input name="features[<%= feature.id %>][value]" type="radio" id="feature_input_<%= feature.id %>"  value="" <%= "CHECKED" if (value == "" || value == nil) %>> <%= t("single.none") %>
+	   				<input name="features[<%= feature.id %>][value]" type="radio" id="feature_input_<%= feature.id %>"  value="" <%= "CHECKED" if (value == "" || value == nil) %>> <%= t("single.unknown") %>
 				<% elsif feature.feature_type == "stars" %>
 					<%= star_field_tag("features_#{feature.id}", :value, :value => value.to_i, :max => feature.max, :input_name => "features[#{feature.id}][value]") %>																																												
 				<% else %>

@@ -115,6 +115,7 @@ ru:
     multiple: Multiple      
     cloud: Cloud
     forget: Forget    
+    unknown: Unknown
   # Flash Messages & Notices
   notice:
     save_success: Ваши изменения были успешно сохранены!

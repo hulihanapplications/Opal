@@ -21,15 +21,14 @@ Opal::Application.configure do
 
   # Live Compilation - On the first request the assets are compiled and cached. 
   # Causes First-time load performance hit  
+  # 
+  # If false, rails won't fall back to assets pipeline if a precompiled asset is missed. This will cause a 500 Error if any assets are missing.
+  # Run this during deploy:
+  # bundle exec rake assets:precompile RAILS_ENV=production  
   config.assets.compile = false
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
-
-  # Don't fallback to assets pipeline if a precompiled asset is missed
-  # Run this during deploy:
-  # bundle exec rake assets:precompile RAILS_ENV=production
-  config.assets.compile = false
 
   # Generate digests for assets URLs
   config.assets.digest = true

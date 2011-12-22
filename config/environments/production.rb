@@ -19,12 +19,19 @@ Opal::Application.configure do
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_assets = false
 
-  # Live Compilation - On the first request the assets are compiled and cached. 
-  # Causes First-time load performance hit  
+  # == Live Compilation 
+  # On the first request to an asset, it is compiled and temporarily cached.
+  # 
+  # This request causes a compilation performance hit(when the asset is compiled and stored in tmp),
+  # uses more memory and performs poorer than the default.
+  # 
+  # It is not recommended.  
   # 
   # If false, rails won't fall back to assets pipeline if a precompiled asset is missed. This will cause a 500 Error if any assets are missing.
-  # Run this during deploy:
-  # bundle exec rake assets:precompile RAILS_ENV=production  
+  # If this is the case, run this during deploy:
+  #
+  #   bundle exec rake assets:precompile RAILS_ENV=production
+  #  
   config.assets.compile = false
 
   # Compress JavaScripts and CSS

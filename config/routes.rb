@@ -18,11 +18,11 @@ Rails.application.routes.draw do
   match 'admin', :controller => "admin", :action => "index"
   #match "#{params[:controller]}", :controller => params[:record].class.name, :as => :record_path
 
-  if (Setting.get_setting('locale').to_s == 'en')
+#  if (Setting.get_setting('locale').to_s == 'en')
     match "/#{Item.model_name.human(:count => :other).downcase}(/:action(/:id(.:format)))", :controller => "items" # use plural item name in url for anything in the items controller 
-  elsif (Setting.get_setting('locale').to_s == 'ru')
-    match "/#{Russian.translit(Item.model_name.human(:count => :other)).downcase}(/:action(/:id(.:format))", :controller => "items" # Russian variant uses transliteration to avoid encoding troubles 
-  end
+#  elsif (Setting.get_setting('locale').to_s == 'ru')
+#    match "/#{Russian.translit(Item.model_name.human(:count => :other)).downcase}(/:action(/:id(.:format))", :controller => "items" # Russian variant uses transliteration to avoid encoding troubles 
+#  end
 
   match '/blog/:year(/:month(/:day))',
                :controller => 'blog',

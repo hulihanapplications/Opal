@@ -3,7 +3,7 @@ source "http://rubygems.org/"
 gem "rails", "=3.1.1"#, :git => "http://github.com/rails/rails"
 gem "opal", :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems")
 gem "russian", :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems/russian")  #, :git => "git://github.com/MrHant/russian.git" # Gem specific for "ru" locale
-gem "rmagick", "~>2.12.2"
+gem "rmagick", "1.15.14"
 gem "i18n"
 gem "rubyzip"
 gem "ya2yaml" 
@@ -20,10 +20,10 @@ gem "humanizer", "=2.4.3"
 gem "cregexp"
 
 # Database Gems
-#gem "mysql2"
-gem 'sqlite3'
+gem "mysql2"
 
 group :development do
+  gem 'sqlite3', "1.3.4"
 end
 
 group :assets do

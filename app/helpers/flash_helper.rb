@@ -1,5 +1,5 @@
 module FlashHelper
-  def render_flash(flash)
+  def render_flash
      if !flash.empty? 
        html = String.new       
        %w{notice success warning failure info}.each do |type|  

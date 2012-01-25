@@ -107,6 +107,7 @@ GEM
     multi_json (1.0.3)
     multi_xml (0.4.1)
     multipart-post (1.1.3)
+    mysql2 (0.3.11)
     net-ldap (0.2.2)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
@@ -185,7 +186,7 @@ GEM
       json (~> 1.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
-    rmagick (2.12.2)
+    rmagick (1.15.14)
     rspec (2.6.0)
       rspec-core (~> 2.6.0)
       rspec-expectations (~> 2.6.0)
@@ -249,15 +250,16 @@ DEPENDENCIES
   humanizer (= 2.4.3)
   i18n
   make_voteable!
+  mysql2
   omniauth
   opal!
   rails (= 3.1.1)
-  rmagick (~> 2.12.2)
+  rmagick (= 1.15.14)
   rspec-rails
   rubyzip
   russian!
   sass-rails (~> 3.1.0)
-  sqlite3
+  sqlite3 (= 1.3.4)
   therubyracer
   uglifier
   will_paginate (>= 3.0.pre2)

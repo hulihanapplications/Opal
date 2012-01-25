@@ -1,8 +1,8 @@
-h1. Opal for Dreamhost*  
+h1. Opal for Dreamhost *  
  
 Opal is a powerful item directory application powered by Ruby on Rails. It allows you to list any kind of item, from houses to video games to classifieds.
 
-This branch of Opal is for "DreamHost":http://www.dreamhost.com servers. It uses slightly different gems than the master branch, but should pretty much be the same in terms of functionality.
+* This branch of Opal is for "DreamHost":http://www.dreamhost.com servers. It uses slightly different gems than the master branch, but should same in terms of functionality.
 
 h2. Features 
  

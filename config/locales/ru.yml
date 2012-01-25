@@ -116,6 +116,8 @@ ru:
     cloud: Cloud
     forget: Forget    
     unknown: Unknown
+    home: Home
+    blog: Blog    
   # Flash Messages & Notices
   notice:
     save_success: Ваши изменения были успешно сохранены!
@@ -175,7 +177,7 @@ ru:
   # Logs 
   log: # call with t(:failed_admin_access_attempt_user, :scope => [:log]) or t("log.failed_admin_access_attempt_user") 
     item_create: "Создан %{item}: %{name}"
-    item_save: "Сделаны изменения в %{item}: %{name}"
+    item_update: "Сделаны изменения в %{item}: %{name}"
     item_destroy: "Удален %{item}: %{name}"
     item_install: "Установлен %{item}: %{name}"
     item_uninstall: "Удален %{item}: %{name}"

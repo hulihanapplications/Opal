@@ -10,7 +10,9 @@
 				<%= render :partial => "record_menu", :locals => {:record => log, :options => {:edit => false, :delete => false, :date => true, :user => false}} %>
 										
 				<div id="log_details_<%= log.id %>" class="extra_options_box"  style="display:none;">
-					<%= Log.human_attribute_name(:ip) %>: <%= log.ip %>
+					<%= content_tag :div do %>
+						<%= Log.human_attribute_name(:ip) %>: <%= log.ip %>
+					<% end if log.ip.present? %>
 				</div>					
 				<table style="width:100%">
 					<tr>

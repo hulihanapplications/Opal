@@ -1,7 +1,7 @@
 PATH
   remote: vendor/gems
   specs:
-    opal (0.8.1)
+    opal (0.8.2)
 
 PATH
   remote: vendor/gems/make_voteable-106adecfad30
@@ -52,7 +52,7 @@ GEM
       activerecord (>= 2.2.2)
     arel (2.2.1)
     authbuttons-rails (0.1.2)
-    authlogic (3.0.3)
+    authlogic (3.1.0)
       activerecord (>= 3.0.7)
       activerecord (>= 3.0.7)
     builder (3.0.0)
@@ -240,7 +240,7 @@ PLATFORMS
 DEPENDENCIES
   ancestry
   authbuttons-rails
-  authlogic (>= 3.0.3)
+  authlogic (= 3.1.0)
   carrierwave
   coffee-rails (~> 3.1.0)
   cregexp

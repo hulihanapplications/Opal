@@ -118,13 +118,14 @@ class Page < ActiveRecord::Base
   
   
   def title # get pretty title
-    if self.name # handle special pages
-      if self.name == "items"
+    if self["title"].blank?
+      case self.name
+      when "items"
         Item.model_name.human(:count => :other)
-      else 
-        self["title"]
-      end
-    else 
+      when "home"
+        I18n.t(:home, :scope => [:single], :default => name.humanize)
+      end      
+    else
       self["title"]
     end
   end

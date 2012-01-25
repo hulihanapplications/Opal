@@ -1,13 +1,13 @@
 h1. Opal
  
-Opal is a powerful item directory application powered by Ruby on Rails. It allows you to list any kind of item, from houses to video games to classifieds.
+Opal is the swiss army knife of web apps. It's a powerful Item & Content Management System powered by Ruby on Rails. You can use Opal for blogging, listing items, storing files/images/videos, or for powering any awesome website. 
 
 h2. Features 
  
 * Powered by Ruby on Rails 3.1
-* List Any Type of Item(Products, Video Games, Locations, Events, Classifieds, etc.)
+* List Any Type of Item (Products, Video Games, Locations, Events, Classifieds, etc.)
 * Add extra stuff to your Items like Images, Videos, Reviews, Comments, Files, Discussions, Custom Fields, and more.
-* State-of-the-Art Interface powered by HTML5, CSS3, jQuery, Uploadify, and jQuery TOOLS
+* Easy-to-use TinyMCE content editor with security filtering and image uploader
 * Multiple-user login system with secure administration area
 * Login from other websites(facebook, twitter, google, etc.) with OpenID/OAuth Support - "(Guide)":http://dev.hulihanapplications.com/wiki/opal/OAuth
 * Mass file & image uploader
@@ -16,18 +16,18 @@ h2. Features
 * Infinite-depth category organization & customizable advanced item searching
 * I18n(Internationalization) support for multiple languages & locales
 * CMS-style Pages & Integrated Blog
-* TinyMCE content editor with security filtering and image uploader
 * Customizable "Themes":http://customize.hulihanapplications.com/Projects/category/6-opal & "Plugins":http://customize.hulihanapplications.com/Projects/category/11-opal with easy uploader & installer
 * User Activity Logging
 * Gravatar Support
+* State-of-the-Art Interface powered by HTML5, CSS3, jQuery, Uploadify, and jQuery TOOLS
 * "Much More":http://www.hulihanapplications.com/projects/opal
 
 h2. Uses
 
 Since Opal is highly customizable, you can use it for many different things:
 
-* Directory Website
 * Content Management System(CMS)
+* Directory Website
 * Blog
 * Image/Video Gallery 
 * File Download System

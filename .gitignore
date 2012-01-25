@@ -17,6 +17,7 @@ config/providers.yml
 config/upload.yml
 config/setup_load_paths.rb
 config/deploy.rb
+config/gem_home
 
 # Application Specific Stuff
 config/locales/item.yml

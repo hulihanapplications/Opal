@@ -3,11 +3,12 @@ source "http://rubygems.org/"
 gem "rails", "=3.1.1"#, :git => "http://github.com/rails/rails"
 gem "opal", :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems")
 gem "russian", :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems/russian")  #, :git => "git://github.com/MrHant/russian.git" # Gem specific for "ru" locale
-gem "rmagick", "1.15.14"
+# Use Dreamhost Native rmagick
+#gem "rmagick", "1.15.14"
 gem "i18n"
 gem "rubyzip"
 gem "ya2yaml" 
-gem "authlogic", ">=3.0.3"
+gem "authlogic", "3.1.0"
 gem "ancestry"
 gem "will_paginate", ">= 3.0.pre2"
 gem "omniauth"

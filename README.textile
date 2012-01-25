@@ -55,7 +55,7 @@ Opal is available at the following places:
 If you have git installed on your server, you can install it directly from Github. This is highly recommended and makes updating Opal a breeze.
 
 <pre>
-git clone git://github.com/hulihanapplications/Opal.git
+git clone -b dreamhost git://github.com/hulihanapplications/Opal.git
 </pre>
 
 h2. Install Gems

@@ -20,7 +20,7 @@ gem "humanizer", "=2.4.3"
 gem "cregexp"
 
 # Database Gems
-#gem "mysql2"
+gem "mysql2"
 gem 'sqlite3'
 
 group :development do

@@ -48,14 +48,14 @@
 		<% end %>			
 
 		// Handle General Ajax Loading
-        $("#loading").ajaxStart(function(){
+        $("div.loading").ajaxStart(function(){
           //alert('starting...');
-          $(this).reveal();
+          //$(this).reveal();
         });
 
-        $("#loading").ajaxStop(function(){
+        $("div.loading").ajaxStop(function(){
            //alert('done');
-          $(this).conceal();
+          //$(this).conceal();
         });
 	
 	});
@@ -105,7 +105,7 @@
 	$(function(){
 		$("#new_plugin_comment_link").bind({			
 			'ajax:beforeSend': function(){
-				$("#new_plugin_comment").html('<%= content_tag(:div, loading, :style => "text-align:center") %>')				
+				$("#new_plugin_comment").html('<%= loading %>')				
 			},	
 			'ajax:success': function(event, data, status, xhr){
 				$("#new_plugin_comment").html(data)

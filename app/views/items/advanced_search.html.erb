@@ -1,7 +1,6 @@
 <div align=center>
 	<h2><%= t("single.advanced") + " " + t("single.search") %></h2><br>
 
-
 	<%= form_tag(url_for(:controller => "items", :action => "do_advanced_search"), :remote => true, :id => "advanced_search_form") do |f|  %>
 		<%= render :partial => "advanced_search_form" %>
 		<div style="height:10px;clear:both"></div>
@@ -12,7 +11,7 @@
 			$('#advanced_search_form')	
 				.bind('ajax:beforeSend', function(evt, data, status, xhr){
 				  //alert("Loading!");
-				  $('#results').html('<div class="loading"><%= theme_image_tag("loading.gif", :class => "loading") %></div>');
+				  $('#results').html('<%= loading %>');
 				})	
 				.bind('ajax:success', function(evt, data, status, xhr){
 				  //alert("Success!");

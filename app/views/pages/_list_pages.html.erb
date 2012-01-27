@@ -4,8 +4,8 @@
     options[:sortable]    		= false if options[:sortable].nil? # make these sortable?	
 %>
 <div class="pages">
-	<div id="event_box" style=";margin:5px 0px 5px 0px" align=center></div> 	
-	<%= sortable_list("pages", url_for(:action => "update_order", :controller => "pages"), "notice") if options[:sortable] %>	
+	<div id="notifications"></div>
+	<%= sortable_list("pages", url_for(:action => "update_order", :controller => "pages"), "notifications") if options[:sortable] %>	
 	<ul id="pages" class="tree <%= "sortable" if options[:sortable] %> collapsed">
 		<% if pages.size > 0 %>
 				<% for page in pages %>

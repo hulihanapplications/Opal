@@ -44,7 +44,7 @@
 		$(function(){
 			$("#plugin_comment_<%= plugin_comment.id %>_reply_link").bind({			
 				'ajax:beforeSend': function(){
-					$("#plugin_comment_<%= plugin_comment.id %>_reply").html('<%= content_tag(:div, loading, :style => "text-align:center") %>')				
+					$("#plugin_comment_<%= plugin_comment.id %>_reply").html('<%= loading %>')				
 				},	
 				'ajax:success': function(event, data, status, xhr){
 					$("#plugin_comment_<%= plugin_comment.id %>_reply").html(data)

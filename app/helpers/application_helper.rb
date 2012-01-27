@@ -319,6 +319,7 @@ module ApplicationHelper
               $("##{list_id}").sortable({
                   //placeholder: "placeholder",              
                   stop: function(event, ui){
+                      $("##{update_id}").html('#{loading}') 
                       update_order();
                   }
               });
@@ -361,7 +362,7 @@ module ApplicationHelper
   
   
   def loading #show loading box
-    theme_image_tag("loading.gif", :class => "loading")
+    content_tag(:div, theme_image_tag("loading.gif", :class => "loading"), :class => :loading)
   end  
 
   

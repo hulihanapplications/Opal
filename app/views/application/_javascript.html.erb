@@ -9,11 +9,7 @@
 		//<![CDATA[
 
 		// Set Opal Image Button URL 
-		<% if defined?(@record) %>
-			opal_image_url = '<%= url_for(:action => "tinymce", :controller => "plugin_images", :record_id => @record.id, :record_type => @record.class.name) %>'			
-		<% else %>
-			opal_image_url = '<%= url_for(:action => "tinymce", :controller => "plugin_images") %>'
-		<% end %>
+		opal_image_url = '<%= url_for({:action => "tinymce", :controller => "plugin_images"}.merge(defined?(@record) ? {:record_id => @record.id, :record_type => @record.class.name} : {})) %>'			
 
 		tinyMCE.init({
 			editor_selector : 'mceEditor',
@@ -49,7 +45,19 @@
 			<% if plugin.is_enabled? %>
 				$("a[rel='colorbox_slideshow']").colorbox({slideshow:true, slideshowSpeed:<%= @setting[:plugin_image][:slideshow_speed].to_i %>});
 			<% end %>
-		<% end %>				
+		<% end %>			
+
+		// Handle General Ajax Loading
+        $("#loading").ajaxStart(function(){
+          //alert('starting...');
+          $(this).reveal();
+        });
+
+        $("#loading").ajaxStop(function(){
+           //alert('done');
+          $(this).conceal();
+        });
+	
 	});
 
 	function vote(record_type, item_id, record_id, direction){

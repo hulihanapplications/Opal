@@ -66,8 +66,14 @@ $(function() {
 					</div>
 					<hr />
 					<%= content_tag(:h3, raw("#{icon("details")} #{t("label.additional_info")}")) %>
-					<%= PluginImage.human_attribute_name(:created_at) %>:  <b><%= friendly_date f.object.created_at %></b>
-					<br>
+					<div>
+						<%= PluginImage.human_attribute_name(:created_at) %>:  
+						<b><%= friendly_date f.object.created_at %></b> 														
+					</div>
+					<%= content_tag :div do %>
+						<%= PluginImage.human_attribute_name(:user) %>:
+						<%= link_to_user(f.object.user, :avatar => true, :name => true) %>
+					<% end if f.object.user %>						
 				<% end %>
 			</div>
 		</td>

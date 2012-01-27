@@ -29,10 +29,10 @@
 						<% if @images.size > 0 %>
 							<% for image in @images %>
 								<div class="image">
+								   <%= render :partial => "plugins/record_menu", :locals => {:record => image, :options => {:preview => false, :user => false, :date => false}} %> 									   																								   							
 								   <a href="javascript:ImageDialog.insertOpalImage('<%= image.image.url %>', '<%= image.description %>')" title="<%= t("label.item_select", :item => Image.model_name.human) %>">
-										<%= image_tag image.image.thumb.url, :class => "thumbnail" %>
+										<%= content_tag(:div, plugin_image_thumbnail(image, :preview => false)) %>														
 								   </a>
-								   <%= render :partial => "plugins/record_menu", :locals => {:record => image, :preview => false} %> 									   																								   							
 								</div>							
 							<% end %>
 							<div class="clear"></div>

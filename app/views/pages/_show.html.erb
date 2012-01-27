@@ -59,7 +59,7 @@
 		%>	
 		<%= sortable_list("#{page.id}_children", url_for(:action => "update_order", :controller => "pages"), "notice")  if options[:sortable] %>
 			  <ul id="<%= page.id %>_children" class="pages tree <%= "sortable hoverable" if options[:sortable] %>">
-				  <% for child in page.children %>		
+				  <% for child in page.pages.in_order %>		
 				  	  <li id="<%= child.id %>">
 				  	  	<%= render :partial => "pages/show", :locals => {:page => child, :options => options} %>
 				  	  </li>	  	     

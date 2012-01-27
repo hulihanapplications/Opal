@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_filter :load_settings, :set_user # load global settings and set logged in user
   before_filter :set_locale, :check_public_access
   #before_filter :detect_mobile
-  before_filter :detect_flash
+  before_filter :detect_flash, :find_record
   layout :layout_location # using a symbol defers layout choice until after a request is processed 
   
     
@@ -186,7 +186,7 @@ class ApplicationController < ActionController::Base
   #   new/create - record should be parent of the new object being created
   #   edit/update/destroy - record should be the object that will action will be performed on
   def find_record 
-    if !params[:record_type].blank?
+    if params[:record_type].present?
       klass = params[:record_type].camelize.constantize
       @record = klass.find(params[:record_id])
       @item = @record if @record.is_a?(Item)

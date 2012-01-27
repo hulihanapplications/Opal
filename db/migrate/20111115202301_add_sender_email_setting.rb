@@ -4,6 +4,7 @@ class AddSenderEmailSetting < ActiveRecord::Migration
   end 
 
   def self.down
-    Setting.find_by_name("sender_email").destroy
+    s = Setting.find_by_name("sender_email")
+    s.destroy if s
   end
 end

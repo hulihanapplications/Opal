@@ -40,7 +40,7 @@
 					<% if options[:date] || options[:user] %>						
 						<%= content_tag :li do %>
 							<%= content_tag :span, :class => :user do %>
-								<%= friendly_date(record.created_at) %>
+								<%= content_tag(:span, friendly_date(record.created_at), :class => :date) if options[:date] %>
 								<% if options[:user] %>								
 									<%= options[:byline] ? I18n.t("single.by").downcase : nil %>
 									<%= link_to_user(record.user, :avatar => true, :name => options[:byline]) %>

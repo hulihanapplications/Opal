@@ -38,6 +38,7 @@ a.extra_options{padding:5px 0px;display:block;}
 a img{border:0px;}
 img.icon, img.bullet{vertical-align:middle;border:0px;}
 
+
 /* Cursors */
 .pointer{cursor:pointer;}
 
@@ -107,6 +108,7 @@ ul.record_menu{list-style:none;padding:0px;margin:0px;}
 .tooltip {display:none;z-index:999}
 .clear{clear:both}
 .help{cursor:help;}
+div#loading{display:none;text-align:center;}
 
 /* Plugins */
 

@@ -21,10 +21,10 @@ class CategoriesController < ApplicationController
   end
   
   def update
-    category = Category.find(params[:id])    
-    if params[:category][:category_id].to_i != category.id # trying to select self as parent category 
-      if category.update_attributes(params[:category])
-        log(:target => category,  :log_type => "update")
+    @category = Category.find(params[:id])    
+    if params[:category][:category_id].to_i != @category.id # trying to select self as parent category 
+      if @category.update_attributes(params[:category])
+        log(:target => @category,  :log_type => "update")
         flash[:success] = t("notice.save_success")
       else
         flash[:failure] = t("notice.save_failure")
@@ -37,26 +37,21 @@ class CategoriesController < ApplicationController
   
   def create # creates a new Feature, not a Feature Value
     #category = Category.find(params[:id])   
-    category = Category.new(params[:category])
-    if category.save
-      log(:target => category,  :log_type => "create")
+    @category = Category.new(params[:category])
+    if @category.save
+      log(:target => @category,  :log_type => "create")
       flash[:success] = t("notice.item_create_success", :item => Category.model_name.human)
+      redirect_to :action => "index"      
      else
       flash[:failure] = t("notice.item_create_failure", :item => Category.model_name.human)
-       category.errors.each do |key,value|
-        flash[:notice] << "<b>#{key}</b>...#{value}</font><br>" #print out any errors!
-       end
-      flash[:notice] << ""
-      
-      
+      render :new      
     end
-    redirect_to :action => "index"
   end
  
   def delete # deletes feature 
-    category = Category.find(params[:id])    
-    if category.destroy
-      log(:target => category,  :log_type => "destroy")
+    @category = Category.find(params[:id])    
+    if @category.destroy
+      log(:target => @category,  :log_type => "destroy")
       flash[:success] = t("notice.item_delete_success", :item => Category.model_name.human)
      else
       flash[:failure] = t("notice.item_delete_failure", :item => Category.model_name.human)

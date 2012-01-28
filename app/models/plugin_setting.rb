@@ -5,9 +5,7 @@ class PluginSetting < ActiveRecord::Base
   validates_presence_of :plugin_id
   validates_uniqueness_of :name, :scope => :plugin_id
   
-  def self.plugin(plugin)
-    where("plugin_id = ?", plugin.id)
-  end
+  scope :plugin, lambda{|plugin| where("plugin_id = ?", plugin.id)}
   
   def title
     return I18n.t("activerecord.records.plugin_setting.#{self.name.downcase}.title", :default => self.name.humanize)

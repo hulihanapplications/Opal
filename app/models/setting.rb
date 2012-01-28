@@ -40,7 +40,8 @@ class Setting < ActiveRecord::Base
   	    setting[plugin.plugin_class.name.underscore.to_sym] = PluginSetting.plugin(plugin).all.hash_by(:name, :to_value) 
   	  end  	  
     rescue Exception => e
-      logger.info e
+      logger.error e
+      #logger.error e.backtrace
       setting = Hash.new
    	end
     return setting

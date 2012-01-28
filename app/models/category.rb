@@ -1,28 +1,31 @@
 class Category < ActiveRecord::Base
- include ActionView::Helpers::TextHelper # include text helper for truncate and other options
- has_ancestry if Category.table_exists? && column_names.include?("ancestry")
- 
- has_many :items, :dependent => :destroy
- has_many :categories, :dependent => :destroy
- belongs_to :category
- 
- validates_presence_of :name, :message => "This field is required!"
-
- def to_param # make custom parameter generator for seo urls
-    "#{id}-#{name.parameterize}"
- end
+  include ActionView::Helpers::TextHelper # include text helper for truncate and other options
+  has_ancestry
   
- def self.get_parent_categories # Category.get_parent_categories
-   return find(:all, :conditions =>["category_id = 0"], :order => "name ASC")         
- end
- 
- def parent_category
-   if self.category_id == 0
-     return nil
-   else 
-     return Category.find(self.category_id)
-   end
- end
+  has_many :items, :dependent => :destroy
+  has_many :categories, :dependent => :destroy
+  belongs_to :category
+   
+  validates_presence_of :name
+  
+  default_scope order("name ASC")
+  scope :root, where(:category_id => 0)
+  
+  def to_param # make custom parameter generator for seo urls
+    "#{id}-#{name.parameterize}"
+  end
+    
+  def self.get_parent_categories # Category.get_parent_categories
+    return find(:all, :conditions =>["category_id = 0"], :order => "name ASC")         
+  end
+   
+  def parent_category
+    if self.category_id == 0
+      return nil
+    else 
+      return Category.find(self.category_id)
+    end
+  end
  
   def get_item_count(options = {:include_children => false}) # gets a category's item count     
     total_item_count = 0 

@@ -58,10 +58,10 @@ Install all of Opal's required gems using bundler:
 
 <pre>
 cd Opal
-bundle install 
+bundle install --without development test
 </pre>
 
-You may get an error here regarding "rmagick":http://dev.hulihanapplications.com/wiki/opal/RMagick if you don't have it already installed. Check out this "Wiki Guide":http://dev.hulihanapplications.com/wiki/opal/RMagick for help.  
+* You may get an error here regarding "rmagick":http://dev.hulihanapplications.com/wiki/opal/RMagick if you don't have it already installed. Check out this "Wiki Guide":http://dev.hulihanapplications.com/wiki/opal/RMagick for help.  
 
 h2. Install Opal 
 
@@ -74,6 +74,7 @@ bundle exec rake assets:precompile RAILS_ENV=production
 </pre>
 
 These commands will create the database structure of Opal in production mode. If you leave out *RAILS_ENV=PRODUCTION*, everything will be installed into your development database instead. This will also set up the default admin account, some sample items(you'll be asked if you want to install sample data), and other stuff to help you get started with Opal. You can also specify the *LOCALE* parameter to install Opal in a language other than english. 
+  
   * If you want to automate an Opal installation, or if you just want to bypass prompts(that ask you if you want to install sample data and other stuff: run this command: _bundle exec rake db:seed PROMPTS=FALSE_)
 
 h2. That's it! 

@@ -1,21 +1,22 @@
-<h2 class="title"><%= t("single.popular") %> <%= Item.model_name.human(:count => :other) %></h2>
-<% counter = 1 %>
-<table style="width:100%" cellpadding=0 cellspacing=1>		
-	<% for item in Item.popular.approved.public %>
-		<tr>
-			<td align=left>
-				<h4>
-					<%= preview(item, :size => "pinky") %>
-					<%= counter%>. <%= link_to "#{h truncate(item.name, :length => 14)}", {:action => "view", :controller => "items", :id => item}, :title =>  h(item.name) %>
-				</h4>					
-			</td>
-			<td align=right style="width:80px;">
-				<div class="indent">
-					<i><%= item.views %> <%= t('activerecord.attributes.item.views', :count => item.views) %><%#= Item.human_attribute_name(:views, :count => item.views) %></i>
-				</div>					
-			</td>
-		</tr>
-		<% counter += 1 %>											
-	<% end %>
-</table>
-	
+<div id="popular-items">	
+	<h2 class="title"><%= t("single.popular") %> <%= Item.model_name.human(:count => :other) %></h2>
+	<% counter = 1 %>
+	<table style="width:100%" cellpadding=0 cellspacing=1>		
+		<% for item in Item.popular.approved.public %>
+			<tr>
+				<td align=left>
+					<h4>
+						<%= preview(item, :size => "pinky") %>
+						<%= counter%>. <%= link_to "#{h truncate(item.name, :length => 14)}", {:action => "view", :controller => "items", :id => item}, :title =>  h(item.name) %>
+					</h4>					
+				</td>
+				<td align=right style="width:80px;">
+					<div class="indent">
+						<i><%= item.views %> <%= t('activerecord.attributes.item.views', :count => item.views) %><%#= Item.human_attribute_name(:views, :count => item.views) %></i>
+					</div>					
+				</td>
+			</tr>
+			<% counter += 1 %>											
+		<% end %>
+	</table>
+</div>

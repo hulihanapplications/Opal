@@ -34,7 +34,7 @@ class ItemsController < ApplicationController
     @setting[:meta_description] << [@category.name , @category.description, Item.model_name.human(:count => :other), @setting[:meta_description]].join(" - ")
      
     respond_to do |format|
-      format.html # new.html.erb
+      format.html { render :index }# new.html.erb
       format.xml  { render :layout => false }
     end
   end

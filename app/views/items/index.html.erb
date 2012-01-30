@@ -1,29 +1,24 @@
 <%= render :partial => "main_content_top_bar" %>
 
-<div id="side">
-	<div class="box_1" id="category_menu">
-   		<%= render :partial => "items/category_menu", :locals => {:options => {:category => @category}} %>
-	</div>   
-   	<% if Setting.get_setting_bool("display_popular_items") %>
-		<div class="box_1">
-			<%= render :partial => "items/popular_items" %>
-		</div>
-	<% end %>
-   	<% if Setting.get_setting_bool("display_featured_items") %>
-		<div class="box_1">
-			<%= render :partial => "items/featured_items" %>
-		</div>
-	<% end %>  	
-	<%= render :partial => "plugin_tags/side" if Plugin.plugins[:tag].is_enabled? %>					
-	<%= render Page.get_system_page(I18n.t('seeds.page.category_column.title')) %>	
-</div>
-<div id="main">
-		<% items_page =  Page.find_by_name("items") %>
-		<% render items_page if items_page %>		
-		<%= render :partial => "/items/list_items", :locals => {:items => @items } %>
-		<div class="pagination">
-			<%= page_entries_info @items, :entry_name => Item.model_name.human %>	
-			<%= will_paginate @items %>
-		</div>			
-</div>
+<% content_for :side do %>
+   	<%= render :partial => "items/category_menu", :locals => {:options => {:category => @category}} %>
+	<%= render :partial => "plugin_tags/side", :locals => {:category => @category} if Plugin.plugins[:tag].is_enabled? %>					
+	<%= render Page.get_system_page(I18n.t('seeds.page.category_column.title')) %>
+<% end %>
+
+<%= render :partial => "/items/list_items", :locals => {:items => @items } %>
+<div class="pagination">
+	<%= page_entries_info @items, :entry_name => Item.model_name.human %>	
+	<%= will_paginate @items %>
+</div>		
+
+
+
+
+
+
+
+
+
+
 

@@ -12,12 +12,8 @@ select{background-color:#ddd}
 hr{width: 100%; margin: 5px 0px 5px 0px; height: 1px; background: #ccc; border: 0; }
 
 /*  Layout */
-#wrapper > #header, #wrapper > #header{width:900px; margin: 0 auto }
-#wrapper{height:auto !important; height:100%; min-height:100%;position:relative;}
 #wrapper > #header{position:relative;;height:133px;;background:url(../images/bgs/main_logo_bg.png) no-repeat;background-position:bottom left;}
 #wrapper > #content{;padding:5px;padding-top:10px; padding-bottom:70px;height:100%}
-		#wrapper > #content #main{width:660px;float:left;}
-		#wrapper > #content #side{width:230px;float:left;padding-right:10px}
 #wrapper > #footer{position:absolute;bottom:0;width:100%;height:45px;padding:10px;color:#ccc;background:url(../images/bgs/body_bg.png) repeat-x white;border-top:1px solid black;;text-align:center;}
 
 /* Main Menu */
@@ -34,7 +30,7 @@ ul.main_menu{list-style:none;text-align:right;}
 	.main_logo .description{font-style:italic;color:#ddd;text-shadow:2px 2px 4px black}
 	.main_logo a:visited, .main_logo a:link{color:#ddd;;text-shadow:2px 2px 4px black;text-decoration:none;} .main_logo a:hover{color:white;text-shadow:2px 2px 4px black;text-decoration:none;}	 
 
-/* Sidebar & Main Sections */
+/* Header */
 #main > .header{margin-bottom:10px;}
 #main > .header .description{border-top:1px solid #aaa}
 
@@ -53,6 +49,31 @@ ul.main_menu{list-style:none;text-align:right;}
 /* Fields & Inputs */
 
 /* Menus */
+div#side ul.menu li span.count, div#side div.menu{-moz-border-radius: 5px;-webkit-border-radius: 5px;}	
+div#side div.page{border:0;background:0}
+
+div#side div.menu{} 
+	div#side ul.menu{}
+		div#side ul.menu li{}
+			div#side ul.menu li span.count{background:#fff;border:1px solid #ccc;padding:3px;font-size:10px;;display:block;min-width:15px;}	
+div#side div.menu div.footer{border-top:1px solid #aaa;padding:5px;}
+
+
+
+/* Boxes */
+.box_1, div#side > div{border:1px solid #aaa;background:#E9E9E9;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:10px;}
+	.box_1 h1.title, .box_1 h2.title, .box_1 h3.title{}
+	.box_1 hr, .box_1 div.spacer{width: 100%; margin: 5px 0px 5px 0px; height: 1px; background: #ccc; border: 0; }
+.box_2, div#side div.menu{border:1px solid #ccc;background:url(../images/bgs/white_trans_50.png) repeat;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:10px;}
+	.box_2 h1.title, .box_2 h2.title, .box_2 h3.title{;}
+	.hover .box_2{border:1px solid #999}
+.box_3{background:url(../images/bgs/white_trans_50.png) repeat;border:1px solid #ccc;;padding:10px;text-align:center;;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-right:0px;margin-bottom:10px;}
+.extra_options_box{border-top:1px solid #ccc; border-bottom:1px solid #ccc;background: url(../images/bgs/user_tab_pane_bg.png) repeat-x;}
+
+
+
+
+
 .record_menu li > a, .record_menu li > span{-moz-border-radius: 5px;-webkit-border-radius: 5px;}
 .record_menu li > span{border:1px solid #bbb;background:url(../images/bgs/white_trans_50.png) repeat;}
 .record_menu li > a{border:1px solid #aaa; background:url(../images/bgs/button_3_bg.png) repeat center center;}
@@ -60,16 +81,6 @@ ul.main_menu{list-style:none;text-align:right;}
 .record_menu span > a img{background:url(../images/icons/spacer.png) no-repeat left center;padding-left:14px;}
 .record_menu span > a img.avatar{background:none;padding-left:0px;}
 
-
-/* Boxes */
-.box_1{border:1px solid #aaa;background:#E9E9E9;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:10px;}
-	.box_1 h1.title, .box_1 h2.title, .box_1 h3.title{}
-	.box_1 hr, .box_1 div.spacer{width: 100%; margin: 5px 0px 5px 0px; height: 1px; background: #ccc; border: 0; }
-.box_2{border:1px solid #ccc;background:url(../images/bgs/white_trans_50.png) repeat;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:10px;}
-	.box_2 h1.title, .box_2 h2.title, .box_2 h3.title{;}
-	.hover .box_2{border:1px solid #999}
-.box_3{background:url(../images/bgs/white_trans_50.png) repeat;border:1px solid #ccc;;padding:10px;text-align:center;;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-right:0px;margin-bottom:10px;}
-.extra_options_box{border-top:1px solid #ccc; border-bottom:1px solid #ccc;background: url(../images/bgs/user_tab_pane_bg.png) repeat-x;}
 
 /* Titles */
 h1.title, h2.title, h3.title{}

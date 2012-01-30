@@ -1,27 +1,20 @@
-<div class="box_2">
-	<table style="width:100%" cellpadding=0 cellspacing=0>
-		<tr>
-			<td align=left>
-				<h2 class="title">
-					<%= Category.model_name.human(:count => :other) %>
-				</h2>	
-			</td>
-			<td align=right style="vertical-align:middle">
-				<%= link_to icon("edit") + " " + t("label.item_edit",  :item => Category.model_name.human(:count => :other)), {:action => "index", :controller => "categories"} if @logged_in_user.is_admin?  %>
-			</td>
-		</tr>
-	</table>
-	<div class="spacer"></div>
-
-	<% for category in Category.get_parent_categories %>
-		<div style="float:left;width:195px;margin:5px 0px;padding:2px;">
-			<h3 class="spacer">				
-				<%= link_to category.name, {:action => "category", :controller => "items", :id => category}, :title => category.description   %>								
-			</h3>	
-			<% for subcategory in category.child_categories %>
-				<%= descend_category(subcategory, :include_children => @setting[:include_child_category_items], :show_item_count => false, :depth => 1, :truncate_length => 27)  %>
-			<% end %>								
-		</div>
-	<% end %>
-	<div style="clear:both"></div>
+<div class="header">
+	<h2 class="title">
+		<%= Category.model_name.human(:count => :other) %>
+	</h2>	
+	<ul class="menu">
+		<%= content_tag(:li, link_to(icon("edit") + " " + t("label.item_edit",  :item => Category.model_name.human(:count => :other)), {:action => "index", :controller => "categories"})) if @logged_in_user.is_admin?  %>
+	</ul>
 </div>
+
+<% for category in Category.get_parent_categories %>
+	<div class="category-section">
+		<h3>				
+			<%= link_to category.name, {:action => "category", :controller => "items", :id => category}, :title => category.description   %>								
+		</h3>	
+		<% for subcategory in category.child_categories %>
+			<%= descend_category(subcategory, :include_children => @setting[:include_child_category_items], :show_item_count => false, :depth => 1, :truncate_length => 27)  %>
+		<% end %>								
+	</div>
+<% end %>
+<div class="clear"></div>

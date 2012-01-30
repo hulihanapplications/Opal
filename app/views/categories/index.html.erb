@@ -1,29 +1,24 @@
-<div id="side">
-	<%= render :partial => "/items/menu" %>
+<%= render :partial => "/items/menu" %>
+
+<div class="header">		
+	<div class="title">
+		<h2 class="title">
+			<a name="groups"><%= @categories.size %> <%= Category.model_name.human(:count => @categories.size) %></a>
+		</h2>						
+	</div>			
+	<%= content_tag :ul, :class => :menu do %>
+		<% for subpage in subpages %>
+			<%= content_tag(:li, link_to(icon("new") + " " + t("label.item_new", :item => Category.model_name.human), {:action => "new"})) %>
+		<% end %>	
+	<% end %>
 </div>
-<div id="main">
-		<div class="header" style="margin-bottom:10px;">					
-			<table style="width:100%;" cellpadding=0 cellspacing=0>
-				<tr>
-					<td align=left>
-						<h2 class="title">
-							<a name="groups"><%= @categories.size %> <%= Category.model_name.human(:count => @categories.size) %></a>
-						</h2>						
-					</td>
-					<td align=right >
-							<%= link_to icon("new") + " " + t("label.item_new", :item => Category.model_name.human), {:action => "new"} %>						
-					</td>
-				</tr>
-			</table>
-		</div>
-		
-	<div class="box_2"> 
-		<% @categories = Category.find(:all) %>
-		<% @category = nil %>
-		<div class="categories" align=left>
-			<% for category in Category.get_parent_categories %>
-				<%= descend_category(category, :include_children => @setting[:include_child_category_items], :admin_controls => true , :theme => @setting[:theme], :item_name_plural => Item.model_name.human(:count => :other), :truncate_length => 60, :show_spacer => true, :style => "font-size:16px")  %>		
-			<% end %>
-		</div>
+
+<div class="box_2"> 
+	<% @categories = Category.find(:all) %>
+	<% @category = nil %>
+	<div class="categories" align=left>
+		<% for category in Category.get_parent_categories %>
+			<%= descend_category(category, :include_children => @setting[:include_child_category_items], :admin_controls => true , :theme => @setting[:theme], :item_name_plural => Item.model_name.human(:count => :other), :truncate_length => 60, :show_spacer => true, :style => "font-size:16px")  %>		
+		<% end %>
 	</div>
 </div>

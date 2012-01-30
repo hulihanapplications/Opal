@@ -1,27 +1,25 @@
 
-<%= auto_discovery_link_tag(:rss, {:action => "rss", :controller => "blog"}, {:title => "#{t("label.rss_feed")} - #{t("section.title.blog").capitalize}"}) %>
-<div class="box_1"> 
-	<h2 class="title"><%= t("single.archive") %></h2>
-	<%# Get Post archive by using group_by %>
-	<% @post_archives = Page.find(:all, :order => "created_at DESC", :conditions => ["page_type = ? and published = ?", "blog", true]).group_by{|post| post.created_at.beginning_of_month } %>	
-	<% if @post_archives.size > 0 %>
-		<% @post_archives.each do |date, posts|  %> 
-			<div>
-				<table style="width:100%" cellpadding=0 cellspacing=0>
-					<tr>
-						<td align=left>
-							<b><%= link_to "#{date.strftime("%B %Y")} ", blog_archive_path(:year => date.strftime("%Y"), :month => date.strftime("%m")) %></b>
-						</td>
-						<td align=right><%= posts.size %></td>					
-					</tr>
-				</table>
-			</div>
+<% content_for :side do %>
+	<%= auto_discovery_link_tag(:rss, {:action => "rss", :controller => "blog"}, {:title => "#{t("label.rss_feed")} - #{t("section.title.blog").capitalize}"}) %>
+	<div class="blog menu" id="blog-menu"> 
+		<h2 class="title"><%= t("single.archive") %></h2>
+		<%# Get Post archive by using group_by %>
+		<% @post_archives = Page.find(:all, :order => "created_at DESC", :conditions => ["page_type = ? and published = ?", "blog", true]).group_by{|post| post.created_at.beginning_of_month } %>	
+		<% if @post_archives.size > 0 %>
+			<%= content_tag :ul, :class => :menu do %>
+				<% @post_archives.each do |date, posts|  %> 
+					<%= content_tag :li do %>
+						<%= link_to("#{date.strftime("%B %Y")} ", blog_archive_path(:year => date.strftime("%Y"), :month => date.strftime("%m"))) %>
+						<%= content_tag(:span, posts.size, :class => "count") %>
+					<% end %>
+				<% end %>
+			<% end %>
+		<% else %>
+			<%= t("notice.items_not_found", :items => t("activerecord.models.blog_page", :count => :other)) %>
 		<% end %>
-	<% else %>
-		<%= t("notice.items_not_found", :items => t("activerecord.models.blog_page", :count => :other)) %>
-	<% end %>
-</div> 
-
-<div class="box_2" align=center>
-	<%= link_to icon("rss")  + " " + t("label.rss_feed"), {:action => "rss", :controller => "blog", :format => :xml} %>
-</div>
+	
+		<div class="footer">
+			<%= link_to icon("rss")  + " " + t("label.rss_feed"), {:action => "rss", :controller => "blog", :format => :xml} %>
+		</div>		
+	</div> 
+<% end %>

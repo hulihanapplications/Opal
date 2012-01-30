@@ -1,15 +1,8 @@
-<% subpages = Page.all.for_page(@page).display_in_menu.published.in_order %>
-<% if subpages.size > 0 %>
-	<div id="side">
-		<% if params[:controller] == "blog" %>
-			<%= render :partial => "blog/menu" %>
-		<% else %>
-			<%= render :partial => "menu_for_page", :locals => {:page => @page, :subpages => subpages}  %>				
-		<% end %>
-	</div>
-	<div id="main">	
-<% end %>	   
-		<%= render @page %>
-<% if subpages.size > 0 %>
-	</div>
+<% if params[:controller] == "blog" %>
+	<%= render :partial => "blog/menu" %>
+<% else %>
+	<%= render :partial => "menu_for_page", :locals => {:page => @page}  %>				
 <% end %>
+
+<%= render @page %>
+

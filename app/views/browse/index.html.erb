@@ -4,39 +4,28 @@
 	homepage_subpages = homepage.pages.display_in_menu.published.in_order
 	show_sidebar = homepage_subpages.size > 0 || @setting[:section_items] || !homepage_sidebar.content.blank? 
 %>
-	<%= content_tag :div, :id => "side" do %>
-		<%= render :partial => "pages/menu_for_page", :locals => {:page => homepage, :subpages => homepage_subpages} if homepage_subpages.size > 0 %>	
-		<% if @setting[:section_items] %>
-				<% plugins = Plugin.enabled %>
-				<% for plugin in plugins %>
-					<%= render :partial => plugin.partial_path(:type => "home"), :locals => {:plugin => plugin } rescue nil %>
-				<% end %>												
-			  	<% if @setting[:homepage_type] != "categories" %>
-					<div class="box_1" id="category_menu" >
-				   		<%= render :partial => "items/category_menu", :locals => {:options => {:category => @category}} %>
-					</div>   
-					<%= show_page Page.get_system_page(I18n.t('seeds.page.category_column.title')) %>
-				<% end %>
-			   	<% if Setting.get_setting_bool("display_popular_items") %>
-					<div class="box_1"> 
-						<%= render :partial => "items/popular_items" %>
-					</div> 
-				<% end %>
-			   	<% if Setting.get_setting_bool("display_featured_items") %>
-					<div class="box_1">
-						<%= render :partial => "items/featured_items" %>
-					</div>
-				<% end %>  	
-		<% end %>	
-		<% render homepage_sidebar if homepage_sidebar %>	
-	<% end if show_sidebar %>		
-	<%= content_tag :div, :id => (show_sidebar ? "main" : nil) do  %>
-		<%= render homepage if homepage %>
-		<% if @setting[:homepage_type] == "new_items" && @setting[:section_items] %>
-			<%= render :partial => "browse/homepage_new_items" %>
-		<% elsif @setting[:homepage_type] == "categories" && @setting[:section_items] %>
-			<%= render :partial => "browse/homepage_categories" %>
-		<% else %>
-			<%# Display nothing %>
-		<% end %> 			
-	<% end %>
+
+<% content_for :side do %>
+	<%= render :partial => "pages/menu_for_page", :locals => {:page => homepage, :subpages => homepage_subpages} if homepage_subpages.size > 0 %>	
+	<% if @setting[:section_items] %>							
+		  	<% if @setting[:homepage_type] != "categories" %>
+			   	<%= render :partial => "items/category_menu", :locals => {:options => {:category => @category}} %>
+			<% end %>
+		   	<% if Setting.get_setting_bool("display_popular_items") %>
+				<%= render :partial => "items/popular_items" %>
+			<% end %>
+		   	<% if Setting.get_setting_bool("display_featured_items") %>
+				<%= render :partial => "items/featured_items" %>
+			<% end %>  	
+	<% end %>	
+	<% render homepage_sidebar if homepage_sidebar %>	
+<% end if show_sidebar %>		
+	
+<%= render homepage if homepage %>
+<% if @setting[:homepage_type] == "new_items" && @setting[:section_items] %>
+	<%= render :partial => "browse/homepage_new_items" %>
+<% elsif @setting[:homepage_type] == "categories" && @setting[:section_items] %>
+	<%= render :partial => "browse/homepage_categories" %>
+<% else %>
+	<%# Display nothing %>
+<% end %> 			

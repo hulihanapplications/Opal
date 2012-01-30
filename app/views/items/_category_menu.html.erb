@@ -2,21 +2,32 @@
 	options ||= Hash.new
 	options[:category] ||= nil # no category by default, show all
 %>
-<% if options[:category] %>
-	<% @category = options[:category] %>
 
-	<h2 class="title" title="<%= @category.description unless @category.description.blank? %>"><%= @category.name %></h2>
-	<%#= @category.description unless @category.description.blank? %>		
-	<% for category in @category.child_categories %>
-		<%= descend_category(category, :include_children => @setting[:include_child_category_items], :show_item_count => true, :depth => 0)  %>
-	<% end %>			
-	<%=  t("notice.items_not_found", :items => Category.human_attribute_name(:categories)) if @category.child_categories.size == 0 %>
-<% else %>
-	<h2 class="title"><%= Item.model_name.human(:count => :other) %></h2>
-	<% for category in Category.get_parent_categories %>
-		<%= descend_category(category, :include_children => @setting[:include_child_category_items], :show_item_count => true, :depth => 0)  %>		
-	<% end %>	
-<% end %>
+<div class="menu">
+	<% if options[:category] %>
+		<% @category = options[:category] %>
+		
+		<h2 class="title" title="<%= @category.description unless @category.description.blank? %>"><%= @category.name %></h2>
+		<%= content_tag :ul, :class => :menu do %>
+			<% for category in @category.child_categories %>
+				<%= content_tag(:li, descend_category(category, :include_children => @setting[:include_child_category_items], :show_item_count => true, :depth => 0))  %>
+			<% end %>			
+		<% end %>
+		<div class="footer">
+			<%= auto_discovery_link_tag(:rss, {:action => "category", :controller => "items", :id => @category,  :format => "xml"}, {:title => "#{t("label.rss_feed")} - #{@category.name}"}) %> 
+	    	<%= link_to icon("rss", "#{t("label.rss_feed")} - #{@category.name}") + " #{t("label.rss_feed")} - #{@category.name}",  {:action => "category", :controller => "items", :id => @category,  :format => "xml"} %>
+	    </div>	
+	<% else %>
+		<h2 class="title"><%= Item.model_name.human(:count => :other) %></h2>
+		<%= content_tag :ul, :class => :menu do %>	
+			<% for category in Category.get_parent_categories %>
+				<%= content_tag(:li, descend_category(category, :include_children => @setting[:include_child_category_items], :show_item_count => true, :depth => 0))  %>		
+			<% end %>
+		<% end %>	
+	<% end %>
+</div>
+
+<%= show_page Page.get_system_page(I18n.t('seeds.page.category_column.title')) %>
 
 
 

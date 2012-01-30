@@ -6,7 +6,7 @@ module LogsHelper
     else # no static log saved, generate message
       if !log.target_type.blank? && !log.target_id.blank? # make sure there's a target class and id
         if log.target # does target actually exist? 
-          default_target_message = I18n.t("item_#{log.log_type.normalize_action}".to_sym, :scope => [:log], :item => log.klass.model_name.human.downcase, :name => log.target.to_s)      
+          default_target_message = I18n.t("item_#{log.log_type.to_crud}".to_sym, :scope => [:log], :item => log.klass.model_name.human.downcase, :name => log.target.to_s)      
           case log.target_type
           when "Item"
             options = {:user => link_to_user(log.target.user), :item => log.klass.model_name.human.downcase, :target => link_to_record(log.target)}
@@ -30,9 +30,9 @@ module LogsHelper
           else # some other class
             options = {:user => log.user_id.blank? ? I18n.t("single.unknown") : link_to_user(log.target), :item => log.klass.model_name.human, :name => log.target.to_s}
           end                    
-          message << I18n.t(log.log_type.normalize_action.to_sym, options.merge(:scope => [:log, :models, log.target.class.name.underscore.to_sym], :default => default_target_message))
+          message << I18n.t(log.log_type.to_crud.to_sym, options.merge(:scope => [:log, :models, log.target.class.name.underscore.to_sym], :default => default_target_message))
         else # target is no where to be found
-          message << I18n.t("item_#{log.log_type.normalize_action}".to_sym, :scope => [:log], :item => log.klass.model_name.human, :name => log.target_id)      
+          message << I18n.t("item_#{log.log_type.to_crud}".to_sym, :scope => [:log], :item => log.klass.model_name.human, :name => log.target_id)      
         end  
       end  
     end

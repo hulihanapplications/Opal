@@ -251,8 +251,7 @@ class ItemsController < ApplicationController
      item_name_file = File.join(Rails.root.to_s, "config", "locales", "item.yml")
      item_name_hash = {I18n.locale.to_s => {"activerecord" => {"models" => {"item" => utf8_hash(params[:key].to_hash)}}}} # to_hash converts ActiveSupport::HashWithIndifferentAccess to regular hash for proper yaml conversion          
      File.open(item_name_file, "w") { |f| f.write item_name_hash.ya2yaml } # you can also use ya2yaml instead of to_yaml, which hates utf-8
-     
-     log(:log_type => "system", :log => t("log.item_save", :item => Item.model_name.human + " " + t("single.name"), :name => params[:key].values.join(", ")))       
+     log(:log_type => "system", :log => t("log.item_update", :item => Item.model_name.human + " " + t("single.name"), :name => params[:key].values.join(", ")))       
      flash[:success] = t("notice.save_success")
      I18n.load_path.push(item_name_file) # add item_name_file onto load_path 
      I18n.reload! # reload I18n to see our new changes

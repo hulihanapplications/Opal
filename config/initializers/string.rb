@@ -14,14 +14,16 @@ class String
     string  =  (0..options[:length].to_i).map{ o[rand(o.length)]  }.join;    
   end
   
-  # normalize action - "edit" => "update", "update" => "update" 
-  def normalize_action 
+  # convert string to next best crud equivalent 
+  #   "edit".to_crud => "update"
+  #   "update".to_crud => "update" 
+  def to_crud 
     case self.to_sym
     when :new, :create
       "create"    
     when :view, :read
       "read"
-    when :edit, :update
+    when :edit, :update, :save
       "update"
     when :destroy, :delete
       "destroy"

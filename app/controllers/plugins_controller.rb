@@ -16,7 +16,7 @@ class PluginsController < ApplicationController
     params[:ids].each_with_index do |id, position|
       plugin = Plugin.update(id, :order_number => position)
     end
-     Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_save", :item => Plugin.model_name.human, :name => Plugin.human_attribute_name(:order_number)))                                                 
+     log(:log_type => "system", :log => t("log.item_update", :item => Plugin.model_name.human, :name => Plugin.human_attribute_name(:order_number)))
      render :text => "<div class=\"notice\"><div class=\"success\">#{t("notice.save_success")}</div></div>"
    end 
    
@@ -46,7 +46,7 @@ class PluginsController < ApplicationController
       if @setting.value != value # the value of the setting has changed
        if @setting.update_attribute("value", value) # update the setting
         flash[:success] << t("notice.item_save_success", :item => PluginSetting.model_name.human + ": #{@setting.title}") + "<br>"
-        Log.create(:user_id => @logged_in_user.id, :log_type => "system", :log => t("log.item_save", :item => PluginSetting.model_name.human, :name => @setting.title))                                                 
+        log(:log_type => "update", :target => @setting)
        else # the setting failed saving 
         flash[:failure] << t("notice.item_save_failure", :item => PluginSetting.model_name.human + ": #{@setting.title}")
        end

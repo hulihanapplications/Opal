@@ -22,10 +22,10 @@ class PluginImagesController < PluginController
       
       respond_to do |format|
         format.html{
-          if params[:tinymce] == "true" # redirect them back to the tinymce popup box
-            redirect_to :back      
-          else # redirect them back to item page
+          if @image.record.is_a?(Item) # redirect them back to item page 
             redirect_to record_path(@image.record, :anchor => @plugin.plugin_class.model_name.human(:count => :other))
+          else # redirect them back if there's no record
+            redirect_to :back      
           end       
         }
         format.flash{ render :text => t("notice.item_create_success", :item => PluginImage.model_name.human + (!@image.filename.blank? ? ": #{@image.filename}" : "") ) }              
@@ -48,11 +48,7 @@ class PluginImagesController < PluginController
       flash[:failure] =  t("notice.item_delete_failure", :item => PluginImage.model_name.human)   
     end
     
-    if params[:tinymce] == "true" # redirect them back to the tinymce popup box
-      redirect_to :back, :anchor => @plugin.model_name.human(:count => :other) 
-    else # redirect them back to item page
-      redirect_to :back, :anchor => @plugin.model_name.human(:count => :other) 
-    end
+    redirect_to :back, :anchor => @plugin.model_name.human(:count => :other) 
   end
 
   def edit
@@ -70,7 +66,8 @@ class PluginImagesController < PluginController
     render :action => "edit"
   end
 
-  def tinymce # show images to use with tinymce images
+  # select an image for the tinymce editor
+  def tinymce 
     @plugin_image = PluginImage.new
     if @record.is_a?(Item)
       @images = PluginImage.record(@record).paginate(:page => params[:page], :per_page => 25)
@@ -78,7 +75,7 @@ class PluginImagesController < PluginController
       authenticate_admin
       @images = PluginImage.paginate(:page => params[:page], :per_page => 25)      
     end 
-    render :layout => false 
+    render :layout => "tinymce_popup"  
   end
   
 private  

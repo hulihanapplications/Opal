@@ -7,6 +7,24 @@ describe PluginImagesController do
     before(:each) do
       login_admin
     end 
+  
+    describe "create" do 
+      it "should work without a record" do
+        expect{
+          uploaded_file = fixture_file_upload(Rails.root.join('spec/fixtures/images/rails.png'), "image/png")       
+          post(:create, {:plugin_image => {:image => uploaded_file}})
+          flash[:success].should_not be_nil
+        }.to change(PluginImage, :count).by(+1)
+        assigns[:image].destroy # clean up          
+      end    
+    end  
+
+    describe "tinymce" do 
+      it "should work without a record" do         
+        post(:tinymce)
+        @response.code.should eq("200")      
+      end
+    end    
   end
   
   context "as user" do
@@ -57,6 +75,14 @@ describe PluginImagesController do
           flash[:success].should_not be_nil
         }.to change(PluginImage, :count).by(-1) 
    	  end	
+   	end
+   	
+   	describe "tinymce" do 
+   	  it "should work with a record" do   	     
+        @image = Factory(:plugin_image, :record => @record)
+        post(:tinymce, {:record_type => @image.class.name, :record_id => @image.id})
+        @response.code.should eq("200")      
+   	  end
    	end
   end
 end

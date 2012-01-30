@@ -168,7 +168,6 @@ en:
     account_not_verified: Sorry, Your account has not been verified yet!
     account_disabled: Your account has been disabled.
     failed_admin_access_attempt: You are not an admin! Your attempt to access this area has been logged.
-    association_loop_failure: A %{item} cannot belong to itself. That's crazy!
     delete_own_group_failure: Sorry, you can't delete your own group.
     search_results_left_blank: I don't know what to search for!
     message_send_success: Your %{item} has been sent to %{to}. 
@@ -753,7 +752,8 @@ en:
         items_cannot_add_more: You can't add any more %{items}.    
         item_must_be_owner: You must be the owner of this %{item} to do this. 
         invalid_file_extension: "is in the wrong format. Make sure the file ends in one of these: %{valid_extensions}"
-        unresponsive: "is not responding"      
+        unresponsive: "is not responding"    
+        belongs_to_self: cannot belong to itself. 
   # Locales
   locales:
     en: English

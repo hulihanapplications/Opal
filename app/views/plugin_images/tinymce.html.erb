@@ -1,50 +1,38 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-	<%= javascript_include_tag "/javascripts/tiny_mce/tiny_mce_popup" %>
-	<%= javascript_include_tag "/javascripts/tiny_mce/plugins/opal/js/dialog" %>	
-	<%= render :partial => "head" %>
-</head>
-<body>
-	<%= render :partial => "flash", :locals => {:flash => flash} %>
-	<div style="padding:10px;min-height:465px;" id="tinymce_plugin_opal_image">
-	    <% if flash[:notice] %><div class="flash_notice"><%= flash[:notice] %></div><% end %> 		
-		<ul class="plugin_tabs_horizontal"> 
-				<li><a href="#<%= t("single.upload") %>"><%= t("single.upload") %> <%= PluginImage.model_name.human %></a></li> 
-			    <li><a href="#<%= Image.model_name.human(:count => :other) %>"><%= PluginImage.model_name.human(:count => :other) %></a></li>				
-		</ul>			
-		<div class="plugin_panes_horizontal"> 					
-			<div id="Upload">								   
-	   			<%= form_for(@plugin_image, :url => {:action => 'create', :controller => "plugin_images", :tinymce => "true"}, :html => {:multipart => true}) do |f| %>	   					 		
-				   <%= render :partial => "form", :locals => {:f => f} %>
-				   <br>
-				   <div align=center>
-				   		<input type="submit" value="<%= t("single.upload") %>" class="button_1">
-				   </div>
-			   <% end %>	
-			</div>
-			<div class="plugin_box">		
-			    <div id="Images">	
-					<div class="images" align=left>			
-						<% if @images.size > 0 %>
-							<% for image in @images %>
-								<div class="image">
-								   <%= render :partial => "plugins/record_menu", :locals => {:record => image, :options => {:preview => false, :user => false, :date => false}} %> 									   																								   							
-								   <a href="javascript:ImageDialog.insertOpalImage('<%= image.image.url %>', '<%= image.description %>')" title="<%= t("label.item_select", :item => Image.model_name.human) %>">
-										<%= content_tag(:div, plugin_image_thumbnail(image, :preview => false)) %>														
-								   </a>
-								</div>							
-							<% end %>
-							<div class="clear"></div>
-						<% else %>	
-							<div class="not_found" style="padding:5px;" align=center>												
-								<%= t("notice.items_not_found", :items => PluginImage.model_name.human(:count => :other)) %>
-							</div>
+<div id="tinymce_plugin_opal_image">
+	<ul class="plugin_tabs_horizontal"> 
+			<li><a href="#<%= t("single.upload") %>"><%= t("single.upload") %> <%= PluginImage.model_name.human %></a></li> 
+		    <li><a href="#<%= Image.model_name.human(:count => :other) %>"><%= PluginImage.model_name.human(:count => :other) %></a></li>				
+	</ul>			
+	<div class="plugin_panes_horizontal"> 					
+		<div id="Upload">								   
+   			<%= form_for(@plugin_image, :url => {:action => 'create', :controller => "plugin_images", :tinymce => "true"}, :html => {:multipart => true}) do |f| %>	   					 		
+			   <%= render :partial => "form", :locals => {:f => f} %>
+			   <br>
+			   <div align=center>
+			   		<input type="submit" value="<%= t("single.upload") %>" class="button_1">
+			   </div>
+		   <% end %>	
+		</div>
+		<div class="plugin_box">		
+		    <div id="Images">	
+				<div class="images" align=left>			
+					<% if @images.size > 0 %>
+						<% for image in @images %>
+							<div class="image">
+							   <%= render :partial => "plugins/record_menu", :locals => {:record => image, :options => {:preview => false, :user => false, :date => false}} %> 									   																								   							
+							   <a href="javascript:ImageDialog.insertOpalImage('<%= image.image.url %>', '<%= image.description %>')" title="<%= t("label.item_select", :item => Image.model_name.human) %>">
+									<%= content_tag(:div, plugin_image_thumbnail(image, :preview => false)) %>														
+							   </a>
+							</div>							
 						<% end %>
-					</div>
+						<div class="clear"></div>
+					<% else %>	
+						<div class="not_found" align=center>												
+							<%= t("notice.items_not_found", :items => PluginImage.model_name.human(:count => :other)) %>
+						</div>
+					<% end %>
 				</div>
-			</div>			
-		</div>		
-	</div>
-</body>
-</html>
+			</div>
+		</div>			
+	</div>		
+</div>

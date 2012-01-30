@@ -1,17 +1,16 @@
-<%= form_tag  :action => 'create', :controller => "pages" %>
-<div id="side">
-				<%= render :partial => "pages/menu" %>													  		  
-</div>
-<div id="main">
+<%= form_for(@page, :url => { :action => 'create', :controller => "pages", :id => @page.id }, :method => "post") do |f| %>
+	<div id="side">
+		<%= render :partial => "pages/menu" %>													  		  
+	</div>
+	<div id="main">
 		<h2 class="title">
 			<%= t("label.item_new", :item => @page.model_name) %>
 		</h2>
 		<input type="hidden" name="page[page_type]" value="<%= params[:type].downcase %>">
-		<%= render :partial => "form", :locals => {:page => @page}  %>
+		<%= render :partial => "form", :locals => {:page => @page, :f => f}  %>
 		<div align=center><%= submit_tag t("label.item_create", :item => @page.model_name), :class => "button_1" %></div>	
-</div>	
-</form>
-		
+	</div>	
+<% end %>		
 <div align=center style="clear:both">						
 	<%= link_to icon("arrow_left") + " " + t("single.back"), :back %>
 </div>

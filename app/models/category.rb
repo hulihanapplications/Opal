@@ -7,9 +7,14 @@ class Category < ActiveRecord::Base
   belongs_to :category
    
   validates_presence_of :name
+  validate :cannot_belong_to_self
   
   default_scope order("name ASC")
   scope :root, where(:category_id => 0)
+  
+  def to_s
+    name
+  end
   
   def to_param # make custom parameter generator for seo urls
     "#{id}-#{name.parameterize}"

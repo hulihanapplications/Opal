@@ -168,7 +168,6 @@ ru:
     account_not_verified: Извините, Ваш профиль ещё не был активирован.
     account_disabled: Ваш профиль был заблокирован.
     failed_admin_access_attempt: Вы не администратор! Была записана информация о вашей попытке доступа в эту часть сайта.
-    association_loop_failure: %{item} не может принадлежать себе. Это сумашествие!
     delete_own_group_failure: Извините, вы не можете удалить свою собственную группу.
     search_results_left_blank: Я не знаю что искать!
     message_send_success: Ваш %{item} был послан %{to}. 
@@ -812,6 +811,7 @@ ru:
         item_must_be_owner: Вы должны быть владельцем этого %{item} чтобы сделать это.
       invalid_file_extension: "не может быть сохранен потому что имя файла не заканчивается следующим образом: %{valid_extensions}"
       unresponsive: "is not responding"        
+      belongs_to_self: не может принадлежать себе. Это сумашествие!      
   # Locales
   locales:
     en: Английская (English)

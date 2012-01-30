@@ -1,4 +1,4 @@
-<%= form_tag  :action => 'update', :controller => "pages", :id => @page.id  %>
+<%= form_for(@page, :url => { :action => 'update', :controller => "pages", :id => @page.id }, :method => "post") do |f| %>
 	<div id="side">
 			  	<%= render :partial => "pages/menu" %>				
 	</div>
@@ -19,12 +19,12 @@
 				</table>
 			</div>
 
-			<%= render :partial => "form", :locals => {:page => @page} %>
+			<%= render :partial => "form", :locals => {:page => @page, :f => f} %>
 			<div align=center>
 				<%= submit_tag t("single.save"), :class => "button_1" %>
 			</div>						
 	</div>	
-</form>
+<% end %>
 
 <div align=center style="clear:both">						
 	<%= link_to icon("arrow_left") + " " + t("single.back"), {:action => "index", :type => @page.page_type}  %>

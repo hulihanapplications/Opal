@@ -1,4 +1,4 @@
-<%= error_messages_for :page %>
+<%= f.error_messages %>
 
 <div class="box_2">
 	<table style="width:100%;" cellpadding=0 cellspacing=0>
@@ -9,16 +9,16 @@
 						<h3><%= page.title %></h3>
 						<%= content_tag(:div, page.description, :class => "description") %>
 					<% else %>
-						<h3><%= label "page", "title" %></h3>							
-						<%= text_field 'page', 'title', :id => "form_title_box_#{page.id}", :disabled => !page.title_editable  %>
+						<h3><%= f.label :title %></h3>							
+						<%= f.text_field :title, :value => f.object.title, :id => "form_title_box_#{page.id}", :disabled => !page.title_editable  %>
 					<% end %>				
 				</div>
 			</td>
 			<td align=left class="right">
 				<% if page.is_blog_post? %>	
 					<div class="field">		
-						<h3><%= label "page", "created_at" %></h3>		
-						<%= datetime_select 'page', 'created_at'  %>
+						<h3><%= f.label :created_at %></h3>		
+						<%= f.datetime_select :created_at  %>
 					</div>								
 				<% end %>							
 			</td>
@@ -68,42 +68,42 @@
 				<td>
 						<div class="field">
 							<% if !page.is_system_page? %>
-								<h3><%= label "page", "description" %></h3>								
-								<%= text_field 'page', 'description', :id => "form_description_box_#{page.id}", :disabled => !page.description_editable  %>
+								<h3><%= f.label :description %></h3>								
+								<%= f.text_field :description, :id => "form_description_box_#{page.id}", :disabled => !page.description_editable  %>
 							<% end %>									
 						</div>			
 																														
 						<% if !page.is_system_page? %>
 							<div class="field">
 								<h3>
-									<%= check_box "page", "published" %>
+									<%= f.check_box :published %>
 									<%= icon("public") %>
-									<%= label "page", "published" %>
+									<%= f.label :published %>
 								</h3>	
 								<%= content_tag(:div, Page.human_attribute_name(:published_description), :class => "description")%>																										
 							</div>	
 							<div class="field">
 								<h3>
-									<%= check_box "page", "locked" %>
+									<%= f.check_box :locked %>
 									<%= icon("locked") %>
-									<%= label "page", "locked" %>
+									<%= f.label :locked %>
 								</h3>	
 								<%= content_tag(:div, Page.human_attribute_name(:locked_description), :class => "description") %>																										
 							</div>	
 							<% if !page.is_blog_post?  %>						
 							<div class="field">
 								<h3>
-									<%= check_box "page", "display_in_menu" %>
+									<%= f.check_box :display_in_menu %>
 									<%= icon("menu") %>
-									<%= label "page", "display_in_menu" %>
+									<%= f.label :display_in_menu %>
 								</h3>	
 							</div>	
 							<% end %>
 							<div class="field">
 								<h3>
-									<%= check_box "page", "redirect" %>
+									<%= f.check_box :redirect %>
 									<%= icon("redirect") %>
-									<%= label "page", "redirect" %>
+									<%= f.label :redirect %>
 									<%= content_tag(:div, text_field("page", "redirect_url"), :class => "description") %>																										
 								</h3>	
 							</div>			

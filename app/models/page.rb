@@ -4,17 +4,21 @@ class Page < ActiveRecord::Base
   has_many :pages
   has_many :plugin_comments, :dependent => :destroy, :as => :record
   belongs_to :page
-  belongs_to :user
+  belongs_to :user  
   
   validates_uniqueness_of :title, :scope => "page_id"
   validates_presence_of :title, :order_number   
-    
-  attr_protected :user_id 
-
-  after_destroy :destroy_everything  
+  validate :cannot_belong_to_self
+  
   before_validation(:on => :create) do 
     self.assign_order_number
   end 
+
+  attr_protected :user_id 
+
+  after_destroy :destroy_everything  
+  
+
   
   #default_scope :order => "order_number asc"
   
@@ -47,7 +51,7 @@ class Page < ActiveRecord::Base
 
   def validate
     if self.redirect
-        validates_format_of :redirect_url, :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
+        validates_format_of :redirect_url, :with => Cregexp.url
     end 
   end
 

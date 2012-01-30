@@ -22,17 +22,14 @@ class CategoriesController < ApplicationController
   
   def update
     @category = Category.find(params[:id])    
-    if params[:category][:category_id].to_i != @category.id # trying to select self as parent category 
-      if @category.update_attributes(params[:category])
-        log(:target => @category,  :log_type => "update")
-        flash[:success] = t("notice.save_success")
-      else
-        flash[:failure] = t("notice.save_failure")
-      end
+    if @category.update_attributes(params[:category])
+      log(:target => @category,  :log_type => "update")
+      flash[:success] = t("notice.save_success")
+      redirect_to :action => "index"
     else
-      flash[:failure] = t("notice.association_loop_failure", :item => Category.model_name.human)
-    end      
-    redirect_to :action => "index"
+      flash[:failure] = t("notice.save_failure")
+      render :edit
+    end
   end
   
   def create # creates a new Feature, not a Feature Value

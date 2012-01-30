@@ -247,15 +247,17 @@ private
   # check permission/access, controller style
   def can?(target, performer, action, options = {})
     #logger.info "can? #{action} failed on #{target} by #{performer}"
+    failure_msg = "#{t("notice.invalid_permissions")} (#{t(action, :scope => [:permissions], :default => action.to_s)})"
     if target
       if !target.can?(performer, action, options)
-        flash[:failure] = t("notice.invalid_permissions") + action.to_s + target.inspect
+        flash[:failure] = failure_msg
         respond_to do |format|     
           format.html {request.xhr? ? render(:text => flash[:failure]) : redirect_to(:back)} 
         end       
       end
     else
-      flash[:failure] = t("notice.item_not_found", :item => t("single.object", :default => "Object"))      
+      flash[:failure] = [failure_msg]
+      flash[:failure] << t("notice.item_not_found", :item => t("single.object", :default => "Object"))      
       redirect_to :back
     end       
   end 

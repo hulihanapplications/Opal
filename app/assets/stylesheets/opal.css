@@ -141,3 +141,7 @@ div.loading{text-align:center;}
 .cloud_small{font-size:1.1em}
 .cloud_medium{font-size:1.2em}
 .cloud_large{font-size:1.3em}
+
+/* TinyMCE */
+.tinymce_popup{padding:10px;min-height:465px;}		
+

@@ -1,57 +1,50 @@
+<% content_for :side do %>
+  	<%= render :partial => "users/menu" %>	
+<% end %>
 <div class="section">
-	<div id="side">
-				<%= render :partial => "/users/menu" %>
+	<div class="header">		
+		<div class="title">
+			<h2 class="title">
+				<%= @groups.total_entries %> <%= Group.model_name.human(:count => @groups.total_entries) %>
+			</h2>						
+		</div>		
+		<div class="menu">	
+			<%= content_tag :ul, :class => :menu do %>
+				<%= content_tag(:li, link_to(icon("new") + " " + t("label.item_new", :item => Group.model_name.human), {:action => "new"})) %>
+			<% end %>
+		</div>
 	</div>
-	<div id="main">
-	
-				<div class="header">					
-					<table style="width:100%;" cellpadding=0 cellspacing=0>
-						<tr>
-							<td align=left>
-								<h2 class="title">
-									<a name="groups"><%= @groups.total_entries %> <%= Group.model_name.human(:count => @groups.total_entries) %></a>
-								</h2>						
-							</td>
-							<td align=right >
-									<%= link_to icon("new") + " " + t("label.item_new", :item => Group.model_name.human), {:action => "new"} %>						
-							</td>
-						</tr>
-					</table>
-				</div>
+
 		
-					<div class="groups">
-						<table width="100%" cellpadding=0 cellspacing=0 class="row_table">
-						<tr>
-							<th><b><%= Group.human_attribute_name(:name) %></b></th>
-							<th><b><%= Group.human_attribute_name(:description) %></b></th>
-							<th><b><%= Group.human_attribute_name(:created_at) %></b></th>
-							<th></th>
-						</tr>
-						<% for group in @groups%>			
-							<tr class="<%= cycle("row_a", "row_b") %>">
-	
-								<td><b><%= link_to "#{h group.name}", {:action => "edit", :controller => "groups", :id => group.id} %></b></td>
-								<td><i><%= h group.description %></i></td>
-								<td>
-									<%= friendly_date group.created_at %>
-								</td>
-								<td align=right>
-									<%= link_to icon("edit"), { :action => 'edit', :controller => "groups", :id => group.id, :group_id => group.id} %>
-									<%= link_to icon("delete"), { :action => 'delete', :controller => "groups", :id => group.id, :group_id => group.id}, :confirm => t("confirm.delete") if group.is_deletable? %>
-								</td>
-							</tr> 
-						<% end %>
-						</table>
-							
-					</div>
-					
-					<div align=center>
-						<%= will_paginate @groups %>
-					</div>
-									
-				</div>
-				
+	<div class="groups">
+		<table width="100%" cellpadding=0 cellspacing=0 class="row_table">
+		<tr>
+			<th><b><%= Group.human_attribute_name(:name) %></b></th>
+			<th><b><%= Group.human_attribute_name(:description) %></b></th>
+			<th><b><%= Group.human_attribute_name(:created_at) %></b></th>
+			<th></th>
+		</tr>
+		<% for group in @groups%>			
+			<tr class="<%= cycle("row_a", "row_b") %>">
+
+				<td><b><%= link_to "#{h group.name}", {:action => "edit", :controller => "groups", :id => group.id} %></b></td>
+				<td><i><%= h group.description %></i></td>
+				<td>
+					<%= friendly_date group.created_at %>
+				</td>
+				<td align=right>
+					<%= link_to icon("edit"), { :action => 'edit', :controller => "groups", :id => group.id, :group_id => group.id} %>
+					<%= link_to icon("delete"), { :action => 'delete', :controller => "groups", :id => group.id, :group_id => group.id}, :confirm => t("confirm.delete") if group.is_deletable? %>
+				</td>
+			</tr> 
+		<% end %>
+		</table>
+			
 	</div>
 	
+	<div align=center>
+		<%= will_paginate @groups %>
+	</div>		
+				
 </div>
 

@@ -1,8 +1,19 @@
-<h2 class="title"> <%= Item.model_name.human(:count => :other) %></h2>
-<div class="spacer"></div>		
-<%= link_to "#{Item.count(:all)} #{Item.model_name.human(:count => :other)}", {:action => "all_items", :controller => "items"} %><br>
-<div class="indent">
-	<%= link_to "#{Item.count(:all, :conditions => ["is_approved = '1' and is_public = '1'"] )} #{Item.human_attribute_name(:is_public).downcase}, #{Item.human_attribute_name(:is_approved).downcase} #{Item.model_name.human(:count => :other)}", {:action => "all_items", :controller => "items", :type => "approved"} %><br>
-	<%= link_to "#{Item.count(:all, :conditions => ["is_approved = '0' and is_public = '1'"] )} #{t("single.not").downcase} #{Item.human_attribute_name(:is_approved).downcase} #{Item.model_name.human(:count => :other)}", {:action => "all_items", :controller => "items", :type => "unapproved"} %><br>					
-	<%= link_to "#{Item.count(:all, :conditions => ["is_public = '0'"] )} #{t("single.private").downcase} #{Item.model_name.human(:count => :other)}", {:action => "all_items", :controller => "items", :type => "private"} %><br>					
+<div>
+	<h2 class="title">
+		 <%= link_to Item.model_name.human(:count => :other), {:action => "all_items", :controller => "items"}  %>
+	</h2>
+	<ul class="menu">
+		<%= content_tag :li do %>
+			<%= link_to "#{Item.human_attribute_name(:is_public)}, #{Item.human_attribute_name(:is_approved)} #{Item.model_name.human(:count => :other)}", {:action => "all_items", :controller => "items", :type => "approved"} %>
+			<%= content_tag :span, Item.public.approved.count, :class => :count %>			
+		<% end %>
+		<%= content_tag :li do %>
+			<%= link_to "#{t("single.not")} #{Item.human_attribute_name(:is_approved).downcase} #{Item.model_name.human(:count => :other)}", {:action => "all_items", :controller => "items", :type => "unapproved"} %>					
+			<%= content_tag :span, Item.unapproved.count, :class => :count %>			
+		<% end %>
+		<%= content_tag :li do %>
+			<%= link_to "#{t("single.private")} #{Item.model_name.human(:count => :other)}", {:action => "all_items", :controller => "items", :type => "private"} %>					
+			<%= content_tag :span, Item.private.count, :class => :count %>			
+		<% end %>						
+	</ul>
 </div>

@@ -1,91 +1,71 @@
-	<div id="side">
-		<%= render :partial => "menu" %>
-		<div class="box_1" align=left>
-			<h3 class="title"><%= User.human_attribute_name(:current_login_at) %></h3>
-			<% for user in User.latest_logins %>
-				<% if user.current_login_at %>
-					<table cellpadding=0 cellspacing=0 style="width:100%">
-						<tr>
-							<td style="width:20px;" align=left>
-								<%= user_avatar(user, :class => "tiny") %>								
-							</td>
-							<td align=left style="padding-left:2px">
-								<h3><b><%= link_to user.username, user %></b></h3>
-								<i><%= friendly_date user.current_login_at if  user.current_login_at %></i>
-							</td>
-						</tr>
-					</table>
-					<hr />
-				<% end %>					
-			<% end %>			
-		</div>			
+<% content_for :side do %>
+  	<%= render :partial => "users/menu" %>	
+  	<%= render :partial => "users/currently_logged_in" %>
+<% end %>
+<div class="section">
+	<div class="header">		
+		<div class="title">
+			<h2 class="title">
+				<%= @users.total_entries %> <%= User.model_name.human(:count => @users.total_entries) %>
+			</h2>						
+		</div>		
+		<div class="menu">	
+			<%= content_tag :ul, :class => :menu do %>
+				<%= content_tag(:li, link_to(icon("new") + " " + t("label.item_new", :item => User.model_name.human), new_user_path)) %>			
+			<% end %>
+		</div>
 	</div>
-	<div id="main">							
-					<div class="header">					
-						<table cellpadding=0 cellspacing=0>
-							<tr>
-								<td class="left">
-									<h2 class="title">
-										<a name="groups"><%= @users.total_entries %></a> <%= User.model_name.human(:count =>  @users.total_entries) %>
-									</h2>				
-								</td>
-								<td class="right">
-										<%= link_to icon("new") + " " + t("label.item_new", :item => User.model_name.human), new_user_path %>						
-								</td>
-							</tr>
-						</table>
-					</div>
+
 			
-	
-					<div class="users">
-						<table width="100%" cellpadding=0 cellspacing=0 class="row_table">
-						<tr>
-							<th style="width:20px;"></th>
-							<th><b><%= User.human_attribute_name(:username) %></b></th>
-							<th><b><%= t("single.name") %></b></th>
-							<th><b><%= Group.model_name.human %></b></th>
-							<th><b><%= User.human_attribute_name(:current_login_at) %></b></th>
-							<th style="width:20px;"></th>
-							<th style="width:20px;"></th>
-						</tr>
-						<% for user in @users%>			
-							<tr class="<%= cycle("row_a", "row_b") %>">
-								<td>	
-								<%= link_to  user_avatar(user, :class => "tiny"), user, :title => "#{h user.username}"  %>
-								</td>
-								<td>
-									<%= icon("admin") if user.is_admin? %>									
-									<b><%= link_to "#{h user.username}", user %></b>
-								</td>
-								<td><i><%= h user.first_name %> <%= h user.last_name %></i></td>
-								<td>
-									<%= user.group.name %>
-								</td>
-								<td>
-									<% if user.current_login_at %>
-										<%= friendly_date user.current_login_at  %>
-									<% else %>
-										<%= t("single.none") %>
-									<% end %>
-								</td>
-								<td>
-									<%= link_to icon("edit"), edit_user_path(user), :class => "transparent" %>
-								</td>
-								<td>
-									<%= link_to icon("delete"), user, :confirm => t("confirm.delete_user"), :method => :delete, :class => "transparent" %>
-								</td>
-							</tr> 
-						<% end %>
-						</table>
-					
-				</div>
-	
-				<br>
-				<div align=center>
-					<%= will_paginate @users %>
-				</div>
-				<br>	
-	
+	<div class="users">
+		<table width="100%" cellpadding=0 cellspacing=0 class="row_table">
+		<tr>
+			<th style="width:20px;"></th>
+			<th><b><%= User.human_attribute_name(:username) %></b></th>
+			<th><b><%= t("single.name") %></b></th>
+			<th><b><%= Group.model_name.human %></b></th>
+			<th><b><%= User.human_attribute_name(:current_login_at) %></b></th>
+			<th style="width:20px;"></th>
+			<th style="width:20px;"></th>
+		</tr>
+		<% for user in @users%>			
+			<tr class="<%= cycle("row_a", "row_b") %>">
+				<td>	
+				<%= link_to  user_avatar(user, :class => "tiny"), user, :title => "#{h user.username}"  %>
+				</td>
+				<td>
+					<%= icon("admin") if user.is_admin? %>									
+					<b><%= link_to "#{h user.username}", user %></b>
+				</td>
+				<td><i><%= h user.first_name %> <%= h user.last_name %></i></td>
+				<td>
+					<%= user.group.name %>
+				</td>
+				<td>
+					<% if user.current_login_at %>
+						<%= friendly_date user.current_login_at  %>
+					<% else %>
+						<%= t("single.none") %>
+					<% end %>
+				</td>
+				<td>
+					<%= link_to icon("edit"), edit_user_path(user), :class => "transparent" %>
+				</td>
+				<td>
+					<%= link_to icon("delete"), user, :confirm => t("confirm.delete_user"), :method => :delete, :class => "transparent" %>
+				</td>
+			</tr> 
+		<% end %>
+		</table>
+		
 	</div>
+
+	<br>
+	<div align=center>
+		<%= will_paginate @users %>
+	</div>
+	<br>	
+	
+</div>
 	
 

@@ -1,16 +1,17 @@
 <% plugin_image = Plugin.find_by_name("Image") %>
 <% plugin_feature = Plugin.find_by_name("Feature") %>
-<div id="side">
-	<%= render :partial => "/items/menu" %>
-</div>
-<div id="main">  
-	<div class="header">					
-		<h2 class="title">
-			<%= Item.model_name.human %> <%= Setting.model_name.human(:count => :other) %>
-		</h2>	
-		<span class="description">
-			<!--This section allows you to change different settings and options for your <%= Item.model_name.human(:count => :other) %>.-->	
-		</span> 					
+
+<% content_for :side do %>
+  	<%= render :partial => "items/menu" %>	
+<% end %>
+
+<div class="settings" id="item-settings">  
+	<div class="header">		
+		<div class="title">
+			<h2 class="title">
+				<%= Item.model_name.human %> <%= Setting.model_name.human(:count => :other) %>
+			</h2>					
+		</div>							
 	</div>		
 
 

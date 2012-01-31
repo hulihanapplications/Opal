@@ -11,16 +11,19 @@
 		 <%= render_flash %>
 		 <%= render :partial => "banner_top" %>		 		 
 
+		 <%= render :partial => "user/menu" if @show_user_menu %>
+		 <%= render :partial => "admin/menu" if @show_admin_menu %>	
 		 
 		 <%= content_tag :div, :id => :side  do %>
 		 	<%= yield :side %>
 		 <% end if content_for? :side %>
+
 		 		 
 		 <%= content_tag :div, :id => :main, :class => content_for?(:user_menu) ? "user" : content_for?(:admin_menu) ? "admin" : nil do %>
-		 	<%= render :partial => "user/menu" if @show_user_menu %>
-		 	<%= render :partial => "admin/menu" if @show_admin_menu %>		 
-	    	<%= yield %>			
-		 <% end  %>		     
+			<%= yield :user_menu if content_for? :user_menu %>
+			<%= yield :admin_menu if content_for? :admin_menu %>
+	    	<%= content_tag(:div, yield, :class => (content_for?(:user_menu) || content_for?(:admin_menu)) ? "tab-content" : nil) %>			
+		 <% end %>		     
 
  		<div class="clear"></div>		
  		<%= render :partial => "banner_bottom" %>

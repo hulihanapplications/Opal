@@ -1,14 +1,16 @@
-<div id="side">
-	<%= render :partial => "users/menu" %>
-    <div class="box_1" style="margin-bottom:5px;">
-        <%= render :partial => "logs/legend" %>
-    </div>
-</div>
-<div id="main">
+<% content_for :side do %>
+  	<%= render :partial => "users/menu" %>	
+<% end %>
+
+<div class="section">
     <div class="header">
-    	<h2 class="title"><%= t("single.system") + " " +  Log.model_name.human(:count => :other) %></h2>
+    	<div class="title">
+    		<h2 class="title">
+    			<%= t("single.system") + " " +  Log.model_name.human(:count => :other) %>
+    		</h2>
+    	</div>
     </div>
-    <div class="box_2" align=left>
+    <div class="">
         <%= render :partial => "list_logs", :locals => {:logs => @logs} %>
     </div>
     <br>
@@ -17,4 +19,3 @@
         <%= will_paginate @logs %>
     </div>
 </div>
-<br>

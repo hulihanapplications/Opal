@@ -27,7 +27,9 @@ class Item < ActiveRecord::Base
 
   scope :featured, where(:featured => true)
   scope :public, where("is_public = ?", "1")
+  scope :private, where("is_public = ?", "0")
   scope :approved, where("is_approved = ?", "1")
+  scope :unapproved, where("is_approved = ?", "0")  
   scope :popular, order("recent_views DESC")
  
   

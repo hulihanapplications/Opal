@@ -1,22 +1,11 @@
-	 <%# Menu for Admin %>
-	 <div style="display: block;">
-		 <ul id="tabmenu" >
-		   <li>
-		   		<%= link_to icon("admin") + " " + t("section.title.admin").capitalize, {:action => "index", :controller => "admin"} , :class => (params[:controller] == "admin"    ? "active" : "") %>		
-		   </li>
-		   <% if @setting[:section_items] %>		   		  
-		   <li>
-		   		<%= link_to icon("items") + " " + Item.model_name.human(:count => :other), {:action => "all_items", :controller => "items"} , :class => (params[:controller] == "items" || params[:controller] == "categories" || params[:controller] == "plugins" || params[:controller] == "plugins" || params[:controller] == "plugin_features" || params[:controller] == "tools"  ? "active" : "") %>		
-		   </li>
-		   <% end %>
-		   <li>
-		   		<%= link_to icon("pages") + " " + Page.model_name.human(:count => :other), {:action => "index", :controller => "pages"} , :class => (params[:controller] == "pages" ? "active" : "") %>		
-		   </li>	
-		   <li>
-		   		<%= link_to icon("users") + " " + User.model_name.human(:count => :other), {:action => "index", :controller => "users"} , :class => (params[:controller] == "users" || params[:controller] == "groups" || params[:controller] == "messages" || params[:controller] == "logs" ? "active" : "") %>		
-		   </li>		   	   					   
-		   <li>
-		   		<%= link_to icon("settings") + " " + t("section.title.configure").capitalize, {:action => "index", :controller => "settings"} , :class => (params[:controller] == "settings"  ? "active" : "") %>		
-		   </li>
-		 </ul>
-		 <div id="tabcontent">
+<% content_for :admin_menu do %>
+	<div class="tab" id="admin-menu">
+		 <ul class="tab">
+	   		<%= content_tag(:li, link_to(icon("admin") + " " + t("section.title.admin").capitalize, {:action => "index", :controller => "admin"}), :class => params[:controller] == "admin" ? "selected" : "") %>		
+	   		<%= content_tag(:li, link_to(icon("items") + " " + Item.model_name.human(:count => :other), {:action => "all_items", :controller => "items"}), :class => params[:controller] == "items" || params[:controller] == "categories" || params[:controller] == "plugins" || params[:controller] == "plugins" || params[:controller] == "plugin_features" || params[:controller] == "tools"  ? "selected" : "") if @setting[:section_items] %>		
+	   		<%= content_tag(:li, link_to(icon("pages") + " " + Page.model_name.human(:count => :other), {:action => "index", :controller => "pages"}), :class => params[:controller] == "pages" ? "selected" : "") %>		
+	   		<%= content_tag(:li, link_to(icon("users") + " " + User.model_name.human(:count => :other), {:action => "index", :controller => "users"}), :class => params[:controller] == "users" || params[:controller] == "groups" || params[:controller] == "messages" || params[:controller] == "logs" ? "selected" : "") %>		
+	   		<%= content_tag(:li, link_to(icon("settings") + " " + t("section.title.configure").capitalize, {:action => "index", :controller => "settings"}), :class => params[:controller] == "settings"  ? "selected" : "") %>		
+		</ul>
+	</div>
+<% end %>

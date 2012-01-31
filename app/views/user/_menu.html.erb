@@ -1,24 +1,11 @@
-<%# Menu for Regular User %>
-<div style="display: block;">
- <ul id="tabmenu" >
-   <li>				   	
-		<%= link_to icon("home") + " " + t("section.title.my_account"), {:action => "index", :controller => "user"} , :class => (params[:action] == "index" && params[:controller] == "user" ? "active" : "") %>		
-   </li>
-   <% if (Setting.get_setting_bool("let_users_create_items") || @logged_in_user.is_admin?) && @setting[:section_items] %>
-   <li>			
-		<%= link_to icon("items") + " " + Item.model_name.human(:count => :other), {:action => "my", :controller => "items"}, :class => (params[:controller] == "items" ? "active" : "") %>
-   </li>
-   <% end %>   
-   <li>
-		<%= link_to icon("mail") + " " + UserMessage.model_name.human(:count => :other), {:action => "for_me", :controller => "messages"}, :class => ((params[:action] == "for_me" && params[:controller] == "messages") ? "active" : "") %>
-   </li>
-   <li>
-		<%= link_to icon("settings") + " " + t("section.title.my_settings"), {:action => "edit", :controller => "users", :id => @logged_in_user}, :class => ((params[:action] == "edit" && params[:controller] == "users") || (params[:action] == "update" && params[:controller] == "users") || params[:action] == "change_password"  ? "active" : "") %>
-   </li>
-   <% if File.exists?(Authentication::AUTHFILE) %>
-   <li>
-   		<%= link_to icon("authentication") + " " + Authentication.model_name.human(:count => :other), authentications_path, :class => (params[:controller] == "authentications" ? "active" : "") %>
-   </li>   
-   <% end %>
- </ul>
- <div id="tabcontent" class="tabcontent">
+<% content_for :user_menu do %>
+	<div class="tab" id="user-menu">
+		 <ul class="tab">
+			<%= content_tag(:li, link_to(icon("home") + " " + t("section.title.my_account"), {:action => "index", :controller => "user"}), :class => params[:action] == "index" && params[:controller] == "user" ? "selected" : "") %>		
+			<%= content_tag(:li, link_to(icon("items") + " " + Item.model_name.human(:count => :other), {:action => "my", :controller => "items"}), :class => params[:controller] == "items" ? "selected" : "") if (Setting.get_setting_bool("let_users_create_items") || @logged_in_user.is_admin?) && @setting[:section_items] %>
+			<%= content_tag(:li, link_to(icon("mail") + " " + UserMessage.model_name.human(:count => :other), {:action => "for_me", :controller => "messages"}), :class => (params[:action] == "for_me" && params[:controller] == "messages") ? "selected" : "") %>
+			<%= content_tag(:li, link_to(icon("settings") + " " + t("section.title.my_settings"), {:action => "edit", :controller => "users", :id => @logged_in_user}), :class => (params[:action] == "edit" && params[:controller] == "users") || (params[:action] == "update" && params[:controller] == "users") || params[:action] == "change_password"  ? "selected" : "") %>
+	   		<%= content_tag(:li, link_to(icon("authentication") + " " + Authentication.model_name.human(:count => :other), authentications_path), :class => params[:controller] == "authentications" ? "selected" : "") if File.exists?(Authentication::AUTHFILE) %>
+		 </ul>
+	</div>
+<% end %>

@@ -22,9 +22,11 @@
 				<%= t("label.item_my", :item => t("label.items_latest", :items => Log.model_name.human(:count => :other))) %>
 			</h2>			
 		</div>
-		<%= content_tag :ul, :class => :menu do %>				
-			<%= content_tag(:li, link_to(icon("logs") + " " + "#{t("single.all")} #{Log.model_name.human(:count => :other)}", {:controller => "logs", :action => "for_me"})) %>									
-		<% end %>
+		<div class="menu">
+			<%= content_tag :ul, :class => :menu do %>				
+				<%= content_tag(:li, link_to(icon("logs") + " " + "#{t("single.all")} #{Log.model_name.human(:count => :other)}", {:controller => "logs", :action => "for_me"})) %>									
+			<% end %>
+		</div>
 	</div>
 	<%= render :partial => "logs/list_logs", :locals => {:logs => @latest_logs} %>													
 </div>	

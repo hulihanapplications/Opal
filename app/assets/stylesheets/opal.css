@@ -42,8 +42,16 @@ img.icon, img.bullet{vertical-align:middle;border:0px;}
 
 /* Tables & Cells */
 td.icon_column{width:20px;vertical-align:middle;text-align:center}
-td.left{padding-right:10px;width:50%}
-td.right{padding-left:10px;width:50%}
+
+table.cell{width:100%}
+	table.cell td{vertical-align:top}
+	table.cell td.side{width:40%}
+	table.cell td.half{width:50%}
+	table.cell td.main{width:60%}
+	table.cell td.spacer{width:10px}
+.right{padding-left:5px}
+.left{padding-right:5px}
+
 
 /* Interaction States(Selection, Hovering, Sorting, Etc.) */
 .hoverable{opacity:0.90;filter:alpha(opacity=90);-moz-opacity:0.9;-khtml-opacity: 0.9;}
@@ -65,7 +73,7 @@ td.right{padding-left:10px;width:50%}
 	.plugins .plugin_box{clear:both}
 
 /* Sections & Headers */
-.section{}
+.section{margin-bottom:20px;}
 	.section .header{margin-bottom:5px}
 	.section .header td{vertical-align:middle}
 	
@@ -89,7 +97,7 @@ ul.left li{float:left}
 
 div#side div.menu{text-align:left;} 
 	div#side ul.menu{text-align:left;}
-		div#side ul.menu li{padding-left:10px;font-size:16px;margin-bottom:3px;position:relative}
+		div#side ul.menu li{padding-left:10px;font-size:16px;margin:3px 0px;position:relative}
 			div#side ul.menu li span.count{position:absolute;right:0;top:0;text-align:center;}	
 			div#side ul.menu li ul li{font-size:14px}	
 div#side div.menu div.footer{text-align:center}
@@ -157,6 +165,17 @@ div.loading{text-align:center;}
 .cloud_small{font-size:1.1em}
 .cloud_medium{font-size:1.2em}
 .cloud_large{font-size:1.3em}
+
+/* Tabs */
+
+
+/* Tabs Section */
+div.tab{display:block}
+ul.tab{list-style:none; margin:0 !important; 	padding:0;	height:25px;	margin-bottom:0px;}
+ul.tab > li {float:left; text-indent:0;	padding:0;	margin:0 !important;	list-style-image:none !important; }
+ul.tab a, ul.tab li.selected a {font-size:12px;	display:block;	height: 19px;	min-width:90px;	padding:3px 10px;	margin:0px 2px 0px 0px;	text-align:center;		text-decoration:none;		position:relative;}
+div#tab-content{padding:10px;padding-top:10px;	min-height:400px;}
+
 
 /* TinyMCE */
 .tinymce_popup{padding:10px;min-height:465px;}		

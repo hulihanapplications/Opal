@@ -1,23 +1,19 @@
-<div class="box_2 menu">
-	<h3 class="title" align=left><%= User.model_name.human(:count => :other) %></h3>
-	
-	<div class="box_<%= params[:controller] == "users" ? "1" : "2" %>" >
-		<img src="/themes/<%= @setting[:theme] %>/images/icons/users.png" class="icon"> 				
-		<%= link_to User.model_name.human(:count => :other), {:action => "index", :controller => "users"} %>			
-	</div>
-	
-	<div class="box_<%= params[:controller] == "groups" ? "1" : "2" %>" >
-		<img src="/themes/<%= @setting[:theme] %>/images/icons/groups.png" class="icon"> 				
-		<%= link_to Group.model_name.human(:count => :other), {:action => "index", :controller => "groups"} %>				
-	</div>	
-	
-	<div class="box_<%= params[:controller] == "messages" ? "1" : "2" %>" >
-		<img src="/themes/<%= @setting[:theme] %>/images/icons/mail.png" class="icon"> 				
-		<%= link_to UserMessage.model_name.human(:count => :other), {:action => "index", :controller => "messages"} %>			
-	</div>
-			
-	<div class="box_<%= params[:controller] == "logs" ? "1" : "2" %> last" >
-		<%= icon("logs")%>
-		<%= link_to Log.model_name.human(:count => :other), {:action => "index", :controller => "logs"} %>			
-	</div>	
+<div class="menu">
+	<ul class="menu">
+		<li class="<%= params[:controller] == "users" ? "selected" : "" %>">
+			<%= link_to icon("users") + " " + User.model_name.human(:count => :other), {:action => "index", :controller => "users"} %>			
+		</li>
+		
+		<li class="<%= params[:controller] == "groups" ? "selected" : "" %>" >
+			<%= link_to  icon("groups") + " " + Group.model_name.human(:count => :other), {:action => "index", :controller => "groups"} %>				
+		</li>	
+		
+		<li class="<%= params[:controller] == "messages" ? "selected" : "" %>" >
+			<%= link_to  icon("mail") + " " + UserMessage.model_name.human(:count => :other), {:action => "index", :controller => "messages"} %>			
+		</li>
+				
+		<li class="<%= params[:controller] == "logs" ? "selected" : "" %> last" >
+			<%= link_to  icon("logs") + " " + Log.model_name.human(:count => :other), {:action => "index", :controller => "logs"} %>			
+		</li>			
+	</ul>
 </div>

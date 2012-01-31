@@ -1,36 +1,24 @@
-<div class="section">	
-	<div id="side">
-				<%= render :partial => "/users/menu" %>
-				<!--
-				<div class="box_1">
-					<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" class="icon"> 				
-					You are viewing every message for every user in <%= @setting[:title] %>.
-				</div>
-				-->
+<% content_for :side do %>
+  	<%= render :partial => "users/menu" %>	
+<% end %>
+<div class="section">
+	<div id="status_box" >
+	 	<%# This is where the ajax output goes %>
+	</div>  		
+	<div class="header">		
+		<div class="title">
+			<h2 class="title">
+				<%= t("single.all") %> <%= UserMessage.model_name.human(:count => :other) %>
+			</h2>						
+		</div>		
 	</div>
-	<div id="main">		
-		 <div id="status_box" ><%# This is where the ajax output goes %>
-		 </div>  	
-			<div class="header">					
-				<table style="width:100%;" >
-					<tr>
-						<td align=left>
-							<h2 class="title">
-								<h2 class="title"><%= t("single.all") %> <%= UserMessage.model_name.human(:count => :other) %></h2>
-							</h2>						
-						</td>
-						<td align=right >
-						</td>
-					</tr>
-				</table>
-			</div>
-		<div class="box_2">
-			<%= render :partial => "messages/list_messages", :locals => {:messages => @messages}%>
-			<div align=center><%= page_entries_info @messages, :entry_name => "Messages" %></div>										
-		</div>
-		<br>	
-		<div align=center>
-			<%= will_paginate @messages %>	
-		</div>	
+
+	<div>
+		<%= render :partial => "messages/list_messages", :locals => {:messages => @messages}%>
+		<div align=center><%= page_entries_info @messages, :entry_name => "Messages" %></div>										
 	</div>
+	<br>	
+	<div align=center>
+		<%= will_paginate @messages %>	
+	</div>	
 </div>		 

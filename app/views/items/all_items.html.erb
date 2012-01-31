@@ -1,33 +1,25 @@
-<div id="side">
+<% content_for :side do %>
   	<%= render :partial => "items/menu" %>	
-  	<div class="box_2">
-  		<%= render :partial => "items/all_items_menu" %>	
-  	</div>
-	<div class="box_1">
-		<%= render :partial => "items/popular_items" %>
-	</div>
-</div>
-<div id="main">
-		<div class="header">					
-			<table style="width:100%;" cellpadding=0 cellspacing=0>
-				<tr>
-					<td align=left>
-						<h2 class="title">
-							<b class="highlight"><%= h params[:type].blank? ? nil : params[:type].downcase == "unapproved" ? "#{t("single.not")} #{t("single.approved")}" : params[:type].downcase == "private" ? t("single.private") : params[:type].downcase == "approved"  ? t("single.approved") : nil  %></b> <%= Item.model_name.human(:count => :other) %>
-						</h2>					
-					</td>
-					<td align=right >
-						<%= render :partial => "main_content_top_bar" %>
-					</td>
-				</tr>
-			</table>
-		</div>	
-		<%= render :partial => "/items/list_items", :locals => {:items => @items } %>	
-		
-		<div class="pagination">
-			<%= page_entries_info @items, :entry_name => Item.model_name.human %>	
-			<%= will_paginate @items %>
-		</div>
+  	<%= render :partial => "items/all_items_menu" %>	
+	<%= render :partial => "items/popular_items" %>
+<% end %>
 
+<div class="header">					
+	<div class="title">
+		<h2 class="title">
+			<%= params[:type].blank? ? nil : params[:type].downcase == "unapproved" ? "#{t("single.not")} #{t("single.approved")}" : params[:type].downcase == "private" ? t("single.private") : params[:type].downcase == "approved"  ? t("single.approved") : nil  %> 
+			<%= Item.model_name.human(:count => :other) %>
+		</h2>					
+	</div>
+	<div class="menu">
+		<%= render :partial => "main_content_top_bar" %>
+	</div>
+</div>	
+<%= render :partial => "/items/list_items", :locals => {:items => @items } %>	
+
+<div class="pagination">
+	<%= page_entries_info @items, :entry_name => Item.model_name.human %>	
+	<%= will_paginate @items %>
 </div>
+
 

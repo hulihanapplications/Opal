@@ -1,84 +1,80 @@
+<% content_for :side do %>
+  	<%= render :partial => "settings/menu" %>	
+<% end %>
 <div class="section">
-
-		<div id="side">
-			<%= render :partial => "/settings/menu" %>
-		</div>
-		<div id="main">
-				<div class="header">					
-					<h2 class="title">
-						<%= @setting[:title] %> <%= Setting.model_name.human(:count => :other) %>
-					</h2>						
-				</div>		  	
-
-				
-				<%= form_tag({:action => "update_settings"}) do %>
-						<ul class="plugin_tabs_horizontal"> 
-							    <li><a href="#<%= t("single.public") %>"><%= t("single.public") %></a></li>
-							    <li><a href="#<%= t("single.system") %>"><%= t("single.system") %></a></li> 
-							    <li><a href="#<%= User.model_name.human(:count => :other) %>"><%= User.model_name.human(:count => :other) %></a></li> 	
-							    <li><a href="#<%= t("single.section", :count => :other) %>"><%= t("single.section", :count => :other) %></a></li> 													
-								<li><a href="#<%= t("activerecord.records.setting.main_logo.title") %>"><%= t("activerecord.records.setting.main_logo.title") %></a></li> 
-						</ul>			
-						<div class="plugin_panes_horizontal"> 					
-						    <div>	
-								 <%= render :partial => "/settings/list_settings", :locals => {:settings => public_settings = Setting.find(:all, :conditions => ["setting_type = ?", "Public"]) , :title => t("single.public")}%>
-							</div>			
-						    <div>	
-								 <%= render :partial => "/settings/list_settings", :locals => {:settings => Setting.find(:all, :conditions => ["setting_type = ?", "System"]), :title => t("single.system")}%>
-							</div>
-						    <div>	
-								 <%= render :partial => "/settings/list_settings", :locals => {:settings => Setting.find(:all, :conditions => ["setting_type = ?", "User"]), :title => User.model_name.human}%>
-							</div>	
-						    <div>	
-								 <%= render :partial => "/settings/list_settings", :locals => {:settings => Setting.find(:all, :conditions => ["setting_type = ?", "Section"]), :title => t("single.section")}%>
-							</div>		
-							<div>
-								<div class="section">
-
-
-									<div class="header">					
-										<table style="width:100%;" cellpadding=0 cellspacing=0>
-											<tr>
-												<td align=left class="title_column">
-													<h2 class="title">
-														<%= t("activerecord.records.setting.main_logo.title") %>
-													</h2>						
-												</td>
-												<td align=right>
-													<% if @logo_image_exists %>
-														<img src="/themes/<%= @setting[:theme] %>/images/icons/delete.png" class="icon">
-														<%= link_to "#{t("single.delete")} #{t("single.logo")}", {:action => "delete_logo", :controller => "settings"}, :confirm => t("confirm.general")   %></a>
-													<% else %>
-														<!--No Logo has been uploaded.-->
-													<% end %>	
-													<%= icon("upload") %>													
-													<%= link_to "#{t("single.upload")} #{t("single.logo")}", {:action => "new_change_logo", :controller => "settings"}%>
-												</td>
-											</tr>
-										</table>
-									</div>
-								
-									<div align=center>
-										<%= theme_image_tag("logo.png") if @logo_image_exists %>
-									</div>
-
-									<div align="center" class="box_1" style="margin:5px 0px;">													
-										<% if @logo_image_exists %>
-												<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" class="icon">
-												<%= t("info.delete_main_logo", :name => @setting[:title] ) %>																				
-										<% else %>
-											<%= t("notice.item_not_found", :item => t("single.logo")) %>
-										<% end %>
-									</div>	
-									
-									
-								</div>				
-							</div>						
-						</div>	
-					 <div align=center><%= submit_tag t("single.save"), :class => "button_1" %></div>
-				
-				<% end %>
-				<br><br>
-
+	<div class="header">		
+		<div class="title">
+			<h2 class="title">
+				<%= @setting[:title] %> <%= Setting.model_name.human(:count => :other) %>
+			</h2>						
+		</div>		
 	</div>
+				
+	<%= form_tag({:action => "update_settings"}) do %>
+			<ul class="plugin_tabs_horizontal"> 
+				    <li><a href="#<%= t("single.public") %>"><%= t("single.public") %></a></li>
+				    <li><a href="#<%= t("single.system") %>"><%= t("single.system") %></a></li> 
+				    <li><a href="#<%= User.model_name.human(:count => :other) %>"><%= User.model_name.human(:count => :other) %></a></li> 	
+				    <li><a href="#<%= t("single.section", :count => :other) %>"><%= t("single.section", :count => :other) %></a></li> 													
+					<li><a href="#<%= t("activerecord.records.setting.main_logo.title") %>"><%= t("activerecord.records.setting.main_logo.title") %></a></li> 
+			</ul>			
+			<div class="plugin_panes_horizontal"> 					
+			    <div>	
+					 <%= render :partial => "/settings/list_settings", :locals => {:settings => public_settings = Setting.find(:all, :conditions => ["setting_type = ?", "Public"]) , :title => t("single.public")}%>
+				</div>			
+			    <div>	
+					 <%= render :partial => "/settings/list_settings", :locals => {:settings => Setting.find(:all, :conditions => ["setting_type = ?", "System"]), :title => t("single.system")}%>
+				</div>
+			    <div>	
+					 <%= render :partial => "/settings/list_settings", :locals => {:settings => Setting.find(:all, :conditions => ["setting_type = ?", "User"]), :title => User.model_name.human}%>
+				</div>	
+			    <div>	
+					 <%= render :partial => "/settings/list_settings", :locals => {:settings => Setting.find(:all, :conditions => ["setting_type = ?", "Section"]), :title => t("single.section")}%>
+				</div>		
+				<div>
+					<div class="section">
+
+
+						<div class="header">					
+							<table style="width:100%;" cellpadding=0 cellspacing=0>
+								<tr>
+									<td align=left class="title_column">
+										<h2 class="title">
+											<%= t("activerecord.records.setting.main_logo.title") %>
+										</h2>						
+									</td>
+									<td align=right>
+										<% if @logo_image_exists %>
+											<img src="/themes/<%= @setting[:theme] %>/images/icons/delete.png" class="icon">
+											<%= link_to "#{t("single.delete")} #{t("single.logo")}", {:action => "delete_logo", :controller => "settings"}, :confirm => t("confirm.general")   %></a>
+										<% else %>
+											<!--No Logo has been uploaded.-->
+										<% end %>	
+										<%= icon("upload") %>													
+										<%= link_to "#{t("single.upload")} #{t("single.logo")}", {:action => "new_change_logo", :controller => "settings"}%>
+									</td>
+								</tr>
+							</table>
+						</div>
+					
+						<div align=center>
+							<%= theme_image_tag("logo.png") if @logo_image_exists %>
+						</div>
+
+						<div align="center" class="box_1" style="margin:5px 0px;">													
+							<% if @logo_image_exists %>
+									<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" class="icon">
+									<%= t("info.delete_main_logo", :name => @setting[:title] ) %>																				
+							<% else %>
+								<%= t("notice.item_not_found", :item => t("single.logo")) %>
+							<% end %>
+						</div>	
+						
+						
+					</div>				
+				</div>						
+			</div>	
+		 <div align=center><%= submit_tag t("single.save"), :class => "button_1" %></div>
+	
+	<% end %>
 </div>	

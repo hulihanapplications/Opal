@@ -1,6 +1,6 @@
-<div id="side">
-	<div class="box_1 menu">
-		<div >
+<% content_for :side do %>
+	<div class="environment">
+		<div>
 			<%= link_to image_tag("opal.png"), "http://www.hulihanapplications.com/projects/opal", :class => "transparent", :target => "_blank" %>
 		</div>
 		<div>
@@ -12,36 +12,33 @@
 		<%= t("single.system") %> <%= t("single.mode") %>: <b class="highlight_1"><%= Rails.env.capitalize %></b>
 	</div>	
 	<%= render :partial => "users/currently_logged_in" %>
-
+<% end %>
 		
-</div>
-<div id="main">
-	<div align=left>
-	   <div class="box_2">
-		   <h2 class="title"><%= t("label.user_greeting", :name => h(@logged_in_user.first_name)) %></h2> 
-		   <div class="welcome_message">
+<div class="section greeting" id="admin-greeting">
+	<div class="header">
+		<div class="title">
+			<h2 class="title">
+				<%= t("label.user_greeting", :name => h(@logged_in_user.first_name)) %>
+			</h2> 
+			<div class="description">
 				<%= t("label.user_welcome_to_admin", :name => h(@logged_in_user.first_name)) %>
-		   </div>
-	   </div>
+			</div>
+		</div>
 	</div>
-	
-	<div class="box_2">
-		<table style="width:100%" cellpadding=0 cellspacing=0>
-			<tr>
-				<td align=left>
-					<h2 class='title'>
-						<%= t("label.items_latest", :items => Log.model_name.human(:count => :other)) %>
-					</h2>									
-				</td>
-				<td align=right>
-					<%= link_to icon("logs") + " " + t("single.all") + " " + Log.model_name.human(:count => :other), logs_path %>														
-				</td>
-			</tr>
-		</table>	
-		<hr>		
-		<%= render :partial => "logs/list_logs", :locals => {:logs => @latest_logs} %>
-	</div>
-	
-
-	<br>			
 </div>
+
+<div class="section" id="admin-latest-logs">
+	<div class="header">
+		<div class="title">
+			<h2 class='title'>
+				<%= t("label.items_latest", :items => Log.model_name.human(:count => :other)) %>
+			</h2>			
+		</div>
+		<div class="menu">
+			<%= content_tag :ul, :class => :menu do %>				
+				<%= content_tag(:li, link_to(icon("logs") + " " + t("single.all") + " " + Log.model_name.human(:count => :other), logs_path)) %>									
+			<% end %>
+		</div>
+	</div>
+	<%= render :partial => "logs/list_logs", :locals => {:logs => @latest_logs} %>													
+</div>						

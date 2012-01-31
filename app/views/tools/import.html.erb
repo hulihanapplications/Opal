@@ -1,41 +1,33 @@
-<div id="side">
-	<%= render :partial => "/items/menu" %>
-</div>
-<div id="main">					
-		<div class="header">					
-			<table style="width:100%;" cellpadding=0 cellspacing=0>
-				<tr>
-					<td align=left>
-						<h2 class="title">
+<% content_for :side do %>
+  	<%= render :partial => "items/menu" %>	
+<% end %>
+<div class="section">		
+	<div class="header">		
+		<div class="title">
+			<h2 class="title">
 							<%= t("single.import") %> <%= Item.model_name.human(:count => :other) %>
-						</h2>						
-					</td>
-					<td align=right >
-					</td>
-				</tr>
-			</table>
-		</div>
-		
-	<!--Import Items from a file directly into <%= @setting[:title] %>. You can also select a category to import these items to.-->
-	
+			</h2>						
+		</div>		
+	</div>
+
 	<%= form_tag({:action => "do_import", :controller => "tools"}, :multipart => true) do %>
-	   <table style="width:100%">
+	   <table class="cell" cellpadding=0 cellspacing=0>
 		   	<tr>
-		   		<td valign=top style="width:60%">
+		   		<td class="main left">
 		   			<div class="box_2">
 		   				<%= render :partial => "upload_form" %>
 		   			</div>
 		   		</td>
-				<td >
-					<div class="box_1" style="margin-bottom:5px">
+				<td class="side right">
+					<div class="box_1">
 						<h2><%= t("single.format") %></h2>
-						<div class="spacer"></div>
+						<hr />
 						<input type="radio" name="format" value="csv" CHECKED> <%= t("label.csv") %> <br>
 						<!--<input type="radio" name="format" value="excel"> Excel <br>-->									
 					</div>							
 		   			<div class="box_1">
 						<h2><%= Category.model_name.human(:count => :other) %></h2>
-						<div class="spacer"></div>
+						<hr />
 						<% for category in Category.get_parent_categories  %>
 							<%= descend_category(category, :include_children => @setting[:include_child_category_items], :make_radio_button => true, :truncate_length => 35)  %>
 						<% end %>														   				

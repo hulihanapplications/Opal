@@ -1,36 +1,20 @@
-<div class="section">
-	<div id="side">
-		<%= render :partial => "pages/menu" %>	  
+<% content_for :side do %>
+	<%= render :partial => "pages/menu" %>	  
+<% end %>
+
+<div class="header">					
+	<div class="title">
+				<h2 class="title">
+					<% page_type = t("activerecord.models.#{(params[:type] + "Page").underscore}") %>
+					<a name="pages"></a>
+					<%= t("activerecord.models.#{(params[:type] + "Page").underscore}", :count => :other)  %>
+				</h2>
 	</div>
-	<div id="main">		
-				<div class="header">					
-					<table style="width:100%;" cellpadding=0 cellspacing=0>
-						<tr>
-							<td align=left>
-								<h2 class="title">
-									<% page_type = t("activerecord.models.#{(params[:type] + "Page").underscore}") %>
-									<a name="pages"></a>
-									<%= t("activerecord.models.#{(params[:type] + "Page").underscore}", :count => :other)  %>
-								</h2>
-							</td>
-							<td align=right >
-								<% if params[:type] != "System" %>											
-									<%= link_to icon("new") + " " + t("label.item_new", :item => t("activerecord.models.#{(params[:type] + "Page").underscore}", :count => 1)), {:action => "new", :type => params[:type]}, :class=> "plugin_title_link" %>
-								<% end %>										
-							</td>
-						</tr>
-					</table>
-				</div>
-	
-				<div class="" style="margin-bottom:5px">
-	
-					<div align=center>
-						<%= render :partial => "list_pages", :locals => {:pages => @pages, :options => {:sortable => params[:type].downcase == "public"}} %>
-				 		<%#= page_entries_info @pages, :entry_name => page_type  %>							
-						<br>
-						<%#= will_paginate @pages %>					
-					</div>
-				</div>	
-						
+	<div class="menu">
+		<%= content_tag :ul, :class => :menu do %>
+			<%= content_tag(:li, link_to(icon("new") + " " + t("label.item_new", :item => t("activerecord.models.#{(params[:type] + "Page").underscore}", :count => 1)), {:action => "new", :type => params[:type]}, :class=> "plugin_title_link")) if params[:type] != "System" %>
+		<% end %>										
 	</div>
-</div>			
+</div>
+
+<%= render :partial => "list_pages", :locals => {:pages => @pages, :options => {:sortable => params[:type].downcase == "public"}} %>	

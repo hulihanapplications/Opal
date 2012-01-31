@@ -1,22 +1,21 @@
+<% content_for :side do %>
+	<%= render :partial => "pages/menu" %>
+<% end if false %>				
+
 <%= form_for(@page, :url => { :action => 'update', :controller => "pages", :id => @page.id }, :method => "post") do |f| %>
-	<div id="side">
-			  	<%= render :partial => "pages/menu" %>				
-	</div>
-	<div id="main">
+	<div>
 		<input type="hidden" name="page[page_type]" value="<%= @page.page_type.downcase %>">
 			<div class="header">
-				<table cellpadding=0 cellspacing=0>
-					<tr>
-						<td class="left">
-							<h2 class="title">
-								<%= t("label.item_edit", :item => @page.model_name) %>
-							</h2>							
-						</td>
-						<td class="right">
-							<%= link_to(t("single.view"), {:action => "view", :controller => "pages", :id => @page}, :target => "_blank") unless @page.is_system_page? %>
-						</td>
-					</tr>
-				</table>
+				<div class="title">
+					<h2 class="title">
+						<%= t("label.item_edit", :item => @page.model_name) %>
+					</h2>							
+				</div>
+				<div class="menu">
+					<%= content_tag :ul, :class => "menu" do %>
+						<%= content_tag(:li, link_to(t("single.view"), {:action => "view", :controller => "pages", :id => @page}, :target => "_blank")) %>														
+					<% end unless @page.is_system_page? %>
+				</div>
 			</div>
 
 			<%= render :partial => "form", :locals => {:page => @page, :f => f} %>
@@ -26,6 +25,4 @@
 	</div>	
 <% end %>
 
-<div align=center style="clear:both">						
-	<%= link_to icon("arrow_left") + " " + t("single.back"), {:action => "index", :type => @page.page_type}  %>
-</div>
+<%= back %>

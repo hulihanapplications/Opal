@@ -1,18 +1,17 @@
 <% 
 	subpages ||= page.pages.published.display_in_menu.in_order
 %>
-<% content_for :side do %>
-	<div class="page menu">
-		<h2 class="title">
-			<%= link_to_page page %>
-		</h2>
-		<div class="pages">				
-			<%= content_tag :ul, :class => :menu do %>
-				<% for subpage in subpages %>
-					<%= content_tag(:li, link_to_page(subpage)) %>				
-					<%#= descend_page(subpage) %>
-				<% end %>	
-			<% end %>
-		</div>
+<div class="page menu" id="pages">
+	<h2 class="title">
+		<%= link_to_page page %>
+	</h2>
+	<div class="pages">				
+		<%= content_tag :ul, :class => :menu do %>
+			<% for subpage in subpages %>
+				<%= content_tag(:li, link_to_page(subpage)) %>				
+				<%#= descend_page(subpage) %>
+			<% end %>	
+		<% end %>
 	</div>
+</div>
 <% end if !subpages.empty? %>

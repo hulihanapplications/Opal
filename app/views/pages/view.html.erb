@@ -1,8 +1,11 @@
-<% if params[:controller] == "blog" %>
-	<%= render :partial => "blog/menu" %>
-<% else %>
-	<%= render :partial => "menu_for_page", :locals => {:page => @page}  %>				
+<% content_for :side do %>
+	<% if params[:controller] == "blog" %>
+		<%= render :partial => "blog/menu" %>
+	<% else %>
+		<%= render :partial => "menu_for_page", :locals => {:page => @page}  %>				
+	<% end %>
 <% end %>
-
-<%= render @page %>
-
+	
+<div class="page" id="page">
+	<%= render @page %>
+</div>

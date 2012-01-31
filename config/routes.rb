@@ -30,13 +30,9 @@ Rails.application.routes.draw do
                :month => nil, :day => nil,
                :constraints  => {:year => /\d{4}/, :month => /\d{1,2}/,:day => /\d{1,2}/},
                :as => :blog_archive
-
- 
-
    
   # Simple Captcha
   match '/simple_captcha/:id', :to => 'simple_captcha#show', :as => :simple_captcha
-
 
   # Resources  
   resources :user_sessions
@@ -55,8 +51,6 @@ Rails.application.routes.draw do
   end
   match '/auth/:provider/callback' => 'authentications#create'
   match '/auth/failure' => 'authentications#failure'
-
-  
   
   resources :plugin_videos do 
     get :delete, :on => :collection 

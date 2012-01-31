@@ -58,7 +58,7 @@ div#side div.menu{}
 			div#side ul.menu li span.count{background:#fff;border:1px solid #ccc;padding:3px;font-size:10px;;display:block;min-width:15px;}	
 div#side div.menu div.footer{border-top:1px solid #aaa;padding:5px;}
 
-
+div.header ul.menu li{}
 
 /* Boxes */
 .box_1, div#side > div{border:1px solid #aaa;background:#E9E9E9;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:10px;}
@@ -74,12 +74,12 @@ div#side div.menu div.footer{border-top:1px solid #aaa;padding:5px;}
 
 
 
-.record_menu li > a, .record_menu li > span{-moz-border-radius: 5px;-webkit-border-radius: 5px;}
-.record_menu li > span{border:1px solid #bbb;background:url(../images/bgs/white_trans_50.png) repeat;}
-.record_menu li > a{border:1px solid #aaa; background:url(../images/bgs/button_3_bg.png) repeat center center;}
-.record_menu li > a:hover{border:1px solid #999;}
-.record_menu span > a img{background:url(../images/icons/spacer.png) no-repeat left center;padding-left:14px;}
-.record_menu span > a img.avatar{background:none;padding-left:0px;}
+.record_menu li > a, .record_menu li > span, div.header ul.menu li > a, div.header ul.menu li > span{-moz-border-radius: 5px;-webkit-border-radius: 5px;}
+.record_menu li > span, div.header ul.menu li > span{border:1px solid #bbb;background:url(../images/bgs/white_trans_50.png) repeat;}
+.record_menu li > a, div.header ul.menu li > a{border:1px solid #aaa; background:url(../images/bgs/button_3_bg.png) repeat center center;}
+.record_menu li > a:hover, div.header ul.menu li > hover{border:1px solid #999;}
+.record_menu span > a img, div.header ul.menu span > a img{background:url(../images/icons/spacer.png) no-repeat left center;padding-left:14px;}
+.record_menu span > a img.avatar, div.header ul.menu span > a img.avatar{background:none;padding-left:0px;}
 
 
 /* Titles */
@@ -101,9 +101,6 @@ h1.title, h2.title, h3.title{}
 	.field_with_errors{color:#AF0000;}
 		.field_with_errors input, .field_with_errors textarea, .field_with_errors select{border: 1px solid #AF0000;}
 	.notice img.loading{margin:0px 0px 10px 0px;}
-
-
-
 
 /* Images */
 div.preview, img.preview{background:white;padding:3px;margin:3px;border:0px solid #aaa;opacity:0.80;filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity: 0.8; box-shadow: 0px 2px 5px #333;-moz-box-shadow: 0px 2px 5px #333;  -webkit-box-shadow: 0px 2px 5px #333;}

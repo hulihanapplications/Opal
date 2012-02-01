@@ -1,6 +1,8 @@
 <%= auto_discovery_link_tag(:rss, {:action => "rss", :controller => "blog"}, {:title => "#{t("label.rss_feed")} - #{t("section.title.blog").capitalize}"}) %>
 <div class="blog menu" id="blog-menu"> 
-	<h2 class="title"><%= t("single.archive") %></h2>
+	<h2 class="title">
+		<%= t("single.archive") %>
+	</h2>
 	<%# Get Post archive by using group_by %>
 	<% @post_archives = Page.find(:all, :order => "created_at DESC", :conditions => ["page_type = ? and published = ?", "blog", true]).group_by{|post| post.created_at.beginning_of_month } %>	
 	<% if @post_archives.size > 0 %>

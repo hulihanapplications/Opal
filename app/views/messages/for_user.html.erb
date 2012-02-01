@@ -1,20 +1,26 @@
+<% content_for :side do %>
+	<%= render :partial => "messages/menu" %>
+<% end %>
 
-<h2 class="title"><%= t("label.items_for", :items => UserMessage.model_name.human(:count => :other), :name =>  @user.username) %></h2>
-<div class="spacer"></div>
- <div id="status_box" style="height:20px;"><%# This is where the ajax output goes %>
- </div>
- 
-<div id="side">
-			<%= render :partial => "messages/menu" %>
+<div id="status_box">
+	<%# This is where the ajax output goes %>
 </div>
-<div id="main">
-	<div class="box_2">
-		<%= render :partial => "messages/list_messages", :locals => {:messages => @messages[params[:type].to_sym]}%>
 
-		<div align=center><%= page_entries_info @messages[params[:type].to_sym], :entry_name => UserMessage.model_name.human(:count => :other) %></div>						
+<div class="header">					
+	<div class="title">
+		<h2 class="title">
+			<% if params[:action] == "for_me" %>
+				<%= t("label.item_my", :item => UserMessage.model_name.human(:count => :other)) %>
+			<% else %>
+				<%= t("label.items_for", :items => UserMessage.model_name.human(:count => :other), :name =>  @user.to_s) %>
+			<% end %>
+		</h2>					
 	</div>
-	<br>	
-	<div align=center>
-		<%= will_paginate @messages[params[:type].to_sym] %>	
-	</div>	
-</div>
+</div>	
+
+<%= render :partial => "messages/list_messages", :locals => {:messages => @messages[params[:type].to_sym]} %>
+
+<div align=center>
+	<%= page_entries_info @messages[params[:type].to_sym], :entry_name => UserMessage.model_name.human(:count => :other) %>
+	<%= will_paginate @messages[params[:type].to_sym] %>	
+</div>	

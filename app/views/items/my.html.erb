@@ -1,25 +1,25 @@
-<div id="side">
-		<%= render :partial => "items/menu_user" %>
-</div>
-<div id="main">		
-	<div class="header">
-		<table style="width:100%;" cellpadding=0 cellspacing=0>
-			<tr>
-				<td align=left>
-					<h2 class="title"><%= t("label.item_my", :item => Item.model_name.human(:count => :other))  %></h2>						
-				</td>
-				<td align=right >
-					<%= render :partial => "main_content_top_bar" %>	
-				</td>
-			</tr>
-		</table>		
+<% content_for :side do %>
+	<%= render :partial => "items/items_remaining" %>
+<% end %>
+
+<div class="header">					
+	<div class="title">
+		<h2 class="title">
+			<%= t("label.item_my", :item => Item.model_name.human(:count => :other))  %>
+		</h2>					
 	</div>
-	<%= render :partial => "/items/list_items", :locals => {:items => @items} %>
-	<div class="pagination">
-		<%= page_entries_info @items, :entry_name => Item.model_name.human %>	
-		<%= will_paginate @items %>
-	</div>		
-</div>
+	<div class="menu">
+		<%= render :partial => "main_content_top_bar" %>	
+	</div>
+</div>	
+
+<%= render :partial => "/items/list_items", :locals => {:items => @items} %>
+
+<div class="pagination">
+	<%= page_entries_info @items, :entry_name => Item.model_name.human %>	
+	<%= will_paginate @items %>
+</div>		
+
 
 
 

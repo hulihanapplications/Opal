@@ -1,0 +1,71 @@
+<div class="page">
+	<%= render :partial => "pages/page_header", :locals => {:page => page} %>
+	<div class="blog-post" id="blog-post">	
+		<div class="header" id="blog-post-header">
+			<table cellpadding=0 cellspacing=0 class="cell">
+				<tr>
+					<td class="left main"> 
+						<h1 class="title"> <%= link_to page.title, {:action => "page", :controller => "pages", :id => page} %></h1>							
+					</td>
+					<td class="right side">
+						<%= friendly_date page.created_at %>
+						<% if page.user %>
+							<%= t("single.by").downcase %>
+							<b><%= link_to page.user.username, {:action => "user", :controller => "browse", :id => page.user}, :title => "#{page.user.username}"  %></b>
+							<%= user_avatar(page.user, :class => "tiny") %>
+						<% end %>																															
+				 	</td>									
+				</tr>
+			</table>
+		</div>
+		
+		<div class="content" id="blog-post-content">
+			<%= raw page.content %>
+		</div>
+		
+		<% if Setting.get_setting_bool("allow_page_comments") %>
+			<% 
+				plugin_comments ||= PluginComment.record(page).paginate(:page => params[:page]).roots.most_votes_first.newest_first			
+			  	plugin_comments = plugin_comments.approved unless page.can?(@logged_in_user, :edit)		
+			%>	
+			<div class="comments" id="blog-post-comments">
+		   		<% if params[:action] == "post" %>
+						<div class="header" id="blog-post-comments-header">
+							<a name="<%= PluginComment.model_name.human(:count => :other) %>"></a>											
+							<div class="title">
+								<h2 class="title">
+									<%= plugin_comments.size %> <%= PluginComment.model_name.human(:count => plugin_comments.size) %>
+								</h2>
+							</div>
+							<div class="menu">
+								<ul class="menu">
+									<li>
+										<%= link_to icon("new") + " " + t("label.item_new", :item => PluginComment.model_name.human), {:action => "new", :controller => "plugin_comments", :record_type => page.class.name, :record_id => page.id}, :remote => true, :id => "new_plugin_comment_link" if PluginComment.can?(@logged_in_user, :create)  %>							
+									</li>
+								</ul>
+							</div>
+						</div>
+			
+						<div id="new_plugin_comment">
+						</div>	
+						<% if plugin_comments.size > 0 %>
+							<div class="comments">
+								<% for plugin_comment in plugin_comments %>
+									<%= render plugin_comment %>
+								<% end %>
+							</div>
+						<% else %>	
+							<%= t("label.items_none_added", :items => PluginComment.model_name.human(:count => :other)) %>
+						<% end %>
+							
+						<%= paginate(plugin_comments) %>
+			  		</div>
+			  	<% else %>
+			  		<div id="comment-count">								
+					 	<%= link_to icon("comments") + " #{plugin_comments.approved.size} #{PluginComment.model_name.human(:count => :other)}", {:action => "page", :controller => "pages", :id => page, :anchor => "comments"} %>
+					</div>
+			  	<% end %>
+		  	</div>
+		<% end %>	 	
+	</div>	
+</div>

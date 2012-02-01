@@ -7,10 +7,12 @@
 	<% if options[:category] %>
 		<% @category = options[:category] %>
 		
-		<h2 class="title" title="<%= @category.description unless @category.description.blank? %>"><%= @category.name %></h2>
+		<h2 class="title" title="<%= @category.description %>">
+			<%= @category.name %>
+		</h2>
 		<%= content_tag :ul, :class => :menu do %>
 			<% for category in @category.child_categories %>
-				<%= content_tag(:li, descend_category(category, :include_children => @setting[:include_child_category_items], :show_item_count => true, :depth => 0))  %>
+				<%= content_tag(:li, link_to_category(category)) %>
 			<% end %>			
 		<% end %>
 		<div class="footer">
@@ -18,10 +20,12 @@
 	    	<%= link_to icon("rss", "#{t("label.rss_feed")} - #{@category.name}") + " #{t("label.rss_feed")} - #{@category.name}",  {:action => "category", :controller => "items", :id => @category,  :format => "xml"} %>
 	    </div>	
 	<% else %>
-		<h2 class="title"><%= Item.model_name.human(:count => :other) %></h2>
+		<h2 class="title">
+			<%= Item.model_name.human(:count => :other) %>
+		</h2>
 		<%= content_tag :ul, :class => :menu do %>	
 			<% for category in Category.get_parent_categories %>
-				<%= content_tag(:li, descend_category(category, :include_children => @setting[:include_child_category_items], :show_item_count => true, :depth => 0))  %>		
+				<%= content_tag(:li, link_to_category(category)) %>
 			<% end %>
 		<% end %>	
 	<% end %>

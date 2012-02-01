@@ -58,14 +58,14 @@ div#side div.menu{}
 			div#side ul.menu li span.count{background:#fff;right:6px;border:1px solid #ccc;padding:3px;font-size:10px;;display:block;min-width:15px;}
 		div#side ul.menu li.selected{padding:5px 3px 5px 9px;border:1px solid #ccc;background:url(../images/bgs/white_trans_50.png) repeat}		
 			div#side ul.menu li.selected span.count{top:5px;right:5px;}			
-div#side div.menu div.footer{border-top:1px solid #aaa;padding:5px;}
+div#side div.menu div.footer{border-top:1px solid #aaa;padding-top:5px;margin-top:5px;}
 
 
 /* Boxes */
 .box_1, div#side > div{border:1px solid #aaa;background:#E9E9E9;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:10px;}
 	.box_1 h1.title, .box_1 h2.title, .box_1 h3.title{}
 	.box_1 hr, .box_1 div.spacer{width: 100%; margin: 5px 0px 5px 0px; height: 1px; background: #ccc; border: 0; }
-.box_2{border:1px solid #ccc;background:url(../images/bgs/white_trans_50.png) repeat;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:10px;}
+.box_2, div.logs div.log, div#blog-post{border:1px solid #ccc;background:url(../images/bgs/white_trans_50.png) repeat;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:10px;}
 	.box_2 h1.title, .box_2 h2.title, .box_2 h3.title{;}
 	.hover .box_2{border:1px solid #999}
 .box_3{background:url(../images/bgs/white_trans_50.png) repeat;border:1px solid #ccc;;padding:10px;text-align:center;;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-right:0px;margin-bottom:10px;}
@@ -211,6 +211,13 @@ div.spacer{border-bottom:1px solid #ccc;margin-bottom:2px;margin-top:2px;}
 
 /* Pages & Blog Posts */
 .page{margin-bottom:10px;}
+div#side > div.page{background:0;border:0;}
+
+div#blog-header{display:none}
+div.blog{}
+	div#blog-post > div.header{border-bottom:1px solid #ccc}
+	div#blog-post > div.content{border-bottom:1px solid #ccc;margin-bottom:10px;padding-bottom:10px;}
+	div#blog-post div.comments div.header{margin-top:10px}
 
 
 /* Other */	

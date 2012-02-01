@@ -1,24 +1,17 @@
 
 <div class="header">
-	<table style="width:100%">
-		<tr>
-			<td align=left>
-				<% if @user.id == @logged_in_user.id %>
-					<h2 class="title"><%=  t("section.title.my_settings") %></h2>
-				<% else %>
-					<h2 class="title"><%= t("label.item_edit", :item => User.model_name.human) %></h2>
-				<% end %>									
-			</td>
-			<td align=right>
-
-			</td>
-		</tr>
-	</table>			
+	<div class="title">
+			<% if @user.id == @logged_in_user.id %>
+				<h2 class="title"><%=  t("section.title.my_settings") %></h2>
+			<% else %>
+				<h2 class="title"><%= t("label.item_edit", :item => User.model_name.human) %></h2>
+			<% end %>									
+	</div>
 </div>
 <div class="">
-	<table width="100%" cellpadding=0 cellspacing=0>
+	<table class="cell" cellpadding=0 cellspacing=0>
 		<tr>
-			<td align=center class="left">
+			<td align=center class="half left">
 						<div class="box_2">
 							<h3 class="title"><%= t("single.avatar") %></h3>
 							<%= form_tag({:action => 'change_avatar', :id => @user.id}, :multipart => true) do %>
@@ -130,7 +123,7 @@
 						<% end %>				
 					<% end %>
 		</td>
-		<td align=left class="right">
+		<td class="half right">
 	            <div class="box_2" id="edit_user_box_<%= @user.id %>" align=center>
 	                <%= form_for(@user,  :url => { :action => "update", :controller => "users", :id => @user.id}) do |f| %>
 	                    <div align=left><h3 class="title"><%= t("single.details") %></h3></div>

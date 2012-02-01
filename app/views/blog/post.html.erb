@@ -1,51 +1,6 @@
-<div id="side">
+<% content_for :side do %>
 		<%= render :partial => "menu" %>
-</div>
-<div id="main">
-	<%= render :partial => "pages/page_header", :locals => {:page => @page} %>
-   <div class="box_2 blog_page page">
-		<%= render :partial => "blog/list_page", :locals => {:page => @page} %>
-   </div> 
-
-   <div class="box_2 comments_section">
-		<% if Setting.get_setting_bool("allow_page_comments") %>
-			<% 
-			  	if @page.can?(@logged_in_user, :edit)
-					plugin_comments ||= PluginComment.record(@page).paginate(:page => params[:page]).roots.most_votes_first.newest_first
-				else
-					plugin_comments ||= PluginComment.record(@page).paginate(:page => params[:page]).roots.approved.most_votes_first.newest_first				
-				end			
-			%>
-
-			<div class="plugin_box">
-				<div class="header title">
-					<table style="width:100%" cellpadding=0 cellspacing=0>
-						<tr>
-							<td align=left>
-								<a name="<%= PluginComment.model_name.human(:count => :other) %>"></a>
-								<h2 class="title"><%= plugin_comments.size %> <%= PluginComment.model_name.human(:count => plugin_comments.size) %></h2>										
-							</td>
-							<td align=right>
-								<%= link_to icon("new") + " " + t("label.item_new", :item => PluginComment.model_name.human), {:action => "new", :controller => "plugin_comments", :record_type => @page.class.name, :record_id => @page.id}, :remote => true, :id => "new_plugin_comment_link" if PluginComment.can?(@logged_in_user, :create)  %>
-							</td>
-						</tr>
-					</table>				
-				</div>	
-				<div id="new_plugin_comment">
-				</div>	
-				<% if plugin_comments.size > 0 %>
-					<div class="comments">
-						<% for plugin_comment in plugin_comments %>
-							<%= render plugin_comment %>
-						<% end %>
-					</div>
-				<% else %>	
-					<%= t("label.items_none_added", :items => PluginComment.model_name.human(:count => :other)) %>
-				<% end %>
-				
-			</div>
-			
-			<%= paginate(plugin_comments) %>
-		<% end %>	   
-  </div>	
+<% end %>
+<div class="section blog">
+	<%= render :partial => "blog/blog_post", :locals => {:page => @page} %>  	
 </div>

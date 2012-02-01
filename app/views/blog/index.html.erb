@@ -1,22 +1,31 @@
-<div id="side">
-		<%= render :partial => "menu" %>
-</div>
-<div id="main">
-   <div class="header">
+<% content_for :side do %>
+	<%= render :partial => "menu" %>
+<% end %>
+<div class="section blog">
+   <div class="header" id="blog-header">
+		<div class="title">
+			<h2 class="title">
+				<%= Page.find_by_name("blog").title %>
+			</h2>
+		</div>   	
    		<% if @logged_in_user.is_admin? %>
-   			<div align=right>
-				<%= link_to raw("#{icon('new')} #{t('label.item_new', :item => t('activerecord.models.blog_page', :count => 1))}"), {:action => "new", :controller => "pages", :type => "Blog"} if @logged_in_user.is_admin?  %>
+   			<div class="menu">
+   				<ul class="menu">
+					<%= content_tag(:li, link_to(raw("#{icon('new')} #{t('label.item_new', :item => t('activerecord.models.blog_page', :count => 1))}"), {:action => "new", :controller => "pages", :type => "Blog"})) if @logged_in_user.is_admin?  %>   					
+   				</ul>
 			</div>
 		<% end %>			
    </div>
    <%= show_page Page.find_by_name("blog") %>
-   <div>
-			<%= render :partial => "blog/list_pages", :locals => {:pages => @pages} %>
+   <div id="blog-posts">
+		<% for page in @pages %>
+			<%= render :partial => "blog/blog_post", :locals => {:page => page} %>
+		<% end %>
    </div>
-   <div align=center>
- 	 		<%= page_entries_info @pages, :entry_name => t("activerecord.models.blog_page", :count => @pages.size) %>							
-			<br>
-			<%= will_paginate @pages %>	  	
+      
+   <div class="pagination">
+ 	 	<%= page_entries_info @pages, :entry_name => t("activerecord.models.blog_page", :count => @pages.size) %>							
+		<%= will_paginate @pages %>	  	
    </div>
 	   
 </div>

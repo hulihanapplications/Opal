@@ -65,4 +65,8 @@ def descend_category(category, options = {})    # recursive print out  category 
    end
    raw html
   end  
+  
+  def link_to_category(category)
+    link_to category.to_s, {:action => :category, :controller => :items, :id => category}, :title => category.description 
+  end
 end

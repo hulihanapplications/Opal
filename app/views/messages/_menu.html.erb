@@ -1,15 +1,19 @@
-<div class="box_2 menu">
+<div class="menu">
 	<h3 class="title" align=left><%= UserMessage.model_name.human(:count => :other) %></h3>
+	<ul class="menu">
+		<li class="<%= params[:type] == "unread" ? "selected" : "" %>" >
+			<%= link_to UserMessage.human_attribute_name(:unread), {:action => params[:action], :controller => "messages", :type => "unread"} %>
+			<%= content_tag :span, @messages[:unread].total_entries, :class => :count %>				
+		</li>
+		
+		<li class="<%= params[:type] == "read" ? "selected" : "" %>" >
+			<%= link_to UserMessage.human_attribute_name(:read), {:action => params[:action], :controller => "messages", :type => "read"} %>
+			<%= content_tag :span, @messages[:read].total_entries, :class => :count %>											
+		</li>
 	
-	<div class="box_<%= params[:type] == "unread" ? "1" : "2" %>" >
-		<%= link_to "#{UserMessage.human_attribute_name(:unread)} (#{@messages[:unread].total_entries})", {:action => params[:action], :controller => "messages", :type => "unread"} %></a>				
-	</div>
-	
-	<div class="box_<%= params[:type] == "read" ? "1" : "2" %>" >
-		<%= link_to "#{UserMessage.human_attribute_name(:read)} (#{@messages[:read].total_entries})", {:action => params[:action], :controller => "messages", :type => "read"} %></a>				
-	</div>
-
-	<div class="box_<%= params[:type] == "sent" ? "1" : "2" %> last" >
-		<%= link_to "#{t("single.sent")} (#{@messages[:sent].total_entries})", {:action => params[:action], :controller => "messages", :type => "sent"} %></a>				
-	</div>		
+		<li class="<%= params[:type] == "sent" ? "selected" : "" %> last" >
+			<%= link_to t("single.sent"), {:action => params[:action], :controller => "messages", :type => "sent"} %>
+			<%= content_tag :span, @messages[:sent].total_entries, :class => :count %>										
+		</li>		
+	</ul>
 </div>

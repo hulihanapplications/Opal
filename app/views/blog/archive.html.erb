@@ -1,18 +1,19 @@
-<div id="side">
+<% content_for :side do %>
 	<%= render :partial => "menu" %>
-</div>
-<div id="main">
-	<div align=center>
-		 <%= content_tag(:h2, l(@date.to_date, :format =>  !params[:day].blank? ? :long : !params[:month].blank? ? :month_year : "%Y"), :class => "title")  %>
+<% end %>
+<div class="section blog">
+	<div class="header">
+		<div class="title">
+		 	<%= content_tag(:h2, l(@date.to_date, :format =>  !params[:day].blank? ? :long : !params[:month].blank? ? :month_year : "%Y"), :class => "title")  %>
+		</div>
 	</div>
-	<br>	
-	<div>
-		<%= render :partial => "blog/list_pages", :locals => {:pages => @pages} %>
+	<div id="blog-posts">
+		<% for page in @pages %>
+			<%= render :partial => "blog/blog_post", :locals => {:page => page} %>
+		<% end %>
 	</div>
-	<div align=center>
+	<div class="pagination">
  		<%= page_entries_info @pages, :entry_name => t("activerecord.models.blog_page", :count => :other)  %>							
-		<br>
 		<%= will_paginate @pages %>	  	
-	</div>
-	   
+	</div>	   
 </div>

@@ -36,7 +36,8 @@ class MessagesController < ApplicationController
     @messages = Hash.new # hash to store messages
     @messages[:unread] = UserMessage.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i, :conditions => ["user_id = ? and to_user_id = ? and is_read = '0'", @logged_in_user.id, @logged_in_user.id ]
     @messages[:read] = UserMessage.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i, :conditions => ["user_id = ? and to_user_id = ? and is_read = '1'", @logged_in_user.id, @logged_in_user.id ]      
-    @messages[:sent] = UserMessage.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i, :conditions => ["user_id = ? and from_user_id = ?", @logged_in_user.id, @logged_in_user.id]        
+    @messages[:sent] = UserMessage.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i, :conditions => ["user_id = ? and from_user_id = ?", @logged_in_user.id, @logged_in_user.id]
+    render :for_user        
   end
   
   def delete_message

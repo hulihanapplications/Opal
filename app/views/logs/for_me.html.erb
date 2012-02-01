@@ -1,9 +1,10 @@
-<div align=center>
-	<h2 class="title">
-		<%= t("label.item_my", :item => Log.model_name.human(:count => :other)) %>
-	</h2>
+<div class="header">
+	<div class="title">
+		<h2 class="title">
+			<%= t("label.item_my", :item => Log.model_name.human(:count => :other)) %>
+		</h2>
+	</div>
 </div>
-<br>
 
 <%= render :partial => "logs_page", :locals => {:logs => @logs} %>
 

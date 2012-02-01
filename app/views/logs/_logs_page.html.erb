@@ -1,14 +1,12 @@
-<div id="side">
-	  		<%= render :partial => "tools/menu" if (params[:controller] == "logs" && params[:action] == "index")%>
-			<div class="box_1" style="margin-bottom:5px;">
-				<%= render :partial => "logs/legend" %>
-			</div>	
-</div>
-<div id="main">
-	  	<div class="box_2">
-			<%= render :partial => "logs/list_logs", :locals => {:logs => logs} %>
-		</div>			
-		<%= will_paginate @logs %>	
+<% content_for :side do %>
+	<%= render :partial => "tools/menu" if (params[:controller] == "logs" && params[:action] == "index")%>
+	<%= render :partial => "logs/key" %>
+<% end %>
+<div class="section">
+  	<div>
+		<%= render :partial => "logs/list_logs", :locals => {:logs => logs} %>
+	</div>			
+	<%= will_paginate @logs %>	
 </div>
 
 

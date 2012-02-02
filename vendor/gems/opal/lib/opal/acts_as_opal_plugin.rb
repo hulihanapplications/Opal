@@ -5,6 +5,10 @@ module Opal
       def record(record)
         where(:record_id => record.id, :record_type => record.class.name)
       end
+
+      def user(user)
+        where(:user_id => user.id)
+      end
             
       def approved
          where("is_approved = ?", "1")

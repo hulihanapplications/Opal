@@ -68,9 +68,10 @@ table.cell{width:100%}
 	.item .new{position:relative;bottom:0px;left:0px;}
 
 /* Previews */
-div.preview_not_found a, .preview_text{text-align:center;position: relative;display:table}
+div.preview_not_found a, .preview_text{text-align:center;position: relative;display:table;}
 	div.preview_not_found h2{;display:table-cell;vertical-align: middle}
-	
+	div.preview_text img.avatar, div.preview_text div{margin-top:5px;}
+				
 	/* Item Page */
 	.plugins .plugin_box{clear:both}
 

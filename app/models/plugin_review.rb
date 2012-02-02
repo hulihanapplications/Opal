@@ -21,6 +21,9 @@ class PluginReview < ActiveRecord::Base
   validates_presence_of :review_score
   validates_presence_of :record_id, :user_id
   validates_length_of :review, :minimum => 16
+  validate :validate_existing_review
+  validate :validate_owner
+  validate :validate_range
   
   attr_accessible :review, :review_score 
   
@@ -28,15 +31,18 @@ class PluginReview < ActiveRecord::Base
   	truncate(strip_tags(review), :length => 50)
   end
   
-  def validate # custom validations          
+  def validate_owner
+    errors.add(:base, I18n.t("activerecord.errors.messages.item_must_be_owner", :item => self.class.model_name.human)) if Setting.get_setting_bool("only_creator_can_review") && self.user_id != self.item.user_id         
+  end
+  
+  def validate_range
     min = PluginReview.get_setting("score_min").to_i
     max = PluginReview.get_setting("score_max").to_i
-    errors.add(:review_score, I18n.t("activerecord.errors.messages.range", :min => min, :max => max)) if !(self.review_score.to_i >= min && self.review_score.to_i <= max) 
+    errors.add(:review_score, I18n.t("activerecord.errors.messages.range", :min => min, :max => max)) if !(self.review_score.to_i >= min && self.review_score.to_i <= max)    
   end
-    
-  def validate_on_create
-     errors.add(:base, I18n.t("activerecord.errors.messages.items_cannot_add_more", :items => self.class.model_name.human(:count => :other))) if PluginReview.find(:all, :conditions => ["user_id = ? and item_id = ?", self.user_id, self.item_id]).size > 0
-     errors.add(:base, I18n.t("activerecord.errors.messages.item_must_be_owner", :item => self.class.model_name.human)) if Setting.get_setting_bool("only_creator_can_review") && self.user_id != self.item.user_id    
+
+  def validate_existing_review
+    errors.add(:base, I18n.t("activerecord.errors.messages.items_cannot_add_more", :items => self.class.model_name.human(:count => :other))) unless PluginReview.user(self.user).record(self.record).empty?        
   end
 
   def destroy_votes # destroy make_voteable votes

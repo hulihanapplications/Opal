@@ -4,6 +4,6 @@
 	<div class="preview_text preview_<%= record.class.model_name.underscore %>">
 		<%= content_tag(:div, user_avatar(record.user, :class => "small")) %>
 		<%= content_tag(:div, score(:value => record.review_score)) %>
-		<%= truncate(record.review, :length => 60) %>
+		<%= content_tag(:div, truncate(strip_tags(record.review), :length => 60), :class => :content) %>
 	</div>
 <% end %>

@@ -66,11 +66,16 @@ table.cell{width:100%}
 	.item input.name, .item .name a, .item .name{font-size:24px;;text-align:left;}
 	.item > .description, .item .details .description, .item #details .description{font-size:16px;;text-align:left;}
 	.item .new{position:relative;bottom:0px;left:0px;}
-	div.preview_not_found a, .preview_text{text-align:center;position: relative;display:table}
-		div.preview_not_found h2{;display:table-cell;vertical-align: middle}
+
+/* Previews */
+div.preview_not_found a, .preview_text{text-align:center;position: relative;display:table}
+	div.preview_not_found h2{;display:table-cell;vertical-align: middle}
 	
 	/* Item Page */
 	.plugins .plugin_box{clear:both}
+
+/* Review */
+.review .content{text-align:left}
 
 /* Sections & Headers */
 .section{margin-bottom:20px;}
@@ -179,4 +184,4 @@ div#tab-content{padding:10px;padding-top:10px;	min-height:400px;}
 
 /* TinyMCE */
 .tinymce_popup{padding:10px;min-height:465px;}		
-
+textarea.mceEditor{width:100%;height:500px}

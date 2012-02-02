@@ -26,11 +26,11 @@
 				  	<% screenshot = "/themes/#{theme}/screenshot.png" %>
 				  	<% screenshot_thumbnail = "/themes/#{theme}/screenshot_thumbnail.png" %>
 				  	<% if File.exists?(Rails.root.to_s + "/public" + screenshot)%>
-				 			    <a href="<%= screenshot %>" rel="colorbox" title="<%= t("single.theme") %> <%= t("single.preview") %> ">
-								    <img alt="<%= theme %>" class="thumbnail" src="<%= screenshot_thumbnail %>" />
-								</a>
+		 			    <a href="<%= screenshot %>" rel="colorbox" title="<%= t("single.theme") %> <%= t("single.preview") %> ">
+						    <img alt="<%= theme %>" class="preview" src="<%= screenshot_thumbnail %>" />
+						</a>
 					<% else %>
-						<%= t("single.negative") %> <%= t("single.preview") %>
+						<%= t("single.negative") %> <%= t("single.preview") %>								
 					<% end %>
 				  </td>
 				  <td align=left style="padding-left:10px;vertical-align:middle">

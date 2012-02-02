@@ -4,11 +4,11 @@
 		<%= text_field 'description', 'title' %>
 </div>
 
-<div align=right>
-	<a href="javascript:toggleEditor('<%= "form_content_box_#{description.id}" %>');"><%= t("label.toggle_editor") %></a>
-</div> 
-<b><%= text_area 'description', 'content', :style => "width:100%;height:500px", :class => "mceEditor", :id => "form_content_box_#{description.id}",  :onfocus => "focus_input('form_content_box_#{description.id}')", :onblur => "blur_input('form_content_box_#{description.id}')" %></b></p>
-
-
+<div class="field">
+	<div align=right>
+		<a href="javascript:toggleEditor('<%= "form_content_box_#{description.id}" %>');"><%= t("label.toggle_editor") %></a>
+	</div> 
+	<%= text_area 'description', 'content', :class => "mceEditor", :id => "form_content_box_#{description.id}" %>
+</div>
 
 													

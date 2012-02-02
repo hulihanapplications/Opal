@@ -1,24 +1,14 @@
 <div class="item">
 	<%= record_header(@record) %>
-	
-	<div id="side">
-			<div class="box_1">
-				<%= render :partial => "html_allowed" %>
-			</div>				
-	</div>
-	<div id="main">
-			<div class="box_2" style="margin-bottom:5px">
-				<h2 class="title"><%= t("label.item_new", :item => @plugin.model_name.human) %></h2>
-				<div class="spacer"></div>		
-				<%= form_tag  :action => 'create', :controller => "plugin_descriptions" %>
-					<%= remember_record(@record) %>
-					<%= render :partial => "form", :locals => {:description => @description, :plugin => @plugin} %>
-					<br>
-					<div align=center><%= submit_tag t("label.item_create", :item => @plugin.model_name.human), :class => "button_1" %></div>
-				</form>
-				
-			</div>
-	</div>				
-	
+		<div class="box_2">
+			<h2 class="title"><%= t("label.item_new", :item => @plugin.model_name.human) %></h2>
+			<div class="spacer"></div>		
+			<%= form_tag  :action => 'create', :controller => "plugin_descriptions" %>
+				<%= remember_record(@record) %>
+				<%= render :partial => "form", :locals => {:description => @description, :plugin => @plugin} %>
+				<br>
+				<div align=center><%= submit_tag t("label.item_create", :item => @plugin.model_name.human), :class => "button_1" %></div>
+			</form>			
+		</div>				
 	<%= back %>
 </div>

@@ -12,6 +12,10 @@ class Group < ActiveRecord::Base
   
   attr_accessor :plugin_permissions # stores a hash of ALL plugin Permissions
   
+  def to_s
+    name
+  end
+  
   def create_everything
     # Create Group Plugin Permissions
     for plugin in Plugin.all

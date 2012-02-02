@@ -12,4 +12,25 @@ describe PluginImage do
       end
     end    
   end
+  
+  describe "can?" do
+    describe :read do
+      context "group accessibility" do
+        before :each do 
+          @user =  Factory(:user)
+        end
+        
+        it "returns false with a user who isn't on the group access list" do 
+          restricted_page = Factory(:group_access_only_page)
+          restricted_page.can?(@user, :read).should == false
+        end
+        
+        it "returns true with a user who is on the group access list" do 
+          restricted_page = Factory(:group_access_only_page, :group_ids => [@user.group_id])
+          restricted_page.can?(@user, :read).should == true
+        end        
+      end
+    end 
+  end
+
 end

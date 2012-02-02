@@ -10,3 +10,8 @@ Factory.define :page_with_redirect, :parent => :page do |o|
   o.redirect true
   o.redirect_url "/"
 end
+
+Factory.define :group_access_only_page, :parent => :page do |o|
+  o.group_access_only   true
+  o.group_ids           []
+end

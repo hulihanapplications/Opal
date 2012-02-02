@@ -247,7 +247,8 @@ private
   # check permission/access, controller style
   def can?(target, performer, action, options = {})
     #logger.info "can? #{action} failed on #{target} by #{performer}"
-    failure_msg = "#{t("notice.invalid_permissions")} (#{t(action, :scope => [:permissions], :default => action.to_s)})"
+    failure_msg = ["#{t("notice.invalid_permissions")}"]
+    failure_msg << "#{t(action, :scope => [:permissions], :default => action.to_s)}" if Rails.env == "development" 
     if target
       if !target.can?(performer, action, options)
         flash[:failure] = failure_msg
@@ -256,7 +257,7 @@ private
         end       
       end
     else
-      flash[:failure] = [failure_msg]
+      flash[:failure] = failure_msg
       flash[:failure] << t("notice.item_not_found", :item => t("single.object", :default => "Object"))      
       redirect_to :back
     end       

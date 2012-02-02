@@ -159,6 +159,11 @@ div.loading{text-align:center;}
 /* Forms, Fields & Inputs */
 .field{margin-bottom:10px;}
 	.field .description{padding:0px 0px 0px 0px;font-size:12px}
+		.field dl{padding:5px 0px 0px 10px;margin:0}
+			.field dt{float:left;padding-right:5px;clear:left}
+			.field dd{-webkit-margin-start:0px;}
+				.field dd label{font-size:12px}
+
 .buttons{text-align:center;margin:10px 0px}
 #editor_wrapper{margin-bottom:10px;}
 

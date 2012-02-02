@@ -4,6 +4,8 @@ class PagesController < ApplicationController
   before_filter :uses_tiny_mce, :only => [:new, :create, :edit, :update, :destroy]  # which actions to load tiny_mce, TinyMCE Config is done in Layout. 
   before_filter :check_humanizer_answer, :only => [:send_contact_us]
   before_filter :find_page, :only => [:page, :view, :edit, :update, :delete]
+  before_filter(:only => [:view, :page]) {|c| can?(@page, @logged_in_user, :read)} 
+  
   
   def index
     @setting[:meta_title] << Page.model_name.human(:count => :other)
@@ -71,32 +73,22 @@ class PagesController < ApplicationController
   end
   
   def page # Master Page Router 
-    if @page.published || @logged_in_user.is_admin? # make sure this is a published page they're going to
-      if @page.redirect # redirect? 
-        redirect_to @page.redirect_url 
-      else # don't redirect, go to page.
-        if @page.page_type == "blog" # go to blog page
-          redirect_to :action => "post", :controller => "blog", :id => @page
-        else # public page 
-            redirect_to :action => "view", :id => @page
-        end      
-      end
-    else
-      flash[:failure] = t("notice.not_visible")      
-      redirect_to :action => "index", :controller => "browse"
-    end 
+    if @page.redirect # redirect? 
+      redirect_to @page.redirect_url 
+    else # don't redirect, go to page.
+      if @page.page_type == "blog" # go to blog page
+        redirect_to :action => "post", :controller => "blog", :id => @page
+      else # public page 
+          redirect_to :action => "view", :id => @page
+      end      
+    end
   end
 
   def view
-    if @page.published || @logged_in_user.is_admin? # make sure this is a published page they're going to
-      redirect_to @page.redirect_url if @page.redirect && !@page.redirect_url.blank?
-      @setting[:meta_title] << @page.description if !@page.description.blank?
-      @setting[:meta_title] << @page.title 
-      @comments = PluginComment.record(@page).paginate(:page => params[:page], :per_page => 25).approved
-    else
-      flash[:failure] = "#{t("notice.not_visible")}"      
-      redirect_to :action => "index", :controller => "browse"
-    end   
+    redirect_to @page.redirect_url if @page.redirect && !@page.redirect_url.blank?
+    @setting[:meta_title] << @page.description if !@page.description.blank?
+    @setting[:meta_title] << @page.title 
+    @comments = PluginComment.record(@page).paginate(:page => params[:page], :per_page => 25).approved
   end  
 
   def send_contact_us

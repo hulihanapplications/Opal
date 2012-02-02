@@ -5,9 +5,6 @@ class Setting < ActiveRecord::Base
   scope :global, where("record_id is ? and record_type is ?", nil, nil)  
   
   cattr_accessor :global_settings # Setting.global_settings       
-  
-  def validate
-  end
 
   def self.get_setting(name) # get a setting from the database, usually text-based string
     setting = Setting.find_by_name(name)

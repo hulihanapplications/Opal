@@ -35,13 +35,15 @@
 
 	<%= content_tag(:h3, link_to_function(icon("dropdown") + " " + t("single.advanced"), "$('#advanced_options').toggle()", :class => "extra_options")) %>	
 	<div id="advanced_options"  class="extra_options_box" style="display:none;" >
-		<table cellpadding=0 cellspacing=0>
+		<table cellpadding=0 cellspacing=0 class="cell">
 			<tr>
-				<td class="">
+				<td class="side left">
 					<% if page.is_public_page? %>
-						<div class="side">				
-							<div class="box_1" style="margin-bottom:0px">
-								<h3 class="title"><%= Page.human_attribute_name(:page_id) %></h3>
+						<div>				
+							<div class="box_1">
+								<div class="label">
+									<%= f.label(:page, Page.human_attribute_name(:page_id)) %>
+								</div>
 								<div class="indent">
 									<table style="width:100%" cellpadding=0 cellspacing=0>
 										<tr>
@@ -54,18 +56,27 @@
 										</tr>
 									</table>						
 								</div>
-								<div class="spacer"></div>				
 								<% for page in Page.find(:all, :conditions => ["page_type = ? and page_id = 0", "public"], :order => "title ASC") %>
 									<%= descend_page(page, :make_radio_button => true, :id_to_ignore => @page.id, :id_to_check => @page.page_id) %>
 								<% end %>
 							</div>	
 						</div>						
-					<% end %>								
-	
-							
-			
+						<div class="field box_1">
+							<div class="label">								
+								<%= f.check_box :group_access_only %>
+								<%= icon("groups") %>
+								<%= f.label :group_access_only%>
+							</h3>							
+							<dl>
+								<% for group in Group.all %>
+									<%= content_tag(:dt, check_box_tag("page[group_ids][]", group.id, f.object.group_ids.include?(group.id), :id => "group_#{group.id}")) %>
+									<%= content_tag(:dd, label_tag("group_#{group.id}", group.to_s)) %>
+								<% end %>
+							</dl>								
+						</div>
+					<% end %>															
 				</td>
-				<td>
+				<td class="main right">
 						<div class="field">
 							<% if !page.is_system_page? %>
 								<h3><%= f.label :description %></h3>								
@@ -114,11 +125,11 @@
 	</div>
 	<%= content_tag(:h3, link_to_function(icon("dropdown") + " " + t("label.additional_info"), "$('#additional_info').toggle()", :class => "extra_options")) %>
 	<div id="additional_info" class="extra_options_box" style="display:none;">
-		<table cellpadding=0 cellspacing=0>
+		<table cellpadding=0 cellspacing=0 class="cell">
 			<tr>
-				<td>
+				<td class="side left">
 					<% if params[:action] == "edit" || params[:action] == "update" %>
-						<div class="side">									
+						<div>									
 							<div class="box_1" style="margin-bottom:0px">
 								<h3 class="title"><%= icon("details") %> <%= t("label.additional_info") %></h3>
 								<%= Page.human_attribute_name(:updated_at) %>: <b><%= friendly_date @page.updated_at %></b>		<br>					
@@ -132,7 +143,7 @@
 						</div>						
 					<% end %>							
 				</td>
-				<td>
+				<td class="main right">
 					<%= render :partial => "html_allowed" %>												
 				</td>
 			</tr>

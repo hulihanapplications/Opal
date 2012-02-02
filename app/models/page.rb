@@ -9,16 +9,16 @@ class Page < ActiveRecord::Base
   validates_uniqueness_of :title, :scope => "page_id"
   validates_presence_of :title, :order_number   
   validate :cannot_belong_to_self
-  
+  validate :validate_redirection_url
+
   before_validation(:on => :create) do 
     self.assign_order_number
   end 
+  
+  after_destroy :destroy_everything  
 
   attr_protected :user_id 
-
-  after_destroy :destroy_everything  
-  
-
+  serialize :group_ids, Array
   
   #default_scope :order => "order_number asc"
   
@@ -49,10 +49,15 @@ class Page < ActiveRecord::Base
   end 
 
 
-  def validate
+  def validate_redirection_url
     if self.redirect
         validates_format_of :redirect_url, :with => Cregexp.url
     end 
+  end
+
+  # return group ids as ints 
+  def group_ids
+    self["group_ids"].collect{|o|o.to_i}
   end
 
   def to_param # make custom parameter generator for seo urls, to use: pass actual object(not id) into id ie: :id => object
@@ -137,7 +142,7 @@ class Page < ActiveRecord::Base
   def can?(performer, action, options = {})
     case action.to_sym
     when :view, :read      
-      is_user_owner?(performer) ? true : published 
+      is_user_owner?(performer) ? true : published && (group_access_only ? group_ids.include?(performer.group_id) : true)
     when :delete, :destroy
       deletable && super(performer, action, options)  
     else 

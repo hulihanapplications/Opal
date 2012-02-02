@@ -2,22 +2,24 @@
 <div id="main_menu" class="main_menu">
 	<ul class="main_menu">
 		<% for page in Page.all.public.root.published.display_in_menu.in_order %>
-			<%# handle selection & special pages %>
-			<%= 
-				if !page.name.blank? # name is set, which means it's a special page
-					if page.name == "home"
-						content_tag(:li, link_to(page.title, {:action => "index", :controller => "browse"},  :class => (params[:controller] == "browse" && params[:action] == "index") ? "selected" : ""))
-					elsif page.name == "items"
-						content_tag(:li,link_to(page.title, {:action => "index", :controller => "items", :id => nil},  :class => params[:controller] == "items" ? "selected" : "")) if @setting[:section_items] 
-					elsif page.name == "blog"
-						content_tag(:li, link_to(page.title, {:action => "index", :controller => "blog"},  :class => params[:controller] == "blog" ? "selected" : "")) if @setting[:section_blog] 
-					else # unknown special page 
- 						content_tag(:li, link_to_page(page, :class => params[:controller] == "pages" && params[:id] == page.to_param ? "selected" : ""))
-					end					
-				else # not a special page
- 					content_tag(:li, link_to_page(page, :class => params[:controller] == "pages" && params[:id] == page.to_param ? "selected" : ""))
-				end
-			%>
+			<% if page.can?(@logged_in_user, :read) %>
+				<%# handle selection & special pages %>
+				<%= 
+					if !page.name.blank? # name is set, which means it's a special page
+						if page.name == "home"
+							content_tag(:li, link_to(page.title, {:action => "index", :controller => "browse"},  :class => (params[:controller] == "browse" && params[:action] == "index") ? "selected" : ""))
+						elsif page.name == "items"
+							content_tag(:li,link_to(page.title, {:action => "index", :controller => "items", :id => nil},  :class => params[:controller] == "items" ? "selected" : "")) if @setting[:section_items] 
+						elsif page.name == "blog"
+							content_tag(:li, link_to(page.title, {:action => "index", :controller => "blog"},  :class => params[:controller] == "blog" ? "selected" : "")) if @setting[:section_blog] 
+						else # unknown special page 
+	 						content_tag(:li, link_to_page(page, :class => params[:controller] == "pages" && params[:id] == page.to_param ? "selected" : ""))
+						end					
+					else # not a special page
+	 					content_tag(:li, link_to_page(page, :class => params[:controller] == "pages" && params[:id] == page.to_param ? "selected" : ""))
+					end
+				%>
+			<% end %>
 		<% end %>	
 	</ul>
 </div>

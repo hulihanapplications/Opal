@@ -117,7 +117,8 @@ $(document).ready(function() {
 		// Ready Tab Functions
 	    $("ul.panes").tabs("div.panes > div", {effect: 'slide', fadeOutSpeed: 400}); // effects: slide, fade, default, ajax, horizontal
 		$("ul.panes.vertical").tabs("div.panes.vertical > div", {effect: 'slide', fadeOutSpeed: 400}); // effects: slide, fade, default, ajax, horizontal
-		$("#accordion").tabs("#accordion div.pane", {tabs: '#accordian > h2.accordian_tab', effect: 'slide', initialIndex: null});// effects: slide, fade, default, ajax, horizontal
+		$("#accordion").tabs("#accordion div.pane", {tabs: 'h2.accordion_tab', effect: 'slide', initialIndex: null});// effects: slide, fade, default, ajax, horizontal
+		
 		$("ul.tabs").tabs("div.panes > div");
 				
 		// Enable ColorBox

@@ -11,14 +11,15 @@
 	</div>
 				
 	<%= form_tag({:action => "update_settings"}) do %>
-			<ul class="plugin_tabs_horizontal"> 
+			<ul class="panes"> 
 				    <li><a href="#<%= t("single.public") %>"><%= t("single.public") %></a></li>
 				    <li><a href="#<%= t("single.system") %>"><%= t("single.system") %></a></li> 
 				    <li><a href="#<%= User.model_name.human(:count => :other) %>"><%= User.model_name.human(:count => :other) %></a></li> 	
 				    <li><a href="#<%= t("single.section", :count => :other) %>"><%= t("single.section", :count => :other) %></a></li> 													
-					<li><a href="#<%= t("activerecord.records.setting.main_logo.title") %>"><%= t("activerecord.records.setting.main_logo.title") %></a></li> 
+					<li><a href="#<%= t("activerecord.records.setting.main_logo.title") %>"><%= t("activerecord.records.setting.main_logo.title") %></a></li>
+					<li><%= link_to "Home", "http://www.google.com" %></li>
 			</ul>			
-			<div class="plugin_panes_horizontal"> 					
+			<div class="panes"> 					
 			    <div>	
 					 <%= render :partial => "/settings/list_settings", :locals => {:settings => public_settings = Setting.find(:all, :conditions => ["setting_type = ?", "Public"]) , :title => t("single.public")}%>
 				</div>			

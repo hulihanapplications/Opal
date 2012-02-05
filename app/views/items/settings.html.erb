@@ -16,14 +16,14 @@
 
 
 	<%= form_tag({:action => "update_settings", :controller => "settings"}) do %>
-			<ul class="plugin_tabs_horizontal"> 
+			<ul class="panes"> 
 				    <li><a href="#<%= Setting.model_name.human(:count => :other) %>"><%= Setting.model_name.human(:count => :other) %></a></li>				
 				    <li><a href="#<%= t("activerecord.records.setting.list_type.title") %>"><%= t("activerecord.records.setting.list_type.title") %></a></li> 
 				    <li><a href="#<%= t("activerecord.records.setting.item_page_type.title") %>"><%= t("activerecord.records.setting.item_page_type.title") %></a></li>
 					<li><a href="#<%= t("activerecord.records.setting.homepage_type.title") %>"><%= t("activerecord.records.setting.homepage_type.title") %></a></li> 													
 					<li><a href="#<%= t("activerecord.records.setting.default_preview_type.title") %>"><%= t("activerecord.records.setting.default_preview_type.title") %></a></li> 													
 			</ul>			
-			<div class="plugin_panes_horizontal"> 					
+			<div class="panes"> 					
 
 			    <div>	
 					 <%= render :partial => "/settings/list_settings", :locals => {:settings => Setting.find(:all, :conditions => ["setting_type = ?", "Item"]), :title => "#{Item.model_name.human}"}%>

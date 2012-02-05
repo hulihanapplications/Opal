@@ -3,14 +3,14 @@
 	<table style="width:100%">
 		<tr>
 			<td>
-				<ul class="plugin_tabs_horizontal"> 
+				<ul class="panes"> 
 					<%  for plugin in plugins  %>
 						<% if plugin.plugin_class.can?(@logged_in_user, :view)  %>
 					    	<li><a href="#<%= plugin.model_name.human(:count => :other) %>"><%= plugin.model_name.human(:count => :other) %></a></li>
 						<% end %> 
 					<% end %>	
 				</ul>			
-				<div class="plugin_panes_horizontal"> 					
+				<div class="panes"> 					
 					<%  for plugin in plugins  %>
 						<% if plugin.plugin_class.can?(@logged_in_user, :view)  %>
 						    <div>	

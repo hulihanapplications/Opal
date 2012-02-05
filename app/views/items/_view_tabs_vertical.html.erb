@@ -5,7 +5,7 @@
 		<table cellspacing=0 cellpadding=0 style="width:100%">
 			<tr>
 				<td>
-					<ul class="plugin_tabs_vertical"> 
+					<ul class="panes vertical"> 
 						<%  for plugin in plugins  %>
 							<% if plugin.plugin_class.can?(@logged_in_user, :view)  %>
 						    	<li><a href="#<%= plugin.model_name.human(:count => :other) %>"><%= plugin.model_name.human(:count => :other) %></a></li> 
@@ -15,7 +15,7 @@
 				</td>
 				<td style="width:5px"></td>							
 				<td align=left style="width:100%">
-					<div class="plugin_panes_vertical"> 					
+					<div class="panes vertical"> 					
 						<%  for plugin in plugins  %>
 							<% if plugin.plugin_class.can?(@logged_in_user, :view)  %>
 							    <div>	

@@ -5,11 +5,11 @@
 	</h2>
 	<br />
 
-	<ul class="plugin_tabs_horizontal"> 
+	<ul class="panes"> 
 		    <li><a href="#<%= t("single.single") %>"><%= t("single.single") %> <%= @plugin.model_name.human %></a></li>				
 			<li><a href="#<%= t("single.multiple") %>"><%= t("single.multiple") %> <%= @plugin.model_name.human.pluralize %></a></li> 
 	</ul>	
-	<div class="plugin_panes_horizontal"> 					
+	<div class="panes"> 					
 	    <div id="<%= t("single.single") %>">
 	       <%= form_for(@image,  :url => { :action => "create", :controller => "plugin_images"}, :html => {:multipart => true}) do |f| %>
 			   <%= remember_record(@record) %>

@@ -62,10 +62,10 @@ div#side div.menu div.footer{border-top:1px solid #aaa;padding-top:5px;margin-to
 
 
 /* Boxes */
-.box_1, div#side > div{border:1px solid #aaa;background:#E9E9E9;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:10px;}
+.box_1{border:1px solid #aaa;background:#E9E9E9;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:10px;}
 	.box_1 h1.title, .box_1 h2.title, .box_1 h3.title{}
 	.box_1 hr, .box_1 div.spacer{width: 100%; margin: 5px 0px 5px 0px; height: 1px; background: #ccc; border: 0; }
-.box_2, div.logs div.log, div#blog-post{border:1px solid #ccc;background:url(../images/bgs/white_trans_50.png) repeat;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:10px;}
+.box_2, div.logs div.log, div#blog-post, div#side > div{border:1px solid #ccc;background:url(../images/bgs/white_trans_50.png) repeat;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-bottom:10px;}
 	.box_2 h1.title, .box_2 h2.title, .box_2 h3.title{;}
 	.hover .box_2{border:1px solid #999}
 .box_3{background:url(../images/bgs/white_trans_50.png) repeat;border:1px solid #ccc;;padding:10px;text-align:center;;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-right:0px;margin-bottom:10px;}
@@ -243,27 +243,27 @@ div.tab-content {	background: url(../images/bgs/user_tab_pane_bg.png) repeat-x;	
 .simple_captcha_image{padding:1.2px;border:1px solid #666;background:#fff;-moz-border-radius: 3px;-webkit-border-radius: 3px;}
 
 /* jQuery TOOLS - Horizontal Tabs CSS */
-ul.plugin_tabs_horizontal {	list-style:none; 	margin:0 !important; 	padding:0;	height:25px;	margin-bottom:0px;}
-ul.plugin_tabs_horizontal li { 	float:left;	 	text-indent:0;	padding:0;	margin:0 !important;	list-style-image:none !important; }/* single tab */
-ul.plugin_tabs_horizontal a {color:#333;background: url(../images/bgs/black_trans_25.png) repeat;	display:block;	height: 20px; 	text-align:center;		text-decoration:none;	padding:5px 10px 0px 10px;	margin:0px 2px 0px 0px;		position:relative;-moz-border-radius-topleft:5px;-webkit-border-top-left-radius:5px; -moz-border-radius-topright:5px;-webkit-border-top-right-radius:5px}/* link inside the tab. uses a background image */
-ul.plugin_tabs_horizontal a.current, ul.plugin_tabs_horizontal a:hover {color:black;	border:0px;	background: url(../images/bgs/black_trans_10.png) repeat;}
-div.plugin_panes_horizontal {	background: url(../images/bgs/plugin_tab_pane_bg.png) repeat-x;	padding:5px;	min-height:300px;}
-div.plugin_panes_horizontal div.pane {	display:none;}/* initially all panes are hidden */ 
+ul.panes {	list-style:none; 	margin:0 !important; 	padding:0;	height:25px;	margin-bottom:0px;}
+ul.panes li { 	float:left;	 	text-indent:0;	padding:0;	margin:0 !important;	list-style-image:none !important; }/* single tab */
+ul.panes a {color:#333;background: url(../images/bgs/black_trans_25.png) repeat;	display:block;	height: 20px; 	text-align:center;		text-decoration:none;	padding:5px 10px 0px 10px;	margin:0px 2px 0px 0px;		position:relative;-moz-border-radius-topleft:5px;-webkit-border-top-left-radius:5px; -moz-border-radius-topright:5px;-webkit-border-top-right-radius:5px}/* link inside the tab. uses a background image */
+ul.panes a.current, ul.panes a:hover {color:black;	border:0px;	background: url(../images/bgs/black_trans_10.png) repeat;}
+div.panes {	background: url(../images/bgs/plugin_tab_pane_bg.png) repeat-x;	padding:5px;	min-height:300px;}
+div.panes div.pane {	display:none;}/* initially all panes are hidden */ 
 
 /* jQuery TOOLS - Vertical Tab CSS */
-ul.plugin_tabs_vertical { 	list-style:none; 	margin:0 !important; 	padding:0;	height:25px;	margin-bottom:0px;}
-ul.plugin_tabs_vertical li { 	float:left;	 	text-indent:0;	padding:0;	margin:0 !important;	list-style-image:none !important; }/* single tab */
-ul.plugin_tabs_vertical a {border:1px solid #ccc;background:url(../images/bgs/black_trans_05.png) repeat;;	font-size:12px;	display:block;	height: 20px;  	width: 85px;	text-align:center;		text-decoration:none;	padding:5px 0px 0px 0px;	margin:0px 2px 2px 0px;		position:relative;}/* link inside the tab. uses a background image */
-ul.plugin_tabs_vertical a.current {border:1px solid #aaa;background:url(../images/bgs/black_trans_10.png) repeat;-moz-border-radius: 0px;-webkit-border-radius: 0px;}
-ul.plugin_tabs_vertical a:hover{border:1px solid #aaa;background:url(../images/bgs/black_trans_10.png) repeat}
-div.plugin_panes_vertical {	background: url(../images/bgs/plugin_tab_pane_bg.png) repeat-x;	padding:5px;	min-height:300px;	}
-div.plugin_panes_vertical div.pane {	display:none;		}/* initially all panes are hidden */ 
+ul.panes.vertical { 	list-style:none; 	margin:0 !important; 	padding:0;	height:25px;	margin-bottom:0px;}
+ul.panes.vertical li { 	float:left;	 	text-indent:0;	padding:0;	margin:0 !important;	list-style-image:none !important; }/* single tab */
+ul.panes.vertical a {border:1px solid #ccc;background:url(../images/bgs/black_trans_05.png) repeat;;	font-size:12px;	display:block;	height: 20px;  	width: 85px;	text-align:center;		text-decoration:none;	padding:5px 0px 0px 0px;	margin:0px 2px 2px 0px;		position:relative;-moz-border-radius: 0px;-webkit-border-radius: 0px;}/* link inside the tab. uses a background image */
+ul.panes.vertical a.current {border:1px solid #aaa;background:url(../images/bgs/black_trans_10.png) repeat;-moz-border-radius: 0px;-webkit-border-radius: 0px;}
+ul.panes.vertical a:hover{border:1px solid #aaa;background:url(../images/bgs/black_trans_10.png) repeat}
+div.panes.vertical {	background: url(../images/bgs/plugin_tab_pane_bg.png) repeat-x;	padding:5px;	min-height:300px;	}
+div.panes.vertical div.pane {	display:none;		}/* initially all panes are hidden */ 
 
 /* jQuery TOOLS - Accordian Tab CSS */
 #accordion {border-top:1px solid #aaa;border-top:0px;border-bottom:1px solid #aaa;border-right:1px solid #aaa;border-left:1px solid #aaa;background:url(../images/bgs/black_trans_05.png) repeat;	}/* root element for accordion. decorated with rounded borders and gradient background image */
 #accordion h2.accordion_tab {	border:1px solid #aaa;border-bottom:0px;border-right:0px;	border-left:0px;background:url(../images/bgs/accordian_tab_bg.png) repeat-x;	margin:0;	padding:5px 15px;	font-size:14px;	font-weight:bold;			}/* accordion header */
 #accordion h2.current {border-bottom:1px solid #aaa;	background:url(../images/bgs/black_trans_05.png) repeat;}/* currently active header */
-#accordion div.pane {	padding:15px;	font-size:12px;}/* accordion pane */
+#accordion div.pane {	display:none;padding:15px;	font-size:12px;}/* accordion pane */
 
 /* jQuery TOOLS - Date Input */
 .date {}

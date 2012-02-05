@@ -4,7 +4,7 @@
 %>
 <script type="text/javascript">
 	function select_tab(index){ //index can be a 0-index integer or the name attribute for the anchor tab, ie: "Images" for name="#Images" 
-		var api = $("ul.plugin_tabs_horizontal").data("tabs");
+		var api = $("ul.panes").data("tabs");
 		api.click(index);											
 	}
 </script>
@@ -76,14 +76,14 @@
 		<table style="width:100%">
 			<tr>
 				<td>
-					<ul class="plugin_tabs_horizontal">
+					<ul class="panes">
 						<%  for plugin in plugins  %>
 							<% if plugin.plugin_class.can?(@logged_in_user, :view) && (plugin.name != "Feature" && plugin.name != "Tag") %>
 						    	<li><a href="#<%= plugin.model_name.human(:count => :other) %>"><%= plugin.model_name.human(:count => :other) %></a></li>
 							<% end %> 
 						<% end %>	
 					</ul>			
-					<div class="plugin_panes_horizontal"> 					
+					<div class="panes"> 					
 						<% for plugin in plugins %>
 							<% if plugin.plugin_class.can?(@logged_in_user, :view) && (plugin.name != "Feature" && plugin.name != "Tag") %>
 							    <div>	

@@ -6,9 +6,11 @@
 				<div id="accordion">
 					<%  for plugin in plugins  %>
 						<% if plugin.plugin_class.can?(@logged_in_user, :view)  %>
-							<h2 class="accordion_tab <%= "current"  if plugin.id == plugins.first.id %>" ><%= plugin.model_name.human(:count => :other) %></h2>
+							<h2 class="accordion_tab <%= "current"  if plugin.id == plugins.first.id %>" >
+								<%= plugin.model_name.human(:count => :other) %>
+							</h2>
 							
-							<div class="pane" <%= "style=\"display:block\""  if plugin.id == plugins.first.id %>>
+							<div class="pane">
 								<%= render :partial => plugin.partial_path(:type => "view"), :locals => {:plugin => plugin, :item => item } %>								
 							</div>
 						<% end %>

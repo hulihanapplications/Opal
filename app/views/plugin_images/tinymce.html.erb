@@ -1,9 +1,9 @@
 <div id="tinymce_plugin_opal_image">
-	<ul class="plugin_tabs_horizontal"> 
+	<ul class="panes"> 
 			<li><a href="#<%= t("single.upload") %>"><%= t("single.upload") %> <%= PluginImage.model_name.human %></a></li> 
 		    <li><a href="#<%= Image.model_name.human(:count => :other) %>"><%= PluginImage.model_name.human(:count => :other) %></a></li>				
 	</ul>			
-	<div class="plugin_panes_horizontal"> 					
+	<div class="panes"> 					
 		<div id="Upload">								   
    			<%= form_for(@plugin_image, :url => {:action => 'create', :controller => "plugin_images", :tinymce => "true"}, :html => {:multipart => true}) do |f| %>	   					 		
 			   <%= render :partial => "form", :locals => {:f => f} %>

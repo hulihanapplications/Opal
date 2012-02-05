@@ -779,7 +779,11 @@ ru:
         user_id: Added by        
         published_description: If this is published, it will be visible by others.        
         redirect: Redirect to URL
+        redirect_description: "If enabled, anyone trying to view this page will be sent to this URL instead:"
         locked_description: If locked, people cannot add comments to this.
+        group_access_only_description: "If enabled, only these groups can access this page:"
+        display_children_description: "If this is on and a page has child/sub pages, a menu will appear on the page listing them."
+        display_in_menu_description: "If disabled, this page will not appear in any menus."
       page_comment:
         anonymous_name: Name
         anonymous_email: Email

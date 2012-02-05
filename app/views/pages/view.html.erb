@@ -2,7 +2,7 @@
 	<% if params[:controller] == "blog" %>
 		<%= render :partial => "blog/menu" %>
 	<% else %>
-		<%= render :partial => "menu_for_page", :locals => {:page => @page}  %>				
+		<%= render :partial => "menu_for_page", :locals => {:page => @page} if @page.display_children %>				
 	<% end %>
 <% end %>
 	

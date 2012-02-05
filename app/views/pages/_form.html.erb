@@ -6,10 +6,10 @@
 			<td align=left class="left">
 				<div class="field">
 					<% if page.is_system_page? %>
-						<h3><%= page.title %></h3>
+						<div class="label"><%= page.title %></div>
 						<%= content_tag(:div, page.description, :class => "description") %>
 					<% else %>
-						<h3><%= f.label :title %></h3>							
+						<div class="label"><%= f.label :title %></div>							
 						<%= f.text_field :title, :value => f.object.title, :id => "form_title_box_#{page.id}", :disabled => !page.title_editable  %>
 					<% end %>				
 				</div>
@@ -17,7 +17,7 @@
 			<td align=left class="right">
 				<% if page.is_blog_post? %>	
 					<div class="field">		
-						<h3><%= f.label :created_at %></h3>		
+						<div class="label"><%= f.label :created_at %></div>		
 						<%= f.datetime_select :created_at  %>
 					</div>								
 				<% end %>							
@@ -65,8 +65,9 @@
 							<div class="label">								
 								<%= f.check_box :group_access_only %>
 								<%= icon("groups") %>
-								<%= f.label :group_access_only%>
-							</h3>							
+								<%= f.label :group_access_only %>
+							</div>							
+							<%= content_tag(:div, Page.human_attribute_name(:group_access_only_description), :class => "description") %>																										
 							<dl>
 								<% for group in Group.all %>
 									<%= content_tag(:dt, check_box_tag("page[group_ids][]", group.id, f.object.group_ids.include?(group.id), :id => "group_#{group.id}")) %>
@@ -79,44 +80,54 @@
 				<td class="main right">
 						<div class="field">
 							<% if !page.is_system_page? %>
-								<h3><%= f.label :description %></h3>								
+								<div class="label"><%= f.label :description %></div>								
 								<%= f.text_field :description, :id => "form_description_box_#{page.id}", :disabled => !page.description_editable  %>
 							<% end %>									
 						</div>			
 																														
 						<% if !page.is_system_page? %>
 							<div class="field">
-								<h3>
+								<div class="label">
 									<%= f.check_box :published %>
 									<%= icon("public") %>
 									<%= f.label :published %>
-								</h3>	
+								</div>	
 								<%= content_tag(:div, Page.human_attribute_name(:published_description), :class => "description")%>																										
 							</div>	
 							<div class="field">
-								<h3>
+								<div class="label">
 									<%= f.check_box :locked %>
 									<%= icon("locked") %>
 									<%= f.label :locked %>
-								</h3>	
+								</div>	
 								<%= content_tag(:div, Page.human_attribute_name(:locked_description), :class => "description") %>																										
 							</div>	
 							<% if !page.is_blog_post?  %>						
 							<div class="field">
-								<h3>
+								<div class="label">
 									<%= f.check_box :display_in_menu %>
 									<%= icon("menu") %>
 									<%= f.label :display_in_menu %>
-								</h3>	
+								</div>	
+								<%= content_tag(:div, Page.human_attribute_name(:display_in_menu_description), :class => "description") %>																																																			
 							</div>	
+							<div class="field">
+								<div class="label">
+									<%= f.check_box :display_children %>
+									<%= icon("pages") %>
+									<%= f.label :display_children %>
+								</div>	
+								<%= content_tag(:div, Page.human_attribute_name(:display_children_description), :class => "description") %>																																											
+							</div>								
 							<% end %>
 							<div class="field">
-								<h3>
+								<div class="label">
 									<%= f.check_box :redirect %>
 									<%= icon("redirect") %>
 									<%= f.label :redirect %>
-									<%= content_tag(:div, text_field("page", "redirect_url"), :class => "description") %>																										
-								</h3>	
+								</div>	
+								<%= content_tag(:div, Page.human_attribute_name(:redirect_description), :class => "description") %>																										
+								<%= content_tag(:div, text_field("page", "redirect_url"), :class => "description") %>																																										
 							</div>			
 					<% end %>																		
 				</td>					

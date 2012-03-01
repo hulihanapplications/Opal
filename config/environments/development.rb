@@ -27,4 +27,7 @@ Opal::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true  
+
+  # Add default host for ActionMailer
+  config.action_mailer.default_url_options = { :host => "localhost" }
 end

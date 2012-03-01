@@ -7,6 +7,8 @@ class AddExtraIndexes < ActiveRecord::Migration
     add_index :settings, :name
     add_index :groups, :name    
     add_index :plugins, :name               
+    add_index :pages, :name
+    add_index :pages, :title                              
   end
 
   def down
@@ -16,6 +18,8 @@ class AddExtraIndexes < ActiveRecord::Migration
     remove_index :users, :last_request_at   
     remove_index :settings, :name
     remove_index :groups, :name  
-    remove_index :plugins, :name                       
+    remove_index :plugins, :name        
+    remove_index :pages, :name
+    remove_index :pages, :title                      
   end
 end

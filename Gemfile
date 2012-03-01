@@ -20,6 +20,7 @@ gem "humanizer", "=2.4.3"
 gem "cregexp"
 gem "mysql2"
 gem 'sqlite3'
+gem 'dynamic_form'
 
 group :development do
 end

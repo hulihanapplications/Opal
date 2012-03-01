@@ -93,15 +93,7 @@ h1.title, h2.title, h3.title{}
 .button_2:hover{opacity:1.00;filter:alpha(opacity=100);-moz-opacity:1.0;-khtml-opacity: 1.0;}
 .button_1, .button_2, #search_button, #search_box, #top_bar,  img.loading{-moz-box-shadow: 0 1px 2px #000;-webkit-box-shadow: 0 1px 2px #000;}
 
-/* Notice Messages(Success and Failure Boxes) & Error Styles */
-.notice{text-align:center;}
-	.notice .success{color:#106F00;border:2px solid #1C8F08;margin: 0px 0px 10px 0px;background-color:#BBFFAF;padding:5px;text-align:center;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
-	.notice .info{color:#333;border:2px solid #333;background-color:#ccc;margin: 0px 0px 10px 0px;;padding:5px;text-align:center;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
-	.notice .warning{color:#aaa;border:2px solid #333;background-color:#ccc;margin: 0px 0px 10px 0px;;padding:5px;text-align:center;-moz-border-radius: 5px;-webkit-border-radius: 5px;}	
-	.notice .failure, .errorExplanation, .uploadifyError{color:#AF0000;border:2px solid #AF0000;background-color:#F3B3B3;margin: 0px 0px 10px 0px;padding:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
-	.field_with_errors{color:#AF0000;}
-		.field_with_errors input, .field_with_errors textarea, .field_with_errors select{border: 1px solid #AF0000;}
-	.notice img.loading{margin:0px 0px 10px 0px;}
+
 
 /* Images */
 div.preview, img.preview{background:white;padding:3px;margin:3px;border:0px solid #aaa;opacity:0.80;filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity: 0.8; box-shadow: 0px 2px 5px #333;-moz-box-shadow: 0px 2px 5px #333;  -webkit-box-shadow: 0px 2px 5px #333;}

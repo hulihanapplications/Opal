@@ -222,7 +222,6 @@ module ApplicationHelper
   
   #alias :error_messages_for :errors_for
 
-  
   def theme_url # get the path to the current theme
     return raw "/themes/#{@setting[:theme]}"
   end

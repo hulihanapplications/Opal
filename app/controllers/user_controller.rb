@@ -1,6 +1,6 @@
 class UserController < ApplicationController
   # this controller may/may not contain anything, but each controller under app/controllers/user/* inherits from this.
-  before_filter :authenticate_user, :except =>  [:login, :create_account, :register, :user_valid, :create_comment, :forgot_password, :recover_password]
+  before_filter :authenticate_user, :except =>  [:create_account, :register, :user_valid, :create_comment, :forgot_password, :recover_password]
   before_filter :enable_user_menu, :except => [:register, :create_account]  # show_user_menu
   before_filter :enable_sorting, :only => [:items] # prepare sort variables & defaults for sorting
 
@@ -88,7 +88,7 @@ class UserController < ApplicationController
     else  # user not found
       flash[:failure] = t("notice.item_not_found", :item => User.model_name.human)
     end
-    redirect_to :action => "login", :controller => "browse"
+    redirect_to login_path
   end
 
   def recover_password
@@ -103,7 +103,7 @@ class UserController < ApplicationController
     else
       flash[:failure] = t("notice.item_invalid", :item => UserInfo.human_attribute_name(:forgot_password_code))
     end
-    redirect_to :action => "login", :controller => "browse"
+    redirect_to login_path
   end
 
 end

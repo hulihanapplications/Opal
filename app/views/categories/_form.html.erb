@@ -1,15 +1,14 @@
 <%= error_messages_for :category  %>
-<div id="side">
+<% content_for :side do %>
 		<div class="box_2">
 				<h2 class="title">
 					<img src="/themes/<%= @setting[:theme] %>/images/icons/categories.png" class="icon" > 				
 					<%= f.label :category_id  %>
 				</h2>	
 				<%= category_select_tag("category[category_id]", category.category_id, :id_to_ignore => category.id, :include_blank => true) %>																					
-			</div>
-			
-</div>
-<div id="main">
+			</div>			
+<% end %>
+
 	<table cellpadding=1 cellspacing=1>
 				<tr>
 					<td><b><%= f.label :name %></b></td>
@@ -19,7 +18,5 @@
 					<td><b><%= f.label :description %></b></td>
 					<td><%= f.text_field :description %><!--<input name="category[description]" type="text" id="category_description_<%= category.id %>" onfocus = "focus_input('category_description_<%= category.id %>')" onblur = "blur_input('category_description_<%= category.id %>')" maxlength=255 value="<%= category.description %>" size=50>--></td>
 				</tr>
-	</table>
-				
-</div>		
+	</table>				
 <div style="clear:both"></div>	

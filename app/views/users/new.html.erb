@@ -1,19 +1,14 @@
-<div id="side">
+<% content_for :side do %>
 	<%= render :partial => "menu" %>
+<% end %>
+<div class="box_2">
+	<h2 class="title"><%= t("label.item_new", :item => User.model_name.human) %></h2><br>
+	<%= form_for @user do |f| %>
+		<%= render :partial => "form", :locals => {:f => f, :user => @user} %>
+		<br>
+		<div align="center">
+				<%= f.submit t("single.create").capitalize, :class => "button_1" %>
+		</div>
+	<% end %>
 </div>
-<div id="main">
-	<div class="box_2">
-		<h2 class="title"><%= t("label.item_new", :item => User.model_name.human) %></h2><br>
-		<%= form_for @user do |f| %>
-			<%= render :partial => "form", :locals => {:f => f, :user => @user} %>
-			<br>
-			<div align="center">
-					<%= f.submit t("single.create").capitalize, :class => "button_1" %>
-			</div>
-		<% end %>
-	</div>
-	<br>
-	<div align="center">
-		<%= link_to icon("arrow_left") + " " + t("single.back"), :back %>
-	</div>
-</div>
+<%= back %>

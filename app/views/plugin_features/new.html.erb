@@ -1,10 +1,9 @@
-<div class="section">
-	<div id="side">
+<% content_for :side do %>
+	<%= render :partial => "/items/menu" %>
+<% end %>
 
-				<%= render :partial => "/items/menu" %>
-	
-	</div>
-	<div id="main">
+<div class="section">
+
 			<div class="header">
 					<h2 class="title">
 						<%= t("label.item_new", :item => PluginFeature.model_name.human) %>
@@ -23,5 +22,4 @@
 			<div align=center style="margin-top:10px;">
 				<%= link_to icon("arrow_left") + " " + t("single.back"), {:action => "index"}  %>
 			</div>
-	</div>
 </div>		

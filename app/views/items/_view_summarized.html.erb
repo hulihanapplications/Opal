@@ -9,19 +9,17 @@
 	}
 </script>
 
-<div align=left id="page_summarized">	
-	<div style="margin-bottom:10px;" id="top">		
-				<div id="preview">
-					<%= preview(item) %>
-				</div>					
-				<div id="details">
+<div align=left class="page_summarized">	
+	<div class="header">		
+				<%= preview(item) %>
+				<div class="details">
 					<div class="name">
 						<%= item.name %>		
 					</div>								
 					<div class="description">
 						<%= simple_format item.description unless item.description.blank? %>	
 					</div>													
-					<div id="features">
+					<div class="features">
 						<% if Plugin.plugins[:feature].is_enabled? %>
 							<% 
 								features = PluginFeature.find(:all, :order => "order_number ASC") 
@@ -43,7 +41,7 @@
 						<%= tags_links(item) %>
 					<% end %>														
 				</div>				
-				<div id="side">					
+				<div class="side">					
 					<%= content_tag :div, :class => "box_2" do %>
 						<% if Plugin.plugins[:review].is_enabled? %>
 								<% review_score = PluginReview.record(item).average(:review_score) %>

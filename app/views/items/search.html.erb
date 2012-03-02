@@ -1,17 +1,13 @@
 <%= render :partial => "main_content_top_bar" %>
 
-<div id="side">
+<% content_for :side do %>
 	<div align=center class="box_1">
 		<h2><%= t("label.search_results_for", :query => h(@search_for)) %></h2>
 	</div>
-</div>
-<div id="main">	
+<% end %>
+
 	<%= render :partial => "items/list_items", :locals => {:items => @results } %>
 	<div class="pagination">
 		<%= page_entries_info @results, :entry_name => Item.model_name.human %>	
 		<%= will_paginate @results, :params => {:search_for => @search_for } %>		
 	</div>
-</div>
-
-
-<br>

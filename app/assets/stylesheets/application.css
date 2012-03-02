@@ -18,12 +18,13 @@ p{margin:0px 0px 20px 0px;}
 /*  Layout */
 #wrapper{height:auto !important; height:100%; min-height:100%;position:relative;}
 	#wrapper > #header, #wrapper > #content, #wrapper > #top > table{width: 900px ; margin: 0 auto ;}
-	#wrapper > #top{background:#333;padding:5px 0px;text-align:right;color:#ccc;border-bottom:1px solid #666;}
+	#wrapper > #top, #wrapper > #footer{color:#ccc;}
+	#wrapper > #top{background:#333;padding:5px 0px;text-align:right;border-bottom:1px solid #666;}
 		#top td{vertical-align:middle;}
 		#top a:visited, #top a:link, #footer a:visited, #footer a:link{color:#ddd}
 		#top a:hover, #footer a:hover{color:#fff}
 	#wrapper > #header{position:relative;height:95px;}
-	#wrapper > #content{height:100%}
+	#wrapper > #content{height:100%;padding:5px;padding-top:10px; padding-bottom:70px;height:100%}	
 			#wrapper > #content.split-one #main {width:100%}
 			#wrapper > #content.split-two #main {float:left;width:660px;}
 				#main .header table{width:100%}
@@ -33,7 +34,7 @@ p{margin:0px 0px 20px 0px;}
 			#wrapper > #content.split-two #side, div.side, .side_right, .side_left{width:230px;float:left;padding-right:10px}
 			div.side_right{float:right}
 			.side_right{padding-left:10px}			
-	#wrapper > #footer{position:absolute;bottom:0;width:100%;padding:5px 0px 0px 0px;;text-align:center;}
+	#wrapper > #footer{height:45px;position:absolute;bottom:0;width:100%;padding:10px 0px;;;text-align:center;border-top:1px solid black;}
 	#wrapper > #content #tabcontent #main, .tabcontent .main{width:640px;}
 
 
@@ -103,6 +104,29 @@ input#search_box.selected{background:#666;border:1px solid #ccc;color:white}
 	.item input.name, .item .name a, .item .name{font-size:24px;;text-align:left;}
 	.item > .description, .item .details .description, .item #details .description{font-size:16px;;text-align:left;}
 	.item .new{position:relative;bottom:0px;left:0px;}
+
+
+/* Item Pages */
+	/* Header */
+	.item .header{text-align:left}
+		.header table{width:100%}
+		.header td{vertical-align:top}
+		.header .tools{}
+		.item .details{}	
+			.item .details table{width:100%}			
+			.item .details .summary{width:525px}
+			.item .details .info{width:250px;}
+
+	
+/* Item Page Types */		
+div.page_summarized{}
+	div.page_summarized div.header{width:100%;}
+		div.page_summarized > div.header > .preview{float:left;;text-align:center;}
+		div.page_summarized > div.header > .details{float:left;width:488px;padding-left:10px;}
+			div.page_summarized > div.header > .details .description{border:none;}			
+		div.page_summarized > div.header .features{margin:5px 0px}
+		div.page_summarized > div.header > .side{float:left;width:200px;padding-right:0px;padding-left:10px;;text-align:center;}
+		div.page_summarized  .plugins {margin-top:20px;}
 
 /* Previews */
 div.preview_not_found a, .preview_text{text-align:center;position: relative;display:table;}

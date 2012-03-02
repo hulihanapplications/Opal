@@ -1,26 +1,25 @@
+<% content_for :side do %>
+	<%= render :partial => "/items/menu" %>
+<% end %>
+
 <div class="section">
-	<div id="side">
-				<%= render :partial => "/items/menu" %>
+	<div class="header">
+			<h2 class="title">
+				<%= t("label.item_edit", :item => PluginFeature.model_name.human) %>
+			</h2>
+	</div>			
+	<div class="box_2a" style="margin-bottom:5px">
+    	<%= form_for(@plugin_feature, :url => { :action => 'update',  :controller => "plugin_features",:id => @plugin_feature.id  }, :method => "post") do |f| %>	
+			<%= render :partial => "plugin_features/form", :locals => {:feature => @plugin_feature, :f => f} %>								 						
+			<div align=center>
+				<%= f.submit t("label.item_save", :item => PluginFeature.model_name.human), :class => "button_1" %>
+			</div>
+		<% end %>									
 	</div>
-	<div id="main">
-			<div class="header">
-					<h2 class="title">
-						<%= t("label.item_edit", :item => PluginFeature.model_name.human) %>
-					</h2>
-			</div>			
-			<div class="box_2a" style="margin-bottom:5px">
-		    	<%= form_for(@plugin_feature, :url => { :action => 'update',  :controller => "plugin_features",:id => @plugin_feature.id  }, :method => "post") do |f| %>	
-					<%= render :partial => "plugin_features/form", :locals => {:feature => @plugin_feature, :f => f} %>								 						
-					<div align=center>
-						<%= f.submit t("label.item_save", :item => PluginFeature.model_name.human), :class => "button_1" %>
-					</div>
-				<% end %>									
-			</div>
-		
-			<div align=center style="margin-top:10px;">
-				<%= link_to icon("arrow_left") + " " + t("single.back"), {:action => "index"}  %>
-			</div>
-	</div>	
+
+	<div align=center style="margin-top:10px;">
+		<%= link_to icon("arrow_left") + " " + t("single.back"), {:action => "index"}  %>
+	</div>
 </div>	
 
 

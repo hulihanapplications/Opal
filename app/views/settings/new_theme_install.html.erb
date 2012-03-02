@@ -1,7 +1,7 @@
-<div id="side">
+<% content_for :side do %>
 	<%= render :partial => "/settings/menu" %>
-</div>
-<div id="main">
+<% end %>
+
 	<div class="header">
 		<table style="width:100%;" cellpadding=0 cellspacing=0>
 			<tr>
@@ -31,7 +31,6 @@
 			<% end %>									
 		</div>
 	</div>
-</div>
 <div align=center>
 	<%= link_to icon("arrow_left") + " " + t("single.back"), {:action => "themes"}  %>
 </div>														

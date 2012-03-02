@@ -1,43 +1,42 @@
+<% content_for :side do %>
+	<%= render :partial => "/items/menu" %>
+<% end %>
+
 <div class="section">
-	<div id="side">
-		<%= render :partial => "/items/menu" %>
+
+		
+	<div class="header">					
+		<table style="width:100%;" >
+			<tr>
+				<td align=left>
+					<h2 class="title">
+						<%= t("label.item_install", :item => Plugin.model_name.human) %>
+					</h2>						
+				</td>
+				<td align=right >
+				</td>
+			</tr>
+		</table>
 	</div>
 
-	<div id="main">
-		
-				<div class="header">					
-					<table style="width:100%;" >
-						<tr>
-							<td align=left>
-								<h2 class="title">
-									<%= t("label.item_install", :item => Plugin.model_name.human) %>
-								</h2>						
-							</td>
-							<td align=right >
-							</td>
-						</tr>
-					</table>
-				</div>
-			
-  			
-				<div>
-					<!--This will install a new plugin into <%= @setting[:title] %>.<br><br>-->
-					<div class="box_2" align=center>
-						<%= form_tag({:action => "install", :controller => "plugins"}, :multipart => true) do %>
-						   <table>
-							   	<tr>
-							   		<td valign=top>
-							   			<div class="box_2a">
-											<%= render :partial => "upload_form" %>
-										</div>
-							   		</td>
-							   	</tr>							
-							   </table>
-							   <br>
-							   <input type="submit" value="<%= t("single.install") %>" class="button_1">					
-						<% end %>									
-					</div>
-				</div>
+	
+	<div>
+		<!--This will install a new plugin into <%= @setting[:title] %>.<br><br>-->
+		<div class="box_2" align=center>
+			<%= form_tag({:action => "install", :controller => "plugins"}, :multipart => true) do %>
+			   <table>
+				   	<tr>
+				   		<td valign=top>
+				   			<div class="box_2a">
+								<%= render :partial => "upload_form" %>
+							</div>
+				   		</td>
+				   	</tr>							
+				   </table>
+				   <br>
+				   <input type="submit" value="<%= t("single.install") %>" class="button_1">					
+			<% end %>									
+		</div>
 	</div>
 </div>
 <br>

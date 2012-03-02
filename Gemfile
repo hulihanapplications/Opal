@@ -1,6 +1,5 @@
 source "http://rubygems.org/"
-
-gem "rails", "=3.1.1"#, :git => "http://github.com/rails/rails"
+gem "rails", "3.2.2"#, :git => "http://github.com/rails/rails"
 gem "opal", :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems")
 gem "russian", :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems/russian")  #, :git => "git://github.com/MrHant/russian.git" # Gem specific for "ru" locale
 gem "rmagick", "~>2.12.2"
@@ -11,6 +10,10 @@ gem "authlogic", "3.1.0"
 gem "ancestry"
 gem "will_paginate", ">= 3.0.pre2"
 gem "omniauth"
+gem "omniauth-twitter"
+gem "omniauth-facebook"
+gem "omniauth-google"
+gem "omniauth-oauth2"
 gem "authbuttons-rails"
 gem "carrierwave"
 gem "fog" # for s3 and rackspace cloud files support
@@ -26,8 +29,8 @@ group :development do
 end
 
 group :assets do
-  gem 'sass-rails', "  ~> 3.1.0"
-  gem 'coffee-rails', "~> 3.1.0"
+  gem 'sass-rails'
+  gem 'coffee-rails'
   gem 'uglifier'
   gem 'therubyracer'
 end

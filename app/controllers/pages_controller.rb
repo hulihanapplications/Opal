@@ -1,10 +1,10 @@
 class PagesController < ApplicationController
-  before_filter :authenticate_admin, :except => [:create_page_comment, :redirect_to_page, :page, :view, :send_contact_us] # make sure logged in user is an admin    
-  before_filter :enable_admin_menu, :except => [:view, :send_contact_us]# show admin menu 
+  before_filter :authenticate_admin, :except => [:create_page_comment, :redirect_to_page, :page, :view, :send_contact_us, :show] # make sure logged in user is an admin    
+  before_filter :enable_admin_menu, :except => [:view, :send_contact_us, :show]# show admin menu 
   before_filter :uses_tiny_mce, :only => [:new, :create, :edit, :update, :destroy]  # which actions to load tiny_mce, TinyMCE Config is done in Layout. 
   before_filter :check_humanizer_answer, :only => [:send_contact_us]
-  before_filter :find_page, :only => [:page, :view, :edit, :update, :delete]
-  before_filter(:only => [:view, :page]) {|c| can?(@page, @logged_in_user, :read)} 
+  before_filter :find_page, :only => [:page, :view, :edit, :update, :delete, :show]
+  before_filter(:only => [:view, :page, :show]) {|c| can?(@page, @logged_in_user, :read)} 
   
   
   def index
@@ -89,7 +89,12 @@ class PagesController < ApplicationController
     @setting[:meta_title] << @page.description if !@page.description.blank?
     @setting[:meta_title] << @page.title 
     @comments = PluginComment.record(@page).paginate(:page => params[:page], :per_page => 25).approved
-  end  
+  end 
+
+  def show
+    view
+    render "view"
+  end 
 
   def send_contact_us
    if !Cregexp.match(params[:email], :email)# validate email

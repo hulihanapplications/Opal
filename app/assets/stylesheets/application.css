@@ -5,4 +5,220 @@
 *= require authentication
 *= require flowplayer
 *= require_tree .
+*= require_self
 * */
+
+/* Opal Core CSS */
+
+/* HTML  */
+html,body {height: 100%;margin:0px;padding:0px;}
+td{vertical-align:top;}
+p{margin:0px 0px 20px 0px;}
+
+/*  Layout */
+#wrapper{height:auto !important; height:100%; min-height:100%;position:relative;}
+	#wrapper > #header{width: 900px ; margin: 0 auto ;;}
+	#wrapper > #content{width: 900px ;margin: 0 auto ;height:100%}
+			#wrapper > #content.split-one #main {width:100%}
+			#wrapper > #content.split-two #main {float:left;width:660px;}
+				#main .header table{width:100%}
+					#main .header td{vertical-align:middle}
+					#main .header td.left{text-align:left}
+					#main .header td.right{text-align:right}
+			#wrapper > #content.split-two #side, div.side, .side_right, .side_left{width:230px;float:left;padding-right:10px}
+			div.side_right{float:right}
+			.side_right{padding-left:10px}			
+	#wrapper > #footer{position:absolute;bottom:0;width:100%;padding:5px 0px 0px 0px;;text-align:center;}
+	#wrapper > #content #tabcontent #main, .tabcontent .main{width:640px;}
+
+
+/* Links */
+a:visited, a:link{outline: none;}
+a:hover{outline: none;}
+a.transparent:visited, a.transparent:link{text-decoration:none;;opacity:0.70;filter:alpha(opacity=70);-moz-opacity:0.7;-khtml-opacity: 0.7} 
+a.transparent:hover{text-decoration:none;opacity:1.00;filter:alpha(opacity=100);-moz-opacity:1.0;-khtml-opacity: 1.0}
+a.extra_options{padding:5px 0px;display:block;}
+
+/* Images */
+a img{border:0px;}
+img.icon, img.bullet{vertical-align:middle;border:0px;}
+
+
+/* Cursors */
+.pointer{cursor:pointer;}
+
+/* Tables & Cells */
+td.icon_column{width:20px;vertical-align:middle;text-align:center}
+
+table.cell{width:100%}
+	table.cell td{vertical-align:top}
+	table.cell td.side{width:40%}
+	table.cell td.half{width:50%}
+	table.cell td.main{width:60%}
+	table.cell td.spacer{width:10px}
+	table.cell td.left.border, .spacer_right{border-right:1px solid #aaa;}
+	table.cell td.right.border, .spacer_left{border-left:1px solid #ccc;}
+.right{padding-left:5px}
+.left{padding-right:5px}
+
+
+/* Interaction States(Selection, Hovering, Sorting, Etc.) */
+.hoverable{opacity:0.90;filter:alpha(opacity=90);-moz-opacity:0.9;-khtml-opacity: 0.9;}
+.hover{opacity:1.00;filter:alpha(opacity=100);-moz-opacity:1.0;-khtml-opacity: 1.0;}
+.disabled{opacity:0.50;filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity: 0.5;}
+
+
+
+
+/* Items */
+.item{}
+	.item input.name, .item .name a, .item .name{font-size:24px;;text-align:left;}
+	.item > .description, .item .details .description, .item #details .description{font-size:16px;;text-align:left;}
+	.item .new{position:relative;bottom:0px;left:0px;}
+
+/* Previews */
+div.preview_not_found a, .preview_text{text-align:center;position: relative;display:table;}
+	div.preview_not_found h2{;display:table-cell;vertical-align: middle}
+	div.preview_text img.avatar, div.preview_text div{margin-top:5px;}
+				
+	/* Item Page */
+	.plugins .plugin_box{clear:both}
+
+/* Review */
+.review .content{text-align:left}
+
+/* Sections & Headers */
+.section{margin-bottom:20px;}
+	.section .header{margin-bottom:5px}
+	.section .header td{vertical-align:middle}
+	
+#main div.header{position:relative;margin-bottom:10px;}
+	div.header div.title{}
+	div.header div.menu{position:absolute;right:0;top:3px;width:100%}
+		div.header ul.menu{}
+			div.header ul.menu li{float:right;}
+
+
+/* Lists */
+ul.record_menu, div#side ul.menu, div.header ul.menu, ul.sortable, ul.collapsed, div.header ul.menu, div#side ul.menu ul{list-style:none;padding:0px;margin:0px;}
+ul.right li, ul.left li{display:block}
+ul.right li{float:right}
+ul.left li{float:left}
+	ul.sortable li, ul.collapsed li{list-style-image:none;padding:0px;margin:0px;}
+	ul.sortable li{cursor:move;}
+	ul.sortable li ul.sortable li{;padding:0px 0px 0px 20px;}
+
+/* Menus */
+
+div#side div.menu{text-align:left;} 
+	div#side ul.menu{text-align:left;}
+		div#side ul.menu li{padding-left:10px;font-size:16px;margin:3px 0px;position:relative}
+			div#side ul.menu li span.count{position:absolute;right:0;top:0;text-align:center;}	
+			div#side ul.menu li ul li{font-size:14px}	
+div#side div.menu div.footer{text-align:center}
+
+.menu{text-align:center}
+	.menu .last{margin-bottom:0px}
+div.record{position:relative;}
+
+div.record_menu{position:relative;height:25px;margin-bottom:10px;}
+.records div.record_menu{}
+	.record_menu.left{position:absolute;left:0}
+		.record_menu.left li{margin-right:2px;}
+	.record_menu.right, div.header ul.menu{position:absolute;right:0}
+		.record_menu.right li, div.header ul.menu li{margin-left:2px;}
+	.record_menu li > a, .record_menu li > span, div.header ul.menu li > a, div.header ul.menu li > span{display:block;padding: 3px 7px;height:18px;}
+.record_menu li a, div.header ul.menu li a{opacity:0.90;filter:alpha(opacity=90);-moz-opacity:0.9;-khtml-opacity: 0.9;}
+.record_menu li a:hover, div.header ul.menu li a:hover{opacity:1.00;filter:alpha(opacity=100);-moz-opacity:1.0;-khtml-opacity: 1.0;}
+
+
+
+/* Boxes */
+.extra_options_box{padding:10px;}
+
+/* Comments & Posts */
+.comment .comment{margin-left:40px;}
+.comment .comment .comment .comment .comment{margin-left:0px}
+
+/* Other Stuff */
+.indent{padding-left:7px;}
+	.indent td{padding:2px 0px 2px 0px;}
+.navlinks{margin-bottom:10px;}
+.tooltip {display:none;z-index:999}
+.clear{clear:both}
+.help{cursor:help;}
+div#notifications{margin-bottom:10px;}
+div.loading{text-align:center;}
+
+/* Plugins */
+
+/* Pages */
+.page .content{padding:5px 0px;}
+
+/* Notice Messages(Success and Failure Boxes) & Error Styles */
+.notice{text-align:center;} /* This is the div that contains all notice messages. */
+	.notice .success, .notice .info, .notice .warning, .notice .failure, .errorExplanation, .uploadifyError, .notice img.loadin{
+		margin:0px 0px 10px 0px;
+		padding:5px;
+		text-align:center;
+		-moz-border-radius: 5px;
+		-webkit-border-radius:5px;
+	}
+	.notice .success{color:#106F00;border:1px solid #1C8F08;background-color:#BBFFAF;}
+	.notice .info{color:#333;border:1px solid #333;background-color:#ccc;}
+	.notice .warning{color:#aaa;border:1px solid #333;background-color:#ccc;}
+	.notice .failure, .errorExplanation, .uploadifyError{color:#AF0000;border:1px solid #AF0000;background-color:#F3B3B3;}
+		.field_with_errors{color:#AF0000;}
+			.field_with_errors input, .field_with_errors textarea, .field_with_errors select{border: 1px solid #AF0000;}
+
+
+/* Logs */
+.log td{vertical-align:middle}
+.log img.medium{float:left;margin-right:5px;vertical-align:middle}
+
+/* Pagination */
+.pagination{text-align:center;}
+
+/* Forms, Fields & Inputs */
+input, option, textarea{padding:2px;}
+textarea{width:100%;height:100px;margin:0;padding:0}
+label, .field .label{font-size:16px;}
+
+.field{margin-bottom:10px;}
+	.field .description{padding:0px 0px 0px 0px;font-size:12px}
+		.field dl{padding:5px 0px 0px 10px;margin:0}
+			.field dt{float:left;padding-right:5px;clear:left}
+			.field dd{-webkit-margin-start:0px;}
+				.field dd label{font-size:12px}
+
+.buttons{text-align:center;margin:10px 0px}
+#editor_wrapper{margin-bottom:10px;}
+form#register div.field{}
+form#register div.field label{display:block;}
+	form#register div#terms{margin:20px 0px;;}
+	div.actions, form#register div#terms{text-align:center;}
+
+
+/* Other Stuff */
+.main_content_top_bar{height:25px;}
+.pagination{clear:both;}
+.back{padding:10px;}
+.cloud_tiny{}
+.cloud_small{font-size:1.1em}
+.cloud_medium{font-size:1.2em}
+.cloud_large{font-size:1.3em}
+
+/* Tabs */
+
+
+/* Tabs Section */
+div.tab{display:block}
+ul.tab{list-style:none; margin:0 !important; 	padding:0;	height:25px;	margin-bottom:0px;}
+ul.tab > li {float:left; text-indent:0;	padding:0;	margin:0 !important;	list-style-image:none !important; }
+ul.tab a, ul.tab li.selected a {font-size:12px;	display:block;	height: 19px;	min-width:90px;	padding:3px 10px;	margin:0px 2px 0px 0px;	text-align:center;		text-decoration:none;		position:relative;}
+div#tab-content{padding:10px;padding-top:10px;	min-height:400px;}
+
+
+/* TinyMCE */
+.tinymce_popup{padding:10px;min-height:465px;}		
+textarea.mceEditor{width:100%;height:500px}

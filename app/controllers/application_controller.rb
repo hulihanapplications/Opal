@@ -10,10 +10,7 @@ class ApplicationController < ActionController::Base
   
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
-  protect_from_forgery  #:secret => '271565d54852d3da3a489c27f69a31b1'
-
-  helper_method :current_user  
- 
+  protect_from_forgery  #:secret => '271565d54852d3da3a489c27f69a31b1' 
 	
   def layout_location # this will eventually be deprecated, in favor of prepend_view_path
     # Load Theme & Layout
@@ -215,6 +212,14 @@ private
     @current_user = current_user_session && current_user_session.record
   end
 
+  helper_method :current_user  
+
+  # Check if user is logged in
+  def logged_in? 
+    !@logged_in_user.anonymous?
+  end
+
+  helper_method :logged_in?
 
   def mobile_device? # are they on a mobile device?
     request.user_agent =~ /Mobile|webOS/

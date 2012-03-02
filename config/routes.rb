@@ -60,6 +60,15 @@ Rails.application.routes.draw do
     get "for_item", :on => :collection
     get "for_user", :on => :collection            
   end
+
+  resources :pages do
+    collection do
+      get "send_contact_us"
+      get "update_order"
+      get "delete"
+    end
+    get "view", :on => :member
+  end  
   
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.

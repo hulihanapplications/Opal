@@ -5,6 +5,7 @@ class UserSessionsController < ApplicationController
   skip_filter :check_public_access, :only => [:new, :create]
   
   def new
+    flash[:success] = t("label.log_in_redirect_message") if params[:redirect_to].present?
     @user_session = UserSession.new
     @setting[:meta_title] << t("label.log_in")
   end

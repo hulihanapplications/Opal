@@ -1,7 +1,7 @@
 <% 
 	subpages ||= page.pages.published.display_in_menu.in_order
 %>
-<div class="section" id="page-menu">
+<%= content_tag :div, :class => "section", :id => "page-menu" do %>
 	<h2 class="title">
 		<%= link_to_page page %>
 	</h2>
@@ -13,4 +13,4 @@
 			<% end %>	
 		<% end %>
 	</div>
-</div>
+<% end unless subpages.empty? %>

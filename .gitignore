@@ -57,6 +57,7 @@ public/assets
 vendor/plugins/opal_*
 vendor/plugins/plugin_*
 
-#Aptana project file
+# Editor/IDE-specific files
+*.sublime*
 .project
 

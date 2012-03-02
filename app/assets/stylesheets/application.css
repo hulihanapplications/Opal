@@ -17,8 +17,13 @@ p{margin:0px 0px 20px 0px;}
 
 /*  Layout */
 #wrapper{height:auto !important; height:100%; min-height:100%;position:relative;}
-	#wrapper > #header{width: 900px ; margin: 0 auto ;;}
-	#wrapper > #content{width: 900px ;margin: 0 auto ;height:100%}
+	#wrapper > #header, #wrapper > #content, #wrapper > #top > table{width: 900px ; margin: 0 auto ;}
+	#wrapper > #top{background:#333;padding:5px 0px;text-align:right;color:#ccc;border-bottom:1px solid #666;}
+		#top td{vertical-align:middle;}
+		#top a:visited, #top a:link, #footer a:visited, #footer a:link{color:#ddd}
+		#top a:hover, #footer a:hover{color:#fff}
+	#wrapper > #header{position:relative;height:95px;}
+	#wrapper > #content{height:100%}
 			#wrapper > #content.split-one #main {width:100%}
 			#wrapper > #content.split-two #main {float:left;width:660px;}
 				#main .header table{width:100%}
@@ -68,6 +73,29 @@ table.cell{width:100%}
 .disabled{opacity:0.50;filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity: 0.5;}
 
 
+/* Forms, Fields & Inputs */
+input, option, textarea{padding:2px;}
+textarea{width:100%;height:100px;margin:0;padding:0}
+label, .field .label{font-size:16px;}
+
+.field{margin-bottom:10px;}
+	.field .description{padding:0px 0px 0px 0px;font-size:12px}
+		/* Field Definition Lists are for radio buttons & check boxes */
+		.field dl{padding:5px 0px 0px 10px;margin:0}
+			.field dt{float:left;padding-right:5px;clear:left}
+			.field dd{-webkit-margin-start:0px;}
+				.field dd label{font-size:12px}
+
+.buttons{text-align:center;margin:10px 0px}
+#editor_wrapper{margin-bottom:10px;}
+form#register div.field{}
+form#register div.field label{display:block;}
+	div.actions, form#register div#terms{text-align:center;margin-top:20px;}
+
+#search_button, #search_box{border:1px solid #999;padding:2px;}		
+#search_button{padding-left:10px;padding-right:10px;}
+input#search_box{background:#333;color:#ddd;}
+input#search_box.selected{background:#666;border:1px solid #ccc;color:white}
 
 
 /* Items */
@@ -109,7 +137,6 @@ ul.left li{float:left}
 	ul.sortable li ul.sortable li{;padding:0px 0px 0px 20px;}
 
 /* Menus */
-
 div#side div.menu{text-align:left;} 
 	div#side ul.menu{text-align:left;}
 		div#side ul.menu li{padding-left:10px;font-size:16px;margin:3px 0px;position:relative}
@@ -178,25 +205,6 @@ div.loading{text-align:center;}
 
 /* Pagination */
 .pagination{text-align:center;}
-
-/* Forms, Fields & Inputs */
-input, option, textarea{padding:2px;}
-textarea{width:100%;height:100px;margin:0;padding:0}
-label, .field .label{font-size:16px;}
-
-.field{margin-bottom:10px;}
-	.field .description{padding:0px 0px 0px 0px;font-size:12px}
-		.field dl{padding:5px 0px 0px 10px;margin:0}
-			.field dt{float:left;padding-right:5px;clear:left}
-			.field dd{-webkit-margin-start:0px;}
-				.field dd label{font-size:12px}
-
-.buttons{text-align:center;margin:10px 0px}
-#editor_wrapper{margin-bottom:10px;}
-form#register div.field{}
-form#register div.field label{display:block;}
-	form#register div#terms{margin:20px 0px;;}
-	div.actions, form#register div#terms{text-align:center;}
 
 
 /* Other Stuff */

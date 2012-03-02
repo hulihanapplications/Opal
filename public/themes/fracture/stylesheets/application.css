@@ -12,7 +12,7 @@ select{background-color:#ddd}
 hr{width: 100%; margin: 5px 0px 5px 0px; height: 1px; background: #ccc; border: 0; }
 
 /*  Layout */
-#wrapper > #header{position:relative;;height:133px;;background:url(../images/bgs/main_logo_bg.png) no-repeat;background-position:bottom left;}
+#wrapper > #header{;background:url(../images/bgs/main_logo_bg.png) no-repeat;background-position:bottom left;}
 #wrapper > #content{;padding:5px;padding-top:10px; padding-bottom:70px;height:100%}
 #wrapper > #footer{position:absolute;bottom:0;width:100%;height:45px;padding:10px;color:#ccc;background:url(../images/bgs/body_bg.png) repeat-x white;border-top:1px solid black;;text-align:center;}
 
@@ -35,19 +35,12 @@ ul.main_menu{list-style:none;text-align:right;}
 #main .header .description{border-top:1px solid #aaa;margin-top:5px;padding-top:5px;}
 div.header ul.menu li{}
 
-/* Top Bar */
-#top_bar{;padding:5px;text-align:right;color:#ccc;background:url(../images/bgs/white_trans_10.png) repeat;border:1px solid #666;-moz-border-radius-bottomleft:5px;-webkit-border-bottom-left-radius:5px; -moz-border-radius-bottomright:5px;-webkit-border-bottom-right-radius:5px}
-	#top_bar > table{margin:0px auto}
-	#top_bar td{vertical-align:middle;padding:0px 2px}
-	#top_bar a:visited, #top_bar a:link, #footer a:visited, #footer a:link{color:#ddd}
-	#top_bar a:hover, #footer a:hover{color:#fff}
-	#search_button, #search_box{border:1px solid #999;padding:2px;}		
-	#search_button{padding-left:10px;padding-right:10px;}
-	input#search_box{background:url(../images/bgs/white_trans_10.png) repeat;color:#ddd}
-	input#search_box.selected{background:url(../images/bgs/white_trans_25.png) repeat;border:1px solid #ccc;color:white}
-	.login_box{}
+/* Top */
+#top{;background:url(../images/bgs/white_trans_10.png) repeat;}
 
 /* Fields & Inputs */
+input#search_box{background:url(../images/bgs/white_trans_10.png) repeat;}
+input#search_box.selected{background:url(../images/bgs/white_trans_25.png) repeat;}
 
 /* Menus */
 div#side ul.menu li span.count, div#side div.menu, div#side ul.menu li.selected{-moz-border-radius: 5px;-webkit-border-radius: 5px;}	
@@ -91,7 +84,7 @@ h1.title, h2.title, h3.title{}
 .button_1:hover{opacity:1.00;filter:alpha(opacity=100);-moz-opacity:1.0;-khtml-opacity: 1.0;}
 .button_2, .button_2:visited, .button_2:link{color:#eee;text-shadow:0px 1px 2px #000;padding:1px 5px 1px 5px;border:1px solid black;background:url(../images/bgs/button_2_bg.png) repeat center center;;font-weight:bold;;cursor:pointer;-moz-border-radius: 3px;-webkit-border-radius: 3px;opacity:0.90;filter:alpha(opacity=90);-moz-opacity:0.9;-khtml-opacity: 0.9;}
 .button_2:hover{opacity:1.00;filter:alpha(opacity=100);-moz-opacity:1.0;-khtml-opacity: 1.0;}
-.button_1, .button_2, #search_button, #search_box, #top_bar,  img.loading{-moz-box-shadow: 0 1px 2px #000;-webkit-box-shadow: 0 1px 2px #000;}
+.button_1, .button_2, #search_button, #search_box, #top,  img.loading{-moz-box-shadow: 0 1px 2px #000;-webkit-box-shadow: 0 1px 2px #000;}
 
 
 

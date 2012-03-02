@@ -6,6 +6,7 @@
 
 <body>
 <div id="wrapper">
+	<%= render :partial => "top" %>				    
 	<%= render :partial => "header" %>
 	<div id="content" class="<%= content_for?(:side) ? 'split-two' : 'split-one' %>">
 		 <%= render_flash %>

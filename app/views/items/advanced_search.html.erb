@@ -3,8 +3,9 @@
 
 	<%= form_tag(url_for(:controller => "items", :action => "do_advanced_search"), :remote => true, :id => "advanced_search_form") do |f|  %>
 		<%= render :partial => "advanced_search_form" %>
-		<div style="height:10px;clear:both"></div>
-		<input type="submit" value="<%= t("single.search") %>" class="button_1" id="advanced_search_button">			
+		<div class="actions">
+			<input type="submit" value="<%= t("single.search") %>" class="button_1" id="advanced_search_button">			
+		</div>
 	<% end %>
 	<script type="text/javascript">
 		$(document).ready(function(){		

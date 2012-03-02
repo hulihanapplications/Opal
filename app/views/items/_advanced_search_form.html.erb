@@ -6,96 +6,94 @@
 	} 
 	//add_feature_input('features_section'); // add first field
 </script>
-<div id="side">
-				<div class="box_1" align=left>					
-					<h3><%= Category.model_name.human %></h3>
-					<%= category_select_tag("category_id", nil, :include_blank => t("single.all")) %>	
-				</div>
-				<div class="box_1" align=left>
-					<div class="field">
-						<h3><%= label :item, :created_at %></h3>
-						<select name="created_at">
-							<option value="" SELECTED><%= t("label.time_any") %></option>						
-							<option value="<%= Time.now.beginning_of_day.to_sql %>"><%= t("label.time_today") %></option>
-							<option value="<%= Time.now.beginning_of_week.to_sql %>"><%= t("label.time_this_week") %></option>
-							<option value="<%= Time.now.beginning_of_month.to_sql %>"><%= t("label.time_this_month") %></option>
-							<option value="<%= Time.now.beginning_of_year.to_sql %>"><%= t("label.time_this_year") %></option>												
-						</select>						
-					</div>	
-					
-					<div class="field">
-						<h3><%= label :item, :updated_at %></h3>
-						<select name="updated_at">
-							<option value="" SELECTED><%= t("label.time_any") %></option>						
-							<option value="<%= Time.now.beginning_of_day.to_sql %>"><%= t("label.time_today") %></option>
-							<option value="<%= Time.now.beginning_of_week.to_sql %>"><%= t("label.time_this_week") %></option>
-							<option value="<%= Time.now.beginning_of_month.to_sql %>"><%= t("label.time_this_month") %></option>
-							<option value="<%= Time.now.beginning_of_year.to_sql %>"><%= t("label.time_this_year") %></option>												
-						</select>					
-					</div>																				
-				</div>				
-			</div>
-<div id="main">
-	<div class="box_2" align=left>
+<% content_for :side do %>
+	<div class="box_1" align=left>					
+		<h3><%= Category.model_name.human %></h3>
+		<%= category_select_tag("category_id", nil, :include_blank => t("single.all")) %>	
+	</div>
+	<div class="box_1" align=left>
 		<div class="field">
-			<h3><%= "#{t("single.name")} #{t("single.or").downcase} #{t("single.description")}" %></h3>
-			<input name="search[keywords]" type="text">
-		</div>
+			<h3><%= label :item, :created_at %></h3>
+			<select name="created_at">
+				<option value="" SELECTED><%= t("label.time_any") %></option>						
+				<option value="<%= Time.now.beginning_of_day.to_sql %>"><%= t("label.time_today") %></option>
+				<option value="<%= Time.now.beginning_of_week.to_sql %>"><%= t("label.time_this_week") %></option>
+				<option value="<%= Time.now.beginning_of_month.to_sql %>"><%= t("label.time_this_month") %></option>
+				<option value="<%= Time.now.beginning_of_year.to_sql %>"><%= t("label.time_this_year") %></option>												
+			</select>						
+		</div>	
+		
+		<div class="field">
+			<h3><%= label :item, :updated_at %></h3>
+			<select name="updated_at">
+				<option value="" SELECTED><%= t("label.time_any") %></option>						
+				<option value="<%= Time.now.beginning_of_day.to_sql %>"><%= t("label.time_today") %></option>
+				<option value="<%= Time.now.beginning_of_week.to_sql %>"><%= t("label.time_this_week") %></option>
+				<option value="<%= Time.now.beginning_of_month.to_sql %>"><%= t("label.time_this_month") %></option>
+				<option value="<%= Time.now.beginning_of_year.to_sql %>"><%= t("label.time_this_year") %></option>												
+			</select>					
+		</div>																				
+	</div>				
+<% end %>
+
+<div class="box_2">
+	<div class="field">
+		<h3><%= "#{t("single.name")} #{t("single.or").downcase} #{t("single.description")}" %></h3>
+		<input name="search[keywords]" type="text">
+	</div>
 
 
-		<% @plugin = Plugin.find_by_name("Feature") %>
-		<% if @plugin.is_enabled? && features.size > 0 %>
-			<% counter = 0 %>
-			<div id="features_section" class="field">
-				<h3><%= @plugin.model_name.human(:count => :other) %></h3>					
-		    	<table cellpadding=0 cellspacing=0 style="width:100%">
-			        <tr>
-						<% for feature in features %>
-							<% if feature.search_type != "None" %>		
-        						<%= raw "</tr><tr>" if counter % 2 == 0 && counter != 0  %>																
-								<td style="width:50%">
-									<div class="box_2" id="feature_<%= feature.id %>" style=";margin:5px 5px 5px 5px">
-										<table style="width:100%">
-											<tr>
-												<td align=left style="vertical-align:middle">
-													<h3>
-														<input style="vertical-align:middle" type="checkbox" name="feature[<%= feature.id %>][search]" value="1" onclick="javascript:toggle_feature('<%= feature.id %>')">
-														<%= feature_icon feature %> 
-														<%= feature.name %>
-													</h3>
-												</td>																						
-												<td align=right >
-													<input type="hidden" name="feature[<%= feature.id %>][type]" value="<%= feature.search_type %>">															
-													<% if feature.search_type == "Keyword" %>
-														<input type="text" name="feature[<%= feature.id %>][value]">
-													<% elsif feature.search_type == "Number" %>
-														<input type="text" name="feature[<%= feature.id %>][value]">										
-													<% elsif feature.search_type == "Grouped" %>															
-														<% grouped_feature_values = PluginFeatureValue.find(:all, :select => "value, count(value)", :conditions => ["plugin_feature_id = ?", feature.id], :group => "value") %>
-														<% if grouped_feature_values.size > 0 %>
-															<select name="feature[<%= feature.id %>][value]">
-																<% for feature_value in grouped_feature_values %>
-																	<option value="<%= feature_value.value %>"><%= h truncate(feature_value.value, :length => 20)  %> (<%= feature_value["count(value)"] %>)</option>
-																<% end %>
-															</select>
-														<% else %>
-															<%= t("notice.items_not_found", :items => Item.model_name.human(:count => :other)) %>
-														<% end %>
+	<% @plugin = Plugin.find_by_name("Feature") %>
+	<% if @plugin.is_enabled? && features.size > 0 %>
+		<% counter = 0 %>
+		<div id="features_section" class="field">
+			<h3><%= @plugin.model_name.human(:count => :other) %></h3>					
+	    	<table cellpadding=0 cellspacing=0 style="width:100%">
+		        <tr>
+					<% for feature in features %>
+						<% if feature.search_type != "None" %>		
+    						<%= raw "</tr><tr>" if counter % 2 == 0 && counter != 0  %>																
+							<td style="width:50%">
+								<div class="box_2" id="feature_<%= feature.id %>" style=";margin:5px 5px 5px 5px">
+									<table style="width:100%">
+										<tr>
+											<td align=left style="vertical-align:middle">
+												<h3>
+													<input style="vertical-align:middle" type="checkbox" name="feature[<%= feature.id %>][search]" value="1" onclick="javascript:toggle_feature('<%= feature.id %>')">
+													<%= feature_icon feature %> 
+													<%= feature.name %>
+												</h3>
+											</td>																						
+											<td align=right >
+												<input type="hidden" name="feature[<%= feature.id %>][type]" value="<%= feature.search_type %>">															
+												<% if feature.search_type == "Keyword" %>
+													<input type="text" name="feature[<%= feature.id %>][value]">
+												<% elsif feature.search_type == "Number" %>
+													<input type="text" name="feature[<%= feature.id %>][value]">										
+												<% elsif feature.search_type == "Grouped" %>															
+													<% grouped_feature_values = PluginFeatureValue.find(:all, :select => "value, count(value)", :conditions => ["plugin_feature_id = ?", feature.id], :group => "value") %>
+													<% if grouped_feature_values.size > 0 %>
+														<select name="feature[<%= feature.id %>][value]">
+															<% for feature_value in grouped_feature_values %>
+																<option value="<%= feature_value.value %>"><%= h truncate(feature_value.value, :length => 20)  %> (<%= feature_value["count(value)"] %>)</option>
+															<% end %>
+														</select>
 													<% else %>
-													<% end %>												
-												</td>
-											</tr>
-										</table>
-									</div>
-								</td>						
-            					<% counter += 1 %>	
-							<% end %>							
-						<% end %>
-			        </tr>
-			    </table>								
-			</div> 
-		<% end %>
-										
-	</div>					
-</div>
+														<%= t("notice.items_not_found", :items => Item.model_name.human(:count => :other)) %>
+													<% end %>
+												<% else %>
+												<% end %>												
+											</td>
+										</tr>
+									</table>
+								</div>
+							</td>						
+        					<% counter += 1 %>	
+						<% end %>							
+					<% end %>
+		        </tr>
+		    </table>								
+		</div> 
+	<% end %>									
+</div>					
 

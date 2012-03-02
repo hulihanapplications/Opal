@@ -5,4 +5,4 @@
 <% if @logged_in_user.is_admin? %>
 	<%= render :partial => "application/record_menu", :locals => {:record => page} %>
 <% end %>
-<%= nav_link_page page if options[:navlinks] && page %>
+<%= render "navigation", :locals => {:page => page} %>

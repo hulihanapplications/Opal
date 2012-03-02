@@ -1,5 +1,5 @@
 <% if @items %>		
-	<%= render :partial => "main_content_top_bar" %>	
+	<%= render :partial => "navigation" %>	
 	<div class="new-items">
 		<!-- <div align=center><h2 class="title">New to <%= @setting[:title] %></h2></div> -->
 		<%= render :partial => "items/list_items", :locals => {:items => @items } %>

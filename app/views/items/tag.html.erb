@@ -1,5 +1,5 @@
 
-<%= render :partial => "main_content_top_bar" %>
+<%= render :partial => "navigation" %>
 
 <% content_for :side do %>
 	<%= render :partial => "plugin_tags/side" if Plugin.plugins[:tag].is_enabled? %>	

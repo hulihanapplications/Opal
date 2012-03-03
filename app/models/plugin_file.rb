@@ -25,4 +25,8 @@ class PluginFile < ActiveRecord::Base
   def filename
     self.class.column_names.include?("filename") ? (self["filename"] ? self["filename"] : self["file"]) : (file.path.blank? ? "" : File.basename(file.path))  
   end  
+
+  def size
+    File.exists?(file.to_s) ? file.size : nil
+  end
 end

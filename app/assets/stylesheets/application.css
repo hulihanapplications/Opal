@@ -293,7 +293,7 @@ div#tab-content{padding:10px;padding-top:10px;	min-height:400px;}
 textarea.mceEditor{width:100%;height:500px}
 
 /* fg menu */
-a.fg-button{padding:5px 5px;margin:0 3px;}
+a.fg-button{padding:5px 5px;margin:0 2px;}
 div.fg-menu-container, a.fg-button.ui-state-active{border-color:#fff;background:#fff;-moz-box-shadow: 0 1px 2px #000;-webkit-box-shadow: 0 1px 2px #000;}
 a.fg-button.ui-state-active{border:0;border-top:1px solid #ccc;-moz-border-radius-bottomleft:0px;-webkit-border-bottom-left-radius:0px; -moz-border-radius-bottomright:0px;-webkit-border-bottom-right-radius:0px;}
 div.fg-menu-container{-moz-border-radius-topleft:0px;-webkit-border-top-left-radius:0px}

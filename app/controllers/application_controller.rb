@@ -6,31 +6,11 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale, :check_public_access
   #before_filter :detect_mobile
   before_filter :detect_flash, :find_record
-  layout :layout_location # using a symbol defers layout choice until after a request is processed 
   
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery  #:secret => '271565d54852d3da3a489c27f69a31b1' 
 	
-  def layout_location # this will eventually be deprecated, in favor of prepend_view_path
-    # Load Theme & Layout
-    mobile_mode? ? layout_filename = "application.mobile.erb" : layout_filename = "application.html.erb"
-    if ActiveRecord::Base.connection.tables.include?('settings') # check if settings table exists
-      #theme = Setting.get_setting("theme") # get the theme name 
-      theme = @setting[:theme]
-      layout_location = File.join(Rails.root.to_s, "public", "themes", theme, "layouts", layout_filename) # set path to theme layout
-      logger.info(layout_location)
-      if !File.exists?(layout_location) # if the theme's layout file isn't present, use default layout. File.exists? requires absolute path.
-        logger.info(layout_location)
-        layout_location = File.join("layouts", layout_filename) # Use the default layout, keep the global theme as it is.
-      end
-    else # if theme isn't set, use default theme
-      layout_location = File.join("layouts", layout_filename) # Use the default layout, keep the global theme as it is.
-    end 
-    
-    return layout_location # Load the theme erb layout
-  end   
-
   def set_locale # set language, local time, etc.
    if params[:locale] # set in url 
     I18n.locale = params[:locale]

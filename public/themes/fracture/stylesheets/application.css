@@ -83,12 +83,6 @@ ul.right li > span > a img{
 	background:url(../images/icons/spacer.png) no-repeat left center;
 	padding-left:14px;
 }
-.record_menu span > a img, 
-div.header ul.menu span > a img, 
-ul.left li > span > a img{
-	background:url(../images/icons/spacer.png) no-repeat right center;
-	padding-left:14px;
-}
 .record_menu span > a img.avatar, 
 div.header ul.menu span > a img.avatar, 
 ul.right li > span a img.avatar{

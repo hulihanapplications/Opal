@@ -52,7 +52,7 @@
 							<span id="file_<%= file.id %>">											
 								<%= content_tag(:h3, link_to(icon("file") + " " + file.get_title, download_path(:record_type => file.class.name, :record_id => file))) %>								
 								<hr />
-								<%= number_to_human_size(file.file.size) %>
+								<%= number_to_human_size(file.size) if file.size %>
 								<%= icon("spacer") %>
 								<%= file.downloads %> <%= PluginFile.human_attribute_name(:downloads) %>
 							</span>

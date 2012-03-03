@@ -1,39 +1,38 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-	<%= render :partial => "head" %>
-</head>
+	<head>
+		<%= render :partial => "head" %>
+	</head>
 
-<body>
-<div id="wrapper">
-	<%= render :partial => "top" %>				    
-	<%= render :partial => "header" %>
-	<div id="content" class="<%= content_for?(:side) ? 'split-two' : 'split-one' %>">
-		 <%= render_flash %>
-		 <%= render :partial => "banner_top" %>		 		 
+	<body>
+		<div id="wrapper">
+			<%= render :partial => "top" %>				    
+			<%= render :partial => "header" %>
+			<div id="content" class="<%= content_for?(:side) ? 'split-two' : 'split-one' %>">
+				<%= render_flash %>
+				<%= render :partial => "banner_top" %>		 		 
 
-		 <%= render :partial => "user/menu" if @show_user_menu %>
-		 <%= render :partial => "admin/menu" if @show_admin_menu %>	
-		 
-		 <%= content_tag :div, :id => :side  do %>
-		 	<%= yield :side %>
-		 <% end if content_for? :side %>
+				<%= render :partial => "user/menu" if @show_user_menu %>
+				<%= render :partial => "admin/menu" if @show_admin_menu %>	
+				
+				<%= content_tag :div, :id => :side  do %>
+				 	<%= yield :side %>
+				<% end if content_for? :side %>
 
-		 		 
-		 <%= content_tag :div, :id => :main, :class => content_for?(:user_menu) ? "user" : content_for?(:admin_menu) ? "admin" : nil do %>
-			<%= yield :user_menu if content_for? :user_menu %>
-			<%= yield :admin_menu if content_for? :admin_menu %>
-	    	<%= content_tag(:div, yield, :class => (content_for?(:user_menu) || content_for?(:admin_menu)) ? "tab-content" : nil) %>			
-		 <% end %>		     
+				 		 
+				<%= content_tag :div, :id => :main, :class => content_for?(:user_menu) ? "user" : content_for?(:admin_menu) ? "admin" : nil do %>
+					<%= yield :user_menu if content_for? :user_menu %>
+					<%= yield :admin_menu if content_for? :admin_menu %>
+			    	<%= content_tag(:div, yield, :class => (content_for?(:user_menu) || content_for?(:admin_menu)) ? "tab-content" : nil) %>		
+				<% end %>		     
 
- 		<div class="clear"></div>		
- 		<%= render :partial => "banner_bottom" %>
-	</div>
-	<div id="footer">
-		<%= show_page Page.get_system_page(I18n.t('seeds.page.website_bottom.title')) %>
-		<%= render :partial => "footer" %>
-	</div>
-</div>
-</body>
-
+		 		<div class="clear"></div>		
+		 		<%= render :partial => "banner_bottom" %>
+			</div>
+			<div id="footer">
+				<%= show_page Page.get_system_page(I18n.t('seeds.page.website_bottom.title')) %>
+				<%= render :partial => "footer" %>
+			</div>
+		</div>
+	</body>
 </html>

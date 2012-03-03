@@ -149,4 +149,9 @@ class Page < ActiveRecord::Base
       super(performer, action, options)                 
     end
   end   
+
+  # Is this a root page?
+  def root?
+    page_id == 0
+  end
 end

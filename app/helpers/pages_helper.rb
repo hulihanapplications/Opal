@@ -18,13 +18,13 @@ module PagesHelper
     navlinks = Array.new # container to hold nav links
       #root_page = Page.get_system_page("About Home")
       # navlinks <<  (link_to root_page.title, {:action => "page", :controller => "pages", :id => root_page}) +  " &raquo; " + message # home
-    if page.page_id != 0 # only do this to child pages 
+    unless page.root? # only do this to child pages 
       navlinks <<  link_to_page(page.page.page) if  page.page &&  page.page.page # add grandparent page
       navlinks <<  link_to_page(page.page) if page.page # add parent page
       navlinks <<  link_to_page(page)
     end 
     
-    if navlinks.size > 0 # if there are any navlinks...
+    if !navlinks.empty? # if there are any navlinks...
       return raw "<div class=\"navlinks\">" + navlinks.join(" &raquo; ") + "</div>"
     else # no navlinks shown
       return ""

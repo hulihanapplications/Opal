@@ -50,12 +50,51 @@ div#side div.menu{}
 			div#side ul.menu li.selected span.count{top:5px;right:5px;}			
 div#side div.menu div.footer{border-top:1px solid #aaa;padding-top:5px;margin-top:5px;}
 
-.record_menu li > a, .record_menu li > span, div.header ul.menu li > a, #navigation ul.right li > a, div.header ul.menu li > span, #navigation ul.right li > span{-moz-border-radius: 5px;-webkit-border-radius: 5px;}
-.record_menu li > span, div.header ul.menu li > span, #navigation ul.right li > span{border:1px solid #bbb;background:url(../images/bgs/white_trans_50.png) repeat;}
-.record_menu li > a, div.header ul.menu li > a, #navigation ul.right li > a{border:1px solid #aaa; background:url(../images/bgs/button_3_bg.png) repeat center center;}
-.record_menu li > a:hover, div.header ul.menu li:hover, #navigation ul.right li > a:hover{border:1px solid #666;}
-.record_menu span > a img, div.header ul.menu span > a img, #navigation ul.right li > span > a img{background:url(../images/icons/spacer.png) no-repeat left center;padding-left:14px;}
-.record_menu span > a img.avatar, div.header ul.menu span > a img.avatar, #navigation ul.right li > span a img.avatar{background:none;padding-left:0px;}
+
+.record_menu li > a, 
+.record_menu li > span, 
+div.header ul.menu li > a, 
+ul.right li > a, 
+div.header ul.menu li > span, 
+ul.right li > span{
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+.record_menu li > span, 
+div.header ul.menu li > span, 
+ul.right li > span{
+	border:1px solid #bbb;
+	background:url(../images/bgs/white_trans_50.png) repeat;
+}
+.record_menu li > a, 
+div.header ul.menu li > a, 
+ul.right li > a{
+	border:1px solid #aaa; 
+	background:url(../images/bgs/button_3_bg.png) repeat center center;
+}
+.record_menu li > a:hover, 
+div.header ul.menu li > a:hover, 
+ul.right li > a:hover{
+	border:1px solid #666;
+}
+.record_menu span > a img, 
+div.header ul.menu span > a img, 
+ul.right li > span > a img{
+	background:url(../images/icons/spacer.png) no-repeat left center;
+	padding-left:14px;
+}
+.record_menu span > a img, 
+div.header ul.menu span > a img, 
+ul.left li > span > a img{
+	background:url(../images/icons/spacer.png) no-repeat right center;
+	padding-left:14px;
+}
+.record_menu span > a img.avatar, 
+div.header ul.menu span > a img.avatar, 
+ul.right li > span a img.avatar{
+	background:none;
+	padding-left:0px;
+}
 
 
 

@@ -60,13 +60,12 @@
 															
 	<% end %>								
 	<%= content_tag(:ul, :class => "record_menu right record_menu_right") do %>								
-		<%# Intended order is backwards due to float:right %>
-		<% if options[:delete] %>
-		    <%= content_tag(:li, link_to(icon("delete") + (options[:labels] ? " #{t("single.delete")}" : ""), { :action => 'delete', :controller => record.class.name.pluralize.underscore, :record_id => record.id, :record_type => record.class.name, :id => record}, :confirm => t("confirm.item_delete", :item => record.class.model_name.human))) %>																
-		<% end %>
 		<% if options[:edit] %>
 			<%= content_tag(:li, link_to(icon("edit") + (options[:labels] ? " #{t("single.edit")}" : ""), {:action => "edit", :controller => record.class.name.pluralize.underscore, :record_id => record.id, :record_type => record.class.name, :id => record})) %>
 		<% end %>
+		<% if options[:delete] %>
+		    <%= content_tag(:li, link_to(icon("delete") + (options[:labels] ? " #{t("single.delete")}" : ""), { :action => 'delete', :controller => record.class.name.pluralize.underscore, :record_id => record.id, :record_type => record.class.name, :id => record}, :confirm => t("confirm.item_delete", :item => record.class.model_name.human))) %>																
+		<% end %>		
 		<%= yield :record_menu_right %>	 
 		<%
 			# Empty content_for content in case of loop

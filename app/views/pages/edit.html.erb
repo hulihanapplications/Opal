@@ -2,7 +2,7 @@
 	<%= render :partial => "pages/menu" %>
 <% end if false %>				
 
-<%= form_for(@page, :url => { :action => 'update', :controller => "pages", :id => @page.id }, :method => "post") do |f| %>
+<%= form_for(@page) do |f| %>
 	<div>
 		<input type="hidden" name="page[page_type]" value="<%= @page.page_type.downcase %>">
 			<div class="header">

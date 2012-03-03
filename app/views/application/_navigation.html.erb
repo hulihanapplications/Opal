@@ -1,13 +1,11 @@
-<% item ||= nil %>
-<div id="navigation" class="menu">
+<% category = @category if defined?(@category) %>
+<%= content_tag :div, :class => "menu", :id => :navigation do %> 
 	<%= content_tag :ul, :class => :left do %> 
 		<% content_tag :li do   %>
-			<% if @category %>
-				<%= nav_link_category(@category) %>
-			<% elsif item %>
+			<% if defined?(category) && category %>
+				<%= nav_link_category(category) %>
+			<% elsif defined?(item) && item %>
 				<%= nav_link_item(item) %>
-			<% elsif page %>
-				<%= nav_link_item(page) %>
 			<% end %>			
 		<% end if get_setting_bool("enable_navlinks") %>	
 	<% end %>
@@ -71,23 +69,21 @@
 			%>
 			<span id="sort_by_box">	
 				Sort By 
-				<span class="box_1 pointer" id="sort_by" >				
+				<span class="pointer" id="sort_by" >				
 						<% if params[:sort][:by] %>
 							<%= h params[:sort][:by] %>
 						<% end %>
 					<%= icon("dropdown") %>
-				</span>
-				<span style="padding-left:2px">
-					<% if params[:sort][:direction] %>
-						<% if params[:sort][:direction] == "asc" %>
-							<% url[:sort_direction] = "desc" %>
-							<%= link_to icon("asc", t("label.sort_asc")), url  %>
-						<% elsif params[:sort][:direction] == "desc" %>
-							<% url[:sort_direction] = "asc" %>								
-							<%= link_to icon("desc", t("label.sort_desc")), url %>
-						<% end %>						
+				</span>				
+				<% if params[:sort][:direction] %>
+					<% if params[:sort][:direction] == "asc" %>
+						<% url[:sort_direction] = "desc" %>
+						<%= link_to icon("asc", t("label.sort_asc")), url  %>
+					<% elsif params[:sort][:direction] == "desc" %>
+						<% url[:sort_direction] = "asc" %>								
+						<%= link_to icon("desc", t("label.sort_desc")), url %>
 					<% end %>						
-				</span>																								
+				<% end %>
 			</span>		
 			<div id="sort_tooltip" class="tooltip">
 				<div class="box_1" style="font-weight:bold">							
@@ -149,7 +145,8 @@
 							{ :action => 'set_item_page_type', :controller => "items", :list_type => "tabs_vertical", :redirect_to => current_url}
 					)				
 				end 
-			%>
+			%>page
+
 			<%= 
 				content_tag(:li, :class => (@setting[:item_page_type] == "accordion" ? :selected : nil)) do
 					link_to(icon(
@@ -169,16 +166,11 @@
 							{ :action => 'set_item_page_type', :controller => "items", :list_type => "expanded", :redirect_to => current_url}
 					)				
 				end 
-			%>																	
+			%>	
+			<%= content_tag :li, :class => :last do %>
+		  		<%= auto_discovery_link_tag(:rss, {:action => "view", :controller => "items", :id => item,  :format => "xml"}, :title => "#{t("label.rss_feed")} - #{item.name}") %> 
+			    <%= link_to icon("rss", "#{t("label.rss_feed")} - #{item.name}"),  {:action => "view", :controller => "items", :id => item,  :format => "xml"}, :class => "transparent" %>	
+			<% end %>																			
 		<% end %>
-		<%= content_tag :li, :class => :last do %>
-	  		<%= auto_discovery_link_tag(:rss, {:action => "view", :controller => "items", :id => item,  :format => "xml"}, :title => "#{t("label.rss_feed")} - #{item.name}") %> 
-		    <%= link_to icon("rss", "#{t("label.rss_feed")} - #{item.name}"),  {:action => "view", :controller => "items", :id => item,  :format => "xml"}, :class => "transparent" %>	
-		<% end %>
-	<% end %>				
-</div>
-
-
-
-
-<%#= request.env["REQUEST_URI"] %>
+	<% end if (defined?(item) || defined?(category)) %>				
+<% end if defined?(item) || defined?(category)  %>

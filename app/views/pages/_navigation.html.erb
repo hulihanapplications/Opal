@@ -1,0 +1,7 @@
+<%= content_tag :div, :class => "menu", :id => :navigation do %> 
+	<%= content_tag :ul, :class => :left do %> 
+		<% content_tag :li do   %>
+			<%= nav_link_page(page) %>
+		<% end if @setting[:enable_navlinks] %>	
+	<% end %>			
+<% end unless page.root? %>

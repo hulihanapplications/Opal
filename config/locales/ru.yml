@@ -268,13 +268,11 @@ ru:
     user_by:  %{name}
     user_welcome_to_admin: Добро пожаловать в Админ. панель, всемогущий %{name}.
     user_welcome_to_account: Добро пожаловать в Ваш профиль. Здесь вы можете добавить новые %{items}, проверить сообщения, и многое другое 
-    user_logged_in_as: Вы вошли как
     search_results_for: Результат поиска для %{query}
     apology: Уупс!
     captcha: Код подтверждения
     rss_feed: RSS Лента
     search: Поиск
-    advanced_search: Расширенный поиск
     register: Регистрация!
     register_message: У вас нет профиля?
     sort_asc: Отсортировано в возрастающем порядке.
@@ -331,7 +329,6 @@ ru:
     delete_user: Вы уверены что хотите удалить этого пользователя? Все что создал этот пользователь также будет удалено! Если вы не хотите чтобы это случилось, вы можете вместо этого заблокировать его профиль.
     item_delete: Вы действительно хотите удалить этот %{item}? 
     install_sample_data: "Установить образцы данных? (Примеры Вещей, Категорий, Пользователей)"   
-  # ActiveRecord Models & Validations
   activerecord:
     # System Records/Objects
     records: 
@@ -484,11 +481,11 @@ ru:
         show_user_login:
           title: Показывать Вход для пользователей
           description: Определяет видна ли панель логина под меню сайта. Если выключено, пользователи могут войти по адресу site.example.com/browse/login                    
+        opal_version:
+          description: Текущая версия с которой вы работаете.                   
         display_help_sections:
           title: Показывать секции помощи
           description: Показывает Секции Помощи в разных частях сайта для помощи пользователям и администраторам Opal.
-        opal_version:
-          description: Текущая версия с которой вы работаете.                   
         theme:
           title: Тема
           description: Визуальная тема для всей системы          
@@ -538,7 +535,8 @@ ru:
           description: Показать %{item} в виде аккордиона.
         default_preview_type:
           title: Default Preview for Item
-          description: If an %{item} doesn't have a preview, the first created plugin item of this type will become its preview.                      
+          description: If an item doesn't have a preview, the first created plugin item of this type will become its preview.                      
+    # ActiveRecord Models & Validations        
     models:
       authentication:
         one: Authentication
@@ -567,17 +565,21 @@ ru:
         few: Категории
         many: Категорий
         other: Категории
-      group_plugin_permission: Group Plugin Permission
-      image:
-        one: Изображение
-        few: Изображения
-        many: Изображений
-        other: Изображения
+      group_plugin_permission:
+        one: Разрешения для Плагина
+        few: Разрешения для Плагинов
+        many: Разрешения для Плагинов
+        other: Разрешения для Плагинов
       item:
         one: Товар
         few: Товары
         many: Товары
         other: Товары        
+      image:
+        one: Изображение
+        few: Изображения
+        many: Изображений
+        other: Изображения
       log:
         one: Активность
         few: Активности
@@ -709,6 +711,7 @@ ru:
         description: Детали обо мне
         interests: Мои интересы
         notify_of_new_messages: Уведомлять по Email о новых сообщениях
+        notify_of_item_changes: Уведомлять по Email когда кто-нибудь добавляет или изменяет что-то в том что я создавал 
         forgot_password_code: Код восстановления пароля
         use_gravatar: Использовать Gravatar?
       user_message:
@@ -764,7 +767,7 @@ ru:
         featured: Рекомендованный
         featured_description: If featured, this will be given special attention and shown on the homepage.        
         locked: Заблокированный
-        locked_description: If locked, no changes can be made to this.
+        locked_description: If locked, no more changes can be made to this.
         is_public: Публичный
         is_public_description: If this is public, it can be seen by others.
         is_approved: Проверенный
@@ -777,13 +780,15 @@ ru:
         created_at: Date Added
         updated_at: Last Updated
         user_id: Added by        
-        published_description: If this is published, it will be visible by others.        
+        published_description: If checked, this will be visible by others.        
         redirect: Redirect to URL
-        redirect_description: "If enabled, anyone trying to view this page will be sent to this URL instead:"
-        locked_description: If locked, people cannot add comments to this.
+        redirect_description: "If checked, anyone trying to view this page will be sent to this URL instead:"
+        locked_description: If a page is locked, people cannot add comments to it.
         group_access_only_description: "If enabled, only these groups can access this page:"
         display_children_description: "If this is on and a page has child/sub pages, a menu will appear on the page listing them."
         display_in_menu_description: "If disabled, this page will not appear in any menus."
+        content: Main
+        side: Side
       page_comment:
         anonymous_name: Name
         anonymous_email: Email
@@ -794,6 +799,9 @@ ru:
       plugin_image:
         local_file: С вашего компьютера
         remote_file: URL           
+      plugin_video:
+        video: Video File      
+        code: Embed Code
     errors: # you can find the list of validation error keys here: http://guides.rubyonrails.org/i18n.html 
       template: 
         header: 
@@ -813,9 +821,9 @@ ru:
         range: должно быть между %{min} и %{max}
         items_cannot_add_more: Вы не можете добавить ещё %{items}.    
         item_must_be_owner: Вы должны быть владельцем этого %{item} чтобы сделать это.
-      invalid_file_extension: "не может быть сохранен потому что имя файла не заканчивается следующим образом: %{valid_extensions}"
-      unresponsive: "is not responding"        
-      belongs_to_self: не может принадлежать себе. Это сумашествие!      
+        invalid_file_extension: "не может быть сохранен потому что имя файла не заканчивается следующим образом: %{valid_extensions}"
+        unresponsive: "is not responding"        
+        belongs_to_self: не может принадлежать себе. Это сумашествие!      
   # Locales
   locales:
     en: Английская (English)

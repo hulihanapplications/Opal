@@ -1,9 +1,10 @@
-//= require jquery-1.4.2.min
-//= require jquery-ui-1.8.7.custom.min
-//= require jquery.tools.min
+//= require jquery.min
+//= require jquery-ui.min
+//= require jquery_ujs
 //= require jquery.colorbox-min
+//= require fg.menu
+//= require jquery.tools.min
 //= require jquery.rating
-//= require rails
 //= require flowplayer-3.2.6.min
 //= require_tree .
 //= require_self
@@ -159,5 +160,11 @@ $(document).ready(function() {
 		$(":input").blur(function(){
 			$(this).removeClass('selected');
 		});		
+
+		// Dropdown menus
+		$('a#sort_by').menu({ 
+			content: $('div#sort_by_content').html(), // grab content from this page
+			showSpeed: 50,			
+		});
 		
 });

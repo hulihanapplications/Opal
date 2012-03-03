@@ -56,7 +56,7 @@
 				end 
 			%> 		
 		<% end %>																				
-		<%= content_tag :li do %> 
+		<%= content_tag :li, :class => :sort do %> 
 			<% 
 				# initialize url_for variables that can be customized for various actions(searching, extra get/post variables, etc.)
 				url = Hash.new
@@ -69,12 +69,10 @@
 			%>
 			<span id="sort_by_box">	
 				Sort By 
-				<span class="pointer" id="sort_by" >				
-						<% if params[:sort][:by] %>
-							<%= h params[:sort][:by] %>
-						<% end %>
+				<%= link_to "#", :class => "pointer fg-button dropdown", :id => :sort_by do %>				
+					<%= params[:sort][:by] %>
 					<%= icon("dropdown") %>
-				</span>				
+				<% end if params[:sort][:by].present? %>
 				<% if params[:sort][:direction] %>
 					<% if params[:sort][:direction] == "asc" %>
 						<% url[:sort_direction] = "desc" %>
@@ -85,34 +83,22 @@
 					<% end %>						
 				<% end %>
 			</span>		
-			<div id="sort_tooltip" class="tooltip">
-				<div class="box_1" style="font-weight:bold">							
+			<div id="sort_by_content" class="fg-menu-hidden dropdown">
+				<%= content_tag :ul do %>
 					<%# Override url_for vars for particular sort cases %> 
 					<% url[:sort_by] = Item.human_attribute_name(:name)  %>
 					<% url[:sort_direction] = "asc" %>							
-					<%= content_tag(:div, link_to(url[:sort_by], url)) %>	
+					<%= content_tag(:li, link_to(url[:sort_by], url)) %>	
 																																	
 					<% url[:sort_by] = Item.human_attribute_name(:views) %>
 					<% url[:sort_direction] = "desc" %>								
-					<%= content_tag(:div, link_to(url[:sort_by], url)) %>
+					<%= content_tag(:li, link_to(url[:sort_by], url)) %>
 																																		
 					<% url[:sort_by] = Item.human_attribute_name(:created_at) %>
 					<% url[:sort_direction] = "desc" %>								
-					<%= content_tag(:div, link_to(url[:sort_by], url)) %>																												
-				</div>
-			</div>		
-			<script type="text/javascript">
-				$(document).ready(function() {
-				    $("#sort_by").tooltip({
-				        tip: "#sort_tooltip",
-				        position: "bottom right",
-						//effect: 'slide',
-						direction: 'down',
-				        /* offset: [-8, -78] // with slide */ 								
-				        offset: [2, -78] // without slide 
-				    });
-				});
-			</script>	
+					<%= content_tag(:li, link_to(url[:sort_by], url)) %>											
+				<% end %>
+			</div>			
 		<% end if params[:sort].present? %>
 		<% if Setting.get_setting_bool("allow_item_page_type_changes")  && (params[:action] == "view") %>				
 				<%  session[:item_page_type] ?  @setting[:item_page_type] = session[:item_page_type] : @setting[:item_page_type] = Setting.get_setting("item_page_type") %>																					
@@ -145,8 +131,7 @@
 							{ :action => 'set_item_page_type', :controller => "items", :list_type => "tabs_vertical", :redirect_to => current_url}
 					)				
 				end 
-			%>page
-
+			%>
 			<%= 
 				content_tag(:li, :class => (@setting[:item_page_type] == "accordion" ? :selected : nil)) do
 					link_to(icon(

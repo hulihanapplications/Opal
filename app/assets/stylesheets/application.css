@@ -1,4 +1,6 @@
 /* ...
+*= require jquery-ui
+*= require fg-menu
 *= require jquery.tools
 *= require colorbox
 *= require uploadify
@@ -228,7 +230,9 @@ div.record_menu{position:relative;height:25px;margin-bottom:10px;}
 .indent{padding-left:7px;}
 	.indent td{padding:2px 0px 2px 0px;}
 .navlinks{margin-bottom:10px;}
-.tooltip {display:none;z-index:999}
+
+a#sort_by{}
+div#sort_by_content {display:none;z-index:999 margin: 0px 0px 0px 0px;text-align:right;background:white;padding:10px;margin:3px;border:1px solid #aaa;; box-shadow: 0px 1px 5px #666;-moz-box-shadow: 0px 1px 5px #666;  -webkit-box-shadow: 0px 1px 5px #666;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
 .clear{clear:both}
 .help{cursor:help;}
 div#notifications{margin-bottom:10px;}
@@ -287,3 +291,10 @@ div#tab-content{padding:10px;padding-top:10px;	min-height:400px;}
 /* TinyMCE */
 .tinymce_popup{padding:10px;min-height:465px;}		
 textarea.mceEditor{width:100%;height:500px}
+
+/* fg menu */
+a.fg-button{padding:5px 5px;margin:0 3px;}
+div.fg-menu-container, a.fg-button.ui-state-active{border-color:#fff;background:#fff;-moz-box-shadow: 0 1px 2px #000;-webkit-box-shadow: 0 1px 2px #000;}
+a.fg-button.ui-state-active{border:0;border-top:1px solid #ccc;-moz-border-radius-bottomleft:0px;-webkit-border-bottom-left-radius:0px; -moz-border-radius-bottomright:0px;-webkit-border-bottom-right-radius:0px;}
+div.fg-menu-container{-moz-border-radius-topleft:0px;-webkit-border-top-left-radius:0px}
+.ui-widget-content .ui-state-hover, .ui-widget-content .ui-state-focus{background:#fff;}

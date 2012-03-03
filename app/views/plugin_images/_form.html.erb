@@ -16,9 +16,9 @@ $(function() {
 
 <%= remember_record(@record) if defined?(@record) %>
 
-<table style="width:100%" cellspacing=0 cellpadding=0>
+<table class="cell" cellspacing=0 cellpadding=0>
 	<tr>
-		<td class="main">
+		<td class="main left">
 			<div id="" class="box_2">
 				<% if f.object.new_record? %>
 				<div class="field">
@@ -41,7 +41,7 @@ $(function() {
 				</div>							
 			</div>				
 		</td>
-		<td class="side_right">
+		<td class="side right">
 			<div class="box_2 ">
 				<% if f.object.new_record? %>
 					<%= content_tag :div do %>

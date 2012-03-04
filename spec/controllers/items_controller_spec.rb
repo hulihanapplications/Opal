@@ -38,6 +38,13 @@ describe ItemsController do
         flash[:failure].should_not be_nil
         @response.should render_template("new")
       end
+
+      it "creates an image from nested attributes" do
+        expect{
+          post :create, {:item => Factory.attributes_for(:item, :plugin_images_attributes => {"0" => Factory.attributes_for(:plugin_image_remote)}) }
+        }.to change(Item, :count).by(+1) && change(PluginImage, :count).by(+1)
+        @response.should redirect_to(:action => "view", :id => assigns[:item])
+      end      
     end
     
     describe "destroy" do

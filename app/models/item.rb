@@ -14,10 +14,11 @@ class Item < ActiveRecord::Base
   has_many :plugin_videos, :dependent => :destroy, :as => :record
   has_many :logs, :as => :target
   belongs_to :preview, :polymorphic => true
-  validates_presence_of :name, :user_id 
-  
+
+  accepts_nested_attributes_for :plugin_images, :reject_if => Proc.new {|attributes| attributes['remote_image_url'].blank? && attributes['image'].blank?}
+
+  validates_presence_of :name, :user_id   
   validate :validate_remaining_items, :on => :create
-  after_create :create_everything  
   after_create :notify
   after_destroy :destroy_everything
   after_save :save_tags
@@ -32,7 +33,6 @@ class Item < ActiveRecord::Base
   scope :unapproved, where("is_approved = ?", "0")  
   scope :popular, order("recent_views DESC")
  
-  
   def to_param # make custom parameter generator for seo urls, to use: pass actual object(not id) into id ie: :id => object
     # this is also backwards compatible with regular integer id lookups, since .to_i gets only contiguous numbers, ie: "4-some-string-here".to_i # => 4    
     "#{id}-#{name.parameterize}" 
@@ -40,9 +40,6 @@ class Item < ActiveRecord::Base
   
   def to_s
     name
-  end
-  
-  def create_everything   
   end
 
   def destroy_everything    

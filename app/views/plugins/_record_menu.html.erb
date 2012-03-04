@@ -62,24 +62,12 @@
 			</td>
 			<td class="right">		
 				<%= content_tag(:ul, :class => "record_menu right record_menu_right") do %>
-						<% if options[:delete] %>
-						    <%= content_tag(:li, link_to(icon("delete") + (options[:labels] ? " #{t("single.delete")}" : ""), { :action => 'delete', :controller => record.class.name.pluralize.underscore, :record_id => record.id, :record_type => record.class.name, "#{record.class.system_name.underscore}_id".to_sym => record.id}, :confirm => t("confirm.item_delete", :item => record.class.model_name.human))) %>																
-						<% end %>
-						
-						<% if options[:edit] %>
-							<%= content_tag(:li, link_to(icon("edit") + (options[:labels] ? " #{t("single.edit")}" : ""), {:action => "edit", :controller => record.class.name.pluralize.underscore, :record_id => record.id, :record_type => record.class.name, "#{record.class.system_name.underscore}_id".to_sym => record.id})) %>
-						<% end %>
+						<%= yield :record_menu_right %>	 
+						<%
+							# Empty content_for content in case of loop
+							@view_flow.content.delete(:record_menu_right) 
+						%>	
 
-						<% if options[:preview] %>
-							<%= content_tag :li do %>									
-								<% if record.record.is_record_preview?(record) %>
-									<%= content_tag(:span, icon("star_selected", t("single.preview"), "help")) %>
-								<% else %>
-									<%= link_to(icon("star_empty", t("label.item_mark_as", :item => record.class.model_name.human, :name => Item.model_name.human + " " + t("single.preview"))), {:controller => "items", :action => "set_preview", :id => record.record, :preview_id => record.id, :preview_type => record.class.name}, :method => :post)  %>	
-								<% end %>
-							<% end %>
-						<% end %>						
-	
 						<% if options[:votes] %>
 							<%= content_tag :li, :class => "vote" do %>
 								<%= content_tag :span, :class => "vote_box" do %>																		 	
@@ -93,11 +81,30 @@
 							<% end %>
 						<% end %>	
 
-						<%= yield :record_menu_right %>	 
-						<%
-							# Empty content_for content in case of loop
-							@view_flow.content.delete(:record_menu_right) 
-						%>								
+						<% if options[:preview] %>
+							<%= content_tag :li do %>									
+								<% if record.record.is_record_preview?(record) %>
+									<%= content_tag(:span, icon("star_selected", t("single.preview"), "help")) %>
+								<% else %>
+									<%= link_to(icon("star_empty", t("label.item_mark_as", :item => record.class.model_name.human, :name => Item.model_name.human + " " + t("single.preview"))), {:controller => "items", :action => "set_preview", :id => record.record, :preview_id => record.id, :preview_type => record.class.name}, :method => :post)  %>	
+								<% end %>
+							<% end %>
+						<% end %>
+
+						<% if options[:edit] %>
+							<%= content_tag(:li, link_to(icon("edit") + (options[:labels] ? " #{t("single.edit")}" : ""), {:action => "edit", :controller => record.class.name.pluralize.underscore, :record_id => record.id, :record_type => record.class.name, "#{record.class.system_name.underscore}_id".to_sym => record.id})) %>
+						<% end %>
+
+						<% if options[:delete] %>
+						    <%= content_tag(:li, link_to(icon("delete") + (options[:labels] ? " #{t("single.delete")}" : ""), { :action => 'delete', :controller => record.class.name.pluralize.underscore, :record_id => record.id, :record_type => record.class.name, "#{record.class.system_name.underscore}_id".to_sym => record.id}, :confirm => t("confirm.item_delete", :item => record.class.model_name.human))) %>																
+						<% end %>
+						
+
+
+						
+	
+
+							
 				<% end %>
 			</td>
 		</tr>

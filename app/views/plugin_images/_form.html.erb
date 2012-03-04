@@ -1,16 +1,4 @@
-<script type="text/javascript">
-$(function() {
-	$('#plugin_image_source_local').click(function() {
-		$("#remote_file").conceal();
-		$("#local_file").reveal();
-	});
-	
-	$('#plugin_image_source_remote').click(function() {
-		$("#local_file").conceal();
-		$("#remote_file").reveal();
-	});	
-});
-</script>
+
 
 <%= error_messages_for :image %>
 
@@ -20,20 +8,7 @@ $(function() {
 	<tr>
 		<td class="main left">
 			<div id="" class="box_2">
-				<% if f.object.new_record? %>
-				<div class="field">
-					<h3>						
-						<%= f.radio_button(:source, :local, :checked => f.object.remote_image_url.blank?) %> <%= f.label :source_local,  t("label.from_local") %> 
-						<%= f.radio_button(:source, :remote, :checked => !f.object.remote_image_url.blank?) %> <%= f.label :source_remote,  t("label.from_web") %>
-				 	</h3>	
-					<div id="local_file" class="field" style="<%= f.object.remote_image_url.blank? ? nil : "display:none" %>">
-						<%= f.file_field :image %>								
-					</div>					
-					<div id="remote_file" class="field" style="<%= f.object.remote_image_url.blank? ? "display:none" : nil %>">
-    					<%= f.text_field :remote_image_url %>
-					</div>		
-				</div>
-				<% end %>
+				<%= render :partial => "plugin_images/field_source", :locals => {:f => f} if f.object.new_record? %>
 				
 				<div class="field">
 					<h3><%= f.label :description %></h3>
@@ -45,7 +20,7 @@ $(function() {
 			<div class="box_2 ">
 				<% if f.object.new_record? %>
 					<%= content_tag :div do %>
-						<%= content_tag(:h3, raw("#{icon("options")} #{t("single.effects")}")) %>
+						<%= content_tag(:div, raw("#{icon("options")} #{t("single.effects")}"), :class => :label) %>
 						<div id="effects" class="field indent" >
 							<%= content_tag(:div, check_box("plugin_image[effects]", :monochrome) + label("plugin_image_effects", :monochrome, t("label.image_effect_bw").html_safe)) %>
 							<%= content_tag(:div, check_box("plugin_image[effects]", :sepia) + label("plugin_image_effects", :sepia, t("label.image_effect_sepia").html_safe)) %>

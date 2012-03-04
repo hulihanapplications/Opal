@@ -13,5 +13,5 @@ end
 
 Factory.define :plugin_image_remote, :parent => :plugin_image do |o|
   o.image 	nil
-  o.remote_image_url "http://localhost/"
+  o.remote_image_url "https://www.google.com/intl/en_com/images/srpr/logo3w.png"
 end

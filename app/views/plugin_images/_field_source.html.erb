@@ -1,0 +1,14 @@
+<div class="field">
+	<div class="label">						
+		<%= f.radio_button(:source, :local, :checked => f.object.remote_image_url.blank?, :id => :plugin_image_source_local) %> 
+		<%= f.label :image,  t("label.from_local"), :for => :plugin_image_source_local %> 
+		<%= f.radio_button(:source, :remote, :checked => !f.object.remote_image_url.blank?, :id => :plugin_image_source_remote) %> 
+		<%= f.label :remote_image_url,  t("label.from_web"), :for => :plugin_image_source_remote %>
+ 	</div>	
+	<div id="local_file" class="field" style="<%= f.object.remote_image_url.blank? ? nil : "display:none" %>">
+		<%= f.file_field :image %>								
+	</div>					
+	<div id="remote_file" class="field" style="<%= f.object.remote_image_url.blank? ? "display:none" : nil %>">
+		<%= f.text_field :remote_image_url %>
+	</div>		
+</div>

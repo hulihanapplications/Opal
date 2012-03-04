@@ -4,7 +4,7 @@ Opal is the swiss army knife of web apps. It's a powerful Item & Content Managem
 
 h2. Features 
  
-* Powered by Ruby on Rails 3.1
+* Powered by Ruby on Rails 3.2
 * List Any Type of Item (Products, Video Games, Locations, Events, Classifieds, etc.)
 * Add extra stuff to your Items like Images, Videos, Reviews, Comments, Files, Discussions, Custom Fields, and more.
 * Easy-to-use TinyMCE content editor with security filtering and image uploader

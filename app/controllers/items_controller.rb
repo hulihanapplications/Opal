@@ -71,6 +71,7 @@ class ItemsController < ApplicationController
  
   def new
     @item = Item.new
+    @plugin_image = PluginImage.new
     params[:id] ||= Category.find(:first).id # set item's category the first category if not specified
     @item.category_id = params[:id] if params[:id]
     @item.is_approved = "1" if @logged_in_user.is_admin? # check the is_approved checkbox 
@@ -101,7 +102,6 @@ class ItemsController < ApplicationController
       flash[:failure] = t("notice.item_save_failure", :item => Item.model_name.human)
       render :action => "edit"
     end    
-    
   end
 
   def create    

@@ -123,7 +123,6 @@ jQuery.fn.delayed_reveal = function(timeout) { // show object after time has pas
     }, timeout);			      				
 }
 
-
 $(document).ready(function() {
 		// Ready Tab Functions
 	    $("ul.panes").tabs("div.panes > div", {effect: 'slide', fadeOutSpeed: 400}); // effects: slide, fade, default, ajax, horizontal
@@ -166,5 +165,15 @@ $(document).ready(function() {
 			content: $('div#sort_by_content').html(), // grab content from this page
 			showSpeed: 50,			
 		});
+
+		// Image Source Field
+		$('#plugin_image_source_local').click(function() {
+			$("#remote_file").conceal();
+			$("#local_file").reveal();
+		});
 		
+		$('#plugin_image_source_remote').click(function() {
+			$("#local_file").conceal();
+			$("#remote_file").reveal();
+		});			
 });

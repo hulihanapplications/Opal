@@ -1,15 +1,8 @@
-/* 
-	Fracture Theme For Opal 
-*/
+/* 	Fracture Theme For Opal */
 
 /* HTML Tags */ 
-a:visited, a:link{ color:#555;text-decoration:none;} a:hover{color:black;text-decoration:none; }
-body{background:url(../images/bgs/body_bg.png) repeat-x white;font-family:Trebuchet MS;font-size:12px;color:#333}
-h1, h2, h3, h4, h5, h6{margin:0px;padding:0px}
-h2{font-size:18px}
-input, select, textarea{color:#333;border:1px solid #666;background:url(../images/bgs/black_trans_05.png) repeat;font-family:Trebuchet MS;;-moz-border-radius: 3px;-webkit-border-radius: 3px;font-size:12px;}
-select{background-color:#ddd}
-hr{width: 100%; margin: 5px 0px 5px 0px; height: 1px; background: #ccc; border: 0; }
+body{background:url(../images/bgs/body_bg.png) repeat-x white;}
+input, select, textarea{background:url(../images/bgs/black_trans_05.png) repeat;}
 
 /*  Layout */
 #wrapper > #top{;background:url(../images/bgs/black_trans_10.png) repeat;}

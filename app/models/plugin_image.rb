@@ -8,7 +8,7 @@ class PluginImage < ActiveRecord::Base
   
   validates :image, :presence => true, :if => Proc.new{|r| r.remote_image_url.blank?} 
   #validates :remote_image_url, :presence => true, :if => Proc.new{|r| r.image.blank?} 
-   
+  
   attr_accessible :description, :remove_image, :effects, :image, :remote_image_url
   attr_accessor :effects
   

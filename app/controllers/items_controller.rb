@@ -119,6 +119,10 @@ class ItemsController < ApplicationController
 
     params[:item][:category_id] ||= Category.find(:first).id # assign the first category's id if not selected.
     @feature_errors = PluginFeature.check(:features => params[:features], :item => @item) # check if required features are present        
+    
+    # Set user for nested attributes
+    @item.plugin_images.each{|i| i.user = @item.user} unless @item.plugin_images.empty?
+
     if @item.save && @feature_errors.size == 0 # item creation failed
       log(:log_type => "create", :target => @item)
       # Create Features

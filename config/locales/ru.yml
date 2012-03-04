@@ -172,7 +172,7 @@ ru:
     search_results_left_blank: Я не знаю что искать!
     message_send_success: Ваш %{item} был послан %{to}. 
     message_send_failure: Ваш %{item} для %{to} не может быть послан!
-    account_connected_to: Your account is now connected to %{to}.
+    account_connected_to: Ваш аккаунт теперь связан с %{to}.
   # Logs 
   log: # call with t(:failed_admin_access_attempt_user, :scope => [:log]) or t("log.failed_admin_access_attempt_user") 
     item_create: "Создан %{item}: %{name}"
@@ -199,36 +199,36 @@ ru:
     failed_admin_access_attempt_user: %{username}(%{id}) пытался войти в Админ. зону. %{controller} - %{action}
     models:
       plugin_comment:
-        create: "%{user} left a %{item} for %{parent} <div><blockquote>%{target}</blockquote></div>"
+        create: "%{user} оставил %{item} для %{parent} <div><blockquote>%{target}</blockquote></div>"
       plugin_image:
-        create: "%{user} uploaded an %{item} for %{target}"
+        create: "%{user} загрузил %{item} для %{target}"
       plugin_review:
-        create: "%{user} reviewed %{target}"
+        create: "%{user} добавил обзор %{target}"
       plugin_discussion_post:
-        create: "%{user} posted on the %{parent} discussion: %{discussion} <div><blockquote>%{target}</blockquote></div>"
+        create: "%{user} ответил на %{parent} обсуждение: %{discussion} <div><blockquote>%{target}</blockquote></div>"
       plugin_discussion:
-        create: "%{user} created a new %{parent} %{item}: %{target}"                   
+        create: "%{user} создал новое %{parent} %{item}: %{target}"                   
       item: 
-        create: "%{user} added a new %{item}: %{target}"      
+        create: "%{user} создал новую %{item}: %{target}"      
       page:
-        create: "%{user} added a new %{item}: %{target}"
+        create: "%{user} создал новую %{item}: %{target}"
       user:
-        create: "%{user} joined %{title}"    
+        create: "%{user} присоеденился %{title}"    
   # Email
   email:
     subject:
       contact_us: "%{site_title}: Обратная связь от %{from}"
       item_new: "%{title}: Новый %{item} - %{name}"
-      item_new_from_user: "%{title}: New %{item} от %{from} - %{name}"
+      item_new_from_user: "%{title}: Новый %{item} от %{from} - %{name}"
       verification: "%{title}: Активации обязательна - %{name}"
-      plugin_comment_reply_notification: "%{user} replied to your comment"      
+      plugin_comment_reply_notification: "%{user} ответил на Ваш комментарий"      
     message:
       item_new: "На сайте \"%{title}\", появился новый %{item}: %{name}. Читайте подробнее по ссылке: \n\n%{url}\n\n"
       item_new_from_user: "На сайте \"%{title}\", %{from} создал новый %{item}: %{name}. Читайте подробнее по ссылке:\n\n%{url}\n\n"
       new_message_from_user: "На сайте \"%{title}\", Вы получили сообщение от %{from}:\n\n%{message}\n\nВы можете ответить на это сообщение или прочитать другие сообщения по ссылке:\n\n%{url}\n\n"
       password_recovery: "На сайте \"%{title}\", для Вашего профиля (%{name}) был сделан запрос на восстановление пароля.\n\nTДля восстановление пароля, пройдите по следующей ссылке:\n\n%{url}\n\nЕсли вы не делали запроса, пожалуйста проигнорируйте этот email. Обращайтесь к администрации сайта \"%{title}\" по любым возникшим вопросам."  
       verification: "Для того чтобы вайти в Ваш профиль (%{name}) на сайте \"%{title}\", вы сначала должны подтвердить Ваш профиль нажатием на следующую ссылку подтверждения:\n\n%{url}"
-      plugin_comment_reply_notification: "%{user} has replied to a comment you left for %{record}"            
+      plugin_comment_reply_notification: "%{user} ответил на Ваш комментарий для %{record}"            
   # Labels & Sentences
   label:
     create_account: Создать новый профиль
@@ -250,7 +250,7 @@ ru:
     item_send_to: Послать %{item} для %{name}
     item_change: Изменить %{item}
     item_featured: Рекомендованныe %{item}
-    item_view_items: Просмотреть %{item}этого %{items}.
+    item_view_items: Просмотреть %{item} этого %{items}.
     item_recently_added: %{item} был добавлен за последние 3 дня.
     item_mark_as: Отметить %{item} как %{name}
     item_unknown: "Неизвестный %{item}: %{name}"
@@ -314,9 +314,9 @@ ru:
     installing: Идёт установка...
     login_as: "Теперь вы можете войти со следующими именем и паролем: %{username} / %{password}"
     skipping_prompt: "Пропускаем запрос..."
-    remember_me: Remember Me    
-    currently_logged_in: Currently Logged In 
-    use_authentication: Use another network           
+    remember_me: Запомнить    
+    currently_logged_in: Выполнен вход 
+    use_authentication: Использовать другую сеть           
   # General Information 
   info: 
     delete_main_logo: Удаление логотипа отобразит заголовок вашего сайта. 
@@ -334,65 +334,65 @@ ru:
     records: 
       plugin:
         image: 
-          description: Images for Items.
+          description: Изображения для Вещей.
         comment: 
-          description: Comments from Users or Visitors. Comments are small notes or feedback about an item.
+          description: Комментарии от Пользователей или Посетителей. Комментарии это небольшие заметки или отзывы о Вещи.
         file: 
-          description: Files uploaded for a particular item. Useful for Software, PDFs, Images, etc.
+          description: Файлы загружаются для конкретной вещи. Полезно для Программ, PDF файлов, изображений, и т.п.
         tag: 
-          description: Tags are like labels for an Item. This is another way to organize items besides by categories. All tags in the System are grouped together. You can add as many as you want.
+          description: Теги похожи на метки для вещей. Это ещё один путь организовать вещи кроме категорий. Все теги в системе сгруппированы вместе. Вы можете добавлять столько тегов сколько хотите.
         feature:
-          description: "These are shared atttributes that an several items might have. For example: a house would have a feature called price."
+          description: "Это общие черты которые могут иметь несколько вещей. Например: у дома будет параметр Цена."
         description: 
-          description: Large Text Descriptions For Items.      
+          description: Большие текстовые описания для вещей.
         link: 
-          description: A link for an item. This can be a link to a page for more information about the item, a website, or a file location.
+          description: Ссылка на вещь. Это может быть ссылка на страницу с подробной информацией, веб-сайт, или файл.
         discussion: 
-          description: Allows multiple people to have discussions about an item.   
+          description: Позволяет нескольким людям обсуждать вещи.
         review:
-          description: Item Reviews from Users. Reviews have scores that are tallied up to rate the value of an item.
+          description: Обзоры вещей от пользователей. У Обзоров есть оценки, которые формируют оценку для вещи.
         video:
-          description: Embed videos from any popular video hosting site like youtube, vimeo, etc.          
+          description: Встроенные видео с популярных видеохостингов таких как like youtube, vimeo, и т.п.          
       plugin_setting:   
         slideshow_speed:
           title: Скорость Слайд-шоу
-          description: The speed of a slideshow, in milliseconds(ms). Default is 2500.          
+          description: Скорость слайд-шоу, в миллисекундах(мс). Стандартная скорость - 2500.          
         item_thumbnail_width:
           title: Ширина пиктограммы %{item}
-          description: This is the default width(in pixels) of the thumbnails that are generated.          
+          description: Стандартная ширина(в пикселях) генерированной пиктограммы.          
         item_thumbnail_height:
           title: Высота пиктограммы %{item}
-          description: This is the default height(in pixels) of the thumbnails that are generated.          
+          description: Стандартная высота(в пикселях) генерированной пиктограммы.          
         resize_item_images:
           title: Изменять размер новых изображений
-          description: Enable this if you would like all the images that are added to images resized to a particular size(you can choose the size below).          
+          description: Включите это если хотите чтобы для всех новых загруженных изображений размер ихменялся на указанный ниже.          
         item_image_width:
           title: Стандартная ширина изображения
-          description: This is the width you want your images(in pixels) to be automatically resized to.           
+          description: Стандартная ширина изображений (в пикселях).           
         item_image_height:
           title: Стандартная высота изображения
-          description: This is the height you want your images(in pixels) to be automatically resized to.           
+          description: Стандартная высота изображений (в пикселях).           
         login_required_for_download:
           title: Требовать вход для скачивания
-          description: If enabled, only users who are logged in can download files. Visitors cannot download anything.          
+          description: Если включено то только пользователи выполнившие Вход смогут скачивать файлы, а простые посетители не смогут скачивать файлы.          
         log_downloads:
-          title: Записывать историю скачек
-          description: Log all downloads in the Item's activity log.          
+          title: Записывать историю скачиваний
+          description: Хранить записи о всех скачиваниях для вещи.          
         review_type:
           title: Тип обзора
-          description: This determines the type of scoring that used for items.          
+          description: Определяет тип оценок для обзоров вещей.          
         score_min:
           title: Минимальный балл
-          description: The minimum value that can be used in review scores. This is not used in star ratings.          
+          description: Минимальный балл который может быть использован при оценке обзора. Это не используется при рейтинге в Звездах.          
         score_max:
           title: Максимальный балл          
-          description: The maximum value that can be used in review scores.  
+          description: Максимальный балл который может быть использован при оценке обзора.  
         video_display_mode:
-          title: Display Mode
-          description: How videos are displayed.
+          title: Режим отображения
+          description: Как отобржаются видео.
         tag_list_mode:
-          title: List Mode 
-          description: If cloud is selected, a tag cloud is displayed, which shows a list of tags and the popularity of each tag.                                  
+          title: Режим отображения 
+          description: Если выбрано облако - будет отображено облако тегов, которое показывает список тегов и популярность каждого из них.                                  
       setting:       
         site_title:
           title: Заголовок Вашего сайта
@@ -404,11 +404,11 @@ ru:
           title: Ключевые слова сайта        
           description: Ключевые слова (Мета-тег) вашего сайта. Используется поисковыми системами. Разделяйте их запятыми.
         host:
-          title: Host
-          description: "The hostname/domain name of your website, used for email generation and other stuff. This can include a port number. Do not add http:// or https://. Examples: example.com or example.com:3000."                          
+          title: Домен
+          description: "Доменное имя вашего сайта, используется для генерации email'ов и других функций. Может содержать номер порта. Не добавляйте к нему http:// или https://. Например: example.com или example.com:3000."                          
         sender_email:                                                                                                                                                                                         
-          title: Sender Email
-          description: Email address that will be used as a sender for the mails sent by Opal.
+          title: Email Отправителя
+          description: Email адрес который будет использован как отправитель для почты посланной Opal.
         locale:
           title: Локаль
           description: Стандартный язык и временная зона используемая в Opal. Пользователи также могут изменять собственную локаль.
@@ -534,15 +534,15 @@ ru:
           title: Аккордион
           description: Показать %{item} в виде аккордиона.
         default_preview_type:
-          title: Default Preview for Item
-          description: If an item doesn't have a preview, the first created plugin item of this type will become its preview.                      
+          title: Стандартный предпросмотр для вещи
+          description: Если у вещи нет предпросмотра - первый добавленный плагин для вещи этого типа станет её предпросмотром.
     # ActiveRecord Models & Validations        
     models:
       authentication:
-        one: Authentication
-        few: Authentications
-        many: Authentications 
-        other: Authentications     
+        one: Аутенфикация
+        few: Аутенфикации
+        many: Аутенфикаций 
+        other: Аутенфикации     
       user:
         one: Пользователь
         few: Пользователя
@@ -681,10 +681,10 @@ ru:
         many: Настроек
         other: Настройки
       plugin_video:
-        one: видео
-        few: видео
-        many: видео
-        other: видео        
+        one: Видео
+        few: Видео
+        many: Видео
+        other: Видео        
       setting:
         one: Настройка
         few: Настройки
@@ -746,13 +746,13 @@ ru:
         anonymous_name: Name
         anonymous_email: Email        
       plugin_feature:
-        listed: Listed
-        feature_type: Type
-        icon_url: Icon URL
-        min: Minimum Value(optional)
-        max: Maximum Value(optional)
-        search_type: Search Type
-        category_id_description: Only items that belong to this category(or one of its children) will display this.        
+        listed: Отображен
+        feature_type: Тип
+        icon_url: URL иконки
+        min: Минимальное значение(optional)
+        max: Максимальное значение(optional)
+        search_type: Тип Поиска
+        category_id_description: Только вещи принадлижащие к этой категории(или дочерним) будут отображать его.
       item:
         id: ID
         name: Название
@@ -765,34 +765,34 @@ ru:
         updated_at: Обновлен
         user_id: Добавлен
         featured: Рекомендованный
-        featured_description: If featured, this will be given special attention and shown on the homepage.        
+        featured_description: Если рекомендованный - ему будет уделено особое внимание и он будет отображен на главной странице.        
         locked: Заблокированный
-        locked_description: If locked, no more changes can be made to this.
+        locked_description: Если заблокиован - в нем больше нельзя ничего изменять.
         is_public: Публичный
-        is_public_description: If this is public, it can be seen by others.
+        is_public_description: Если публичный, его могут видить другие.
         is_approved: Проверенный
-        is_approved_description: This must be approved to be seen by others.                
+        is_approved_description: Должен быть проверен перед тем как его увидят другие.                
       page: 
-        title: Title
-        description: Description
-        published: Published
-        page_id: Parent Page
-        created_at: Date Added
-        updated_at: Last Updated
-        user_id: Added by        
-        published_description: If checked, this will be visible by others.        
-        redirect: Redirect to URL
-        redirect_description: "If checked, anyone trying to view this page will be sent to this URL instead:"
-        locked_description: If a page is locked, people cannot add comments to it.
-        group_access_only_description: "If enabled, only these groups can access this page:"
-        display_children_description: "If this is on and a page has child/sub pages, a menu will appear on the page listing them."
-        display_in_menu_description: "If disabled, this page will not appear in any menus."
-        content: Main
-        side: Side
+        title: Заголовое
+        description: Описание
+        published: Опубликована
+        page_id: Родительская страница
+        created_at: Дата добавления
+        updated_at: Последнее обновление
+        user_id: Добавлена
+        published_description: Если включено - будет видна другим людям.        
+        redirect: Перенаправлять на URL
+        redirect_description: "Если включено - любой кто попытается открыть эту страницу будет перенаправлен на URL:"
+        locked_description: Если страница заблокирована, люди не смогут добавлять комментарии к ней.
+        group_access_only_description: "Если включено - только эти группы получат доступ к странице:"
+        display_children_description: "Если сключено и у страницы есть дочерние - на странице появится меню отображающее их."
+        display_in_menu_description: "Если выключено - страница не будет отображаться в меню."
+        content: Главная
+        side: Боковая
       page_comment:
-        anonymous_name: Name
+        anonymous_name: Имя
         anonymous_email: Email
-        comment: Comment
+        comment: Комментарий
       plugin_review:
         review_score: Оценка
         average: Средняя оценка
@@ -800,18 +800,18 @@ ru:
         local_file: С вашего компьютера
         remote_file: URL           
       plugin_video:
-        video: Video File      
-        code: Embed Code
+        video: Видео файл      
+        code: Код для встраивания
     errors: # you can find the list of validation error keys here: http://guides.rubyonrails.org/i18n.html 
       template: 
         header: 
           one: "Только 1 ошибка в %{model}."
           few: "%{count} ошибки найдено в %{model}."
           many: "%{count} ошибок найдено в %{model}." 
-        body: "There were problems with the following things:" 
+        body: "Были проблемы со следующими вещами:" 
       messages:
-        blank: can't be blank!     
-        confirmation: does not match confirmation!    
+        blank: не может быть пустым!     
+        confirmation: не совпадет с подтверждением!    
         taken: занято!
         invalid: в неправильном формате!
         too_short: слишком короткое!
@@ -822,7 +822,7 @@ ru:
         items_cannot_add_more: Вы не можете добавить ещё %{items}.    
         item_must_be_owner: Вы должны быть владельцем этого %{item} чтобы сделать это.
         invalid_file_extension: "не может быть сохранен потому что имя файла не заканчивается следующим образом: %{valid_extensions}"
-        unresponsive: "is not responding"        
+        unresponsive: "не отвечает"        
         belongs_to_self: не может принадлежать себе. Это сумашествие!      
   # Locales
   locales:
@@ -907,7 +907,7 @@ ru:
   i18n:
     plural:
       keys: # Actual Names/Descriptions of Pluralization Cases for your Language. Indexed by pluralization key(ie: one: Singular, other: Plural)
-        one: Singular
-        few: Few
-        many: Many
-        other: Plural         
+        one: Единственное число (Один ...)
+        few: Несколько (Два ...)
+        many: Много (Пять ...)
+        other: Множественное число (Они ...)       

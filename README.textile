@@ -79,13 +79,13 @@ These commands will create the database structure of Opal in production mode. If
 
 h2. That's it! 
 
-You can now start Opal using the built-in Rails webserver, WEBrick... 
+You can now start Opal using 'thin' webserver...
 
 <pre>
 bundle exec rails s -e production
 </pre>
 
-...or any of your other favorite webservers: thin, nginx, apache, mongrel, etc.
+...or any of your other favorite webservers: nginx, apache, mongrel, etc.
  
 * To log in to Opal for the first time, the default Admin username and password is: *admin*.
 

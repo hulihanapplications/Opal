@@ -24,6 +24,7 @@ gem "cregexp"
 gem "mysql2"
 gem 'sqlite3'
 gem 'dynamic_form'
+gem 'thin'
 
 group :development do
 end

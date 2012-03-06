@@ -175,5 +175,15 @@ $(document).ready(function() {
 		$('#plugin_image_source_remote').click(function() {
 			$("#local_file").conceal();
 			$("#remote_file").reveal();
-		});			
+		});	
+
+		// Item Lists
+		$('.items div.item').hover(function(){
+			$(this).children("div.record_menu").fadeIn(200);
+			
+		},
+		function(){
+			$(this).children("div.record_menu").fadeOut(200);
+		});	
 });
+

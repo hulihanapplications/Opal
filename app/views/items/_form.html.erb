@@ -62,17 +62,25 @@
 									<div class="label">
 										<%= f.check_box :is_public %>
 										<%= icon("public") %> 
-										<%= Item.human_attribute_name(:is_public) %>
+										<%= f.label :is_public %>
 									</div>
 									<%= content_tag(:span, Item.human_attribute_name(:is_public_description), :class => "description") %>			
 							</div>																				
-						<% end %>									
+						<% end %>	
+							<div class="field">
+									<div class="label">
+										<%= f.check_box :listed %>
+										<%= icon("list_type_detailed") %> 
+										<%= f.label(:listed) %>
+									</div>
+									<%= content_tag(:span, Item.human_attribute_name(:listed_description), :class => "description") %>	
+							</div>																				
 						<% if @logged_in_user.is_admin? %>	
 							<div class="field">
 									<div class="label">						
 										<%= f.check_box :is_approved %>
 										<%= icon("approved") %> 
-										<%= Item.human_attribute_name(:is_approved) %>
+										<%= f.label :is_approved %>
 									</div>					
 									<%= content_tag(:span, Item.human_attribute_name(:is_approved_description), :class => "description") %>			
 							</div>
@@ -80,7 +88,7 @@
 									<div class="label">						
 										<%= f.check_box :locked %>
 										<%= icon("locked") %> 
-										<%= Item.human_attribute_name(:locked) %>
+										<%= f.label :locked %>
 									</div>
 									<%= content_tag(:span, Item.human_attribute_name(:locked_description), :class => "description") %>			
 							</div>
@@ -88,7 +96,7 @@
 									<div class="label">						
 										<%= f.check_box :featured %>
 										<%= icon("featured") %> 
-										<%= Item.human_attribute_name(:featured) %>
+										<%= f.label :featured %>
 									</div>
 									<%= content_tag(:span, Item.human_attribute_name(:featured_description), :class => "description") %>			
 							</div>	

@@ -112,7 +112,44 @@ input#search_box.selected{background:#666;border:1px solid #ccc;color:white}
 	.item > .description, .item .details .description, .item #details .description{font-size:16px;;text-align:left;}
 	.item .new{position:relative;bottom:0px;left:0px;}
 
+/* Item Lists */
+.items .item{position:relative;}
+.items .item div.record_menu{display:none;position:absolute;top:5px;width:100%;z-index:1;}	
 
+.item_box_simple div.item_details{display:none}
+.item_box_simple td.details{width:100%}
+
+.item_box_simple .item,
+.item_box_detailed .item{;
+	-moz-border-radius:5px;
+	-webkit-border-radius: 5px;
+	margin:0px 0px;
+	padding:33px 0px 0px 0px;
+	text-align:left;
+	/*background:#fff;
+	border:1px solid #ddd;*/
+}
+.item_box_simple .item:hover,
+.item_box_detailed .item:hover{
+}
+
+.item_box_detailed div.preview, .item_box_simple div.preview{margin-right:10px;}	
+.item_box_simple td.details, .item_box_detailed td.details{width:100%}
+
+	.item_box_detailed table{margin:0px 0px 0px 0px;padding-top:0px;}
+			.item_box_detailed div.date{font-size:12px;text-align:right;margin-left:0px;width:100%;font-weight:bold}
+			.item_box_detailed div.spacer{border-bottom:1px solid #ccc;margin-bottom:2px;margin-top:2px;}
+	
+.item_box_photo{margin:0px 5px 20px 5px;text-align:center;float:left} /* Used in Photo List */
+	.item_box_photo .item .name, .item_box_photo .item .name a{font-size:16px;text-align:center}
+	.item_box_photo .thumbnail_box{text-align:center;}
+	
+.item_box_small{} /* Used in Small List */
+	.item_box_small .item .name, .item_box_small .item .name a{font-size:12px;}
+	.item_box_small .item .description{font-size:12px;}
+	.item_box_small td{padding:5px;vertical-align:middle}
+		.item_box_detailed td.preview{padding-right:0px;}	
+	
 /* Item Pages */
 	/* Header */
 	.item .header{text-align:left}
@@ -123,7 +160,6 @@ input#search_box.selected{background:#666;border:1px solid #ccc;color:white}
 			.item .details table{width:100%}			
 			.item .details .summary{width:525px}
 			.item .details .info{width:250px;}
-
 	
 /* Item Page Types */		
 div.page_summarized{}

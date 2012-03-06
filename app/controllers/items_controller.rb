@@ -13,23 +13,18 @@ class ItemsController < ApplicationController
 
   def index # show all items to user
     @setting[:homepage_type] = Setting.get_setting("homepage_type")    
-    if @logged_in_user.is_admin?
-      @items = Item.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i, :order => Item.sort_order(params[:sort])     
-    else      
-      @items = Item.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i, :order => Item.sort_order(params[:sort]), :conditions => ["is_approved = '1' and is_public = '1'"]
-    end
+    @items = Item.paginate(:page => params[:page], :per_page => @setting[:items_per_page].to_i).order(Item.sort_order(params[:sort]))
+    @items = @items.public.approved.listed unless @logged_in_user.is_admin? 
     @setting[:meta_title] << Item.model_name.human(:count => :other) 
   end
  
   def category # get all items for a category and its children/descendants recursively
     @category = Category.find(params[:id]) 
     #@setting[:include_child_category_items] = Setting.get_setting_bool("include_child_category_items") # get a bool object for a setting to pass into various functions that use it(reduces redundant db queries).
-    category_ids = @category.get_all_ids(:include_children => @setting[:include_child_category_items]).split(',') # get an array of category ids to be passed into Mysql IN clause
-    current_page = params[:page] ||= 1 
-    page = @setting[:items_per_page].to_i
-    
-    @items = Item.paginate :page => params[:page], :per_page => @setting[:items_per_page].to_i, :order => Item.sort_order(params[:sort]), :conditions => ["category_id IN (?) and is_approved = '1' and is_public = '1'", category_ids]    
-    
+    category_ids = @category.get_all_ids(:include_children => @setting[:include_child_category_items]).split(',') # get an array of category ids to be passed into Mysql IN clause   
+    @items = Item.where(:category_id => category_ids)
+    @items = @items.paginate(:page => params[:page], :per_page => @setting[:items_per_page].to_i).order(Item.sort_order(params[:sort]))   
+    @items = @items.public.approved.listed unless @logged_in_user.is_admin? 
     @setting[:meta_title] << @category.name 
     @setting[:meta_description] << [@category.name , @category.description, Item.model_name.human(:count => :other), @setting[:meta_description]].join(" - ")
      
@@ -64,9 +59,9 @@ class ItemsController < ApplicationController
         format.html # new.html.erb
         format.xml  { render :layout => false }
       end      
-    rescue ActiveRecord::RecordNotFound # the item doesn't exist
-        flash[:failure] = t("notice.item_not_found", :item => Item.model_name.human + " #{(@item.id)}")
-        redirect_to :action => "index", :controller => "browse"
+  rescue ActiveRecord::RecordNotFound # the item doesn't exist
+    flash[:failure] = t("notice.item_not_found", :item => Item.model_name.human + " #{(@item.id)}")
+    redirect_to :action => "index", :controller => "browse"
   end
  
   def new

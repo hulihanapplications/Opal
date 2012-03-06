@@ -708,7 +708,8 @@ en:
         is_public: Public
         is_public_description: If this is public, it can be seen by others.
         is_approved: Approved
-        is_approved_description: This must be approved to be seen by others.                
+        is_approved_description: This must be approved to be seen by others.  
+        listed_description: If unchecked, this will not appear on lists.              
       page: 
         title: Title
         description: Description

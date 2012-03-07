@@ -71,6 +71,9 @@ Next, Run these commands (while in the Opal directory) to install Opal's require
 bundle exec rake db:migrate RAILS_ENV=production LOCALE=en
 bundle exec rake db:seed RAILS_ENV=production LOCALE=en
 bundle exec rake assets:precompile RAILS_ENV=production 
+
+# Install Sample Items, Categories, etc.
+bundle exec rake db:sample RAILS_ENV=production
 </pre>
 
 These commands will create the database structure of Opal in production mode. If you leave out *RAILS_ENV=PRODUCTION*, everything will be installed into your development database instead. This will also set up the default admin account, some sample items(you'll be asked if you want to install sample data), and other stuff to help you get started with Opal. You can also specify the *LOCALE* parameter to install Opal in a language other than english. 

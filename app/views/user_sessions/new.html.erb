@@ -1,57 +1,55 @@
-	<div class="box_2"  align=center>
-		<table style="width:100%">
-			<tr>
-				<td class="left">
-					<% unless Authentication.providers.empty? %>
-						<%= content_tag(:h2, t("label.use_authentication"), :class => "title")  %>
-						<%= render :partial => "authentications/providers" %>
-					<% end %>
-				</td>
-				<td class="right spacer_left" align=center>		
-					<h2 class="title"><%= t("label.log_in") %></h2>					
-					<%= form_for @user_session do |f| %>
-						 <%= hidden_field_tag(:redirect_to, params[:redirect_to]) %>
-						 <table>
-						  <tr>
-						   	<td><%= f.label :username, "#{User.human_attribute_name(:email)} / #{User.human_attribute_name(:username)}" %></td><td > <%= f.text_field :username %></td>
-						  </tr>
-						  <tr>
-						  	<td><%= f.label :password %></td><td > <%= f.password_field :password %></td>
-						  </tr>
-						  <tr>
-							<td><%= f.label :remember_me, t("label.remember_me") %></td>			  	
-						  	<td><%= f.check_box :remember_me %></td>
-						  </tr>
-						  <tr>		   
-						   	<td colspan=2 align=center><%= submit_tag t("label.log_in"), :class => "button_1" %></td>	
-						  </tr>
-						 </table>
-				     <% end %>
-				     <br />
-					 <div class="box_2">
-					 	<%= t("label.log_in_forgot_password") %>
-						<%= link_to_function(icon("cycle") + " " + t("label.log_in_recover_password"), "toggle_box('forgot_password_box')") %>
-						<div style="display:none" id="forgot_password_box" align=center>
-							<div class="spacer"></div>
-							<%= t("label.log_in_forgot_password_message") %>			
-							<%= form_tag :action => "forgot_password", :controller => "user"  %>
-								<%= text_field 'user', 'email', :id => "forgot_email", :onfocus => "focus_input('forgot_email')", :onblur => "blur_input('forgot_email')" %>	   
-								<div style="height:5px"></div>
-								<%= submit_tag t("label.log_in_recover_password"), :class => "button_2" %>				
-							</form>			
+<div class="box_2">
+	<table style="width:100%">
+		<tr>
+			<%= content_tag :td, :class => :left do %>
+					<%= content_tag(:h2, t("label.use_authentication"), :class => "title")  %>
+					<%= render :partial => "authentications/providers" %>
+			<% end unless Authentication.providers.empty? %>
+			<%= content_tag :td, :class => (Authentication.providers.empty? ? nil : :right), :align => :center  do %>
+				<h2 class="title"><%= t("label.log_in") %></h2>					
+				<%= form_for @user_session do |f| %>
+					 <%= hidden_field_tag(:redirect_to, params[:redirect_to]) %>
+					 <table>
+					  <tr>
+					   	<td><%= f.label :username, "#{User.human_attribute_name(:email)} / #{User.human_attribute_name(:username)}" %></td><td > <%= f.text_field :username %></td>
+					  </tr>
+					  <tr>
+					  	<td><%= f.label :password %></td><td > <%= f.password_field :password %></td>
+					  </tr>
+					  <tr>
+						<td><%= f.label :remember_me, t("label.remember_me") %></td>			  	
+					  	<td><%= f.check_box :remember_me %></td>
+					  </tr>
+					  <tr>		   
+					   	<td colspan=2 align=center><%= submit_tag t("label.log_in"), :class => "button_1" %></td>	
+					  </tr>
+					 </table>
+			     <% end %>
+			     <br />
+				 <div class="box_2">
+				 	<%= t("label.log_in_forgot_password") %>
+					<%= link_to_function(icon("cycle") + " " + t("label.log_in_recover_password"), "toggle_box('forgot_password_box')") %>
+					<div style="display:none" id="forgot_password_box" align=center>
+						<div class="spacer"></div>
+						<%= t("label.log_in_forgot_password_message") %>			
+						<%= form_tag :action => "forgot_password", :controller => "user"  %>
+							<%= text_field 'user', 'email', :id => "forgot_email", :onfocus => "focus_input('forgot_email')", :onblur => "blur_input('forgot_email')" %>	   
 							<div style="height:5px"></div>
-					 	    <div align="center">
-						   		<a href="javascript:toggle_box('forgot_password_box')"><%= icon("cancel", t("single.cancel")) %></a>
-						    </div>			
-						</div>
-					 </div> 
-					<% if @setting[:allow_user_registration] %>
-						<div class="box_2">
-							<%= t("label.register_message") %>	
-						  	<%= link_to t("label.register"), {:action => "register", :controller => "user"}, :class => "signup_button" %>
-						</div>
-					<% end %>	
-				</td>				
-			</tr>
-		</table>											 
-	</div>
+							<%= submit_tag t("label.log_in_recover_password"), :class => "button_2" %>				
+						</form>			
+						<div style="height:5px"></div>
+				 	    <div align="center">
+					   		<a href="javascript:toggle_box('forgot_password_box')"><%= icon("cancel", t("single.cancel")) %></a>
+					    </div>			
+					</div>
+				 </div> 
+				<% if @setting[:allow_user_registration] %>
+					<div class="box_2">
+						<%= t("label.register_message") %>	
+					  	<%= link_to t("label.register"), {:action => "register", :controller => "user"}, :class => "signup_button" %>
+					</div>
+				<% end %>	
+			<% end %>
+		</tr>
+	</table>											 
+</div>

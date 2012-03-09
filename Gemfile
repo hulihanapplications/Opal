@@ -25,6 +25,7 @@ gem "mysql2"
 gem 'sqlite3'
 gem 'dynamic_form'
 gem 'thin'
+gem "friendly_id", "~> 4.0.1"
 
 group :development do
 end

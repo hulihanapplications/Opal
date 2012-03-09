@@ -11,14 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120306044926) do
+ActiveRecord::Schema.define(:version => 20120305231302) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
     t.string   "provider"
     t.string   "uid"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "categories", :force => true do |t|
@@ -29,9 +29,11 @@ ActiveRecord::Schema.define(:version => 20120306044926) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "ancestry"
+    t.string   "slug"
   end
 
   add_index "categories", ["ancestry"], :name => "index_categories_on_ancestry"
+  add_index "categories", ["slug"], :name => "index_categories_on_slug", :unique => true
 
   create_table "group_plugin_permissions", :force => true do |t|
     t.integer  "group_id"
@@ -41,16 +43,16 @@ ActiveRecord::Schema.define(:version => 20120306044926) do
     t.string   "can_update",        :limit => 1, :default => "0"
     t.string   "can_delete",        :limit => 1, :default => "0"
     t.string   "requires_approval", :limit => 1, :default => "0"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
   end
 
   create_table "groups", :force => true do |t|
     t.string   "name"
     t.string   "description"
     t.string   "is_deletable", :limit => 1, :default => "1"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
   end
 
   add_index "groups", ["name"], :name => "index_groups_on_name"
@@ -91,8 +93,8 @@ ActiveRecord::Schema.define(:version => 20120306044926) do
     t.integer  "item_id"
     t.string   "log"
     t.string   "log_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.string   "target_type"
     t.integer  "target_id"
     t.string   "ip"
@@ -106,8 +108,8 @@ ActiveRecord::Schema.define(:version => 20120306044926) do
     t.string   "anonymous_email"
     t.string   "anonymous_name"
     t.string   "is_approved",     :limit => 1, :default => "0"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
   end
 
   create_table "pages", :force => true do |t|
@@ -128,8 +130,8 @@ ActiveRecord::Schema.define(:version => 20120306044926) do
     t.boolean  "display_in_menu",      :default => true
     t.boolean  "redirect",             :default => false
     t.string   "redirect_url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.string   "ancestry"
     t.boolean  "display_children",     :default => true
     t.boolean  "group_access_only",    :default => false
@@ -138,6 +140,8 @@ ActiveRecord::Schema.define(:version => 20120306044926) do
   end
 
   add_index "pages", ["ancestry"], :name => "index_pages_on_ancestry"
+  add_index "pages", ["name"], :name => "index_pages_on_name"
+  add_index "pages", ["title"], :name => "index_pages_on_title"
 
   create_table "plugin_comments", :force => true do |t|
     t.integer  "user_id"
@@ -173,8 +177,8 @@ ActiveRecord::Schema.define(:version => 20120306044926) do
     t.text     "post"
     t.string   "is_sticky",            :limit => 1, :default => "1"
     t.string   "is_enabled",           :limit => 1, :default => "0"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                         :null => false
+    t.datetime "updated_at",                                         :null => false
   end
 
   create_table "plugin_discussions", :force => true do |t|
@@ -184,8 +188,8 @@ ActiveRecord::Schema.define(:version => 20120306044926) do
     t.string   "is_sticky",   :limit => 1, :default => "0"
     t.string   "is_approved", :limit => 1, :default => "0"
     t.string   "is_closed",   :limit => 1, :default => "0"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.string   "record_type"
     t.integer  "record_id"
   end
@@ -195,8 +199,8 @@ ActiveRecord::Schema.define(:version => 20120306044926) do
     t.integer  "user_id"
     t.string   "value"
     t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "plugin_feature_values", :force => true do |t|
@@ -269,8 +273,8 @@ ActiveRecord::Schema.define(:version => 20120306044926) do
     t.integer  "plugin_review_id"
     t.integer  "user_id"
     t.integer  "score",            :default => 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
   create_table "plugin_reviews", :force => true do |t|
@@ -295,8 +299,8 @@ ActiveRecord::Schema.define(:version => 20120306044926) do
     t.string   "setting_type"
     t.string   "value"
     t.string   "item_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.string   "options"
   end
 
@@ -319,8 +323,8 @@ ActiveRecord::Schema.define(:version => 20120306044926) do
     t.text     "description"
     t.text     "code"
     t.string   "is_approved", :limit => 1, :default => "0"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.string   "record_type"
     t.integer  "record_id"
     t.string   "video"
@@ -329,8 +333,8 @@ ActiveRecord::Schema.define(:version => 20120306044926) do
   create_table "plugins", :force => true do |t|
     t.string   "name"
     t.integer  "order_number",              :default => 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.string   "is_enabled",   :limit => 1, :default => "1"
     t.string   "is_builtin",   :limit => 1, :default => "0"
   end
@@ -340,8 +344,8 @@ ActiveRecord::Schema.define(:version => 20120306044926) do
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
@@ -362,8 +366,8 @@ ActiveRecord::Schema.define(:version => 20120306044926) do
   create_table "simple_captcha_data", :force => true do |t|
     t.string   "key",        :limit => 40
     t.string   "value",      :limit => 6
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
   end
 
   add_index "simple_captcha_data", ["key"], :name => "idx_key"
@@ -405,8 +409,8 @@ ActiveRecord::Schema.define(:version => 20120306044926) do
     t.string   "ip"
     t.datetime "verification_date"
     t.string   "is_verified",       :limit => 1, :default => "0"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                                     :null => false
+    t.datetime "updated_at",                                                     :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -448,8 +452,8 @@ ActiveRecord::Schema.define(:version => 20120306044926) do
     t.string   "voter_type"
     t.integer  "voter_id"
     t.boolean  "up_vote",       :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   add_index "votings", ["voteable_type", "voteable_id", "voter_type", "voter_id"], :name => "unique_voters", :unique => true

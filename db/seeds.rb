@@ -9,6 +9,9 @@ I18n.locale = ENV['LOCALE'].nil? ? "en" : ENV['LOCALE']  # Define locale
 @admin.locale = I18n.locale.to_s
 @admin.save
 
+# Create Categories
+Category.create(:name => I18n.t('seeds.category.uncategorized.name'), :category_id => 0, :description => I18n.t('seeds.category.uncategorized.description'))    
+
 puts "\n" + I18n.t("notice.item_install_success", :item => I18n.t("name")) + "\n"
 puts I18n.t("label.login_as", :username => I18n.t('seeds.user.admin.username'), :password => I18n.t('seeds.user.admin.password'))
 Log.create(:log => I18n.t("notice.item_install_success", :item => I18n.t("name")), :log_type => "system") # Log Install

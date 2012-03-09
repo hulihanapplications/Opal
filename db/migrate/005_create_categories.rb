@@ -10,8 +10,6 @@ class CreateCategories < ActiveRecord::Migration
      t.column :updated_at, :datetime
     end
 
-	# Create Categories
-	Category.create(:name => I18n.t('seeds.category.uncategorized.name'), :category_id => 0, :description => I18n.t('seeds.category.uncategorized.description'))    
   end
 
   def self.down

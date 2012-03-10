@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120310103817) do
+ActiveRecord::Schema.define(:version => 20120310123336) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -139,10 +139,12 @@ ActiveRecord::Schema.define(:version => 20120310103817) do
     t.boolean  "display_children",     :default => true
     t.boolean  "group_access_only",    :default => false
     t.string   "group_ids"
+    t.string   "slug"
   end
 
   add_index "pages", ["ancestry"], :name => "index_pages_on_ancestry"
   add_index "pages", ["name"], :name => "index_pages_on_name"
+  add_index "pages", ["slug"], :name => "index_pages_on_slug", :unique => true
   add_index "pages", ["title"], :name => "index_pages_on_title"
 
   create_table "plugin_comments", :force => true do |t|

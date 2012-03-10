@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120310123336) do
+ActiveRecord::Schema.define(:version => 20120310160046) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -443,11 +443,13 @@ ActiveRecord::Schema.define(:version => 20120310123336) do
     t.string   "current_login_ip"
     t.string   "salt"
     t.string   "avatar"
+    t.string   "slug"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["last_request_at"], :name => "index_users_on_last_request_at"
   add_index "users", ["persistence_token"], :name => "index_users_on_persistence_token"
+  add_index "users", ["slug"], :name => "index_users_on_slug", :unique => true
   add_index "users", ["username"], :name => "index_users_on_username"
 
   create_table "votings", :force => true do |t|

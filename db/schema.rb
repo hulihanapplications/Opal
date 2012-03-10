@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120305231302) do
+ActiveRecord::Schema.define(:version => 20120310103817) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -86,7 +86,10 @@ ActiveRecord::Schema.define(:version => 20120305231302) do
     t.string   "preview_type"
     t.integer  "preview_id"
     t.boolean  "listed",                    :default => true
+    t.string   "slug"
   end
+
+  add_index "items", ["slug"], :name => "index_items_on_slug", :unique => true
 
   create_table "logs", :force => true do |t|
     t.integer  "user_id"
@@ -136,7 +139,6 @@ ActiveRecord::Schema.define(:version => 20120305231302) do
     t.boolean  "display_children",     :default => true
     t.boolean  "group_access_only",    :default => false
     t.string   "group_ids"
-    t.text     "side"
   end
 
   add_index "pages", ["ancestry"], :name => "index_pages_on_ancestry"

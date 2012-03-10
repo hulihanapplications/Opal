@@ -1,4 +1,9 @@
 class Item < ActiveRecord::Base
+  if Item.table_exists? && Item.column_names.include?("slug")
+    extend FriendlyId
+    friendly_id :name, :use => :slugged
+  end
+
   has_one :item_statistic 
   belongs_to :user
   belongs_to :category
@@ -34,11 +39,6 @@ class Item < ActiveRecord::Base
   scope :popular, order("recent_views DESC")
   scope :listed, where(:listed => true)
  
-  def to_param # make custom parameter generator for seo urls, to use: pass actual object(not id) into id ie: :id => object
-    # this is also backwards compatible with regular integer id lookups, since .to_i gets only contiguous numbers, ie: "4-some-string-here".to_i # => 4    
-    "#{id}-#{name.parameterize}" 
-  end
-  
   def to_s
     name
   end

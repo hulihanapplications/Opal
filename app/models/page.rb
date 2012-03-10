@@ -1,6 +1,11 @@
 class Page < ActiveRecord::Base
   has_ancestry if Page.table_exists? && column_names.include?("ancestry")
 
+  if Page.table_exists? && Page.column_names.include?("slug")
+    extend FriendlyId
+    friendly_id :title, :use => :slugged
+  end
+
   has_many :pages
   has_many :plugin_comments, :dependent => :destroy, :as => :record
   belongs_to :page
@@ -58,11 +63,6 @@ class Page < ActiveRecord::Base
   # return group ids as ints 
   def group_ids
     self["group_ids"].collect{|o|o.to_i}
-  end
-
-  def to_param # make custom parameter generator for seo urls, to use: pass actual object(not id) into id ie: :id => object
-    # this is also backwards compatible with regular integer id lookups, since .to_i gets only contiguous numbers, ie: "4-some-string-here".to_i # => 4    
-    "#{id}-#{title.parameterize}" 
   end
   
   def model_name(count = 1) # return human name of instance

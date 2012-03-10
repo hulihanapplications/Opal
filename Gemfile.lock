@@ -91,6 +91,7 @@ GEM
       nokogiri (>= 1.4.4)
       ruby-hmac
     formatador (0.2.1)
+    friendly_id (4.0.1)
     hashie (1.2.0)
     hike (1.2.1)
     humanizer (2.4.3)
@@ -218,6 +219,7 @@ DEPENDENCIES
   dynamic_form
   factory_girl_rails
   fog
+  friendly_id (~> 4.0.1)
   humanizer (= 2.4.3)
   i18n
   jquery-rails

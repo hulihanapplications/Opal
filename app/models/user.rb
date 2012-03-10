@@ -1,6 +1,11 @@
 class User < ActiveRecord::Base
   require 'digest/sha2'
 
+  if User.table_exists? && User.column_names.include?("slug")
+    extend FriendlyId
+    friendly_id :username, :use => :slugged
+  end
+
   make_voter
   mount_uploader :avatar, ::AvatarUploader
 
@@ -92,11 +97,6 @@ class User < ActiveRecord::Base
              :order => 'username'
   end
 
-  def to_param # make custom parameter generator for seo urls, to use: pass actual object(not id) into id ie: :id => object
-    # this is also backwards compatible with id lookups, since .to_i gets only contiguous numbers, ie: "4-some-string-here".to_i # => 4    
-    "#{id}-#{username.parameterize}" 
-  end
-  
   def to_s
     self.username
   end

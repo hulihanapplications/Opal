@@ -2,6 +2,10 @@ class Category < ActiveRecord::Base
   include ActionView::Helpers::TextHelper # include text helper for truncate and other options
   has_ancestry if Category.table_exists? && column_names.include?("ancestry")
 
+  if Category.table_exists? && Category.column_names.include?("slug")
+    extend FriendlyId
+    friendly_id :name, :use => :slugged
+  end
   
   has_many :items, :dependent => :destroy
   has_many :categories, :dependent => :destroy
@@ -17,10 +21,6 @@ class Category < ActiveRecord::Base
     name
   end
   
-  def to_param # make custom parameter generator for seo urls
-    "#{id}-#{name.parameterize}"
-  end
-    
   def self.get_parent_categories # Category.get_parent_categories
     return find(:all, :conditions =>["category_id = 0"], :order => "name ASC")         
   end

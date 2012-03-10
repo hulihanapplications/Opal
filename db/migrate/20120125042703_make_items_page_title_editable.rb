@@ -1,9 +1,15 @@
 class MakeItemsPageTitleEditable < ActiveRecord::Migration
   def up
-    Page.find_by_name("items").update_attribute(:title_editable, true)
+    items_page = Page.find_by_name("items")
+    if !items_page.nil?
+      items_page.update_attribute(:title_editable, true)
+    end
   end
 
   def down
-    Page.find_by_name("items").update_attribute(:title_editable, false)
+    items_page = Page.find_by_name("items")
+    if !items_page.nil?
+      items_page.update_attribute(:title_editable, false)
+    end
   end
 end

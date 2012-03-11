@@ -1,7 +1,7 @@
 <% content_for :side do %>
 			<div>
 								
-				<div class="box_1" align=left style="margin-bottom:5px;">
+				<div class="box_1">
 					<h2 class="title"><%= t("label.additional_info") %></h2>
 					<%= Group.human_attribute_name(:updated_at) %>: <b><%= friendly_date @group.updated_at %></b>		<br>					
 					<%= Group.human_attribute_name(:created_at) %>: <b><%= friendly_date @group.created_at %></b>		<br>
@@ -18,10 +18,8 @@
 							<% end %>													
 						</div>
  
-					</div>
-										
+					</div>										
 			</div>	
-	
 <% end %>
 
 <div id="edit_group_box_<%= @group.id %>" class="box_2">

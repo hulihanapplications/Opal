@@ -1,8 +1,7 @@
 module PagesHelper
   def link_to_page(page, options = {})
-    options[:truncate_length] = 256 if options[:truncate].nil?    
     url ||= page_path(page)
-    raw link_to(truncate(t("page.title.#{page.title.delete(' ').underscore}", :default => page.title), :length => options[:truncate_length]), url, :class => options[:class], :title => t("page.description.#{page.title.delete(' ').underscore}", :default => page.description))   
+    raw link_to(page.title, url, :class => options[:class], :title => page.description.present? ? page.description : page.title)   
   end
 
   def show_page(page) # prints out page content

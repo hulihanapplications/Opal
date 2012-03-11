@@ -1,11 +1,28 @@
-<% content_for :admin_menu do %>
-	<div class="tab" id="admin-menu">
-		 <ul class="tab">
-	   		<%= content_tag(:li, link_to(icon("admin") + " " + t("section.title.admin").capitalize, {:action => "index", :controller => "admin"}), :class => params[:controller] == "admin" ? "selected" : "") %>		
-	   		<%= content_tag(:li, link_to(icon("items") + " " + Item.model_name.human(:count => :other), {:action => "all_items", :controller => "items"}), :class => params[:controller] == "items" || params[:controller] == "categories" || params[:controller] == "plugins" || params[:controller] == "plugins" || params[:controller] == "plugin_features" || params[:controller] == "tools"  ? "selected" : "") if @setting[:section_items] %>		
-	   		<%= content_tag(:li, link_to(icon("pages") + " " + Page.model_name.human(:count => :other), {:action => "index", :controller => "pages"}), :class => params[:controller] == "pages" ? "selected" : "") %>		
-	   		<%= content_tag(:li, link_to(icon("users") + " " + User.model_name.human(:count => :other), {:action => "index", :controller => "users"}), :class => params[:controller] == "users" || params[:controller] == "groups" || params[:controller] == "messages" || params[:controller] == "logs" ? "selected" : "") %>		
-	   		<%= content_tag(:li, link_to(icon("settings") + " " + t("section.title.configure").capitalize, {:action => "index", :controller => "settings"}), :class => params[:controller] == "settings"  ? "selected" : "") %>		
+<% content_for :side do %>
+	<%= content_tag :div, :class => "admin menu",  :id => "admin-menu" do %>
+		 <ul class="menu">
+	   		<%= content_tag(:li, :class => :selected) do %>
+	   			<%= link_to(icon("admin") + " " + t("section.title.admin").capitalize, {:action => "index", :controller => "admin"}, :class => params[:controller] == "admin" ? :selected : nil) %>		
+	   			<%= content_tag :ul do %>
+			   		<%= content_tag(:li, :class => %w{items categories plugins plugin_features tools}.include?(params[:controller]) ? :selected : nil)  do %>		
+			   			<%= link_to(icon("items") + " " + Item.model_name.human(:count => :other), {:action => "all_items", :controller => "items"}, :class => params[:action] == "all_items" ? :selected : nil ) %>	
+			   		  	<%#= render :partial => "items/all_items_menu" %>	
+			   			<%= render :partial => "items/menu" %>
+			   		<% end if @setting[:section_items] %>	
+			   		<%= content_tag(:li, :class => (params[:controller] == "pages") ? :selected : nil) do %>
+			   		 	<%= link_to(icon("pages") + " " + Page.model_name.human(:count => :other), {:action => "index", :controller => "pages"}, :class => current_page?(pages_path) && params[:type].blank? ? :selected : nil) %>	
+			   			<%= render :partial => "pages/menu" %>
+			   		<% end %>
+			   		<%= content_tag(:li, :class => params[:controller] == "users" || params[:controller] == "groups" || params[:controller] == "messages" || params[:controller] == "logs" ? :selected : nil)  do %>
+			   			<%= link_to(icon("users") + " " + User.model_name.human(:count => :other), {:action => "index", :controller => "users"}, :class => current_page?(users_path)  ? :selected : nil) %>
+			   			<%= render :partial => "users/menu" %>
+			   		<% end %>
+			   		<%= content_tag(:li, :class => params[:controller] == "settings"  ? :selected : nil) do %> 
+			   			<%=  link_to(icon("settings") + " " + t("section.title.configure").capitalize, {:action => "index", :controller => "settings"}, :class => params[:controller] == "settings" && params[:action] == "index" ? :selected : nil) %>
+			   			<%= render :partial => "settings/menu" %>
+			   		<% end %>	
+			   	<% end %>
+	   		<% end %>		   			
 		</ul>
-	</div>
-<% end %>
+	<% end %>
+<% end if current_user.is_admin? %>

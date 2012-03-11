@@ -1,11 +1,7 @@
 <div class="menu">
 	<ul class="menu">
-		<li class="<%= (params[:controller] == "settings" && params[:action] == "index") || params[:action] == "new_change_logo" ? "selected" : "" %>">
-			<%= link_to icon("settings") + " " + Setting.model_name.human(:count => :other), {:action => "index", :controller => "settings"} %>				
-		</li>	
-	
 		<li class="<%= (params[:action] == "themes" || params[:action] == "new_theme_install") ? "selected" : "" %> last">
-			<%= link_to icon("themes") + " " + t("single.theme", :count => :other), {:action => "themes", :controller => "settings"} %>				
+			<%= link_to icon("themes") + " " + t("single.theme", :count => :other), {:action => "themes", :controller => "settings"}, :class => (params[:action] == "themes" || params[:action] == "new_theme_install") ? "selected" : "" %>			
 		</li>		
 	</ul>	
 </div>

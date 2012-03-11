@@ -33,17 +33,7 @@ input#search_box{background:url(../images/bgs/white_trans_10.png) repeat;}
 input#search_box.selected{background:url(../images/bgs/white_trans_25.png) repeat;}
 
 /* Menus */
-div#side ul.menu li span.count, div#side div.menu, div#side ul.menu li.selected{-moz-border-radius: 5px;-webkit-border-radius: 5px;}	
-
-div#side div.menu{} 
-	div#side ul.menu{}
-		div#side ul.menu li{}
-			div#side ul.menu li span.count{background:#fff;right:6px;border:1px solid #ccc;padding:3px;font-size:10px;;display:block;min-width:15px;}
-		div#side ul.menu li.selected{padding:5px 3px 5px 9px;border:1px solid #ccc;background:url(../images/bgs/white_trans_50.png) repeat}		
-			div#side ul.menu li.selected span.count{top:5px;right:5px;}			
-div#side div.menu div.footer{border-top:1px solid #aaa;padding-top:5px;margin-top:5px;}
-
-
+/*div#side ul.menu li.selected{background:url(../images/bgs/white_trans_50.png) repeat} */
 .record_menu li > a, 
 .record_menu li > span, 
 div.header ul.menu li > a, 
@@ -96,7 +86,6 @@ ul.right li.sort span img{background:none;padding-left:0;}
 .box_3{background:url(../images/bgs/white_trans_50.png) repeat;border:1px solid #ccc;;padding:10px;text-align:center;;-moz-border-radius: 5px;-webkit-border-radius: 5px;margin-right:0px;margin-bottom:10px;}
 
 
-div.environment{text-align:center}
 
 
 

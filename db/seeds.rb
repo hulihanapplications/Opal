@@ -6,7 +6,6 @@ pages = Hash.new
 title = Setting.get_setting("title")
 Page.create(:name => "banner_top", :page_type => "system", :content => I18n.t('seeds.page.banner_top.content'))
 Page.create(:name => "banner_bottom", :page_type => "system", :content => I18n.t('seeds.page.banner_bottom.content'))
-#Page.create(:title => I18n.t('seeds.page.terms_of_service.title'), :description => I18n.t('seeds.page.terms_of_service.description'), :page_type => "system", :content => I18n.t('seeds.page.terms_of_service.content'))
 # Add a new page that will show when a user is creating a new item.
 Page.create(:name => "new_item", :page_type => "system", :content => I18n.t('seeds.page.new_item.content'))
 # Create Email Footer Page

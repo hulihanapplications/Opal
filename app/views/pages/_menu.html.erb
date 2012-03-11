@@ -2,16 +2,22 @@
 <div class="menu">	
 	<%= content_tag :ul, :class => :menu do %>
 		<%= content_tag :li, :class => (params[:type].downcase == "public") ? :selected : nil do %>
-			<%= link_to  icon("page") + " " + t('activerecord.models.public_page', :count => :other), {:action => "index", :controller => "pages", :type => "Public"} %>
-			<%= content_tag :span, Page.public_pages.size, :class => :count %>					
+			<%= link_to pages_path(:type => "Public"), :class => (params[:type].downcase == "public") ? :selected : nil do %>
+				<%=  icon("page") + " " + t('activerecord.models.public_page', :count => :other) %>
+				<%= content_tag :span, Page.public_pages.size, :class => :count %>					
+			<% end %>
 		<% end %>
 		<%= content_tag :li, :class => (params[:type].downcase == "blog") ? :selected : nil do %>
-			<%= link_to icon("blog_post") + " " + t('activerecord.models.blog_page', :count => :other), {:action => "index", :controller => "pages", :type => "Blog"} %>
-			<%= content_tag :span, Page.blog_pages.size, :class => :count %>											
+			<%= link_to pages_path(:type => "Blog"), :class => (params[:type].downcase == "blog") ? :selected : nil do %>
+				<%= icon("blog_post") + " " + t('activerecord.models.blog_page', :count => :other) %>
+				<%= content_tag :span, Page.blog_pages.size, :class => :count %>											
+			<% end %>
 		<% end if @setting[:section_blog] %>
 		<%= content_tag :li, :class => (params[:type].downcase == "system") ? :selected : nil do %>
-			<%= link_to icon("system_page") + " " + t('activerecord.models.system_page', :count => :other), {:action => "index", :controller => "pages", :type => "System"} %>
-			<%= content_tag :span, Page.system_pages.size, :class => :count %>										
+			<%= link_to pages_path(:type => "System"), :class => (params[:type].downcase == "system") ? :selected : nil do %>
+				<%= icon("system_page") + " " + t('activerecord.models.system_page', :count => :other) %>
+				<%= content_tag :span, Page.system_pages.size, :class => :count %>						
+			<% end %>				
 		<% end %>						
 	<% end %>		
 </div>

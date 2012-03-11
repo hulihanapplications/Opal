@@ -297,4 +297,10 @@ module ApplicationHelper
       end  
     end     
   end
+
+  # Setup the layout, load menus, etc.
+  def initialize_layout
+    render :partial => "admin/menu" if @show_admin_menu
+    render :partial => "user/menu" if @show_user_menu
+  end 
 end

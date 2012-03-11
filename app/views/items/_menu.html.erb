@@ -1,33 +1,25 @@
-<div class="menu">
-	<div class="menu">
-		<ul class="menu">		
-			<li class="<%= params[:action] == "all_items" ? "selected" : "" %>" >
-				<%= link_to icon("items") + " " + Item.model_name.human(:count => :other), {:action => "all_items", :controller => "items"} %>				
-			</li>	
-
-			<li class="<%= params[:controller] == "categories" ? "selected" : "" %>" >
-				<%= link_to icon("categories") + " " + Category.model_name.human(:count => :other), {:action => "index", :controller => "categories"}  %>				
-			</li>	
-				
-			<li class="<%= (params[:action] == "settings" && params[:controller] == "items") ? "selected" : "" %>" >
-				<%= link_to icon("settings") + " " + Setting.model_name.human(:count => :other), {:action => "settings", :controller => "items"} %>				
-			</li>	
-		
-			<li class="<%= (params[:controller] == "plugins" || params[:controller] == "plugin_features") ? "selected" : "" %>" >
-				<%= link_to icon("plugins") + " " + Plugin.model_name.human(:count => :other), {:action => "index", :controller => "plugins"} %>				
-			</li>
-								
-			<li class="<%= ( params[:action] == "change_item_name") ? "selected" : "" %>" >
-				<%= link_to icon("cycle") + " " + t("label.item_change", :item => Item.model_name.human + " " + t("single.name")), {:action => "change_item_name", :controller => "items"} %>				
-			</li>
-		
-			<li class="<%= ( params[:action] == "import") ? "selected" : "" %>" >
-				<%= link_to icon("arrow_left") + " " + t("single.import") + " " + Item.model_name.human(:count => :other), {:action => "import", :controller => "tools"} %>
-			</li>
-		
-			<li class="<%= params[:action] == "export" ? "selected" : "" %> last">
-				<%= link_to icon("arrow_right") + " " + t("single.export") + " " + Item.model_name.human(:count => :other), {:action => "export", :controller => "tools"} %>				
-			</li>		
-		</ul>			
-	</div>		
-</div>
+<div class="menu" id="admin-items-menu">
+	<ul class="menu">		
+		<li class="<%= params[:controller] == "categories" ? "selected" : "" %>" >
+			<%= link_to icon("categories") + " " + Category.model_name.human(:count => :other), {:action => "index", :controller => "categories"}, :class => params[:controller] == "categories" ? "selected" : "" %>				
+		</li>					
+		<li class="<%= (params[:action] == "settings" && params[:controller] == "items") ? "selected" : "" %>" >
+			<%= link_to icon("settings") + " " + Setting.model_name.human(:count => :other), {:action => "settings", :controller => "items"}, :class => (params[:action] == "settings" && params[:controller] == "items") ? "selected" : "" %>				
+		</li>			
+		<li class="<%= (params[:controller] == "plugins" || params[:controller] == "plugin_features") ? "selected" : "" %>" >
+			<%= link_to icon("plugins") + " " + Plugin.model_name.human(:count => :other), {:action => "index", :controller => "plugins"}, :class => (params[:controller] == "plugins" || params[:controller] == "plugin_features") ? "selected" : "" %>				
+		</li>
+							
+		<li class="<%= ( params[:action] == "change_item_name") ? "selected" : "" %>" >
+			<%= link_to icon("cycle") + " " + t("label.item_change", :item => Item.model_name.human + " " + t("single.name")), {:action => "change_item_name", :controller => "items"}, :class => (params[:action] == "change_item_name") ? "selected" : "" %>				
+		</li>
+	
+		<li class="<%= ( params[:action] == "import") ? "selected" : "" %>" >
+			<%= link_to icon("arrow_left") + " " + t("single.import") + " " + Item.model_name.human(:count => :other), {:action => "import", :controller => "tools"}, :class => (params[:action] == "import") ? "selected" : "" %>
+		</li>
+	
+		<li class="<%= params[:action] == "export" ? "selected" : "" %> last">
+			<%= link_to icon("arrow_right") + " " + t("single.export") + " " + Item.model_name.human(:count => :other), {:action => "export", :controller => "tools"}, :class => (params[:action] == "export") ? "selected" : "" %>				
+		</li>		
+	</ul>			
+</div>		

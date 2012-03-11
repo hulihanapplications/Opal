@@ -1,44 +1,45 @@
-<% content_for :side do %>
-	<div class="environment">
-		<div>
-			<%= link_to image_tag("opal.png"), "http://www.hulihanapplications.com/projects/opal", :class => "transparent", :target => "_blank" %>
-		</div>
-		<div>
-			<%= t("name") %> <%= t("single.version") %>: <b><%= Opal::VERSION %></b>
-			<br>
-			<%= link_to icon("update") + " #{t("label.check_for_updates")}", "http://www.hulihanapplications.com/projects/opal", :target => "_blank" %>			
-		</div>
-		<hr>
-		<%= t("single.system") %> <%= t("single.mode") %>: <b class="highlight_1"><%= Rails.env.capitalize %></b>
-	</div>	
-	<%= render :partial => "users/currently_logged_in" %>
-<% end %>
-		
-<div class="section greeting" id="admin-greeting">
-	<div class="header">
-		<div class="title">
-			<h2 class="title">
-				<%= t("label.user_greeting", :name => h(@logged_in_user.first_name)) %>
-			</h2> 
-			<div class="description">
-				<%= t("label.user_welcome_to_admin", :name => h(@logged_in_user.first_name)) %>
-			</div>
-		</div>
-	</div>
+<div class="section greeting box_2" id="admin-greeting">
+	<table class="cell">
+		<tr>
+			<td class="half left">
+				<div class="header">
+					<div class="title">
+						<h2 class="title">
+							<%= t("label.user_greeting", :name => h(@logged_in_user.first_name)) %>
+						</h2> 
+						<div class="description">
+							<%= t("label.user_welcome_to_admin", :name => h(@logged_in_user.first_name)) %>
+						</div>
+					</div>
+				</div>
+			</td>
+			<td class="half border right">
+				<%= render :partial => "admin/environment" %>								
+			</td>			
+		</tr>
+	</table>
 </div>
-
-<div class="section" id="admin-latest-logs">
-	<div class="header">
-		<div class="title">
-			<h2 class='title'>
-				<%= t("label.items_latest", :items => Log.model_name.human(:count => :other)) %>
-			</h2>			
-		</div>
-		<div class="menu">
-			<%= content_tag :ul, :class => :menu do %>				
-				<%= content_tag(:li, link_to(icon("logs") + " " + t("single.all") + " " + Log.model_name.human(:count => :other), logs_path)) %>									
-			<% end %>
-		</div>
-	</div>
-	<%= render :partial => "logs/list_logs", :locals => {:logs => @latest_logs} %>													
+<div class="section box_2" id="admin-latest-logs">
+	<table class="cell">
+		<tr>
+			<td class="half left">
+				<div class="header">
+					<div class="title">
+						<h2 class='title'>
+							<%= t("label.items_latest", :items => Log.model_name.human(:count => :other)) %>
+						</h2>			
+					</div>
+					<div class="menu">
+						<%= content_tag :ul, :class => :menu do %>				
+							<%= content_tag(:li, link_to(icon("logs") + " " + t("single.all") + " " + Log.model_name.human(:count => :other), logs_path)) %>									
+						<% end %>
+					</div>
+				</div>
+				<%= render :partial => "logs/list_logs", :locals => {:logs => @latest_logs} %>
+			</td>
+			<td class="half border right">
+				<%= render :partial => "users/currently_logged_in" %>
+			</td>			
+		</tr>
+	</table>																
 </div>						

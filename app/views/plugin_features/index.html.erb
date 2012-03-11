@@ -1,7 +1,3 @@
-<% content_for :side do %>
-	<%= render :partial => "/items/menu" %>
-<% end %>
-
 <div class="section">
 	<% features = PluginFeature.find(:all, :order => "order_number ASC") %>
 

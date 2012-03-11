@@ -1,19 +1,13 @@
 <div class="menu">
-	<ul class="menu">
-		<li class="<%= params[:controller] == "users" ? "selected" : "" %>">
-			<%= link_to icon("users") + " " + User.model_name.human(:count => :other), {:action => "index", :controller => "users"} %>			
-		</li>
-		
-		<li class="<%= params[:controller] == "groups" ? "selected" : "" %>" >
-			<%= link_to  icon("groups") + " " + Group.model_name.human(:count => :other), {:action => "index", :controller => "groups"} %>				
-		</li>	
-		
-		<li class="<%= params[:controller] == "messages" ? "selected" : "" %>" >
-			<%= link_to  icon("mail") + " " + UserMessage.model_name.human(:count => :other), {:action => "index", :controller => "messages"} %>			
-		</li>
-				
-		<li class="<%= params[:controller] == "logs" ? "selected" : "" %> last" >
-			<%= link_to  icon("logs") + " " + Log.model_name.human(:count => :other), {:action => "index", :controller => "logs"} %>			
+	<ul class="menu">		
+		<li class="<%= params[:controller] == "groups" ? :selected : nil %>" >
+			<%= link_to  icon("groups") + " " + Group.model_name.human(:count => :other), {:action => "index", :controller => "groups"}, :class => params[:controller] == "groups" ? :selected : nil %>	
+		</li>			
+		<li class="<%= params[:controller] == "messages" ? :selected : nil %>" >
+			<%= link_to  icon("mail") + " " + UserMessage.model_name.human(:count => :other), {:action => "index", :controller => "messages"}, :class => params[:controller] == "messages" ? :selected : nil %>			
+		</li>				
+		<li class="<%= params[:controller] == "logs" ? :selected : nil %> last" >
+			<%= link_to  icon("logs") + " " + Log.model_name.human(:count => :other), {:action => "index", :controller => "logs"}, :class => params[:controller] == "logs" ? :selected : nil %>
 		</li>			
 	</ul>
 </div>

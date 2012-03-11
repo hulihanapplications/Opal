@@ -1,0 +1,30 @@
+<div class="section environment">
+	<div class="title">
+		<%= content_tag :h2 do %>
+			<%= t("single.system") %> <%= t("single.information") %>
+		<% end %>
+	</div>
+	<%#= link_to image_tag("opal.png"), "http://www.hulihanapplications.com/projects/opal", :class => "transparent", :target => "_blank" %>
+	<%= content_tag :table do %>
+		<%= content_tag :tr do %>
+			<%= content_tag :td do %>
+				<%= t(:name) %> <%= t("single.version") %>:
+			<% end %>
+			<%= content_tag :td do %>
+				<b><%= Opal::VERSION %></b>
+			<% end %>
+		<% end %>
+		<%= content_tag :tr do %>
+			<%= content_tag :td do %>
+				<%= t("single.system") %> <%= t("single.mode") %>:
+			<% end %>
+			<%= content_tag :td do %>
+				<b><%= Rails.env.capitalize %></b>
+			<% end %>
+		<% end %>	
+	<% end %>
+
+	<div class="actions">
+		<%= link_to icon("update") + " #{t("label.check_for_updates")}", "http://www.hulihanapplications.com/projects/opal", :target => "_blank", :class => "button_1" %>			
+	</div>
+</div>

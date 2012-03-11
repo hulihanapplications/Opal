@@ -1,26 +1,23 @@
-
-<% content_for :side do %>
-	<% unless Authentication.providers.empty? %>
-		<div class="box_2">
-			<%= content_tag(:h3, t("label.item_create", :item => Authentication.model_name.human), :class => "title") %>
-			<%= render :partial => "authentications/providers" %>
-		</div>	
-	<% end %>		
+<div class="section">
+    <div class="header">					
+    	<%= content_tag(:h2, Authentication.model_name.human(:count => :other), :class => :title) %>			    
+    </div>	
+    <div class="content box_2">  
+        <% if @authentications %>
+          <% if !@authentications.empty? %>
+            <div class="authentications">
+              <% for authentication in @authentications %>
+        			<%= render authentication %>
+              <% end %>
+              <div class="clear"></div>
+            </div>
+          <% else %>
+            <%= t("notice.items_not_found", :items => Authentication.model_name.human(:count => :other)) %>
+          <% end %>
+        <% end %>		       
+    </div>	
+    <%= content_tag :div, :class => "box_2" do %>
+        <%= content_tag(:h3, t("label.item_create", :item => Authentication.model_name.human), :class => "title") %>
+        <%= render :partial => "authentications/providers" %>
+    <% end unless Authentication.providers.empty? %>        
 </div>
-<div class="header">					
-	<%= content_tag(:h2, Authentication.model_name.human(:count => :other), :class => :title) %>			
-</div>	
-<% if @authentications %>
-  <% if !@authentications.empty? %>
-    <div class="authentications">
-      <% for authentication in @authentications %>
-			<%= render authentication %>
-      <% end %>
-      <div class="clear"></div>
-    </div>
-  <% else %>
-    <%= t("notice.items_not_found", :items => Authentication.model_name.human(:count => :other)) %>
-  <% end %>
-<% end %>			
-
-

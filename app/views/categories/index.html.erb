@@ -1,7 +1,3 @@
-<% content_for :side do %>
-  	<%= render :partial => "items/menu" %>	
-<% end %>
-
 <div class="section">
 	<div class="header">		
 		<div class="title">
@@ -16,7 +12,7 @@
 		</div>
 	</div>
 	
-	<div> 
+	<div class="content box_2"> 
 		<% @categories = Category.find(:all) %>
 		<% @category = nil %>
 		<div class="categories" align=left>

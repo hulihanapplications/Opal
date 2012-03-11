@@ -7,16 +7,16 @@
 				<%= 
 					if !page.name.blank? # name is set, which means it's a special page
 						if page.name == "home"
-							content_tag(:li, link_to(page.title, {:action => "index", :controller => "browse"},  :class => (params[:controller] == "browse" && params[:action] == "index") ? "selected" : ""))
+							content_tag(:li, link_to(page.title, {:action => "index", :controller => "browse"},  :class => (params[:controller] == "browse" && params[:action] == "index") ? "selected" : ""), :id => "main-menu-item-home")
 						elsif page.name == "items"
-							content_tag(:li,link_to(page.title, {:action => "index", :controller => "items", :id => nil},  :class => params[:controller] == "items" ? "selected" : "")) if @setting[:section_items] 
+							content_tag(:li,link_to(page.title, {:action => "index", :controller => "items", :id => nil},  :class => params[:controller] == "items" ? "selected" : ""), :id => "main-menu-item-items") if @setting[:section_items] 
 						elsif page.name == "blog"
-							content_tag(:li, link_to(page.title, {:action => "index", :controller => "blog"},  :class => params[:controller] == "blog" ? "selected" : "")) if @setting[:section_blog] 
+							content_tag(:li, link_to(page.title, {:action => "index", :controller => "blog"},  :class => params[:controller] == "blog" ? "selected" : ""), :id => "main-menu-item-blog") if @setting[:section_blog] 
 						else # unknown special page 
-	 						content_tag(:li, link_to_page(page, :class => params[:controller] == "pages" && params[:id] == page.to_param ? "selected" : ""))
+	 						content_tag(:li, link_to_page(page, :class => params[:controller] == "pages" && params[:id] == page.to_param ? "selected" : ""), :id => "main-menu-item-#{page.title.dasherized}")
 						end					
 					else # not a special page
-	 					content_tag(:li, link_to_page(page, :class => params[:controller] == "pages" && params[:id] == page.to_param ? "selected" : ""))
+	 					content_tag(:li, link_to_page(page, :class => params[:controller] == "pages" && params[:id] == page.to_param ? "selected" : ""), :id => "main-menu-item-#{page.title.dasherized}")
 					end
 				%>
 			<% end %>

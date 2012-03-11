@@ -126,13 +126,21 @@ class Page < ActiveRecord::Base
       when "home"
         I18n.t(:home, :scope => [:single], :default => name.humanize)
       else
-        I18n.t(:title, :scope => [:seeds, :page, name]) if is_system_page?
+        I18n.t(:title, :scope => [:seeds, :page, name], :default => nil)
       end      
     else
       self["title"]
     end
   end
   
+  def description
+    if self["description"].blank?
+      I18n.t(:description, :scope => [:seeds, :page, name]) if is_system_page?     
+    else
+      self["description"]
+    end    
+  end 
+
   def can?(performer, action, options = {})
     case action.to_sym
     when :view, :read      

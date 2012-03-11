@@ -1,11 +1,11 @@
 <div class="box_2">
-	<table style="width:100%">
+	<table class="cell">
 		<tr>
 			<%= content_tag :td, :class => :left do %>
 					<%= content_tag(:h2, t("label.use_authentication"), :class => "title")  %>
 					<%= render :partial => "authentications/providers" %>
 			<% end unless Authentication.providers.empty? %>
-			<%= content_tag :td, :class => (Authentication.providers.empty? ? nil : :right), :align => :center  do %>
+			<%= content_tag :td, :class => (Authentication.providers.empty? ? nil : "right border"), :align => :center  do %>
 				<h2 class="title"><%= t("label.log_in") %></h2>					
 				<%= form_for @user_session do |f| %>
 					 <%= hidden_field_tag(:redirect_to, params[:redirect_to]) %>

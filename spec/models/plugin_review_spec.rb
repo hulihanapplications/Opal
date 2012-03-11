@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe PluginReview do
-  desribe "save" do
+  describe "save" do
     it "fails when a users tries to create a second review" do
       record = Factory(:item) 
       user = Factory(:user)

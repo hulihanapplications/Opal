@@ -280,7 +280,7 @@ en:
     log_in: Log In
     log_out: Log Out
     log_in_forgot_password: Forgot your password? No Problem!
-    log_in_forgot_password_message: Please enter your account's email address.
+    log_in_forgot_password_message: Please enter your email address.
     log_in_recover_password: Recover Password
     log_in_redirect_message: Your original destination has been saved. Please log in to continue.      
     check_all: Check All

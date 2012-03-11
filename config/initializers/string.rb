@@ -31,4 +31,14 @@ class String
       self
     end 
   end   
+
+  # Same as underscore, but handles camelization & whitespace
+  def underscored
+    self.underscore.gsub(/ /, '_')
+  end
+
+  # Same as dasherize, but handles camelization & whitespace
+  def dasherized
+    self.underscored.dasherize
+  end  
 end

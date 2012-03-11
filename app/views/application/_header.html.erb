@@ -1,6 +1,6 @@
 <div id="header">
 	<div>
-		<%= show_page Page.get_system_page(I18n.t('seeds.page.website_top.title')) %>
+		<%= show_page Page.system.find_by_name("website_top") %>
 		
 		<div class="main_logo"> 		
 			<% if File.exists?(File.join(@setting[:theme_dir], "images", "logo.png")) %>

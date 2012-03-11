@@ -5,5 +5,6 @@
 		<span title="<%= PluginReview.model_name.human %> <%= PluginReview.human_attribute_name(:average)%>">		
 			<%= link_to(score(:type => @setting[:plugin_review][:review_type], :max => @setting[:plugin_review][:score_max].to_i, :value => review_score), {:action => "view", :controller => "items", :id => item, :anchor => plugin.model_name.human(:count => :other)}) %>
 		</span>
+		<%= content_tag(:span, "(#{PluginReview.record(item).approved.count})", :class => :count %>
 	<% end %>
 <% end %>

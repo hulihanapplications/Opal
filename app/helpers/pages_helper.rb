@@ -16,7 +16,6 @@ module PagesHelper
 
   def nav_link_page(page) 
     navlinks = Array.new # container to hold nav links
-      #root_page = Page.get_system_page("About Home")
       # navlinks <<  (link_to root_page.title, {:action => "page", :controller => "pages", :id => root_page}) +  " &raquo; " + message # home
     unless page.root? # only do this to child pages 
       navlinks <<  link_to_page(page.page.page) if  page.page &&  page.page.page # add grandparent page

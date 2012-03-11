@@ -30,7 +30,7 @@
 				</div>		
 
 				<%= content_tag :div, :class => :field do %>
-					<%= content_tag(:div, f.label(:plugin_image, PluginImage.model_name.human), :class => :label) %>
+					<%= content_tag(:div, f.label(:plugin_image, icon("image") + " " + PluginImage.model_name.human), :class => :label) %>
     				<%= f.fields_for :plugin_images, @plugin_image do |plugin_image_fields| %>	
 						<%= render :partial => "plugin_images/field_source", :locals => {:f => plugin_image_fields} %>
 					<% end %>
@@ -54,9 +54,9 @@
 							<%= t("notice.items_not_found", :items => PluginFeature.model_name.human(:count => :other)) %>
 						<% end %>					
 				<% end %>
-
-				<%= content_tag(:h3, link_to_function(icon("dropdown") + " " + t("single.advanced"), "$('#advanced_options').toggle()", :class => "extra_options")) %>	
-				<div id="advanced_options" class="extra_options_box"  style="display:none;">
+				<%= content_tag(:div, :class => :extra_options) do %>
+					<%= content_tag(:h3, link_to_function(icon("dropdown") + " " + t("single.advanced"), "$('#advanced_options').toggle()", :class => "extra_options")) %>	
+					<div id="advanced_options" class="extra_options_box"  style="display:none;">
 						<% if get_setting_bool("allow_private_items") %>
 							<div class="field">
 									<div class="label">
@@ -108,7 +108,8 @@
 									<%= f.collection_select 'user_id', User.all, :id, :to_s %>
 							</div>		
 						<% end %>	
-				</div>
+					</div>
+				<% end %>
 			</div>				
 		</td>
 	</tr>

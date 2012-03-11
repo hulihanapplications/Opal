@@ -8,7 +8,6 @@
 					<%= content_tag(:li, link_to_function(icon("dropdown") + " " + t("single.details"), "$('#log_details_#{log.id}').toggle()")) %>																										
 				<% end %>	
 				<%= render :partial => "record_menu", :locals => {:record => log, :options => {:edit => false, :delete => false, :date => true, :user => false}} %>
-										
 				<div id="log_details_<%= log.id %>" class="extra_options_box"  style="display:none;">
 					<%= content_tag :div do %>
 						<%= Log.human_attribute_name(:ip) %>: <%= log.ip %>
@@ -24,7 +23,7 @@
 							<%= log_icon(log) %>
 						</td>						
 					</tr>				
-				</table>							
+				</table>
 			</div>				
 		<% end %>		
 	</div>

@@ -48,7 +48,7 @@ a:visited, a:link{color:#555;text-decoration:none;outline: none;}
 a:hover{color:black;text-decoration:none;outline: none;}
 a.transparent:visited, a.transparent:link{text-decoration:none;;opacity:0.70;filter:alpha(opacity=70);-moz-opacity:0.7;-khtml-opacity: 0.7} 
 a.transparent:hover{text-decoration:none;opacity:1.00;filter:alpha(opacity=100);-moz-opacity:1.0;-khtml-opacity: 1.0}
-a.extra_options{padding:5px 0px;display:block;}
+a.extra_options{padding:7px 0px;display:block;border-top:1px solid #ccc;}
 
 /* Images */
 a img{border:0px;}

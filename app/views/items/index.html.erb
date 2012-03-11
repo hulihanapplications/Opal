@@ -3,7 +3,7 @@
 <% content_for :side do %>
    	<%= render :partial => "items/category_menu", :locals => {:options => {:category => @category}} %>
 	<%= render :partial => "plugin_tags/side", :locals => {:category => @category} if Plugin.plugins[:tag].is_enabled? %>					
-	<%= render Page.get_system_page(I18n.t('seeds.page.category_column.title')) %>
+	<%= render Page.system.find_by_name("category_column") %>
 <% end %>
 
 <%= render :partial => "/items/list_items", :locals => {:items => @items } %>

@@ -72,34 +72,35 @@
 		<%= f.radio_button :listed, true %> <%= t("single.positive") %>
 		<%= f.radio_button :listed, false %> <%= t("single.negative") %>
 	</div>																									
+	<%= content_tag(:div, :class => :extra_options) do %>
+		<%= content_tag(:h3, link_to_function(icon("dropdown") + " " + t("single.advanced"), "$('#advanced_options').toggle()", :class => "extra_options")) %>	
+		<div id="advanced_options"  class="extra_options_box" style="display:none;">
+			<br />									
+			<div class="field">							
+				<h3><%= feature_icon feature %> <%= f.label :icon_url %></h3>
+				<!--<i>If you have a specific icon in mind for this <%= @plugin.model_name.human.downcase %>, enter its URL here. Not Sure? Leave this blank.</i> --> 
+				<%= f.text_field :icon_url %>
+			</div>
+			
+			<div class="field">											
+				<h3><%= f.label :search_type %></h3>
+				<!--<i>This is the type of information that a <%= @plugin.model_name.human.downcase %> will contain. </i>-->						
+				<select name="plugin_feature[search_type]" id="search_types">
+					<option value="Grouped" <%= "SELECTED" if feature.search_type == "Grouped" %>><%= t("single.grouped")%></option>
+					<option value="Keyword" <%= "SELECTED" if feature.search_type == "Keyword" %>><%= t("single.keyword")%></option>
+					<option value="Number" <%= "SELECTED" if feature.search_type == "Number" %>><%= t("single.number")%></option>
+					<option value="None" <%= "SELECTED" if feature.search_type == "None" %>><%= t("single.none") %></option>															
+				</select>	
+			</div>	
 
-	<%= content_tag(:h3, link_to_function(icon("dropdown") + " " + t("single.advanced"), "$('#advanced_options').toggle()", :class => "extra_options")) %>	
-	<div id="advanced_options"  class="extra_options_box" style="display:none;">
-		<br />									
-		<div class="field">							
-			<h3><%= feature_icon feature %> <%= f.label :icon_url %></h3>
-			<!--<i>If you have a specific icon in mind for this <%= @plugin.model_name.human.downcase %>, enter its URL here. Not Sure? Leave this blank.</i> --> 
-			<%= f.text_field :icon_url %>
+			<div class="field">											
+				<h3>
+					<%= icon("categories") %>
+					<%= f.label :category_id %>
+				</h3>
+				<%= content_tag(:div, PluginFeature.human_attribute_name(:category_id_description), :class => "description") %>
+				<%= category_select_tag("plugin_feature[category_id]",  f.object.category_id, :include_blank => true) %>	
+			</div>									
 		</div>
-		
-		<div class="field">											
-			<h3><%= f.label :search_type %></h3>
-			<!--<i>This is the type of information that a <%= @plugin.model_name.human.downcase %> will contain. </i>-->						
-			<select name="plugin_feature[search_type]" id="search_types">
-				<option value="Grouped" <%= "SELECTED" if feature.search_type == "Grouped" %>><%= t("single.grouped")%></option>
-				<option value="Keyword" <%= "SELECTED" if feature.search_type == "Keyword" %>><%= t("single.keyword")%></option>
-				<option value="Number" <%= "SELECTED" if feature.search_type == "Number" %>><%= t("single.number")%></option>
-				<option value="None" <%= "SELECTED" if feature.search_type == "None" %>><%= t("single.none") %></option>															
-			</select>	
-		</div>	
-
-		<div class="field">											
-			<h3>
-				<%= icon("categories") %>
-				<%= f.label :category_id %>
-			</h3>
-			<%= content_tag(:div, PluginFeature.human_attribute_name(:category_id_description), :class => "description") %>
-			<%= category_select_tag("plugin_feature[category_id]",  f.object.category_id, :include_blank => true) %>	
-		</div>									
-	</div>
+	<% end %>
 </div>					

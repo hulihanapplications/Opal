@@ -80,14 +80,6 @@ class Page < ActiveRecord::Base
   def self.blog_pages
     where(:page_type => "blog").order("created_at DESC")
   end  
-  
-  def self.get_system_page(page_title) # retrieve system page by page title
-    system_pages.where(:title => page_title).first
-  end
-
-  def self.get_public_page(page_title) # retrieve public page by page title
-    public_pages.where(:title => page_title).first
-  end
    
   def is_system_page?
     self.page_type.downcase == "system"
@@ -133,6 +125,8 @@ class Page < ActiveRecord::Base
         Item.model_name.human(:count => :other)
       when "home"
         I18n.t(:home, :scope => [:single], :default => name.humanize)
+      else
+        I18n.t(:title, :scope => [:seeds, :page, name]) if is_system_page?
       end      
     else
       self["title"]

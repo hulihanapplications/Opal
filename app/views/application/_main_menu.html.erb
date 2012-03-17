@@ -24,7 +24,7 @@
 				<%= content_tag :li, :class => "#{subpages.empty? ? nil : "with-subpages"} #{selected ? "selected" : nil}", :id => "main-menu-item-#{page.title.dasherized}" do -%>
 					<%= link_to page.title, path -%>
 					<% unless subpages.empty? %>
-						<%= icon("dropdown") -%>
+						<%= icon("expand") -%>
 						<%= content_tag :ul do -%>
 							<% for page in subpages %>
 								<%= content_tag :li, link_to_page(page) -%>

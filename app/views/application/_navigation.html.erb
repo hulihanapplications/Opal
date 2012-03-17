@@ -69,9 +69,9 @@
 			%>
 			<span id="sort_by_box">	
 				Sort By 
-				<%= link_to "#", :class => "pointer fg-button dropdown", :id => :sort_by do %>				
+				<%= link_to "#", :class => "pointer fg-button expand", :id => :sort_by do %>				
 					<%= params[:sort][:by] %>
-					<%= icon("dropdown") %>
+					<%= icon("expand") %>
 				<% end if params[:sort][:by].present? %>
 				<% if params[:sort][:direction] %>
 					<% if params[:sort][:direction] == "asc" %>
@@ -83,7 +83,7 @@
 					<% end %>						
 				<% end %>
 			</span>		
-			<div id="sort_by_content" class="fg-menu-hidden dropdown">
+			<div id="sort_by_content" class="fg-menu-hidden expand">
 				<%= content_tag :ul do %>
 					<%# Override url_for vars for particular sort cases %> 
 					<% url[:sort_by] = Item.human_attribute_name(:name)  %>

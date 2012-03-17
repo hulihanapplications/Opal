@@ -55,7 +55,7 @@
 						<% end %>					
 				<% end %>
 				<%= content_tag(:div, :class => :extra_options) do %>
-					<%= content_tag(:h3, link_to_function(icon("dropdown") + " " + t("single.advanced"), "$('#advanced_options').toggle()", :class => "extra_options")) %>	
+					<%= content_tag(:h3, link_to_function(icon("expand") + " " + t("single.advanced"), "$('#advanced_options').toggle()", :class => "extra_options")) %>	
 					<div id="advanced_options" class="extra_options_box"  style="display:none;">
 						<% if get_setting_bool("allow_private_items") %>
 							<div class="field">

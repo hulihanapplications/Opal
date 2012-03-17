@@ -10,8 +10,8 @@ input, select, textarea{background:url(../images/bgs/black_trans_05.png) repeat;
 #wrapper > #footer{;background:url(../images/bgs/body_bg.png) repeat-x white;-moz-box-shadow: 0 1px 10px #222 inset;-webkit-box-shadow: 0 1px 10px #222 inset;}
 
 /* Main Menu */
-ul.main_menu li.with-subpages img.icon.dropdown{display:none;}
-ul.main_menu > li.with-subpages > a{background:url(../images/icons/dropdown.png) no-repeat right 5px;padding-right:23px;}
+ul.main_menu li.with-subpages img.icon{display:none;}
+ul.main_menu > li.with-subpages > a{background:url(../images/icons/expand.png) no-repeat right 5px;padding-right:23px;}
 
 /* Fields & Inputs */
 input#search_box{background:url(../images/bgs/white_trans_10.png) repeat;}

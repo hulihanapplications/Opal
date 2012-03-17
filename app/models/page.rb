@@ -126,7 +126,7 @@ class Page < ActiveRecord::Base
       when "home"
         I18n.t(:home, :scope => [:single], :default => name.humanize)
       else
-        I18n.t(:title, :scope => [:seeds, :page, name], :default => nil)
+        I18n.t(:title, :scope => [:seeds, :page, name], :default => "")
       end      
     else
       self["title"]

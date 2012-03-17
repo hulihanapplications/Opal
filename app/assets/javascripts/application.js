@@ -6,20 +6,12 @@
 //= require jquery.tools.min
 //= require jquery.rating
 //= require flowplayer-3.2.6.min
+//= require flowplayer-3.2.6.min
+//= require jquery.simple-dropdown
 //= require_tree .
 //= require_self
 
 /* Opal Core JS */
-
-function focus_main_menu_item(id)
-{
-	document.getElementById(id).className = "main_menu_item_hover"
-}
-function blur_main_menu_item(id)
-{
-	document.getElementById(id).className = "main_menu_item"
-}
-
 function focus_item_box(id)
 {
 	document.getElementById(id).className = "item_box_hover"
@@ -185,5 +177,15 @@ $(document).ready(function() {
 		function(){
 			$(this).children("div.record_menu").fadeOut(200);
 		});	
+
+		// // Main Menu
+		// $('div#main-menu li').hover(
+		// 	function(){
+		// 		$(this).children("ul").show();
+		// 	},
+		// 	function(){
+		// 		$(this).children("ul").hide();
+		// 	}
+		// )
 });
 

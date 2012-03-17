@@ -1,24 +1,37 @@
 <%# Main Menu %>
-<div id="main_menu" class="main_menu">
-	<ul class="main_menu">
+<div id="main-menu" class="main_menu">
+	<ul class="main_menu dropdown">
 		<% for page in Page.all.public.root.published.display_in_menu.in_order %>
 			<% if page.can?(@logged_in_user, :read) %>
 				<%# handle selection & special pages %>
-				<%= 
-					if !page.name.blank? # name is set, which means it's a special page
-						if page.name == "home"
-							content_tag(:li, link_to(page.title, {:action => "index", :controller => "browse"},  :class => (params[:controller] == "browse" && params[:action] == "index") ? "selected" : ""), :id => "main-menu-item-home")
-						elsif page.name == "items"
-							content_tag(:li,link_to(page.title, {:action => "index", :controller => "items", :id => nil},  :class => params[:controller] == "items" ? "selected" : ""), :id => "main-menu-item-items") if @setting[:section_items] 
-						elsif page.name == "blog"
-							content_tag(:li, link_to(page.title, {:action => "index", :controller => "blog"},  :class => params[:controller] == "blog" ? "selected" : ""), :id => "main-menu-item-blog") if @setting[:section_blog] 
-						else # unknown special page 
-	 						content_tag(:li, link_to_page(page, :class => params[:controller] == "pages" && params[:id] == page.to_param ? "selected" : ""), :id => "main-menu-item-#{page.title.dasherized}")
-						end					
-					else # not a special page
-	 					content_tag(:li, link_to_page(page, :class => params[:controller] == "pages" && params[:id] == page.to_param ? "selected" : ""), :id => "main-menu-item-#{page.title.dasherized}")
-					end
-				%>
+				<%  case page.name
+					when "home"
+					  path = root_path
+					  selected = current_page?(root_path)
+					when "items"
+					  path = {:action => "index", :controller => "items", :id => nil}
+					  selected = params[:controller] == "items"
+					when "blog"
+					  path = {:action => "index", :controller => "blog"}
+					  selected = params[:controller] == "blog"
+					else 
+					  path = page_path(page)
+					  selected = params[:controller] == "pages" && params[:id] == page.to_param
+					end 
+
+				%> 
+				<% subpages = page.pages.published.display_in_menu.in_order %>				
+				<%= content_tag :li, :class => "#{subpages.empty? ? nil : "with-subpages"} #{selected ? "selected" : nil}", :id => "main-menu-item-#{page.title.dasherized}" do -%>
+					<%= link_to page.title, path -%>
+					<% unless subpages.empty? %>
+						<%= icon("dropdown") -%>
+						<%= content_tag :ul do -%>
+							<% for page in subpages %>
+								<%= content_tag :li, link_to_page(page) -%>
+							<% end %>
+						<% end %>
+					<% end %>
+				<% end %>
 			<% end %>
 		<% end %>	
 	</ul>

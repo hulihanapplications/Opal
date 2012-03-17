@@ -6,6 +6,7 @@
 *= require uploadify
 *= require authentication
 *= require flowplayer
+*= require jquery.simple-dropdown
 *= require_tree .
 *= require_self
 * */
@@ -19,6 +20,7 @@ p{margin:0px 0px 20px 0px;}
 hr{width: 100%; margin: 5px 0px 5px 0px; height: 1px; background: #ccc; border: 0; }
 h1, h2, h3, h4, h5, h6{margin:0px;padding:0px}
 h2{font-size:18px}
+ul{list-style: none;}
 
 /*  Layout */
 #wrapper{height:auto !important; height:100%; min-height:100%;position:relative;}
@@ -42,6 +44,32 @@ h2{font-size:18px}
 	#wrapper > #footer{height:45px;position:absolute;bottom:0;width:100%;padding:10px 0px;;;text-align:center;border-top:1px solid black;}
 	#wrapper > #content #tabcontent #main, .tabcontent .main{width:640px;}
 
+/* Main Menu */
+div.main_menu{position:absolute;bottom:-1px;right:0;}
+ul.main_menu{text-align:right;}
+	ul.main_menu li{padding:8px 7px 5px 7px;margin:0px 0px 0px 10px;display:inline;position:relative;background:none;}
+	ul.main_menu > li.selected, ul.main_menu > li:hover{background:#ECECEC;border-top:1px solid #fff; -moz-border-radius-topleft:5px;-webkit-border-top-left-radius:5px; -moz-border-radius-topright:5px;-webkit-border-top-right-radius:5px}
+	ul.main_menu > li:hover, ul.main_menu li ul li{background:#eee;}
+		ul.main_menu li a{text-align:center;text-shadow:1px 1px 4px black;font-size:18px;border:none;}
+		ul.main_menu li a{color:#ccc;}
+		ul.main_menu li:hover a, ul.main_menu li.selected a{color:#333;text-shadow:none;}
+		ul.main_menu li:hover a:hover, ul.main_menu li.selected a:hover{color:#000;}
+		ul.main_menu li img.icon.dropdown{position:absolute;bottom:5px;right:5px;}
+		ul.main_menu li ul{background:none;;bottom:-20px;left:-1px;}
+			ul.main_menu li ul li{padding:5px 8px;margin:0;border:1px solid #ccc;border-top:none;clear:both;}			
+			ul.main_menu li ul li.hover{background:#fff;}
+			ul.main_menu li ul li:last-child{; -moz-border-radius-bottomleft:5px;-webkit-border-bottom-left-radius:5px; -moz-border-radius-bottomright:5px;-webkit-border-bottom-right-radius:5px}
+				ul.main_menu li ul li a{padding:0;margin:0;background:none;text-align:left;font-size:16px;}
+
+/* Main Logo */ 
+.main_logo{position:absolute;bottom:13px;left:0;} /* .main_logo and .main_menu are in the same table, so their positions affect eachother */
+	.main_logo .description{font-style:italic;color:#ddd;text-shadow:2px 2px 4px black}
+	.main_logo a:visited, .main_logo a:link{color:#ddd;;text-shadow:2px 2px 4px black;text-decoration:none;} .main_logo a:hover{color:white;text-shadow:2px 2px 4px black;text-decoration:none;}	 
+
+/* Sections & Headers */
+#main .header{margin-bottom:10px;}
+#main > .header > .description{border-top:1px solid #aaa;margin-top:5px;padding-top:5px;}
+div.header ul.menu li{}
 
 /* Links */
 a:visited, a:link{color:#555;text-decoration:none;outline: none;}

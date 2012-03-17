@@ -75,10 +75,8 @@ module ApplicationHelper
 
  def icon(name, title = nil, css_class = "") # show icon
    title ||= I18n.t("single.#{name}", :default => name.humanize) # if translation for icon name doesn't exist, use english  
-   return raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/#{name}.png\" class=\"icon #{css_class}\" title=\"#{title}\">"
+   theme_image_tag("icons/#{name}.png", :class => "icon #{name} #{css_class}", :title => title)
  end
- 
- 
  
  def score(options = {}) # print out a score
    options[:type]   ||= Setting.global_settings[:plugin_review][:review_type] # type of score to show

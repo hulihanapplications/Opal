@@ -38,11 +38,9 @@ backup/
 # SQLite Databases
 db/*.sqlite3
 
-# Only Include Public Themes
-!public/themes/white_square/*
-!public/themes/fracture/*
-!public/themes/vault/*
-public/themes/*
+# Themes
+#!public/themes/fracture/*
+#public/themes/*
 
 # Remove Any User-Uploaded Images or Files
 public/images/item_images/*

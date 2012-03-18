@@ -8,27 +8,29 @@ Opal has a a lot of features. Maybe too many. Feast your eyes on these:
 
 * System
     * Powered by Ruby on Rails 3.2
-    * Easy-to-use TinyMCE content editor with security filtering and image uploader
-    * State-of-the-Art Interface powered by HTML5, CSS3, jQuery, Uploadify, and jQuery TOOLS    
-    * Customizable [Themes](http://customize.hulihanapplications.com/Projects/category/6-opal) & [Plugins](http://customize.hulihanapplications. com/Projects/category/11-opal with easy uploader & installer
-    * Mass file & image uploader
-	* Store uploaded files locally or in the cloud using Amazon S3, Rackspace Cloud Files, etc. - [(Guide)](http://dev.hulihanapplications.com/wiki/opal/Upload
-    * I18n(Internationalization) support for multiple languages & locales. Currently supported languages:
+	* Store uploaded files locally or in the cloud using Amazon S3, Rackspace Cloud Files, etc. - [(Guide)](http://dev.hulihanapplications.com/wiki/opal/Upload)
+    * I18n support for multiple languages & locales. Currently supported languages:
         * en
         * ru
+* Interface
+    * Easy-to-use TinyMCE content editor with security filtering and image uploader
+    * State-of-the-Art Interface powered by HTML5, CSS3, jQuery, Uploadify, and jQuery TOOLS   
+    * Mass file & image uploader    
+        * Apply special effects to Images: Rotate, Resize, Watermark, Stamp, Monochrome, Sepia, etc.
+    * Customizable [Themes](http://customize.hulihanapplications.com/Projects/category/6-opal) & [Plugins](http://customize.hulihanapplications.com/Projects/category/11-opal) with easy uploader & installer
 * Items
-    * List Any Type of Item (Products, Video Games, Locations, Events, Classifieds, etc.)
-    * Add extra stuff to your Items like Images, Videos, Reviews, Comments, Files, Discussions, Custom Fields, and more.
+    * List Any Type of Item: Products, Video Games, Locations, Events, Classifieds, etc.
+    * Add extra stuff to your Items like Images, Videos, Reviews, Comments, Files, Discussions, Custom Fields, and more!
     * Infinite-depth category organization & customizable advanced item searching    
+* Pages
+    * CMS-style Page editing with File Uploader
+    * Integrate Blog System
+    * Advanced Page features: Group-only access, Redirection, Subpages, etc.
 * Users
     * Multiple-user login system with secure administration area
     * Login from other websites(facebook, twitter, google, etc.) with OpenID/OAuth Support - [(Guide)](http://dev.hulihanapplications.com/wiki/opal/OAuth)
     * User Activity Logging
     * Gravatar Support    
-* Images
-	* Apply special effects to Images(Rotate, Resize, Watermark, Stamp, Monochrome, Sepia, etc.)
-* Pages
-    * CMS-style Page editing & Integrated Blog
 * [Much More](http://www.hulihanapplications.com/projects/opal)
 
 ## Uses
@@ -42,20 +44,20 @@ Since Opal is highly customizable, you can use it for many different things:
 * File Download System
 * Forum/Discussion Board
 * Review/Classifieds Website
-* E-Commerce Website/Web Store
+* E-Commerce Website/Web Store (TBD)
 
 <div align=center>
-![Opal's User Interface](https://github.com/hulihanapplications/Opal/raw/master/themes/public/fracture/screenshot.png)
+![Opal's User Interface](https://github.com/hulihanapplications/Opal/raw/master/public/themes/fracture/screenshot.png)
 </div>
 
-# Getting Started
+# Installation
 
-## Get Opal 
+## Step 1 - Get Opal
 
 Opal is available at the following places:
 
-* [Official Website](http://www.hulihanapplications.com/projects/opal)
 * [Github](https://github.com/hulihanapplications/Opal)
+* [Official Website](http://www.hulihanapplications.com/projects/opal)
 
 If you have git installed on your server, you can install it directly from Github. This is highly recommended and makes updating Opal a breeze.
 
@@ -63,7 +65,7 @@ If you have git installed on your server, you can install it directly from Githu
 git clone git://github.com/hulihanapplications/Opal.git
 ```
 
-## Install Gems
+## Step 2 - Install Gems
 
 Install all of Opal's required gems using bundler:
 
@@ -74,7 +76,7 @@ bundle install --without development test
 
 * You may get an error here regarding [magick](http://dev.hulihanapplications.com/wiki/opal/RMagick) if you don't have it already installed. Check out this [Wiki Guide](http://dev.hulihanapplications.com/wiki/opal/RMagick) for help.
 
-## Install Opal 
+## Step 3 - It's time to rake 
 
 Next, Run these commands (while in the Opal directory) to install Opal's required stuff (database structure, assets, etc.) in production mode: 
 
@@ -89,7 +91,7 @@ bundle exec rake db:sample RAILS_ENV=production LOCALE=en
 
 These commands will create the database structure of Opal in production mode. If you leave out *RAILS_ENV=PRODUCTION*, everything will be installed into your development database instead. This will also set up the default admin account, some sample items, and other stuff to help you get started with Opal. You can also specify the *LOCALE* variable to install Opal in a language other than english. 
 
-## That's it! 
+## Step 4 - Fire 'er up 
 
 You can now start Opal using the 'thin' webserver...
 
@@ -101,7 +103,9 @@ bundle exec rails s -e production
  
 * To log in to Opal for the first time, the default Admin username and password is: *admin*.
 
-# Updating Opal
+You've now successfully installed Opal. Go grab yourself a sandwich to celebrate. 
+
+# Bonus Step: Updating Opal
 
 If you installed Opal with git, updating is a piece of cake. Go to your Opal directory and run these commands: 
 
@@ -110,8 +114,6 @@ git pull origin master # pull the latest stable version of Opal
 rake db:migrate RAILS_ENV=production
 rake assests:precompile RAILS_ENV=production
 ```
-
-That's it!
 
 # Extra Stuff 
 

@@ -1,0 +1,164 @@
+# Opal
+ 
+Opal is the swiss army knife of web apps. It's a powerful Item & Content Management System powered by Ruby on Rails. You can use Opal for blogging, listing items, storing files/images/videos, or for powering any awesome website. 
+
+## Features 
+
+Opal has a a lot of features. Maybe too many. Feast your eyes on these:
+
+* System
+    * Powered by Ruby on Rails 3.2
+    * Easy-to-use TinyMCE content editor with security filtering and image uploader
+    * State-of-the-Art Interface powered by HTML5, CSS3, jQuery, Uploadify, and jQuery TOOLS    
+    * Customizable [Themes](http://customize.hulihanapplications.com/Projects/category/6-opal) & [Plugins](http://customize.hulihanapplications. com/Projects/category/11-opal with easy uploader & installer
+    * Mass file & image uploader
+	* Store uploaded files locally or in the cloud using Amazon S3, Rackspace Cloud Files, etc. - [(Guide)](http://dev.hulihanapplications.com/wiki/opal/Upload
+    * I18n(Internationalization) support for multiple languages & locales. Currently supported languages:
+        * en
+        * ru
+* Items
+    * List Any Type of Item (Products, Video Games, Locations, Events, Classifieds, etc.)
+    * Add extra stuff to your Items like Images, Videos, Reviews, Comments, Files, Discussions, Custom Fields, and more.
+    * Infinite-depth category organization & customizable advanced item searching    
+* Users
+    * Multiple-user login system with secure administration area
+    * Login from other websites(facebook, twitter, google, etc.) with OpenID/OAuth Support - [(Guide)](http://dev.hulihanapplications.com/wiki/opal/OAuth)
+    * User Activity Logging
+    * Gravatar Support    
+* Images
+	* Apply special effects to Images(Rotate, Resize, Watermark, Stamp, Monochrome, Sepia, etc.)
+* Pages
+    * CMS-style Page editing & Integrated Blog
+* [Much More](http://www.hulihanapplications.com/projects/opal)
+
+## Uses
+
+Since Opal is highly customizable, you can use it for many different things:
+
+* Content Management System(CMS)
+* Directory Website
+* Blog
+* Image/Video Gallery 
+* File Download System
+* Forum/Discussion Board
+* Review/Classifieds Website
+* E-Commerce Website/Web Store
+
+<div align=center>
+![Opal's User Interface](https://github.com/hulihanapplications/Opal/raw/master/themes/public/fracture/screenshot.png)
+</div>
+
+# Getting Started
+
+## Get Opal 
+
+Opal is available at the following places:
+
+* [Official Website](http://www.hulihanapplications.com/projects/opal)
+* [Github](https://github.com/hulihanapplications/Opal)
+
+If you have git installed on your server, you can install it directly from Github. This is highly recommended and makes updating Opal a breeze.
+
+```sh
+git clone git://github.com/hulihanapplications/Opal.git
+```
+
+## Install Gems
+
+Install all of Opal's required gems using bundler:
+
+```sh
+cd Opal
+bundle install --without development test
+```
+
+* You may get an error here regarding [magick](http://dev.hulihanapplications.com/wiki/opal/RMagick) if you don't have it already installed. Check out this [Wiki Guide](http://dev.hulihanapplications.com/wiki/opal/RMagick) for help.
+
+## Install Opal 
+
+Next, Run these commands (while in the Opal directory) to install Opal's required stuff (database structure, assets, etc.) in production mode: 
+
+```sh
+bundle exec rake db:migrate RAILS_ENV=production LOCALE=en
+bundle exec rake db:seed RAILS_ENV=production LOCALE=en
+bundle exec rake assets:precompile RAILS_ENV=production 
+
+# Install Sample Items, Categories, etc.
+bundle exec rake db:sample RAILS_ENV=production LOCALE=en
+```
+
+These commands will create the database structure of Opal in production mode. If you leave out *RAILS_ENV=PRODUCTION*, everything will be installed into your development database instead. This will also set up the default admin account, some sample items, and other stuff to help you get started with Opal. You can also specify the *LOCALE* variable to install Opal in a language other than english. 
+
+## That's it! 
+
+You can now start Opal using the 'thin' webserver...
+
+```sh
+bundle exec rails s -e production
+```
+
+...or any of your other favorite webservers: nginx, apache, mongrel, etc.
+ 
+* To log in to Opal for the first time, the default Admin username and password is: *admin*.
+
+# Updating Opal
+
+If you installed Opal with git, updating is a piece of cake. Go to your Opal directory and run these commands: 
+
+```sh
+git pull origin master # pull the latest stable version of Opal
+rake db:migrate RAILS_ENV=production
+rake assests:precompile RAILS_ENV=production
+```
+
+That's it!
+
+# Extra Stuff 
+
+## Guides & Tutorials
+
+Here's just a few of the [many things](http://dev.hulihanapplications.com/wiki/opal/User%27s_Guide) you can do with Opal:
+
+* [Set up OAuth Authentication to log in through other websites](http://dev.hulihanapplications.com/wiki/opal/OAuth)
+* [Use Amazon S3, Rackspace Cloud Files, etc. to store files](http://dev.hulihanapplications.com/wiki/opal/Upload)
+* [Create Custom Fields for Items](http://dev.hulihanapplications.com/wiki/opal/Create_Custom_Fields_for_Items)
+* [Configure Email & Notifications](http://dev.hulihanapplications.com/wiki/opal/Notifications)
+* [Add an ad banner To Opal](http://dev.hulihanapplications.com/wiki/opal/Adding_an_Ad_Banner_To_Opal)
+* [How to Watermark Uploaded Images](http://dev.hulihanapplications.com/wiki/opal/Watermarking_Uploaded_Images)
+
+Check out the [Opal Wiki](http://dev.hulihanapplications.com/wiki/opal/User's_Guide for more.)
+
+## Plugins & Themes
+
+You can easily extend and customize Opal with new plugins and themes. *Plugins* extend Opal's core functionality and *Themes* change the appearance of your Opal application. 
+
+Opal has a small but dedicated community of designers and coders that create plugins and themes for public use. You can find them on the official [Opal website](http://hulihanapplications.com/projects/opal#5). Check out the guides below to make your own.
+ 
+# Community & Additional Help
+
+If you need any more help, check out these resources:
+
+* [User's Guide](http://dev.hulihanapplications.com/wiki/opal/User%27s_Guide)
+* [Wiki](http://dev.hulihanapplications.com/wiki/opal/)
+* [Forum](http://dev.hulihanapplications.com/projects/opal/boards)
+
+# Development & Contribution
+
+If you're interested in developing Opal or contributing a theme, plugin, or translation, check out the following:
+* [Submit a bug or feature request](http://dev.hulihanapplications.com/projects/opal/issues)
+* [Source Code On Github](https://github.com/hulihanapplications/Opal)
+* [Developer's Guide](http://dev.hulihanapplications.com/wiki/opal/Developer%27s_Guide)
+    * [Plugin Development Guide](http://dev.hulihanapplications.com/wiki/opal/Plugin_Development)
+    * [Theme Development Guide](http://dev.hulihanapplications.com/wiki/opal/Theme_Development)
+    * [Locale Development Guide](http://dev.hulihanapplications.com/wiki/opal/Locale_Development)
+
+# License 
+
+Opal is Licensed under the  [Creative Commons Attribution 3.0 United States License](http://creativecommons.org/licenses/by/3.0/us/).
+
+# Kudos
+
+Special Thanks goes to following:
+
+* [Yusuke Kamiyamane](http://p.yusukekamiyamane.com/) for his snazzy fugue icon set.
+* The [jQuery Core Team](http://jquery.org/team) for making javascript dance like a puppet.   

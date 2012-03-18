@@ -73,12 +73,10 @@ bundle exec rake db:seed RAILS_ENV=production LOCALE=en
 bundle exec rake assets:precompile RAILS_ENV=production 
 
 # Install Sample Items, Categories, etc.
-bundle exec rake db:sample RAILS_ENV=production
+bundle exec rake db:sample RAILS_ENV=production LOCALE=en
 </pre>
 
-These commands will create the database structure of Opal in production mode. If you leave out *RAILS_ENV=PRODUCTION*, everything will be installed into your development database instead. This will also set up the default admin account, some sample items(you'll be asked if you want to install sample data), and other stuff to help you get started with Opal. You can also specify the *LOCALE* parameter to install Opal in a language other than english. 
-  
-  * If you want to automate an Opal installation, or if you just want to bypass prompts(that ask you if you want to install sample data and other stuff: run this command: _bundle exec rake db:seed PROMPTS=FALSE_)
+These commands will create the database structure of Opal in production mode. If you leave out *RAILS_ENV=PRODUCTION*, everything will be installed into your development database instead. This will also set up the default admin account, some sample items and other stuff to help you get started with Opal. You can also specify the *LOCALE* variable to install Opal in a language other than english. 
 
 h2. That's it! 
 
@@ -99,6 +97,7 @@ If you installed Opal with git, updating is a piece of cake. Go to your Opal dir
 <pre>
 git pull origin master # pull the latest stable version of Opal
 rake db:migrate RAILS_ENV=production
+rake assests:precompile RAILS_ENV=production
 </pre>
 
 That's it!

@@ -46,9 +46,7 @@ Since Opal is highly customizable, you can use it for many different things:
 * Review/Classifieds Website
 * E-Commerce Website/Web Store (TBD)
 
-<div align=center>
-![Opal - Default Theme](https://github.com/hulihanapplications/Opal/raw/master/public/themes/fracture/screenshot.png)
-</div>
+![Opal Screenshot](https://github.com/hulihanapplications/Opal/raw/master/public/themes/fracture/screenshot.png "Opal Interface with Default Theme")
 
 # Installation
 

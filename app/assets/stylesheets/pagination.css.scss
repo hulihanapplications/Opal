@@ -1,0 +1,7 @@
+/* Pagination */
+.pagination {margin-top:20px;margin-bottom:20px;text-align:center;}
+.pagination a {border:1px solid #ccc;background:url(bgs/white_trans_50.png) repeat;padding:10px;;text-decoration:none;-moz-border-radius: 3px;-webkit-border-radius: 3px;}
+.pagination a:hover {border:1px solid #aaa;background:url(bgs/black_trans_05.png) repeat;padding:10px;text-decoration:none}
+.pagination .current, .pagination em {font-style:normal;border:1px solid #aaa;background:url(bgs/black_trans_05.png) repeat;;padding:10px;-moz-border-radius: 3px;-webkit-border-radius: 3px;}
+.pagination .disabled {border:1px solid #ccc;background:url(bgs/white_trans_50.png) repeat;padding:10px;filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity: 0.5;opacity: 0.5;-moz-border-radius: 3px;-webkit-border-radius: 3px;}
+

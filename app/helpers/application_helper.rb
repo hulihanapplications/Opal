@@ -73,35 +73,35 @@ module ApplicationHelper
    end    
  end 
 
- def icon(name, title = nil, css_class = "") # show icon
-   title ||= I18n.t("single.#{name}", :default => name.humanize) # if translation for icon name doesn't exist, use english  
-   theme_image_tag("icons/#{name}.png", :class => "icon #{name} #{css_class}", :title => title)
- end
+  def icon(name, title = nil, css_class = "") # show icon
+    title ||= I18n.t("single.#{name}", :default => name.to_s.humanize) # if translation for icon name doesn't exist, use english  
+    content_tag(:span, :class => "icon-wrapper icon-wrapper-#{name}") do 
+      content_tag(:span, "", :class => "icons-#{name} icon #{css_class}", :title => title)
+    end 
+  end
  
- def score(options = {}) # print out a score
-   options[:type]   ||= Setting.global_settings[:plugin_review][:review_type] # type of score to show
-   options[:min]    ||= 1 # minimum number to create
-   options[:max]    ||= 5 # maximum number to create
-   options[:value]  ||= 0 # num of stars to fill in  
+  def score(options = {}) # print out a score
+    options[:type]   ||= Setting.global_settings[:plugin_review][:review_type] # type of score to show
+    options[:min]    ||= 1 # minimum number to create
+    options[:max]    ||= 5 # maximum number to create
+    options[:value]  ||= 0 # num of stars to fill in  
    
-   html = ""
-   if options[:type] == "Stars"
-     for i in 1..options[:value].to_i # show filled stars
-       html << icon("star_selected", "")
-     end
+    html = ""
+    if options[:type] == "Stars"
+      for i in 1..options[:value].to_i # show filled stars
+        html << icon("star_selected", "")
+      end
      
-     for i in 1..(options[:max].to_i - options[:value].to_i) # show empty stars
-       html <<  icon("star_empty", "")
-     end   
+      for i in 1..(options[:max].to_i - options[:value].to_i) # show empty stars
+        html <<  icon("star_empty", "")
+      end   
 
-   else
-     html += "<span class=\"score\">#{options[:value]}</span> out of #{options[:max]}"
-   end 
-   return raw html 
- end
+    else
+      html += "<span class=\"score\">#{options[:value]}</span> out of #{options[:max]}"
+    end 
+    return raw html 
+  end
  
-
-  
   def errors_for(someobject) # print out errors for an object
    messages = Array.new  
    if someobject.class == Hash 

@@ -1,0 +1,104 @@
+body {background:url(bgs/body_bg.png) repeat-x white;font-family:Trebuchet MS;font-size:12px;color:#333}
+
+/* Links */
+a:visited, a:link {color:#555;text-decoration:none;outline: none;}
+a:hover {color:black;text-decoration:none;outline: none;}
+a.transparent:visited, a.transparent:link {text-decoration:none;;opacity:0.70;filter:alpha(opacity=70);-moz-opacity:0.7;-khtml-opacity: 0.7} 
+a.transparent:hover {text-decoration:none;opacity:1.00;filter:alpha(opacity=100);-moz-opacity:1.0;-khtml-opacity: 1.0}
+a.extra_options {padding:7px 0px;display:block;border-top:1px solid #ccc;}
+
+/* Main Layout */
+#wrapper {height:auto !important; height:100%; min-height:100%;position:relative;}
+	#wrapper > #header, #wrapper > #content, #wrapper > #top > table {width: 900px ; margin: 0 auto ;}
+	#wrapper > #top, #wrapper > #footer {color:#ccc;}
+	#wrapper > #top {background:url(bgs/black_trans_10.png) repeat;padding:5px 0px;text-align:right;border-bottom:1px solid #666;}
+		#top td {vertical-align:middle;}
+		#top a:visited, #top a:link, #footer a:visited, #footer a:link {color:#ddd}
+		#top a:hover, #footer a:hover {color:#fff}
+	#wrapper > #header {position:relative;height:95px;background:url(bgs/main_logo_bg.png) no-repeat;background-position:bottom left;}
+	#wrapper > #content {height:100%;padding:5px;padding-top:10px; padding-bottom:70px;height:100%}	
+			#wrapper > #content.split-one #main {width:100%}
+			#wrapper > #content.split-two #main {float:left;width:660px;}
+				#main .header table {width:100%}
+					#main .header td {vertical-align:middle}
+					#main .header td.left {text-align:left}
+					#main .header td.right {text-align:right}
+			#wrapper > #content.split-two #side, div.side, .side_right, .side_left {width:230px;float:left;padding-right:10px}
+			div.side_right {float:right}
+			.side_right {padding-left:10px}			
+	#wrapper > #footer {height:45px;;background:url(bgs/body_bg.png) repeat-x white;-moz-box-shadow: 0 1px 10px #222 inset;-webkit-box-shadow: 0 1px 10px #222 inset;position:absolute;bottom:0;width:100%;padding:10px 0px;;;text-align:center;border-top:1px solid black;}
+	#wrapper > #content #tabcontent #main, .tabcontent .main {width:640px;}
+
+/* Main Menu */
+div.main_menu {position:absolute;bottom:-1px;right:0;}
+ul.main_menu {
+	text-align:right;
+	li {
+		padding:8px 7px 5px 7px;margin:0px 0px 0px 10px;display:inline;position:relative;background:none;
+		&.selected, &:hover {
+			@include border-radius(5px 5px 0px 0px);
+			border-top:1px solid #fff;
+			background:#eee;
+			a {
+				color:#333;text-shadow:none;	
+			}
+			a:hover {
+				color:#000;
+			}
+		}
+		a {
+			color:#ccc;text-align:center;text-shadow:1px 1px 4px black;font-size:18px;border:none;
+		}
+		ul {
+			background:none;;bottom:-20px;left:-1px;
+			li {
+				padding:5px 8px;margin:0;border:1px solid #ccc;border-top:none;clear:both;
+				&:hover {background:#fff;@include border-radius(0px);border-top:0px;}
+				&:last-child {@include border-radius(0px 0px 5px 5px);}
+				a {padding:0;margin:0;background:none;text-align:left;font-size:16px;}
+			}
+		}
+		&.with-subpages{
+			> a {background:url(icons/expand.png) no-repeat right 5px;padding-right:23px;}
+		}		
+	}
+}
+
+/* Main Logo */ 
+.main_logo {position:absolute;bottom:13px;left:0;} /* .main_logo and .main_menu are in the same table, so their positions affect eachother */
+	.main_logo .description {font-style:italic;color:#ddd;text-shadow:2px 2px 4px black}
+	.main_logo a {color:#ddd;;text-shadow:2px 2px 4px black;text-decoration:none;
+		&:hover {
+			color:white;
+		}
+	} 
+
+/* Sections & Headers */
+#main .header {margin-bottom:10px;}
+#main > .header > .description {border-top:1px solid #aaa;margin-top:5px;padding-top:5px;}
+
+.section {margin-bottom:20px;}
+	.section .header {margin-bottom:5px}
+	.section .header td {vertical-align:middle}
+	
+#main div.header {
+	position:relative;
+	margin-bottom:10px;
+	div.menu {
+		position:absolute;
+		right:0;
+		top:3px;
+		width:100%;
+		ul.menu {
+			li {float:right}
+		}
+	}
+}
+
+/* Tabs Section */
+div.tab {display:block}
+ul.tab {list-style:none; margin:0 !important; 	padding:0;	height:25px;	margin-bottom:0px;}
+ul.tab > li {float:left; text-indent:0;	padding:0;	margin:0 !important;	list-style-image:none !important; }
+ul.tab a, ul.tab li.selected a {font-size:12px;	display:block;	height: 19px;	min-width:90px;	padding:3px 10px;	margin:0px 2px 0px 0px;	text-align:center;		text-decoration:none;		position:relative;color:#333;	background:#C6C6C6;	-moz-border-radius-topleft:5px;-webkit-border-top-left-radius:5px; -moz-border-radius-topright:5px;-webkit-border-top-right-radius:5px}
+ul.tab li.selected a, ul.tab a:hover {background:url(bgs/black_trans_10.png) repeat}
+div#tab-content {padding:10px;padding-top:10px;	min-height:400px;	background: url(bgs/user_tab_pane_bg.png) repeat-x;}

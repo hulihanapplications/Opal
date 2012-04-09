@@ -3,3 +3,54 @@
 #accordion h2.accordion_tab {cursor:pointer;clear:both}/* accordion header */
 #accordion h2.current {	cursor:default;-moz-border-radius: 0px;-webkit-border-radius: 0px;	}/* currently active header */
 #accordion div.pane {	display:none;}/* accordion pane */
+
+/* jQuery TOOLS - Horizontal Tabs CSS */
+ul.panes {	list-style:none; 	margin:0 !important; 	padding:0;	height:25px;	margin-bottom:0px;}
+ul.panes li { 	float:left;	 	text-indent:0;	padding:0;	margin:0 !important;	list-style-image:none !important; }/* single tab */
+ul.panes a {color:#333;background: url(bgs/black_trans_25.png) repeat;	display:block;	height: 20px; 	text-align:center;		text-decoration:none;	padding:5px 10px 0px 10px;	margin:0px 2px 0px 0px;		position:relative;-moz-border-radius-topleft:5px;-webkit-border-top-left-radius:5px; -moz-border-radius-topright:5px;-webkit-border-top-right-radius:5px}/* link inside the tab. uses a background image */
+ul.panes a.current, ul.panes a:hover {color:black;	border:0px;	background: url(bgs/black_trans_10.png) repeat;}
+div.panes {	background: url(bgs/plugin_tab_pane_bg.png) repeat-x;	padding:5px;	min-height:300px;}
+div.panes div.pane {	display:none;}/* initially all panes are hidden */ 
+
+/* jQuery TOOLS - Vertical Tab CSS */
+ul.panes.vertical { 	list-style:none; 	margin:0 !important; 	padding:0;	height:25px;	margin-bottom:0px;}
+ul.panes.vertical li { 	float:left;	 	text-indent:0;	padding:0;	margin:0 !important;	list-style-image:none !important; }/* single tab */
+ul.panes.vertical a {border:1px solid #ccc;background:url(bgs/black_trans_05.png) repeat;;	font-size:12px;	display:block;	height: 20px;  	width: 85px;	text-align:center;		text-decoration:none;	padding:5px 0px 0px 0px;	margin:0px 2px 2px 0px;		position:relative;-moz-border-radius: 0px;-webkit-border-radius: 0px;}/* link inside the tab. uses a background image */
+ul.panes.vertical a.current {border:1px solid #aaa;background:url(bgs/black_trans_10.png) repeat;-moz-border-radius: 0px;-webkit-border-radius: 0px;}
+ul.panes.vertical a:hover{border:1px solid #aaa;background:url(bgs/black_trans_10.png) repeat}
+div.panes.vertical {	background: url(bgs/plugin_tab_pane_bg.png) repeat-x;	padding:5px;	min-height:300px;	}
+div.panes.vertical div.pane {	display:none;		}/* initially all panes are hidden */ 
+
+/* jQuery TOOLS - Accordian Tab CSS */
+#accordion {border-top:1px solid #aaa;border-top:0px;border-bottom:1px solid #aaa;border-right:1px solid #aaa;border-left:1px solid #aaa;background:url(bgs/black_trans_05.png) repeat;	}/* root element for accordion. decorated with rounded borders and gradient background image */
+#accordion h2.accordion_tab {	border:1px solid #aaa;border-bottom:0px;border-right:0px;	border-left:0px;background:url(bgs/accordian_tab_bg.png) repeat-x;	margin:0;	padding:5px 15px;	font-size:14px;	font-weight:bold;			}/* accordion header */
+#accordion h2.current {border-bottom:1px solid #aaa;	background:url(bgs/black_trans_05.png) repeat;}/* currently active header */
+#accordion div.pane {	display:none;padding:15px;	font-size:12px;}/* accordion pane */
+
+/* jQuery TOOLS - Date Input */
+.date {}
+#calroot {/* place on top of other elements. set a higher value if nessessary */	z-index:1;	margin-top:5px;width:198px;padding:2px;background-color:#fff;font-size:11px;border:1px solid #ccc;-moz-border-radius:5px;-webkit-border-radius:5px;-moz-box-shadow: 0 0 15px #666;-webkit-box-shadow: 0 0 15px #666;	}
+#calhead {	padding:2px 0;height:22px;} 
+#caltitle {	font-size:14px;color:#0150D1;	float:left;text-align:center;width:155px;line-height:20px;text-shadow:0 1px 0 #ddd;}
+#calnext, #calprev {display:block;width:20px;height:20px;background:transparent url(icons/arrow_left.png) no-repeat scroll center center;float:left;cursor:pointer;}
+#calnext {background-image:url(icons/arrow_right.png);float:right;}
+#calprev.caldisabled, #calnext.caldisabled {visibility:hidden;	}
+#caltitle select {font-size:10px;	}
+#caldays {height:14px;border-bottom:1px solid #ddd;}
+#caldays span {display:block;float:left;width:28px;text-align:center;}
+#calweeks {background-color:#fff;margin-top:4px;}
+.calweek {clear:left;height:22px;}
+.calweek a {display:block;float:left;width:27px;height:20px;text-decoration:none;font-size:11px;margin-left:1px;text-align:center;line-height:20px;color:#666;-moz-border-radius:3px;-webkit-border-radius:3px; 		} 
+.calweek a:hover, .calfocus {background-color:#ddd;}
+a.calsun {color:red;		}
+a.caloff {color:#ccc;		}
+a.caloff:hover {background-color:rgb(245, 245, 250);		}
+a.caldisabled {background-color:#efefef !important;color:#ccc	!important;cursor:default;}
+#calcurrent {background-color:#498CE2;color:#fff;}
+#caltoday {background-color:#333;color:#fff;}
+
+/* jQuery TOOLS - RangeInput(Slider)  */
+.slider { 	background:url(bgs/slider.png) no-repeat  0 -5px;	width:94px; height:5px; margin:11px 0px 0px 0px; cursor:pointer; position: relative; float:left;}
+.handle {	background:transparent url(icons/handle.png) no-repeat scroll; height:16px; position:absolute; top:-6px; width:16px; cursor:move;}
+.range {  width: 30px; margin:-5px 0 10px 5px;; float:left;;text-align:center;	 margin:2px 0px 0px 6px;}
+

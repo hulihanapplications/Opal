@@ -1,0 +1,7 @@
+html,body {height: 100%;margin:0px;padding:0px;}
+p {margin:0px 0px 20px 0px;}
+hr {width: 100%; margin: 5px 0px 5px 0px; height: 1px; background: #ccc; border: 0; }
+h1, h2, h3, h4, h5, h6 {margin:0px;padding:0px}
+h2 {font-size:18px}
+td {vertical-align:top;}
+ul {list-style: none;}

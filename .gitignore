@@ -9,6 +9,8 @@ tmp/*
 #Gemfile
 #Gemfile.lock
 #db/schema.rb
+vendor/rails
+vendor/bundle
 
 # Config Files
 config/database.yml
@@ -20,10 +22,6 @@ config/deploy.rb
 
 # Application Specific Stuff
 config/locales/item.yml
-
-# Don't Include Rails or Gems
-vendor/rails
-vendor/bundle
 
 # Graphics
 *_master.png
@@ -38,11 +36,16 @@ backup/
 # SQLite Databases
 db/*.sqlite3
 
+# Assets
+.sass-cache
+public/assets
+app/assets/images/icons-*.png
+
 # Themes
 #!public/themes/fracture/*
 #public/themes/*
 
-# Remove Any User-Uploaded Images or Files
+# Uploaded Files
 public/images/item_images/*
 public/images/uploaded_images/*
 public/images/avatars/*
@@ -51,7 +54,7 @@ files/item_files/*
 uploads/*
 public/assets
 
-# Remove any Opal Plugins
+# Opal Plugins
 vendor/plugins/opal_*
 vendor/plugins/plugin_*
 

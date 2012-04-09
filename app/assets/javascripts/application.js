@@ -77,6 +77,23 @@ function get_url_vars(){ // get url variables
     return vars;  
 }
 
+function toggle_box(id) // This Function Hides/Shows an element
+{
+	$("#" + id).toggle()
+}
+
+function replace_box(id_to_hide, id_to_show) // This function hides the first element and shows the second(which should already be hidden)
+{
+	$("#" + id_to_hide).conceal
+	$("#" + id_to_show).reveal
+}
+
+function loading(id)
+{
+	 element = document.getElementById(id)
+	 element.innerHTML = "<div class='loading'></div>"
+}
+
 
 // JQuery Functions
 jQuery.fn.toggle = function(transition_time) { // hide object

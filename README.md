@@ -81,7 +81,7 @@ Next, Run these commands (while in the Opal directory) to install Opal's require
 ```sh
 bundle exec rake db:migrate RAILS_ENV=production LOCALE=en
 bundle exec rake db:seed RAILS_ENV=production LOCALE=en
-bundle exec rake assets:precompile RAILS_ENV=production 
+bundle exec rake assets:precompile:nondigest RAILS_ENV=production 
 
 # Install Sample Items, Categories, etc.
 bundle exec rake db:sample RAILS_ENV=production LOCALE=en

@@ -1,0 +1,15 @@
+/* Notice Messages(Success and Failure Boxes) & Error Styles */
+.notice {text-align:center;} /* This is the div that contains all notice messages. */
+	.notice .success, .notice .info, .notice .warning, .notice .failure, .errorExplanation, .uploadifyError, .notice img.loadin {
+		margin:0px 0px 10px 0px;
+		padding:5px;
+		text-align:center;
+		-moz-border-radius: 5px;
+		-webkit-border-radius:5px;
+	}
+	.notice .success {color:#106F00;border:1px solid #1C8F08;background-color:#BBFFAF;}
+	.notice .info {color:#333;border:1px solid #333;background-color:#ccc;}
+	.notice .warning {color:#aaa;border:1px solid #333;background-color:#ccc;}
+	.notice .failure, .errorExplanation, .uploadifyError {color:#AF0000;border:1px solid #AF0000;background-color:#F3B3B3;}
+		.field_with_errors {color:#AF0000;}
+			.field_with_errors input, .field_with_errors textarea, .field_with_errors select {border: 1px solid #AF0000;}

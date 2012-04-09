@@ -37,21 +37,11 @@
 		<h2 class="title">
 			<img src="/themes/<%= @setting[:theme] %>/images/icons/plugins.png" class="icon">
 			<%= GroupPluginPermission.model_name.human(:count => :other) %></b>
-			<a href="javascript:toggle_expanding_box('plugin_permissions_box','plugin_permissions_expand_link')" id="plugin_permissions_expand_link">
+			<a href="javascript:$('#plugin_permissions_box').toggle()" id="plugin_permissions_expand_link">
 				<%= icon("open") %>
 			</a>
 		</h2>
-		<div id="plugin_permissions_box" style="display:none">
-			<!--
-			<div class="box_1" align=center style="margin-bottom:5px;">
-					<img src="/themes/<%= @setting[:theme] %>/images/icons/warning.png" class="icon">
-					These permissions affect <u>every <%= Item.model_name.human %></u> in <%= @setting[:title] %>.
-			</div>					
-			<div class="box_1" align=center style="margin-bottom:5px;">
-					<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" class="icon">
-					These permissions will only affect users besides the <%= Item.model_name.human %> owner and Admins, since <%= Item.model_name.human %> owners always have full permissions for their own <%= Item.model_name.human %>'s plugins.  
-			</div>
-			-->
+		<div id="plugin_permissions_box" class="hidden">
 			<%= form_tag( {:action => 'update_plugin_permissions', :controller => "/groups", :id => @group.id } , :id => "plugin_permissions_form") %>
 			 	<% if !@group.is_admin_group? %>						
 					<div align=right style="margin:5px 7px 0px 0px" class="plugin_unselected" > <%= t("label.check_all") %> <input type='checkbox' name='checkall' onclick="toggle_all_checkboxes('plugin_permissions_form');"> </div>

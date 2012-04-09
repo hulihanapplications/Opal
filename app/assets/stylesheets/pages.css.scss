@@ -1,0 +1,16 @@
+/* Pages */
+.page {
+	margin-bottom:10px;
+	.content {
+		padding:5px 0px;
+	}
+}
+div#side > div.page {background:0;border:0;}
+
+
+/* Blog & Blog Posts */
+div#blog-header {display:none}
+div.blog {}
+	div#blog-post > div.header {border-bottom:1px solid #ccc}
+	div#blog-post > div.content {border-bottom:1px solid #ccc;margin-bottom:10px;padding-bottom:10px;}
+	div#blog-post div.comments div.header {margin-top:10px}

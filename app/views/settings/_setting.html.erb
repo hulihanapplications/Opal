@@ -1,0 +1,38 @@
+<div class="setting box_1">
+	<table class="cell">		
+	    <tr>
+	        <td class="half left title">
+			  	<h4>
+			  		<%= label_tag "setting_#{setting.id}", setting.title %>
+			  		<%= content_tag :span, setting.name, :class => :name %>
+			  	</h4>
+	        </td>
+	        <td class="half right" align=right>
+			  	<% case setting.item_type %>
+			  	<% when "string" %>
+			    <% when "bool" %>
+			   		<%= radio_button_tag "setting[#{setting.name}]", "1", setting.to_bool %>
+	           		<%= t("single.positive") %>
+			   		<%= radio_button_tag "setting[#{setting.name}]", "0", !setting.to_bool %>
+	            	<%= t("single.negative") %>
+	            <% when "option" %>
+					<select name="setting[<%= setting.name %>]">
+						<% for option in setting.options.split(",") %>
+							<% option = option.gsub(/ /,'') %>
+							<option value="<%= option %>" <%= "SELECTED" if option == setting.value %>><%= t("single.#{option.downcase}", :default => option) %></option>
+						<% end %> 
+					</select>	
+				<% when "special" %>
+					<% if setting.name == "locale" %>
+						<%= render :partial => "select_locale", :locals => {:options => {:input_name => "setting[#{setting.name}]"}} %>
+					<% end%>						            
+			    <% else %> 
+		            	<%= t("label.item_unknown", :item => Setting.model_name.human, :name => setting.item_type) %>
+		        <% end %>
+	        </td>
+	    </tr>
+	</table>				
+    <div class="description">
+    	<%= setting.description %>
+    </div>
+</div>

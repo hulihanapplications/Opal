@@ -118,6 +118,7 @@ en:
     unknown: Unknown
     home: Home
     blog: Blog
+    overview: Overview
   # Flash Messages & Notices
   notice:
     save_success: Your changes have been successfully saved!

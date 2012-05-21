@@ -18,7 +18,7 @@
 	<div>
 		<%= form_tag({:action => "update_settings"}) do %>
 	
-			<table width="100%" cellpadding=0 cellspacing=0  class="setting_table row_table">	
+			<table class="cell setting_table row_table" cellpadding=0 cellspacing=0>	
 			 <% for theme in @themes %>
 				 <% @class = cycle("row_a", "row_b") %>
 				 <tr class="<%= @class %>">
@@ -33,7 +33,7 @@
 						<%= t("single.negative") %> <%= t("single.preview") %>								
 					<% end %>
 				  </td>
-				  <td align=left style="padding-left:10px;vertical-align:middle">
+				  <td class="left">
 				  	
 				  		<% theme_config_file  = Rails.root.to_s + "/public" + "/themes/#{theme}/theme.yml" %>
 				  		<% if File.exists?(theme_config_file)%>
@@ -42,17 +42,16 @@
 							<%#= theme_file.inspect %>
 							<h2 class="title"><%= h theme_file["theme"]["name"] %></h2>
 							<i><%= h theme_file["theme"]["description"] %></i><br>
-							<div class="spacer"></div>							
+							<%= tag :hr %>
 							<%= t("single.by") %>  <a href="<%= h theme_file["theme"]["author_website"] %>" target="_blank"><b><%= h theme_file["theme"]["author"] %></b></a><br>
 								<%= t("single.version") %> : <b><%= h theme_file["theme"]["version"] %></b> 
 	
-							<img src="/themes/<%= @setting[:theme] %>/images/icons/link.png" class="icon" alt="" >							
+							<%= icon :link %>
 							<a href="<%= h theme_file["theme"]["theme_website"] %>" target="_blank"><b><%= t("single.theme")%> <%= t("single.website")%></b></a>
 							<%= icon("public") %>
 							<%= link_to t("single.preview"), {:action => params[:action], :theme => theme}, :target => "_blank"  %>
 							
-							<img src="/themes/<%= @setting[:theme] %>/images/icons/delete.png" class="icon" alt="" title="delete" >
-							<%= link_to t("single.delete"), {:action => "delete_theme", :controller => "settings", :theme_name => theme}, :confirm => t("confirm.general") %>							
+							<%= link_to icon(:delete) + " " + t("single.delete"), {:action => "delete_theme", :controller => "settings", :theme_name => theme}, :confirm => t("confirm.general") %>							
 			
 							
 				  		<% else %>

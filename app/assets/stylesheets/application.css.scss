@@ -15,9 +15,9 @@
 @import "compass";
 
 
-
 /* SASS Vars */
-
+$default-box-shadow-v-offset: 1px;
+$default-box-shadow-blur: 1px;
 
 /* Icon Sprites */
 @import "icons/*.png";
@@ -113,10 +113,26 @@ input#search_box.selected {background:url(bgs/white_trans_25.png) repeat;border:
 
 
 /* Buttons */
-.button_1, .button_1:visited, .button_1:link {color:#eee;@include text-shadow;;padding:1px 5px 1px 5px;border:1px solid black;background:url(bgs/button_1_bg.png) repeat center center;;font-weight:bold;;cursor:pointer;-moz-border-radius: 3px;-webkit-border-radius: 3px;@include opacity(0.9);}
-.button_1:hover, .button_2:hover {@include opacity(1);}
+.button_1, .button_1:visited, .button_1:link {
+	color:#eee;
+	padding:1px 5px 1px 5px;
+	font-weight:bold;
+	cursor:pointer;
+	@include background(linear-gradient(top, #666 0%, #222));
+	@include border-radius;
+	border: 1px solid #000;
+	@include box-shadow(
+		0px 1px 3px rgba(000,000,000,0.5), 
+		inset 0px 0px 2px rgba(255,255,255,0.7)
+	);
+	@include text-shadow(1px 1px 1px #000);
+	&:hover, .button_2:hover {
+		@include background(linear-gradient(top, #777 0%, #333));		
+		@include opacity(1);	
+	}
+}
 .button_2, .button_2:visited, .button_2:link {color:#eee;@include text-shadow;padding:1px 5px 1px 5px;border:1px solid black;background:url(bgs/button_2_bg.png) repeat center center;;font-weight:bold;;cursor:pointer;-moz-border-radius: 3px;-webkit-border-radius: 3px;@include opacity(0.9);}
-.button_1, .button_2, #search_button, #search_box, #top, img.loading {@include box-shadow;}
+.button_2, #search_button, #search_box, img.loading {@include box-shadow;}
 
 
 /* Review */

@@ -11,12 +11,29 @@ a.extra_options {padding:7px 0px;display:block;border-top:1px solid #ccc;}
 #wrapper {height:auto !important; height:100%; min-height:100%;position:relative;}
 	#wrapper > #header, #wrapper > #content, #wrapper > #top > table {width: 900px ; margin: 0 auto ;}
 	#wrapper > #top, #wrapper > #footer {color:#ccc;}
-	#wrapper > #top {background:url(bgs/black_trans_10.png) repeat;padding:5px 0px;text-align:right;border-bottom:1px solid #666;}
+	#wrapper > #top {
+		background:#333;
+		padding:5px 0px;
+		text-align:right;
+		border-bottom:1px solid #000;
+	}
 		#top td {vertical-align:middle;}
 		#top a:visited, #top a:link, #footer a:visited, #footer a:link {color:#ddd}
 		#top a:hover, #footer a:hover {color:#fff}
-	#wrapper > #header {position:relative;height:95px;background:url(bgs/main_logo_bg.png) no-repeat;background-position:bottom left;}
-	#wrapper > #content {height:100%;padding:5px;padding-top:10px; padding-bottom:70px;height:100%}	
+	#wrapper > #header {
+		position:relative;
+		height:95px;
+		background:url(bgs/main_logo_bg.png) no-repeat;
+		background-position:bottom left;
+		border-top:1px solid #aaa;
+	}
+	#wrapper > #content {		
+		height:100%;
+		padding:5px;
+		padding-top:10px;
+		padding-bottom:70px;
+		height:100%;
+	}	
 			#wrapper > #content.split-one #main {width:100%}
 			#wrapper > #content.split-two #main {float:left;width:660px;}
 				#main .header table {width:100%}

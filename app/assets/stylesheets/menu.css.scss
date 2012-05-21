@@ -32,20 +32,53 @@ div#side div.menu div.footer {text-align:center}
 
 /* Side Menus */
 div#side ul.menu li span.count, div#side div.menu, div#side ul.menu li a.selected {-moz-border-radius: 5px;-webkit-border-radius: 5px;}	
-div#side div.menu {} 
-	div#side ul.menu {}
-		div#side ul.menu li {font-size:16px;position:relative;margin:0;padding:0;}
-			div#side ul.menu img.icon {/*display:none;*/}
-			div#side ul.menu li ul {padding:0;margin:0;display:none;}
-				div#side ul.menu li ul li {font-size:14px;padding:0px 0px 0px 12px;}	
-			div#side ul.menu li > a {display:block;padding:3px 5px;margin-bottom:3px;display:relative;}					
-			div#side ul.menu li > a.selected {;border:1px solid #ccc;background:#fff;box-shadow: 0px 1px 2px #222;;-moz-box-shadow: 0px 1px 2px #222;;  -webkit-box-shadow: 0px 1px 2px #222;}					
-				div#side ul.menu li > a.selected > span.count {background:none;border:none;right:7px;top:3px;}
-			div#side ul.menu li a span.count {position:absolute;top:0;right:6px;text-align:center;background:#fff;border:1px solid #ccc;padding:3px;font-size:10px;;display:block;min-width:15px;}
-		div#side ul.menu li.selected {;/*border:1px solid #ccc;background:#fff*/}
-			div#side ul.menu li.selected > ul, div#side ul.menu li.selected > div.menu ul {display:block;}
-div#side div.menu div.footer {border-top:1px solid #aaa;padding-top:5px;margin-top:5px;}
-
+div#side div.menu {
+	div.footer {border-top:1px solid #aaa;padding-top:5px;margin-top:5px;}
+} 
+div#side ul.menu {
+	img.icon {/*display:none;*/}
+	li {
+		font-size:16px;
+		position:relative;
+		margin:0;
+		padding:0;
+		ul {
+			padding:0;margin:0;display:none;
+			li {font-size:14px;padding:0px 0px 0px 12px;}	
+		}
+		a {
+			span.count {
+				position:absolute;top:0;right:6px;text-align:center;background:#fff;border:1px solid #ccc;padding:3px;font-size:10px;;display:block;min-width:15px;
+			}
+		}		
+		> a {
+			display:block;
+			padding:3px 5px;
+			margin-bottom:3px;
+			display:relative;
+			&.selected {
+				color: #ffffff;
+				@include background(linear-gradient(top, #444 0%, #222));
+				@include border-radius;
+				border: 1px solid #000;
+				@include box-shadow(
+					0px 1px 3px rgba(000,000,000,0.25), 
+					inset 0px 0px 2px rgba(255,255,255,0.7)
+				);
+				text-shadow: 0px 1px 1px rgba(000,000,000,0.4);
+				// box-shadow: 0px 1px 2px #222;
+				// -moz-box-shadow: 0px 1px 2px #222;
+				// ;  -webkit-box-shadow: 0px 1px 2px #222;
+				> span.count {background:none;border:none;right:7px;top:3px;}
+			}
+		}	
+		&.selected {
+			> ul, > div.menu ul {
+				display:block;
+			}
+		}		
+	}
+}
 
 /* Record Menus */
 div.record {position:relative;}

@@ -7,7 +7,7 @@
 		   			<%= link_to(icon("items") + " " + Item.model_name.human(:count => :other), {:action => "all_items", :controller => "items"}, :class => params[:action] == "all_items" ? :selected : nil ) %>	
 		   		  	<%#= render :partial => "items/all_items_menu" %>	
 		   			<%= render :partial => "items/menu" %>
-		   		<% end if @setting[:section_items] %>	
+		   		<% end %>	
 		   		<%= content_tag(:li, :class => (params[:controller] == "pages") ? :selected : nil) do %>
 		   		 	<%= link_to(icon("pages") + " " + Page.model_name.human(:count => :other), {:action => "index", :controller => "pages"}, :class => current_page?(pages_path) && params[:type].blank? ? :selected : nil) %>	
 		   			<%= render :partial => "pages/menu" %>

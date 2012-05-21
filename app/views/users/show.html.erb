@@ -72,7 +72,7 @@
 		<%= @user.group.name %>
 	<% end if @logged_in_user.is_admin? %>
 									
-	<% if @setting[:section_items] && @items.size > 0 %>
+	<% if @items.size > 0 %>
 		<%= render :partial => "navigation" %>
 		<br>
 	

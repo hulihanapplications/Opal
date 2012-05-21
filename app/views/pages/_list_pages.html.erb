@@ -9,7 +9,7 @@
 	<ul id="pages" class="tree <%= "sortable" if options[:sortable] %> collapsed">
 		<% if pages.size > 0 %>
 				<% for page in pages %>
-					<% show_page = (page.name == "items") ? @setting[:section_items] : page.name == "blog" ? @setting[:section_blog] : page.name == "terms_of_service" ? @setting[:allow_user_registration] : true %>
+					<% show_page = (page.name == "items") ? true : page.name == "blog" ? true : page.name == "terms_of_service" ? @setting[:allow_user_registration] : true %>
 					<% if show_page %>
 						<li id="<%= page.id %>" class="root <%= "hoverable" if options[:sortable] %>">
 							<div class="box_2">

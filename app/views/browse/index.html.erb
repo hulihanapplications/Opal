@@ -2,12 +2,12 @@
 	homepage =  Page.find_by_name("home")
 	homepage_sidebar =  Page.system.find_by_name("home_page_sidebar")
 	homepage_subpages = homepage.pages.display_in_menu.published.in_order
-	show_sidebar = homepage_subpages.size > 0 || @setting[:section_items] || !homepage_sidebar.content.blank? 
+	show_sidebar = homepage_subpages.size > 0 || !homepage_sidebar.content.blank? 
 %>
 
 <% content_for :side do %>
 	<%= render :partial => "pages/menu_for_page", :locals => {:page => homepage, :subpages => homepage_subpages} if homepage_subpages.size > 0 %>	
-	<% if @setting[:section_items] %>							
+	<% if true %>							
 		  	<% if @setting[:homepage_type] != "categories" %>
 			   	<%= render :partial => "items/category_menu", :locals => {:options => {:category => @category}} %>
 			<% end %>
@@ -22,9 +22,9 @@
 <% end if show_sidebar %>		
 	
 <%= render homepage if homepage %>
-<% if @setting[:homepage_type] == "new_items" && @setting[:section_items] %>
+<% if @setting[:homepage_type] == "new_items" %>
 	<%= render :partial => "browse/homepage_new_items" %>
-<% elsif @setting[:homepage_type] == "categories" && @setting[:section_items] %>
+<% elsif @setting[:homepage_type] == "categories" %>
 	<%= render :partial => "browse/homepage_categories" %>
 <% else %>
 	<%# Display nothing %>

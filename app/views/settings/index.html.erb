@@ -12,7 +12,6 @@
 				    <li><a href="#<%= t("single.public") %>"><%= t("single.public") %></a></li>
 				    <li><a href="#<%= t("single.system") %>"><%= t("single.system") %></a></li> 
 				    <li><a href="#<%= User.model_name.human(:count => :other) %>"><%= User.model_name.human(:count => :other) %></a></li> 	
-				    <li><a href="#<%= t("single.section", :count => :other) %>"><%= t("single.section", :count => :other) %></a></li> 													
 					<li><a href="#<%= t("activerecord.records.setting.main_logo.title") %>"><%= t("activerecord.records.setting.main_logo.title") %></a></li>
 					<li><%= link_to "Home", "http://www.google.com" %></li>
 			</ul>			
@@ -25,14 +24,9 @@
 				</div>
 			    <div>	
 					 <%= render :partial => "/settings/list_settings", :locals => {:settings => Setting.find(:all, :conditions => ["setting_type = ?", "User"]), :title => User.model_name.human}%>
-				</div>	
-			    <div>	
-					 <%= render :partial => "/settings/list_settings", :locals => {:settings => Setting.find(:all, :conditions => ["setting_type = ?", "Section"]), :title => t("single.section")}%>
-				</div>		
+				</div>			
 				<div>
 					<div class="section">
-
-
 						<div class="header">					
 							<table style="width:100%;" cellpadding=0 cellspacing=0>
 								<tr>

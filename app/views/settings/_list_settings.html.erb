@@ -6,8 +6,9 @@
 	</div>		
 	<%= content_tag :em, description if defined?(description) %>
 
-
-	<% for setting in settings %>
-		<%= render setting %>		
-    <% end %>
+	<%= content_tag :div, :class => :settings do %>
+		<% for setting in settings %>
+			<%= render setting %>		
+	    <% end %>
+  	<% end %>
 </div>

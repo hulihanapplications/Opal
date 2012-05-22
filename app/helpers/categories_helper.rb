@@ -30,7 +30,7 @@ def descend_category(category, options = {})    # recursive print out  category 
           end
           
           if options[:admin_controls] # show admin controls      
-            html += "<td align=right class=\"icon_column\"><img src=\"/themes/#{@setting[:theme]}/images/icons/help.png\" class=\"icon help\" title=\"#{category.description}\"></td>" if category.description && category.description != ""            
+            html += "<td align=right class=\"icon_column\">#{icon(:help, category.description, "help")}</td>" if category.description && category.description != ""            
             html += "<td align=right class=\"icon_column\">" + link_to(icon("new", "#{t("label.item_new_child", :item => Page.model_name.human)}"), {:action => "new", :controller => "categories", :id => category}, :class => "transparent") + "</td>"              
             html += "<td align=right class=\"icon_column\">" + link_to(icon("edit"), {:action => "edit", :controller => "categories", :id => category}, :class => "transparent") + "</td>"
             html += "<td align=right class=\"icon_column\">" + link_to(icon("delete"), {:action => "delete", :controller => "categories", :id => category}, :confirm => "Are you sure you want to delete this category? All #{Item.model_name.human(:count => :other)} in this category will be also be deleted.", :class => "transparent") + "</td>"

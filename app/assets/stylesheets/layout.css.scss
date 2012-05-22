@@ -53,13 +53,14 @@ ul.main_menu {
 			background:none;;bottom:-20px;left:-1px;
 			li {
 				padding:5px 8px;margin:0;border:1px solid #ccc;border-top:none;clear:both;
+				background:#eee;
 				&:hover {background:#fff;@include border-radius(0px);border-top:0px;}
 				&:last-child {@include border-radius(0px 0px 5px 5px);}
 				a {padding:0;margin:0;background:none;text-align:left;font-size:16px;}
 			}
 		}
 		&.with-subpages{
-			> a {background:url(icons/expand.png) no-repeat right 5px;padding-right:23px;}
+			> a {background:url(icons/expand.png) no-repeat right 5px;padding-right:25px;}
 		}		
 	}
 }

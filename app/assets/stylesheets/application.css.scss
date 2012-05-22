@@ -17,7 +17,11 @@
 
 
 /* SASS Vars */
-
+$default-box-shadow-color: 	#000;
+$default-box-shadow-v-offset: 1px;
+$default-box-shadow-blur:  1px;
+$default-text-shadow-color: 	#000;
+$default-text-shadow-v-offset: 2px;
 
 /* Icon Sprites */
 @import "icons/*.png";
@@ -52,13 +56,20 @@ img.small, img.medium {height:50px;border:1px solid #666}
 img.loading {margin:2px;background:#ccc;padding:5px;border:1px solid #666;;@include border-radius;}
 
 /* Icons */
-
 span.icon-wrapper {
+	display:inline-block;
 	position:relative;
-	top:4px;
-	.icon {width:16px;height:16px;display:inline-block;}
+	width:16px;
+	height:16px;
+	.icon {
+		width:16px;
+		height:16px;
+		display:inline-block;
+		position:absolute;
+		top:3px;
+	}
 }
-span.icon-wrapper-spacer {left:5px;}
+span.icon-wrapper-spacer {}
 
 /* Cursors */
 .pointer {cursor:pointer;}
@@ -170,12 +181,14 @@ div.fg-menu-container {-moz-border-radius-topleft:0px;-webkit-border-top-left-ra
 ul.fg-menu li a:hover {background:#fff};
 
 /* Boxes */
-.box_1 {border:1px solid #aaa;background:#E9E9E9;padding:5px;@include border-radius;margin-bottom:10px;}
-	.box_1 hr, .box_1 div.spacer {width: 100%; margin: 5px 0px 5px 0px; height: 1px; background: #ccc; border: 0; }
+.box_1, .extra_options_box {border:1px solid #aaa;background:#E9E9E9;padding:5px;@include border-radius;margin-bottom:10px;
+	hr, div.spacer {
+		width: 100%; margin: 5px 0px 5px 0px; height: 1px; background: #ccc; border: 0;	
+	}
+}
 .box_2, div.logs div.log, div#blog-post, div#side > div {border:1px solid #ccc;background:url(bgs/white_trans_50.png) repeat;padding:5px;@include border-radius;margin-bottom:10px;}
 	.hover .box_2 {border:1px solid #999}
 .box_3 {background:url(bgs/white_trans_50.png) repeat;border:1px solid #ccc;;padding:10px;text-align:center;;@include border-radius;margin-right:0px;margin-bottom:10px;}
-.extra_options_box {padding:10px;}
 
 /* Plugins */	
 .plugins {}

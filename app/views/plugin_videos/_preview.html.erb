@@ -6,4 +6,4 @@
     });
 </script>
 
-<%= link_to(theme_image_tag("preview_video.png", :class => options[:size]), {:action => "show", :controller => "plugin_videos", :record_id => record.id, :record_type => record.class.name}, :id => link_id, :title => record.title.blank? ? record.title : "") %>
+<%= link_to(image_tag("preview_video.png", :class => options[:size]), {:action => "show", :controller => "plugin_videos", :record_id => record.id, :record_type => record.class.name}, :id => link_id, :title => record.title.blank? ? record.title : "") %>

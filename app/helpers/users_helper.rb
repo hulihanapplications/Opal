@@ -8,7 +8,7 @@ module UsersHelper
         avatar_image(user, options)
       end
     else # user doesn't exist
-      return raw "<img src=\"/themes/#{@setting[:theme]}/images/icons/failure.png\" class=\"icon\" title=\"#{t("notice.item_not_found", :item => User.model_name.human)}\">"      
+      return icon(:failure, "#{t("notice.item_not_found", :item => User.model_name.human)}")      
     end     
   end 
 
@@ -19,10 +19,10 @@ module UsersHelper
       if user.avatar.blank? ? false : File.exists?(user.avatar.path)  
         return image_tag(user.avatar.url, options)
       else # get default avatar
-        return theme_image_tag("default_avatar.png", options)        
+        return image_tag("default_avatar.png", options)        
       end
     else
-      return theme_image_tag("default_avatar.png", options)        
+      return image_tag("default_avatar.png", options)        
     end         
   end 
   

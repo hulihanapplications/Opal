@@ -12,9 +12,9 @@
 			  	<% when "string" %>
 			    <% when "bool" %>
 			   		<%= radio_button_tag "setting[#{setting.name}]", "1", setting.to_bool %>
-	           		<%= t("single.positive") %>
+	           		<%= label_tag "setting_#{setting.name}_1",  t("single.positive") %>
 			   		<%= radio_button_tag "setting[#{setting.name}]", "0", !setting.to_bool %>
-	            	<%= t("single.negative") %>
+	            	<%= label_tag "setting_#{setting.name}_0", t("single.negative") %>
 	            <% when "option" %>
 					<select name="setting[<%= setting.name %>]">
 						<% for option in setting.options.split(",") %>

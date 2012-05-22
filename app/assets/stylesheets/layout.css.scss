@@ -15,11 +15,32 @@ a.extra_options {padding:7px 0px;display:block;border-top:1px solid #ccc;}
 		background:#333;
 		padding:5px 0px;
 		text-align:right;
-		border-bottom:1px solid #000;
-	}
-		#top td {vertical-align:middle;}
-		#top a:visited, #top a:link, #footer a:visited, #footer a:link {color:#ddd}
-		#top a:hover, #footer a:hover {color:#fff}
+		border-bottom:1px solid #666;
+		@include box-shadow;
+		@include text-shadow(1px 1px 1px #000);
+		#search_button, #search_box {
+			@include border-radius(5px);
+		}		
+		#search_button {
+			@include background(linear-gradient(top, #666 0%, #222));			
+			&:hover {
+				@include background(linear-gradient(top, #777 0%, #333));		
+			}
+		}
+		input#search_box {
+			@include text-shadow(1px 1px 1px #000);
+			background:url(bgs/white_trans_10.png) repeat;
+			color:#ddd;
+			border-color:black;
+			&.selected {
+				background:url(bgs/white_trans_25.png) repeat;
+				color:white;
+			}
+		}
+		td {vertical-align:middle;}
+	}		
+	#top a:visited, #top a:link, #footer a:visited, #footer a:link {color:#ddd}
+	#top a:hover, #footer a:hover {color:#fff}
 	#wrapper > #header {
 		position:relative;
 		height:95px;

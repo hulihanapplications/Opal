@@ -48,10 +48,13 @@ div.header ul.menu {
 	}
 }
 
-div#side ul.menu li span.count, div#side div.menu, div#side ul.menu li a.selected {-moz-border-radius: 5px;-webkit-border-radius: 5px;}	
+div#side ul.menu li span.count, div#side div.menu, div#side ul.menu li a.selected {
+	@include border-radius;
+}	
 div#side div.menu {
 	div.footer {
-		border-top:1px solid #aaa;padding-top:5px;margin-top:5px;
+		border-top:1px solid #aaa;
+		padding-top:5px;margin-top:5px;
 	}
 } 				
 div#side ul.menu li.selected > ul, div#side ul.menu li.selected > div.menu ul {display:block;}
@@ -69,7 +72,16 @@ div#side ul.menu {
 		}
 		a {
 			span.count {
-				position:absolute;top:0;right:6px;text-align:center;background:#fff;border:1px solid #ccc;padding:3px;font-size:10px;;display:block;min-width:15px;
+				position:absolute;
+				top:0;
+				right:6px;
+				text-align:center;
+				background:#fff;
+				border:1px solid #ccc;
+				padding:3px;
+				font-size:10px;
+				display:block
+				;min-width:15px;
 			}
 		}		
 		> a {
@@ -101,6 +113,15 @@ div#side ul.menu {
 	}
 }
 
+div#side > div.menu > ul.menu {
+	> li {
+		border-bottom:1px solid #ccc;
+		border-top:1px solid #fff;		
+		&:first-child { border-top: none;}
+		&:last-child { border-bottom: none;}
+	}
+}	
+
 /* Record Menus */
 div.record {position:relative;}
 div.record_menu {position:relative;height:25px;margin-bottom:10px;}
@@ -115,7 +136,6 @@ div.header ul.menu li > span,
 #navigation ul.left li > div {
 	display:block;
 	padding: 3px 7px;
-	height:18px;
 	@include border-radius;
 }
 #navigation ul.left li > div {padding-left:0px;}	
@@ -140,10 +160,14 @@ div.header ul.menu li.selected > a,
 
 ul.record_menu, div.header ul.menu, ul.right {
 	li {
-
 		> a {
 			border:1px solid #aaa; 
-			background:url(bgs/button_3_bg.png) repeat center center;			
+			@include background(linear-gradient(top, #efefef 0%, #ddd));
+			@include border-radius;
+			@include box-shadow(
+				inset 0px 0px 1px rgba(255,255,255,0.9),
+				0px 1px 1px rgba(000,000,000,0.9)
+			);
 			&:hover {
 				border:1px solid #666;
 			}
@@ -163,6 +187,10 @@ ul.record_menu, div.header ul.menu, ul.right {
 		> span {
 			border:1px solid #bbb;
 			background:url(bgs/white_trans_50.png) repeat;		
+			@include box-shadow(
+				inset 0px 0px 1px rgba(255,255,255,0.9),
+				0px 1px 1px rgba(000,000,000,0.9)
+			);			
 		}		
 	}
 }

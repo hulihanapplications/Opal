@@ -30,7 +30,8 @@ module UsersHelper
     email = (object.class == User) ? object.email.downcase : (object.class == String ? object : nil)
     options[:title] ||= Object.class == User ? object.to_s : nil
     options[:class] = "#{options[:class]} avatar"     
-    return image_tag("http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5.hexdigest(email)}?d=#{URI.escape(@setting[:url] + @setting[:theme_url] + "/images/default_avatar.png")}&s=100", options)
+    #return image_tag("http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5.hexdigest(email)}?d=#{URI.escape(@setting[:url] + asset_path("default_avatar.png"))}&s=100", options)
+    return image_tag("http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5.hexdigest(email)}?s=100", options)
   end
 
   def link_to_user(user, options = {})

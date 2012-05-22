@@ -99,11 +99,33 @@ table.cell {width:100%}
 
 
 /* Forms, Fields & Inputs */
-input, select, textarea {color:#333;border:1px solid #666;background:url(bgs/black_trans_05.png) repeat;font-family:Trebuchet MS;@include border-radius(3px);font-size:12px;}
+input, select, textarea {
+	color:#333;
+	border:1px solid #666;
+	background:url(bgs/black_trans_05.png) repeat;
+	@include box-shadow(
+		inset 1px 1px 1px rgba(000,000,000,0.25),
+		1px 1px 0px rgba(255,255,255,0.12)		
+	);	
+	font-family:Trebuchet MS;
+	@include border-radius(3px);
+	font-size:12px;
+	&.selected {
+		border:1px solid #888;
+		background:url(bgs/white_trans_05.png) repeat;
+	}
+	&:focus {
+		outline:none;
+	}
+}
 input, option, textarea {padding:2px;}
-textarea {width:100%;height:100px;margin:0;padding:0}
+textarea {
+	width:100%;
+	height:100px;
+	margin:0;
+	padding:0;
+}
 label, .field .label {font-size:16px;}
-input.selected, select.selected, textarea.selected {border:1px solid #888;background:url(bgs/white_trans_05.png) repeat;}
 select, option, input, select, textarea {background-color:#eee}
 
 .field {margin-bottom:10px;}
@@ -119,12 +141,6 @@ select, option, input, select, textarea {background-color:#eee}
 form#register div.field {}
 form#register div.field label {display:block;}
 	div.actions, form#register div#terms {text-align:center;margin-top:20px;}
-
-#search_button, #search_box {border:1px solid #999;padding:2px;}		
-#search_button {padding-left:10px;padding-right:10px;}
-input#search_box {background:url(bgs/white_trans_10.png) repeat;color:#ddd;}
-input#search_box.selected {background:url(bgs/white_trans_25.png) repeat;border:1px solid #ccc;color:white}
-
 
 /* Buttons */
 .button_1, .button_1:visited, .button_1:link {
@@ -146,7 +162,7 @@ input#search_box.selected {background:url(bgs/white_trans_25.png) repeat;border:
 	}
 }
 .button_2, .button_2:visited, .button_2:link {color:#eee;@include text-shadow;padding:1px 5px 1px 5px;border:1px solid black;background:url(bgs/button_2_bg.png) repeat center center;;font-weight:bold;;cursor:pointer;-moz-border-radius: 3px;-webkit-border-radius: 3px;@include opacity(0.9);}
-.button_2, #search_button, #search_box, img.loading {@include box-shadow;}
+.button_2, img.loading {@include box-shadow;}
 
 
 /* Review */
@@ -193,20 +209,60 @@ textarea.mceEditor {width:100%;height:500px}
 
 /* fg menu */
 a.fg-button {padding:5px 3px;margin:0 2px;}
-.ui-widget-content .ui-state-hover, .ui-widget-content .ui-state-focus, a.fg-button.ui-state-active, div.fg-menu-container {background:#eee;}
-div.fg-menu-container, a.fg-button.ui-state-active {border-color:#eee;;-moz-box-shadow: 0 1px 2px #000;-webkit-box-shadow: 0 1px 2px #000;}
-a.fg-button.ui-state-active {border:0;border-top:1px solid #ccc;-moz-border-radius-bottomleft:0px;-webkit-border-bottom-left-radius:0px; -moz-border-radius-bottomright:0px;-webkit-border-bottom-right-radius:0px;}
-div.fg-menu-container {-moz-border-radius-topleft:0px;-webkit-border-top-left-radius:0px}
-ul.fg-menu li a:hover {background:#fff};
+.ui-widget-content .ui-state-hover, 
+.ui-widget-content .ui-state-focus, 
+a.fg-button.ui-state-active, 
+div.fg-menu-container {background:#eee;}
+div.fg-menu-container, 
+a.fg-button.ui-state-active {	
+	border-color:#eee;
+	@include box-shadow;
+}
+a.fg-button.ui-state-active {
+	border:0;
+	border-top:1px solid #ccc;
+	-moz-border-radius-bottomleft:0px;
+	-webkit-border-bottom-left-radius:0px;
+	 -moz-border-radius-bottomright:0px;
+	 -webkit-border-bottom-right-radius:0px;
+}
+div.fg-menu-container {
+	-moz-border-radius-topleft:0px;
+	-webkit-border-top-left-radius:0px;
+}
+ul.fg-menu li a:hover {
+	color: #ffffff;
+	@include background(linear-gradient(top, #444 0%, #222));
+	@include border-radius;
+	border: 1px solid #000;
+	@include box-shadow(
+		0px 1px 3px rgba(000,000,000,0.25), 
+		inset 0px 0px 2px rgba(255,255,255,0.7)
+	);
+	text-shadow: 0px 1px 1px rgba(000,000,000,0.4);
+}
 
 /* Boxes */
-.box_1, .extra_options_box {border:1px solid #aaa;background:#E9E9E9;padding:5px;@include border-radius;margin-bottom:10px;
+.box_1, .extra_options_box {
+	border:1px solid #aaa;
+	background:#E9E9E9;
+	padding:5px;
+	@include border-radius;
+	margin-bottom:10px;
 	hr, div.spacer {
 		width: 100%; margin: 5px 0px 5px 0px; height: 1px; background: #ccc; border: 0;	
 	}
 }
-.box_2, div.logs div.log, div#blog-post, div#side > div {border:1px solid #ccc;background:url(bgs/white_trans_50.png) repeat;padding:5px;@include border-radius;margin-bottom:10px;}
-	.hover .box_2 {border:1px solid #999}
+.box_2, 
+div.logs div.log, 
+div#blog-post, 
+div#side > div {
+	border:1px solid #ccc;
+	background:url(bgs/white_trans_50.png) repeat;
+	padding:5px;@include border-radius;
+	margin-bottom:10px;
+}
+.hover .box_2 {border:1px solid #999}
 .box_3 {background:url(bgs/white_trans_50.png) repeat;border:1px solid #ccc;;padding:10px;text-align:center;;@include border-radius;margin-right:0px;margin-bottom:10px;}
 
 /* Plugins */	

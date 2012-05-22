@@ -75,9 +75,7 @@ module ApplicationHelper
 
   def icon(name, title = nil, css_class = "") # show icon
     title ||= I18n.t("single.#{name}", :default => name.to_s.humanize) # if translation for icon name doesn't exist, use english  
-    content_tag(:span, :class => "icon-wrapper icon-wrapper-#{name}") do 
-      content_tag(:span, "", :class => "icons-#{name} icon #{css_class}", :title => title)
-    end 
+    content_tag(:span, "", :class => "icons-#{name} icon #{css_class}", :title => title)
   end
  
   def score(options = {}) # print out a score

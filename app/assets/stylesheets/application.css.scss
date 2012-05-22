@@ -41,7 +41,14 @@ $default-text-shadow-v-offset: 2px;
 /* Images */
 a img {border:0px;}
 img.bullet {vertical-align:middle;border:0px;}
-div.preview, img.preview {background:white;padding:3px;margin:3px;border:0px solid #aaa;opacity:0.80;filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity: 0.8; box-shadow: 0px 2px 5px #333;-moz-box-shadow: 0px 2px 5px #333;  -webkit-box-shadow: 0px 2px 5px #333;}
+div.preview, img.preview {
+	background:white;
+	padding:3px;
+	margin:3px;
+	border:0px solid #aaa;
+	@include opacity(0.8); 
+	@include box-shadow(0px 2px 5px #333);
+}
 div.preview:hover, img.preview:hover {;opacity:1.00;filter:alpha(opacity=100);-moz-opacity:1.0;-khtml-opacity: 1.0}
 	.preview_not_found a, div.preview_text {width:180px;height:125px;background:url(preview.png) no-repeat center center;padding:0;margin:0}
 img.pinky, img.tiny {border:1px solid #333;height:20px;width:20px;vertical-align:middle}
@@ -55,20 +62,17 @@ img.small, img.medium {height:50px;border:1px solid #666}
 img.loading {margin:2px;background:#ccc;padding:5px;border:1px solid #666;;@include border-radius;}
 
 /* Icons */
-span.icon-wrapper {
-	display:inline-block;
-	position:relative;
+span.icon {
 	width:16px;
 	height:16px;
-	.icon {
-		width:16px;
-		height:16px;
-		display:inline-block;
-		position:absolute;
-		top:3px;
-	}
+	vertical-align:middle;
+	display:inline-block;
+	// position:absolute;
+	// top:3px;
 }
-span.icon-wrapper-spacer {}
+span.icons-spacer {
+	width:8px;
+}
 
 /* Cursors */
 .pointer {cursor:pointer;}
@@ -89,7 +93,7 @@ table.cell {width:100%}
 
 
 /* Interaction States(Selection, Hovering, Sorting, Etc.) */
-.hoverable {@include opacity(0.9);;}
+.hoverable {@include opacity(0.9);}
 .hover {@include opacity(1);}
 .disabled {@include opacity(0.5);}
 
@@ -125,7 +129,7 @@ input#search_box.selected {background:url(bgs/white_trans_25.png) repeat;border:
 /* Buttons */
 .button_1, .button_1:visited, .button_1:link {
 	color:#eee;
-	padding:1px 5px 1px 5px;
+	padding:2px 7px;
 	font-weight:bold;
 	cursor:pointer;
 	@include background(linear-gradient(top, #666 0%, #222));

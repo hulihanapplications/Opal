@@ -319,7 +319,8 @@ en:
     skipping_prompt: "Skipping Prompt..."
     remember_me: Remember Me
     currently_logged_in: Currently Logged In 
-    use_authentication: Use another network       
+    use_authentication: Use another network      
+    powered_by: Powered by %{name} 
   # General Information 
   info: 
     delete_main_logo: Deleting your logo will show the title of your site instead. 

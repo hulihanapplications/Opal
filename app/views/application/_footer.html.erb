@@ -1,15 +1,16 @@
-
+<div id="copyright">
 	<%= @setting[:title] %></a> &copy; <%= Time.now.strftime("%Y")%>
-	<% if mobile_device? %>
-		<%= icon("spacer") %>		 
-		  <% if mobile_mode? %>
-		    <%= link_to t("single.full") + " " + t("single.website"), :mobile => 0 %>
-		  <% else %>
-		    <%= link_to t("single.mobile") + " " + t("single.website"), :mobile => 1 %>
-		  <% end %>
-	<% end %>	
-	<br />
-	<a href="http://www.hulihanapplications.com/projects/opal" class="transparent" target="_blank" title="Powered with <%= t("name") %> by Hulihan Applications">
-		<%= image_tag("opal_powered_small.png") %>
-	</a>					
+</div>
+<div id="powered-by">
+	<%= t("label.powered_by", :name => link_to(t("name"), "http://www.hulihanapplications.com/projects/opal")).html_safe %>
+</div>
+<% if mobile_device? %>
+	<%= icon("spacer") %>		 
+	  <% if mobile_mode? %>
+	    <%= link_to t("single.full") + " " + t("single.website"), :mobile => 0 %>
+	  <% else %>
+	    <%= link_to t("single.mobile") + " " + t("single.website"), :mobile => 1 %>
+	  <% end %>
+<% end %>	
+		
 

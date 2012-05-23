@@ -318,7 +318,8 @@ ru:
     skipping_prompt: "Пропускаем запрос..."
     remember_me: Запомнить    
     currently_logged_in: Выполнен вход 
-    use_authentication: Использовать другую сеть           
+    use_authentication: Использовать другую сеть
+    powered_by: Powered by %{name}
   # General Information 
   info: 
     delete_main_logo: Удаление логотипа отобразит заголовок вашего сайта. 

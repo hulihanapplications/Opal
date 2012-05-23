@@ -13,11 +13,11 @@ class Emailer < ActionMailer::Base
     mail(:to => recipients, :subject => subject, :date => Time.now, :reply_to => @email)
   end
 
-	# not used anywhere
-#   def test_email(recipients, subject = "No Subject Set", message = "No Message Set.", sent_at = Time.now)
-#     @message = message
-#     mail(:to => nil, :bcc => recipients, :subject => subject, :date => Time.now)
-#   end
+  # Test email used in testing settings, etc.
+  def test(recipients)
+    @message = message
+    mail :to => recipients, :subject => I18n.t("email.subject.test")
+  end
 
   def verification_email(user, user_verification)
     @setting = Setting.global_settings
@@ -27,14 +27,6 @@ class Emailer < ActionMailer::Base
     subject = I18n.t("email.subject.verification", :name => @user.username, :title => @setting[:title])
     mail(:to => @user.email, :subject =>  subject, :date => Time.now)
   end
-
-	# not used anywhere
-  # Send an email with a modified from header
-#   def email_from_anyone(recipients, from = "none@none.com", subject = "No Subject Set", message = "No Message Set.", sent_at = Time.now)
-#     @body["email"] = from
-#     @body["message"] = message
-#     mail(:to => nil, :from => from, :bcc => recipients, :subject =>  subject, :date => Time.now)
-#   end
 
   # Notify a User that a message was sent to them
   def new_message_notification(message)

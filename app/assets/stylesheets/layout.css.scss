@@ -116,9 +116,11 @@ ul.main_menu {
 #main .header {margin-bottom:10px;}
 #main > .header > .description {border-top:1px solid #aaa;margin-top:5px;padding-top:5px;}
 
-.section {margin-bottom:20px;}
-	.section .header {margin-bottom:5px}
-	.section .header td {vertical-align:middle}
+.section {
+	margin-bottom:20px;
+	.header {margin-bottom:5px}
+	td {vertical-align:middle}
+}
 	
 #main div.header {
 	position:relative;

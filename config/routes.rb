@@ -69,6 +69,20 @@ Rails.application.routes.draw do
     end
     get "view", :on => :member
   end  
+
+  resources :settings do 
+    collection do
+      get "test_email"
+      get "themes"
+      get "install_theme"
+      get "delete_theme"
+      get "change_logo"
+      get "delete_logo"      
+      get "new_change_logo"
+      get "update_settings"
+      get "new_theme_install"
+    end 
+  end 
   
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.

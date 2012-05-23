@@ -261,7 +261,7 @@ module ApplicationHelper
   
   
   def loading #show loading box
-    content_tag(:div, theme_image_tag("loading.gif", :class => "loading"), :class => :loading)
+    content_tag(:div, image_tag("loading.gif", :class => "loading"), :class => :loading)
   end  
 
   

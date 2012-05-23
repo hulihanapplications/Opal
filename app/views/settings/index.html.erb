@@ -13,7 +13,6 @@
 				    <li><a href="#<%= t("single.system") %>"><%= t("single.system") %></a></li> 
 				    <li><a href="#<%= User.model_name.human(:count => :other) %>"><%= User.model_name.human(:count => :other) %></a></li> 	
 					<li><a href="#<%= t("activerecord.records.setting.main_logo.title") %>"><%= t("activerecord.records.setting.main_logo.title") %></a></li>
-					<li><%= link_to "Home", "http://www.google.com" %></li>
 			</ul>			
 			<div class="panes"> 					
 			    <div>	
@@ -27,26 +26,20 @@
 				</div>			
 				<div>
 					<div class="section">
-						<div class="header">					
-							<table style="width:100%;" cellpadding=0 cellspacing=0>
-								<tr>
-									<td align=left class="title_column">
-										<h2 class="title">
-											<%= t("activerecord.records.setting.main_logo.title") %>
-										</h2>						
-									</td>
-									<td align=right>
-										<% if @logo_image_exists %>
-											<img src="/themes/<%= @setting[:theme] %>/images/icons/delete.png" class="icon">
-											<%= link_to "#{t("single.delete")} #{t("single.logo")}", {:action => "delete_logo", :controller => "settings"}, :confirm => t("confirm.general")   %></a>
-										<% else %>
-											<!--No Logo has been uploaded.-->
-										<% end %>	
-										<%= icon("upload") %>													
-										<%= link_to "#{t("single.upload")} #{t("single.logo")}", {:action => "new_change_logo", :controller => "settings"}%>
-									</td>
-								</tr>
-							</table>
+						<div class="header">	
+							<div class="title">
+								<%= content_tag :h2, t("activerecord.records.setting.main_logo.title"), :class => :title %>			
+							</div>
+							<div class="menu">	
+								<%= content_tag :ul, :class => :menu do %>
+									<%= content_tag :li do %>
+										<%= link_to icon(:delete) + " #{t("single.delete")} #{t("single.logo")}", delete_logo_settings_path, :confirm => t("confirm.general") %>
+									<% end if @logo_image_exists %>								
+									<%= content_tag :li do %>
+										<%= link_to(icon("upload") + " " + "#{t("single.upload")} #{t("single.logo")}", new_change_logo_settings_path) %>	
+									<% end %>
+								<% end %>
+							</div>
 						</div>
 					
 						<div align=center>
@@ -55,18 +48,17 @@
 
 						<div align="center" class="box_1" style="margin:5px 0px;">													
 							<% if @logo_image_exists %>
-									<img src="/themes/<%= @setting[:theme] %>/images/icons/info.png" class="icon">
-									<%= t("info.delete_main_logo", :name => @setting[:title] ) %>																				
+									<%= icon(:info) %>
+									<%= t("info.delete_main_logo", :name => @setting[:title] ) %>						
 							<% else %>
 								<%= t("notice.item_not_found", :item => t("single.logo")) %>
 							<% end %>
-						</div>	
-						
-						
+						</div>												
 					</div>				
 				</div>						
 			</div>	
-		 <div align=center><%= submit_tag t("single.save"), :class => "button_1" %></div>
-	
+		 <div class="actions">
+		 	<%= submit_tag t("single.save"), :class => "button_1" %>
+		 </div>	
 	<% end %>
 </div>	

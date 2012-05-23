@@ -29,57 +29,46 @@ class SettingsController < ApplicationController
    end
    redirect_to :back
   end
- 
-  def edit
-  end
-
-  def new
-  end
 
   def new_change_logo
     @logo_image_exists = File.exists?(Rails.root.to_s + "/public/themes/#{@setting[:theme]}/images/logo.png")    # check if an existing logo image exists
   end
   
   def change_logo # change the main logo
-     require "RMagick"
-     require "net/http"
-     require "open-uri" 
+    require "RMagick"
+    require "net/http"
+    require "open-uri" 
       
-     proceed = false    
+    proceed = false    
      
-     acceptable_file_extensions = ".png, .jpg, .jpeg, .gif, .bmp, .tiff, .PNG, .JPG, .JPEG, .GIF, .BMP, .TIFF"
-     uploaded_file = Uploader.file_from_url_or_local(:local => params[:file], :url => params[:url])
-     filename = params[:file].blank? ? File.basename(uploaded_file.path) : params[:file].original_filename 
-     main_image_path = File.join(@setting[:theme_dir], "images", "logo.png") # location of main logo
+    acceptable_file_extensions = ".png, .jpg, .jpeg, .gif, .bmp, .tiff, .PNG, .JPG, .JPEG, .GIF, .BMP, .TIFF"
+    uploaded_file = Uploader.file_from_url_or_local(:local => params[:file], :url => params[:url])
+    filename = params[:file].blank? ? File.basename(uploaded_file.path) : params[:file].original_filename 
+    main_image_path = File.join(@setting[:theme_dir], "images", "logo.png") # location of main logo
 
-     if params[:keep_dimensions] # keep original logo dimensions
-        original_image = Magick::Image.from_blob(File.open(main_image_path).read).first # open original logo and create image object        
-        width = original_image.columns
-        height = original_image.rows
-     end      
+    if params[:keep_dimensions] # keep original logo dimensions
+      original_image = Magick::Image.from_blob(File.open(main_image_path).read).first # open original logo and create image object        
+      width = original_image.columns
+      height = original_image.rows
+    end      
      
-     if Uploader.check_file_extension(:filename => filename, :extensions => acceptable_file_extensions)
-        image = Magick::Image.from_blob(File.open(uploaded_file.path).read)[0] # read in image binary, from_blob returns an array of images, grab first item
-        Uploader.generate_image(
-          :image => image,
-          :path => main_image_path,          
-          :resize_image => params[:keep_dimensions],
-          :resized_image_width => width,
-          :resized_image_height => height,
-          :generate_thumbnail => false
-        )           
-        flash[:success] = t("notice.item_create_success", :item => t("single.logo"))
-        log(:log_type => "system", :log => t("log.item_create", :item => t("single.logo"), :name => filename))  # log it
-     else
-        flash[:failure] = t("single.logo") + " " + t("activerecord.errors.messages.invalid_file_extension", :valid_extensions => acceptable_file_extensions)      
-     end
-
- 
-   redirect_to :action => "index", :controller => "settings"
+    if Uploader.check_file_extension(:filename => filename, :extensions => acceptable_file_extensions)
+      image = Magick::Image.from_blob(File.open(uploaded_file.path).read)[0] # read in image binary, from_blob returns an array of images, grab first item
+      Uploader.generate_image(
+        :image => image,
+        :path => main_image_path,          
+        :resize_image => params[:keep_dimensions],
+        :resized_image_width => width,
+        :resized_image_height => height,
+        :generate_thumbnail => false
+      )           
+      flash[:success] = t("notice.item_create_success", :item => t("single.logo"))
+      log(:log_type => "system", :log => t("log.item_create", :item => t("single.logo"), :name => filename))  # log it
+    else
+      flash[:failure] = t("single.logo") + " " + t("activerecord.errors.messages.invalid_file_extension", :valid_extensions => acceptable_file_extensions)      
+    end
+    redirect_to :action => "index", :controller => "settings"
   end
-
-
-
 
   def delete_logo # delete the main logo, so opal will display text instead
     main_image_path = File.join(@setting[:theme_dir], "images", "logo.png") # location of main logo
@@ -154,7 +143,8 @@ class SettingsController < ApplicationController
     redirect_to :action => "themes"
   end
   
-  
-
-
+  def test_email
+    flash[:success] = "#{t("email.subject.test")} #{t("single.sent")}" if Emailer.test(@logged_in_user.email).deliver
+    redirect_to :back
+  end 
 end

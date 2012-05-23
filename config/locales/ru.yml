@@ -221,14 +221,16 @@ ru:
       item_new: "%{title}: Новый %{item} - %{name}"
       item_new_from_user: "%{title}: Новый %{item} от %{from} - %{name}"
       verification: "%{title}: Активации обязательна - %{name}"
-      plugin_comment_reply_notification: "%{user} ответил на Ваш комментарий"      
+      plugin_comment_reply_notification: "%{user} ответил на Ваш комментарий" 
+      test: "Email Settings Test"           
     message:
       item_new: "На сайте \"%{title}\", появился новый %{item}: %{name}. Читайте подробнее по ссылке: \n\n%{url}\n\n"
       item_new_from_user: "На сайте \"%{title}\", %{from} создал новый %{item}: %{name}. Читайте подробнее по ссылке:\n\n%{url}\n\n"
       new_message_from_user: "На сайте \"%{title}\", Вы получили сообщение от %{from}:\n\n%{message}\n\nВы можете ответить на это сообщение или прочитать другие сообщения по ссылке:\n\n%{url}\n\n"
       password_recovery: "На сайте \"%{title}\", для Вашего профиля (%{name}) был сделан запрос на восстановление пароля.\n\nTДля восстановление пароля, пройдите по следующей ссылке:\n\n%{url}\n\nЕсли вы не делали запроса, пожалуйста проигнорируйте этот email. Обращайтесь к администрации сайта \"%{title}\" по любым возникшим вопросам."  
       verification: "Для того чтобы вайти в Ваш профиль (%{name}) на сайте \"%{title}\", вы сначала должны подтвердить Ваш профиль нажатием на следующую ссылку подтверждения:\n\n%{url}"
-      plugin_comment_reply_notification: "%{user} ответил на Ваш комментарий для %{record}"            
+      plugin_comment_reply_notification: "%{user} ответил на Ваш комментарий для %{record}"
+      test: "This is a test email to confirm that your email settings are working."
   # Labels & Sentences
   label:
     create_account: Создать новый профиль

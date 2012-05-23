@@ -10,7 +10,7 @@
 		</div>		
 		<div class="menu">	
 			<%= content_tag :ul, :class => :menu do %>
-				<%= content_tag(:li, link_to(icon("new") + " " + t("label.item_new", :item => User.model_name.human), new_user_path)) %>			
+				<%= content_tag(:li, link_to(icon("new") + " " + t("label.item_new", :item => User.model_name.human), new_user_path)) %>	
 			<% end %>
 		</div>
 	</div>
@@ -18,52 +18,49 @@
 			
 	<div class="users">
 		<table width="100%" cellpadding=0 cellspacing=0 class="row_table">
-		<tr>
-			<th style="width:20px;"></th>
-			<th><b><%= User.human_attribute_name(:username) %></b></th>
-			<th><b><%= t("single.name") %></b></th>
-			<th><b><%= Group.model_name.human %></b></th>
-			<th><b><%= User.human_attribute_name(:current_login_at) %></b></th>
-			<th style="width:20px;"></th>
-			<th style="width:20px;"></th>
-		</tr>
-		<% for user in @users%>			
-			<tr class="<%= cycle("row_a", "row_b") %>">
-				<td>	
-				<%= link_to  user_avatar(user, :class => "tiny"), user, :title => "#{h user.username}"  %>
-				</td>
-				<td>
-					<%= icon("admin") if user.is_admin? %>									
-					<b><%= link_to "#{h user.username}", user %></b>
-				</td>
-				<td><i><%= h user.first_name %> <%= h user.last_name %></i></td>
-				<td>
-					<%= user.group.name %>
-				</td>
-				<td>
-					<% if user.current_login_at %>
-						<%= friendly_date user.current_login_at  %>
-					<% else %>
-						<%= t("single.none") %>
-					<% end %>
-				</td>
-				<td>
-					<%= link_to icon("edit"), edit_user_path(user), :class => "transparent" %>
-				</td>
-				<td>
-					<%= link_to icon("delete"), user, :confirm => t("confirm.delete_user"), :method => :delete, :class => "transparent" %>
-				</td>
-			</tr> 
-		<% end %>
-		</table>
-		
+			<tr>
+				<th style="width:20px;"></th>
+				<th><b><%= User.human_attribute_name(:username) %></b></th>
+				<th><b><%= t("single.name") %></b></th>
+				<th><b><%= Group.model_name.human %></b></th>
+				<th><b><%= User.human_attribute_name(:current_login_at) %></b></th>
+				<th style="width:20px;"></th>
+				<th style="width:20px;"></th>
+			</tr>
+			<% for user in @users%>			
+				<tr class="<%= cycle("row_a", "row_b") %>">
+					<td>	
+					<%= link_to  user_avatar(user, :class => "tiny"), user, :title => "#{h user.username}"  %>
+					</td>
+					<td>
+						<%= icon("admin") if user.is_admin? %>									
+						<b><%= link_to "#{h user.username}", user %></b>
+					</td>
+					<td><i><%= h user.first_name %> <%= h user.last_name %></i></td>
+					<td>
+						<%= user.group.name %>
+					</td>
+					<td>
+						<% if user.current_login_at %>
+							<%= friendly_date user.current_login_at  %>
+						<% else %>
+							<%= t("single.none") %>
+						<% end %>
+					</td>
+					<td>
+						<%= link_to icon("edit"), edit_user_path(user), :class => "transparent" %>
+					</td>
+					<td>
+						<%= link_to icon("delete"), user, :confirm => t("confirm.delete_user"), :method => :delete, :class => "transparent" %>
+					</td>
+				</tr> 
+			<% end %>
+		</table>		
 	</div>
 
-	<br>
-	<div align=center>
+	<div class="pagination">
 		<%= will_paginate @users %>
 	</div>
-	<br>	
 	
 </div>
 	

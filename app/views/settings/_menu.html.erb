@@ -2,6 +2,12 @@
 	<ul class="menu">
 		<li class="<%= (params[:action] == "themes" || params[:action] == "new_theme_install") ? "selected" : "" %> last">
 			<%= link_to icon("themes") + " " + t("single.theme", :count => :other), {:action => "themes", :controller => "settings"}, :class => (params[:action] == "themes" || params[:action] == "new_theme_install") ? "selected" : "" %>			
-		</li>		
+		</li>
+		<%= content_tag :li do %>
+			<%= link_to test_email_settings_path do  %>
+				<%= icon :mail %>
+				<%= t("email.subject.test") %>
+			<% end %> 
+		<% end %>		
 	</ul>	
 </div>

@@ -40,11 +40,11 @@ a.extra_options {padding:7px 0px;display:block;border-top:1px solid #ccc;}
 		}
 		input#search_box {
 			@include text-shadow(1px 1px 1px #000);
-			background:url(bgs/white_trans_10.png) repeat;
+			background:#666;
 			color:#ddd;
 			border-color:black;
 			&.selected {
-				background:url(bgs/white_trans_25.png) repeat;
+				background:#777;
 				color:white;
 			}
 		}

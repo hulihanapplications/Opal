@@ -94,8 +94,8 @@ Rails.application.routes.draw do
   # This takes low priority in the case that a page title conflicts with a controller route.
   # You can generate this url with the `page_root_path` helper method.
   Page.public.all.each do |page|
-    match page.slug, :controller => 'pages', :action => 'show', :id => page.slug
-  end
+    match page.to_param, :controller => 'pages', :action => 'show', :id => page.to_param
+  end if Page.table_exists? 
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.

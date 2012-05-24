@@ -12,7 +12,7 @@ module PagesHelper
   # Generate special root path for a page
   #   example.com/my-page
   def page_root_path(page)
-    "/#{page.slug}"
+    "/#{page.to_param}"
   end
 
   def show_page(page) # prints out page content

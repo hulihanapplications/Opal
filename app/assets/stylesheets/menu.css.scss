@@ -176,14 +176,8 @@ ul.record_menu, div.header ul.menu, ul.right {
 		}
 		span {
 			> a {
-				img {
-					@include icons-sprite(spacer);
-					padding-left:14px;					
-					&.avatar {
-						background:none;
-						padding-left:0px;
-					}
-				}
+				@include opacity(0.8);
+				&:hover {@include opacity(1.0);}
 			}
 		}
 		> span {

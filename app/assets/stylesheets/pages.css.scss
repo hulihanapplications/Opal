@@ -1,4 +1,7 @@
 /* Pages */
+.pages {
+	a.not-displayed-in-menu {font-style:italic}
+}
 .page {
 	margin-bottom:10px;
 	.content {
@@ -6,7 +9,6 @@
 	}
 }
 div#side > div.page {background:0;border:0;}
-
 
 /* Blog & Blog Posts */
 div#blog-header {display:none}

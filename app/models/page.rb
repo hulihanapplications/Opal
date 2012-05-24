@@ -19,8 +19,10 @@ class Page < ActiveRecord::Base
   before_validation(:on => :create) do 
     self.assign_order_number
   end 
-  
-  after_destroy :destroy_everything  
+
+  after_save :reload_routes  
+  after_destroy :destroy_subpages  
+  after_destroy :reload_routes
 
   attr_protected :user_id 
   serialize :group_ids, Array
@@ -43,7 +45,11 @@ class Page < ActiveRecord::Base
     title
   end
 
-  def destroy_everything
+  def reload_routes
+    Opal::Application.reload_routes!
+  end
+
+  def destroy_subpages
     for subpage in self.pages # delete all subpages
       if !subpage.deletable # if the subpage is not deletable, move to root
         subpage.update_attribute(:page_id, 0) 
@@ -52,7 +58,6 @@ class Page < ActiveRecord::Base
       end 
     end
   end 
-
 
   def validate_redirection_url
     if self.redirect

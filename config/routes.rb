@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 #    match "/#{Russian.translit(Item.model_name.human(:count => :other)).downcase}(/:action(/:id(.:format))", :controller => "items" # Russian variant uses transliteration to avoid encoding troubles 
 #  end
 
+  match "blog" => "blog#index"
   match '/blog/:year(/:month(/:day))',
                :controller => 'blog',
                :action     => 'archive',
@@ -70,6 +71,10 @@ Rails.application.routes.draw do
     get "view", :on => :member
   end  
 
+  match "cheese" => "admin#index"
+  match "cheese" => "browse#index"
+
+
   resources :settings do 
     collection do
       get "test_email"
@@ -84,11 +89,17 @@ Rails.application.routes.draw do
     end 
   end 
   
+  # Create cms-like page urls. 
+  #   example.com/my-page
+  # This takes low priority in the case that a page title conflicts with a controller route.
+  # You can generate this url with the `page_root_path` helper method.
+  Page.public.all.each do |page|
+    match page.slug, :controller => 'pages', :action => 'show', :id => page.slug
+  end
+
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   match ':controller(/:action(/:id(.:format)))'
-
-  
 end
 
 

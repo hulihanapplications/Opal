@@ -127,9 +127,15 @@
 										<%= icon("redirect") %>
 										<%= f.label :redirect %>
 									</div>	
-									<%= content_tag(:div, Page.human_attribute_name(:redirect_description), :class => "description") %>																										
-									<%= content_tag(:div, text_field("page", "redirect_url"), :class => "description") %>																																										
+									<%= content_tag(:div, Page.human_attribute_name(:redirect_description), :class => "description") %>
+									<%= content_tag(:div, text_field("page", "redirect_url"), :class => "description") %>
 								</div>			
+								<%= content_tag :div, :class => :field do %>
+									<div class="label">
+										<%= f.label :slug %>										
+									</div>
+									<%= f.text_field :slug %>
+								<% end if false %>
 						<% end %>																		
 					</td>					
 				</tr>

@@ -54,7 +54,9 @@ div#side ul.menu li span.count, div#side div.menu, div#side ul.menu li a.selecte
 div#side div.menu {
 	div.footer {
 		border-top:1px solid #aaa;
-		padding-top:5px;margin-top:5px;
+		padding-top:5px;
+		margin-top:5px;
+		text-align:center;
 	}
 } 				
 div#side ul.menu li.selected > ul, div#side ul.menu li.selected > div.menu ul {display:block;}
@@ -115,7 +117,7 @@ div#side ul.menu {
 
 div#side > div.menu > ul.menu {
 	> li {
-		border-bottom:1px solid #ccc;
+		border-bottom:1px solid #ddd;
 		border-top:1px solid #fff;		
 		&:first-child { border-top: none;}
 		&:last-child { border-bottom: none;}

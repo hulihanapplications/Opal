@@ -30,9 +30,7 @@
 					<% if options[:checkbox] %>					
 						<input type="checkbox" name=<%= options[:input_name] %>" value="<%=page.id %>" <%= checked_value %> <%= disabled_value %>>
 					<% end %>
-					<%= raw "<i>" if !page.display_in_menu %>				
-						<%= link_to(truncate(page.title, :length => options[:truncate_length]), {:action => "page",  :controller => "pages", :id => page}, :class => "page_link", :title => page.description) %>
-					<%= raw "</i>" if !page.display_in_menu %>									
+					<%= link_to(truncate(page.title, :length => options[:truncate_length]), page_path(page), :class => "page_link #{page.display_in_menu ? "displayed-in-menu" : "not-displayed-in-menu"}", :title => page.description) %>
 				</td>
 				<td align=right>
 					<%=  friendly_date page.created_at if (options[:show_date] || page.is_blog_post?) %>

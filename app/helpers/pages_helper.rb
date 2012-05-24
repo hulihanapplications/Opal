@@ -1,7 +1,18 @@
 module PagesHelper
   def link_to_page(page, options = {})
-    url ||= page_path(page)
-    raw link_to(page.title, url, :class => options[:class], :title => page.description.present? ? page.description : page.title)   
+    options[:url] ||= page_path(page)
+    raw link_to(page.title, options[:url], :class => options[:class], :title => page.description.present? ? page.description : page.title)   
+  end
+
+  # override default REST helper for page_path
+  def page_path(page)
+    page.is_public_page? ? page_root_path(page) : url_for(:action => :show, :controller => :pages, :id => page)
+  end 
+
+  # Generate special root path for a page
+  #   example.com/my-page
+  def page_root_path(page)
+    "/#{page.slug}"
   end
 
   def show_page(page) # prints out page content

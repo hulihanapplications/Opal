@@ -12,13 +12,12 @@
 					  path = {:action => "index", :controller => "items", :id => nil}
 					  selected = params[:controller] == "items"
 					when "blog"
-					  path = {:action => "index", :controller => "blog"}
+					  path = blog_path
 					  selected = params[:controller] == "blog"
 					else 
-					  path = page_path(page)
+					  path = page_root_path(page)
 					  selected = params[:controller] == "pages" && params[:id] == page.to_param
 					end 
-
 				%> 
 				<% subpages = page.pages.published.display_in_menu.in_order %>				
 				<%= content_tag :li, :class => "#{subpages.empty? ? nil : "with-subpages"} #{selected ? "selected" : nil}", :id => "main-menu-item-#{page.title.dasherized}" do -%>

@@ -9,8 +9,10 @@
 		<%= content_tag :ul, :class => :menu do %>
 			<% @post_archives.each do |date, posts|  %> 
 				<%= content_tag :li do %>
-					<%= link_to("#{date.strftime("%B %Y")} ", blog_archive_path(:year => date.strftime("%Y"), :month => date.strftime("%m"))) %>
-					<%= content_tag(:span, posts.size, :class => "count") %>
+					<%= link_to(blog_archive_path(:year => date.strftime("%Y"), :month => date.strftime("%m"))) do %>
+						<%= date.strftime("%B %Y") %>
+						<%= content_tag(:span, posts.size, :class => "count") %>
+					<% end %>
 				<% end %>
 			<% end %>
 		<% end %>

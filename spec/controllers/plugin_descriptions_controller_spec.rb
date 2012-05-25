@@ -12,8 +12,8 @@ describe PluginDescriptionsController do
   context "as user" do
     before(:each) do
       login_user
-      @record = Factory(:item, :user => @controller.set_user)
-      @description = Factory(:plugin_description, :record => @record)   
+      @record = FactoryGirl.create(:item, :user => @controller.set_user)
+      @description = FactoryGirl.create(:plugin_description, :record => @record)
     end 
         
     describe "new" do

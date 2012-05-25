@@ -22,7 +22,7 @@ describe LogsController do
 
     describe "for_item" do
       it "returns 200" do
-        get :for_item, {:id => Factory(:item).id}
+        get :for_item, {:id => FactoryGirl.create(:item).id}
         response.code.should eq("200")
       end      
     end

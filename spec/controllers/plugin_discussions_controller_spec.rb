@@ -12,8 +12,8 @@ describe PluginDiscussionsController do
   context "as user" do
     before(:each) do
       login_user
-      @record = Factory(:item, :user => @controller.set_user)
-   	  @discussion = Factory(:plugin_discussion, :record => @record)      
+      @record = FactoryGirl.create(:item, :user => @controller.set_user)
+   	  @discussion = FactoryGirl.create(:plugin_discussion, :record => @record)
     end 
     
     describe "create" do 

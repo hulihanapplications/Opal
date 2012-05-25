@@ -12,8 +12,8 @@ describe PluginCommentsController do
   context "as user" do
     before(:each) do
       login_user 
-      @item = Factory(:item, :user => current_user)
-      @comment = Factory(:plugin_comment, :record => @item, :user => @controller.set_user)   
+      @item = FactoryGirl.create(:item, :user => current_user)
+      @comment = FactoryGirl.create(:plugin_comment, :record => @item, :user => @controller.set_user)
     end 
         
     describe "new" do
@@ -45,7 +45,7 @@ describe PluginCommentsController do
       
       it "should work when trying to add to another user's item" do 
          expect{
-          item = Factory(:item)
+          item = FactoryGirl.create(:item)
           post(:create, {:record_type => item.class.name, :record_id => item.id, :plugin_comment => Factory.attributes_for(:plugin_comment)})
         }.to change(PluginComment, :count).by(+1)
         flash[:success].should_not be_nil       
@@ -54,30 +54,30 @@ describe PluginCommentsController do
 
       context "when comment is a reply to another comment" do
         it "parent_id should get saved if provided" do         
-          item = Factory(:item)
-          parent = Factory(:plugin_comment, :record => item)
+          item = FactoryGirl.create(:item)
+          parent = FactoryGirl.create(:plugin_comment, :record => item)
           post(:create, { :record_type => item.class.name, :record_id => item.id, :plugin_comment => Factory.attributes_for(:plugin_comment, :parent_id => parent.id)})
           assigns[:plugin_comment].parent_id.should == parent.id
           flash[:success].should_not be_nil       
         end     
         
         it "should send an email to the parent owner when they are a regular user" do
-          parent = Factory(:plugin_comment)          
+          parent = FactoryGirl.create(:plugin_comment)
           post(:create, { :record_type => @item.class.name, :record_id => @item.id, :plugin_comment => Factory.attributes_for(:plugin_comment, :parent_id => parent.id)})
           ActionMailer::Base.deliveries.empty?.should == false 
         end 
 
         it "should not send an email to the parent owner if they don't want notifications" do
-          user = Factory(:user)
+          user = FactoryGirl.create(:user)
           user.user_info.update_attribute(:notify_of_item_changes, false) # turn off user's notification setting
-          parent = Factory(:plugin_comment, :user => user)        
+          parent = FactoryGirl.create(:plugin_comment, :user => user)
           ActionMailer::Base.deliveries.clear # clear out unrelated emails  
           post(:create, { :record_type => @item.class.name, :record_id => @item.id, :plugin_comment => Factory.attributes_for(:plugin_comment, :parent_id => parent.id)})
           ActionMailer::Base.deliveries.empty?.should == true           
         end 
         
         it "should send an email to the parent owner when they are a visitor" do
-          parent = Factory(:plugin_comment_anonymous)          
+          parent = FactoryGirl.create(:plugin_comment_anonymous)
           post(:create, { :record_type => @item.class.name, :record_id => @item.id, :plugin_comment => Factory.attributes_for(:plugin_comment, :parent_id => parent.id)})
           ActionMailer::Base.deliveries.empty?.should == false           
         end        
@@ -114,7 +114,7 @@ describe PluginCommentsController do
        
     describe :create do
       it "should work when created by an anonymous user" do
-        record = Factory(:item)
+        record = FactoryGirl.create(:item)
         expect{
           post(:create, {:record_type => record.class.name, :record_id => record.id, :plugin_comment => Factory.attributes_for(:plugin_comment_anonymous)})
           flash[:success].should_not be_nil     

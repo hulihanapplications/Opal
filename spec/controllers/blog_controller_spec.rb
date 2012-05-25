@@ -4,7 +4,7 @@ describe BlogController do
   render_views
   
   before :each do 
-    @post = Factory(:blog_post)
+    @post = FactoryGirl.create(:blog_post)
   end
 
   describe "GET index" do

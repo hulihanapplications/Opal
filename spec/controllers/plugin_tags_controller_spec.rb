@@ -6,7 +6,7 @@ describe PluginTagsController do
   context "as user" do
     before(:each) do
       login_user
-      @record = Factory(:item, :user => current_user)
+      @record = FactoryGirl.create(:item, :user => current_user)
     end      
     
     describe "create" do 
@@ -20,7 +20,7 @@ describe PluginTagsController do
     
     describe "destroy" do 
       it "should reduce count and return success" do
-      @tag = Factory(:plugin_tag, :record => @record)
+      @tag = FactoryGirl.create(:plugin_tag, :record => @record)
         expect{
           post(:delete, {:record_id => @tag.id, :record_type => @tag.class.name})
           flash[:success].should_not be_nil

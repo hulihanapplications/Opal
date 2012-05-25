@@ -42,7 +42,7 @@ describe AuthenticationsController do
     
     describe "destroy" do
       it "decrements count" do
-        authentication = Factory(:authentication, :user => current_user)
+        authentication = FactoryGirl.create(:authentication, :user => current_user)
         expect{
           post(:destroy, {:id => authentication.id})
         }.to change(Authentication, :count).by(-1)

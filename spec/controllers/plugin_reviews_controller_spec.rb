@@ -13,8 +13,8 @@ describe PluginReviewsController do
   context "as user" do
     before(:each) do
       login_user 
-      @record = Factory(:item, :user => @controller.set_user)
-      @review = Factory(:plugin_review, :record => @record)   
+      @record = FactoryGirl.create(:item, :user => @controller.set_user)
+      @review = FactoryGirl.create(:plugin_review, :record => @record)
     end 
         
     describe "new" do
@@ -41,7 +41,7 @@ describe PluginReviewsController do
       
       it "should work when trying to add to another user's item" do 
          expect{
-          record = Factory(:item)
+          record = FactoryGirl.create(:item)
           post(:create, { :record_type => record.class.name, :record_id => record.id, :review => Factory.attributes_for(:plugin_review)})
         }.to change(PluginReview, :count).by(+1)
         flash[:success].should_not be_nil      	
@@ -69,5 +69,4 @@ describe PluginReviewsController do
     pending :vote
     pending :change_approval
   end
-
 end

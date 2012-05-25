@@ -1,5 +1,5 @@
 class Page < ActiveRecord::Base
-  has_ancestry if Page.table_exists? && column_names.include?("ancestry")
+  #has_ancestry if Page.table_exists? && column_names.include?("ancestry")
 
   if Page.table_exists? && Page.column_names.include?("slug")
     extend FriendlyId

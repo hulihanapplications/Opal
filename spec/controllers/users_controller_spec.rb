@@ -34,7 +34,7 @@ describe UsersController do
     
     describe "destroy" do
       it "decrements count" do
-        user = Factory(:user)
+        user = FactoryGirl.create(:user)
         expect{
           post(:destroy, {:id => user.id})
         }.to change(User, :count).by(-1)
@@ -45,7 +45,7 @@ describe UsersController do
 
     describe "edit" do
       it "returns 200" do
-        user = Factory(:user)       
+        user = FactoryGirl.create(:user)
         get(:edit, {:id => user.id})
         response.code.should eq("200")
       end      
@@ -53,7 +53,7 @@ describe UsersController do
     
     describe "update" do
       it "works when changing username" do
-        user = Factory(:user)       
+        user = FactoryGirl.create(:user)
         new_username = random_content
         post(:update, {:id => user.id, :user => {:username => new_username}})
         flash[:success].should_not be_nil
@@ -63,14 +63,14 @@ describe UsersController do
     
 		describe "toggle_user_disabled" do
 			it "enables the disabled user" do
-				user = Factory(:user)
+				user = FactoryGirl.create(:user)
 				user.update_attribute(:is_disabled, "1")
 				get(:toggle_user_disabled, {:id => user.id})
 				flash[:success].should_not be_nil
 				User.find(user.id).is_disabled.should == "0"
 			end
 			it "disables the enabled user" do
-				user = Factory(:user)
+				user = FactoryGirl.create(:user)
 				user.update_attribute(:is_disabled, "0")
 				get(:toggle_user_disabled, {:id => user.id})
 				flash[:success].should_not be_nil
@@ -80,14 +80,14 @@ describe UsersController do
 
 		describe "toggle_user_verified" do
 			it "unverifies the verified user" do
-				user = Factory(:user)
+				user = FactoryGirl.create(:user)
 				user.update_attribute(:is_verified, "1")
 				get(:toggle_user_verified, {:id => user.id})
 				flash[:success].should_not be_nil
 				User.find(user.id).is_verified.should == "0"
 			end
 			it "verifies the unverified user" do
-				user = Factory(:user)
+				user = FactoryGirl.create(:user)
 				user.update_attribute(:is_verified, "0")
 				get(:toggle_user_verified, {:id => user.id})
 				flash[:success].should_not be_nil
@@ -97,7 +97,7 @@ describe UsersController do
 
     describe "send_verification_email" do
 			it "sends an email to verify an account" do
-				user = Factory(:user)
+				user = FactoryGirl.create(:user)
 				get(:send_verification_email, {:id => user.id})
 				flash[:success].should_not be_nil
 				ActionMailer::Base.deliveries.last.to.should == [user.email]
@@ -109,7 +109,7 @@ describe UsersController do
   context "as user" do
     before(:each) do
       login_user
-      #@user = Factory(:item, :user => @controller.set_user)
+      #@user = FactoryGirl.create(:item, :user => @controller.set_user)
     end
     
     describe "change_password" do
@@ -150,7 +150,7 @@ describe UsersController do
   context "as visitor" do
     describe "show"  do
 			it "displays a page" do
-				get :show, :id => Factory(:user).id
+				get :show, :id => FactoryGirl.create(:user).id
 				response.should be_successful
 			end
 		end

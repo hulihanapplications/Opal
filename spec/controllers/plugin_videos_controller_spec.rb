@@ -12,7 +12,7 @@ describe PluginVideosController do
   context "as user" do
     before(:each) do
       login_user
-      @record = Factory(:item, :user => @controller.set_user)
+      @record = FactoryGirl.create(:item, :user => @controller.set_user)
     end 
         
     describe "new" do
@@ -24,7 +24,7 @@ describe PluginVideosController do
 
     describe "edit" do
       it "should return 200" do
-        @video = Factory(:plugin_video, :record => @record)
+        @video = FactoryGirl.create(:plugin_video, :record => @record)
         get :edit, {:record_type => @video.class.name, :record_id => @video.id}
         @response.code.should eq("200")
         @video.destroy # clean up
@@ -51,7 +51,7 @@ describe PluginVideosController do
     
     describe "destroy" do 
       it "should reduce count and return success" do
-      @video = Factory(:plugin_video, :record => @record)
+      @video = FactoryGirl.create(:plugin_video, :record => @record)
         expect{
           post(:delete, {:record_type => @video.class.name, :record_id => @video.id})
           flash[:success].should_not be_nil

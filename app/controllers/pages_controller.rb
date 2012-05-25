@@ -52,9 +52,10 @@ class PagesController < ApplicationController
     if @page.is_system_page? # Can't delete system pages
       flash[:failure] = t("notice.invalid_permissions")
     else 
-      log(:log_type => "destroy", :target => @page)
-      flash[:success] = t("notice.item_delete_success", :item => Page.model_name.human)
-      @page.destroy
+      if @page.destroy 
+        log(:log_type => "destroy", :target => @page)
+        flash[:success] = t("notice.item_delete_success", :item => Page.model_name.human)
+      end
     end
     redirect_to :action => 'index', :type => @page.page_type.capitalize     
   end  

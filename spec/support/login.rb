@@ -10,7 +10,7 @@ module RSpec
       
       def login_admin
         configure_request               
-        @controller.stub!(:current_user).and_return(Factory(:admin))
+        @controller.stub!(:current_user).and_return(FactoryGirl.create(:admin))
         wrap_with_controller do
           #post(:create, {:user_session => {:username => Factory.attributes_for(:admin)[:username], :password => Factory.attributes_for(:admin)[:password]}})                   
           #raise "Failed Logging in as #{Factory.attributes_for(:admin)[:username]}" if flash[:success].nil?
@@ -19,7 +19,7 @@ module RSpec
       
       def login_user
         configure_request       
-        @controller.stub!(:current_user).and_return(Factory(:user))
+        @controller.stub!(:current_user).and_return(FactoryGirl.create(:user))
         wrap_with_controller do
           #post(:create, {:user_session => {:username => Factory.attributes_for(:user)[:username], :password => Factory.attributes_for(:user)[:password]}})
           #raise "Failed Logging in as #{Factory.attributes_for(:user)[:username]}" if flash[:success].nil?          

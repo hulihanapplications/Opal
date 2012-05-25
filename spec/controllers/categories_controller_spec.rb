@@ -22,7 +22,7 @@ describe CategoriesController do
 
     describe "edit" do
       it "returns 200" do
-        get :edit, {:id => Factory(:category).id}
+        get :edit, {:id => FactoryGirl.create(:category).id}
         response.code.should eq("200")
       end      
     end
@@ -39,7 +39,7 @@ describe CategoriesController do
     
     describe "destroy" do
       it "destroys a category" do
-        category = Factory(:category)
+        category = FactoryGirl.create(:category)
         expect{
           post(:delete, {:id => category.id})
         }.to change(Category, :count).by(-1)
@@ -50,7 +50,7 @@ describe CategoriesController do
     
     describe "update" do
       it "saves changes" do
-        category = Factory(:category)       
+        category = FactoryGirl.create(:category)
         post(:update, {:id => category.id, :category => {:name => "New Name"}})
         flash[:success].should_not be_nil
         Category.find(category.id).name.should == "New Name" 

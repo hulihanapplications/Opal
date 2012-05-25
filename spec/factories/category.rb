@@ -1,3 +1,5 @@
-Factory.define :category do |o|
-  o.sequence(:name) { |n| "Category #{n}" }  
+FactoryGirl.define do
+  factory :category do |o|
+    o.sequence(:name) { |n| "Category #{n}" }  
+  end
 end

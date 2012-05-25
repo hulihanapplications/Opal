@@ -12,7 +12,7 @@ describe PluginController do
   context "as user" do
     before(:each) do
       login_user
-      @record = Factory(:plugin_comment, :record => Factory(:item, :user => @controller.set_user))      
+      @record = FactoryGirl.create(:plugin_comment, :record => FactoryGirl.create(:item, :user => @controller.set_user))
     end 
         
     describe :vote do 

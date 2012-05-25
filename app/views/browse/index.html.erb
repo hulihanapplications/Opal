@@ -22,10 +22,12 @@
 <% end if show_sidebar %>		
 	
 <%= render homepage if homepage %>
+
+
 <% if @setting[:homepage_type] == "new_items" %>
-	<%= render :partial => "browse/homepage_new_items" %>
+	<%#= render :partial => "browse/homepage_new_items" %>
 <% elsif @setting[:homepage_type] == "categories" %>
-	<%= render :partial => "browse/homepage_categories" %>
+	<%#= render :partial => "browse/homepage_categories" %>
 <% else %>
 	<%# Display nothing %>
 <% end %> 			

@@ -30,7 +30,7 @@ describe PluginImagesController do
   context "as user" do
     before(:each) do
       login_user
-      @record = Factory(:item, :user => @controller.set_user)
+      @record = FactoryGirl.create(:item, :user => @controller.set_user)
     end 
         
     describe "new" do
@@ -42,7 +42,7 @@ describe PluginImagesController do
 
     describe "edit" do
       it "should return 200" do
-        @image = Factory(:plugin_image, :record => @record)
+        @image = FactoryGirl.create(:plugin_image, :record => @record)
         get :edit, {:record_type => @image.class.name, :record_id => @image.id}
         @response.code.should eq("200")
         @image.destroy # clean up
@@ -69,7 +69,7 @@ describe PluginImagesController do
    	
    	describe "destroy" do 
    	  it "should reduce count and return success" do
-   		@image = Factory(:plugin_image, :record => @record)
+   		@image = FactoryGirl.create(:plugin_image, :record => @record)
         expect{
           post(:delete, {:record_type => @image.class.name, :record_id => @image.id})
           flash[:success].should_not be_nil
@@ -79,7 +79,7 @@ describe PluginImagesController do
    	
    	describe "tinymce" do 
    	  it "should work with a record" do   	     
-        @image = Factory(:plugin_image, :record => @record)
+        @image = FactoryGirl.create(:plugin_image, :record => @record)
         get(:tinymce, {:record_type => @record.class.name, :record_id => @record.id})
         @response.code.should eq("200")      
    	  end

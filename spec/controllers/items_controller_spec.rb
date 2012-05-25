@@ -17,7 +17,7 @@ describe ItemsController do
 
     describe "edit" do
       it "returns 200" do
-        get :edit, {:id => Factory(:item).id}
+        get :edit, {:id => FactoryGirl.create(:item).id}
         response.code.should eq("200")
       end      
     end
@@ -49,7 +49,7 @@ describe ItemsController do
     
     describe "destroy" do
       it "destroys a item" do
-        item = Factory(:item)
+        item = FactoryGirl.create(:item)
         expect{
           post(:delete, {:id => item.id})
         }.to change(Item, :count).by(-1)
@@ -60,7 +60,7 @@ describe ItemsController do
     
     describe "update" do
       it "saves changes" do
-        item = Factory(:item)     
+        item = FactoryGirl.create(:item)
         post(:update, {:id => item.id, :item => {:name => "New Name"}})
         flash[:success].should_not be_nil
         Item.find(item.id).name.should == "New Name" 
@@ -85,8 +85,8 @@ describe ItemsController do
     
     describe "set_preview" do
       it "should work with the right params" do
-        item = Factory(:item)
-        post :set_preview, {:id => item, :preview_id => Factory(:plugin_image, :record => item).id, :preview_type => PluginImage.name}
+        item = FactoryGirl.create(:item)
+        post :set_preview, {:id => item, :preview_id => FactoryGirl.create(:plugin_image, :record => item), :preview_type => PluginImage.name}
         flash[:success].should_not be_nil
         item.preview_type.should == PluginImage.name
         @response.code.should eq("302")
@@ -102,7 +102,7 @@ describe ItemsController do
     describe "create" do
       it "fails when user has created maximum amount of items" do
         Setting.set(:max_items_per_user, 1)
-        previously_created_item = Factory(:item, :user => current_user)
+        previously_created_item = FactoryGirl.create(:item, :user => current_user)
         expect{
           post(:create, {:item => Factory.attributes_for(:item)})
         }.to change(Item, :count).by(0)
@@ -145,28 +145,28 @@ describe ItemsController do
     
     describe "category" do
       it "should return 200" do 
-        get :category, {:id =>  Factory(:category)}
+        get :category, {:id =>  FactoryGirl.create(:category)}
         @response.code.should eq("200")
       end
     end
 
     describe "view" do
       it "should return 200" do 
-        get :view, {:id =>  Factory(:item_with_plugins)}
+        get :view, {:id =>  FactoryGirl.create(:item_with_plugins)}
         @response.code.should eq("200")
       end
     end
         
     describe "rss" do
       it "should return 200" do 
-        get :rss, {:id =>  Factory(:item_with_plugins), :format => :xml}
+        get :rss, {:id =>  FactoryGirl.create(:item_with_plugins), :format => :xml}
         @response.code.should eq("200")
       end
     end   
 
     describe "tag" do
       it "should return 200" do 
-        item = Factory(:item_with_plugins)
+        item = FactoryGirl.create(:item_with_plugins)
         get :tag, {:tag =>  PluginTag.first.name}
         @response.code.should eq("200")
       end

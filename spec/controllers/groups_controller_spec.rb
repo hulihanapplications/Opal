@@ -22,7 +22,7 @@ describe GroupsController do
 
     describe "edit" do
       it "returns 200" do
-        get :edit, {:id => Factory(:group).id}
+        get :edit, {:id => FactoryGirl.create(:group).id}
         response.code.should eq("200")
       end      
     end
@@ -39,7 +39,7 @@ describe GroupsController do
     
     describe "destroy" do
       it "destroys a group" do
-        group = Factory(:group)
+        group = FactoryGirl.create(:group)
         expect{
           post(:delete, {:id => group.id})
         }.to change(Group, :count).by(-1)
@@ -50,7 +50,7 @@ describe GroupsController do
     
     describe "update" do
       it "saves changes" do
-        group = Factory(:group)       
+        group = FactoryGirl.create(:group)
         post(:update, {:id => group.id, :group => {:name => "New Name"}})
         flash[:success].should_not be_nil
         assigns[:group].name.should == "New Name" 

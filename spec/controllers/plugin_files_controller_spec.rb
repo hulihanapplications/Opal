@@ -12,7 +12,7 @@ describe PluginFilesController do
   context "as user" do
     before(:each) do
       login_user
-      @item = Factory(:item, :user => @controller.set_user)
+      @item = FactoryGirl.create(:item, :user => @controller.set_user)
     end      
     
     describe "create" do 
@@ -27,7 +27,7 @@ describe PluginFilesController do
     
     describe "destroy" do 
       it "should reduce count and return success" do
-      @file = Factory(:plugin_file, :record => @item)
+      @file = FactoryGirl.create(:plugin_file, :record => @item)
         expect{
           post(:delete, {:record_type => @file.class.name, :record_id => @file.id})
           flash[:success].should_not be_nil
@@ -43,7 +43,7 @@ describe PluginFilesController do
     
     describe "download" do
       it "should return 200" do
-        @file = Factory(:plugin_file)
+        @file = FactoryGirl.create(:plugin_file)
         get(:download, {:record_type => @file.class.name, :record_id => @file.id})
         response.code.should eq("200")
       end 

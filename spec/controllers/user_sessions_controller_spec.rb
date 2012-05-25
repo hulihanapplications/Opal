@@ -8,7 +8,7 @@ describe UserSessionsController do
       login_anonymous 
       
       @password = "somepassword"
-      @user = Factory(:user, :password => @password)
+      @user = FactoryGirl.create(:user, :password => @password)
     end 
     
     describe "new" do

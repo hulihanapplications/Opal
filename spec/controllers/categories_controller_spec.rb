@@ -30,7 +30,7 @@ describe CategoriesController do
     describe "create" do
       it "adds a category" do
         expect{
-          post(:create, {:category => Factory.attributes_for(:category)})
+          post(:create, {:category => FactoryGirl.attributes_for(:category)})
         }.to change(Category, :count).by(+1)
         flash[:success].should_not be_nil
         @response.should redirect_to(:action => "index")

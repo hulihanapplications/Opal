@@ -61,7 +61,7 @@ describe PluginImagesController do
       
       it "should fail when an file is not included" do
         expect{          
-          post(:create, {:record_type => @record.class.name, :record_id => @record.id, :plugin_image => Factory.attributes_for(:plugin_image, :image => nil)})
+          post(:create, {:record_type => @record.class.name, :record_id => @record.id, :plugin_image => FactoryGirl.attributes_for(:plugin_image, :image => nil)})
           flash[:failure].should_not be_nil
         }.to change(PluginImage, :count).by(0)               
       end

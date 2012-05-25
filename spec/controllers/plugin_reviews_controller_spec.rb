@@ -34,7 +34,7 @@ describe PluginReviewsController do
     describe "create" do 
       it "should work normally" do
         expect{
-          post(:create, { :record_type => @record.class.name, :record_id => @record.id, :review => Factory.attributes_for(:plugin_review)})
+          post(:create, { :record_type => @record.class.name, :record_id => @record.id, :review => FactoryGirl.attributes_for(:plugin_review)})
         }.to change(PluginReview, :count).by(+1)
         flash[:success].should_not be_nil     
       end   
@@ -42,7 +42,7 @@ describe PluginReviewsController do
       it "should work when trying to add to another user's item" do 
          expect{
           record = FactoryGirl.create(:item)
-          post(:create, { :record_type => record.class.name, :record_id => record.id, :review => Factory.attributes_for(:plugin_review)})
+          post(:create, { :record_type => record.class.name, :record_id => record.id, :review => FactoryGirl.attributes_for(:plugin_review)})
         }.to change(PluginReview, :count).by(+1)
         flash[:success].should_not be_nil      	
       end  

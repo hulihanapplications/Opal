@@ -33,7 +33,7 @@ describe PluginDescriptionsController do
     describe "create" do 
       it "should work normally" do
         expect{
-          post(:create, {:record_id =>  @record.id, :record_type => @record.class.name, :description => Factory.attributes_for(:plugin_description)})
+          post(:create, {:record_id =>  @record.id, :record_type => @record.class.name, :description => FactoryGirl.attributes_for(:plugin_description)})
         }.to change(PluginDescription, :count).by(+1)
         flash[:success].should_not be_nil
       end        

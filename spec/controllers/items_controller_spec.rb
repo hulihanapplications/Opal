@@ -25,7 +25,7 @@ describe ItemsController do
     describe "create" do
       it "adds a item" do
         expect{
-          post(:create, {:item => Factory.attributes_for(:item)})
+          post(:create, {:item => FactoryGirl.attributes_for(:item)})
         }.to change(Item, :count).by(+1)
         flash[:success].should_not be_nil
         @response.should redirect_to(:action => "view", :id => assigns[:item])
@@ -33,7 +33,7 @@ describe ItemsController do
       
       it "renders new when name is missing" do
         expect{
-          post(:create, {:item => Factory.attributes_for(:item, :name => nil)})
+          post(:create, {:item => FactoryGirl.attributes_for(:item, :name => nil)})
         }.to change(Item, :count).by(0)
         flash[:failure].should_not be_nil
         @response.should render_template("new")
@@ -41,7 +41,7 @@ describe ItemsController do
 
       it "creates an image from nested attributes" do
         expect{
-          post :create, {:item => Factory.attributes_for(:item, :plugin_images_attributes => {"0" => Factory.attributes_for(:plugin_image_remote)}) }
+          post :create, {:item => FactoryGirl.attributes_for(:item, :plugin_images_attributes => {"0" => FactoryGirl.attributes_for(:plugin_image_remote)}) }
         }.to change(Item, :count).by(+1) && change(PluginImage, :count).by(+1)
         @response.should redirect_to(:action => "view", :id => assigns[:item])
       end      
@@ -104,7 +104,7 @@ describe ItemsController do
         Setting.set(:max_items_per_user, 1)
         previously_created_item = FactoryGirl.create(:item, :user => current_user)
         expect{
-          post(:create, {:item => Factory.attributes_for(:item)})
+          post(:create, {:item => FactoryGirl.attributes_for(:item)})
         }.to change(Item, :count).by(0)
         flash[:failure].should_not be_nil
       end      

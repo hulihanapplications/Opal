@@ -6,7 +6,7 @@ describe PluginReview do
       record = FactoryGirl.create(:item )
       user = FactoryGirl.create(:user)
       first_review = FactoryGirl.create(:plugin_review, :user => user, :record => record)
-      second_review = Factory.build(:plugin_review, :user => user, :record => record)
+      second_review = FactoryGirl.build(:plugin_review, :user => user, :record => record)
       second_review.save.should == false
       second_review.errors.size.should_not == 0      
     end

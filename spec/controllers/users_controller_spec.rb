@@ -25,7 +25,7 @@ describe UsersController do
     describe "create" do
       it "increments count" do
         expect{
-          post(:create, {:user => Factory.attributes_for(:user)})
+          post(:create, {:user => FactoryGirl.attributes_for(:user)})
         }.to change(User, :count).by(+1)
         flash[:success].should_not be_nil
         @response.should redirect_to(users_path)

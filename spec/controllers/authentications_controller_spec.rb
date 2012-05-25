@@ -32,7 +32,7 @@ describe AuthenticationsController do
 =begin
       it "increments count" do
         expect{
-          post(:create, {:authentication => Factory.attributes_for(:user)})
+          post(:create, {:authentication => FactoryGirl.attributes_for(:user)})
         }.to change(Authentication, :count).by(+1)
         flash[:success].should_not be_nil
         @response.should redirect_to(users_path)

@@ -34,7 +34,7 @@ describe PluginVideosController do
     describe "create" do 
       it "should create video with embedded code" do
         expect{
-          post(:create, {:record_type => @record.class.name, :record_id => @record.id, :plugin_video => Factory.attributes_for(:plugin_video)})
+          post(:create, {:record_type => @record.class.name, :record_id => @record.id, :plugin_video => FactoryGirl.attributes_for(:plugin_video)})
           flash[:success].should_not be_nil
         }.to change(PluginVideo, :count).by(+1)
         assigns[:video].destroy # clean up
@@ -42,7 +42,7 @@ describe PluginVideosController do
 
       it "should create video with uplpoaded file" do
         expect{
-          post(:create, {:record_type => @record.class.name, :record_id => @record.id, :plugin_video => Factory.attributes_for(:uploaded_plugin_video)})
+          post(:create, {:record_type => @record.class.name, :record_id => @record.id, :plugin_video => FactoryGirl.attributes_for(:uploaded_plugin_video)})
           flash[:success].should_not be_nil
         }.to change(PluginVideo, :count).by(+1)
         assigns[:video].destroy # clean up

@@ -18,7 +18,7 @@ describe PluginFilesController do
     describe "create" do 
       it "should work with local file" do
         expect{
-          post(:create, {:record_type => @item.class.name, :record_id => @item.id, :plugin_file => Factory.attributes_for(:plugin_file)})
+          post(:create, {:record_type => @item.class.name, :record_id => @item.id, :plugin_file => FactoryGirl.attributes_for(:plugin_file)})
         }.to change(PluginFile, :count).by(+1)
         flash[:success].should_not be_nil
         assigns[:file].destroy # clean up

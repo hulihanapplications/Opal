@@ -19,7 +19,7 @@ describe PluginDiscussionsController do
     describe "create" do 
       it "should work normally" do
         expect{
-          post(:create, {:record_type => @record.class.name, :record_id => @record.id, :discussion => Factory.attributes_for(:plugin_discussion)})
+          post(:create, {:record_type => @record.class.name, :record_id => @record.id, :discussion => FactoryGirl.attributes_for(:plugin_discussion)})
           flash[:success].should_not be_nil
         }.to change(PluginDiscussion, :count).by(+1)
       end        

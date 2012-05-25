@@ -30,7 +30,7 @@ describe GroupsController do
     describe "create" do
       it "adds a group" do
         expect{
-          post(:create, {:group => Factory.attributes_for(:group)})
+          post(:create, {:group => FactoryGirl.attributes_for(:group)})
         }.to change(Group, :count).by(+1)
         flash[:success].should_not be_nil
         @response.should redirect_to(:action => "index")

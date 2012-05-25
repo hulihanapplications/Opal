@@ -6,9 +6,13 @@ Factory.define :page do |o|
   o.content       '<div style="text-align: center;">This is some test content!</div>' 
 end
 
+Factory.define :blog_post, :parent => :page do |o|
+  o.title         "Test Blog Post"
+end
+
 Factory.define :page_with_redirect, :parent => :page do |o|
   o.redirect true
-  o.redirect_url "/"
+  o.redirect_url "http://www.google.com"
 end
 
 Factory.define :group_access_only_page, :parent => :page do |o|

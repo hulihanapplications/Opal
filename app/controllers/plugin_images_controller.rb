@@ -71,11 +71,16 @@ class PluginImagesController < PluginController
     @plugin_image = PluginImage.new
     if @record.is_a?(Item)
       @images = PluginImage.record(@record).paginate(:page => params[:page], :per_page => 25)
+      render :layout => "tinymce_popup"        
     else
-      authenticate_admin
-      @images = PluginImage.paginate(:page => params[:page], :per_page => 25)      
+      if @logged_in_user.is_admin? 
+        @images = PluginImage.paginate(:page => params[:page], :per_page => 25)      
+        render :layout => "tinymce_popup"  
+      else 
+        flash[:failure] = t("notice.invalid_permissions")
+        redirect_to root_path
+      end
     end 
-    render :layout => "tinymce_popup"  
   end
   
 private  

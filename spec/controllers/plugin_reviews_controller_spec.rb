@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe PluginReviewsController do  
   render_views
+
   
   describe "as admin" do
     before(:each) do
@@ -50,7 +51,7 @@ describe PluginReviewsController do
     describe :update do 
       it "should work normally" do
       	new_content = random_content
-        post(:update, { :record_type => @review.class.name, :record_id => @review.id, :review => {:review => new_content, :review_score => @review.review_score}})
+        post(:update, {:record_type => @review.class.name, :record_id => @review.id, :review => {:review => new_content, :review_score => @review.review_score}})
         PluginReview.find(@review.id).review == new_content
         flash[:success].should_not be_nil     
       end      	

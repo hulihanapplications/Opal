@@ -1,13 +1,9 @@
 module PagesHelper
   def link_to_page(page, options = {})
-    options[:url] ||= page_path(page)
-    raw link_to(page.title, options[:url], :class => options[:class], :title => page.description.present? ? page.description : page.title)   
+    options[:truncate_length] ||= 30
+    options[:url] ||= page.is_public_page? ? page_root_path(page) : page_path(page)
+    raw link_to(truncate(page.title, :length => options[:truncate_length]), options[:url], :class => options[:class], :title => page.description.present? ? page.description : page.title)   
   end
-
-  # override default REST helper for page_path
-  def page_path(page)
-    page.is_public_page? ? page_root_path(page) : url_for(:action => :show, :controller => :pages, :id => page)
-  end 
 
   # Generate special root path for a page
   #   example.com/my-page
@@ -18,7 +14,7 @@ module PagesHelper
   def show_page(page) # prints out page content
     if page && page.content 
       #return raw page.content
-      return content_tag(:div, raw(page.content), :class => "page") unless page.content.blank?
+      return content_tag(:div, raw(page.content), :class => "content") unless page.content.blank?
     else # either no page found or no content for page.
       return nil
     end

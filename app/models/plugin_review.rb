@@ -21,7 +21,7 @@ class PluginReview < ActiveRecord::Base
   validates_presence_of :review_score
   validates_presence_of :record_id, :user_id
   validates_length_of :review, :minimum => 16
-  validate :validate_existing_review
+  validate :validate_existing_review, :on => :create
   validate :validate_owner
   validate :validate_range
   

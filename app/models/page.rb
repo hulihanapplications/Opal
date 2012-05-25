@@ -14,7 +14,7 @@ class Page < ActiveRecord::Base
   validates_uniqueness_of :title, :scope => "page_id"
   validates_presence_of :title, :order_number   
   validate :cannot_belong_to_self
-  validate :validate_redirection_url
+  #validate :validate_redirection_url
 
   before_validation(:on => :create) do 
     self.assign_order_number
@@ -61,7 +61,7 @@ class Page < ActiveRecord::Base
 
   def validate_redirection_url
     if self.redirect
-        validates_format_of :redirect_url, :with => Cregexp.url
+      validates_format_of :redirect_url, :with => Cregexp.url
     end 
   end
 

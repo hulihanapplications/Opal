@@ -8,6 +8,6 @@
 	
 <%= render :partial => "navigation", :locals => {:page => @page} %>
 
-<div class="page" id="page">
+<div class="page" id="page-<%= @page.to_param %>">
 	<%= render @page %>
 </div>

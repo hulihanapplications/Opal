@@ -80,7 +80,7 @@ describe PluginImagesController do
    	describe "tinymce" do 
    	  it "should work with a record" do   	     
         @image = Factory(:plugin_image, :record => @record)
-        post(:tinymce, {:record_type => @image.class.name, :record_id => @image.id})
+        get(:tinymce, {:record_type => @record.class.name, :record_id => @record.id})
         @response.code.should eq("200")      
    	  end
    	end

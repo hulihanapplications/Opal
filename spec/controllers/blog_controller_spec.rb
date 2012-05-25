@@ -3,6 +3,10 @@ require 'spec_helper'
 describe BlogController do
   render_views
   
+  before :each do 
+    @post = Factory(:blog_post)
+  end
+
   describe "GET index" do
     it "has a 200 status code" do
       get :index
@@ -34,7 +38,7 @@ describe BlogController do
   
   describe "post" do 
     it "should work" do
-      get :post, :id => Page.blog.published.first.id
+      get :post, :id => @post.to_param
       @response.code.should eq("200")
     end 
   end

@@ -32,7 +32,7 @@ Opal::Application.configure do
   #
   #   bundle exec rake assets:precompile RAILS_ENV=production
   #  
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
@@ -41,7 +41,7 @@ Opal::Application.configure do
   config.assets.digest = true
   
   # Disable delivery errors, bad email addresses will be ignored
-  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options = { :host => "localhost" }
 
   # Deprecation notices 

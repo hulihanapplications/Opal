@@ -66,9 +66,9 @@ class Page < ActiveRecord::Base
   end
 
   # return group ids as ints 
-  def group_ids
-    self["group_ids"].collect{|o|o.to_i}
-  end
+  #def group_ids
+  #  self["group_ids"].collect{|o|o.to_i}
+  #end
   
   def model_name(count = 1) # return human name of instance
     I18n.t("activerecord.models.#{(self.page_type.capitalize + "Page").underscore}", :count => count, :default => Page.model_name) 

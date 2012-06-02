@@ -69,19 +69,23 @@ Install all of Opal's required gems using bundler:
 
 ```sh
 cd Opal
-bundle install --without development test
+bundle install --without test
 ```
 
 * You may get an error here regarding [magick](http://dev.hulihanapplications.com/wiki/opal/RMagick) if you don't have it already installed. Check out this [Wiki Guide](http://dev.hulihanapplications.com/wiki/opal/RMagick) for help.
 
-## Step 3 - It's time to rake 
+## Step 3 - Database configurations
+
+Next, edit `config/database.yml` to use your preferred database system. If you don't create this file, one will automatically be generated for you that uses sqlite.
+
+## Step 4 - It's time to rake 
 
 Next, Run these commands (while in the Opal directory) to install Opal's required stuff (database structure, assets, etc.) in production mode: 
 
 ```sh
 bundle exec rake db:migrate RAILS_ENV=production LOCALE=en
 bundle exec rake db:seed RAILS_ENV=production LOCALE=en
-bundle exec rake assets:precompile:nondigest RAILS_ENV=production 
+bundle exec rake assets:precompile:nondigest
 
 # Install Sample Items, Categories, etc.
 bundle exec rake db:sample RAILS_ENV=production LOCALE=en
@@ -89,7 +93,7 @@ bundle exec rake db:sample RAILS_ENV=production LOCALE=en
 
 These commands will create the database structure of Opal in production mode. If you leave out *RAILS_ENV=PRODUCTION*, everything will be installed into your development database instead. This will also set up the default admin account, some sample items, and other stuff to help you get started with Opal. You can also specify the *LOCALE* variable to install Opal in a language other than english. 
 
-## Step 4 - Fire 'er up 
+## Step 5 - Fire 'er up 
 
 You can now start Opal using the 'thin' webserver...
 

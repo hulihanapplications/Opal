@@ -1,7 +1,7 @@
 PATH
   remote: vendor/gems
   specs:
-    opal (0.8.2)
+    opal (0.9.0)
 
 PATH
   remote: vendor/gems/make_voteable-106adecfad30

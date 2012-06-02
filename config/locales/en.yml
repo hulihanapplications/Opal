@@ -332,7 +332,6 @@ en:
     delete: Are you sure you want to delete this?
     delete_user: Are you sure you want to delete this user? Everything this user has ever created will be deleted also! If you don't want this to happen, you could disable their account instead.
     item_delete: Are you sure you want to delete this %{item}?
-    install_sample_data: "Install Sample Data? (Example Items, Categories, Users)"                  
   activerecord:
     # System Records/Objects
     records: 

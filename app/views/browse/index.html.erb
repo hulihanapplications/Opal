@@ -2,7 +2,7 @@
 	homepage =  Page.find_by_name("home")
 	homepage_sidebar =  Page.system.find_by_name("home_page_sidebar")
 	homepage_subpages = homepage.pages.display_in_menu.published.in_order
-	show_sidebar = homepage_subpages.size > 0 || !homepage_sidebar.content.blank? 
+	show_sidebar = homepage_subpages.size > 0 || (homepage_sidebar && !homepage_sidebar.content.blank?)
 %>
 
 <% content_for :side do %>

@@ -38,7 +38,7 @@
 														<%= feature_icon feature %>
 														<%= feature.name %>
 														<% if feature.is_required %>
-															<img src="/themes/<%= @setting[:theme] %>/images/icons/required.png" class="icon"  alt="" title="<%= t("single.required") %>">
+															<%= icon :required %>			
 														<% end %>												
 													</h3>											
 												</td>

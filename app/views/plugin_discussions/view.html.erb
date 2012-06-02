@@ -25,7 +25,7 @@
 				</form>	
 			<% else %>
 				<div align=center >
-					<img src="/themes/<%= @setting[:theme] %>/images/icons/failure.png" class="icon">
+					<%= icon :failure %>			
 					<%= t("notice.user_not_logged_in") %>
 				</div>		
 			<% end %>

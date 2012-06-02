@@ -28,9 +28,9 @@
 						  </td>
 						  <td style="width:20px;vertical-align:middle;text-align:center">
 						    <% if message.is_replied_to? && message.message_replied_to %>
-								<img src="/themes/<%= @setting[:theme] %>/images/icons/reply.png" class="icon" title="<%= t("single.reply") + " " + t("single.to") + " " + message.user_to.username %>">																	  	
+						    	<%= icon :reply %>																			  	
 							<% else %>
-								<img src="/themes/<%= @setting[:theme] %>/images/icons/arrow_right.png" class="icon" title="<%= t("single.to") %>">										  	
+								<%= icon :arrow_right %>											  	
 							<% end %>
 						  </td>
 						  <td style="width:20px;vertical-align:middle;text-align:center">
@@ -69,7 +69,7 @@
 					<% end %>
 					<div class="box_2" align=center>
 						<% if message.user_from %>
-							<img src="/themes/<%= @setting[:theme] %>/images/icons/arrow_left.png" title="<%= t("single.reply") %>" class="icon">														
+							<%= icon :arrow_left %>			
 							<a href="javascript:toggle_box('reply_box_<%= message.id %>')">
 								<%= t("single.reply") + " " + t("single.to") + " " + message.user_from.username %>
 							</a>

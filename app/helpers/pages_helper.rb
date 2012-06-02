@@ -70,8 +70,8 @@ module PagesHelper
           html += "<td align=right>#{friendly_date page.created_at}</td>" if options[:show_date]
          
           if options[:admin_controls] # show admin controls      
-            html += "<td align=right class=\"icon_column\"><img src=\"/themes/#{@setting[:theme]}/images/icons/private.png\" class=\"icon help\" title=\"This is not published and cannot be seen by others.\"></td>" if !page.published                        
-            html += "<td align=right class=\"icon_column\"><img src=\"/themes/#{@setting[:theme]}/images/icons/help.png\" class=\"icon help\" title=\"#{page.description}\"></td>" if page.description && page.description != ""            
+            html += "<td align=right class=\"icon_column\">#{icon(:private)}</td>" if !page.published                        
+            html += "<td align=right class=\"icon_column\">#{icon(:help, page.description)}\"></td>" if page.description && page.description != ""            
             html += "<td align=right class=\"icon_column\">" + link_to(icon("new", "#{t("label.item_new_child", :item => Page.model_name.human)}"), {:action => "new", :controller => "pages", :id => page}, :class => "transparent") + "</td>" if page.is_public_page?              
             html += "<td align=right class=\"icon_column\">" + link_to(icon("edit"), {:action => "edit", :controller => "pages", :id => page}, :class => "transparent") + "</td>" 
             html += "<td align=right class=\"icon_column\">" + link_to(icon("delete"), {:action => "delete", :controller => "pages", :id => page}, :confirm => "Are you sure you want to delete this?", :class => "transparent") + "</td>" if !page.is_system_page? && page.deletable 

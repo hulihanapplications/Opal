@@ -4,8 +4,10 @@
 %>
 <div class="plugin_link box_2" id="link_box_<%= plugin_link.id %>">
 	<%= render :partial => "plugins/record_menu", :locals => { :record => plugin_link, :options => {:edit => false}} if options[:controls] && plugin_link.can?(@logged_in_user, :delete) %>																					
-	<img src="/themes/<%= @setting[:theme] %>/images/icons/link.png" class="icon"  title="<%= plugin_link.title %>" alt="">
 	<span id="link_<%= plugin_link.id %>">
-		<a href="<%= plugin_link.url %>" target="_blank"><%= plugin_link.title %></a>
+		<a href="<%= plugin_link.url %>" target="_blank">
+			<%= icon :link %>
+			<%= plugin_link.title %>
+		</a>
 	</span>
 </div>

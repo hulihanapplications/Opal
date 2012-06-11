@@ -17,6 +17,8 @@ class Category < ActiveRecord::Base
   default_scope order("name ASC")
   scope :root, where(:category_id => 0)
   
+  attr_accessible :name, :description, :category_id
+
   def to_s
     name
   end

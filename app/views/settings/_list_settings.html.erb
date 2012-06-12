@@ -8,7 +8,7 @@
 
 	<%= content_tag :div, :class => :settings do %>
 		<% for setting in settings %>
-			<%= render setting %>		
+			<%= render "settings/setting", :setting => setting %>		
 	    <% end %>
   	<% end %>
 </div>

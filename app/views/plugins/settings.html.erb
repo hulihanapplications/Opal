@@ -1,28 +1,22 @@
-<% content_for :side do %>
-	<%= render :partial => "/items/menu" %>
-<% end %>
 <div class="section">
+	<div class="header">					
+		<h2 class="title">
+			<%= PluginSetting.model_name.human(:count => :other) %> <%= t("single.for") %> <%= @plugin.model_name.human(:count => :other) %>
+		</h2>						
+	</div>
 
 
-
-			<div class="header">					
-				<h2 class="title">
-					<%= PluginSetting.model_name.human(:count => :other) %> <%= t("single.for") %> <%= @plugin.model_name.human(:count => :other) %>
-				</h2>						
+	<% if @plugin.plugin_settings.size > 0  %>
+		<%= form_tag({:action => "update_plugin_settings"}) do %>
+			<%= render :partial => "/settings/list_settings", :locals => {:settings => @plugin.plugin_settings} %>
+			 	<br>
+			<div align=center>
+				<%= submit_tag t("single.save"), :class => "button_1"  %>
 			</div>
-
-
-			<% if @plugin.plugin_settings.size > 0  %>
-				<%= form_tag({:action => "update_plugin_settings"}) do %>
-					<%= render :partial => "/settings/list_settings", :locals => {:settings => @plugin.plugin_settings} %>
-					 	<br>
-					<div align=center>
-						<%= submit_tag t("single.save"), :class => "button_1"  %>
-					</div>
-				<% end %>
-			<% else %> 
-				<div align=center><%= t("notice.items_not_found", :items => PluginSetting.model_name.human(:count => :other)) %></div>
-			<% end %>
+		<% end %>
+	<% else %> 
+		<div align=center><%= t("notice.items_not_found", :items => PluginSetting.model_name.human(:count => :other)) %></div>
+	<% end %>
 	<%= back %>
 </div>	
 

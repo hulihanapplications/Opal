@@ -1,11 +1,11 @@
 # Schema: group by category(log, notice, etc.), use interpolation(ie: %{item}), anything from user perspective(ie: "My Account") should be labeled: user_account, all verbs must not use any tense(created_account = bad, create_account = good). 
 en:
   name: Opal
-  greeting: Hello %{name}! # call with t(:greeting, :name => "John")
+  greeting: Hello %{name}!
   # Sections
   section:
     title: 
-      items: %{items}
+      items: "%{items}"
       forum: Forum
       admin: Administration
       configure: Configure    
@@ -104,7 +104,7 @@ en:
     mobile: Mobile
     full: Full   
     rss: RSS
-    spacer: "" # Spacer icon doesn't require a title
+    spacer: ""
     done: Done
     default: Default
     tools: Tools
@@ -119,63 +119,61 @@ en:
     home: Home
     blog: Blog
     overview: Overview
-  # Flash Messages & Notices
   notice:
     save_success: Your changes have been successfully saved!
     save_failure: Your changes could not be saved!
-    item_save_success: This %{item} has been saved!
-    item_save_failure: This %{item} could not be saved.
-    item_create_success: %{item} created!
-    item_create_failure: %{item} could not be created.    
-    item_delete_success: %{item} deleted!
-    item_delete_failure: %{item} could not be deleted.
-    item_install_success: %{item} installed!
-    item_install_failure: This %{item} could not be installed. 
-    item_uninstall_success: %{item} uninstalled!
-    item_uninstall_failure: This %{item} could not be uninstalled.
-    item_approve_success: This %{item} has been approved. Thanks!
-    item_unapprove_success: This %{item} has been marked as unapproved.
-    item_import_success: %{count} %{items} imported successfully.
-    item_forgot_to_select: You forgot to select the %{item}.
-    item_not_found: %{item} not found.
-    item_invalid: Sorry, this %{item} is invalid.    
-    item_needs_approval: This %{item} still needs to be approved.
-    item_info_saved: Your %{item} information has been saved.    
-    items_disabled: Sorry, %{items} are not enabled.
-    items_cannot_add_any_more: You can't add any more %{items}.
-    items_not_found: No %{items} found.
-    items_forgot_to_select: You didn't select any %{items}.
+    item_save_success: "This %{item} has been saved!"
+    item_save_failure: "This %{item} could not be saved."
+    item_create_success: "%{item} created!"
+    item_create_failure: "%{item} could not be created."
+    item_delete_success: "%{item} deleted!"
+    item_delete_failure: "%{item} could not be deleted."
+    item_install_success: "%{item} installed!"
+    item_install_failure: "This %{item} could not be installed."
+    item_uninstall_success: "%{item} uninstalled!"
+    item_uninstall_failure: "This %{item} could not be uninstalled."
+    item_approve_success: "This %{item} has been approved. Thanks!"
+    item_unapprove_success: "This %{item} has been marked as unapproved."
+    item_import_success: "%{count} %{items} imported successfully."
+    item_forgot_to_select: "You forgot to select the %{item}."
+    item_not_found: "%{item} not found."
+    item_invalid: "Sorry, this %{item} is invalid."
+    item_needs_approval: "This %{item} still needs to be approved."
+    item_info_saved: "Your %{item} information has been saved."
+    items_disabled: "Sorry, %{items} are not enabled."
+    items_cannot_add_any_more: "You can't add any more %{items}."
+    items_not_found: "No %{items} found."
+    items_forgot_to_select: "You didn't select any %{items}."
     file_not_found: "File not found: %{file}"
-    not_visible: Sorry, you're not allowed to see this.
-    invalid_email: Sorry, you entered an invalid email address.
-    invalid_permissions: Sorry, you're not allowed to do this.
-    user_account_create_success: Your account has been created!    
+    not_visible: "Sorry, you're not allowed to see this."
+    invalid_email: "Sorry, you entered an invalid email address."
+    invalid_permissions: "Sorry, you're not allowed to do this."
+    user_account_create_success: "Your account has been created!"
     user_account_create_failure: Your account could not be created.
     user_account_needs_verification: Your account needs to be verified before you can log in. A verification email has been sent to you.
     user_account_verify_success: Your account has been verified!<br>You can now log in. 
     user_account_verify_failure: Your account could not be verified. 
     user_account_recover_password_instructions:  Instructions to recover your password have been sent to your email account.                     
-    user_account_recover_password_success: Your password has been changed to %{new_password}. You should change your password immediately, as this is a temporary password.
+    user_account_recover_password_success: "Your password has been changed to %{new_password}. You should change your password immediately, as this is a temporary password."
     user_account_recover_password_failure: Your password could not be recovered.
     user_login_success: You have logged in successfully. Welcome! 
-    user_login_failure: Login failed, Sorry.    
+    user_login_failure: Login failed, Sorry.
     user_logout_success: You have been logged out! Have a nice day.     
-    user_thanks: Thanks %{name}!   
-    user_thanks_for_voting: Thanks for voting, %{name}!
+    user_thanks: "Thanks %{name}!"
+    user_thanks_for_voting: "Thanks for voting, %{name}!"
     user_not_logged_in: You must be logged in to do this.
-    contact_thanks: Thanks for contacting us, %{name}. we'll try to get back to you shortly!
+    contact_thanks: "Thanks for contacting us, %{name}. we'll try to get back to you shortly!"
     invalid_captcha: You entered the wrong verification code!
-    disabled: Sorry, this is disabled.
-    account_not_verified: Sorry, Your account has not been verified yet!
-    account_disabled: Your account has been disabled.
-    failed_admin_access_attempt: You are not an admin! Your attempt to access this area has been logged.
-    delete_own_group_failure: Sorry, you can't delete your own group.
+    disabled: "Sorry, this is disabled."
+    account_not_verified: "Sorry, Your account has not been verified yet!"
+    account_disabled: "Your account has been disabled."
+    failed_admin_access_attempt: "You are not an admin! Your attempt to access this area has been logged."
+    delete_own_group_failure: "Sorry, you can't delete your own group."
     search_results_left_blank: I don't know what to search for!
-    message_send_success: Your %{item} has been sent to %{to}. 
-    message_send_failure: Your %{item} %{to} could not be sent! 
-    account_connected_to: Your account is now connected to %{to}.    
-  # Logs 
-  log: # call with t(:failed_admin_access_attempt_user, :scope => [:log]) or t("log.failed_admin_access_attempt_user") 
+    message_send_success: "Your %{item} has been sent to %{to}."
+    message_send_failure: "Your %{item} %{to} could not be sent!"
+    account_connected_to: "Your account is now connected to %{to}."
+  log:
     item_create: "Created %{item}: %{name}"
     item_update: "Made changes to %{item}: %{name}"
     item_destroy: "Deleted %{item}: %{name}"
@@ -190,14 +188,14 @@ en:
     item_downloaded_by_visitor: "A visitor at %{ip} downloaded %{item}: %{name}"
     item_voted_for: "Voted for %{item}: %{name}"
     item_voted_against: "Voted against %{item}: %{name}"
-    item_recovered: Recovered %{item}.
-    item_email_sent: %{item} email sent to %{name}.    
-    user_account_item_save: Changed my %{item}.    
+    item_recovered: "Recovered %{item}."
+    item_email_sent: "%{item} email sent to %{name}."
+    user_account_item_save: "Changed my %{item}."
     user_account_create: "Joined %{title}."
     user_account_verify: "Verified my account."
     items_imported: "%{count} %{items} imported."
-    failed_admin_access_attempt_visitor: Someone at %{ip} attempted to access the Admin Area. %{controller} - %{action}
-    failed_admin_access_attempt_user: %{username}(%{id}) attempted to access the Admin Area. %{controller} - %{action} 
+    failed_admin_access_attempt_visitor: "Someone at %{ip} attempted to access the Admin Area. %{controller} - %{action}"
+    failed_admin_access_attempt_user: "%{username}(%{id}) attempted to access the Admin Area. %{controller} - %{action} "
     models:
       plugin_comment:
         create: "%{user} left a %{item} for %{parent} <div><blockquote>%{target}</blockquote></div>"
@@ -238,40 +236,40 @@ en:
     password_mismatch: Your passwords don't match!
     username_available: This username is available!
     username_taken: This username is taken! 
-    agree_to_tos: By Creating an Account, you agree to the 
-    logged_in_as: Logged in as %{name}  
-    item_create: Create %{item}
-    item_edit: Edit %{item}
-    item_save: Save %{item}
-    item_delete: Delete %{item}
-    item_new: New %{item}
-    item_my: My %{item}
-    item_select: Select %{item}
-    item_install: Install %{item}
-    item_uninstall: Uninstall %{item}
-    item_new_child: New Child %{item}
-    item_send_to: Send %{item} to %{name}
-    item_change: Change %{item}
-    item_featured: Featured %{item}
-    item_view_items: View this %{item}'s %{items}.
-    item_recently_added: This %{item} was added within the last 3 days.
-    item_mark_as: Mark %{item} as %{name}
+    agree_to_tos: By Creating an Account, you agree to the
+    logged_in_as: "Logged in as %{name}  "
+    item_create: "Create %{item}"
+    item_edit: "Edit %{item}"
+    item_save: "Save %{item}"
+    item_delete: "Delete %{item}"
+    item_new: "New %{item}"
+    item_my: "My %{item}"
+    item_select: "Select %{item}"
+    item_install: "Install %{item}"
+    item_uninstall: "Uninstall %{item}"
+    item_new_child: "New Child %{item}"
+    item_send_to: "Send %{item} to %{name}"
+    item_change: "Change %{item}"
+    item_featured: "Featured %{item}"
+    item_view_items: "View this %{item}'s %{items}."
+    item_recently_added: "This %{item} was added within the last 3 days."
+    item_mark_as: "Mark %{item} as %{name}"
     item_unknown: "Unknown %{item}: %{name}"
-    item_backup_success: %{item} backed up successfully!    
-    item_upvote: Vote for this %{item}.
-    item_downvote: Vote against this %{item}.
-    items_from: %{items} from %{name}
-    items_for: %{items} for %{name}
-    items_more: More %{items}
-    items_remaining: %{count} %{items} remaining
-    items_found: %{count} %{items} found
-    items_latest: Latest %{items}    
-    items_none_added: No %{items} have been added. 
-    user_greeting: Hello, %{name}.
-    user_by: by %{name}
-    user_welcome_to_admin: Welcome to the Administration section, all powerful %{name}.
-    user_welcome_to_account:  Welcome to your account. Here you can add new %{items}, check your messages, and much more! 
-    search_results_for: Search Results for %{query}    
+    item_backup_success: "%{item} backed up successfully!"
+    item_upvote: "Vote for this %{item}."
+    item_downvote: "Vote against this %{item}."
+    items_from: "%{items} from %{name}"
+    items_for: "%{items} for %{name}"
+    items_more: "More %{items}"
+    items_remaining: "%{count} %{items} remaining"
+    items_found: "%{count} %{items} found"
+    items_latest: "Latest %{items}"
+    items_none_added: "No %{items} have been added."
+    user_greeting: "Hello, %{name}."
+    user_by: "by %{name}"
+    user_welcome_to_admin: "Welcome to the Administration section, all powerful %{name}."
+    user_welcome_to_account: " Welcome to your account. Here you can add new %{items}, check your messages, and much more!"
+    search_results_for: "Search Results for %{query}"
     apology: Whoops!
     captcha: Verification Code
     rss_feed: RSS Feed
@@ -311,7 +309,7 @@ en:
     image_effect_gaussian_blur: Gaussian Blur
     image_effect_polaroid: Polaroid
     image_effect_negate: Negate
-    image_effect_resize: Resize to %{width} x %{height} pixels
+    image_effect_resize: "Resize to %{width} x %{height} pixels"
     tag_example: "Example: cool, funny, weird"
     check_for_updates: Check for Updates
     installing: Installing...
@@ -320,7 +318,7 @@ en:
     remember_me: Remember Me
     currently_logged_in: Currently Logged In 
     use_authentication: Use another network      
-    powered_by: Powered by %{name} 
+    powered_by: "Powered by %{name}"
   # General Information 
   info: 
     delete_main_logo: Deleting your logo will show the title of your site instead. 
@@ -331,7 +329,7 @@ en:
     general: Are you sure you want to do this?
     delete: Are you sure you want to delete this?
     delete_user: Are you sure you want to delete this user? Everything this user has ever created will be deleted also! If you don't want this to happen, you could disable their account instead.
-    item_delete: Are you sure you want to delete this %{item}?
+    item_delete: "Are you sure you want to delete this %{item}?"
   activerecord:
     # System Records/Objects
     records: 
@@ -355,7 +353,7 @@ en:
         review:
           description: Item Reviews from Users. Reviews have scores that are tallied up to rate the value of an item.
         video:
-          description: Embed videos from any popular video hosting site like YouTube, Vimeo, etc.            
+          description: Embed videos from any popular video hosting site like YouTube, Vimeo, etc.
       plugin_setting:   
         slideshow_speed:
           title: Slideshow Speed 
@@ -395,7 +393,7 @@ en:
           description: How videos are displayed. 
         tag_list_mode:
           title: List Mode 
-          description: If cloud is selected, a tag cloud is displayed, which shows a list of tags and the popularity of each tag.                       
+          description: If cloud is selected, a tag cloud is displayed, which shows a list of tags and the popularity of each tag.
       setting:       
         site_title: 
           title: Title of Your Site           
@@ -477,7 +475,7 @@ en:
           description: If disabled, users must log in to access the site or any items. If enabled, anyone can view the site and items normally.
         item_page_type: 
           title: Item Page Type        
-          description: This is the visual layout of %{item} pages.
+          description: "This is the visual layout of %{item} pages."
         let_users_create_items:
           title: Let Users Create Items         
           description: If disabled, regular users cannot create items... only admins can.
@@ -503,7 +501,7 @@ en:
           description: If enabled, all admins will be sent an email when a new user registers.
         list_type: 
           title: List Type        
-          description: The visual layout of how your %{items} are listed.
+          description: "The visual layout of how your %{items} are listed."
         items_per_page: 
           title: Items Per Page        
           description: This is the number of items to show per page.
@@ -511,34 +509,34 @@ en:
           title: Logo               
         list_type_simple: 
           title: Simple        
-          description: View %{items} in a simple format.
+          description: "View %{items} in a simple format."
         list_type_detailed: 
           title: Detailed        
-          description: View %{items} in a detailed format.
+          description: "View %{items} in a detailed format."
         list_type_photo: 
           title: Photo        
-          description: View %{items} as thumbnails.
+          description: "View %{items} as thumbnails."
         list_type_small: 
           title: Small        
-          description: View %{items} in a table.
+          description: "View %{items} in a table."
         item_page_type_summarized: 
           title: Summarized            
-          description: View %{item} details in a clean, summarized way.
+          description: "View %{item} details in a clean, summarized way."
         item_page_type_expanded: 
           title: Expanded        
-          description: View %{item} with expanded details.
+          description: "View %{item} with expanded details."
         item_page_type_tabs_horizontal: 
           title: Tabs - Horizontal         
-          description:  View %{item} details in horizontal tabs.
+          description: "View %{item} details in horizontal tabs."
         item_page_type_tabs_vertical: 
           title: Tabs - Vertical        
-          description: View %{item} details in vertical tabs.
+          description: "View %{item} details in vertical tabs."
         item_page_type_accordion: 
           title: Accordion                           
-          description: View %{item} details in an accordion.
+          description: "View %{item} details in an accordion."
         default_preview_type:
           title: Default Preview Plugin
-          description: If an item doesn't have a preview, the first created plugin item of this type will become its new preview.  
+          description: If an item doesn't have a preview, the first created plugin item of this type will become its new preview.
     # ActiveRecord Models & Validations        
     models:
       authentication:
@@ -758,9 +756,9 @@ en:
         not_a_number: is not a number!
         out_of_range: is out of range!
         too_long: is too long!     
-        range: must be between %{min} and %{max}
-        items_cannot_add_more: You can't add any more %{items}.    
-        item_must_be_owner: You must be the owner of this %{item} to do this. 
+        range: "must be between %{min} and %{max}"
+        items_cannot_add_more: "You can't add any more %{items}."
+        item_must_be_owner: "You must be the owner of this %{item} to do this."
         invalid_file_extension: "is in the wrong format. Make sure the file ends in one of these: %{valid_extensions}"
         unresponsive: "is not responding"    
         belongs_to_self: "cannot be the same as the new %{model}."
@@ -778,14 +776,54 @@ en:
       short: "%b %d"
       long: "%B %d, %Y"  
       month_year: "%B %Y"          
-    day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
-    abbr_day_names: [Sun, Mon, Tue, Wed, Thu, Fri, Sat]
-      
+    day_names:
+    - Sunday
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    abbr_day_names:
+    - Sun
+    - Mon
+    - Tue
+    - Wed
+    - Thu
+    - Fri
+    - Sat    
     # Don't forget the nil at the beginning; there's no such thing as a 0th month
-    month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
-    abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
-    # Used in date_select and datime_select.
-    order: [ :year, :month, :day ]     
+    month_names:
+    - 
+    - January
+    - February
+    - March
+    - April
+    - May
+    - June
+    - July
+    - August
+    - September
+    - October
+    - November
+    abbr_month_names: 
+    - 
+    - Jan
+    - Feb
+    - Mar
+    - Apr
+    - May
+    - Jun
+    - Jul
+    - Aug
+    - Sep
+    - Oct
+    - Nov
+    - Dec
+    order: 
+    - :year
+    - :month
+    - :day    
   time:
     formats:
       default: "%a, %d %b %Y %H:%M:%S %z"   

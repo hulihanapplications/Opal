@@ -1,7 +1,7 @@
-# Schema: group by category(log, notice, etc.), use interpolation(ie: %{item}), anything from user perspective(ie: "My Account") should be labeled: user_account, all verbs must not use any tense(created_account = bad, create_account = good). 
+# Schema: "group by category(log, notice, etc.), use interpolation(ie: "%{item}), anything from user perspective(ie: "My Account") should be labeled: user_account, all verbs must not use any tense(created_account = bad, create_account = good). "
 ru:
   name: Opal
-  greeting: Привет %{name}! # call with t(:greeting, :name => "John")
+  greeting: "Привет %{name}!"
   # Sections
   section:
     title: 
@@ -122,28 +122,28 @@ ru:
   notice:
     save_success: Ваши изменения были успешно сохранены!
     save_failure: Ваши изменения не могут быть сохранены!
-    item_save_success: %{item} сохранен!
-    item_save_failure: %{item} не может быть сохранен.
-    item_create_success: %{item} создан!
-    item_create_failure: %{item} не может быть создан.
-    item_delete_success: %{item} удален!
-    item_delete_failure: %{item} не может быть удален.
-    item_install_success: %{item} установлен!
-    item_install_failure: %{item} не может быть установлен. 
-    item_uninstall_success: %{item} удален!
-    item_uninstall_failure: %{item} не может быть удален.
-    item_approve_success: %{item} подтвержден! Спасибо!
-    item_unapprove_success: %{item} был отмечен как неподтвержденный!
-    item_import_success: Успешно импортировано %{count} %{items}.
-    item_forgot_to_select: Вы забыли выбрать %{item}.
-    item_not_found: %{item} не найден.
-    item_invalid: Извините, %{item} не верен.
-    item_needs_approval: %{item} все ещё нуждается в подтверждении.
-    item_info_saved: We will remember your %{item} information.    
-    items_disabled: Извините, %{items} не включены.
-    items_cannot_add_any_more: Вы не можете добавить ещё %{items}.
-    items_not_found: Не найдено %{items}.
-    items_forgot_to_select: Вы не выбрали %{items}.
+    item_save_success: "%{item} сохранен!"
+    item_save_failure: "%{item} не может быть сохранен."
+    item_create_success: "%{item} создан!"
+    item_create_failure: "%{item} не может быть создан."
+    item_delete_success: "%{item} удален!"
+    item_delete_failure: "%{item} не может быть удален."
+    item_install_success: "%{item} установлен!"
+    item_install_failure: "%{item} не может быть установлен. "
+    item_uninstall_success: "%{item} удален!"
+    item_uninstall_failure: "%{item} не может быть удален."
+    item_approve_success: "%{item} подтвержден! Спасибо!"
+    item_unapprove_success: "%{item} был отмечен как неподтвержденный!"
+    item_import_success: "Успешно импортировано %{count} %{items}."
+    item_forgot_to_select: "Вы забыли выбрать %{item}."
+    item_not_found: "%{item} не найден."
+    item_invalid: "Извините, %{item} не верен."
+    item_needs_approval: "%{item} все ещё нуждается в подтверждении."
+    item_info_saved: "We will remember your %{item} information.    "
+    items_disabled: "Извините, %{items} не включены."
+    items_cannot_add_any_more: "Вы не можете добавить ещё %{items}."
+    items_not_found: "Не найдено %{items}."
+    items_forgot_to_select: "Вы не выбрали %{items}."
     file_not_found: "Файл не найден: %{file}"
     not_visible: Извините, вам нельзя это видеть.
     invalid_email: Извините, вы ввели неправильный email адрес.
@@ -154,15 +154,15 @@ ru:
     user_account_verify_success: Ваш профиль был активирован!<br>Теперь вы можете войти. 
     user_account_verify_failure: Ваш профиль не может быть активирован. 
     user_account_recover_password_instructions:  Инструкции по восстановлению пароля были высланы Вам на email.
-    user_account_recover_password_success: Ващ пароль был изменен на %{new_password}. Вы должны немедленно изменить пароль, потому что Ваш пароль - временный.
+    user_account_recover_password_success: "Ващ пароль был изменен на %{new_password}. Вы должны немедленно изменить пароль, потому что Ваш пароль - временный."
     user_account_recover_password_failure: Ваш пароль не может быть восстановлен.
     user_login_success: Вы успешно вошли. Добро пожаловать! 
     user_login_failure: Ошибка входа. Извините.
     user_logout_success: Вы успешно вышли! Удачного дня.
-    user_thanks: Спасибо %{name}!
-    user_thanks_for_voting: Спасибо за голосование, %{name}!
+    user_thanks: "Спасибо %{name}!"
+    user_thanks_for_voting: "Спасибо за голосование, %{name}!"
     user_not_logged_in: Вы должны войти чтобы сделать это.
-    contact_thanks: Спасибо за связь с нами, %{name}. Мы постараемся поскорее вам ответить!
+    contact_thanks: "Спасибо за связь с нами, %{name}. Мы постараемся поскорее вам ответить!"
     invalid_captcha: Вы ввели неправильный код!
     disabled: Извините, это выключено.
     account_not_verified: Извините, Ваш профиль ещё не был активирован.
@@ -170,9 +170,9 @@ ru:
     failed_admin_access_attempt: Вы не администратор! Была записана информация о вашей попытке доступа в эту часть сайта.
     delete_own_group_failure: Извините, вы не можете удалить свою собственную группу.
     search_results_left_blank: Я не знаю что искать!
-    message_send_success: Ваш %{item} был послан %{to}. 
-    message_send_failure: Ваш %{item} для %{to} не может быть послан!
-    account_connected_to: Ваш аккаунт теперь связан с %{to}.
+    message_send_success: "Ваш %{item} был послан %{to}. "
+    message_send_failure: "Ваш %{item} для %{to} не может быть послан!"
+    account_connected_to: "Ваш аккаунт теперь связан с %{to}."
   # Logs 
   log: # call with t(:failed_admin_access_attempt_user, :scope => [:log]) or t("log.failed_admin_access_attempt_user") 
     item_create: "Создан %{item}: %{name}"
@@ -189,14 +189,14 @@ ru:
     item_downloaded_by_visitor: "Посетитель с адресом %{ip} скачал %{item}: %{name}"
     item_voted_for: "Проголосовал за %{item}: %{name}"
     item_voted_against: "Проголосовал против %{item}: %{name}"
-    item_recovered: Восстановлен %{item}.
-    item_email_sent: %{item} email послан %{name}.
-    user_account_item_save: Изменил мой %{item}.
+    item_recovered: "Восстановлен %{item}."
+    item_email_sent: "%{item} email послан %{name}."
+    user_account_item_save: "Изменил мой %{item}."
     user_account_create: "Создан профиль %{title}."
     user_account_verify: "Активировал мой аккаунт."
     items_imported: "%{count} %{items} импортировано."
-    failed_admin_access_attempt_visitor: Кто-то с адресом %{ip} пытался войти в Админ. зону. %{controller} - %{action}
-    failed_admin_access_attempt_user: %{username}(%{id}) пытался войти в Админ. зону. %{controller} - %{action}
+    failed_admin_access_attempt_visitor: "Кто-то с адресом %{ip} пытался войти в Админ. зону. %{controller} - %{action}"
+    failed_admin_access_attempt_user: "%{username}(%{id}) пытался войти в Админ. зону. %{controller} - %{action}"
     models:
       plugin_comment:
         create: "%{user} оставил %{item} для %{parent} <div><blockquote>%{target}</blockquote></div>"
@@ -207,13 +207,13 @@ ru:
       plugin_discussion_post:
         create: "%{user} ответил на %{parent} обсуждение: %{discussion} <div><blockquote>%{target}</blockquote></div>"
       plugin_discussion:
-        create: "%{user} создал новое %{parent} %{item}: %{target}"                   
+        create: "%{user} создал новое %{parent} %{item}: %{target}"
       item: 
-        create: "%{user} создал новую %{item}: %{target}"      
+        create: "%{user} создал новую %{item}: %{target}"
       page:
         create: "%{user} создал новую %{item}: %{target}"
       user:
-        create: "%{user} присоеденился %{title}"    
+        create: "%{user} присоеденился %{title}"
   # Email
   email:
     subject:
@@ -224,11 +224,11 @@ ru:
       plugin_comment_reply_notification: "%{user} ответил на Ваш комментарий" 
       test: "Email Settings Test"           
     message:
-      item_new: "На сайте \"%{title}\", появился новый %{item}: %{name}. Читайте подробнее по ссылке: \n\n%{url}\n\n"
-      item_new_from_user: "На сайте \"%{title}\", %{from} создал новый %{item}: %{name}. Читайте подробнее по ссылке:\n\n%{url}\n\n"
-      new_message_from_user: "На сайте \"%{title}\", Вы получили сообщение от %{from}:\n\n%{message}\n\nВы можете ответить на это сообщение или прочитать другие сообщения по ссылке:\n\n%{url}\n\n"
-      password_recovery: "На сайте \"%{title}\", для Вашего профиля (%{name}) был сделан запрос на восстановление пароля.\n\nTДля восстановление пароля, пройдите по следующей ссылке:\n\n%{url}\n\nЕсли вы не делали запроса, пожалуйста проигнорируйте этот email. Обращайтесь к администрации сайта \"%{title}\" по любым возникшим вопросам."  
-      verification: "Для того чтобы вайти в Ваш профиль (%{name}) на сайте \"%{title}\", вы сначала должны подтвердить Ваш профиль нажатием на следующую ссылку подтверждения:\n\n%{url}"
+      item_new: "На сайте %{title}, появился новый %{item}: %{name}. Читайте подробнее по ссылке: \n\n%{url}\n\n"
+      item_new_from_user: "На сайте %{title}, %{from} создал новый %{item}: %{name}. Читайте подробнее по ссылке:\n\n%{url}\n\n"
+      new_message_from_user: "На сайте %{title}, Вы получили сообщение от %{from}:\n\n%{message}\n\nВы можете ответить на это сообщение или прочитать другие сообщения по ссылке:\n\n%{url}\n\n"
+      password_recovery: "На сайте %{title}, для Вашего профиля (%{name}) был сделан запрос на восстановление пароля.\n\nTДля восстановление пароля, пройдите по следующей ссылке:\n\n%{url}\n\nЕсли вы не делали запроса, пожалуйста проигнорируйте этот email. Обращайтесь к администрации сайта %{title} по любым возникшим вопросам."
+      verification: "Для того чтобы вайти в Ваш профиль (%{name}) на сайте %{title}, вы сначала должны подтвердить Ваш профиль нажатием на следующую ссылку подтверждения:\n\n%{url}"
       plugin_comment_reply_notification: "%{user} ответил на Ваш комментарий для %{record}"
       test: "This is a test email to confirm that your email settings are working."
   # Labels & Sentences
@@ -238,39 +238,39 @@ ru:
     username_available: Это имя пользователя свободно!
     username_taken: Это имя пользователя уже занято! 
     agree_to_tos: Создавая профиль вы соглашаетесь с 
-    logged_in_as: Вы вошли как %{name}  
-    item_create: Создать %{item}
-    item_edit: Редактировать %{item}
-    item_save: Сохранить %{item}
-    item_delete: Удалить %{item}
-    item_new: Новый %{item}
-    item_my: Мой %{item}
-    item_select: Выбрать %{item}
-    item_install: Установка %{item}
-    item_uninstall: Удален %{item}
-    item_new_child: Новый дочерний %{item}
-    item_send_to: Послать %{item} для %{name}
-    item_change: Изменить %{item}
-    item_featured: Рекомендованныe %{item}
-    item_view_items: Просмотреть %{item} этого %{items}.
-    item_recently_added: %{item} был добавлен за последние 3 дня.
-    item_mark_as: Отметить %{item} как %{name}
+    logged_in_as: "Вы вошли как %{name}"
+    item_create: "Создать %{item}"
+    item_edit: "Редактировать %{item}"
+    item_save: "Сохранить %{item}"
+    item_delete: "Удалить %{item}"
+    item_new: "Новый %{item}"
+    item_my: "Мой %{item}"
+    item_select: "Выбрать %{item}"
+    item_install: "Установка %{item}"
+    item_uninstall: "Удален %{item}"
+    item_new_child: "Новый дочерний %{item}"
+    item_send_to: "Послать %{item} для %{name}"
+    item_change: "Изменить %{item}"
+    item_featured: "Рекомендованныe %{item}"
+    item_view_items: "Просмотреть %{item} этого %{items}."
+    item_recently_added: "%{item} был добавлен за последние 3 дня."
+    item_mark_as: "Отметить %{item} как %{name}"
     item_unknown: "Неизвестный %{item}: %{name}"
-    item_backup_success: %{item} backed up successfully!    
-    item_upvote: Vote for this %{item}.
-    item_downvote: Vote against this %{item}.        
-    items_from: %{items} от %{name}
-    items_for: %{items} для %{name}
-    items_more: Больше %{items}
-    items_remaining: %{count} %{items} осталось
-    items_found: Найдено %{count} %{items}.
-    items_latest: Последние %{items}
-    items_none_added: %{items} не добавлено. 
-    user_greeting: Привет, %{name}.
-    user_by:  %{name}
-    user_welcome_to_admin: Добро пожаловать в Админ. панель, всемогущий %{name}.
-    user_welcome_to_account: Добро пожаловать в Ваш профиль. Здесь вы можете добавить новые %{items}, проверить сообщения, и многое другое 
-    search_results_for: Результат поиска для %{query}
+    item_backup_success: "%{item} backed up successfully!"
+    item_upvote: "Vote for this %{item}."
+    item_downvote: "Vote against this %{item}."
+    items_from: "%{items} от %{name}"
+    items_for: "%{items} для %{name}"
+    items_more: "Больше %{items}"
+    items_remaining: "%{count} %{items} осталось"
+    items_found: "Найдено %{count} %{items}."
+    items_latest: "Последние %{items}"
+    items_none_added: "%{items} не добавлено. "
+    user_greeting: "Привет, %{name}."
+    user_by: " %{name}"
+    user_welcome_to_admin: "Добро пожаловать в Админ. панель, всемогущий %{name}."
+    user_welcome_to_account: "Добро пожаловать в Ваш профиль. Здесь вы можете добавить новые %{items}, проверить сообщения, и многое другое "
+    search_results_for: "Результат поиска для %{query}"
     apology: Уупс!
     captcha: Код подтверждения
     rss_feed: RSS Лента
@@ -310,7 +310,7 @@ ru:
     image_effect_gaussian_blur: Размытие по Гауссу
     image_effect_polaroid: Polaroid
     image_effect_negate: Негатив
-    image_effect_resize: Измерить размер до %{width} x %{height} пикселей
+    image_effect_resize: "Измерить размер до %{width} x %{height} пикселей"
     tag_example: "Например: веселый, смешной, странный"
     check_for_updates: Проверить обновления
     installing: Идёт установка...
@@ -319,7 +319,7 @@ ru:
     remember_me: Запомнить    
     currently_logged_in: Выполнен вход 
     use_authentication: Использовать другую сеть
-    powered_by: Powered by %{name}
+    powered_by: "Powered by %{name}"
   # General Information 
   info: 
     delete_main_logo: Удаление логотипа отобразит заголовок вашего сайта. 
@@ -330,7 +330,7 @@ ru:
     general: Вы уверены что хотите сделать это?
     delete: Вы уверены что хотите удалить это?
     delete_user: Вы уверены что хотите удалить этого пользователя? Все что создал этот пользователь также будет удалено! Если вы не хотите чтобы это случилось, вы можете вместо этого заблокировать его профиль.
-    item_delete: Вы действительно хотите удалить этот %{item}? 
+    item_delete: "Вы действительно хотите удалить этот %{item}?"
     install_sample_data: "Установить образцы данных? (Примеры Вещей, Категорий, Пользователей)"   
   activerecord:
     # System Records/Objects
@@ -355,16 +355,16 @@ ru:
         review:
           description: Обзоры вещей от пользователей. У Обзоров есть оценки, которые формируют оценку для вещи.
         video:
-          description: Встроенные видео с популярных видеохостингов таких как like youtube, vimeo, и т.п.          
+          description: Встроенные видео с популярных видеохостингов таких как like youtube, vimeo, и т.п.
       plugin_setting:   
         slideshow_speed:
           title: Скорость Слайд-шоу
-          description: Скорость слайд-шоу, в миллисекундах(мс). Стандартная скорость - 2500.          
+          description: "Скорость слайд-шоу, в миллисекундах(мс). Стандартная скорость - 2500."
         item_thumbnail_width:
-          title: Ширина пиктограммы %{item}
+          title: "Ширина пиктограммы %{item}"
           description: Стандартная ширина(в пикселях) генерированной пиктограммы.          
         item_thumbnail_height:
-          title: Высота пиктограммы %{item}
+          title: "Высота пиктограммы %{item}"
           description: Стандартная высота(в пикселях) генерированной пиктограммы.          
         resize_item_images:
           title: Изменять размер новых изображений
@@ -423,10 +423,10 @@ ru:
           description: Это позволяет страницам вещей кешироваться для улучшения производительности. Файл со страницей вещи будет сгенерирован 1 раз, сохранен на сервере и показан всем пользователям, вместо генерирования страниц каждый раз заново.        
         new_item_notification:
           title: Оповещать администраторов о новых вещах
-          description: Если включена, всем администратором будет послан email после создания новой вещи.          
+          description: Если включена, всем администратором будет послан email после создания новой вещи.
         section_blog:
           title: Блог
-          description: Блог встроенный в Opal. Если включена, ссылка на блог появится в главном меню.          
+          description: Блог встроенный в Opal. Если включена, ссылка на блог появится в главном меню.
         allow_item_list_type_changes:
           title: Разрешить изменения вида списка
           description: Если включена, эта настройка позволит всем (даже публике) изменять тип отображения списка вещей который они видят посещая Ваш Opal сайт. Изменение затрагивает только браузер конкретного пользователя.
@@ -447,7 +447,7 @@ ru:
           description: Включение/Выключение Описания вещей показывает/убирает описание вещей из списка вещей и со страницы вещи.          
         display_featured_items:
           title: Показывать рекомендованные вещи
-          description: Показывать рекомендованные вещи на главной странице.          
+          description: Показывать рекомендованные вещи на главной странице.
         enable_navlinks:
           title: Включить NavLinks
           description: NavLinks это простые навигационные ссылки показанные вверху каждой страницы с вещью и списка вещей. Они показывают информацию в какой категории находится вещь, и т.п.          
@@ -459,7 +459,7 @@ ru:
           description: Если включена, секция с Вещами будет отображена на главной странице, а также ссылка будет отображена в главном меню. Если выключено, Opal больше не будет отображать каких либо вещей.          
         allow_page_comments:
           title: Разрешить комментарии к страницам
-          description: Если включена, люди смогут оставлять комментарии на страницах.          
+          description: Если включена, люди смогут оставлять комментарии на страницах.
         enable_item_date:
           title: Включить описание вещи
           description: Включение/Выключение Даты для вещей для отображения/скрытия из страницы вещи и списка вещей. Это показывает дату, когда была создана вещь.          
@@ -477,7 +477,7 @@ ru:
           description: Если выключена, пользователи должны войти чтобы получить доступ к сайту или каким либо вещам. Если включена, кто угодно может просматривать сайт и вещи.          
         item_page_type:
           title: Тип Страницы Вещи
-          description: Визуальное расположение страницы %{item}.          
+          description: "Визуальное расположение страницы %{item}.          "
         let_users_create_items:
           title: Позволить пользователям создавать вещи
           description: Если выключена, обычные пользователи не смогут создавать вещи... смогут только администраторы.          
@@ -503,7 +503,7 @@ ru:
           description: Если включена, все администраторы получат email при регистрации нового пользователя.          
         list_type:
           title: Тип списка
-          description: Визуальное размещение того как отображаются ваши %{items}.          
+          description: "Визуальное размещение того как отображаются ваши %{items}.          "
         items_per_page:
           title: "Вещей на страницу"
           description: Число вещей на страницу.          
@@ -511,31 +511,31 @@ ru:
           title: Главный логотип
         list_type_simple:
           title: Простой
-          description: Показать %{items} в простом формате.          
+          description: "Показать %{items} в простом формате.          "
         list_type_detailed:
           title: Детальный
-          description: Показать %{items} в детальном формате.                    
+          description: "Показать %{items} в детальном формате.                    "
         list_type_photo:
           title: Пиктограммы
-          description: Показать %{items} как пиктограммы.          
+          description: "Показать %{items} как пиктограммы.          "
         list_type_small:
           title: Маленький
-          description: Показать %{items} в табличном виде.          
+          description: "Показать %{items} в табличном виде.          "
         item_page_type_summarized:
           title: Обобщенный    
-          description: Показать %{item} в обобщенном виде.          
+          description: "Показать %{item} в обобщенном виде.          "
         item_page_type_expanded:
           title: Развернутый
-          description: Показать %{item} в развернутом виде.          
+          description: "Показать %{item} в развернутом виде.          "
         item_page_type_tabs_horizontal:
           title: Вкладки - Горизонтальные
-          description:  Показать %{item} в виде горизонтальных вкладок.           
+          description: " Показать %{item} в виде горизонтальных вкладок.           "
         item_page_type_tabs_vertical:
           title: Вкладки - Вертикальные
-          description: Показать %{item} в виде вертикальных вкладок.          
+          description: "Показать %{item} в виде вертикальных вкладок.          "
         item_page_type_accordion:
           title: Аккордион
-          description: Показать %{item} в виде аккордиона.
+          description: "Показать %{item} в виде аккордиона."
         default_preview_type:
           title: Стандартный предпросмотр для вещи
           description: Если у вещи нет предпросмотра - первый добавленный плагин для вещи этого типа станет её предпросмотром.
@@ -772,7 +772,7 @@ ru:
         locked: Заблокированный
         locked_description: Если заблокиован - в нем больше нельзя ничего изменять.
         is_public: Публичный
-        is_public_description: Если публичный, его могут видить другие.
+        is_public_description: "Если публичный, его могут видить другие."
         is_approved: Проверенный
         is_approved_description: Должен быть проверен перед тем как его увидят другие.                
       page: 
@@ -786,7 +786,7 @@ ru:
         published_description: Если включено - будет видна другим людям.        
         redirect: Перенаправлять на URL
         redirect_description: "Если включено - любой кто попытается открыть эту страницу будет перенаправлен на URL:"
-        locked_description: Если страница заблокирована, люди не смогут добавлять комментарии к ней.
+        locked_description: "Если страница заблокирована, люди не смогут добавлять комментарии к ней."
         group_access_only_description: "Если включено - только эти группы получат доступ к странице:"
         display_children_description: "Если сключено и у страницы есть дочерние - на странице появится меню отображающее их."
         display_in_menu_description: "Если выключено - страница не будет отображаться в меню."
@@ -810,7 +810,7 @@ ru:
         header: 
           one: "Только 1 ошибка в %{model}."
           few: "%{count} ошибки найдено в %{model}."
-          many: "%{count} ошибок найдено в %{model}." 
+          many: "%{count} ошибок найдено в %{model}."
         body: "Были проблемы со следующими вещами:" 
       messages:
         blank: не может быть пустым!     
@@ -821,9 +821,9 @@ ru:
         not_a_number: не число!
         out_of_range: вне диапазона!
         too_long: слишком длинное!     
-        range: должно быть между %{min} и %{max}
-        items_cannot_add_more: Вы не можете добавить ещё %{items}.    
-        item_must_be_owner: Вы должны быть владельцем этого %{item} чтобы сделать это.
+        range: "должно быть между %{min} и %{max}"
+        items_cannot_add_more: "Вы не можете добавить ещё %{items}."
+        item_must_be_owner: "Вы должны быть владельцем этого %{item} чтобы сделать это."
         invalid_file_extension: "не может быть сохранен потому что имя файла не заканчивается следующим образом: %{valid_extensions}"
         unresponsive: "не отвечает"        
         belongs_to_self: не может принадлежать себе. Это сумашествие!      
@@ -841,14 +841,54 @@ ru:
       short: "%b %d"
       long: "%B %d, %Y"  
       month_year: "%B %Y"    
-    day_names: [Воскресенье, Понедельник, Вторник, Среда, Четверг, Пятница, Суббота]
-    abbr_day_names: [Вс, Пн, Вт, Ср, Чт, Пт, Сб]
-      
-    # Don't forget the nil at the beginning; there's no such thing as a 0th month
-    month_names: [~, Январь, Февраль, Март, Апрель, Май, Июнь, Июль, Август, Сентябрь, Октябрь, Ноябрь, Декабрь]
-    abbr_month_names: [~, Янв, Фев, Мар, Апр, Май, Июн, Июл, Авг, Сен, Окт, Ноя, Дек]
-    # Used in date_select and datime_select.
-    order: [ :year, :month, :day ]     
+    abbr_day_names:
+    - Вс
+    - Пн
+    - Вт
+    - Ср
+    - Чт
+    - Пт
+    - Сб
+    abbr_month_names:
+    - 
+    - янв.
+    - февр.
+    - марта
+    - апр.
+    - мая
+    - июня
+    - июля
+    - авг.
+    - сент.
+    - окт.
+    - нояб.
+    - дек.
+    day_names:
+    - воскресенье
+    - понедельник
+    - вторник
+    - среда
+    - четверг
+    - пятница
+    - суббота
+    month_names:
+    - 
+    - января
+    - февраля
+    - марта
+    - апреля
+    - мая
+    - июня
+    - июля
+    - августа
+    - сентября
+    - октября
+    - ноября
+    - декабря
+    order:
+    - :day
+    - :month
+    - :year
   time:
     formats:
       default: "%a, %d %b %Y %H:%M:%S %z"   
@@ -905,7 +945,7 @@ ru:
       almost_x_years:
         one: "почти 1 год"
         few: "почти %{count} года"
-        many: "почти %{count} лет"        
+        many: "почти %{count} лет"
   # i18n Stuff
   i18n:
     plural:
@@ -913,4 +953,4 @@ ru:
         one: Единственное число (Один ...)
         few: Несколько (Два ...)
         many: Много (Пять ...)
-        other: Множественное число (Они ...)       
+        other: Множественное число (Они ...)

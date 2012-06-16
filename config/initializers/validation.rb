@@ -22,7 +22,8 @@ module ActiveRecord
     #   validate :cannot_belong_to_self
     def cannot_belong_to_self
       parent_id_attr = self.class.name.underscore +  "_id"
-      errors.add parent_id_attr.to_sym, :belongs_to_self if send(parent_id_attr) == id
+      parent_id = send(parent_id_attr) 
+      errors.add parent_id_attr.to_sym, :belongs_to_self if parent_id == id && !parent_id.blank?
     end
   end
 end 

@@ -15,7 +15,7 @@ class Category < ActiveRecord::Base
   validate :cannot_belong_to_self
   
   default_scope order("name ASC")
-  scope :root, where(:category_id => 0)
+  scope :root, where("category_id = ? or category_id is ?", 0, nil)
   
   attr_accessible :name, :description, :category_id
 
@@ -24,7 +24,7 @@ class Category < ActiveRecord::Base
   end
   
   def self.get_parent_categories # Category.get_parent_categories
-    return find(:all, :conditions =>["category_id = 0"], :order => "name ASC")         
+    root      
   end
    
   def parent_category

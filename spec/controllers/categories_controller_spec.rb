@@ -35,6 +35,16 @@ describe CategoriesController do
         flash[:success].should_not be_nil
         @response.should redirect_to(:action => "index")
       end      
+
+      it "adds a subcategory successfully" do
+        parent_category = FactoryGirl.create(:category)
+        expect{
+          post(:create, {:category => FactoryGirl.attributes_for(:category).merge(:category_id => parent_category.id)})
+        }.to change(Category, :count).by(+1)
+        flash[:success].should_not be_nil
+        @response.should redirect_to(:action => "index")
+      end      
+
     end
     
     describe "destroy" do

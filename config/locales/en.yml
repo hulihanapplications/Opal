@@ -763,7 +763,7 @@ en:
         item_must_be_owner: You must be the owner of this %{item} to do this. 
         invalid_file_extension: "is in the wrong format. Make sure the file ends in one of these: %{valid_extensions}"
         unresponsive: "is not responding"    
-        belongs_to_self: cannot belong to itself. 
+        belongs_to_self: "cannot be the same as the new %{model}."
   # Locales
   locales:
     en: English

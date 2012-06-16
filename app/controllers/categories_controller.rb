@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
     
   def index 
     @setting[:meta_title] << Category.model_name.human(:count => :other)
-    @categories = Category.find(:all, :conditions =>["category_id = 0"], :order => "name ASC")
+    @categories = Category.root
   end
   
   def edit
@@ -21,7 +21,7 @@ class CategoriesController < ApplicationController
   end
   
   def update
-    @category = Category.find(params[:id])    
+    @category = Category.find(params[:id])        
     if @category.update_attributes(params[:category])
       log(:target => @category,  :log_type => "update")
       flash[:success] = t("notice.save_success")
@@ -32,9 +32,9 @@ class CategoriesController < ApplicationController
     end
   end
   
-  def create # creates a new Feature, not a Feature Value
-    #category = Category.find(params[:id])   
+  def create
     @category = Category.new(params[:category])
+    #raise "#{@category.inspect} #{params[:category].inspect}"
     if @category.save
       log(:target => @category,  :log_type => "create")
       flash[:success] = t("notice.item_create_success", :item => Category.model_name.human)
@@ -45,7 +45,7 @@ class CategoriesController < ApplicationController
     end
   end
  
-  def delete # deletes feature 
+  def delete
     @category = Category.find(params[:id])    
     if @category.destroy
       log(:target => @category,  :log_type => "destroy")

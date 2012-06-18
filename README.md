@@ -8,7 +8,7 @@ Opal has a a lot of features. Maybe too many. Feast your eyes on these:
 
 * System
     * Powered by Ruby on Rails 3.2
-	* Store uploaded files locally or in the cloud using Amazon S3, Rackspace Cloud Files, etc. - [(Guide)](http://dev.hulihanapplications.com/wiki/opal/Upload)
+	* Store uploaded files locally or in the cloud using Amazon S3, Rackspace Cloud Files, etc. - [(Guide)](http://dev.hulihanapplications.com/projects/opal/wiki/Upload)
     * I18n support for multiple languages & locales. Currently supported languages:
         * en
         * ru
@@ -18,17 +18,17 @@ Opal has a a lot of features. Maybe too many. Feast your eyes on these:
     * Mass file & image uploader    
         * Apply special effects to Images: Rotate, Resize, Watermark, Stamp, Monochrome, Sepia, etc.
     * Customizable [Themes](http://customize.hulihanapplications.com/Projects/category/6-opal) & [Plugins](http://customize.hulihanapplications.com/Projects/category/11-opal) with easy uploader & installer
+* Pages & Content
+    * CMS-style Page editing with Easy file uploading
+    * Integrate Blog
+    * Advanced Page features: Group-only access, Redirection, Subpages, etc.
 * Items
     * List Any Type of Item: Products, Video Games, Locations, Events, Classifieds, etc.
     * Add extra stuff to your Items like Images, Videos, Reviews, Comments, Files, Discussions, Custom Fields, and more!
     * Infinite-depth category organization & customizable advanced item searching    
-* Pages
-    * CMS-style Page editing with File Uploader
-    * Integrate Blog System
-    * Advanced Page features: Group-only access, Redirection, Subpages, etc.
 * Users
     * Multiple-user login system with secure administration area
-    * Login from other websites(facebook, twitter, google, etc.) with OpenID/OAuth Support - [(Guide)](http://dev.hulihanapplications.com/wiki/opal/OAuth)
+    * Login from other websites(facebook, twitter, google, etc.) with OpenID/OAuth Support - [(Guide)](http://dev.hulihanapplications.com/projects/opal/wiki/OAuth)
     * User Activity Logging
     * Gravatar Support    
 * [Much More](http://www.hulihanapplications.com/projects/opal)
@@ -72,7 +72,7 @@ cd Opal
 bundle install --without test
 ```
 
-* You may get an error here regarding [magick](http://dev.hulihanapplications.com/wiki/opal/RMagick) if you don't have it already installed. Check out this [Wiki Guide](http://dev.hulihanapplications.com/wiki/opal/RMagick) for help.
+* You may get an error here regarding [rmagick](http://dev.hulihanapplications.com/projects/opal/wiki/RMagick) if you don't have it already installed. Check out this [Wiki Guide](http://dev.hulihanapplications.com/projects/opal/wiki/RMagick) for help.
 
 ## Step 3 - Database configurations
 
@@ -107,7 +107,7 @@ bundle exec rails s -e production
 
 You've now successfully installed Opal. Go grab yourself a sandwich to celebrate. 
 
-# Bonus Step: Updating Opal
+## Bonus Step: Updating Opal
 
 If you installed Opal with git, updating is a piece of cake. Go to your Opal directory and run these commands: 
 
@@ -121,16 +121,16 @@ rake assests:precompile RAILS_ENV=production
 
 ## Guides & Tutorials
 
-Here's just a few of the [many things](http://dev.hulihanapplications.com/wiki/opal/User%27s_Guide) you can do with Opal:
+Here's just a few of the [many things](http://dev.hulihanapplications.com/projects/opal/wiki/User%27s_Guide) you can do with Opal:
 
-* [Set up OAuth Authentication to log in through other websites](http://dev.hulihanapplications.com/wiki/opal/OAuth)
-* [Use Amazon S3, Rackspace Cloud Files, etc. to store files](http://dev.hulihanapplications.com/wiki/opal/Upload)
-* [Create Custom Fields for Items](http://dev.hulihanapplications.com/wiki/opal/Create_Custom_Fields_for_Items)
-* [Configure Email & Notifications](http://dev.hulihanapplications.com/wiki/opal/Notifications)
-* [Add an ad banner To Opal](http://dev.hulihanapplications.com/wiki/opal/Adding_an_Ad_Banner_To_Opal)
-* [How to Watermark Uploaded Images](http://dev.hulihanapplications.com/wiki/opal/Watermarking_Uploaded_Images)
+* [Set up OAuth Authentication to log in through other websites](http://dev.hulihanapplications.com/projects/opal/wiki/OAuth)
+* [Use Amazon S3, Rackspace Cloud Files, etc. to store files](http://dev.hulihanapplications.com/projects/opal/wiki/Upload)
+* [Create Custom Fields for Items](http://dev.hulihanapplications.com/projects/opal/wiki/Create_Custom_Fields_for_Items)
+* [Configure Email & Notifications](http://dev.hulihanapplications.com/projects/opal/wiki/Notifications)
+* [Add an ad banner To Opal](http://dev.hulihanapplications.com/projects/opal/wiki/Adding_an_Ad_Banner_To_Opal)
+* [How to Watermark Uploaded Images](http://dev.hulihanapplications.com/projects/opal/wiki/Watermarking_Uploaded_Images)
 
-Check out the [Opal Wiki](http://dev.hulihanapplications.com/wiki/opal/User's_Guide for more.)
+Check out the [Opal Wiki](http://dev.hulihanapplications.com/projects/opal/wiki/User's_Guide for more.)
 
 ## Plugins & Themes
 
@@ -142,8 +142,8 @@ Opal has a small but dedicated community of designers and coders that create plu
 
 If you need any more help, check out these resources:
 
-* [User's Guide](http://dev.hulihanapplications.com/wiki/opal/User%27s_Guide)
-* [Wiki](http://dev.hulihanapplications.com/wiki/opal/)
+* [User's Guide](http://dev.hulihanapplications.com/projects/opal/wiki/User%27s_Guide)
+* [Wiki](http://dev.hulihanapplications.com/projects/opal/wiki/)
 * [Forum](http://dev.hulihanapplications.com/projects/opal/boards)
 
 # Development & Contribution
@@ -151,10 +151,10 @@ If you need any more help, check out these resources:
 If you're interested in developing Opal or contributing a theme, plugin, or translation, check out the following:
 * [Submit a bug or feature request](http://dev.hulihanapplications.com/projects/opal/issues)
 * [Source Code On Github](https://github.com/hulihanapplications/Opal)
-* [Developer's Guide](http://dev.hulihanapplications.com/wiki/opal/Developer%27s_Guide)
-    * [Plugin Development Guide](http://dev.hulihanapplications.com/wiki/opal/Plugin_Development)
-    * [Theme Development Guide](http://dev.hulihanapplications.com/wiki/opal/Theme_Development)
-    * [Locale Development Guide](http://dev.hulihanapplications.com/wiki/opal/Locale_Development)
+* [Developer's Guide](http://dev.hulihanapplications.com/projects/opal/wiki/Developer%27s_Guide)
+    * [Plugin Development Guide](http://dev.hulihanapplications.com/projects/opal/wiki/Plugin_Development)
+    * [Theme Development Guide](http://dev.hulihanapplications.com/projects/opal/wiki/Theme_Development)
+    * [Locale Development Guide](http://dev.hulihanapplications.com/projects/opal/wiki/Locale_Development)
 
 # License 
 

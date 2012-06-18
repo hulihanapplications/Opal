@@ -896,8 +896,9 @@ ru:
       long: "%b %d, %Y at %I:%M %p"
       yesterday: "Вчера в %I:%M %p"
       weekday: "%a в %I:%M %p"
-    am: "am"
-    pm: "pm" 
+    am: "утра"
+    pm: "вечера"
+    
   datetime:
     distance_in_words:
       half_a_minute: "пол минуты"

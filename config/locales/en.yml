@@ -1,7 +1,7 @@
 # Schema: group by category(log, notice, etc.), use interpolation(ie: %{item}), anything from user perspective(ie: "My Account") should be labeled: user_account, all verbs must not use any tense(created_account = bad, create_account = good). 
 en:
   name: Opal
-  greeting: Hello %{name}!
+  greeting: "Hello %{name}!"
   # Sections
   section:
     title: 
@@ -719,7 +719,7 @@ en:
         created_at: Date Added
         updated_at: Last Updated
         user_id: Added by        
-        published_description: If checked, this will be visible by others.        
+        published_description: If checked, this will be visible by others.
         redirect: Redirect to URL
         redirect_description: "If checked, anyone trying to view this page will be sent to this URL instead:" 
         locked_description: If a page is locked, people cannot add comments to it.

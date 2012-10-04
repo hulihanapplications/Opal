@@ -15,21 +15,23 @@
 		<%= f.text_area :description %>				
 	</div>		
 
-	<div class="field">
-		<div class="label">
-			<%= icon("categories") %>
-			<%= f.label(:category_id, Category.model_name.human) %>
-		</div>
-		<%= category_select_tag("item[category_id]", item.category_id)%>							
-	</div>
-
-	<%= content_tag :div, :class => :field do %>
-		<%= content_tag(:div, f.label(:plugin_image, icon("image") + " " + PluginImage.model_name.human), :class => :label) %>
-		<%= f.fields_for :plugin_images, @plugin_image do |plugin_image_fields| %>	
-			<%= render :partial => "plugin_images/field_source", :locals => {:f => plugin_image_fields} %>
-		<% end %>
-	<% end if Plugin.plugins[:image].is_enabled? && f.object.new_record? %>		
-
+	<table class="cell">
+		<tr>
+			<td class="half left">
+				<div class="field">
+					<div class="label">
+						<%= icon("categories") %>
+						<%= f.label(:category_id, Category.model_name.human) %>
+					</div>
+					<%= category_select_tag("item[category_id]", item.category_id)%>							
+				</div>
+			</td>
+			<td class="half right">
+			
+			</td>
+		</tr>
+	</table>
+	
 	<% if Plugin.plugins[:tag].is_enabled?   %>	
 		<div class="field">
 			<div class="label">
@@ -38,7 +40,15 @@
 			<%= tags_field_tag(item, :tags) %>
 			<%= content_tag(:span, t("label.tag_example"), :class => :description) %>								
 		</div>					
-	<% end %>
+	<% end %>	
+
+	<%= content_tag :div, :class => :field do %>
+		<%= content_tag(:div, f.label(:plugin_image, icon("image") + " " + PluginImage.model_name.human), :class => :label) %>
+		<%= f.fields_for :plugin_images, @plugin_image do |plugin_image_fields| %>	
+			<%= render :partial => "plugin_images/field_source", :locals => {:f => plugin_image_fields} %>
+		<% end %>
+	<% end if Plugin.plugins[:image].is_enabled? && f.object.new_record? %>		
+
 
 	<% 	features = PluginFeature.find(:all, :order => "order_number ASC") %>
 	<% if Plugin.plugins[:feature].is_enabled? && (features.size > 0|| @logged_in_user.is_admin?)  %>

@@ -63,7 +63,7 @@ def descend_category(category, options = {})    # recursive print out  category 
      for category in Category.get_parent_categories  
        html += descend_category(category, :input_name => name, :include_children => @setting[:include_child_category_items], :make_radio_button => true, :id_to_check => value, :id_to_ignore => options[:id_to_ignore], :truncate_length => 35)  
    end
-   content_tag(:div, html.html_safe, :class => "category_select box_1")
+   content_tag(:div, html.html_safe, :class => "category_select")
   end  
   
   def link_to_category(category)

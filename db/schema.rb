@@ -139,6 +139,7 @@ ActiveRecord::Schema.define(:version => 20120521230728) do
     t.boolean  "display_children",     :default => true
     t.boolean  "group_access_only",    :default => false
     t.string   "group_ids"
+    t.text     "side"
     t.string   "slug"
   end
 

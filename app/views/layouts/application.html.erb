@@ -10,22 +10,26 @@
 			<%= render :partial => "top" %>				    
 			<%= render :partial => "header" %>
 			<div id="content" class="<%= content_for?(:side) ? 'split-two' : 'split-one' %>">
-				<%= render_flash %>
-				<%= render :partial => "banner_top" %>		 		 
-				<%= content_tag :div, :id => :side  do %>
-				 	<%= yield :side %>			 	
-				<% end if content_for? :side %>
-				 	
-				<%= content_tag :div, :id => :main do %>
-					<%= yield %>
-				<% end %>		     
+				<div id="content-inner"> 
+					<%= render_flash %>
+					<%= render :partial => "banner_top" %>		 		 
+					<%= content_tag :div, :id => :side  do %>
+					 	<%= yield :side %>			 	
+					<% end if content_for? :side %>
+					 	
+					<%= content_tag :div, :id => :main do %>
+						<%= yield %>
+					<% end %>		     
 
-		 		<div class="clear"></div>		
-		 		<%= render :partial => "banner_bottom" %>
+			 		<div class="clear"></div>		
+			 		<%= render :partial => "banner_bottom" %>
+			 	</div>
 			</div>
 			<div id="footer">
-				<%= show_page Page.system.find_by_name("website_bottom") %>
-				<%= render :partial => "footer" %>
+				<div id="footer-inner">
+					<%= show_page Page.system.find_by_name("website_bottom") %>
+					<%= render :partial => "footer" %>
+				</div>
 			</div>
 		</div>
 	</body>

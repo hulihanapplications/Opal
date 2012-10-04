@@ -10,7 +10,7 @@ a.extra_options {padding:7px 0px;display:block;border-top:1px solid #ccc;}
 /* Main Layout */
 #wrapper {
 	height:auto !important; height:100%; min-height:100%;position:relative;
-	> #header,
+	#header-inner,
 	> #content,
 	> #top > table {
 		width: 900px;
@@ -51,11 +51,13 @@ a.extra_options {padding:7px 0px;display:block;border-top:1px solid #ccc;}
 		td {vertical-align:middle;}		
 	}
 	> #header {
-		position:relative;
-		height:95px;
 		background:url(bgs/main_logo_bg.png) no-repeat;
 		background-position:bottom left;
 		// border-top:1px solid #aaa;
+		#header-inner {
+			position:relative;
+			min-height:95px;
+		}
 	}
 	> #content {		
 		height:100%;
@@ -106,7 +108,8 @@ ul.main_menu {
 			border-top:1px solid #fff;
 			background:#eee;
 			a {
-				color:#333;text-shadow:none;	
+				color:#333;
+				text-shadow:none;	
 			}
 			a:hover {
 				color:#000;

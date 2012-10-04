@@ -9,7 +9,7 @@
 		//<![CDATA[
 
 		// Set Opal Image Button URL 
-		opal_image_url = '<%= url_for({:action => "tinymce", :controller => "plugin_images"}.merge(defined?(@record) ? {:record_id => @record.id, :record_type => @record.class.name} : {})) %>'			
+		opal_image_url = '<%= url_for({:action => "tinymce", :controller => "plugin_images"}.merge(defined?(@record) ? {:record_id => @record.id, :record_type => @record.class.name} : {})).html_safe %>'			
 
 		tinyMCE.init({
 			editor_selector : 'mceEditor',

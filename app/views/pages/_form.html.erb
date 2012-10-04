@@ -69,12 +69,14 @@
 									<%= f.label :group_access_only %>
 								</div>							
 								<%= content_tag(:div, Page.human_attribute_name(:group_access_only_description), :class => "description") %>																										
-								<dl>
-									<% for group in Group.all %>
-										<%= content_tag(:dt, check_box_tag("page[group_ids][]", group.id, f.object.group_ids.include?(group.id), :id => "group_#{group.id}")) %>
-										<%= content_tag(:dd, label_tag("group_#{group.id}", group.to_s)) %>
-									<% end %>
-								</dl>								
+								<% for group in Group.all %>
+									<div>
+										<label>
+											<%= check_box_tag("page[group_ids][]", group.id, f.object.group_ids.include?(group.id), :id => "group_#{group.id}") %>
+											<%= group.to_s %>
+										</label>
+									</div>
+								<% end %>
 							</div>
 						<% end %>															
 					</td>

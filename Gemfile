@@ -1,6 +1,6 @@
 source "http://rubygems.org/"
 
-gem "rails", "3.2.3"
+gem "rails", "3.2.11"
 gem "opal", :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems")
 gem "russian", :path => File.expand_path("#{File.dirname(__FILE__)}/vendor/gems/russian")
 gem "rmagick", "~>2.12.2"

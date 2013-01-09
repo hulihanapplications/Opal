@@ -37,7 +37,6 @@ class PagesController < ApplicationController
   end
  
   def update
-    @page = Page.find(params[:id])
     if @page.update_attributes(params[:page]) 
       flash[:success] = t("notice.item_save_success", :item => Page.model_name.human)
       log(:log_type => "update", :target => @page)
@@ -122,7 +121,6 @@ class PagesController < ApplicationController
 private
   def find_page
     @page = Page.find(params[:id])   
-    raise @page.inspect
   rescue ActiveRecord::RecordNotFound
     @page = Page.find_by_slug(params[:id])   
   ensure

@@ -96,7 +96,7 @@ GEM
       nokogiri (~> 1.5.0)
       ruby-hmac
     formatador (0.2.3)
-    friendly_id (4.0.6)
+    friendly_id (4.0.9)
     fssm (0.2.9)
     hashie (1.2.0)
     hike (1.2.1)

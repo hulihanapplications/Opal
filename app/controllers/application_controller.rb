@@ -109,7 +109,7 @@ class ApplicationController < ActionController::Base
   
   def find_item # look up an item
     if params[:id] # is an item id set?    
-      @item = Item.find(params[:id])
+      @item = Item.find(params[:id]) 
       @record = @item if params[:record_type].blank? || params[:reocord_type] == "Item" 
     end        
   rescue # catch any errors

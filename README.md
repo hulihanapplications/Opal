@@ -4,7 +4,7 @@ Opal is the swiss army knife of web apps. It's a powerful Item & Content Managem
 
 ## Features 
 
-Opal has a a lot of features. Maybe too many. Feast your eyes on these:
+Opal has a a lot of features. Feast your eyes on these:
 
 * System
     * Powered by Ruby on Rails 3.2
@@ -17,7 +17,7 @@ Opal has a a lot of features. Maybe too many. Feast your eyes on these:
     * State-of-the-Art Interface powered by HTML5, CSS3, jQuery, Uploadify, and jQuery TOOLS   
     * Mass file & image uploader    
         * Apply special effects to Images: Rotate, Resize, Watermark, Stamp, Monochrome, Sepia, etc.
-    * Customizable [Themes](http://customize.hulihanapplications.com/Projects/category/6-opal) & [Plugins](http://customize.hulihanapplications.com/Projects/category/11-opal) with easy uploader & installer
+    * Customizable Themes & Plugins with easy uploader & installer
 * Pages & Content
     * CMS-style Page editing with Easy file uploading
     * Integrate Blog

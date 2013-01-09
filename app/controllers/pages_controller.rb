@@ -120,10 +120,7 @@ class PagesController < ApplicationController
   
 private
   def find_page
-    @page = Page.find(params[:id])   
-  rescue ActiveRecord::RecordNotFound
-    @page = Page.find_by_slug(params[:id])   
-  ensure
+    @page = Page.find(params[:id])
     @record = @page
   end 
 end

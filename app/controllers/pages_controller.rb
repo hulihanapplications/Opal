@@ -73,27 +73,27 @@ class PagesController < ApplicationController
   end
   
   def page # Master Page Router 
-    if @page.redirect # redirect? 
-      redirect_to @page.redirect_url 
-    else # don't redirect, go to page.
-      if @page.page_type == "blog" # go to blog page
-        redirect_to :action => "post", :controller => "blog", :id => @page
-      else # public page 
-          redirect_to :action => "view", :id => @page
-      end      
-    end
+    show
   end
 
   def view
-    redirect_to @page.redirect_url if @page.redirect && !@page.redirect_url.blank?
-    @setting[:meta_title] << @page.description if !@page.description.blank?
-    @setting[:meta_title] << @page.title 
-    @comments = PluginComment.record(@page).paginate(:page => params[:page], :per_page => 25).approved
+    show
   end 
 
   def show
-    view
-    render "view"
+    if !@page.redirect.blank? # redirect 
+      redirect_to @page.redirect_url 
+    else # don't redirect, go to page.
+      @setting[:meta_title] << @page.description if !@page.description.blank?
+      @setting[:meta_title] << @page.title 
+      @comments = PluginComment.record(@page).paginate(:page => params[:page], :per_page => 25).approved
+
+      if @page.page_type == "blog" # go to blog page
+        redirect_to :action => "post", :controller => "blog", :id => @page
+      else # public page, render normally
+
+      end      
+    end
   end 
 
   def send_contact_us

@@ -43,9 +43,9 @@ describe BlogController do
     end 
   end
   
-  describe "rss" do
+  describe "feed" do
     it "should work" do
-      get :rss, {:format => :xml}
+      get :feed, {:format => :atom}
       @response.code.should eq("200")
     end 
   end  

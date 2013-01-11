@@ -44,9 +44,14 @@ describe BlogController do
   end
   
   describe "feed" do
-    it "should work" do
+    it "should work with ATOM" do
       get :feed, {:format => :atom}
       @response.code.should eq("200")
+    end
+
+    it "should redirect RSS" do
+      get :feed, {:format => :rss}
+      @response.code.should eq("302")
     end 
   end  
 end

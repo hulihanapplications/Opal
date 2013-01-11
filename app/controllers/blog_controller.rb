@@ -14,8 +14,7 @@ class BlogController < ApplicationController
 
     respond_to do |format|
       format.atom { render :layout => false }
-
-      format.rss { redirect_to feed_path(:format => :atom) }
+      format.rss { redirect_to blog_feed_path(:format => :atom) }
     end
   end
 

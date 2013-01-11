@@ -9,15 +9,17 @@ Rails.application.routes.draw do
 
   # Set up default
   root :to => "browse#index"
-  match '/tag/:tag(/:category_id)' => 'items#tag', :as => :tag
   match '/download/:record_type/:record_id', :controller => "plugin_files", :action => "download", :as => "download"
   match '/verify/:id/:code', :controller => "user", :action => "verify"
   match '/page/:id', :controller => "pages", :action => "page"
   match 'account', :controller => "user", :action => "index", :as => "user_home"
   match 'admin', :controller => "admin", :action => "index"
 
+  match 'feed' => 'blog#feed', :as => "feed", :defaults => { :format => 'atom' }
+  match '/tag/:tag(/:category_id)' => 'items#tag', :as => :tag
 
-  match 'feed' => 'items#feed', :as => "feed", :defaults => { :format => 'atom' }
+
+
   # Blog
   match "blog" => "blog#index"
   match '/blog/:year(/:month(/:day))',
@@ -57,7 +59,7 @@ Rails.application.routes.draw do
   end
   match '/auth/:provider/callback' => 'authentications#create'
   match '/auth/failure' => 'authentications#failure'
-  
+
   resources :plugin_videos do 
     get :delete, :on => :collection 
   end
@@ -76,7 +78,7 @@ Rails.application.routes.draw do
     end
     get "view", :on => :member
   end  
-  
+
   resources :settings do 
     collection do
       get "test_email"

@@ -104,7 +104,6 @@ input, select, textarea {
 	border:1px solid #666;
 	background:url(bgs/black_trans_05.png) repeat;
 	@include box-shadow(
-		inset 1px 1px 1px rgba(000,000,000,0.25),
 		1px 1px 0px rgba(255,255,255,0.12)		
 	);	
 	font-family:Trebuchet MS;

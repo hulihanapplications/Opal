@@ -33,18 +33,21 @@ Opal has a a lot of features. Feast your eyes on these:
     * Gravatar Support    
 * [Much More](http://www.hulihanapplications.com/projects/opal)
 
+## Demo
+
+You can try out an online demo of Opal at [http://opal.demos.hulihanapplications.com/](http://opal.demos.hulihanapplications.com/). This is for testing purposes only and is wiped every hour.
+
 ## Uses
 
 Since Opal is highly customizable, you can use it for many different things:
 
-* Content Management System(CMS)
+* Content Management System (CMS)
 * Directory Website
 * Blog
 * Image/Video Gallery 
 * File Download System
 * Forum/Discussion Board
 * Review/Classifieds Website
-* E-Commerce Website/Web Store (TBD)
 
 ![Opal Screenshot](https://github.com/hulihanapplications/Opal/raw/master/public/themes/fracture/screenshot.png "Opal Interface with Default Theme")
 
@@ -69,7 +72,7 @@ Install all of Opal's required gems using bundler:
 
 ```sh
 cd Opal
-bundle install --without test
+bundle install --without test development
 ```
 
 * You may get an error here regarding [rmagick](http://dev.hulihanapplications.com/projects/opal/wiki/RMagick) if you don't have it already installed. Check out this [Wiki Guide](http://dev.hulihanapplications.com/projects/opal/wiki/RMagick) for help.

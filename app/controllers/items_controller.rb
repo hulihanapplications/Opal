@@ -136,10 +136,18 @@ class ItemsController < ApplicationController
    redirect_to :action => "my"
   end
 
- def rss
-   @latest_items = Item.find(:all, :conditions => ["is_approved = '1' and is_public = '1'"], :limit => 10, :order => "created_at DESC")
-   render :layout => false
- end
+  def feed
+    @items = Item.approved.public.limit(10).order("created_at DESC")
+    @title = "#{Page.find_by_name("blog").title} - #{@setting[:title]}"
+
+    # this will be our Feed's update timestamp
+    @updated = @items.first.updated_at unless @items.empty?
+
+    respond_to do |format|
+      format.atom { render :layout => false }
+      format.rss { redirect_to items_feed_path(:format => :atom) }
+    end
+  end
 
  def search
    if !params[:search_for] == "" || !params[:search_for].nil?

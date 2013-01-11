@@ -21,6 +21,6 @@
 	<% end %>
 
 	<div class="footer">
-		<%= link_to icon("rss")  + " " + t("label.rss_feed"), {:action => "rss", :controller => "blog", :format => :xml} %>
+		<%= link_to icon("rss")  + " " + t("label.rss_feed"), blog_feed_path %>
 	</div>		
 </div> 

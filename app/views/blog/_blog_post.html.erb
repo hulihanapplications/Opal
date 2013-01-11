@@ -5,7 +5,7 @@
 			<table cellpadding=0 cellspacing=0 class="cell">
 				<tr>
 					<td class="left main"> 
-						<h1 class="title"> <%= link_to page.title, {:action => "page", :controller => "pages", :id => page} %></h1>							
+						<h1 class="title"> <%= link_to page.title, page_path(page) %></h1>							
 					</td>
 					<td class="right side">
 						<%= friendly_date page.created_at %>

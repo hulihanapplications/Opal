@@ -12,4 +12,5 @@
 <meta name="keywords" content="<%= @setting[:meta_title].reverse.flatten.join(", ") %>">
 <meta name="description" content="<%= @setting[:meta_description].nil? ? @setting[:meta_title].reverse.flatten.join(", ")  : @setting[:meta_description].reverse.flatten.join(", ") %>">
 
-
+<%= auto_discovery_link_tag :atom, "/blog/feed" %>
+<%= auto_discovery_link_tag :rss, "/blog/feed.rss" %>

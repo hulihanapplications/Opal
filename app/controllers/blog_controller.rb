@@ -3,9 +3,19 @@ class BlogController < ApplicationController
     @pages = Page.all.blog.published.newest_first.paginate(:page => params[:page], :per_page => 5)
   end
 
-  def rss 
+  def feed 
     @pages = Page.all.blog.published.newest_first.paginate(:page => params[:page], :per_page => 10)
-    render :layout => false
+
+    @title = "#{Page.find_by_name("blog").title} - #{@setting[:title]}"
+
+    # this will be our Feed's update timestamp
+    @updated = @pages.first.updated_at unless @pages.empty?
+
+
+    respond_to do |format|
+      format.atom { render :layout => false }
+      format.rss { redirect_to blog_feed_path(:format => :atom) }
+    end
   end
 
   def post
@@ -25,6 +35,5 @@ class BlogController < ApplicationController
    range_start = !params[:day].blank? ? @date.beginning_of_day : (!params[:month].blank? ? @date.beginning_of_month : !params[:year].blank? ? @date.beginning_of_year : 10.years.ago.beginning_of_year) 
    range_end =  !params[:day].blank? ? @date.end_of_day : (!params[:month].blank? ? @date.end_of_month : !params[:year].blank? ? @date.end_of_year : Time.now)    
    @pages = Page.all.blog.published.newest_first.paginate :page => params[:page], :per_page => 5, :conditions => ["created_at > ? and created_at < ?", range_start, range_end]
-  end  
-  
+  end    
 end

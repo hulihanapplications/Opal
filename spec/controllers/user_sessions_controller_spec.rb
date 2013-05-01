@@ -30,7 +30,12 @@ describe UserSessionsController do
         flash[:success].should_not be_nil         
         response.should redirect_to user_home_path
       end          
-      
+ 
+      it "redirects to a specified uri, which is forced to be local only" do
+        post(:create, {:user_session => {:username => @user.username, :password => @password}, :redirect_to => "http://foo.com/bar?x=1"})
+        response.should redirect_to "/bar?x=1"
+      end       
+
       it "fails when logging in with the wrong password" do
         post(:create, {:user_session => {:username => @user.username, :password => "wrongpassword"}})
         flash[:failure].should_not be_nil         

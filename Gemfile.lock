@@ -1,9 +1,4 @@
 PATH
-  remote: vendor/gems
-  specs:
-    opal (0.9.0)
-
-PATH
   remote: vendor/gems/make_voteable-106adecfad30
   specs:
     make_voteable (0.1.0)
@@ -13,6 +8,11 @@ PATH
   remote: vendor/gems/russian
   specs:
     russian (0.2.8.pre)
+
+PATH
+  remote: vendor/gems
+  specs:
+    opal (0.9.0)
 
 GEM
   remote: http://rubygems.org/
@@ -49,7 +49,6 @@ GEM
     arel (3.0.2)
     authbuttons-rails (0.1.2)
     authlogic (3.1.0)
-      activerecord (>= 3.0.7)
       activerecord (>= 3.0.7)
     builder (3.0.0)
     carrierwave (0.6.2)
@@ -147,7 +146,7 @@ GEM
       multi_json (~> 1.3)
       omniauth-oauth (~> 1.0)
     polyglot (0.3.3)
-    rack (1.4.1)
+    rack (1.4.7)
     rack-cache (1.2)
       rack (>= 0.4)
     rack-ssl (1.3.2)
